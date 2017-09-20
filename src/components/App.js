@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Header from './Header';
-import Sidebar from './Sidebar';
 
 class App extends Component {
     render() {

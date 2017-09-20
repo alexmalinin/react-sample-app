@@ -3,3 +3,33 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+/*__________HEADER___________*/
+
+header.header {
+    height: 199px;
+}
+
+header.header .inside-header {
+    position: fixed;
+    width: 100%;
+}
+
+.top-header {
+    height: 101px;
+    background-color: #1d7bff;
+}
+
+.top-header img {
+    padding-top: 27px;
+    padding-left: 8%;
+}
+
+.bot-header {
+    height: 98px;
+    background-color: #a600ea;
+    padding-left: 8%;
+}
+
+
