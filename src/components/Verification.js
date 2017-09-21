@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
+import { connect } from 'react-redux';
 import { Grid, Button } from 'semantic-ui-react'
 
 import HeaderIntro from './HeaderIntro';
@@ -12,12 +13,12 @@ import confirm from '../decorators/confirm'
 class SignUp extends Component {
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        const { confirm, confirmAccount, changeUserType } = this.props;
 
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid width="1560">
+                <DvGrid width="1560px">
                     <DvTitle mTop="126">
                         Account Verification
                     </DvTitle>
@@ -25,12 +26,25 @@ class SignUp extends Component {
                         <div style={{height: '100px', marginTop: '50px'}}>some inputs with validations</div>
                     </DvForm>
                     <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
-                    { confirm && <Redirect from="/verification" to="/action_creation_1"/> }
+                    { confirm && this.getUserRedirect() }
                 </DvGrid>
+            </div>
+        )
+    }
+
+    getUserRedirect(){
+        const { changeUserType } = this.props;
+
+        return(
+            <div>
+                {changeUserType === 'Specialist' ?
+                    <Redirect to="/specialists/dashboard/welcome-to-the-village-1"/> :
+                    <Redirect to="/client/dashboard/welcome-to-the-village"/>
+                }
             </div>
         )
     }
 
 }
 
-export default confirm(SignUp);
+export default connect(({changeUserType}) => ({changeUserType}))(confirm(SignUp));

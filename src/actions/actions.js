@@ -1,6 +1,7 @@
-export function action() {
+export function userType(user) {
     const action = {
-      type: 'action',
+        type: 'CHANGE_USER_TYPE',
+        user,
     };
 
     return action;

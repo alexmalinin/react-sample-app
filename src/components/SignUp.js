@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import { Grid, Button, Tab } from 'semantic-ui-react';
 
@@ -6,12 +7,13 @@ import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitleBig from '../styleComponents/DvTitleBig';
 import DvForm from '../styleComponents/DvForm';
-import confirm from '../decorators/confirm'
+import confirm from '../decorators/confirm';
+import { userType } from '../actions/actions';
 
 class SignUp extends Component {
 
     state = {
-        activeTab: '',
+        activeTab: 'Specialist',
     };
 
     render() {
@@ -34,7 +36,7 @@ class SignUp extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="320" right="265" grid={"no-pad"}>
+                <DvGrid left="320px" right="265px" grid={"no-pad"}>
                     <Grid>
                         <Grid.Row columns={2}>
                             <Grid.Column>
@@ -52,7 +54,7 @@ class SignUp extends Component {
                                         primary
                                         onClick={confirmAccount}
                                     />
-                                    { confirm && <Redirect from="/sign_up" to="/verification"/> }
+                                    { confirm && <Redirect to="/verification"/> }
                                 </DvForm>
                             </Grid.Column>
                         </Grid.Row>
@@ -62,10 +64,10 @@ class SignUp extends Component {
         )
     }
 
-    activeTab =  ev => {
-        console.log(ev.target.text);
+    activeTab = ev => {
+        this.props.userType(ev.target.text)
     }
 
 }
 
-export default confirm(SignUp);
+export default connect(null, {userType})(confirm(SignUp));

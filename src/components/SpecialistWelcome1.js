@@ -9,7 +9,7 @@ import DvForm from '../styleComponents/DvForm';
 import DvButton from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
 
-class ACreationStepFirst extends Component {
+class SpecialistsWelcome1 extends Component {
 
     render() {
         const { confirm, confirmAccount } = this.props;
@@ -17,7 +17,7 @@ class ACreationStepFirst extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <DvGrid left="343" right="340" grid={"no-pad"}>
+                <DvGrid left="343px" right="340px" grid={"no-pad"}>
                     <Grid>
                         <Grid.Row columns={2}>
                             <Grid.Column>
@@ -28,16 +28,16 @@ class ACreationStepFirst extends Component {
                         </Grid.Row>
                         <Grid.Row>
                             <DvForm>
-                                <div style={{height: '200px', marginTop: '100px'}}>some inputs with validations</div>
+                                <div style={{height: '200px', marginTop: '100px'}}>some inputs with validations for specialist</div>
                             </DvForm>
                         </Grid.Row>
                     </Grid>
                     <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
-                    {confirm && <Redirect from="/action_creation_1" to="/action_creation_2"/> }
+                    {confirm && <Redirect to="/specialists/dashboard/welcome-to-the-village-2"/> }
                 </DvGrid>
             </div>
         )
     }
 }
 
-export default confirm(ACreationStepFirst);
+export default confirm(SpecialistsWelcome1);

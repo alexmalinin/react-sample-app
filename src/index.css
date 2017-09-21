@@ -172,13 +172,13 @@ header.header-intro .ui.segment {
     display: inline-block;
     font-size: 28px;
     padding: 0;
-    color: #fff;
-    background-color: #1991fa;
+    color: #000;
+    background-color: #fff;
 }
 
 .dv-from .ui.text.menu .item.active {
-    color: #000;
-    background-color: #fff;
+    color: #fff;
+    background-color: #1991fa;
 }
 
 .dv-from .ui.segment.active.tab {

@@ -4,8 +4,10 @@ import Dashboard from './Dashboard';
 import HeaderIntro from './HeaderIntro';
 import SignUp from './SignUp';
 import Verification from './Verification';
-import ACreationStepFirst from './ACreationStepFirst';
-import ACreationStepSec from './ACreationStepSec';
+import SpecialistsWelcome1 from './SpecialistWelcome1';
+import SpecialistsWelcome2 from './SpecialistWelcome2';
+import ClientWelcome from './ClientWelcome.js';
+import SpecialistsProfile from './SpecialistsProfile.js';
 
 class App extends Component {
     render() {
@@ -23,9 +25,10 @@ class App extends Component {
                         <Route path="/qas" component={Dashboard}/>
                         <Route path="/sign_up" component={SignUp}/>
                         <Route path="/verification" component={Verification}/>
-                        <Route path="/action_creation_1" component={ACreationStepFirst}/>
-                        <Route path="/action_creation_2" component={ACreationStepSec}/>
-
+                        <Route path="/specialists/dashboard/welcome-to-the-village-1" component={SpecialistsWelcome1}/>
+                        <Route path="/specialists/dashboard/welcome-to-the-village-2" component={SpecialistsWelcome2}/>
+                        <Route path="/client/dashboard/welcome-to-the-village" component={ClientWelcome}/>
+                        <Route path="/specialists/dashboard/profile" component={SpecialistsProfile}/>
                     </Switch>
                 </div>
             </Router>
