@@ -1,8 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
+
 import reducer from '../reducers/rootReducer';
 import logger from '../middlewares/logger';
+import contactRequestApi from '../middlewares/contactRequestApi';
 const enhancer = applyMiddleware(
-    logger
+    logger,
+    contactRequestApi,
 );
 
 const store = createStore(reducer, {}, enhancer);

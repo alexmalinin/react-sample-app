@@ -33,7 +33,7 @@ class ACreationStepFirst extends Component {
                         </Grid.Row>
                     </Grid>
                     <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
-                    {confirm && <Redirect from="/client/dashboard/welcome-to-the-village" to="/client/dashboard/welcome-to-the-village"/> }
+                    {confirm && <Redirect from="/client/dashboard/welcome-to-the-village" to="/client/dashboard/profile"/> }
                 </DvGrid>
             </div>
         )

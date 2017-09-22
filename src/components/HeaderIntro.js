@@ -27,7 +27,7 @@ class Header extends Component {
                         </ul>
                         <ul className="right-board">
                             <li><NavLink to="/post_project">Post a project</NavLink></li>
-                            <li className="proxy"><NavLink to="/projects">log in</NavLink></li>
+                            <li className="proxy"><NavLink to="/sign_in">log in</NavLink></li>
                             <li className="proxy"><NavLink to="/sign_up"><Button inverted>sign up</Button></NavLink></li>
                             {/*<li className="proxy bordered"><NavLink to="/sign_up">sign up</NavLink></li>*/}
                         </ul>

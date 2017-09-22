@@ -9,7 +9,7 @@ import DvTitle from '../styleComponents/DvTitle'
 import DvForm from '../styleComponents/DvForm';
 import DvButton from '../styleComponents/DvButton'
 
-class SpecialistsProfile extends Component {
+class SpecialistsAvailability extends Component {
 
     render() {
 
@@ -25,9 +25,9 @@ class SpecialistsProfile extends Component {
                 <DvGrid left="341px" right="340px">
                     <DvForm>
                         <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>Profile</h2>
+                            <h2>SpecialistsAvailability</h2>
                             <br/>
-                            some inputs with validations for specialists</div>
+                            some inputs for Availability</div>
                     </DvForm>
                     <DvButton primary content='SAVE & UPDATE'/>
                 </DvGrid>
@@ -36,4 +36,4 @@ class SpecialistsProfile extends Component {
     }
 }
 
-export default SpecialistsProfile;
+export default SpecialistsAvailability;

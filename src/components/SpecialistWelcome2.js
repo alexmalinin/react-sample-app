@@ -32,12 +32,12 @@ class SpecialistsWelcome2 extends Component {
                             </DvForm>
                         </Grid.Row>
                     </Grid>
-                    <DvButton onClick={confirmAccount} primary content='CONTINUE'/>
-                    {confirm && <Redirect to="/specialists/dashboard/profile"/> }
+                    <DvButton primary content='CONTINUE'/>
                     <DvForm>
                         <div style={{height: '200px', marginTop: '100px'}}>additional info for specialist</div>
                     </DvForm>
                     <DvButton onClick={confirmAccount} primary content='SAVE'/>
+                    {confirm && <Redirect to="/specialists/dashboard/profile"/> }
                 </DvGrid>
             </div>
         )

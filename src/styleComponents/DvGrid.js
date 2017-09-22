@@ -7,6 +7,8 @@ export default styled.div`
     ${props => props.width && css`
         margin: 0 auto;
         width: ${props.width};
+    ${props => props.mL && `margin-left: ${props.mL}`};
+    ${props => props.float && `float: ${props.float}`};
     `};
     ${props => props.grid && `margin-top: 1rem`};
     ${props => props.grid === "no-pad" && css`
