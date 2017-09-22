@@ -6,7 +6,7 @@ import { Grid, Button, Tab } from 'semantic-ui-react';
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitleBig from '../styleComponents/DvTitleBig';
-import DvForm from '../styleComponents/DvForm';
+import Tabs from '../styleComponents/Tabs';
 import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
 
@@ -47,7 +47,7 @@ class SignUp extends Component {
                                 </DvTitleBig>
                             </Grid.Column>
                             <Grid.Column>
-                                <DvForm className="specialist-form dv-from" mTop="181" action="">
+                                <Tabs className="specialist-form dv-from" mTop="181" action="">
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
                                     <Button className="form-footer"
                                         content='Continue'
@@ -55,7 +55,7 @@ class SignUp extends Component {
                                         onClick={confirmAccount}
                                     />
                                     { confirm && <Redirect to="/verification"/> }
-                                </DvForm>
+                                </Tabs>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -65,7 +65,8 @@ class SignUp extends Component {
     }
 
     activeTab = ev => {
-        this.props.userType(ev.target.text)
+        let item = ev.target;
+        item.classList.contains('item') ? this.props.userType(item.text) : null;
     }
 
 }

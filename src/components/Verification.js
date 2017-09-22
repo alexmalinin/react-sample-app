@@ -6,7 +6,7 @@ import { Grid, Button } from 'semantic-ui-react'
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid'
 import DvTitle from '../styleComponents/DvTitle'
-import DvForm from '../styleComponents/DvForm'
+import DvForm from '../styleComponents/Tabs'
 import DvButton from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
 

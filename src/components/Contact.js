@@ -6,8 +6,8 @@ import { Grid, Button, Tab } from 'semantic-ui-react';
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitle from '../styleComponents/DvTitle';
-import ContactForm from './ContactForm';
-import DvForm from '../styleComponents/DvForm';
+import ContactForm from './forms/ContactForm';
+import DvForm from '../styleComponents/Tabs';
 import DvDivider from '../styleComponents/DvDivider';
 import confirm from '../decorators/confirm';
 import { userType, postContacts } from '../actions/actions';
@@ -66,39 +66,19 @@ class SignUp extends Component {
                                 <ContactForm onSubmit={this.submit}/>
                             </Grid.Column>
                         </Grid.Row>
-                        <form action="" onSubmit={this.contactUs}>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
-                                        <input onChange={this.name} type="text"/>
-                                        <input onChange={this.surname} type="text"/>
-                                        <input onChange={this.email} type="email"/>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <textarea onChange={this.message} name="" id="" cols="30" rows="10"></textarea>
-                                    <br/>
-                                    <Button className="form-footer"
-                                            content='Continue'
-                                            primary
-                                    />
-                                </Grid.Column>
-                            </Grid.Row>
-                        </form>
                     </Grid>
                 </DvGrid>
             </div>
         )
     }
 
-    submit = (values) => {
-        // print the form values to the console
-        console.log(values)
-    }
+    submit = values => {
+        this.props.postContacts(values)
+    };
 
     contactUs = ev => {
         ev.preventDefault();
-        this.props.postContacts(this.state);
+        // this.props.postContacts(this.state);
 
     };
 

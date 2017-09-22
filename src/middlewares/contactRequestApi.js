@@ -1,14 +1,12 @@
 import axios from 'axios';
 
 export default store => next => action => {
-    const { contactRequest, type, name, surname, email, message, ...rest } = action;
+    const { type, contactRequest, first_name, last_name, email, message, ...rest } = action;
     if (!contactRequest) return next(action);
 
-    console.log('in axios')
-
     let data = {
-        first_name: name,
-        last_name: surname,
+        first_name,
+        last_name,
         email,
         message,
     };
@@ -17,16 +15,16 @@ export default store => next => action => {
 
     axios({
         method: 'post',
-        url: `http://192.168.88.68${contactRequest}`,
+        url: contactRequest,
         data: {
-            first_name: name,
-            last_name: surname,
+            first_name,
+            last_name,
             email,
             message,
         }
     }).then( response => {
         console.log('success');
-    }).catch(function (error) {
+    }).catch( error => {
         console.log(error);
     });
 };

@@ -6,7 +6,7 @@ import HeaderBasic from './HeaderBasic';
 import SubHeader from './ClientSubHeader';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitle from '../styleComponents/DvTitle'
-import DvForm from '../styleComponents/DvForm';
+import DvForm from '../styleComponents/Tabs';
 import DvButton from '../styleComponents/DvButton'
 
 class ClientProfile extends Component {

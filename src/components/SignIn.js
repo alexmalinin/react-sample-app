@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button, Tab } from 'semantic-ui-react';
+import { Grid, Tab, Button } from 'semantic-ui-react';
 
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
+import Tabs from '../styleComponents/Tabs';
 import DvTitleBig from '../styleComponents/DvTitleBig';
-import DvForm from '../styleComponents/DvForm';
-import confirm from '../decorators/confirm';
-import { userType } from '../actions/actions';
+import SignInForm from './forms/SignInForm';
+import { signIn, userType } from '../actions/actions';
 
 class SignUp extends Component {
 
@@ -18,6 +18,18 @@ class SignUp extends Component {
 
     render() {
         const { confirm, confirmAccount } = this.props;
+        const panes = [
+            { menuItem: 'Specialist', render: () =>
+                <Tab.Pane attached={false}>
+                    <SignInForm onSubmit={this.submit}/>
+                </Tab.Pane>
+            },
+            { menuItem: 'Client', render: () =>
+                <Tab.Pane attached={false} onClick={this.activeTab}>
+                    <SignInForm onSubmit={this.submit}/>
+                </Tab.Pane>
+            },
+        ];
 
         return (
             <div>
@@ -33,15 +45,10 @@ class SignUp extends Component {
                                 </DvTitleBig>
                             </Grid.Column>
                             <Grid.Column>
-                                <DvForm className="specialist-form dv-from" mTop="181" action="">
-                                    <div style={{height: '200px', marginTop: '100px'}}>
-                                        <h2>some inputs</h2>
-                                    </div>
-                                    <Button className="form-footer"
-                                            content='Login'
-                                            primary
-                                    />
-                                </DvForm>
+                                <Tabs className="specialist-form dv-from" mTop="181" action="">
+                                    <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab}/>
+                                    { confirm && <Redirect to="/verification"/> }
+                                </Tabs>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -49,6 +56,15 @@ class SignUp extends Component {
             </div>
         )
     }
+
+    submit = values => {
+        this.props.signIn(values)
+    };
+
+    activeTab = ev => {
+        let item = ev.target;
+        item.classList.contains('item') ? this.props.userType(item.text) : null;
+    }
 }
 
-export default SignUp;
+export default connect(null, {signIn, userType })(SignUp);
