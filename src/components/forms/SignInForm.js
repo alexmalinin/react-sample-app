@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, minLength2, email } from '../../helpers/validate';
-import {renderField} from '../renderField';
+import {renderField} from './RenderField';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
 import InputField from './InputField'
 

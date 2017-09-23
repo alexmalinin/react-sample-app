@@ -9,6 +9,7 @@ import DvTitleBig from '../styleComponents/DvTitleBig';
 import Tabs from '../styleComponents/Tabs';
 import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
+import SignUpForm from './forms/SignUpForm';
 
 class SignUp extends Component {
 
@@ -21,7 +22,7 @@ class SignUp extends Component {
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <Tab.Pane attached={false}>
-                        some inputs with validations for specialist
+                    <SignUpForm/>
                 </Tab.Pane>
             },
             { menuItem: 'Client', render: () =>
@@ -49,11 +50,6 @@ class SignUp extends Component {
                             <Grid.Column>
                                 <Tabs className="specialist-form dv-from" mTop="181" action="">
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
-                                    <Button className="form-footer"
-                                        content='Continue'
-                                        primary
-                                        onClick={confirmAccount}
-                                    />
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
                             </Grid.Column>

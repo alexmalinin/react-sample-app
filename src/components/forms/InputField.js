@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, minLength2, email } from '../../helpers/validate';
-import {renderField} from '../renderField';
+import {RenderField} from './RenderField';
 
 const InputField = props => {
     const { name, placeholder } = props;
@@ -11,7 +11,7 @@ const InputField = props => {
             name={name}
             type="text"
             placeholder={placeholder}
-            component={renderField}
+            component={RenderField}
             validate={[required, minLength2]}
         />
     )

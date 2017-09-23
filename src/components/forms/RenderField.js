@@ -1,15 +1,16 @@
 import { Input } from 'semantic-ui-react';
 import React from 'react';
 
-export const renderField = ({
+export const RenderField = ({
                          input,
                          placeholder,
+                            name,
                          type,
                          meta: { touched, error, warning }
                      }) =>
     <div>
         <div>
-            <Input {...input} placeholder={placeholder} type={type} />
+            <Input {...input} name={name} placeholder={placeholder} type={type} />
             {touched &&
             ((error &&
                 <span>
