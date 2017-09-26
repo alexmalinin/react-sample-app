@@ -6,6 +6,7 @@ import PostProject from './PostProject';
 import OverviewPostedProject from './OverviewPostedProject';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import ForgotPassword from './ForgotPassword';
 import Verification from './Verification';
 import SpecialistsWelcome1 from './SpecialistWelcome1';
 import SpecialistsWelcome2 from './SpecialistWelcome2';
@@ -34,6 +35,7 @@ class App extends Component {
                         <Route path="/post_project" component={PostProject}/>
                         <Route path="/project_overview" component={OverviewPostedProject}/>
                         <Route path="/sign_in" component={SignIn}/>
+                        <Route path="/forgot_password" component={ForgotPassword}/>
                         <Route path="/sign_up" component={SignUp}/>
                         <Route path="/verification" component={Verification}/>
                         <Route path="/specialists/dashboard/welcome-to-the-village-1" component={SpecialistsWelcome1}/>

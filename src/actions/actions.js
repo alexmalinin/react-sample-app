@@ -23,6 +23,20 @@ export function postContacts(contacts) {
     return action;
 }
 
+// export function postSignUp(data) {
+//     const { first_name, last_name, email, message } = data;
+//     const action = {
+//         type: 'CONTACTS',
+//         contactRequest: `${PORT}api/v1/contact_requests`,
+//         first_name,
+//         last_name,
+//         email,
+//         message,
+//     };
+//
+//     return action;
+// }
+
 export function signIn(data) {
     const { first_name, last_name } = data;
     const action = {

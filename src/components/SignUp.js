@@ -9,25 +9,28 @@ import DvTitleBig from '../styleComponents/DvTitleBig';
 import Tabs from '../styleComponents/Tabs';
 import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
-import SignUpForm from './forms/SignUpForm';
+import SignUpFormSpecialist from './forms/SignUpFormSpecialist';
+import SignUpFormClient from './forms/SignUpFormClient';
+
 
 class SignUp extends Component {
 
     state = {
         activeTab: 'Specialist',
+        confirm: false,
     };
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        let { confirm, activeTab } = this.state;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <Tab.Pane attached={false}>
-                    <SignUpForm/>
+                    <SignUpFormSpecialist person={activeTab} onSubmit={this.submit('Specialist')}/>
                 </Tab.Pane>
             },
             { menuItem: 'Client', render: () =>
                 <Tab.Pane attached={false}>
-                    some inputs with validations for client
+                    <SignUpFormClient onSubmit={this.submit('Client')}/>
                 </Tab.Pane>
             },
         ];
@@ -60,11 +63,22 @@ class SignUp extends Component {
         )
     }
 
+    submit = userType => values => {
+        console.log('---userType:',userType);
+        console.log('----values:',values);
+        this.setState({
+            confirm: !this.state.confirm,
+        })
+    };
+
     activeTab = ev => {
         let item = ev.target;
-        item.classList.contains('item') ? this.props.userType(item.text) : null;
+        item.classList.contains('item') ? this.props.userType(item.text) : null
+        this.setState({
+            activeTab: item.classList.contains('item') ? item.text : this.state.activeTab,
+        })
     }
 
 }
 
-export default connect(null, {userType})(confirm(SignUp));
+export default connect(({form}) => ({form}), {userType})(SignUp);

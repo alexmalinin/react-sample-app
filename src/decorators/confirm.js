@@ -9,7 +9,7 @@ export default (CustomComponent) => class DecoratedComponent extends Component {
     confirmAccount = ev => {
         ev.preventDefault();
         this.setState({
-            confirm: !this.state.confirm,
+            confirm: true,
         })
     };
 

@@ -10,23 +10,25 @@ export default class RenderSelect extends Component {
             input,
             ...rest
         } = this.props;
+        let { value, onChange } = input;
 
         return (
-            <div>
+            <div style={{minWidth: '100px'}}>
                 {/*<div>*/}
-                {console.log('input:', input)}
-                <Select {...input} {...rest}>
-                </Select>
-                {/*{touched &&*/}
-                {/*((error &&*/}
-                {/*<span>*/}
-                {/*{error}*/}
-                {/*</span>) ||*/}
-                {/*(warning &&*/}
-                {/*<span>*/}
-                {/*{warning}*/}
-                {/*</span>))}*/}
-                {/*</div>*/}
+                <Select
+                    value={value}
+                    onChange={onChange}
+                    {...rest}
+                />
+                {touched &&
+                ((error &&
+                <span>
+                {error}
+                </span>) ||
+                (warning &&
+                <span>
+                {warning}
+                </span>))}
             </div>
         )
     }

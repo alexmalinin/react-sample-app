@@ -7,6 +7,5 @@ import contactRequest from './contactRequest';
 export default combineReducers({
     changeUserType,
     contactRequest,
-
     form: formReducer,
 });

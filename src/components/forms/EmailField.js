@@ -5,7 +5,7 @@ import {RenderField} from './RenderField';
 import DvButton from '../../styleComponents/DvButton'
 
 const EmailField = props => {
-    const { name, placeholder } = props;
+    const { name, placeholder, disabled } = props;
 
     return (
         <Field
@@ -14,6 +14,7 @@ const EmailField = props => {
             placeholder={placeholder}
             component={RenderField}
             validate={[required, email]}
+            disabled={disabled}
         />
     )
 }

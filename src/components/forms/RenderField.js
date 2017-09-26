@@ -6,11 +6,12 @@ export const RenderField = ({
                          placeholder,
                             name,
                          type,
+                            disabled,
                          meta: { touched, error, warning }
                      }) =>
     <div>
         <div>
-            <Input {...input} name={name} placeholder={placeholder} type={type} />
+            <Input {...input} name={name} disabled={disabled} placeholder={placeholder} type={type} />
             {touched &&
             ((error &&
                 <span>
