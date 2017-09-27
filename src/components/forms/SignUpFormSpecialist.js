@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import RenderRadio from './RenderRadio';
+import RenderRadio from './renders/RenderRadio';
 import SignUpForm from './SignUpForm';
 import { formValueSelector } from 'redux-form';
 
@@ -30,12 +30,13 @@ class SignUpFormSpecialist extends Component  {
 
 
 SignUpFormSpecialist =  reduxForm({
-    form: 'SignUpFormSpecialist' // a unique identifier for this form
+    form: 'SignUpFormSpecialist',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
 })(SignUpFormSpecialist);
 
 const selector = formValueSelector('SignUpFormSpecialist');
 SignUpFormSpecialist = connect(state => {
-    // can select values individually
     const hasPerson = selector(state, 'person')
     return {
         hasPerson,

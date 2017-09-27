@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
 import { Grid, Tab, Button } from 'semantic-ui-react';
 
@@ -49,6 +50,7 @@ class SignUp extends Component {
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab}/>
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
+                                <span>Don't have an account? <Link to="/sign_up">Sign up</Link></span>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

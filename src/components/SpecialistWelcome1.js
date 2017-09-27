@@ -6,8 +6,9 @@ import HeaderBasic from './HeaderBasic';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitle from '../styleComponents/DvTitle'
 import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton'
-import confirm from '../decorators/confirm'
+import DvButton from '../styleComponents/DvButton';
+import confirm from '../decorators/confirm';
+import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
 
 class SpecialistsWelcome1 extends Component {
 
@@ -18,26 +19,20 @@ class SpecialistsWelcome1 extends Component {
             <div>
                 <HeaderBasic/>
                 <DvGrid left="343px" right="340px" grid={"no-pad"}>
-                    <Grid>
-                        <Grid.Row columns={2}>
-                            <Grid.Column>
-                                <DvTitle mTop="80">
-                                    Welcome to The Digital Village!
-                                </DvTitle>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <DvForm>
-                                <div style={{height: '200px', marginTop: '100px'}}>some inputs with validations for specialist</div>
-                            </DvForm>
-                        </Grid.Row>
-                    </Grid>
+                    <SpecialistWelcomeForm1 onSubmit={this.submit}/>
                     <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
                     {confirm && <Redirect to="/specialists/dashboard/welcome-to-the-village-2"/> }
                 </DvGrid>
             </div>
         )
     }
+
+    submit = values => {
+        // this.setState({
+        //     confirm: !this.state.confirm,
+        // })
+        console.log('values:', values);
+    };
 }
 
 export default confirm(SpecialistsWelcome1);

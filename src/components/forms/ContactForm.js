@@ -2,8 +2,9 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, minLength2, email } from '../../helpers/validate';
 import DvButton from '../../styleComponents/DvButton'
-import InputField from './InputField';
-import EmailField from './EmailField';
+import InputField from './renders/InputField';
+import EmailField from './renders/EmailField';
+import RenderTextArea from './renders/RenderTextArea';
 
 const ContactForm = props => {
     const { handleSubmit, submitting } = props;
@@ -21,7 +22,7 @@ const ContactForm = props => {
                 name="email"
                 placeholder="Email"
             />
-            <Field name="message" component="textarea" validate={required}/>
+            <Field name="message" component={RenderTextArea} validate={required}/>
             <DvButton
                 type="submit"
                 disabled={submitting}

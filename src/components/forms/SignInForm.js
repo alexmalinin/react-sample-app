@@ -2,9 +2,9 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { required, minLength2, email } from '../../helpers/validate';
-import {renderField} from './RenderField';
+import {renderField} from './renders/RenderField';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
-import InputField from './InputField'
+import InputField from './renders/InputField'
 
 const SignInForm = props => {
     const { handleSubmit, submitting } = props;
@@ -13,6 +13,7 @@ const SignInForm = props => {
             <InputField
                 name="first_name"
                 placeholder="First Name"
+                type
             />
             <InputField
                 name="last_name"
@@ -32,5 +33,7 @@ const SignInForm = props => {
 }
 
 export default reduxForm({
-    form: 'SignInForm' // a unique identifier for this form
+    form: 'SignInForm',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
 })(SignInForm)

@@ -9,6 +9,7 @@ import DvTitle from '../styleComponents/DvTitle'
 import DvForm from '../styleComponents/Tabs'
 import DvButton from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
+import VerificationForm from './forms/VerificationForm'
 
 class SignUp extends Component {
 
@@ -23,7 +24,9 @@ class SignUp extends Component {
                         Account Verification
                     </DvTitle>
                     <DvForm>
-                        <div style={{height: '100px', marginTop: '50px'}}>some inputs with validations</div>
+                        <div style={{marginTop: '50px'}}>
+                            <VerificationForm/>
+                        </div>
                     </DvForm>
                     <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
                     { confirm && this.getUserRedirect() }

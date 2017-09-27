@@ -11,5 +11,7 @@ const SignUpFormClient = props =>  {
 
 
 export default reduxForm({
-    form: 'SignUpFormClient' // a unique identifier for this form
+    form: 'SignUpFormClient',
+    destroyOnUnmount: false,
+    forceUnregisterOnUnmount: true,
 })(SignUpFormClient);

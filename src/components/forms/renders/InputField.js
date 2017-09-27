@@ -1,22 +1,21 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { required, minLength2, email } from '../../helpers/validate';
+import { required, minLength2, email } from '../../../helpers/validate';
 import {RenderField} from './RenderField';
-import DvButton from '../../styleComponents/DvButton'
 
-const EmailField = props => {
-    const { name, placeholder, disabled } = props;
+const InputField = props => {
+    const { name, placeholder, disabled, type } = props;
 
     return (
         <Field
             name={name}
-            type="email"
+            type="text"
             placeholder={placeholder}
             component={RenderField}
-            validate={[required, email]}
             disabled={disabled}
+            validate={[required, minLength2]}
         />
     )
 }
 
-export default EmailField
+export default InputField
