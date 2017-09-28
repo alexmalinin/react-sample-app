@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
 import { Grid, Button, Tab } from 'semantic-ui-react';
 
@@ -30,7 +31,7 @@ class SignUp extends Component {
             },
             { menuItem: 'Client', render: () =>
                 <Tab.Pane attached={false}>
-                    <SignUpFormClient onSubmit={this.submit('Client')}/>
+                    <SignUpFormClient person={activeTab} onSubmit={this.submit('Client')}/>
                 </Tab.Pane>
             },
         ];
@@ -55,6 +56,7 @@ class SignUp extends Component {
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
+                                <span>Already have an account? <Link to="/sign_in">Log in</Link></span>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

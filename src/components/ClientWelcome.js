@@ -8,8 +8,9 @@ import DvTitle from '../styleComponents/DvTitle'
 import DvForm from '../styleComponents/Tabs';
 import DvButton from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
+import ClientWelcomeForm from './forms/ClientWelcomeForm'
 
-class ACreationStepFirst extends Component {
+class ClientWelcome extends Component {
 
     render() {
         const { confirm, confirmAccount } = this.props;
@@ -24,20 +25,26 @@ class ACreationStepFirst extends Component {
                                 <DvTitle mTop="80">
                                     Welcome to The Digital Village!
                                 </DvTitle>
+                                <p>Please complete your profile so we can better support
+                                    and supply you with the most relevant requests.
+                                </p>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row>
-                            <DvForm>
-                                <div style={{height: '200px', marginTop: '100px'}}>some inputs with validations for client</div>
-                            </DvForm>
-                        </Grid.Row>
                     </Grid>
-                    <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
-                    {confirm && <Redirect from="/client/dashboard/welcome-to-the-village" to="/client/dashboard/profile"/> }
+                    <ClientWelcomeForm onSubmit={this.submit} />
+                    {confirm && <Redirect to="/client/dashboard/profile"/> }
                 </DvGrid>
             </div>
         )
     }
+
+    submit = values => {
+        this.props.confirmAccount()
+        // this.setState({
+        //     confirm: !this.state.confirm,
+        // })
+        console.log('values:', values);
+    };
 }
 
-export default confirm(ACreationStepFirst);
+export default confirm(ClientWelcome);

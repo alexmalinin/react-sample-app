@@ -22,7 +22,7 @@ class SignUpForm extends Component  {
         return (
             <form onSubmit={handleSubmit}>
 
-                {this.props.children}
+                {person === 'Specialist' && this.props.children}
 
                 <EmailField
                     name="email"
@@ -39,6 +39,9 @@ class SignUpForm extends Component  {
                     placeholder="Last Name"
                     disabled={hasPerson === 'Agency'}
                 />
+
+                {person === 'Client' && this.props.children}
+
                 <Field
                     name="info"
                     component={RenderSelect}

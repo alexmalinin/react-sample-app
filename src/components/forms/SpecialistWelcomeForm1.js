@@ -10,6 +10,7 @@ import {industries} from '../../helpers/industries';
 import {experiences} from '../../helpers/experiences';
 import {skills} from '../../helpers/skills';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
+import DvButton from '../../styleComponents/DvButton'
 import StyledCheckbox from '../../styleComponents/StyledCheckbox'
 import InputField from './renders/InputField'
 import LocationField from './renders/LocationField'
@@ -72,7 +73,7 @@ const SpecialistWelcomeForm1 = props => {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>
-                            <DvButtonForm
+                            <DvButton
                                 type="submit"
                                 disabled={submitting}
                                 content='SAVE & CONTINUE'

@@ -27,7 +27,12 @@ class ClientProfile extends Component {
                         <div style={{height: '200px', marginTop: '100px'}}>
                             <h2>Projects</h2>
                             <br/>
-                            some cards for client</div>
+                            some cards for client
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h2>Will coming soon</h2>
+                        </div>
                     </DvForm>
                 </DvGrid>
             </div>
