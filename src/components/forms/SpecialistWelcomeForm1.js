@@ -67,7 +67,6 @@ const SpecialistWelcomeForm1 = props => {
                                 name="custom-skills"
                                 component={RenderMultiSelect}
                                 placeholder="Enter your skills here /"
-                                validate={[required]}
                             />
                         </Grid.Column>
                     </Grid.Row>
@@ -76,7 +75,7 @@ const SpecialistWelcomeForm1 = props => {
                             <DvButtonForm
                                 type="submit"
                                 disabled={submitting}
-                                content='Login'
+                                content='SAVE & CONTINUE'
                                 primary
                             />
                         </Grid.Column>

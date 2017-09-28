@@ -7,7 +7,7 @@ export default (CustomComponent) => class DecoratedComponent extends Component {
     };
 
     confirmAccount = ev => {
-        ev.preventDefault();
+        ev ? ev.preventDefault() : null;
         this.setState({
             confirm: true,
         })

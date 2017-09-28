@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f65c11fe-9217-4bae-b642-8234d85f270b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/forms/renders/RenderStyledCheckbox.js" afterPath="$PROJECT_DIR$/src/components/forms/renders/RenderStyledCheckbox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/styleComponents/StyledCheckbox.js" afterPath="$PROJECT_DIR$/src/styleComponents/StyledCheckbox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/SpecialistWelcome1.js" afterPath="$PROJECT_DIR$/src/components/SpecialistWelcome1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js" afterPath="$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/decorators/confirm.js" afterPath="$PROJECT_DIR$/src/decorators/confirm.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,24 +16,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="phoneCodes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/helpers/phoneCodes.js">
+      <file leaf-file-name="SpecialistWelcomeForm1.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="27" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="27" />
-              <folding />
+            <state relative-caret-position="500">
+              <caret line="68" column="70" lean-forward="false" selection-start-line="68" selection-start-column="70" selection-end-line="68" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpecialistWelcomeForm1.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js">
+      <file leaf-file-name="SpecialistWelcome1.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/SpecialistWelcome1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="60" column="58" lean-forward="true" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
+            <state relative-caret-position="396">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="confirm.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/decorators/confirm.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="40" lean-forward="false" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -48,7 +62,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StyledCheckbox.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StyledCheckbox.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/styleComponents/StyledCheckbox.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
@@ -110,16 +124,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="industries.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/helpers/industries.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -166,7 +170,6 @@
         <option value="$PROJECT_DIR$/src/helpers/phoneCodes.js" />
         <option value="$PROJECT_DIR$/src/components/modals/ModalTerms.js" />
         <option value="$PROJECT_DIR$/src/components/modals/PrivacyPolicy.js" />
-        <option value="$PROJECT_DIR$/src/decorators/confirm.js" />
         <option value="$PROJECT_DIR$/src/helpers/validate.js" />
         <option value="$PROJECT_DIR$/src/components/forms/RenderSelect.js" />
         <option value="$PROJECT_DIR$/src/components/forms/RenderRadioGroup.js" />
@@ -197,7 +200,6 @@
         <option value="$PROJECT_DIR$/src/components/forms/VerificationForm.js" />
         <option value="$PROJECT_DIR$/src/components/forms/WelcomeSpecialist1.js" />
         <option value="$PROJECT_DIR$/src/helpers/industries.js" />
-        <option value="$PROJECT_DIR$/src/components/SpecialistWelcome1.js" />
         <option value="$PROJECT_DIR$/src/components/forms/renders/RenderMultiSelect.js" />
         <option value="$PROJECT_DIR$/src/helpers/experiences.js" />
         <option value="$PROJECT_DIR$/src/components/forms/renders/locationField.js" />
@@ -206,9 +208,11 @@
         <option value="$PROJECT_DIR$/src/components/Verification.js" />
         <option value="$PROJECT_DIR$/src/styleComponents/DvTitle.js" />
         <option value="$PROJECT_DIR$/src/components/forms/renders/RenderCheckbox.js" />
-        <option value="$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js" />
         <option value="$PROJECT_DIR$/src/components/forms/renders/RenderStyledCheckbox.js" />
         <option value="$PROJECT_DIR$/src/styleComponents/StyledCheckbox.js" />
+        <option value="$PROJECT_DIR$/src/decorators/confirm.js" />
+        <option value="$PROJECT_DIR$/src/components/SpecialistWelcome1.js" />
+        <option value="$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js" />
       </list>
     </option>
   </component>
@@ -406,12 +410,12 @@
       <workItem from="1506402189070" duration="28554000" />
       <workItem from="1506440875586" duration="599000" />
       <workItem from="1506500344139" duration="19914000" />
-      <workItem from="1506579937723" duration="6934000" />
+      <workItem from="1506579937723" duration="8306000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175320000" />
+    <option name="totallyTimeSpent" value="176692000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="-4" width="1865" height="1092" extended-state="6" />
@@ -461,13 +465,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/decorators/confirm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -641,14 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SpecialistWelcome1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="45" lean-forward="true" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/forms/renders/InputField.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -813,16 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="60" column="58" lean-forward="true" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/forms/renders/RenderCheckbox.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -838,6 +817,34 @@
         <state relative-caret-position="234">
           <caret line="13" column="20" lean-forward="false" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/decorators/confirm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="40" lean-forward="false" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SpecialistWelcome1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/forms/SpecialistWelcomeForm1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="68" column="70" lean-forward="false" selection-start-line="68" selection-start-column="70" selection-end-line="68" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

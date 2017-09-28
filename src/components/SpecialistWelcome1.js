@@ -20,7 +20,6 @@ class SpecialistsWelcome1 extends Component {
                 <HeaderBasic/>
                 <DvGrid left="343px" right="340px" grid={"no-pad"}>
                     <SpecialistWelcomeForm1 onSubmit={this.submit}/>
-                    <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
                     {confirm && <Redirect to="/specialists/dashboard/welcome-to-the-village-2"/> }
                 </DvGrid>
             </div>
@@ -28,6 +27,7 @@ class SpecialistsWelcome1 extends Component {
     }
 
     submit = values => {
+        this.props.confirmAccount()
         // this.setState({
         //     confirm: !this.state.confirm,
         // })
