@@ -17,7 +17,7 @@ export default class RenderRadio extends Component {
                             type="checkbox"
                             disabled={disabled}
                         />
-                        {label}
+                        <div>{label}</div>
                     </label>
                     {touched &&
                     ((error &&
