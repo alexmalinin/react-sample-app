@@ -10,8 +10,10 @@ import {industries} from '../../helpers/industries';
 import {experiences} from '../../helpers/experiences';
 import {skills} from '../../helpers/skills';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
+import StyledCheckbox from '../../styleComponents/StyledCheckbox'
 import InputField from './renders/InputField'
 import LocationField from './renders/LocationField'
+import RenderStyledCheckbox from './renders/RenderStyledCheckbox';
 
 import { Route, Redirect } from 'react-router';
 import { Grid, Button } from 'semantic-ui-react';
@@ -51,31 +53,20 @@ const SpecialistWelcomeForm1 = props => {
                     <Grid.Row>
                         <Grid.Column>
                             <p>Select your speciality within that area /</p>
-                            <Field
-                                name="custom-skills"
-                                component={RenderMultiSelect}
-                                placeholder="Enter your skills here /"
-                                validate={[required]}
-                            />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row columns={2}>
-                        <Grid.Column>
                             {skills
                                 ? skills.map(item =>
                                     <Field
                                         name={`skills.${item.label}`}
-                                        component={RenderCheckbox}
+                                        component={RenderStyledCheckbox}
                                         label={item.label}
                                         value={item.value}
                                     />)
                                 : null
                             }
                             <Field
-                                name="experience-level"
-                                component={RenderSelect}
-                                placeholder="What is your work experience level? /"
-                                options={experiences}
+                                name="custom-skills"
+                                component={RenderMultiSelect}
+                                placeholder="Enter your skills here /"
                                 validate={[required]}
                             />
                         </Grid.Column>
