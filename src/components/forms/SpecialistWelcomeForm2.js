@@ -1,32 +1,19 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
-import { required, minLength2 } from '../../helpers/validate';
+import { required, } from '../../helpers/validate';
 import {RenderField} from './renders/RenderField';
 import RenderSelect from './renders/RenderSelect';
-import RenderCheckbox from './renders/RenderCheckbox';
-import RenderMultiSelect from './renders/RenderMultiSelect';
-import {industries} from '../../helpers/industries';
-import {experiences} from '../../helpers/experiences';
 import {workHourses} from '../../helpers/workHourses';
+import {daysAvailable} from '../../helpers/daysAvailable';
 import {projectInterest} from '../../helpers/projectInterest';
-import {speciality} from '../../helpers/speciality';
-import DvButtonForm from '../../styleComponents/DvButtonForm'
 import DvButton from '../../styleComponents/DvButton'
-import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox'
-import InputField from './renders/InputField'
-import LocationField from './renders/LocationField'
-import RenderStyledCheckbox from './renders/RenderStyledCheckbox';
+import RenderCheckbox from './renders/RenderCheckbox';
 import { Route, Redirect } from 'react-router';
 import { Grid, Button } from 'semantic-ui-react';
 import RenderImage from './renders/RenderImage'
 import RenderTextArea from './renders/RenderTextArea'
 import RenderPhone from './renders/RenderPhone'
 import AvailabilityForm from './AvailabilityForm'
-import DvTitle from '../../styleComponents/DvTitle'
-import DvForm from '../../styleComponents/Tabs';
-import RenderCustomSkills from '../RenderCustomSkills';
-import RenderChosenSpecialises from '../RenderChosenSpecialises';
 
 const SpecialistWelcomeForm2 = props => {
     const { handleSubmit, submitting } = props;
@@ -79,6 +66,20 @@ const SpecialistWelcomeForm2 = props => {
                         <div>
                             <p><b>Set your availability</b> / This can be easily changed at anytime</p>
                             <AvailabilityForm/>
+                        </div>
+                        <div>
+                            <p>Days available</p>
+                            {daysAvailable
+                                ? daysAvailable.map(item =>
+                                    <Field
+                                        key={item}
+                                        name={`days.${item}`}
+                                        component={RenderCheckbox}
+                                        label={item}
+                                        value={item}
+                                    />)
+                                : null
+                            }
                         </div>
                         <Field
                             name="work-hourses"
