@@ -1,5 +1,7 @@
 import { Input } from 'semantic-ui-react';
 import React from 'react';
+import StyledInputs from '../../../styleComponents/StyledInputs'
+import StyledError from '../../../styleComponents/StyledError'
 
 export const RenderField = ({
                          input,
@@ -9,17 +11,15 @@ export const RenderField = ({
                             disabled,
                          meta: { touched, error, warning }
                      }) =>
-    <div>
-        <div>
+    <StyledInputs>
             <Input {...input} name={name} disabled={disabled} placeholder={placeholder} type={type} />
             {touched &&
             ((error &&
-                <span>
+                <StyledError>
             {error}
-          </span>) ||
+          </StyledError>) ||
                 (warning &&
                     <span>
               {warning}
             </span>))}
-        </div>
-    </div>;
+    </StyledInputs>;

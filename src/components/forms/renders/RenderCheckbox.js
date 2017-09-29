@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Checkbox } from 'semantic-ui-react'
+import StyledError from '../../../styleComponents/StyledError'
 
 export default class RenderRadio extends Component {
 
@@ -18,9 +19,9 @@ export default class RenderRadio extends Component {
                     />
                     {touched &&
                     ((error &&
-                    <span>
+                    <StyledError>
                     {error}
-                    </span>) ||
+                    </StyledError>) ||
                     (warning &&
                     <span>
                     {warning}

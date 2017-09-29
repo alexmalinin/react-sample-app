@@ -131,61 +131,59 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import { Popup } from 'semantic-ui-react'
+import {Popup} from 'semantic-ui-react'
 
 class RenderRadio extends Component {
 
     state = {
         valuePerson: 'Specialist'
-    }
+    };
 
     render() {
 
-        const { valuePerson } = this.state;
+        const {valuePerson} = this.state;
 
-        const { input, type, label, checked, name, fieldValue, hasPerson,  renderRadio, meta: { touched, error, warning }} = this.props;
+        const {input, type, label, checked, name, fieldValue, hasPerson, renderRadio, meta: {touched, error, warning}} = this.props;
         let {onChange, onBlur, onFocus, onDragStart, onDrop} = input;
 
         window.state = this.state;
 
-        return(
+        return (
             <div className="radio-group">
-                <div>
-                    {label === 'Agency' ?
-                        <Popup
-                            trigger={
-                                <label>
+                {label === 'Agency' ?
+                    <Popup
+                        trigger={
+                            <label>
 
-                                    <input className="ownInput"
-                                           type="radio"
-                                           {...input}
-                                           name='person'
-                                           value={valuePerson}
+                                <input className="ownInput"
+                                       type="radio"
+                                       {...input}
+                                       name='person'
+                                       value={valuePerson}
 
-                                    />
-                                    <span onClick={this.handleClick} className={`ownRadio`} >{label}</span>
-                                </label>
-                            }
-                            position='right center'
-                            on='change'
-                        >
-                            Will coming soon
-                        </Popup> :
-                        <label>
+                                />
+                                <span onClick={this.handleClick} className={`ownRadio`}>{label}</span>
+                            </label>
+                        }
+                        position='right center'
+                        on='change'
+                    >
+                        Will coming soon
+                    </Popup> :
+                    <label>
 
-                            <input className="ownInput"
-                                   type="radio"
-                                   {...input}
-                                   name='person'
-                                   value={valuePerson}
-                                   ref={this.initRef(valuePerson)}
+                        <input className="ownInput"
+                               type="radio"
+                               {...input}
+                               name='person'
+                               value={valuePerson}
+                               ref={this.initRef(valuePerson)}
 
-                            />
-                            <span onClick={this.handleClick} className={`ownRadio`} >{label}</span>
-                        </label>
-                    }
+                        />
+                        <span onClick={this.handleClick} className={`ownRadio`}>{label}</span>
+                    </label>
+                }
 
-                </div>
             </div>
         )
     }
@@ -208,4 +206,3 @@ class RenderRadio extends Component {
 }
 
 export default connect(({form}) => ({form}))(RenderRadio)
-
