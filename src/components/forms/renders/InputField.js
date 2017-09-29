@@ -16,6 +16,6 @@ const InputField = props => {
             validate={noValidate ? false : [required, minLength2]}
         />
     )
-}
+};
 
 export default InputField

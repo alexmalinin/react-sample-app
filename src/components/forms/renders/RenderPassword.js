@@ -1,5 +1,6 @@
 import { Input } from 'semantic-ui-react';
 import React from 'react';
+import StyledError from '../../../styleComponents/StyledError'
 
 export const RenderField = ({
                                 input,
@@ -13,9 +14,9 @@ export const RenderField = ({
             <input {...input} name={name} placeholder={placeholder} type={type} />
             {touched &&
             ((error &&
-                <span>
+                <StyledError>
             {error}
-          </span>) ||
+          </StyledError>) ||
                 (warning &&
                     <span>
               {warning}

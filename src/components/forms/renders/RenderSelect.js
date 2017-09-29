@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import StyledInputs from '../../../styleComponents/StyledInputs'
+import StyledError from '../../../styleComponents/StyledError'
 
 export default class RenderSelect extends Component {
 
@@ -13,8 +15,7 @@ export default class RenderSelect extends Component {
         let { value, onChange } = input;
 
         return (
-            <div style={{minWidth: '100px'}}>
-                {/*<div>*/}
+            <StyledInputs>
                 <Select
                     value={value}
                     onChange={onChange}
@@ -22,14 +23,14 @@ export default class RenderSelect extends Component {
                 />
                 {touched &&
                 ((error &&
-                <span>
+                <StyledError>
                 {error}
-                </span>) ||
+                </StyledError>) ||
                 (warning &&
                 <span>
                 {warning}
                 </span>))}
-            </div>
+            </StyledInputs>
         )
     }
 }

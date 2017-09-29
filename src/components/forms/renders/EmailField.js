@@ -17,6 +17,6 @@ const EmailField = props => {
             disabled={disabled}
         />
     )
-}
+};
 
 export default EmailField

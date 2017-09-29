@@ -7,6 +7,7 @@ import { Grid, Button, Tab } from 'semantic-ui-react';
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitleBig from '../styleComponents/DvTitleBig';
+import StyledSignUpForm from '../styleComponents/StyledSignUpForm'
 import Tabs from '../styleComponents/Tabs';
 import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
@@ -25,14 +26,14 @@ class SignUp extends Component {
         let { confirm, activeTab } = this.state;
         const panes = [
             { menuItem: 'Specialist', render: () =>
-                <Tab.Pane attached={false}>
+                <StyledSignUpForm attached={false}>
                     <SignUpFormSpecialist person={activeTab} onSubmit={this.submit('Specialist')}/>
-                </Tab.Pane>
+                </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
-                <Tab.Pane attached={false}>
+                <StyledSignUpForm attached={false}>
                     <SignUpFormClient person={activeTab} onSubmit={this.submit('Client')}/>
-                </Tab.Pane>
+                </StyledSignUpForm>
             },
         ];
 
@@ -56,7 +57,7 @@ class SignUp extends Component {
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
-                                <span>Already have an account? <Link to="/sign_in">Log in</Link></span>
+                                <span className="mt-50">Already have an account? <Link to="/sign_in">Log in</Link></span>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -75,7 +76,7 @@ class SignUp extends Component {
 
     activeTab = ev => {
         let item = ev.target;
-        item.classList.contains('item') ? this.props.userType(item.text) : null
+        item.classList.contains('item') ? this.props.userType(item.text) : null;
         this.setState({
             activeTab: item.classList.contains('item') ? item.text : this.state.activeTab,
         })

@@ -37,7 +37,7 @@ SignUpFormSpecialist =  reduxForm({
 
 const selector = formValueSelector('SignUpFormSpecialist');
 SignUpFormSpecialist = connect(state => {
-    const hasPerson = selector(state, 'person')
+    const hasPerson = selector(state, 'person');
     return {
         hasPerson,
 
