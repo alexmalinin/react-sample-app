@@ -11,7 +11,7 @@ import {experiences} from '../../helpers/experiences';
 import {clientCategories} from '../../helpers/clientCategories';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
 import DvButton from '../../styleComponents/DvButton'
-import StyledCheckbox from '../../styleComponents/StyledCheckbox'
+import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox'
 import InputField from './renders/InputField'
 import LocationField from './renders/LocationField'
 import RenderStyledCheckbox from './renders/RenderStyledCheckbox';

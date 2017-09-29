@@ -270,6 +270,8 @@ header.header-intro .ui.segment {
     font-weight: 700;
 }
 
+/*_____________Global__________________*/
+
 .Select-placeholder {
     color: #000;
 }
@@ -278,3 +280,4 @@ header.header-intro .ui.segment {
     display: inline-block;
     margin-top: 50px;
 }
+

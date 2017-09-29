@@ -8,8 +8,8 @@ import RenderRadio from './renders/RenderRadio';
 import RenderSelect from './renders/RenderSelect';
 import RenderCheckbox from './renders/RenderCheckbox';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
-import StyledPhoneField from '../../styleComponents/StyledPhoneField'
-import StyledRequireBox from '../../styleComponents/StyledRequireBox'
+import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField'
+import StyledRequireBox from '../../styleComponents/forms/StyledRequireBox'
 import InputField from './renders/InputField';
 import ModalTerms from '../modals/ModalTerms';
 import PrivacyPolicy from '../modals/PrivacyPolicy';

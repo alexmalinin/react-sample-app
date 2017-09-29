@@ -13,7 +13,7 @@ export default class RenderSelect extends Component {
         let { value, onChange } = input;
 
         return (
-            <div style={{minWidth: '100px'}}>
+            <div>
                 {/*<div>*/}
                 <Select.Creatable
                     value={value}

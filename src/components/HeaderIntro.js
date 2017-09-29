@@ -15,7 +15,7 @@ class Header extends Component {
             <header className="header-intro">
                 <div className="inside-header">
                     <div className='top-header'>
-                        <img src="images/logo.png"/>
+                        <img src="/images/logo.png"/>
                     </div>
                     <div className='bot-header'>
                         <ul>

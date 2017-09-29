@@ -136,7 +136,7 @@ import {Popup} from 'semantic-ui-react'
 class RenderRadio extends Component {
 
     state = {
-        valuePerson: 'Specialist'
+        valuePerson: 'Individual'
     };
 
     render() {
@@ -196,7 +196,6 @@ class RenderRadio extends Component {
         this.container ? this.container.click() : null;
 
     }
-
 
     handleClick = ev => {
         this.setState({

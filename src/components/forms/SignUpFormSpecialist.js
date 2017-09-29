@@ -13,8 +13,8 @@ class SignUpFormSpecialist extends Component  {
                 <Field name="person"
                        component={RenderRadio}
                        type="radio"
-                       label="Specialist"
-                       value="Specialist"
+                       label="Individual"
+                       value="Individual"
 
                 />
                 <Field name="person"

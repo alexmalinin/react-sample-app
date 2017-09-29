@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Checkbox } from 'semantic-ui-react'
-import StyledError from '../../../styleComponents/StyledError'
+import StyledError from '../../../styleComponents/forms/StyledError'
 
 export default class RenderRadio extends Component {
 

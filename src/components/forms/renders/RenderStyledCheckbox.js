@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import StyledCheckbox from '../../../styleComponents/StyledCheckbox'
+import StyledCheckbox from '../../../styleComponents/forms/StyledCheckbox'
 
 export default class RenderRadio extends Component {
 

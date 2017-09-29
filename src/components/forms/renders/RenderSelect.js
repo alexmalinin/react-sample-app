@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import StyledInputs from '../../../styleComponents/StyledInputs'
-import StyledError from '../../../styleComponents/StyledError'
+import StyledInputs from '../../../styleComponents/forms/StyledInputs'
+import StyledError from '../../../styleComponents/forms/StyledError'
+import StyledSelect from '../../../styleComponents/forms/StyledSelect'
 
 export default class RenderSelect extends Component {
 
@@ -16,7 +17,8 @@ export default class RenderSelect extends Component {
 
         return (
             <StyledInputs>
-                <Select
+                <StyledSelect
+                    error={touched && error}
                     value={value}
                     onChange={onChange}
                     {...rest}

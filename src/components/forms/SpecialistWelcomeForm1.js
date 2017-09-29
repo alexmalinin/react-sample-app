@@ -8,10 +8,10 @@ import RenderCheckbox from './renders/RenderCheckbox';
 import RenderMultiSelect from './renders/RenderMultiSelect';
 import {industries} from '../../helpers/industries';
 import {experiences} from '../../helpers/experiences';
-import {skills} from '../../helpers/skills';
+import {speciality} from '../../helpers/speciality';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
 import DvButton from '../../styleComponents/DvButton'
-import StyledCheckbox from '../../styleComponents/StyledCheckbox'
+import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox'
 import InputField from './renders/InputField'
 import LocationField from './renders/LocationField'
 import RenderStyledCheckbox from './renders/RenderStyledCheckbox';
@@ -54,8 +54,8 @@ const SpecialistWelcomeForm1 = props => {
                     <Grid.Row>
                         <Grid.Column>
                             <p>Select your speciality within that area /</p>
-                            {skills
-                                ? skills.map(item =>
+                            {speciality
+                                ? speciality.map(item =>
                                     <Field
                                         name={`skills.${item.label}`}
                                         component={RenderStyledCheckbox}
@@ -64,11 +64,14 @@ const SpecialistWelcomeForm1 = props => {
                                     />)
                                 : null
                             }
-                            <Field
-                                name="custom-skills"
-                                component={RenderMultiSelect}
-                                placeholder="Enter your skills here /"
-                            />
+                            <div>
+                                <span>Enter your skills here /</span>
+                                <Field
+                                    name="custom-skills"
+                                    component={RenderMultiSelect}
+                                    placeholder=""
+                                />
+                            </div>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
