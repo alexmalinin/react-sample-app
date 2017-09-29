@@ -4,116 +4,7 @@ body {
   font-family: sans-serif;
 }
 
-/*__________HEADER___________*/
-
-header.header-intro {
-    height: 199px;
-}
-
-header.header-intro .inside-header {
-    position: fixed;
-    width: 100%;
-    z-index: 2;
-}
-
-header.header-intro .top-header {
-    height: 100px;
-    background-color: #1d7bff;
-}
-
-header.header-intro .top-header img {
-    padding-top: 27px;
-    padding-left: 8%;
-}
-
-header.header-intro .bot-header {
-    height: 98px;
-    background-color: #a600ea;
-    padding-left: 8%;
-}
-
-header.header-intro .bot-header ul {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-}
-
-header.header-intro .bot-header ul li {
-    display: inline-block;
-    line-height: 98px;
-}
-
-header.header-intro .bot-header ul li a {
-    color: #fff;
-    font-family: Roboto;
-    font-size: 20px;
-}
-
-header.header-intro .bot-header ul li a.active {
-    text-decoration: underline;
-}
-
-header.header-intro .bot-header ul li + li a{
-    padding-left: 20px;
-
-}
-
-header.header-intro .bot-header ul.right-board {
-    padding-right: 8%;
-    float: right;
-}
-
-header.header-intro .bot-header ul.right-board li.proxy a {
-    font-family: "Proxima Nova";
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-header.header-intro .bot-header ul.right-board li.proxy button {
-    font-family: "Proxima Nova";
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 20px;
-}
-
-/*---------*/
-
-header.header-basic {
-    height: 137px;
-}
-
-header.header-basic .top-header{
-    display: inline-block;
-    padding-left: 6.9%;
-}
-
-header.header-basic .top-header img{
-    padding-top: 55px;
-}
-
-header.header-basic .bot-header{
-    display: inline-block;
-    float: right;
-    padding-right: 9.2%;
-}
-
-header.header-basic .bot-header a {
-    line-height: 137px;
-    color: #1991fa;
-    font-family: "Proxima Nova";
-    font-size: 24px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-transform: uppercase;
-}
-
 /*________RESET SEMANTIC________*/
-
-header.header-intro .ui.segment {
-    margin-top: 0;
-    padding: 26px;
-    padding-left: 8%;
-}
 
 .ui.primary.button,
 .ui.primary.buttons .button {
@@ -237,7 +128,6 @@ header.header-intro .ui.segment {
     height: 15px;
     border: 1px solid #000;
 }
-
 
 /*_________SUB-HEADER________*/
 

@@ -6,7 +6,7 @@ import { required } from '../../../helpers/validate';
 import { phoneCodes } from '../../../helpers/phoneCodes'
 
 const RenderPhone = ({hasPerson,}) =>
-        <div>
+        <div className="phone-wrapper">
             <Field
                 name="phone-select"
                 component={RenderSelect}
