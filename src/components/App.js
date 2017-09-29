@@ -24,7 +24,7 @@ class App extends Component {
             <Router>
                 <div>
                     <Switch>
-                        <Route exact path="/"/>
+                        <Route exact path="/" render={ () => <Redirect to="/sign_up" />}/>
                         <Route path="/home" component={Dashboard}/>
                         <Route path="/contact" component={Contact}/>
                         <Route path="/how_it_works" component={Dashboard}/>
@@ -47,7 +47,6 @@ class App extends Component {
                         <Route path="/client/dashboard/profile" component={ClientProfile}/>
                         <Route path="/client/dashboard/projects" component={ClientProjects}/>
                         <Route path="/client/dashboard/my_teams" component={ClientMyTeams}/>
-
                     </Switch>
                 </div>
             </Router>
