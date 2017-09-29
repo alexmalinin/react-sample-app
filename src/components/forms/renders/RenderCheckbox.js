@@ -10,23 +10,21 @@ export default class RenderRadio extends Component {
 
         return(
             <div>
-                <div>
-                    <Checkbox
-                        onFocus={onFocus}
-                        onBlur={onBlur}
-                        label={label}
-                        disabled={disabled}
-                    />
-                    {touched &&
-                    ((error &&
-                    <StyledError>
-                    {error}
-                    </StyledError>) ||
-                    (warning &&
-                    <span>
-                    {warning}
-                    </span>))}
-                </div>
+                <Checkbox
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                    label={label}
+                    disabled={disabled}
+                />
+                {touched &&
+                ((error &&
+                <StyledError>
+                {error}
+                </StyledError>) ||
+                (warning &&
+                <span>
+                {warning}
+                </span>))}
             </div>
         )
     }

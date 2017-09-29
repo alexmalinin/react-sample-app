@@ -6,6 +6,7 @@ import { required, minLength2, email } from '../../helpers/validate';
 import { RenderField } from './renders/RenderField';
 import RenderRadio from './renders/RenderRadio';
 import RenderSelect from './renders/RenderSelect';
+import RenderPhone from './renders/RenderPhone';
 import RenderCheckbox from './renders/RenderCheckbox';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField'
@@ -60,23 +61,7 @@ class SignUpForm extends Component  {
 
                 <StyledPhoneField>
                     <span>Phone /</span>
-                    <Field
-                        name="phone-select"
-                        component={RenderSelect}
-                        placeholder="+61"
-                        options={phoneCodes}
-                        disabled={hasPerson === 'Agency'}
-                        validate={[required]}
-                    />
-
-                    <Field
-                        name="phone-input"
-                        component={RenderField}
-                        type="number"
-                        placeholder=""
-                        disabled={hasPerson === 'Agency'}
-                        validate={[required]}
-                    />
+                    <RenderPhone hasPerson={hasPerson}/>
                 </StyledPhoneField>
 
                 <StyledRequireBox>

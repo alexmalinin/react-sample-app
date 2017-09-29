@@ -8,6 +8,8 @@ import RenderCheckbox from './renders/RenderCheckbox';
 import RenderMultiSelect from './renders/RenderMultiSelect';
 import {industries} from '../../helpers/industries';
 import {experiences} from '../../helpers/experiences';
+import {workHourses} from '../../helpers/workHourses';
+import {projectInterest} from '../../helpers/projectInterest';
 import {speciality} from '../../helpers/speciality';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
 import DvButton from '../../styleComponents/DvButton'
@@ -15,12 +17,12 @@ import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox'
 import InputField from './renders/InputField'
 import LocationField from './renders/LocationField'
 import RenderStyledCheckbox from './renders/RenderStyledCheckbox';
-
 import { Route, Redirect } from 'react-router';
 import { Grid, Button } from 'semantic-ui-react';
 import RenderImage from './renders/RenderImage'
 import RenderTextArea from './renders/RenderTextArea'
-
+import RenderPhone from './renders/RenderPhone'
+import AvailabilityForm from './AvailabilityForm'
 import DvTitle from '../../styleComponents/DvTitle'
 import DvForm from '../../styleComponents/Tabs';
 import RenderCustomSkills from '../RenderCustomSkills';
@@ -45,12 +47,6 @@ const SpecialistWelcomeForm2 = props => {
                             <p>Write a paragraph or two about your professional experience /</p>
                             <Field name="message" component={RenderTextArea} validate={required}/>
                         </div>
-                        {/*<DvButton*/}
-                            {/*type="submit"*/}
-                            {/*disabled={submitting}*/}
-                            {/*content='CONTINUE'*/}
-                            {/*primary*/}
-                        {/*/>*/}
                         <div>
                             <p><b>Education</b> / List any formal education here /</p>
                             <h3>There will be cards</h3>
@@ -82,7 +78,34 @@ const SpecialistWelcomeForm2 = props => {
                         </div>
                         <div>
                             <p><b>Set your availability</b> / This can be easily changed at anytime</p>
+                            <AvailabilityForm/>
                         </div>
+                        <Field
+                            name="work-hourses"
+                            component={RenderSelect}
+                            placeholder="Hours per week"
+                            options={workHourses}
+                            validate={[required]}
+                        />
+                        <p>What kind of Projects are you interested in? /</p>
+                        <Field
+                            name="project-interest"
+                            component={RenderSelect}
+                            multi={true}
+                            placeholder="You can select more than one"
+                            options={projectInterest}
+                            validate={[required]}
+                        />
+
+                        <p>What is your contact number? /</p>
+                        <RenderPhone/>
+
+                        <DvButton
+                            type="submit"
+                            disabled={submitting}
+                            content='SAVE'
+                            primary
+                        />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>

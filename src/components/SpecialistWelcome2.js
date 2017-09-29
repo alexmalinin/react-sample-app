@@ -39,7 +39,7 @@ class SpecialistsWelcome2 extends Component {
                         </Grid.Row>
                     </Grid>
                     <SpecialistWelcomeResult1/>
-                    <SpecialistWelcomeForm2/>
+                    <SpecialistWelcomeForm2 onSubmit={this.submit}/>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
@@ -52,6 +52,11 @@ class SpecialistsWelcome2 extends Component {
             </div>
         )
     }
+
+    submit = values => {
+        this.props.confirmAccount()
+        console.log('values:', values);
+    };
 }
 
 export default confirm(SpecialistsWelcome2);

@@ -28,9 +28,6 @@ class SpecialistsWelcome1 extends Component {
 
     submit = values => {
         this.props.confirmAccount()
-        // this.setState({
-        //     confirm: !this.state.confirm,
-        // })
         console.log('values:', values);
     };
 }
