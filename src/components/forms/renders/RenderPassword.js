@@ -1,4 +1,3 @@
-import { Input } from 'semantic-ui-react';
 import React from 'react';
 import StyledError from '../../../styleComponents/forms/StyledError'
 

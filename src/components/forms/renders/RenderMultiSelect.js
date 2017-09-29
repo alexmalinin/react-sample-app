@@ -14,7 +14,6 @@ export default class RenderSelect extends Component {
 
         return (
             <div>
-                {/*<div>*/}
                 <Select.Creatable
                     value={value}
                     onChange={onChange}

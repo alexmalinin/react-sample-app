@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { required, minLength2, email } from '../../helpers/validate';
+import { required } from '../../helpers/validate';
 import DvButton from '../../styleComponents/DvButton'
 import InputField from './renders/InputField';
 import EmailField from './renders/EmailField';
@@ -34,5 +34,5 @@ const ContactForm = props => {
 }
 
 export default reduxForm({
-    form: 'ContactForm' // a unique identifier for this form
+    form: 'ContactForm'
 })(ContactForm)

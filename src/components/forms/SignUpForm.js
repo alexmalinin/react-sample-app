@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { phoneCodes } from '../../helpers/phoneCodes'
+import { Field } from 'redux-form';
 import { required, minLength2, email } from '../../helpers/validate';
-import { RenderField } from './renders/RenderField';
-import RenderRadio from './renders/RenderRadio';
 import RenderSelect from './renders/RenderSelect';
 import RenderPhone from './renders/RenderPhone';
 import RenderCheckbox from './renders/RenderCheckbox';
@@ -15,8 +11,6 @@ import InputField from './renders/InputField';
 import ModalTerms from '../modals/ModalTerms';
 import PrivacyPolicy from '../modals/PrivacyPolicy';
 import EmailField from './renders/EmailField';
-import { Select } from 'semantic-ui-react'
-import { Form, Radio } from 'semantic-ui-react';
 
 class SignUpForm extends Component  {
 

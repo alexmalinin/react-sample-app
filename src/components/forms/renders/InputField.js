@@ -1,10 +1,10 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { required, minLength2, email } from '../../../helpers/validate';
+import { Field } from 'redux-form';
+import { required, minLength2 } from '../../../helpers/validate';
 import {RenderField} from './RenderField';
 
 const InputField = props => {
-    const { name, placeholder, disabled, type, noValidate } = props;
+    const { name, placeholder, disabled, noValidate } = props;
 
     return (
         <Field

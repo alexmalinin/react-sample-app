@@ -5,8 +5,8 @@ import StyledError from '../../../styleComponents/forms/StyledError'
 export default class RenderRadio extends Component {
 
     render() {
-        let { input, type, name, label, disabled, meta: { touched, error, warning }} = this.props;
-        let { value, onChange, onFocus, onBlur } = input;
+        let { input, label, disabled, meta: { touched, error, warning }} = this.props;
+        let { onFocus, onBlur } = input;
 
         return(
             <div>

@@ -1,12 +1,8 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { required, minLength2, email } from '../../../helpers/validate';
-import {RenderField} from './RenderField';
+import { required } from '../../../helpers/validate';
 import InputField from './InputField'
 
 const LocationField = props => {
-    const { name, placeholder, disabled, type } = props;
-
     return (
         <div>
             <InputField

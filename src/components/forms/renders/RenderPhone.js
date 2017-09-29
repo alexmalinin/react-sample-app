@@ -1,9 +1,8 @@
-import { Input } from 'semantic-ui-react';
 import React from 'react';
 import RenderSelect from './RenderSelect';
 import { Field, reduxForm } from 'redux-form';
 import { RenderField } from './RenderField';
-import { required, minLength2, email } from '../../../helpers/validate';
+import { required } from '../../../helpers/validate';
 import { phoneCodes } from '../../../helpers/phoneCodes'
 
 const RenderPhone = ({hasPerson,}) =>
