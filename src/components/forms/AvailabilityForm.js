@@ -10,28 +10,25 @@ class AvailabilityForm extends Component  {
         const { handleSubmit, submitting, person, changeUserType, hasPerson } = this.props;
         return (
             <div>
-                <p>Full-time / Part-time / Not available</p>
-                <div>
-                    <Field name="availability"
-                           component={RenderRadio}
-                           type="radio"
-                           label="Full Time"
-                           value="Full Time"
+                <Field name="availability"
+                       component={RenderRadio}
+                       type="radio"
+                       label="Full Time"
+                       value="Full Time"
 
-                    />
-                    <Field name="availability"
-                           component={RenderRadio}
-                           type="radio"
-                           label="Part Time"
-                           value="Part Time"
-                    />
-                    <Field name="availability"
-                           component={RenderRadio}
-                           type="radio"
-                           label="Not available"
-                           value="Not available"
-                    />
-                </div>
+                />
+                <Field name="availability"
+                       component={RenderRadio}
+                       type="radio"
+                       label="Part Time"
+                       value="Part Time"
+                />
+                <Field name="availability"
+                       component={RenderRadio}
+                       type="radio"
+                       label="Not available"
+                       value="Not available"
+                />
             </div>
         )
     }

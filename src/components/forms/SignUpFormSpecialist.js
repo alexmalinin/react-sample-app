@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import RenderRadio from './renders/RenderRadio';
+import RenderSignUpRadio from './renders/RenderSignUpRadio';
 import SignUpForm from './SignUpForm';
 import { formValueSelector } from 'redux-form';
 
@@ -11,14 +11,14 @@ class SignUpFormSpecialist extends Component  {
         return (
             <SignUpForm {...this.props}>
                 <Field name="person"
-                       component={RenderRadio}
+                       component={RenderSignUpRadio}
                        type="radio"
                        label="Individual"
                        value="Individual"
 
                 />
                 <Field name="person"
-                       component={RenderRadio}
+                       component={RenderSignUpRadio}
                        type="radio"
                        label="Agency"
                        value="Agency"
