@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
-import {renderField} from './renders/RenderField';
+import {renderField} from '../renders/RenderField';
 import { Route, Redirect } from 'react-router';
-import RenderRadio from './renders/RenderRadio';
+import RenderRadio from '../renders/RenderRadio';
 
-class AvailabilityForm extends Component  {
+class AvailabilityTime extends Component  {
 
     render() {
-        const { handleSubmit, submitting, person, changeUserType, hasPerson } = this.props;
         return (
             <div>
                 <Field name="availability"
@@ -34,4 +33,4 @@ class AvailabilityForm extends Component  {
     }
 }
 
-export default AvailabilityForm;
+export default AvailabilityTime;

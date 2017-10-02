@@ -4,27 +4,18 @@ import { required, } from '../../helpers/validate';
 import {RenderField} from './renders/RenderField';
 import RenderSelect from './renders/RenderSelect';
 import {workHourses} from '../../helpers/workHourses';
-import {daysAvailable} from '../../helpers/daysAvailable';
 import {projectInterest} from '../../helpers/projectInterest';
 import DvButton from '../../styleComponents/DvButton';
-import RenderCheckbox from './renders/RenderCheckbox';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import RenderImage from './renders/RenderImage';
 import RenderTextArea from './renders/RenderTextArea';
 import RenderPhone from './renders/RenderPhone';
-import AvailabilityForm from './AvailabilityForm';
-import AnimateHeight from 'react-animate-height';
+import Availability from './Availability/Availability';
 
 class SpecialistWelcomeForm2 extends Component {
 
-    state = {
-        heightDays: '0',
-        heightTime: '0',
-    };
-
     render() {
-        let { heightDays, heightTime  } = this.state;
         const { handleSubmit, submitting } = this.props;
 
         return (
@@ -73,36 +64,9 @@ class SpecialistWelcomeForm2 extends Component {
                                     placeholder="AUD $"
                                 />
                             </div>
-                            <div>
-                                <p><b>Set your availability</b> / This can be easily changed at anytime</p>
-                                <p onClick={this.handleHeight('time')}>Full-time / Part-time / Not available (@Eselein, this is clickble)</p>
-                                <AnimateHeight
-                                    duration={500}
-                                    height={heightTime}
-                                >
-                                    <AvailabilityForm/>
-                                </AnimateHeight>
-                            </div>
-                            <div>
-                                <p onClick={this.handleHeight('days')}>Days available(@Eselein, this is clickble)</p>
-                                <AnimateHeight
-                                    duration={500}
-                                    height={heightDays}
-                                >
 
-                                    {daysAvailable
-                                        ? daysAvailable.map(item =>
-                                            <Field
-                                                key={item}
-                                                name={`days.${item}`}
-                                                component={RenderCheckbox}
-                                                label={item}
-                                                value={item}
-                                            />)
-                                        : null
-                                    }
-                                </AnimateHeight>
-                            </div>
+                            <Availability/>
+
                             <Field
                                 name="work-hourses"
                                 component={RenderSelect}
@@ -139,27 +103,6 @@ class SpecialistWelcomeForm2 extends Component {
                 </Grid>
             </form>
         )
-    }
-
-    handleHeight = arg => ev => {
-        let { heightDays, heightTime } = this.state;
-        if (arg === 'days') {
-            heightDays === 'auto'
-                ? this.setState({
-                    heightDays: '0',
-                })
-                : this.setState({
-                    heightDays: 'auto',
-                })
-        } else {
-            heightTime === 'auto'
-                ? this.setState({
-                    heightTime: '0',
-                })
-                : this.setState({
-                    heightTime: 'auto',
-                })
-        }
     }
 }
 
