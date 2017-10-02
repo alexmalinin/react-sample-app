@@ -1,10 +1,10 @@
 import React from 'react';
-import {renderField} from './renders/RenderField';
-import DvButton from '../../styleComponents/DvButton'
+import {renderField} from '../renders/RenderField';
+import DvButton from '../../../styleComponents/DvButton'
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import RenderCustomSkills from '../RenderCustomSkills';
-import RenderChosenSpecialises from '../RenderChosenSpecialises';
+import RenderCustomSkills from '../../specialist/RenderCustomSkills';
+import RenderChosenSpecialises from '../../specialist/RenderChosenSpecialises';
 
 const SpecialistWelcomeResult1 = props => {
     const { submitting } = props;

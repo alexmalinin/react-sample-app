@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
+import HeaderBasic from '../layout/HeaderBasic';
+import SubHeader from '../layout/ClientSubHeader';
+import DvGrid from '../../styleComponents/DvGrid';
+import {DvTitle} from '../../styleComponents/DvTitles';
+import DvForm from '../../styleComponents/Tabs';
 
-import HeaderBasic from './HeaderBasic';
-import SubHeader from './SpecialistsSubHeader';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles'
-import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton'
-
-class SpecialistsMyTeams extends Component {
+class ClientProfile extends Component {
 
     render() {
 
@@ -25,15 +22,13 @@ class SpecialistsMyTeams extends Component {
                 <DvGrid left="341px" right="340px">
                     <DvForm>
                         <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>My Teams</h2>
-                            <br/>
-                            will be comming soon</div>
+                            <h2>Will coming soon</h2>
+                        </div>
                     </DvForm>
-                    <DvButton primary content='SAVE & UPDATE'/>
                 </DvGrid>
             </div>
         )
     }
 }
 
-export default SpecialistsMyTeams;
+export default ClientProfile;

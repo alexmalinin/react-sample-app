@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import HeaderBasic from './HeaderBasic';
-import SubHeader from './SpecialistsSubHeader';
-import DvGrid from '../styleComponents/DvGrid';
-import SpecialistAvailabilityForm from './forms/Availability/SpecialistAvailabilityForm';
-import {DvTitle} from '../styleComponents/DvTitles'
+import HeaderBasic from '../layout/HeaderBasic';
+import SubHeader from '../layout/ClientSubHeader';
+import DvGrid from '../../styleComponents/DvGrid';
+import {DvTitle} from '../../styleComponents/DvTitles';
+import RenderProfileForm from '../forms/RenderProfileForm';
 
-class SpecialistsAvailability extends Component {
+class ClientProfile extends Component {
 
     render() {
 
@@ -20,10 +20,8 @@ class SpecialistsAvailability extends Component {
                 </DvGrid>
                 <SubHeader/>
                 <DvGrid left="341px" right="340px">
-                    <h2>SpecialistsAvailability</h2>
-
-                    <SpecialistAvailabilityForm onSubmit={this.submit}/>
-
+                    <h2>Profile</h2>
+                    <RenderProfileForm onSubmit={this.submit}/>
                 </DvGrid>
             </div>
         )
@@ -34,4 +32,4 @@ class SpecialistsAvailability extends Component {
     };
 }
 
-export default SpecialistsAvailability;
+export default ClientProfile;

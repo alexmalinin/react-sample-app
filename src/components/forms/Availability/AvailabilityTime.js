@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 import {renderField} from '../renders/RenderField';
 import { Route, Redirect } from 'react-router';
 import RenderRadio from '../renders/RenderRadio';

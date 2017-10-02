@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyledLogo} from '../styleComponents/StyledLogo'
+import {StyledLogo} from '../../styleComponents/StyledLogo'
 
 class Logotype extends Component {
     render() {

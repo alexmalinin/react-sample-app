@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import RenderSignUpRadio from './renders/RenderSignUpRadio';
-import SignUpForm from './SignUpForm';
+import RenderSignUpRadio from '../renders/RenderSignUpRadio';
+import SignUpForm from '../SignUpForm';
 import { formValueSelector } from 'redux-form';
 
 class SignUpFormSpecialist extends Component  {

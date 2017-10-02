@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { required, } from '../../helpers/validate';
-import {RenderField} from './renders/RenderField';
-import RenderSelect from './renders/RenderSelect';
-import {workHourses} from '../../helpers/workHourses';
-import {projectInterest} from '../../helpers/projectInterest';
-import DvButton from '../../styleComponents/DvButton';
+import { required, } from '../../../helpers/validate';
+import {RenderField} from '../renders/RenderField';
+import RenderSelect from '../renders/RenderSelect';
+import {workHourses} from '../../../helpers/workHourses';
+import {projectInterest} from '../../../helpers/projectInterest';
+import DvButton from '../../../styleComponents/DvButton';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import RenderImage from './renders/RenderImage';
-import RenderTextArea from './renders/RenderTextArea';
-import RenderPhone from './renders/RenderPhone';
-import Availability from './Availability/Availability';
+import RenderImage from '../renders/RenderImage';
+import RenderTextArea from '../renders/RenderTextArea';
+import RenderPhone from '../renders/RenderPhone';
+import Availability from '../Availability/Availability';
 
 class SpecialistWelcomeForm2 extends Component {
 

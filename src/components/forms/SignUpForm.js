@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
-import { required, minLength2, email } from '../../helpers/validate';
+import { required, minLength2 } from '../../helpers/validate';
 import RenderSelect from './renders/RenderSelect';
 import RenderPhone from './renders/RenderPhone';
 import RenderCheckbox from './renders/RenderCheckbox';

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import HeaderBasic from './HeaderBasic';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles'
-import DvButton from '../styleComponents/DvButton'
-import confirm from '../decorators/confirm'
-import SpecialistWelcomeResult1 from './forms/SpecialistWelcomeResult1';
-import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
+import HeaderBasic from '../layout/HeaderBasic';
+import DvGrid from '../../styleComponents/DvGrid';
+import {DvTitle} from '../../styleComponents/DvTitles'
+import DvButton from '../../styleComponents/DvButton'
+import confirm from '../../decorators/confirm'
+import SpecialistWelcomeResult1 from '../forms/specialistForms/SpecialistWelcomeResult1';
+import SpecialistWelcomeForm2 from '../forms/specialistForms/SpecialistWelcomeForm2';
 
 class SpecialistsWelcome2 extends Component {
 

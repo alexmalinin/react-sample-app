@@ -8,16 +8,16 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import ForgotPassword from './ForgotPassword';
 import Verification from './Verification';
-import SpecialistsWelcome1 from './SpecialistWelcome1';
-import SpecialistsWelcome2 from './SpecialistWelcome2';
-import ClientWelcome from './ClientWelcome';
-import ClientProfile from './ClientProfile';
-import ClientProjects from './ClientProjects';
-import ClientMyTeams from './ClientMyTeams';
-import SpecialistsProfile from './SpecialistsProfile';
-import SpecialistsMyTeams from './SpecialistsMyTeams';
-import SpecialistsAvailability from './SpecialistsAvailability';
-import Footer from './Footer'
+import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
+import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
+import ClientWelcome from './client/ClientWelcome';
+import ClientProfile from './client/ClientProfile';
+import ClientProjects from './client/ClientProjects';
+import ClientMyTeams from './client/ClientMyTeams';
+import SpecialistsProfile from './specialist/SpecialistsProfile';
+import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
+import SpecialistsAvailability from './specialist/SpecialistsAvailability';
+import Footer from './layout/Footer'
 
 class App extends Component {
     render() {

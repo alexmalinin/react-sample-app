@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button, Tab } from 'semantic-ui-react';
-
-import HeaderIntro from './HeaderIntro';
+import { Grid } from 'semantic-ui-react';
+import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import {DvTitleBig} from '../styleComponents/DvTitles';
 import DvButton from '../styleComponents/DvButton';
 import confirm from '../decorators/confirm';
-import { userType } from '../actions/actions';
 
 class PostProject extends Component {
 

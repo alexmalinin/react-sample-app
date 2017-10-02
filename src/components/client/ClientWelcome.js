@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
-
-import HeaderBasic from './HeaderBasic';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles'
-import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton'
-import confirm from '../decorators/confirm'
-import ClientWelcomeForm from './forms/ClientWelcomeForm'
+import { Grid } from 'semantic-ui-react';
+import HeaderBasic from '../layout/HeaderBasic';
+import DvGrid from '../../styleComponents/DvGrid';
+import {DvTitle} from '../../styleComponents/DvTitles';
+import confirm from '../../decorators/confirm';
+import ClientWelcomeForm from '../forms/clientForms/ClientWelcomeForm';
 
 class ClientWelcome extends Component {
 
@@ -39,10 +36,7 @@ class ClientWelcome extends Component {
     }
 
     submit = values => {
-        this.props.confirmAccount()
-        // this.setState({
-        //     confirm: !this.state.confirm,
-        // })
+        this.props.confirmAccount();
         console.log('values:', values);
     };
 }

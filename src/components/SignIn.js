@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
-import { Grid, Tab, Button } from 'semantic-ui-react';
-
-import HeaderIntro from './HeaderIntro';
+import { Grid, Tab } from 'semantic-ui-react';
+import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import Tabs from '../styleComponents/Tabs';
 import {DvTitleBig} from '../styleComponents/DvTitles';
@@ -18,7 +17,7 @@ class SignUp extends Component {
     };
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        const { confirm } = this.props;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <Tab.Pane attached={false}>

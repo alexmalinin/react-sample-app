@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
-import { Menu, Segment, Button } from 'semantic-ui-react';
 
 class Header extends Component {
 

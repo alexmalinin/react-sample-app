@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
-import { Menu, Segment, Button } from 'semantic-ui-react';
-import StyledHeader from '../styleComponents/StyledHeader';
+import { Button } from 'semantic-ui-react';
+import StyledHeader from '../../styleComponents/StyledHeader';
 
 class Header extends Component {
 

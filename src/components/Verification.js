@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { Grid, Button } from 'semantic-ui-react'
-
-import HeaderIntro from './HeaderIntro';
+import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid'
 import {DvTitle} from '../styleComponents/DvTitles'
 import DvForm from '../styleComponents/Tabs'
@@ -14,7 +12,7 @@ import VerificationForm from './forms/VerificationForm'
 class SignUp extends Component {
 
     render() {
-        const { confirm, confirmAccount, changeUserType } = this.props;
+        const { confirm, confirmAccount } = this.props;
 
         return (
             <div>

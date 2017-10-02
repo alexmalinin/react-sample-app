@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import { Header, Modal } from 'semantic-ui-react';
 
 const ModalTerms = () => (
     <Modal trigger={<b>terms of use</b>} closeIcon>
@@ -11,6 +11,6 @@ const ModalTerms = () => (
             </Modal.Description>
         </Modal.Content>
     </Modal>
-)
+);
 
 export default ModalTerms

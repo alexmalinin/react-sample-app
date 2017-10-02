@@ -1,13 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
-import { required, minLength2, email } from '../../helpers/validate';
 import {RenderField} from './renders/RenderField';
-import DvButtonForm from '../../styleComponents/DvButtonForm'
-import InputField from './renders/InputField'
 
 const VerificationForm = props => {
-    const { handleSubmit, submitting } = props;
+    const { handleSubmit } = props;
     return (
         <div>
             <form onSubmit={handleSubmit}>

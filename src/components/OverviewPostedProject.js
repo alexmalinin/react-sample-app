@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid} from 'semantic-ui-react';
-
-import HeaderIntro from './HeaderIntro';
+import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import {DvTitle} from '../styleComponents/DvTitles';
 
@@ -13,7 +12,6 @@ class OverviewPostedProject extends Component {
     };
 
     render() {
-        const { confirm, confirmAccount } = this.props;
 
         return (
             <div>

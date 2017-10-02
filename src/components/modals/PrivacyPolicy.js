@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import { Header, Modal } from 'semantic-ui-react';
 
 const PrivacyPolicy = () => (
     <Modal trigger={<b>privacy policy</b>} closeIcon>
@@ -11,6 +11,6 @@ const PrivacyPolicy = () => (
             </Modal.Description>
         </Modal.Content>
     </Modal>
-)
+);
 
 export default PrivacyPolicy

@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button, Tab } from 'semantic-ui-react';
-
-import HeaderIntro from './HeaderIntro';
+import { Grid, Tab } from 'semantic-ui-react';
+import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import {DvTitleBig} from '../styleComponents/DvTitles';
 import StyledSignUpForm from '../styleComponents/StyledSignUpForm'
 import Tabs from '../styleComponents/Tabs';
-import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
-import SignUpFormSpecialist from './forms/SignUpFormSpecialist';
-import SignUpFormClient from './forms/SignUpFormClient';
+import SignUpFormSpecialist from './forms/specialistForms/SignUpFormSpecialist';
+import SignUpFormClient from './forms/clientForms/SignUpFormClient';
 
 
 class SignUp extends Component {

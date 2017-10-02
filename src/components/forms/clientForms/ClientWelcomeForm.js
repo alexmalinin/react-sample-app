@@ -1,13 +1,13 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { required } from '../../helpers/validate';
-import {renderField} from './renders/RenderField';
-import RenderSelect from './renders/RenderSelect';
-import {clientCategories} from '../../helpers/clientCategories';
-import DvButton from '../../styleComponents/DvButton'
-import InputField from './renders/InputField'
-import LocationField from './renders/LocationField'
-import RenderTextArea from './renders/RenderTextArea';
+import { required } from '../../../helpers/validate';
+import {renderField} from '../renders/RenderField';
+import RenderSelect from '../renders/RenderSelect';
+import {clientCategories} from '../../../helpers/clientCategories';
+import DvButton from '../../../styleComponents/DvButton'
+import InputField from '../renders/InputField'
+import LocationField from '../renders/LocationField'
+import RenderTextArea from '../renders/RenderTextArea';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 

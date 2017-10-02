@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
+import HeaderBasic from '../layout/HeaderBasic';
+import SubHeader from '../layout/ClientSubHeader';
+import DvGrid from '../../styleComponents/DvGrid';
+import {DvTitle} from '../../styleComponents/DvTitles';
+import DvForm from '../../styleComponents/Tabs';
 
-import HeaderBasic from './HeaderBasic';
-import SubHeader from './SpecialistsSubHeader';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles'
-import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton'
-
-class SpecialistsProfile extends Component {
+class ClientProfile extends Component {
 
     render() {
 
@@ -25,15 +22,19 @@ class SpecialistsProfile extends Component {
                 <DvGrid left="341px" right="340px">
                     <DvForm>
                         <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>Profile</h2>
+                            <h2>Projects</h2>
                             <br/>
-                            some inputs with validations for specialists</div>
+                            some cards for client
+                            <br/>
+                            <br/>
+                            <br/>
+                            <h2>Will coming soon</h2>
+                        </div>
                     </DvForm>
-                    <DvButton primary content='SAVE & UPDATE'/>
                 </DvGrid>
             </div>
         )
     }
 }
 
-export default SpecialistsProfile;
+export default ClientProfile;

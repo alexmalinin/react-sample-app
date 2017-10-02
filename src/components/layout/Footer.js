@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid} from 'semantic-ui-react'
-import {SFooter} from '../styleComponents/StyledFooter'
+import {SFooter} from '../../styleComponents/StyledFooter'
 import Logotype from './Logotype'
 
 class FooterBasic extends Component {

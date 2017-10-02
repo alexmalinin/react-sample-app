@@ -1,5 +1,5 @@
-import styled, {css} from 'styled-components';
-import { Grid, Button } from 'semantic-ui-react'
+import styled from 'styled-components';
+import { Button } from 'semantic-ui-react'
 
 export default styled(Button)`   
     &.ui.button {
