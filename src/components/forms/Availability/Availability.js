@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import AvailabilityTime from './AvailabilityTime';
 import AvailabilityDays from './AvailabilityDays';
 import AnimateHeight from 'react-animate-height';
+import DvButton from '../../../styleComponents/DvButton'
 
 class Availability extends Component {
 
@@ -12,6 +13,7 @@ class Availability extends Component {
 
     render() {
         let { heightDays, heightTime  } = this.state;
+        let { submitting, submitBtn  } = this.props;
 
         return (
             <div>
@@ -40,6 +42,12 @@ class Availability extends Component {
 
                     </AnimateHeight>
                 </div>
+                {submitBtn ? <DvButton
+                    type="submit"
+                    disabled={submitting}
+                    content='SAVE & UPDATE'
+                    primary
+                    /> : null }
             </div>
         )
     }

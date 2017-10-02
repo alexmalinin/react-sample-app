@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid, Button } from 'semantic-ui-react';
-
 import HeaderBasic from './HeaderBasic';
 import SubHeader from './SpecialistsSubHeader';
 import DvGrid from '../styleComponents/DvGrid';
 import DvTitle from '../styleComponents/DvTitle'
-import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton'
+import SpecialistAvailabilityForm from './forms/Availability/SpecialistAvailabilityForm';
 
 class SpecialistsAvailability extends Component {
 
@@ -23,17 +21,18 @@ class SpecialistsAvailability extends Component {
                 </DvGrid>
                 <SubHeader/>
                 <DvGrid left="341px" right="340px">
-                    <DvForm>
-                        <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>SpecialistsAvailability</h2>
-                            <br/>
-                            some inputs for Availability</div>
-                    </DvForm>
-                    <DvButton primary content='SAVE & UPDATE'/>
+                    <h2>SpecialistsAvailability</h2>
+
+                    <SpecialistAvailabilityForm onSubmit={this.submit}/>
+
                 </DvGrid>
             </div>
         )
     }
+
+    submit = values => {
+        console.log('----values:',values);
+    };
 }
 
 export default SpecialistsAvailability;
