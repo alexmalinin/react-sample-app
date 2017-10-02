@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
 import HeaderBasic from './HeaderBasic';
 import SubHeader from './SpecialistsSubHeader';
 import DvGrid from '../styleComponents/DvGrid';
-import DvTitle from '../styleComponents/DvTitle'
 import SpecialistAvailabilityForm from './forms/Availability/SpecialistAvailabilityForm';
+import {DvTitle} from '../styleComponents/DvTitles'
 
 class SpecialistsAvailability extends Component {
 

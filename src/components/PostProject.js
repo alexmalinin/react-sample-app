@@ -5,7 +5,7 @@ import { Grid, Button, Tab } from 'semantic-ui-react';
 
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
-import DvTitleBig from '../styleComponents/DvTitleBig';
+import {DvTitleBig} from '../styleComponents/DvTitles';
 import DvButton from '../styleComponents/DvButton';
 import confirm from '../decorators/confirm';
 import { userType } from '../actions/actions';
