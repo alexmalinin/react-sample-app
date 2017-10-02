@@ -11,6 +11,39 @@ body {
     background-color: #1991fa;
 }
 
+/*_________HEADER____________*/
+
+header.header-basic {
+    height: 137px;
+}
+
+header.header-basic .top-header{
+    display: inline-block;
+    padding-left: 6.9%;
+}
+
+header.header-basic .top-header img{
+    padding-top: 55px;
+}
+
+header.header-basic .bot-header{
+    display: inline-block;
+    float: right;
+    padding-right: 9.2%;
+}
+
+header.header-basic .bot-header a {
+    line-height: 137px;
+    color: #1991fa;
+    font-family: "Proxima Nova";
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+/*-------------*/
+
+
 /*_______SIGN_UP__________*/
 
 .dv-from {
