@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import { Menu, Segment, Button } from 'semantic-ui-react';
+import StyledHeader from '../styleComponents/StyledHeader';
 
 class Header extends Component {
 
     state = {
         activeItem: 'home',
-    }
+    };
 
     render() {
         const { activeItem } = this.state;
 
         return (
-            <header className="header-intro">
+            <StyledHeader className="header-intro">
                 <div className="inside-header">
                     <div className='top-header'>
                         <img src="/images/logo.png"/>
@@ -33,7 +34,7 @@ class Header extends Component {
                         </ul>
                     </div>
                 </div>
-            </header>
+            </StyledHeader>
         )
     }
 }
