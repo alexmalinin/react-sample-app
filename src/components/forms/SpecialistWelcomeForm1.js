@@ -19,8 +19,7 @@ import RenderStyledCheckbox from './renders/RenderStyledCheckbox';
 import { Route, Redirect } from 'react-router';
 import { Grid, Button } from 'semantic-ui-react';
 
-import DvTitle from '../../styleComponents/DvTitle'
-import DvForm from '../../styleComponents/Tabs';
+import {DvTitle} from '../../styleComponents/DvTitles';
 
 const SpecialistWelcomeForm1 = props => {
     const { handleSubmit, submitting } = props;

@@ -7,7 +7,7 @@ import { Grid, Tab, Button } from 'semantic-ui-react';
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import Tabs from '../styleComponents/Tabs';
-import DvTitleBig from '../styleComponents/DvTitleBig';
+import {DvTitleBig} from '../styleComponents/DvTitles';
 import SignInForm from './forms/SignInForm';
 import { signIn, userType } from '../actions/actions';
 

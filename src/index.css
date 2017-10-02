@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 /*________RESET SEMANTIC________*/
@@ -204,3 +204,7 @@ header.header-basic .bot-header a {
     margin-top: 50px;
 }
 
+.container {
+    max-width: 1910px;
+    margin: 0 auto
+}

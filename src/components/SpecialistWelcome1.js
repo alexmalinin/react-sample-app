@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button } from 'semantic-ui-react';
-
 import HeaderBasic from './HeaderBasic';
 import DvGrid from '../styleComponents/DvGrid';
-import DvTitle from '../styleComponents/DvTitle'
-import DvForm from '../styleComponents/Tabs';
-import DvButton from '../styleComponents/DvButton';
 import confirm from '../decorators/confirm';
 import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
 
 class SpecialistsWelcome1 extends Component {
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        const { confirm } = this.props;
 
         return (
             <div>
@@ -27,7 +22,7 @@ class SpecialistsWelcome1 extends Component {
     }
 
     submit = values => {
-        this.props.confirmAccount()
+        this.props.confirmAccount();
         console.log('values:', values);
     };
 }

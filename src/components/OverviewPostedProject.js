@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { Grid, Button, Tab } from 'semantic-ui-react';
+import { Grid} from 'semantic-ui-react';
 
 import HeaderIntro from './HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
-import DvTitle from '../styleComponents/DvTitle';
-import DvForm from '../styleComponents/Tabs';
-import confirm from '../decorators/confirm';
-import { userType } from '../actions/actions';
+import {DvTitle} from '../styleComponents/DvTitles';
 
 class OverviewPostedProject extends Component {
 

@@ -1,0 +1,1 @@
+export const blueColor = '#3192f6';
