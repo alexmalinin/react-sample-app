@@ -17,13 +17,14 @@ import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
+import FlexDirection from '../styleComponents/FlexDirection';
 import Footer from './layout/Footer'
 
 class App extends Component {
     render() {
         return (
             <Router>
-                <div>
+                <FlexDirection>
                     <Switch>
                         <Route exact path="/" render={ () => <Redirect to="/sign_up"/>}/>
                         <Route path="/home" component={Dashboard}/>
@@ -50,7 +51,7 @@ class App extends Component {
                         <Route path="/client/dashboard/my_teams" component={ClientMyTeams}/>
                     </Switch>
                     <Footer/>
-                </div>
+                </FlexDirection>
             </Router>
         );
     }
