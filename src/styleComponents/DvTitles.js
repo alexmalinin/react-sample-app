@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const DvTitleBig = styled.h1`
+
     ${props => props.flex ? `display:flex; justify-content: center`: ``};
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
@@ -50,6 +51,7 @@ export const DvTitleBig = styled.h1`
 `;
 
 export const DvTitle = styled.h1`
+
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
     font-family: "Roboto";
     ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
@@ -60,5 +62,20 @@ export const DvTitle = styled.h1`
         font-family: "Roboto";
         ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
         font-weight: 300;
+    }
+    
+    @media(max-width: 1920px) {
+    
+       &:first-child {
+          margin-top: 30px;
+          font-size: 60px;
+       } 
+    }
+    
+    @media(max-width: 991px) {
+    
+       &:first-child {
+          font-size: 50px;
+       } 
     }
 `;
