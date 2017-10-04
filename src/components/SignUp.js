@@ -11,7 +11,7 @@ import Tabs from '../styleComponents/Tabs';
 import { userType } from '../actions/actions';
 import SignUpFormSpecialist from './forms/specialistForms/SignUpFormSpecialist';
 import SignUpFormClient from './forms/clientForms/SignUpFormClient';
-
+import StyledAlreadySignIn from '../styleComponents/forms/StyledAlreadySignIn';
 
 class SignUp extends Component {
 
@@ -40,22 +40,25 @@ class SignUp extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="320px" right="265px" grid={"no-pad"}>
+                <DvGrid>
                     <Grid>
-                        <Grid.Row columns={2}>
-                            <Grid.Column>
-                                <DvTitleBig mTop="137" fz="">
+                        <Grid.Row>
+                            <Grid.Column mobile={16} tablet={7} computer={8}>
+                                <DvTitleBig mTop='100' fz='' flex='justify'>
                                     sign
                                     <br/>
                                     up/
                                 </DvTitleBig>
                             </Grid.Column>
-                            <Grid.Column>
-                                <Tabs className="specialist-form dv-from" mTop="181" action="">
+
+                            <Grid.Column mobile={16} tablet={9} computer={8}>
+                                <Tabs className='specialist-form dv-from' mTop='181' action=''>
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
-                                <span className="mt-50">Already have an account? <Link to="/sign_in">Log in</Link></span>
+                                <StyledAlreadySignIn>
+                                    <span className='mt-50'>Already have an account? <Link to='/sign_in'>Log in</Link></span>
+                                </StyledAlreadySignIn>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

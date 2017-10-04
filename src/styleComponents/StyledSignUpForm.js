@@ -1,5 +1,5 @@
-import styled, {css} from 'styled-components';
-import { Grid, Button, Tab } from 'semantic-ui-react';
+import styled from 'styled-components';
+import { Tab } from 'semantic-ui-react';
 
 export default styled(Tab.Pane)`
 
@@ -8,7 +8,19 @@ export default styled(Tab.Pane)`
         
         .radio-group {
             padding-left: 7px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 1920px) {
+            padding: 35px 40px 14px;
+        }
+        
+        @media (max-width: 1024px) {
+            padding: 20px 20px 14px;
+        }
+        
+        @media (max-width: 767px) {
+            padding: 20px 0 0;
         }
     }
 `;

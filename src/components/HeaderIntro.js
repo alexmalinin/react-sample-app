@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom'
 import {Button} from 'semantic-ui-react';
-import StyledHeader from '../../styleComponents/StyledHeader';
-import NavigationLinks from '../NavigationLinks'
-import Logotype from './Logotype'
+import StyledHeader from '../styleComponents/StyledHeader';
+import NavigationLinks from './NavigationLinks'
+import Logotype from './layout/Logotype'
 
 class Header extends Component {
 
@@ -13,7 +13,6 @@ class Header extends Component {
 
     render() {
         return (
-
             <StyledHeader className="header-intro">
                 <div className="inside-header">
                     <div className='top-header'>
@@ -38,4 +37,4 @@ class Header extends Component {
     }
 }
 
-export default Header
+export default Header;

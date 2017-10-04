@@ -34,8 +34,60 @@ export default styled.div`
       }
     }
 
-    span {
+    & > span {
         text-align: center;
         flex: 0 0 20%;
-    }    
+    }  
+      
+    @media (max-width: 1920px) {
+        margin-bottom: 30px;
+    }  
+    
+    @media (max-width: 1499px) {
+      .phone-wrapper {
+        div:first-child {
+          flex: 0 0 35%;
+        }
+      
+        div:last-child {
+          flex: 0 0 65%;
+        }
+      }
+    }  
+    
+    @media (max-width: 1024px) {
+      .phone-wrapper {
+        div:first-child {
+          flex: 0 0 39%;
+        }
+      
+        div:last-child {
+          flex: 0 0 61%;
+        }
+      }
+    } 
+    
+    @media (max-width: 767px) {
+      .phone-wrapper {
+        div:first-child {
+          flex: 0 0 35%;
+        }
+      
+        div:last-child {
+          flex: 0 0 65%;
+        }
+      }
+    }
+    
+    @media (max-width: 399x) {
+      .phone-wrapper {
+        div:first-child {
+          flex: 0 0 39%;
+        }
+      
+        div:last-child {
+          flex: 0 0 61%;
+        }
+      }
+    }
 `;
