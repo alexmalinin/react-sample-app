@@ -3,6 +3,10 @@ import Select from 'react-select';
 
 export default styled(Select)`
     
+    & .Select-control {
+        border-radius: 0;
+    }
+    
     ${props => props.error && css`
         & .Select-control {
             border-color: #e0b4b4;

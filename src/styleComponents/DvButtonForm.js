@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Button } from 'semantic-ui-react'
 
 export default styled(Button)`   
-    &.ui.button {
+
+    &.ui.primary.button {
         border-radius: 0;
         width: calc(100% + 122px);
         margin-left: -61px;
@@ -11,5 +12,30 @@ export default styled(Button)`
         font-family: Roboto;
         text-align: center;
         color: #fff;
+        
+        @media (max-width: 1920px) {
+            width: calc(100% + 82px);
+            margin-left: -41px;
+        }
+        
+        @media (max-width: 1024px) {
+            width: calc(100% + 42px);
+            margin-left: -21px;
+        }
+        
+        @media (max-width: 767px) {
+            width: auto;
+            margin-left: -1px;
+            color: #000;         
+            background: #fff;
+            padding: 13px 45px;  
+            border-radius: 50px;
+            border: 1px solid #1991fa;
+            
+            &:active {
+                background: #1991fa;
+                color: #fff;
+            }
+        }
     }
 `;

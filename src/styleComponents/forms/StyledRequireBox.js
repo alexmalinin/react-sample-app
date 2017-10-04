@@ -9,5 +9,8 @@ export default styled.div`
         margin-left: 15px;
     }
     
+    @media (max-width: 1920px) {
+       margin-bottom: 30px; 
+    }
     
 `;

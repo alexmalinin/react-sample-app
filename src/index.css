@@ -35,7 +35,7 @@ header.header-basic .bot-header{
 header.header-basic .bot-header a {
     line-height: 137px;
     color: #1991fa;
-    font-family: "Proxima Nova";
+    font-family: 'Proxima Nova', sans-serif;
     font-size: 24px;
     font-weight: 600;
     text-decoration: underline;
@@ -43,124 +43,55 @@ header.header-basic .bot-header a {
 }
 /*-------------*/
 
-
 /*_______SIGN_UP__________*/
 
-.dv-from {
-    font-family: Roboto;
-    width: 850px;
-    font-weight: 400;
-    font-size: 28px;
-}
+/*.radio-group .ui.radio.checkbox {*/
+    /*position: relative;*/
+/*}*/
 
-.dv-from .form-header {
-    height: 73px;
-    line-height: 73px;
-    text-align: center;
-    color: #fff;
-    background-color: #1991fa;
-}
+/*.radio-group .ui.radio.checkbox::before {*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*z-index: 9999999999;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+/*}*/
 
-.dv-from .form-body {
-    padding: 72px;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-}
+/*.ownRadio {*/
+    /*position: relative;*/
+/*}*/
 
-.dv-from .form-footer {
-    height: 73px;
-    text-align: center;
-    color: #fff;
-    background-color: #1991fa;
-    border-radius: 0;
-    width: 100%;
-    font-size: 24px;
-    font-family: Roboto;
-}
+/*.ownInput {*/
+    /*opacity: 0;*/
+/*}*/
 
-.ui.segment.active.tab {
-    color: #000;
-}
+/*.ownInput:checked + .ownRadio {*/
+    /*font-weight: bold;*/
+/*}*/
 
-.dv-from .ui.text.menu {
-    margin: 0 auto;
-    border: 1px solid #ccc;
+/*.ownInput:checked + .ownRadio::after {*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*border-radius: 50%;*/
+    /*width: 9px;*/
+    /*height: 9px;*/
+    /*background-color: #1991fa;*/
+    /*top: 3px;*/
+    /*left: -17px;*/
+    /*box-shadow: inset 0 2px 3px rgba(0,0,0,.2);*/
+/*}*/
 
-}
-
-.dv-from .ui.text.menu .item{
-    width: 50%;
-    height: 73px;
-    line-height: 73px;
-    text-align: center;
-    display: inline-block;
-    font-size: 28px;
-    padding: 0;
-    color: #000;
-    background-color: #fff;
-}
-
-.dv-from .ui.text.menu .item.active {
-    color: #fff;
-    background-color: #1991fa;
-}
-
-.dv-from .ui.segment.active.tab {
-    margin-top: 0;
-    border-radius: 0;
-    box-shadow: none;
-    border: 1px solid #ccc;
-    border-top: 0;
-    border-bottom: 0;
-}
-
-.radio-group .ui.radio.checkbox {
-    position: relative;
-}
-
-.radio-group .ui.radio.checkbox::before {
-    content: '';
-    position: absolute;
-    z-index: 9999999999;
-    width: 100%;
-    height: 100%;
-}
-
-.ownRadio {
-    position: relative;
-}
-
-.ownInput {
-    opacity: 0;
-}
-
-.ownInput:checked + .ownRadio {
-    font-weight: bold;
-}
-
-.ownInput:checked + .ownRadio::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 9px;
-    height: 9px;
-    background-color: #1991fa;
-    top: 3px;
-    left: -17px;
-    box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
-}
-
-.ownRadio::before {
-    top: 0;
-    left: -20px;
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    display: block;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #000;
-}
+/*.ownRadio::before {*/
+    /*top: 0;*/
+    /*left: -20px;*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*border-radius: 50%;*/
+    /*display: block;*/
+    /*width: 15px;*/
+    /*height: 15px;*/
+    /*border: 1px solid #000;*/
+/*}*/
 
 /*_________SUB-HEADER________*/
 
@@ -172,13 +103,12 @@ header.header-basic .bot-header a {
 }
 
 .sub-header .bot-header {
-    /*display: inline-block;*/
     text-align: center;
 }
 
 .sub-header .bot-header a {
     color: #fff;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-size: 24px;
     font-weight: 400;
     line-height: 111px;
@@ -205,6 +135,23 @@ header.header-basic .bot-header a {
 }
 
 .container {
-    max-width: 1910px;
-    margin: 0 auto
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 320px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (min-width: 1921px) {
+    .container {
+        max-width: 1910px;
+    }
 }
