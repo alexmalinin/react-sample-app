@@ -38,6 +38,14 @@ export default styled.div`
         text-align: center;
         flex: 0 0 20%;
     }  
+    
+    @media (min-width: 1921px) {
+       margin-bottom: 80px; 
+    
+       &  > span { 
+           font-size: 28px;
+       }
+    }
       
     @media (max-width: 1920px) {
         margin-bottom: 30px;

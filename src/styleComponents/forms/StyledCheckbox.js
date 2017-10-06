@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 export default styled.div`
     display: inline-block;
@@ -23,9 +23,26 @@ export default styled.div`
     
     div {
         display: inline-block;
-        border: 1px solid #1991fa;
-        padding: 5px 20px;
+        border: 2px solid #1991fa;
+        padding: 16px 25px;
         border-radius: 25px;
+        margin: 0 30px 40px 0;
     }
     
+    @media (max-width: 1920px) {
+        label {
+            font-size: 18px; 
+        }    
+        
+        div {
+            padding: 10px 20px;
+            margin: 0px 20px 15px 0;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        div {
+            margin: 0px 5px 15px 0;
+        }
+    } 
 `;

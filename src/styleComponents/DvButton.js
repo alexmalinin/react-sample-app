@@ -1,5 +1,5 @@
-import styled, {css} from 'styled-components';
-import { Grid, Button } from 'semantic-ui-react'
+import styled from 'styled-components';
+import { Button } from 'semantic-ui-react'
 
 export default styled(Button)`  
  
@@ -30,6 +30,12 @@ export default styled(Button)`
             &.verify-btn {
                 font-size: 18px;
             }
+        }
+    }
+    
+    @media (max-width: 991px) {
+        &.ui.button {
+            font-size: 18px;
         }
     }
 `;

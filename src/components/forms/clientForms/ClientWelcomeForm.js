@@ -53,7 +53,7 @@ const ClientWelcomeForm = props => {
             </Grid>
         </form>
     )
-}
+};
 
 export default reduxForm({
     form: 'SpecialistWelcomeForm1',

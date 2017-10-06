@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {Popup} from 'semantic-ui-react'
 
 class RenderRadio extends Component {
 

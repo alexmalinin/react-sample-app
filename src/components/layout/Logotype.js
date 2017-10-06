@@ -4,8 +4,8 @@ import {StyledLogo} from '../../styleComponents/StyledLogo'
 class Logotype extends Component {
     render() {
         return (
-            <StyledLogo to="/">
-                <img src="/images/logo.png"/>
+            <StyledLogo to='/'>
+                <img src='/images/logo.png'/>
             </StyledLogo>
         )
     }
