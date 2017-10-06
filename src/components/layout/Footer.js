@@ -3,12 +3,13 @@ import {Grid} from 'semantic-ui-react'
 import {SFooter} from '../../styleComponents/StyledFooter'
 import Logotype from './Logotype'
 import NavigationLinks from '../NavigationLinks'
+import { ContainerLarge } from '../../styleComponents/Container';
 
 class FooterBasic extends Component {
     render() {
         return (
             <SFooter>
-                <div className="container">
+                <ContainerLarge>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -26,7 +27,7 @@ class FooterBasic extends Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                </div>
+                </ContainerLarge>
             </SFooter>
         )
     }

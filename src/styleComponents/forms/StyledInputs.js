@@ -1,9 +1,10 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
-export default styled.div`  
+export default styled.div`
  
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    
     
     .ui.input {
         width: 100%;
@@ -19,7 +20,31 @@ export default styled.div`
         }
     }
     
-    @media (max-width: 1920px) {
-        margin-bottom: 30px;
+    @media (min-width: 1921px) {
+        
+       margin-bottom: 40px;
+        
+       .ui.input {
+           font-size: 28px;
+       } 
+       
+       .Select-control {
+           height: 74px;
+        }
+        
+       .Select-placeholder {
+           padding: 0 25px;
+           line-height: 74px;
+           font-size: 28px;
+       }
+        
+       .Select-value {
+           font-size: 28px;
+           padding-left: 25px !important; //overwrite theme
+           
+           span {
+               line-height: 74px;
+           }
+       }
     }
 `;

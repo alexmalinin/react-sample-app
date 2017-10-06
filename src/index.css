@@ -18,38 +18,6 @@ body {
     margin-right: 0;
 }
 
-/*_________HEADER____________*/
-
-header.header-basic {
-    height: 137px;
-}
-
-header.header-basic .top-header{
-    display: inline-block;
-    padding-left: 6.9%;
-}
-
-header.header-basic .top-header img{
-    padding-top: 55px;
-}
-
-header.header-basic .bot-header{
-    display: inline-block;
-    float: right;
-    padding-right: 9.2%;
-}
-
-header.header-basic .bot-header a {
-    line-height: 137px;
-    color: #1991fa;
-    font-family: 'Proxima Nova', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-transform: uppercase;
-}
-/*-------------*/
-
 /*_______SIGN_UP__________*/
 
 /*.radio-group .ui.radio.checkbox {*/
@@ -89,15 +57,15 @@ header.header-basic .bot-header a {
 /*}*/
 
 /*.ownRadio::before {*/
-    /*top: 0;*/
-    /*left: -20px;*/
-    /*content: '';*/
-    /*position: absolute;*/
-    /*border-radius: 50%;*/
-    /*display: block;*/
-    /*width: 15px;*/
-    /*height: 15px;*/
-    /*border: 1px solid #000;*/
+  /*top: 0;*/
+/*left: -20px;*/
+/*content: '';*/
+/*position: absolute;*/
+/*border-radius: 50%;*/
+/*display: block;*/
+/*width: 15px;*/
+/*height: 15px;*/
+/*border: 1px solid #000;*/
 /*}*/
 
 /*_________SUB-HEADER________*/
@@ -139,26 +107,4 @@ header.header-basic .bot-header a {
 .mt-50 {
     display: inline-block;
     margin-top: 50px;
-}
-
-.container {
-    margin: 0 auto;
-}
-
-@media screen and (min-width: 320px) {
-    .container {
-        padding: 0 15px;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .container {
-        padding: 0 30px;
-    }
-}
-
-@media screen and (min-width: 1921px) {
-    .container {
-        max-width: 1910px;
-    }
 }

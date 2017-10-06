@@ -94,7 +94,6 @@ export default styled.div`
       opacity: 0;
       
       &:checked + .ownRadio {
-        font-weight: bold;
         
         &::after {
           content: '';
@@ -120,6 +119,31 @@ export default styled.div`
       width: 15px;
       height: 15px;
       border: 1px solid #000;
+    }
+    
+    @media(min-width: 1921px) {
+    
+        .ui.segment {
+            .radio-group {
+                font-size: 28px;
+                padding-left: 40px;
+                margin-bottom: 40px;
+            }
+        }
+        
+        .ownRadio::before {
+            height: 30px;
+            width: 30px;
+            left: -55px;
+            
+        }
+        
+        .ownInput:checked + .ownRadio::after {
+            width: 20px;
+            height: 20px; 
+            top: 5px;
+            left: -50px;
+        }
     }
     
     @media (max-width: 1920px) {
