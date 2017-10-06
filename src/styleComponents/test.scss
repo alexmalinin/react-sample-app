@@ -1,0 +1,26 @@
+a {
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+  position: relative;
+
+  &:after {
+    transition: all .4s ease;
+    content: '';
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+  }
+
+  &:hover:after {
+    background: #fff;
+    width: 100%;
+  }
+
+  &.active:after {
+    background: #fff;
+    width: 100%;
+  }
+}

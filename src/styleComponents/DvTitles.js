@@ -79,3 +79,14 @@ export const DvTitle = styled.h1`
        } 
     }
 `;
+
+export const DvTitleSmall = styled.h2`
+     
+    font-size: 48px;
+    font-weight: 400;
+    margin-bottom: 90px;
+    
+    @media (max-width: 1920px) {
+        margin-bottom: 40px;
+    }
+`;
