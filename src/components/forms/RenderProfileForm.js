@@ -1,6 +1,6 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { required } from '../../helpers/validate';
+import {Field, reduxForm} from 'redux-form';
+import {required} from '../../helpers/validate';
 import DvButton from '../../styleComponents/DvButton'
 import InputField from './renders/InputField';
 import {RenderField} from './renders/RenderField';
@@ -9,38 +9,44 @@ import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField';
 import RenderPhone from './renders/RenderPhone';
 
 const RenderProfileForm = props => {
-    const { handleSubmit, submitting } = props;
+    const {handleSubmit, submitting} = props;
     return (
         <form onSubmit={handleSubmit}>
             <InputField
                 name="first_name"
-                placeholder="First Name"
+                placeholder="First Name /"
             />
+
             <InputField
                 name="last_name"
-                placeholder="Last Name"
+                placeholder="Last Name /"
             />
+
             <InputField
                 name="country"
                 placeholder="Country /"
                 validate={[required]}
             />
+
             <StyledPhoneField>
                 <span>Phone /</span>
                 <RenderPhone/>
             </StyledPhoneField>
+
             <EmailField
                 name="email"
-                placeholder="Email"
+                placeholder="Email /"
             />
+
             <Field
                 component={RenderField}
                 name="password"
-                placeholder="Password"
+                placeholder="Password /"
                 type="password"
                 validate={[required]}
             />
-            <DvButton
+
+            <DvButton large
                 type="submit"
                 disabled={submitting}
                 content='SAVE & UPDATE'
@@ -48,7 +54,7 @@ const RenderProfileForm = props => {
             />
         </form>
     )
-}
+};
 
 export default reduxForm({
     form: 'RenderProfileForm'

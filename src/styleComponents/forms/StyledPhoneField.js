@@ -11,6 +11,10 @@ export default styled.div`
       margin: 0;
       display: flex;
       width: 100%;
+      
+      .Select-placeholder {
+          color: #959595;
+        }
     
       div:first-child {
         flex: 0 0 25%;

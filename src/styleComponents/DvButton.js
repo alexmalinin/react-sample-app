@@ -16,6 +16,8 @@ export default styled(Button)`
         }
     }
     
+    // ${props => props.large ? `width: calc(100% + 100%);` : ``};
+    
     @media (max-width: 1920px) {
         &.ui.button {
             &.verify-btn {
@@ -33,7 +35,7 @@ export default styled(Button)`
         }
     }
     
-    @media (max-width: 991px) {
+    @media (max-width: 767px) {
         &.ui.button {
             font-size: 18px;
         }
