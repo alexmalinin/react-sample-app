@@ -5,7 +5,7 @@ import {RenderField} from '../renders/RenderField';
 import RenderSelect from '../renders/RenderSelect';
 import {workHourses} from '../../../helpers/workHourses';
 import {projectInterest} from '../../../helpers/projectInterest';
-import DvButton from '../../../styleComponents/DvButton';
+import { DvButton } from '../../../styleComponents/DvButton';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderImage from '../renders/RenderImage';

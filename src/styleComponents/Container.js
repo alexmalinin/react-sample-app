@@ -4,8 +4,16 @@ export const ContainerLarge = styled.div`
 
     margin: 0 auto;
 
+    & > .ui.grid {
+       margin: 0;
+    }
+    
+    ${props => props.indentBot ? `margin-bottom: 250px` : ``};
+    ${props => props.indentTop ? `margin-top: 100px` : ``};
+    
     @media (min-width: 320px) {
         padding: 0 15px;
+        ${props => props.xsNoPadding ? `padding: 0` : ``};
     }
     
     @media screen and (min-width: 768px) {
@@ -17,7 +25,6 @@ export const ContainerLarge = styled.div`
         padding: 0 15px;
     }
 `;
-
 
 export const Container = styled.div`
 

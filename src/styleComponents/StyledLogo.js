@@ -8,4 +8,10 @@ export const StyledLogo = styled(NavLink)`
             max-width: 300px;
         }
     }
+    
+    @media (max-width: 767px) {
+        img {
+            max-width: 260px;
+        }
+    }
 `;

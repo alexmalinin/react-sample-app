@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react'
 
-export default styled(Button)`  
+export const DvButton = styled(Button)`  
  
     &.ui.button {
         border-radius: 0;
@@ -39,5 +39,117 @@ export default styled(Button)`
         &.ui.button {
             font-size: 18px;
         }
+    }
+`;
+
+export const NewTeamBtn = styled.div`
+
+    max-width: 1260px;
+    margin-top: 100px;
+    text-align: center;
+    
+    button {
+        display: inline-block;
+        width: 120px;
+        height: 120px;
+        background: #fff;
+        outline: none;
+        border: 2px solid #808080;
+        position: relative;
+        margin-bottom: 50px;
+        
+        &:before {
+            content: '';
+            position: absolute;
+            height: 97px;
+            width: 2px;
+            background: #808080;
+            top: 9px;
+            transition: all .2s ease-in-out
+        }
+        
+        &:after {
+            content: '';
+            position: absolute;
+            width: 97px;
+            height: 2px;
+            background: #808080;
+            left: 9px;
+            transition: all .2s ease-in-out
+        }
+        
+        &:active {
+            &:before {
+                content: '';
+                position: absolute;
+                height: 55px;
+                width: 2px;
+                background: #808080;
+                top: 31px;
+            }
+        
+            &:after {
+                content: '';
+                position: absolute;
+                width: 55px;
+                height: 2px;
+                background: #808080;
+                left: 31px;
+            }
+        }
+    }
+    
+    span {
+        display: block;
+        font-size: 28px;
+        font-weight: bold;
+        color: #000;
+    }
+    
+    @media (max-width: 1920px) {
+    
+        max-width: 1275px;
+        margin-top: 50px;
+        
+        button {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #808080;
+            margin-bottom: 30px;
+            
+            &:before {
+                height: 60px;
+                width: 1px;
+                top: 9px;
+            }
+            
+            &:after {
+                width: 60px;
+                height: 1px;
+                left: 9px;
+            }
+            
+            &:active {
+                &:before {
+                    content: '';
+                    height: 35px;
+                    width: 1px;
+                    top: 22px;
+                }
+            
+                &:after {
+                    width: 35px;
+                    height: 1px;
+                    left: 22px;
+                }
+            }
+        }
+        
+        span {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+        }   
     }
 `;
