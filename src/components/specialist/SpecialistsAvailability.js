@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import DvGrid from '../../styleComponents/DvGrid';
 import SpecialistAvailabilityForm from '../forms/Availability/SpecialistAvailabilityForm';
 import {DvTitle} from '../../styleComponents/DvTitles'
+import { Container, ContainerLarge } from '../../styleComponents/Container'
 
 class SpecialistsAvailability extends Component {
 
@@ -13,18 +13,16 @@ class SpecialistsAvailability extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <DvGrid left="8%">
+                <ContainerLarge>
                     <DvTitle mTop="80">
                         Welcome to The Village!
                     </DvTitle>
-                </DvGrid>
+                </ContainerLarge>
                 <SubHeader/>
-                <DvGrid left="341px" right="340px">
+                <Container>
                     <h2>SpecialistsAvailability</h2>
-
                     <SpecialistAvailabilityForm onSubmit={this.submit}/>
-
-                </DvGrid>
+                </Container>
             </div>
         )
     }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const DvTitleBig = styled.h1`
 
@@ -52,16 +52,18 @@ export const DvTitleBig = styled.h1`
 
 export const DvTitle = styled.h1`
 
-    ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    font-family: "Roboto";
-    ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
+    font-family: 'Roboto';
     font-weight: 300;    
     
+    ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
+    ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
+    
     &:first-child {
-        ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-        font-family: "Roboto";
-        ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
+        font-family: 'Roboto';
         font-weight: 300;
+        
+        ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
+        ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
     }
     
     @media(max-width: 1920px) {
@@ -86,7 +88,19 @@ export const DvTitleSmall = styled.h2`
     font-weight: 400;
     margin-bottom: 90px;
     
+    ${props => props.fz ? `font-size: ${props.fz}px` : ``};
+    ${props => props.negative ? `margin-left: -15px` : ''};
+    
+    
     @media (max-width: 1920px) {
         margin-bottom: 40px;
+    }
+    
+    @media (max-width: 1099px) {
+        ${props => props.xsCenter ? css`
+            text-align: center;
+            margin-left: 0;
+            margin-bottom: 30px;
+            ` : ''};
     }
 `;

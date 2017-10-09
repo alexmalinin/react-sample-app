@@ -15,12 +15,15 @@ class SpecialistsProfile extends Component {
         return (
             <div>
                 <HeaderBasic/>
+
                 <ContainerLarge>
                     <DvTitle mTop="80">
                         Welcome to The Village!
                     </DvTitle>
                 </ContainerLarge>
+
                 <SubHeader/>
+
                 <Container indentTop indentBot>
                     <Grid>
                         <Grid.Row>

@@ -5,7 +5,7 @@ import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid'
 import {DvTitle} from '../styleComponents/DvTitles'
 import DvForm from '../styleComponents/Tabs'
-import DvButton from '../styleComponents/DvButton'
+import { DvButton } from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
 import VerificationForm from './forms/VerificationForm'
 

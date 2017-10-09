@@ -46,9 +46,11 @@ export default styled.div`
         }    
     }
     
-    @media (max-width: 991px) {
-        
+    @media (max-width: 1920px) {
         height: 75px;
+    }
+    
+    @media (max-width: 991px) {
         
         a {
             font-size: 20px;
