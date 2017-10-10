@@ -11,7 +11,7 @@ import Tabs from '../styleComponents/Tabs';
 import { userType } from '../actions/actions';
 import SignUpFormSpecialist from './forms/specialistForms/SignUpFormSpecialist';
 import SignUpFormClient from './forms/clientForms/SignUpFormClient';
-import StyledAlreadySignIn from '../styleComponents/forms/StyledAlreadySignIn';
+import StyledFormHint from '../styleComponents/forms/StyledFormHint';
 
 class SignUp extends Component {
 
@@ -56,9 +56,9 @@ class SignUp extends Component {
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
                                     { confirm && <Redirect to="/verification"/> }
                                 </Tabs>
-                                <StyledAlreadySignIn>
-                                    <span className='mt-50'>Already have an account? <Link to='/sign_in'>Log in</Link></span>
-                                </StyledAlreadySignIn>
+                                <StyledFormHint>
+                                    <span>Already have an account? <Link to='/sign_in'>Log in</Link></span>
+                                </StyledFormHint>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

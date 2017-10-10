@@ -1,8 +1,9 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import {renderField} from './renders/RenderField';
+import { renderField } from './renders/RenderField';
 import DvButtonForm from '../../styleComponents/DvButtonForm'
+import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import InputField from './renders/InputField'
 
 const SignInForm = props => {
@@ -11,15 +12,16 @@ const SignInForm = props => {
         <form onSubmit={handleSubmit}>
             <InputField
                 name="first_name"
-                placeholder="First Name"
+                placeholder="First Name /"
                 type
             />
             <InputField
                 name="last_name"
-                placeholder="Last Name"
+                placeholder="Last Name /"
             />
-
-            <Link to="/forgot_password">I've forgotten</Link>
+            <StyledFormHint>
+                <Link to="/forgot_password">I've forgotten</Link>
+            </StyledFormHint>
 
             <DvButtonForm
                 type="submit"
@@ -29,7 +31,7 @@ const SignInForm = props => {
             />
         </form>
     )
-}
+};
 
 export default reduxForm({
     form: 'SignInForm',

@@ -3,19 +3,19 @@ import { Field } from 'redux-form';
 import {renderField} from '../renders/RenderField';
 import { Route, Redirect } from 'react-router';
 import {daysAvailable} from '../../../helpers/daysAvailable';
-import RenderCheckbox from '../renders/RenderCheckbox'
+import RenderRadio from '../renders/RenderRadio';
 
 class AvailabilityDays extends Component  {
 
     render() {
         return (
-            <div>
+            <div className='checkbox-group'>
                 {daysAvailable
                     ? daysAvailable.map(item =>
                         <Field
                             key={item}
                             name={`days.${item}`}
-                            component={RenderCheckbox}
+                            component={RenderRadio}
                             label={item}
                             value={item}
                         />)

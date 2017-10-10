@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ContainerLarge = styled.div`
 
     margin: 0 auto;
+    padding: 0 15px;
 
     & > .ui.grid {
        margin: 0;
@@ -12,7 +13,6 @@ export const ContainerLarge = styled.div`
     ${props => props.indentTop ? `margin-top: 100px` : ``};
     
     @media (min-width: 320px) {
-        padding: 0 15px;
         ${props => props.xsNoPadding ? `padding: 0` : ``};
     }
     

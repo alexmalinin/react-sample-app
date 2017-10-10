@@ -8,13 +8,12 @@ class AvailabilityTime extends Component  {
 
     render() {
         return (
-            <div>
+            <div className='checkbox-group'>
                 <Field name="availability"
                        component={RenderRadio}
                        type="radio"
                        label="Full Time"
                        value="Full Time"
-
                 />
                 <Field name="availability"
                        component={RenderRadio}

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
+import StyledRadio from '../../../styleComponents/StyledRadio'
 
 class RenderRadio extends Component {
 
@@ -8,9 +9,8 @@ class RenderRadio extends Component {
         const {input, label, name} = this.props;
 
         return (
-            <div className="radio-group">
+            <StyledRadio>
                 <label>
-
                     <input className="ownInput"
                            type="radio"
                            {...input}
@@ -19,7 +19,7 @@ class RenderRadio extends Component {
                     />
                     <span className={`ownRadio`}>{label}</span>
                 </label>
-            </div>
+            </StyledRadio>
         )
     }
 }

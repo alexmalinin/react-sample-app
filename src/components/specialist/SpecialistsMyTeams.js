@@ -15,13 +15,14 @@ class SpecialistsMyTeams extends Component {
             <div>
                 <HeaderBasic/>
                 <ContainerLarge>
-                    <DvTitle mTop="80">
+                    <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
                 </ContainerLarge>
-                <SubHeader/>
-                <Container>
 
+                <SubHeader/>
+
+                <Container indentTop indentBot>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column width={6}>
