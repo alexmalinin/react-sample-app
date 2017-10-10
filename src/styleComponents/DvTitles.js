@@ -87,6 +87,7 @@ export const DvTitleSmall = styled.h2`
     font-size: 48px;
     font-weight: 400;
     margin-bottom: 90px;
+    font-weight: 300;  
     
     ${props => props.fz ? `font-size: ${props.fz}px` : ``};
     ${props => props.negative ? `margin-left: -15px` : ''};

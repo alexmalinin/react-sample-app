@@ -7,13 +7,16 @@ import RenderCustomSkills from '../../specialist/RenderCustomSkills';
 import RenderChosenSpecialises from '../../specialist/RenderChosenSpecialises';
 
 const SpecialistWelcomeResult1 = props => {
+
     const { submitting } = props;
+
     return (
         <Grid>
             <Grid.Row>
                 <Grid.Column>
                     <RenderChosenSpecialises/>
                     <p>Your Skillset includes /</p>
+
                     <RenderCustomSkills/>
 
                     <DvButton
@@ -26,6 +29,6 @@ const SpecialistWelcomeResult1 = props => {
             </Grid.Row>
         </Grid>
     )
-}
+};
 
 export default SpecialistWelcomeResult1

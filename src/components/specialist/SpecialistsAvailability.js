@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from '../forms/Availability/SpecialistAvailabilityForm';
-import {DvTitle} from '../../styleComponents/DvTitles'
+import {DvTitle, DvTitleSmall} from '../../styleComponents/DvTitles'
 import { Container, ContainerLarge } from '../../styleComponents/Container'
 
 class SpecialistsAvailability extends Component {
@@ -14,13 +14,13 @@ class SpecialistsAvailability extends Component {
             <div>
                 <HeaderBasic/>
                 <ContainerLarge>
-                    <DvTitle mTop="80">
+                    <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
                 </ContainerLarge>
                 <SubHeader/>
-                <Container>
-                    <h2>SpecialistsAvailability</h2>
+                <Container indentBot indentTop>
+                    <DvTitleSmall>Availability</DvTitleSmall>
                     <SpecialistAvailabilityForm onSubmit={this.submit}/>
                 </Container>
             </div>
