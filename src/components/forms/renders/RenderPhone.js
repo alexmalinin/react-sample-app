@@ -6,20 +6,20 @@ import { required } from '../../../helpers/validate';
 import { phoneCodes } from '../../../helpers/phoneCodes'
 
 const RenderPhone = ({hasPerson,}) =>
-        <div className="phone-wrapper">
+        <div className='phone-wrapper'>
             <Field
-                name="phone-select"
+                name='phone-select'
                 component={RenderSelect}
-                placeholder="+61"
+                placeholder='+61'
                 options={phoneCodes}
                 disabled={hasPerson === 'Agency'}
                 validate={[required]}
             />
             <Field
-                name="phone-input"
+                name='phone-input'
                 component={RenderField}
-                type="number"
-                placeholder=""
+                type='number'
+                placeholder=''
                 disabled={hasPerson === 'Agency'}
                 validate={[required]}
             />

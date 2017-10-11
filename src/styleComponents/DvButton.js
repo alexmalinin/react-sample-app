@@ -153,3 +153,64 @@ export const NewTeamBtn = styled.div`
         }   
     }
 `;
+
+export const AddNewBtn = styled(Button)`
+
+    &.ui.basic.button {
+        border: 1px solid #ccc;
+        border-radius: 0;
+        box-shadow: none;
+        position: relative;
+        padding-left: 50px;
+        margin-top: 50px;
+        color: #000 !important; // overwrite semantic theme
+        
+        &:before {
+            content: '';
+            position: absolute;
+            height: 1px;
+            width: 21px;
+            background: #1991fa;
+            left: 10px;
+            top: 50%;
+        }
+        
+        &:after {
+            content: '';
+            position: absolute;
+            height: 20px;
+            width: 1px;
+            background: #1991fa;
+            left: 20px;
+            top: 25%;
+        }
+    }
+    
+    @media (min-width: 1921px) {
+        &.ui.basic.button {
+            border: 2px solid #ccc;
+            padding-left: 100px;
+            font-size: 28px;
+            
+            &:before {
+                content: '';
+                position: absolute;
+                height: 2px;
+                width: 36px;
+                background: #1991fa;
+                left: 20px;
+                top: 50%;
+            }
+            
+            &:after {
+                content: '';
+                position: absolute;
+                height: 36px;
+                width: 2px;
+                background: #1991fa;
+                left: 37px;
+                top: 25%;
+            }
+        }
+    }
+`;

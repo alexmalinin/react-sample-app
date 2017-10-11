@@ -94,6 +94,7 @@ export const DvTitleSmall = styled.h2`
     
     
     @media (max-width: 1920px) {
+        font-size: 34px;
         margin-bottom: 40px;
     }
     

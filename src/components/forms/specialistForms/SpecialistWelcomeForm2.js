@@ -1,98 +1,135 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, } from '../../../helpers/validate';
-import {RenderField} from '../renders/RenderField';
+import { RenderField } from '../renders/RenderField';
 import RenderSelect from '../renders/RenderSelect';
-import {workHourses} from '../../../helpers/workHourses';
+import StyledPhoneField from '../../../styleComponents/forms/StyledPhoneField';
 import {projectInterest} from '../../../helpers/projectInterest';
-import { DvButton } from '../../../styleComponents/DvButton';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderImage from '../renders/RenderImage';
 import RenderTextArea from '../renders/RenderTextArea';
 import RenderPhone from '../renders/RenderPhone';
 import Availability from '../Availability/Availability';
+import { DvTitleSmall } from '../../../styleComponents/DvTitles';
+import RenderEducationCard from '../../specialist/RenderEducationCard';
+import RenderWorkCard from '../../specialist/RenderWorkCard';
+import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
+import { AddNewBtn } from '../../../styleComponents/DvButton'
+
 
 class SpecialistWelcomeForm2 extends Component {
 
     render() {
-        const { handleSubmit, submitting } = this.props;
+        const { handleSubmit, submitting, hasPerson } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
-                            <h2>Awesome! Tell us more! /</h2>
-                            <p>Upload your photo /</p>
-                            <Field
-                                name="person-image"
-                                component={RenderImage}
-                                type="file"
-                                placeholder="Choose your photo/"
-                            />
-                            <div>
-                                <p>Write a paragraph or two about your professional experience /</p>
-                                <Field name="message" component={RenderTextArea} validate={required}/>
-                            </div>
-                            <div>
-                                <p><b>Education</b> / List any formal education here /</p>
-                                <h3>There will be cards</h3>
-                            </div>
-                            <div>
-                                <p><b>Work Experience</b> / Tell us about previous companies <br/>
-                                    you’ve worked at, projects you’ve worked on or things <br/>
-                                    you’ve built /
-                                </p>
-                                <h3>There will be cards</h3>
-                            </div>
-                            <div>
-                                <p>Set your rate /</p>
-                                <br/>
-                                <p>Hourly</p>
+                            <StyledSpecialistWelcomeForm2>
+                                <DvTitleSmall>Awesome! Tell us more! /</DvTitleSmall>
+                                <p>Upload your photo /</p>
                                 <Field
-                                    name="hourly-rate"
-                                    component={RenderField}
-                                    type="number"
-                                    placeholder="AUD $"
+                                    name='person-image'
+                                    component={RenderImage}
+                                    type='file'
+                                    placeholder='Choose your photo /'
                                 />
-                                <p>Daily</p>
-                                <Field
-                                    name="daily-rate"
-                                    component={RenderField}
-                                    type="number"
-                                    placeholder="AUD $"
-                                />
-                            </div>
 
-                            <Availability/>
+                                <div className='text-area-group'>
+                                    <p>Write a paragraph or two about your professional experience /</p>
+                                    <Field name='message' component={RenderTextArea} validate={required}/>
+                                </div>
 
-                            <Field
-                                name="work-hourses"
-                                component={RenderSelect}
-                                placeholder="Hours per week"
-                                options={workHourses}
-                                validate={[required]}
-                            />
-                            <p>What kind of Projects are you interested in? /</p>
-                            <Field
-                                name="project-interest"
-                                component={RenderSelect}
-                                multi={true}
-                                placeholder="You can select more than one"
-                                options={projectInterest}
-                                validate={[required]}
-                            />
+                                <div>
+                                    <p><b>Education</b> / List any formal education here /</p>
 
-                            <p>What is your contact number? /</p>
-                            <RenderPhone/>
+                                    <div className='flex-wrapper'>
+                                        <RenderEducationCard/>
+                                        <RenderEducationCard/>
+                                    </div>
 
-                            <DvButton
-                                type="submit"
-                                disabled={submitting}
-                                content='SAVE'
-                                primary
-                            />
+                                    <AddNewBtn basic content='Add new'/>
+                                </div>
+
+                                <div>
+                                    <p><b>Work Experience</b> / Tell us about previous companies <br/>
+                                        you’ve worked at, projects you’ve worked on or things <br/>
+                                        you’ve built /
+                                    </p>
+
+                                    <div className='flex-wrapper'>
+                                        <RenderWorkCard/>
+                                        <RenderWorkCard/>
+                                    </div>
+
+                                    <AddNewBtn basic content='Add new'/>
+                                </div>
+
+                                <div className='rate'>
+                                    <p><b>Set your rate /</b></p>
+
+                                    <div className='flex-wrapper'>
+                                        <div>
+                                            <p>Hourly</p>
+                                            <Field
+                                                name="hourly-rate"
+                                                component={RenderField}
+                                                type="number"
+                                                placeholder="AUD $"
+                                            />
+                                        </div>
+                                        <div>
+                                            <p>Daily</p>
+                                            <Field
+                                                name="daily-rate"
+                                                component={RenderField}
+                                                type="number"
+                                                placeholder="AUD $"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/*<Field*/}
+                                    {/*name="work-hourses"*/}
+                                    {/*component={RenderSelect}*/}
+                                    {/*placeholder="Hours per week"*/}
+                                    {/*options={workHourses}*/}
+                                    {/*validate={[required]}*/}
+                                {/*/>*/}
+
+                                <Availability/>
+
+                                <div className='half-column'>
+                                    <p><b>What kind of Projects are you interested in? /</b></p>
+                                    <Field
+                                        name="project-interest"
+                                        component={RenderSelect}
+                                        multi={true}
+                                        placeholder="You can select more than one"
+                                        options={projectInterest}
+                                        validate={[required]}
+                                    />
+                                </div>
+
+                                <div className='half-column'>
+                                    <p><b>What is your contact number? /</b></p>
+                                    <StyledPhoneField>
+                                        <span>Phone /</span>
+                                        <RenderPhone hasPerson={hasPerson}/>
+                                    </StyledPhoneField>
+                                </div>
+
+                                {/*<DvButton*/}
+                                    {/*type='submit'*/}
+                                    {/*disabled={submitting}*/}
+                                    {/*content='SAVE'*/}
+                                    {/*primary*/}
+                                {/*/>*/}
+                            </StyledSpecialistWelcomeForm2>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -105,7 +142,6 @@ class SpecialistWelcomeForm2 extends Component {
         )
     }
 }
-
 
 export default reduxForm({
     form: 'SpecialistWelcomeForm2',

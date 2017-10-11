@@ -5,6 +5,10 @@ import AnimateHeight from 'react-animate-height';
 import { DvButton } from '../../../styleComponents/DvButton';
 import { DropdownAvailability} from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
+import { Field } from 'redux-form';
+import RenderSelect from '../renders/RenderSelect';
+import {workHourses} from '../../../helpers/workHourses';
+import { required, } from '../../../helpers/validate';
 
 
 class Availability extends Component {
@@ -48,6 +52,14 @@ class Availability extends Component {
 
                     </AnimateHeight>
                 </DropdownAvailability>
+
+                <Field
+                    name="work-hourses"
+                    component={RenderSelect}
+                    placeholder="Hours per week"
+                    options={workHourses}
+                    validate={[required]}
+                />
                 {submitBtn ? <DvButton
                     type="submit"
                     disabled={submitting}

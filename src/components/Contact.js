@@ -4,10 +4,11 @@ import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles';
+import { DvTitle } from '../styleComponents/DvTitles';
 import ContactForm from './forms/ContactForm';
 import DvDivider from '../styleComponents/DvDivider';
 import { postContacts } from '../actions/actions';
+import { Container } from '../styleComponents/Container'
 
 class SignUp extends Component {
 
@@ -24,7 +25,7 @@ class SignUp extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="340px" right="485px">
+                <Container indentBot>
                     <DvTitle mTop="107" fz="">
                         Contact Us
                     </DvTitle>
@@ -36,7 +37,6 @@ class SignUp extends Component {
                     <Grid>
                         <Grid.Row columns={2}>
                             <Grid.Column>
-                                <DvGrid width="600px" mL="0">
                                     <DvDivider/>
                                     <h2>Specialist</h2>
                                     <p>
@@ -44,10 +44,8 @@ class SignUp extends Component {
                                         please get in touch with us directly via phone or email to get the
                                         conversation started.
                                     </p>
-                                </DvGrid>
                             </Grid.Column>
                             <Grid.Column>
-                                <DvGrid width="600px" float="right">
                                     <DvDivider/>
                                     <h2>Projects</h2>
                                     <p>
@@ -55,7 +53,6 @@ class SignUp extends Component {
                                         or upcoming project then please get in touch with
                                         your project manager or call our office on 02XXXXXXXX.
                                     </p>
-                                </DvGrid>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -64,7 +61,7 @@ class SignUp extends Component {
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                </DvGrid>
+                </Container>
             </div>
         )
     }
