@@ -1,8 +1,7 @@
-import React from 'react';
-import { Button } from 'semantic-ui-react'
-import StyledUploader from '../../../styleComponents/forms/StyledUploader'
-
-class RenderImage extends React.Component {
+import React, {Component} from 'react';
+import { Button } from 'semantic-ui-react';
+import StyledUploader from '../../../styleComponents/forms/StyledUploader';
+class RenderImage extends Component {
 
     state = { file: '', imagePreviewUrl: '' };
 
@@ -25,7 +24,7 @@ class RenderImage extends React.Component {
                 file: file,
                 imagePreviewUrl: reader.result
             });
-        }
+        };
 
         reader.readAsDataURL(file)
     }
@@ -48,11 +47,11 @@ class RenderImage extends React.Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
-            $imagePreview = (<div className="preloader"><img src="../../images/undefUser.png" alt=""/></div>);
+            $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
         }
         return (
             <StyledUploader>
-                <div className="imgPreview">
+                <div className='imgPreview'>
                     {$imagePreview}
                 </div>
                 <Button primary onClick={this.handleTrigger}>Upload</Button>
@@ -73,7 +72,7 @@ class RenderImage extends React.Component {
 
     triggerRef = ref => {
         this.container = ref;
-    }
+    };
 
     handleTrigger = ev => {
         this.container.click();

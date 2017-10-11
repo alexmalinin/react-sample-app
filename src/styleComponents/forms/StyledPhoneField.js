@@ -44,6 +44,7 @@ export default styled.div`
     }  
     
     @media (min-width: 1921px) {
+       border: 2px solid #ccc;
        margin-bottom: 80px; 
     
        &  > span { 

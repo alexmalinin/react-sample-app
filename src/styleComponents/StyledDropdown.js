@@ -71,10 +71,10 @@ export const DropdownAvailability = styled.div`
     
     @media (max-width: 1920px) {
         margin-bottom: 30px;
-       font-size: 16px; 
+        font-size: 14px; 
        
         & > p {
-            padding: 8px 15px;
+            padding: 7px 15px;
             border: 1px solid #ccc; 
             border-bottom: none;
             

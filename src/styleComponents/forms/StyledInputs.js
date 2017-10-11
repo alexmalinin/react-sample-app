@@ -15,7 +15,7 @@ export default styled.div`
             ::-moz-placeholder          {color: #000}
             :-ms-input-placeholder      {color: #000}
             
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             border-radius: 0;
         }
     }
@@ -46,5 +46,14 @@ export default styled.div`
                line-height: 74px;
            }
        }
+    }
+    
+    @media(max-width: 1920px) {
+         .ui.input {
+                input {
+                    border: 1px solid #ccc;
+                }
+            }
+        }
     }
 `;

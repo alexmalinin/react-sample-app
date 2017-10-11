@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderBasic from '../layout/HeaderBasic';
-import DvGrid from '../../styleComponents/DvGrid';
 import {DvTitle} from '../../styleComponents/DvTitles'
 import { DvButton } from '../../styleComponents/DvButton'
 import confirm from '../../decorators/confirm'
