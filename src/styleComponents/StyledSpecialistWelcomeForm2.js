@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export default styled.div`
+
     font-size: 28px;
     
     & > div {
@@ -15,15 +16,6 @@ export default styled.div`
             border: 2px solid #ccc;
             border-bottom: none;
             padding: 20px;
-        }
-        
-        textarea {
-            border: 2px solid #ccc;
-            width: 100%;
-            min-height: 360px;
-            resize: vertical;
-            padding: 15px;
-            outline: none;   
         }
     }
     
@@ -65,11 +57,6 @@ export default styled.div`
                 border: 1px solid #ccc;
                 border-bottom: none;
                 padding: 15px;
-            }
-            
-            textarea {
-                border: 1px solid #ccc;
-                min-height: 160px;
             }
         }
     }

@@ -1,5 +1,8 @@
 import { TextArea } from 'semantic-ui-react';
 import React from 'react';
+import StyledError from '../../../styleComponents/forms/StyledError'
+import StyledTextArea from '../../../styleComponents/forms/StyledTextArea'
+
 
 const RenderTextArea = ({
                                 input,
@@ -9,19 +12,17 @@ const RenderTextArea = ({
                                 disabled,
                                 meta: { touched, error, warning }
                             }) =>
-    <div>
-        <div>
-            <TextArea {...input} name={name} placeholder={placeholder} />
-            {touched &&
-            ((error &&
+    <StyledTextArea>
+        <TextArea {...input} name={name} placeholder={placeholder} />
+        {touched &&
+        ((error &&
+            <StyledError>
+        {error}
+      </StyledError>) ||
+            (warning &&
                 <span>
-            {error}
-          </span>) ||
-                (warning &&
-                    <span>
-              {warning}
-            </span>))}
-        </div>
-    </div>;
+          {warning}
+        </span>))}
+    </StyledTextArea>;
 
 export default RenderTextArea;

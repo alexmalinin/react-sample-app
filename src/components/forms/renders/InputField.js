@@ -9,7 +9,7 @@ const InputField = props => {
     return (
         <Field
             name={name}
-            type="text"
+            type='text'
             placeholder={placeholder}
             component={RenderField}
             disabled={disabled}

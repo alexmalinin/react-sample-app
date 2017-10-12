@@ -6,4 +6,8 @@ export default styled.div`
     font-size: 28px; 
     height: 8px;
     background-color: #1991fa;  
+    
+    @media (max-width: 1920px) {
+        height: 4px;
+    }
 `;
