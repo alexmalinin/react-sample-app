@@ -40,19 +40,19 @@ class SignUp extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} tablet={7} computer={8}>
-                                <DvTitleBig mTop="137" fz="" flex='justify'>
+                                <DvTitleBig mTop='137' fz="" flex='justify'>
                                     sign
                                     <br/>
                                     in/
                                 </DvTitleBig>
                             </Grid.Column>
                             <Grid.Column mobile={16} tablet={9} computer={8}>
-                                <Tabs className="specialist-form dv-from" mTop="181" action="">
+                                <Tabs mTop='180' action=''>
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab}/>
-                                    { confirm && <Redirect to="/verification"/> }
+                                    { confirm && <Redirect to='/verification'/> }
                                 </Tabs>
                                 <StyledFormHint>
-                                    <span>Don't have an account? <Link to="/sign_up">Sign up</Link></span>
+                                    <span>Don't have an account? <Link to='/sign_up'>Sign up</Link></span>
                                 </StyledFormHint>
                             </Grid.Column>
                         </Grid.Row>
