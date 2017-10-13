@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';

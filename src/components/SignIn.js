@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Route, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import StyledSignUpForm from '../styleComponents/StyledSignUpForm'

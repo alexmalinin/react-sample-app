@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import { DvTitle } from '../styleComponents/DvTitles';

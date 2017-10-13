@@ -23,6 +23,7 @@ export default styled.header`
     
         .right-board {
           margin: 0;
+          padding: 0;
           display: inline-block;
           float: right;
         
@@ -141,5 +142,35 @@ export default styled.header`
           }
         }
       }
+    }
+    
+    @media (max-width: 991px) {
+      &.header-intro {
+        height: 150px;
+    
+        .top-header {
+          height: 50px;
+          padding-top: 10px
+        }
+    
+        .bot-header {
+          height: 50px;
+    
+          .right-board {
+            li {
+              line-height: 50px;
+    
+              a {
+                font-size: 16px;
+              }
+            }
+    
+            &.right-board li.proxy button {
+              font-size: 16px;
+                  padding: 10px 15px;
+            }
+          }
+        }
+      } 
     }
 `;
