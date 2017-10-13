@@ -55,6 +55,16 @@ const renderHeader = `
       }
     }
   }
+  
+  @media (max-width: 991px) {
+    li {
+      line-height: 50px;
+
+      a {
+        font-size: 16px;
+      }
+    }
+  }
 `;
 
 const renderFooter = `

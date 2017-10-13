@@ -82,6 +82,14 @@ export const DvTitle = styled.h1`
     }
 `;
 
+export const DvTitleMedium = styled.h2`
+    
+    font-family: 'Proxima Nova';
+    font-size: 250px;
+    line-height: 0.8;
+
+`;
+
 export const DvTitleSmall = styled.h2`
      
     font-size: 48px;
