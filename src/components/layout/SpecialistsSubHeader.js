@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
+import StyledSubHeader from '../../styleComponents/StyledSubHeader'
 
 class SubHeader extends Component {
 
     render() {
 
         return (
-            <div className="sub-header">
-                <div className='bot-header'>
-                    <NavLink className="button" to="/specialists/dashboard/profile">Profile</NavLink>
-                    <NavLink className="button" to="/specialists/dashboard/my_teams">My Teams</NavLink>
-                    <NavLink className="button" to="/specialists/dashboard/availability">Availability</NavLink>
-                </div>
-            </div>
+            <StyledSubHeader>
+                <NavLink className='button' to='/specialists/dashboard/profile'>Profile</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/my_teams'>My Teams</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/availability'>Availability</NavLink>
+            </StyledSubHeader>
         )
     }
 }

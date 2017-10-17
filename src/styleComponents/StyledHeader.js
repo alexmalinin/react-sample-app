@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
 export default styled.header`
 
@@ -12,81 +12,72 @@ export default styled.header`
       }
     
       .top-header {
+        padding-top: 27px;
         height: 100px;
         background-color: #1d7bff;
-    
-        img {
-          padding-top: 27px;
-          padding-left: 8%;
-        }
       }
     
       .bot-header {
         height: 98px;
         background-color: #a600ea;
-        padding-left: 8%;
     
-        ul {
+        .right-board {
           margin: 0;
           padding: 0;
           display: inline-block;
-    
+          float: right;
+        
           li {
             display: inline-block;
             line-height: 98px;
-    
-            a {
-              color: #fff;
-              font-family: Roboto;
-              font-size: 20px;
-              position: relative;
-                
-                &:after {
-                    transition: all .4s ease;
-                    content: '';
-                    height: 2px;
-                    position: absolute;
-                    left: 0;
-                    bottom: -3px;
-                    width: 0;
-                }
-                
-                &:hover:after {
-                    background: #fff;
-                    width: 100%;
-                }
-    
-              &.active:after {
-                background: #fff;
-                width: 100%;
-              }
-            }
-    
-            + li a {
-              margin-left: 20px;
-            }
-          }
-    
-          &.right-board {
-            padding-right: 8%;
-            float: right;
-    
-            li.proxy {
+        
+            &.proxy {
               a {
-                font-family: "Proxima Nova";
+                font-family: "Proxima Nova", sans-serif;
                 text-transform: uppercase;
                 font-weight: 600;
-                
+        
                 &:last-child:after {
-                    content: none;
+                  content: none;
                 }
               }
-    
+        
               button {
-                font-family: "Proxima Nova";
+                font-family: "Proxima Nova", sans-serif;
                 text-transform: uppercase;
                 font-weight: 600;
                 font-size: 20px;
+              }
+            }
+        
+            & + li a {
+              margin-left: 20px;
+            }
+        
+            a {
+              color: #fff;
+              font-family: Roboto, sans-serif;
+              font-size: 20px;
+              position: relative;
+        
+              &:after {
+                transition: all .4s ease;
+                content: '';
+                height: 2px;
+                position: absolute;
+                left: 0;
+                bottom: -3px;
+                width: 0;
+              }
+        
+              &:hover:after {
+                background: #fff;
+                width: 100%;
+              }
+        
+              &.active:after {
+                background: #fff;
+                width: 100%;
               }
             }
           }
@@ -100,10 +91,6 @@ export default styled.header`
       .top-header {
         display: inline-block;
         padding-left: 6.9%;
-    
-        img {
-          padding-top: 55px;
-        }
       }
     
       .bot-header {
@@ -134,17 +121,13 @@ export default styled.header`
     
         .top-header {
           height: 50px;
-    
-          img {
-            padding-top: 15px;
-            max-width: 350px;
-          }
+          padding-top: 10px
         }
     
         .bot-header {
           height: 65px;
     
-          ul {
+          .right-board {
             li {
               line-height: 64px;
     
@@ -160,4 +143,34 @@ export default styled.header`
         }
       }
     }
-`
+    
+    @media (max-width: 991px) {
+      &.header-intro {
+        height: 150px;
+    
+        .top-header {
+          height: 50px;
+          padding-top: 10px
+        }
+    
+        .bot-header {
+          height: 50px;
+    
+          .right-board {
+            li {
+              line-height: 50px;
+    
+              a {
+                font-size: 16px;
+              }
+            }
+    
+            &.right-board li.proxy button {
+              font-size: 16px;
+                  padding: 10px 15px;
+            }
+          }
+        }
+      } 
+    }
+`;

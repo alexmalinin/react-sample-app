@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid';
 import {DvTitleBig} from '../styleComponents/DvTitles';
-import DvButton from '../styleComponents/DvButton';
+import { DvButton } from '../styleComponents/DvButton';
 import confirm from '../decorators/confirm';
 
 class PostProject extends Component {

@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
-import DvGrid from '../../styleComponents/DvGrid';
-import {DvTitle} from '../../styleComponents/DvTitles';
-import DvForm from '../../styleComponents/Tabs';
+import { DvTitle, DvTitleSmall } from '../../styleComponents/DvTitles';
+import { Grid } from 'semantic-ui-react';
+import { ContainerLarge } from '../../styleComponents/Container'
+import RenderProjectCard from './RenderProjectCard';
+import { NewTeamBtn } from '../../styleComponents/DvButton';
 
 class ClientProfile extends Component {
 
@@ -13,25 +15,37 @@ class ClientProfile extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <DvGrid left="8%">
-                    <DvTitle mTop="80">
+
+                <ContainerLarge>
+                    <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
-                </DvGrid>
+                </ContainerLarge>
+
                 <SubHeader/>
-                <DvGrid left="341px" right="340px">
-                    <DvForm>
-                        <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>Projects</h2>
-                            <br/>
-                            some cards for client
-                            <br/>
-                            <br/>
-                            <br/>
-                            <h2>Will coming soon</h2>
-                        </div>
-                    </DvForm>
-                </DvGrid>
+
+                <ContainerLarge indentBot xsNoPadding>
+                    <DvTitle fz='48' mTop='80'>
+                        My Projects
+                    </DvTitle>
+
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column tablet={16} computer={2} widescreen={3}>
+                                <DvTitleSmall fz='28' xsCenter negative>Projects</DvTitleSmall>
+                            </Grid.Column>
+
+                            <Grid.Column tablet={16} computer={14} widescreen={13}>
+                                <RenderProjectCard/>
+                                <RenderProjectCard/>
+                                <NewTeamBtn>
+                                    <button/>
+                                    <span>Create a new team</span>
+                                </NewTeamBtn>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </ContainerLarge>
             </div>
         )
     }

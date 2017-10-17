@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitle} from '../styleComponents/DvTitles';
+import { DvTitle } from '../styleComponents/DvTitles';
 import ContactForm from './forms/ContactForm';
 import DvDivider from '../styleComponents/DvDivider';
 import { postContacts } from '../actions/actions';
+import { Container } from '../styleComponents/Container';
+import StyledContactUs from '../styleComponents/StyledContactUs';
 
 class SignUp extends Component {
 
@@ -24,47 +24,72 @@ class SignUp extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="340px" right="485px">
-                    <DvTitle mTop="107" fz="">
-                        Contact Us
-                    </DvTitle>
-                    <p>
-                        Please fill in the form below and we’ll get back to you as soon as we can.
-                        <br/>
-                        Thanks for checking out our business, we look forward to hearing from you.
-                    </p>
-                    <Grid>
-                        <Grid.Row columns={2}>
-                            <Grid.Column>
-                                <DvGrid width="600px" mL="0">
-                                    <DvDivider/>
-                                    <h2>Specialist</h2>
-                                    <p>
-                                        If you would like to join the network of Digital Village specialists,
-                                        please get in touch with us directly via phone or email to get the
-                                        conversation started.
-                                    </p>
-                                </DvGrid>
-                            </Grid.Column>
-                            <Grid.Column>
-                                <DvGrid width="600px" float="right">
-                                    <DvDivider/>
-                                    <h2>Projects</h2>
-                                    <p>
-                                        If you have any questions regarding a current
-                                        or upcoming project then please get in touch with
-                                        your project manager or call our office on 02XXXXXXXX.
-                                    </p>
-                                </DvGrid>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column>
-                                <ContactForm onSubmit={this.submit}/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </DvGrid>
+
+                <Container indentBot>
+                    <StyledContactUs>
+                        <DvTitle mTop='100' fz=''>
+                            Contact Us
+                        </DvTitle>
+                        <p>
+                            Please fill in the form below and we’ll get back to you as soon as we can.
+                            <br/>
+                            Thanks for checking out our business, we look forward to hearing from you.
+                        </p>
+                        <Grid>
+                            <Grid.Row columns={2}>
+                                <Grid.Column>
+                                        <DvDivider/>
+                                        <h2>Specialist</h2>
+                                        <p>
+                                            If you would like to join the network of Digital Village specialists,
+                                            please get in touch with us directly via phone or email to get the
+                                            conversation started.
+                                        </p>
+                                </Grid.Column>
+                                <Grid.Column>
+                                        <DvDivider/>
+                                        <h2>Projects</h2>
+                                        <p>
+                                            If you have any questions regarding a current
+                                            or upcoming project then please get in touch with
+                                            your project manager or call our office on 02XXXXXXXX.
+                                        </p>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>
+                                    <ContactForm onSubmit={this.submit}/>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+
+                        <div className="flex-wrapper">
+                            <div className='contact'>
+                                <p>Email /</p>
+                                <p><b>letsmeet@digitalvillage.com.au</b></p>
+                            </div>
+
+                            <div className='contact'>
+                                <p>Skype /</p>
+                                <p><b>digital.villager</b></p>
+                            </div>
+
+                            <div className='contact'>
+                                <p>Office /</p>
+                                <p><b>(+61) 02 8005 0430</b></p>
+                            </div>
+                        </div>
+
+
+                        <div className='feedback'>
+                            <p><b>Feedback</b></p>
+                            <p>
+                                If you have questions or feedback about Digital Village, please feel free <br/>to get in touch
+                                with us, we would love to hear from you.
+                            </p>
+                        </div>
+                    </StyledContactUs>
+                </Container>
             </div>
         )
     }

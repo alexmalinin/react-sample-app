@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import DvGrid from '../../styleComponents/DvGrid';
-import {DvTitle} from '../../styleComponents/DvTitles'
-import DvForm from '../../styleComponents/Tabs';
-import DvButton from '../../styleComponents/DvButton'
+import { DvTitle } from '../../styleComponents/DvTitles'
+import { Grid } from 'semantic-ui-react'
+import { DvButton } from '../../styleComponents/DvButton'
+import { Container, ContainerLarge } from '../../styleComponents/Container'
 
 class SpecialistsMyTeams extends Component {
 
@@ -14,21 +14,27 @@ class SpecialistsMyTeams extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <DvGrid left="8%">
-                    <DvTitle mTop="80">
+                <ContainerLarge>
+                    <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
-                </DvGrid>
+                </ContainerLarge>
+
                 <SubHeader/>
-                <DvGrid left="341px" right="340px">
-                    <DvForm>
-                        <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>My Teams</h2>
-                            <br/>
-                            will be comming soon</div>
-                    </DvForm>
+
+                <Container indentTop indentBot>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column width={6}>
+                            </Grid.Column>
+
+                            <Grid.Column width={12}>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+
                     <DvButton primary content='SAVE & UPDATE'/>
-                </DvGrid>
+                </Container>
             </div>
         )
     }

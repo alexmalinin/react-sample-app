@@ -9,7 +9,6 @@ class Dashboard extends Component {
             <div>Dashboard</div>
         )
     }
-
 }
 
 export default Dashboard

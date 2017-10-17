@@ -4,7 +4,7 @@ import { required } from '../../../helpers/validate';
 import {renderField} from '../renders/RenderField';
 import RenderSelect from '../renders/RenderSelect';
 import {clientCategories} from '../../../helpers/clientCategories';
-import DvButton from '../../../styleComponents/DvButton'
+import { DvButton } from '../../../styleComponents/DvButton'
 import InputField from '../renders/InputField'
 import LocationField from '../renders/LocationField'
 import RenderTextArea from '../renders/RenderTextArea';
@@ -53,7 +53,7 @@ const ClientWelcomeForm = props => {
             </Grid>
         </form>
     )
-}
+};
 
 export default reduxForm({
     form: 'SpecialistWelcomeForm1',

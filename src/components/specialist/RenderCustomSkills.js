@@ -7,7 +7,7 @@ class GetCustomSkills extends Component {
 
         return (
             <div>
-               <h3>Will Render choosen skills</h3>
+               <h3>Will Render chosen skills</h3>
             </div>
         )
     }

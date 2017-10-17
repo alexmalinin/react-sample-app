@@ -2,7 +2,14 @@ import React, {Component} from 'react';
 import AvailabilityTime from './AvailabilityTime';
 import AvailabilityDays from './AvailabilityDays';
 import AnimateHeight from 'react-animate-height';
-import DvButton from '../../../styleComponents/DvButton'
+import { DvButton } from '../../../styleComponents/DvButton';
+import { DropdownAvailability} from '../../../styleComponents/StyledDropdown';
+import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
+import { Field } from 'redux-form';
+import RenderSelect from '../renders/RenderSelect';
+import {workHourses} from '../../../helpers/workHourses';
+import { required, } from '../../../helpers/validate';
+
 
 class Availability extends Component {
 
@@ -16,11 +23,13 @@ class Availability extends Component {
         let { submitting, submitBtn  } = this.props;
 
         return (
-            <div>
-                <div>
-                    <p><b>Set your availability</b> / This can be easily changed at anytime</p>
-                    <p onClick={this.handleHeight('time')}>Full-time / Part-time / Not available (@Eselein, this is
-                        clickble)</p>
+            <StyledAvailabilityForm>
+                <p>
+                    <b>Set your availability</b> / This can be easily changed at anytime
+                </p>
+
+                <DropdownAvailability>
+                    <p onClick={this.handleHeight('time')}>Full-time / Part-time / Not available</p>
                     <AnimateHeight
                         duration={500}
                         height={heightTime}
@@ -29,9 +38,10 @@ class Availability extends Component {
                         <AvailabilityTime/>
 
                     </AnimateHeight>
-                </div>
-                <div>
-                    <p onClick={this.handleHeight('days')}>Days available(@Eselein, this is clickble)</p>
+                </DropdownAvailability>
+
+                <DropdownAvailability>
+                    <p onClick={this.handleHeight('days')}>Days available</p>
 
                     <AnimateHeight
                         duration={500}
@@ -41,14 +51,22 @@ class Availability extends Component {
                         <AvailabilityDays/>
 
                     </AnimateHeight>
-                </div>
+                </DropdownAvailability>
+
+                <Field
+                    name="work-hourses"
+                    component={RenderSelect}
+                    placeholder="Hours per week"
+                    options={workHourses}
+                    validate={[required]}
+                />
                 {submitBtn ? <DvButton
                     type="submit"
                     disabled={submitting}
                     content='SAVE & UPDATE'
                     primary
                     /> : null }
-            </div>
+            </StyledAvailabilityForm>
         )
     }
 

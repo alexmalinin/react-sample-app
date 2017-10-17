@@ -5,7 +5,7 @@ import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/DvGrid'
 import {DvTitle} from '../styleComponents/DvTitles'
 import DvForm from '../styleComponents/Tabs'
-import DvButton from '../styleComponents/DvButton'
+import { DvButton } from '../styleComponents/DvButton'
 import confirm from '../decorators/confirm'
 import VerificationForm from './forms/VerificationForm'
 
@@ -15,21 +15,19 @@ class SignUp extends Component {
         const { confirm, confirmAccount } = this.props;
 
         return (
-            <div>
+            <main>
                 <HeaderIntro/>
-                <DvGrid width="1560px">
-                    <DvTitle mTop="126">
+                <DvGrid width='1560px' indent_bot='230px'>
+                    <DvTitle mTop='126'>
                         Account Verification
                     </DvTitle>
                     <DvForm>
-                        <div style={{marginTop: '50px'}}>
-                            <VerificationForm/>
-                        </div>
+                        <VerificationForm/>
                     </DvForm>
-                    <DvButton onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
+                    <DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
                     { confirm && this.getUserRedirect() }
                 </DvGrid>
-            </div>
+            </main>
         )
     }
 
@@ -45,7 +43,6 @@ class SignUp extends Component {
             </div>
         )
     }
-
 }
 
 export default connect(({changeUserType}) => ({changeUserType}))(confirm(SignUp));
