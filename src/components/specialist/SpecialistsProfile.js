@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import {DvTitle} from '../../styleComponents/DvTitles';
+import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
-import { Container, ContainerLarge } from '../../styleComponents/Container'
-import { DvTitleSmall } from '../../styleComponents/DvTitles'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
+import { DvTitleSmall } from '../../styleComponents/layout/DvTitles'
 
 class SpecialistsProfile extends Component {
 

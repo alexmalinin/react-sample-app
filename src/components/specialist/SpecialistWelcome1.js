@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
-import DvGrid from '../../styleComponents/DvGrid';
+import DvGrid from '../../styleComponents/layout/DvGrid';
 import confirm from '../../decorators/confirm';
 import SpecialistWelcomeForm1 from '../forms/specialistForms/SpecialistWelcomeForm1';
-import { Container }from '../../styleComponents/Container';
+import { Container }from '../../styleComponents/layout/Container';
 
 class SpecialistsWelcome1 extends Component {
 

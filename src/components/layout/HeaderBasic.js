@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
-import StyledHeaderBasic from '../../styleComponents/StyledHeaderBasic';
-import { ContainerLarge }from '../../styleComponents/Container';
+import StyledHeaderBasic from '../../styleComponents/layout/StyledHeaderBasic';
+import { ContainerLarge }from '../../styleComponents/layout/Container';
 
 class Header extends Component {
 

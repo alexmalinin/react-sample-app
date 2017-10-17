@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import StyledRadio from '../../../styleComponents/StyledRadio'
+import StyledRadio from '../../../styleComponents/forms/StyledRadio'
 
 class RenderRadio extends Component {
 

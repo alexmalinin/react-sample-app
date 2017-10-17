@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
-import { DvTitle, DvTitleSmall } from '../../styleComponents/DvTitles';
+import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Grid } from 'semantic-ui-react';
-import { ContainerLarge } from '../../styleComponents/Container'
+import { ContainerLarge } from '../../styleComponents/layout/Container'
 import RenderProjectCard from './RenderProjectCard';
-import { NewTeamBtn } from '../../styleComponents/DvButton';
+import { NewTeamBtn } from '../../styleComponents/layout/DvButton';
 
 class ClientProfile extends Component {
 

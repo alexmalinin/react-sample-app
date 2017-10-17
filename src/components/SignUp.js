@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitleBig} from '../styleComponents/DvTitles';
+import DvGrid from '../styleComponents/layout/DvGrid';
+import {DvTitleBig} from '../styleComponents/layout/DvTitles';
 import StyledSignUpForm from '../styleComponents/StyledSignUpForm'
 import Tabs from '../styleComponents/Tabs';
 import { userType } from '../actions/actions';

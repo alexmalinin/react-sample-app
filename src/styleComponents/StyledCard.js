@@ -43,7 +43,6 @@ export const StyledEducationCard = styled(Card)`
     @media (min-width: 1921px) {
         &.ui.card{
 
-            
             &>.content {
                 padding: 50px 80px;
                 

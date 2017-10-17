@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AvailabilityTime from './AvailabilityTime';
 import AvailabilityDays from './AvailabilityDays';
 import AnimateHeight from 'react-animate-height';
-import { DvButton } from '../../../styleComponents/DvButton';
+import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DropdownAvailability} from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
 import { Field } from 'redux-form';

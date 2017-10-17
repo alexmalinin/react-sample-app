@@ -3,8 +3,8 @@ import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from '../forms/Availability/SpecialistAvailabilityForm';
-import {DvTitle, DvTitleSmall} from '../../styleComponents/DvTitles'
-import { Container, ContainerLarge } from '../../styleComponents/Container'
+import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 
 class SpecialistsAvailability extends Component {
 

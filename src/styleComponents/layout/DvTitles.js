@@ -2,7 +2,10 @@ import styled, { css } from 'styled-components';
 
 export const DvTitleBig = styled.h1`
 
-    ${props => props.flex ? `display:flex; justify-content: center`: ``};
+    ${props => props.flex && css`
+        display:flex;
+        justify-content: center;
+    `};
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
     font-family: "Proxima Nova";
@@ -97,20 +100,23 @@ export const DvTitleSmall = styled.h2`
     margin-bottom: 90px;
     font-weight: 300;  
     
-    ${props => props.fz ? `font-size: ${props.fz}px` : ``};
-    ${props => props.negative ? `margin-left: -15px` : ''};
-    
-    
+    ${props => props.fz && css`
+        font-size: ${props.fz}px;
+    `}
+    ${props => props.negative && css`
+        margin-left: -15px;
+    `};
+        
     @media (max-width: 1920px) {
         font-size: 34px;
         margin-bottom: 40px;
     }
     
     @media (max-width: 1099px) {
-        ${props => props.xsCenter ? css`
+        ${props => props.xsCenter && css`
             text-align: center;
             margin-left: 0;
             margin-bottom: 30px;
-            ` : ''};
+        `};
     }
 `;

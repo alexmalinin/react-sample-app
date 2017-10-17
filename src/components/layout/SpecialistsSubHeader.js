@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
-import StyledSubHeader from '../../styleComponents/StyledSubHeader'
+import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader'
 
 class SubHeader extends Component {
 

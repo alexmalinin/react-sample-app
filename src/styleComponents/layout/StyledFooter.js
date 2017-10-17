@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as constants from './constants/colors';
+import * as constants from '../constants/colors';
 
 export const SFooter = styled.footer`
 

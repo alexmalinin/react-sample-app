@@ -33,7 +33,9 @@ export default styled.div`
     `};
     
     @media (min-width: 1921px) {
-        ${props => props.indent_bot ? `margin-bottom: ${props.indent_bot}` : ``};
+        ${props => props.indent_bot && css`
+            margin-bottom: ${props.indent_bot}
+        `};
     }
     
     ${props => props.mL && `margin-left: ${props.mL}`};

@@ -5,9 +5,9 @@ import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import StyledSignUpForm from '../styleComponents/StyledSignUpForm'
-import DvGrid from '../styleComponents/DvGrid';
+import DvGrid from '../styleComponents/layout/DvGrid';
 import Tabs from '../styleComponents/Tabs';
-import {DvTitleBig} from '../styleComponents/DvTitles';
+import {DvTitleBig} from '../styleComponents/layout/DvTitles';
 import SignInForm from './forms/SignInForm';
 import { signIn, userType } from '../actions/actions';
 import StyledFormHint from '../styleComponents/forms/StyledFormHint';

@@ -10,20 +10,19 @@ export const FullScreen = styled.div`
         text-align: center;
     }
     
-    ${props => props.centered ? css`
+    ${props => props.centered && css`
         display: flex;
         align-items: center;
         flex-direction: column;
-        justify-content: center;`
-        
-    : ``};
+        justify-content: center;
+    `};
     
-    ${props => props.indent ? `margin-top: 160px;` : ``};
+    ${props => props.indent && `margin-top: 160px;`};
 `;
 
 export const ColoredLinks = styled(NavLink)`
     
-    ${props => props.color ? css`
+    ${props => props.color && css`
         color: ${props.color};
         position: relative;
         
@@ -45,9 +44,8 @@ export const ColoredLinks = styled(NavLink)`
                 width: 0;
                 background: transparent;
             }
-        }` 
-            
-    : ``};
+        }
+    `};
 `;
 
 export const StyledHome = styled.div`

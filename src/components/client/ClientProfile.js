@@ -3,9 +3,9 @@ import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'
-import {DvTitle} from '../../styleComponents/DvTitles';
+import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
-import { Container, ContainerLarge } from '../../styleComponents/Container'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 
 class ClientProfile extends Component {
 

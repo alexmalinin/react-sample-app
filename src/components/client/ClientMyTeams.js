@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
-import DvGrid from '../../styleComponents/DvGrid';
-import {DvTitle} from '../../styleComponents/DvTitles';
+import DvGrid from '../../styleComponents/layout/DvGrid';
+import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import DvForm from '../../styleComponents/Tabs';
 
 class ClientProfile extends Component {

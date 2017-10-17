@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import { DvTitle } from '../../styleComponents/DvTitles'
+import { DvTitle } from '../../styleComponents/layout/DvTitles'
 import { Grid } from 'semantic-ui-react'
-import { DvButton } from '../../styleComponents/DvButton'
-import { Container, ContainerLarge } from '../../styleComponents/Container'
+import { DvButton } from '../../styleComponents/layout/DvButton'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 
 class SpecialistsMyTeams extends Component {
 

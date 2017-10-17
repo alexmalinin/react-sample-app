@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
-import { DvTitle } from '../styleComponents/DvTitles';
+import { DvTitle } from '../styleComponents/layout/DvTitles';
 import ContactForm from './forms/ContactForm';
-import DvDivider from '../styleComponents/DvDivider';
+import DvDivider from '../styleComponents/layout/DvDivider';
 import { postContacts } from '../actions/actions';
-import { Container } from '../styleComponents/Container';
+import { Container } from '../styleComponents/layout/Container';
 import StyledContactUs from '../styleComponents/StyledContactUs';
 
 class SignUp extends Component {

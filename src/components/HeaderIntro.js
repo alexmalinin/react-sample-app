@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom'
 import {Button} from 'semantic-ui-react';
-import StyledHeader from '../styleComponents/StyledHeader';
+import StyledHeader from '../styleComponents/layout/StyledHeader';
 import NavigationLinks from './NavigationLinks'
 import Logotype from './layout/Logotype'
 

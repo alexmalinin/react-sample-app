@@ -4,7 +4,7 @@ import { required, minLength2 } from '../../helpers/validate';
 import RenderSelect from './renders/RenderSelect';
 import RenderPhone from './renders/RenderPhone';
 import RenderCheckbox from './renders/RenderCheckbox';
-import DvButtonForm from '../../styleComponents/DvButtonForm'
+import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField'
 import StyledRequireBox from '../../styleComponents/forms/StyledRequireBox'
 import InputField from './renders/InputField';

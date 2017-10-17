@@ -11,11 +11,11 @@ import RenderImage from '../renders/RenderImage';
 import RenderTextArea from '../renders/RenderTextArea';
 import RenderPhone from '../renders/RenderPhone';
 import Availability from '../Availability/Availability';
-import { DvTitleSmall } from '../../../styleComponents/DvTitles';
+import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
 import RenderEducationCard from '../../specialist/RenderEducationCard';
 import RenderWorkCard from '../../specialist/RenderWorkCard';
 import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
-import { AddNewBtn } from '../../../styleComponents/DvButton'
+import { AddNewBtn } from '../../../styleComponents/layout/DvButton'
 
 
 class SpecialistWelcomeForm2 extends Component {

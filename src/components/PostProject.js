@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/DvGrid';
-import {DvTitleBig} from '../styleComponents/DvTitles';
-import { DvButton } from '../styleComponents/DvButton';
+import DvGrid from '../styleComponents/layout/DvGrid';
+import {DvTitleBig} from '../styleComponents/layout/DvTitles';
+import { DvButton } from '../styleComponents/layout/DvButton';
 import confirm from '../decorators/confirm';
 
 class PostProject extends Component {

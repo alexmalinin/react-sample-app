@@ -1,6 +1,6 @@
 import React from 'react';
 import {renderField} from '../renders/RenderField';
-import { DvButton } from '../../../styleComponents/DvButton'
+import { DvButton } from '../../../styleComponents/layout/DvButton'
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderCustomSkills from '../../specialist/RenderCustomSkills';

@@ -6,13 +6,13 @@ import RenderSelect from '../renders/RenderSelect';
 import RenderMultiSelect from '../renders/RenderMultiSelect';
 import {industries} from '../../../helpers/industries';
 import {speciality} from '../../../helpers/speciality';
-import { DvButton } from '../../../styleComponents/DvButton';
+import { DvButton } from '../../../styleComponents/layout/DvButton';
 import InputField from '../renders/InputField';
 import LocationField from '../renders/LocationField';
 import RenderStyledCheckbox from '../renders/RenderStyledCheckbox';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import {DvTitle} from '../../../styleComponents/DvTitles';
+import {DvTitle} from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import RenderSpecialityArea from '../renders/RenderSpecialityArea'
 import RenderSkillsArea from '../renders/RenderSkillsArea'
