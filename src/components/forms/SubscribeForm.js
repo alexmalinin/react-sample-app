@@ -14,9 +14,9 @@ class SubscribeForm extends Component {
 
         return (
             <StyledSubscribeForm>
-                <span>
+                <h3>
                     Keep in touch
-                </span>
+                </h3>
 
                 <p>
                     Join the Village lorem ipsum dolor sit <br/>

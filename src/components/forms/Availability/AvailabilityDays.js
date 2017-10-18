@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
-import {renderField} from '../renders/RenderField';
-import {daysAvailable} from '../../../helpers/selects/daysAvailable';
+import { renderField } from '../renders/RenderField';
+import { daysAvailable } from '../../../helpers/selects/daysAvailable';
 import RenderCheckbox from '../renders/RenderCheckbox';
 
-class AvailabilityDays extends Component  {
+class   AvailabilityDays extends Component  {
 
     render() {
         return (
@@ -26,3 +26,4 @@ class AvailabilityDays extends Component  {
 }
 
 export default AvailabilityDays;
+

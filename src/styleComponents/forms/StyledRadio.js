@@ -20,6 +20,7 @@ export default styled.div`
     
     .ownInput {
       opacity: 0;
+      position: absolute;
       
       &:checked + .ownRadio {
         

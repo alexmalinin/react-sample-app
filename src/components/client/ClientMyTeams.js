@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
-import DvGrid from '../../styleComponents/layout/DvGrid';
-import {DvTitle} from '../../styleComponents/layout/DvTitles';
-import DvForm from '../../styleComponents/Tabs';
+import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
+import RenderProjectCard from './RenderProjectCard';
+import StyledClientTeam from '../../styleComponents/StyledClientTeam';
 
 class ClientProfile extends Component {
 
     render() {
 
         return (
-            <div>
+            <StyledClientTeam>
                 <HeaderBasic/>
-                <DvGrid left="8%">
-                    <DvTitle mTop="80">
+                <ContainerLarge>
+                    <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
-                </DvGrid>
+                </ContainerLarge>
                 <SubHeader/>
-                <DvGrid left="341px" right="340px">
-                    <DvForm>
-                        <div style={{height: '200px', marginTop: '100px'}}>
-                            <h2>Will coming soon</h2>
-                        </div>
-                    </DvForm>
-                </DvGrid>
-            </div>
+                <Container indentTop indentBot relative>
+                    <div className='gag'>
+                        <h4>
+                            Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
+                        </h4>
+                    </div>
+                    <DvTitleSmall fz='28' indentNull xsCenter>My Teams</DvTitleSmall>
+                    <div className='flex-wrapper'>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                    </div>
+                </Container>
+            </StyledClientTeam>
         )
     }
 }

@@ -100,11 +100,14 @@ export const DvTitleSmall = styled.h2`
     margin-bottom: 90px;
     font-weight: 300;  
     
+    ${props => props.indentNull && css`
+        margin: 0;
+    `};
     ${props => props.fz && css`
-        font-size: ${props.fz}px;
-    `}
+        font-size: ${props.fz}px
+    `};
     ${props => props.negative && css`
-        margin-left: -15px;
+        margin-left: -15px
     `};
         
     @media (max-width: 1920px) {
