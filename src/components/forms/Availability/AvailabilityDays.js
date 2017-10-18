@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
 import {renderField} from '../renders/RenderField';
-import { Route, Redirect } from 'react-router';
 import {daysAvailable} from '../../../helpers/selects/daysAvailable';
-import RenderRadio from '../renders/RenderRadio';
+import RenderCheckbox from '../renders/RenderCheckbox';
 
 class AvailabilityDays extends Component  {
 
@@ -15,7 +14,7 @@ class AvailabilityDays extends Component  {
                         <Field
                             key={item}
                             name={`days.${item}`}
-                            component={RenderRadio}
+                            component={RenderCheckbox}
                             label={item}
                             value={item}
                         />)

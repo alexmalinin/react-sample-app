@@ -8,6 +8,8 @@ import {DropdownAvailability} from '../styleComponents/StyledDropdown';
 import { Container } from '../styleComponents/layout/Container';
 import { DvButton } from '../styleComponents/layout/DvButton';
 import AnimateHeight from 'react-animate-height';
+import SlideTogle from './SlideTogle';
+import Services from './Services';
 import confirm from '../decorators/confirm';
 
 class PostProject extends Component {
@@ -37,36 +39,7 @@ class PostProject extends Component {
                                         <br/>
                                         you need?
                                     </DvTitleSmall>
-                                    <DropdownAvailability>
-                                        <p onClick={this.handleHeight}>Web development /</p>
-                                        <AnimateHeight
-                                            duration={500}
-                                            height={'auto'}
-                                        >
-                                            <p>sdf</p>
-                                            <p>sdf</p>
-                                        </AnimateHeight>
-                                    </DropdownAvailability>
-                                    <DropdownAvailability>
-                                        <p onClick={this.handleHeight}>Web design /</p>
-                                        <AnimateHeight
-                                            duration={500}
-                                            height={'auto'}
-                                        >
-                                            <p>sdf</p>
-                                            <p>sdf</p>
-                                        </AnimateHeight>
-                                    </DropdownAvailability>
-                                    <DropdownAvailability>
-                                        <p onClick={this.handleHeight}>Application design /</p>
-                                        <AnimateHeight
-                                            duration={500}
-                                            height={'auto'}
-                                        >
-                                            <p>sdf</p>
-                                            <p>sdf</p>
-                                        </AnimateHeight>
-                                    </DropdownAvailability>
+                                        <Services/>
                                     <DvTitleSmall>
                                         Project Details
                                     </DvTitleSmall>
