@@ -9,17 +9,12 @@ import { Field } from 'redux-form';
 import RenderSelect from '../renders/RenderSelect';
 import {workHourses} from '../../../helpers/selects/workHourses';
 import { required, } from '../../../helpers/validate';
+import SlideTogle from '../../SlideTogle';
 
 
 class Availability extends Component {
 
-    state = {
-        heightDays: '0',
-        heightTime: '0',
-    };
-
     render() {
-        let { heightDays, heightTime  } = this.state;
         let { submitting, submitBtn  } = this.props;
 
         return (
@@ -27,30 +22,17 @@ class Availability extends Component {
                 <p>
                     <b>Set your availability</b> / This can be easily changed at anytime
                 </p>
-
                 <DropdownAvailability>
-                    <p onClick={this.handleHeight('time')}>Full-time / Part-time / Not available</p>
-                    <AnimateHeight
-                        duration={500}
-                        height={heightTime}
-                    >
-
+                    <SlideTogle height={0}>
+                        <p>Full-time / Part-time / Not available</p>
                         <AvailabilityTime/>
-
-                    </AnimateHeight>
+                    </SlideTogle>
                 </DropdownAvailability>
-
                 <DropdownAvailability>
-                    <p onClick={this.handleHeight('days')}>Days available</p>
-
-                    <AnimateHeight
-                        duration={500}
-                        height={heightDays}
-                    >
-
+                    <SlideTogle height={0}>
+                        <p>Days available</p>
                         <AvailabilityDays/>
-
-                    </AnimateHeight>
+                    </SlideTogle>
                 </DropdownAvailability>
 
                 <Field
@@ -68,27 +50,6 @@ class Availability extends Component {
                     /> : null }
             </StyledAvailabilityForm>
         )
-    }
-
-    handleHeight = arg => ev => {
-        let { heightDays, heightTime } = this.state;
-        if (arg === 'days') {
-            heightDays === 'auto'
-                ? this.setState({
-                    heightDays: '0',
-                })
-                : this.setState({
-                    heightDays: 'auto',
-                })
-        } else {
-            heightTime === 'auto'
-                ? this.setState({
-                    heightTime: '0',
-                })
-                : this.setState({
-                    heightTime: 'auto',
-                })
-        }
     }
 }
 
