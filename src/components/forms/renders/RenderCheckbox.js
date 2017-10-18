@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Checkbox } from 'semantic-ui-react'
+import { Days } from '../../../styleComponents/StyledDropdown';
 import StyledError from '../../../styleComponents/forms/StyledError'
 
 export default class RenderRadio extends Component {
@@ -10,7 +11,7 @@ export default class RenderRadio extends Component {
 
         return(
             <div>
-                <Checkbox
+                <Days
                     onFocus={onFocus}
                     onBlur={onBlur}
                     label={label}

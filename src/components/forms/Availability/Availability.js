@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import AvailabilityTime from './AvailabilityTime';
 import AvailabilityDays from './AvailabilityDays';
-import AnimateHeight from 'react-animate-height';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
-import { DropdownAvailability} from '../../../styleComponents/StyledDropdown';
+import { DropdownAvailability, Days } from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
 import { Field } from 'redux-form';
 import RenderSelect from '../renders/RenderSelect';
@@ -29,7 +28,7 @@ class Availability extends Component {
                     </SlideTogle>
                 </DropdownAvailability>
 
-                <DropdownAvailability>
+                <DropdownAvailability customPadd>
                     <SlideTogle height={0}>
                         <p>Days available</p>
                         <AvailabilityDays/>
@@ -37,14 +36,14 @@ class Availability extends Component {
                 </DropdownAvailability>
 
                 <Field
-                    name="work-hourses"
+                        name='work-hourses'
                     component={RenderSelect}
-                    placeholder="Hours per week"
+                    placeholder='Hours per week'
                     options={workHourses}
                     validate={[required]}
                 />
                 {submitBtn ? <DvButton
-                    type="submit"
+                    type='submit'
                     disabled={submitting}
                     content='SAVE & UPDATE'
                     primary
@@ -55,3 +54,4 @@ class Availability extends Component {
 }
 
 export default Availability;
+

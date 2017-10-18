@@ -34,6 +34,7 @@ export const Container = styled.div`
     
     ${props => props.indentBot ? `margin-bottom: 250px` : ``};
     ${props => props.indentTop ? `margin-top: 100px` : ``};
+    ${props => props.relative ? `position: relative` : ``};
     
     @media (max-width: 1920px) {
         max-width: 1230px;

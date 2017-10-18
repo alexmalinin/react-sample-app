@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'
-import {DvTitle} from '../../styleComponents/layout/DvTitles';
+import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 
@@ -27,7 +26,7 @@ class ClientProfile extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} computer={8}>
-                                <h2>Profile</h2>
+                                <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
                                 <RenderProfileForm onSubmit={this.submit}/>
                             </Grid.Column>
                         </Grid.Row>
