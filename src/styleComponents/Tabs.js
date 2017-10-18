@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export default styled.div`
 
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
+    ${props => props.widthAuto ? `width: 100%` : `width: 850px`};
     
     font-size: 28px;
     font-family: Roboto, sans-serif;
-    width: 850px;
     font-weight: 400;
   
     .form-header {
@@ -147,7 +147,8 @@ export default styled.div`
     }
     
     @media (max-width: 1920px) {
-      width: 650px;
+    
+     ${props => props.widthAuto ? `width: 100%` : `width: 650px`};
       margin-top: 40px;
       
       .ui {
@@ -161,7 +162,8 @@ export default styled.div`
     }
     
     @media (max-width: 1499px) {
-       width: 475px;
+    
+       ${props => props.widthAuto ? `width: 100%` : `width: 475px`};
        
        .ui {
         &.text.menu {
@@ -174,24 +176,24 @@ export default styled.div`
     }
     
     @media (max-width: 1024px) {
-       width: 400px; 
+        ${props => props.widthAuto ? `width: 100%` : `width: 400px`};
     }
     
     @media (max-width: 767px) {
-       width: 560px;
-       margin 40px auto 0;
-       border: none;
+        ${props => props.widthAuto ? `width: 100%` : `width: 560px`};
+        margin 40px auto 0;
+        border: none;
        
-       .ui {
-          &.segment.active.tab {
-            border: none;
-          }
-       }     
+        .ui {
+            &.segment.active.tab {
+                border: none;
+            }
+        }     
     }
     
-     @media (max-width: 600px) {
-       width: 100%;
-       margin 40px auto 0;
-       border: none;
+    @media (max-width: 600px) {
+        width: 100%;
+        margin 40px auto 0;
+        border: none;
     }
 `;

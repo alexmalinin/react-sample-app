@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/layout/DvGrid'
-import {DvTitle} from '../styleComponents/layout/DvTitles'
-import DvForm from '../styleComponents/Tabs'
-import { DvButton } from '../styleComponents/layout/DvButton'
-import confirm from '../decorators/confirm'
-import VerificationForm from './forms/VerificationForm'
+import {DvTitle} from '../styleComponents/layout/DvTitles';
+import DvForm from '../styleComponents/Tabs';
+import { DvButton } from '../styleComponents/layout/DvButton';
+import confirm from '../decorators/confirm';
+import VerificationForm from './forms/VerificationForm';
+import { Container } from '../styleComponents/layout/Container';
 
-class SignUp extends Component {
+class Verification extends Component {
 
     render() {
         const { confirm, confirmAccount } = this.props;
@@ -17,16 +17,16 @@ class SignUp extends Component {
         return (
             <main>
                 <HeaderIntro/>
-                <DvGrid width='1560px' indent_bot='230px'>
+                <Container indentBot>
                     <DvTitle mTop='126'>
                         Account Verification
                     </DvTitle>
-                    <DvForm>
+                    <DvForm widthAuto>
                         <VerificationForm/>
                     </DvForm>
                     <DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
                     { confirm && this.getUserRedirect() }
-                </DvGrid>
+                </Container>
             </main>
         )
     }
@@ -45,4 +45,4 @@ class SignUp extends Component {
     }
 }
 
-export default connect(({changeUserType}) => ({changeUserType}))(confirm(SignUp));
+export default connect(({changeUserType}) => ({changeUserType}))(confirm(Verification));
