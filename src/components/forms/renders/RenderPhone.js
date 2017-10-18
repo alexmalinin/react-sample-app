@@ -3,7 +3,7 @@ import RenderSelect from './RenderSelect';
 import { Field, reduxForm } from 'redux-form';
 import { RenderField } from './RenderField';
 import { required } from '../../../helpers/validate';
-import { phoneCodes } from '../../../helpers/phoneCodes'
+import { phoneCodes } from '../../../helpers/selects/phoneCodes'
 
 const RenderPhone = ({hasPerson,}) =>
         <div className='phone-wrapper'>

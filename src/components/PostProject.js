@@ -3,15 +3,18 @@ import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/layout/DvGrid';
-import {DvTitleBig} from '../styleComponents/layout/DvTitles';
+import {DvTitleSmall, DvTitleBig} from '../styleComponents/layout/DvTitles';
+import {DropdownAvailability} from '../styleComponents/StyledDropdown';
+import { Container } from '../styleComponents/layout/Container';
 import { DvButton } from '../styleComponents/layout/DvButton';
+import AnimateHeight from 'react-animate-height';
 import confirm from '../decorators/confirm';
 
 class PostProject extends Component {
 
-    state = {
-        activeTab: 'Specialist',
-    };
+    // state = {
+    //     activeTab: 'Specialist',
+    // };
 
     render() {
         const { confirm, confirmAccount } = this.props;
@@ -20,7 +23,7 @@ class PostProject extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="320px" right="265px" grid={"no-pad"}>
+                <Container indentBot indentTop>
                     <DvTitleBig mTop="137" fz="">
                         post
                         <br/>
@@ -29,17 +32,56 @@ class PostProject extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <div style={{height: '200px', marginTop: '100px'}}>
-                                    <h2>Post project</h2>
-                                </div>
+                                    <DvTitleSmall>
+                                        What services do
+                                        <br/>
+                                        you need?
+                                    </DvTitleSmall>
+                                    <DropdownAvailability>
+                                        <p onClick={this.handleHeight}>Web development /</p>
+                                        <AnimateHeight
+                                            duration={500}
+                                            height={'auto'}
+                                        >
+                                            <p>sdf</p>
+                                            <p>sdf</p>
+                                        </AnimateHeight>
+                                    </DropdownAvailability>
+                                    <DropdownAvailability>
+                                        <p onClick={this.handleHeight}>Web design /</p>
+                                        <AnimateHeight
+                                            duration={500}
+                                            height={'auto'}
+                                        >
+                                            <p>sdf</p>
+                                            <p>sdf</p>
+                                        </AnimateHeight>
+                                    </DropdownAvailability>
+                                    <DropdownAvailability>
+                                        <p onClick={this.handleHeight}>Application design /</p>
+                                        <AnimateHeight
+                                            duration={500}
+                                            height={'auto'}
+                                        >
+                                            <p>sdf</p>
+                                            <p>sdf</p>
+                                        </AnimateHeight>
+                                    </DropdownAvailability>
+                                    <DvTitleSmall>
+                                        Project Details
+                                    </DvTitleSmall>
                                 <DvButton onClick={confirmAccount} primary content='Continue'/>
                                 {confirm && <Redirect to="/project_overview"/> }
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                </DvGrid>
+                </Container>
             </div>
         )
+    }
+
+    handleHeight = ev => {
+        console.log('click');
     }
 }
 

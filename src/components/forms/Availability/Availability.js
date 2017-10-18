@@ -7,7 +7,7 @@ import { DropdownAvailability} from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
 import { Field } from 'redux-form';
 import RenderSelect from '../renders/RenderSelect';
-import {workHourses} from '../../../helpers/workHourses';
+import {workHourses} from '../../../helpers/selects/workHourses';
 import { required, } from '../../../helpers/validate';
 
 

@@ -4,7 +4,7 @@ import { required, } from '../../../helpers/validate';
 import { RenderField } from '../renders/RenderField';
 import RenderSelect from '../renders/RenderSelect';
 import StyledPhoneField from '../../../styleComponents/forms/StyledPhoneField';
-import {projectInterest} from '../../../helpers/projectInterest';
+import {projectInterest} from '../../../helpers/selects/projectInterest';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderImage from '../renders/RenderImage';

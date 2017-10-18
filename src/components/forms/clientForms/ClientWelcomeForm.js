@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../renders/RenderField';
 import RenderSelect from '../renders/RenderSelect';
-import {clientCategories} from '../../../helpers/clientCategories';
+import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { DvButton } from '../../../styleComponents/layout/DvButton'
 import InputField from '../renders/InputField'
 import LocationField from '../renders/LocationField'

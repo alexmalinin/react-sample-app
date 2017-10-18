@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderSelect from '../renders/RenderSelect';
-import { employeers } from '../../../helpers/employeers';
+import { employeers } from '../../../helpers/selects/employeers';
 import SignUpForm from '../SignUpForm';
 import InputField from '../renders/InputField'
 

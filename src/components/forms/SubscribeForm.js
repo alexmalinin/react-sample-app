@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
-import StyledSubscribeForm from '../../styleComponents/StyledSubscribeForm'
+import { Field, reduxForm } from 'redux-form';
+import { DvButton } from '../../styleComponents/layout/DvButton';
+import StyledSubscribeForm from '../../styleComponents/StyledSubscribeForm';
+import EmailField from './renders/EmailField';
+import { required } from '../../helpers/validate';
+import RenderSelect from './renders/RenderSelect';
+import { signUpUser } from '../../helpers/selects/signUpUser';
 
 class SubscribeForm extends Component {
 
     render() {
+        const { handleSubmit, submitting } = this.props;
+
         return (
             <StyledSubscribeForm>
                 <span>
@@ -15,14 +23,30 @@ class SubscribeForm extends Component {
                     amet, consectetur adipisicing elit, sed do
                 </p>
 
-                <form action=''>
-                    <p>
-                        Form will be there!
-                    </p>
+                <form onSubmit={handleSubmit}>
+                    <Field
+                        name='industry-select'
+                        component={RenderSelect}
+                        placeholder='I am a.../'
+                        options={signUpUser}
+                        validate={[required]}
+                    />
+                    <EmailField
+                        name='email'
+                        placeholder='Email /'
+                    />
+                    <DvButton
+                        type='submit'
+                        disabled={submitting}
+                        content='Continue'
+                        primary
+                    />
                 </form>
             </StyledSubscribeForm>
         )
     }
 }
 
-export default SubscribeForm
+export default reduxForm({
+    form: 'SubscribeForm'
+})(SubscribeForm)

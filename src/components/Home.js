@@ -219,13 +219,17 @@ class Home extends Component {
                     </FullScreen>
 
                     <FullScreen centered>
-                        <SubscribeForm/>
+                        <SubscribeForm onSubmit={this.submit}/>
                     </FullScreen>
 
                 </Container>
             </StyledHome>
         )
     }
+
+    submit = values => {
+        console.log('----values:',values);
+    };
 }
 
 export default Home

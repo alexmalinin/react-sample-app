@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { speciality } from '../../../helpers/speciality';
+import { speciality } from '../../../helpers/selects/speciality';
 import RenderStyledCheckbox from '../renders/RenderStyledCheckbox';
 import StyledSpecialityArea from '../../../styleComponents/forms/StyledSpecialityArea'
 
