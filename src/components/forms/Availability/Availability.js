@@ -28,6 +28,7 @@ class Availability extends Component {
                         <AvailabilityTime/>
                     </SlideTogle>
                 </DropdownAvailability>
+
                 <DropdownAvailability>
                     <SlideTogle height={0}>
                         <p>Days available</p>

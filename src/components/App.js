@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import Home from './Home';
 import Contact from './Contact';
 import Dashboard from './Dashboard';
-import PostProject from './PostProject';
+import PostProject from './PostProject/PostProject';
 import OverviewPostedProject from './OverviewPostedProject';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
