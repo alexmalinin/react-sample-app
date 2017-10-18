@@ -40,7 +40,7 @@ class SignUp extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} tablet={7} computer={8}>
-                                <DvTitleBig mTop='137' fz="" flex='justify'>
+                                <DvTitleBig mTop='100' fz="" flex='justify'>
                                     sign
                                     <br/>
                                     in/
