@@ -51,6 +51,7 @@ class RenderMarkdown extends Component {
     // };
 
     EditorTool = ref => {
+        if (!ref) return
         let { title } = this.props;
         let text = document.createElement("div");
         let buttons = ref.querySelectorAll('div')[2];

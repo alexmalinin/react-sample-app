@@ -10,39 +10,39 @@ class SignUpFormSpecialist extends Component  {
     render() {
         return (
             <SignUpForm {...this.props}>
-                <Field name="person"
-                       component={RenderSignUpRadio}
-                       type="radio"
-                       label="Individual"
-                       value="Individual"
+                {/*<Field name="person"*/}
+                       {/*component={RenderSignUpRadio}*/}
+                       {/*type="radio"*/}
+                       {/*label="Individual"*/}
+                       {/*value="Individual"*/}
 
-                />
-                <Field name="person"
-                       component={RenderSignUpRadio}
-                       type="radio"
-                       label="Agency"
-                       value="Agency"
-                />
+                {/*/>*/}
+                {/*<Field name="person"*/}
+                       {/*component={RenderSignUpRadio}*/}
+                       {/*type="radio"*/}
+                       {/*label="Agency"*/}
+                       {/*value="Agency"*/}
+                {/*/>*/}
             </SignUpForm>
         )
     }
 }
 
 
-SignUpFormSpecialist =  reduxForm({
+SignUpFormSpecialist = reduxForm({
     form: 'SignUpFormSpecialist',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
 })(SignUpFormSpecialist);
 
-const selector = formValueSelector('SignUpFormSpecialist');
-SignUpFormSpecialist = connect(state => {
-    const hasPerson = selector(state, 'person');
-    return {
-        hasPerson,
-
-    }
-})(SignUpFormSpecialist);
+// const selector = formValueSelector('SignUpFormSpecialist');
+// SignUpFormSpecialist = connect(state => {
+//     const hasPerson = selector(state, 'person');
+//     return {
+//         hasPerson,
+//
+//     }
+// })(SignUpFormSpecialist);
 
 export default SignUpFormSpecialist
 
