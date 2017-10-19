@@ -7,7 +7,7 @@ import HeaderIntro from '../layout/HeaderIntro';
 import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
 import DvGrid from '../../styleComponents/layout/DvGrid';
 import Tabs from '../../styleComponents/Tabs';
-import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
+import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
 import SignInForm from './SignInForm';
 import { signIn, userType } from '../../actions/actions';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';

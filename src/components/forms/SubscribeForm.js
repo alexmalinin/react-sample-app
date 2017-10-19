@@ -38,7 +38,7 @@ class SubscribeForm extends Component {
                     <DvButton
                         type='submit'
                         disabled={submitting}
-                        content='Continue'
+                        content='Subscribe'
                         primary
                     />
                 </form>

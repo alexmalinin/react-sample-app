@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Checkbox } from 'semantic-ui-react'
-import { Days } from '../../../styleComponents/StyledDropdown';
+import { Checkbox } from 'semantic-ui-react';
 import StyledError from '../../../styleComponents/forms/StyledError'
 
 class RenderCheckbox extends Component {
