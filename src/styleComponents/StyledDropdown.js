@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react'
 
 export const DropdownAvailability = styled.div`
-
     font-size: 28px;
     display: block;
     width: 50%;

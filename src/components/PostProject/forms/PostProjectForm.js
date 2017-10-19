@@ -12,7 +12,7 @@ class PostProjectForm extends Component {
         const { handleSubmit, submitting } = this.props;
 
         return(
-            <form onSubmit={handleSubmit}>
+            <form name="details" onSubmit={handleSubmit}>
                 <DvTitleSmall>
                     What services do
                     <br/>
