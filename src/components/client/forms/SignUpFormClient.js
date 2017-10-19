@@ -1,9 +1,9 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import RenderSelect from '../renders/RenderSelect';
+import RenderSelect from '../../forms/renders/RenderSelect';
 import { employeers } from '../../../helpers/selects/employeers';
-import SignUpForm from '../SignUpForm';
-import InputField from '../renders/InputField'
+import SignUpForm from '../../SignUp/SignUpForm';
+import InputField from '../../forms/renders/InputField'
 
 const SignUpFormClient = props =>  {
 

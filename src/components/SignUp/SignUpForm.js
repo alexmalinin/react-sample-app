@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
 import { required, minLength2 } from '../../helpers/validate';
-import RenderSelect from './renders/RenderSelect';
-import RenderPhone from './renders/RenderPhone';
-import RenderCheckbox from './renders/RenderCheckbox';
+import RenderSelect from '../forms/renders/RenderSelect';
+import RenderPhone from '../forms/renders/RenderPhone';
+import RenderCheckbox from '../forms/renders/RenderCheckbox';
 import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField'
 import StyledRequireBox from '../../styleComponents/forms/StyledRequireBox'
-import InputField from './renders/InputField';
+import InputField from '../forms/renders/InputField';
 import ModalTerms from '../modals/ModalTerms';
 import PrivacyPolicy from '../modals/PrivacyPolicy';
-import EmailField from './renders/EmailField';
+import EmailField from '../forms/renders/EmailField';
 
 class SignUpForm extends Component  {
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom'
 import {Button} from 'semantic-ui-react';
 import StyledHeader from '../../styleComponents/layout/StyledHeader';
-import NavigationLinks from '../NavigationLinks'
+import NavigationLinks from './NavigationLinks'
 import Logotype from './Logotype'
 import { ContainerLarge } from '../../styleComponents/layout/Container';
 

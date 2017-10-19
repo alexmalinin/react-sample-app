@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
-import SLinkList from '../styleComponents/SLinkList'
+import SLinkList from '../../styleComponents/SLinkList'
 
 class NavigationLinks extends Component {
 

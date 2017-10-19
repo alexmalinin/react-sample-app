@@ -1,10 +1,10 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { renderField } from './renders/RenderField';
+import { renderField } from '../forms/renders/RenderField';
 import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
-import InputField from './renders/InputField'
+import InputField from '../forms/renders/InputField'
 
 const SignInForm = props => {
     const { handleSubmit, submitting } = props;

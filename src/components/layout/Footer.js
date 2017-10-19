@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid} from 'semantic-ui-react'
 import {SFooter} from '../../styleComponents/layout/StyledFooter'
 import Logotype from './Logotype'
-import NavigationLinks from '../NavigationLinks'
+import NavigationLinks from './NavigationLinks'
 import { ContainerLarge } from '../../styleComponents/layout/Container';
 
 class FooterBasic extends Component {

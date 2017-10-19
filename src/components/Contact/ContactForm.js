@@ -2,9 +2,9 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../helpers/validate';
 import { DvButton } from '../../styleComponents/layout/DvButton';
-import InputField from './renders/InputField';
-import EmailField from './renders/EmailField';
-import RenderTextArea from './renders/RenderTextArea';
+import InputField from '../forms/renders/InputField';
+import EmailField from '../forms/renders/EmailField';
+import RenderTextArea from '../forms/renders/RenderTextArea';
 
 const ContactForm = props => {
     const { handleSubmit, submitting } = props;

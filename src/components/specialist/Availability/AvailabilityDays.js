@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
-import { renderField } from '../renders/RenderField';
+import { renderField } from '../../forms/renders/RenderField';
 import { daysAvailable } from '../../../helpers/selects/daysAvailable';
-import RenderCheckbox from '../renders/RenderCheckbox';
+import RenderCircleCheckbox from '../../forms/renders/RenderCircleCheckbox';
 
 class   AvailabilityDays extends Component  {
 
@@ -14,7 +14,7 @@ class   AvailabilityDays extends Component  {
                         <Field
                             key={item}
                             name={`days.${item}`}
-                            component={RenderCheckbox}
+                            component={RenderCircleCheckbox}
                             label={item}
                             value={item}
                         />)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react'
-import { StyledEducationCard } from '../../styleComponents/StyledCard'
+import { StyledEducationCard } from '../../../styleComponents/StyledCard'
 
 
 const RenderCard = () => (

@@ -5,8 +5,8 @@ import HeaderBasic from '../layout/HeaderBasic';
 import {DvTitle} from '../../styleComponents/layout/DvTitles'
 import { DvButton } from '../../styleComponents/layout/DvButton'
 import confirm from '../../decorators/confirm'
-import SpecialistWelcomeResult1 from '../forms/specialistForms/SpecialistWelcomeResult1';
-import SpecialistWelcomeForm2 from '../forms/specialistForms/SpecialistWelcomeForm2';
+import SpecialistWelcomeResult1 from './forms/SpecialistWelcomeResult1';
+import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
 
 class SpecialistsWelcome2 extends Component {

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Home from './Home';
-import Contact from './Contact';
+import Contact from './Contact/Contact';
 import Dashboard from './Dashboard';
 import PostProject from './PostProject/PostProject';
 import OverviewPostedProject from './OverviewPostedProject';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
+import SignUp from './SignUp/SignUp';
+import SignIn from './SignIn/SignIn';
 import ForgotPassword from './ForgotPassword';
-import Verification from './Verification';
+import Verification from './Verification/Verification';
 import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
 import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
 import ClientWelcome from './client/ClientWelcome';

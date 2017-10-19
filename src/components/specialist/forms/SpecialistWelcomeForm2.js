@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required, } from '../../../helpers/validate';
-import { RenderField } from '../renders/RenderField';
-import RenderSelect from '../renders/RenderSelect';
+import { RenderField } from '../../forms/renders/RenderField';
+import RenderSelect from '../../forms/renders/RenderSelect';
 import StyledPhoneField from '../../../styleComponents/forms/StyledPhoneField';
 import {projectInterest} from '../../../helpers/selects/projectInterest';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import RenderImage from '../renders/RenderImage';
-import RenderTextArea from '../renders/RenderTextArea';
-import RenderPhone from '../renders/RenderPhone';
+import RenderImage from '../../forms/renders/RenderImage';
+import RenderTextArea from '../../forms/renders/RenderTextArea';
+import RenderPhone from '../../forms/renders/RenderPhone';
 import Availability from '../Availability/Availability';
 import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
-import RenderEducationCard from '../../specialist/RenderEducationCard';
-import RenderWorkCard from '../../specialist/RenderWorkCard';
+import RenderEducationCard from '../renders/RenderEducationCard';
+import RenderWorkCard from '../renders/RenderWorkCard';
 import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
 import { AddNewBtn } from '../../../styleComponents/layout/DvButton'
 

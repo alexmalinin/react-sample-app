@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import HeaderIntro from './layout/HeaderIntro';
-import {DvTitle} from '../styleComponents/layout/DvTitles';
-import DvForm from '../styleComponents/Tabs';
-import { DvButton } from '../styleComponents/layout/DvButton';
-import confirm from '../decorators/confirm';
-import VerificationForm from './forms/VerificationForm';
-import { Container } from '../styleComponents/layout/Container';
+import HeaderIntro from '../layout/HeaderIntro';
+import {DvTitle} from '../../styleComponents/layout/DvTitles';
+import DvForm from '../../styleComponents/Tabs';
+import { DvButton } from '../../styleComponents/layout/DvButton';
+import confirm from '../../decorators/confirm';
+import VerificationForm from './VerificationForm';
+import { Container } from '../../styleComponents/layout/Container';
 
 class Verification extends Component {
 

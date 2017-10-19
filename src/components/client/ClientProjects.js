@@ -4,7 +4,7 @@ import SubHeader from '../layout/ClientSubHeader';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Grid } from 'semantic-ui-react';
 import { ContainerLarge } from '../../styleComponents/layout/Container'
-import RenderProjectCard from './RenderProjectCard';
+import RenderProjectCard from './renders/RenderProjectCard';
 import { NewTeamBtn } from '../../styleComponents/layout/DvButton';
 
 class ClientProfile extends Component {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import {RenderField} from './renders/RenderField';
+import {RenderField} from '../forms/renders/RenderField';
 import StyledVerificationForm from '../../styleComponents/StyledVerificationForm'
 
 const VerificationForm = props => {

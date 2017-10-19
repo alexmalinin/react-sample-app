@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { Field } from 'redux-form';
-import {renderField} from '../renders/RenderField';
+import {renderField} from '../../forms/renders/RenderField';
 import { Route, Redirect } from 'react-router';
-import RenderRadio from '../renders/RenderRadio';
+import RenderRadio from '../../forms/renders/RenderRadio';
 
 class AvailabilityTime extends Component  {
 

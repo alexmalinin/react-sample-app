@@ -3,7 +3,7 @@ import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import RenderProjectCard from './RenderProjectCard';
+import RenderProjectCard from './renders/RenderProjectCard';
 import StyledClientTeam from '../../styleComponents/StyledClientTeam';
 
 class ClientProfile extends Component {

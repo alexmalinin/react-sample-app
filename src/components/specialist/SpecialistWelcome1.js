@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import DvGrid from '../../styleComponents/layout/DvGrid';
 import confirm from '../../decorators/confirm';
-import SpecialistWelcomeForm1 from '../forms/specialistForms/SpecialistWelcomeForm1';
+import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
 import { Container }from '../../styleComponents/layout/Container';
 
 class SpecialistsWelcome1 extends Component {

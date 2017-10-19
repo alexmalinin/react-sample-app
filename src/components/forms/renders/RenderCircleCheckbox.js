@@ -3,7 +3,7 @@ import { Checkbox } from 'semantic-ui-react'
 import { Days } from '../../../styleComponents/StyledDropdown';
 import StyledError from '../../../styleComponents/forms/StyledError'
 
-class RenderCheckbox extends Component {
+class RenderCircleCheckbox extends Component {
 
     render() {
         let { input, label, disabled, meta: { touched, error, warning }} = this.props;
@@ -11,7 +11,7 @@ class RenderCheckbox extends Component {
 
         return(
             <div>
-                <Checkbox
+                <Days
                     onFocus={onFocus}
                     onBlur={onBlur}
                     label={label}
@@ -31,4 +31,4 @@ class RenderCheckbox extends Component {
     }
 }
 
-export default RenderCheckbox;
+export default RenderCircleCheckbox;

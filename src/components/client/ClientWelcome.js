@@ -5,7 +5,7 @@ import HeaderBasic from '../layout/HeaderBasic';
 import DvGrid from '../../styleComponents/layout/DvGrid';
 import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import confirm from '../../decorators/confirm';
-import ClientWelcomeForm from '../forms/clientForms/ClientWelcomeForm';
+import ClientWelcomeForm from './forms/ClientWelcomeForm';
 
 class ClientWelcome extends Component {
 

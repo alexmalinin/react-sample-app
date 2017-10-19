@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react';
-import StyledProjectCard from '../../styleComponents/StyledProjectCard';
+import StyledProjectCard from '../../../styleComponents/StyledProjectCard';
 
 class RenderProjectCard extends Component {
 

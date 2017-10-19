@@ -5,7 +5,7 @@ import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DropdownAvailability, Days } from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
 import { Field } from 'redux-form';
-import RenderSelect from '../renders/RenderSelect';
+import RenderSelect from '../../forms/renders/RenderSelect';
 import {workHourses} from '../../../helpers/selects/workHourses';
 import { required, } from '../../../helpers/validate';
 import SlideTogle from '../../SlideTogle';
@@ -36,7 +36,7 @@ class Availability extends Component {
                 </DropdownAvailability>
 
                 <Field
-                        name='work-hourses'
+                    name='work-hourses'
                     component={RenderSelect}
                     placeholder='Hours per week'
                     options={workHourses}

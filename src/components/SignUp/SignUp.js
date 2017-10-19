@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
-import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/layout/DvGrid';
-import {DvTitleBig} from '../styleComponents/layout/DvTitles';
-import StyledSignUpForm from '../styleComponents/StyledSignUpForm'
-import Tabs from '../styleComponents/Tabs';
-import { userType } from '../actions/actions';
-import SignUpFormSpecialist from './forms/specialistForms/SignUpFormSpecialist';
-import SignUpFormClient from './forms/clientForms/SignUpFormClient';
-import StyledFormHint from '../styleComponents/forms/StyledFormHint';
+import HeaderIntro from '../layout/HeaderIntro';
+import DvGrid from '../../styleComponents/layout/DvGrid';
+import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
+import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
+import Tabs from '../../styleComponents/Tabs';
+import { userType } from '../../actions/actions';
+import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
+import SignUpFormClient from '../client/forms/SignUpFormClient';
+import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 
 class SignUp extends Component {
 

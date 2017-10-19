@@ -1,21 +1,21 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {renderField} from '../renders/RenderField';
-import RenderSelect from '../renders/RenderSelect';
-import RenderMultiSelect from '../renders/RenderMultiSelect';
+import {renderField} from '../../forms/renders/RenderField';
+import RenderSelect from '../../forms/renders/RenderSelect';
+import RenderMultiSelect from '../../forms/renders/RenderMultiSelect';
 import {industries} from '../../../helpers/selects/industries';
 import {speciality} from '../../../helpers/selects/speciality';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
-import InputField from '../renders/InputField';
-import LocationField from '../renders/LocationField';
-import RenderStyledCheckbox from '../renders/RenderStyledCheckbox';
+import InputField from '../../forms/renders/InputField';
+import LocationField from '../../forms/renders/LocationField';
+import RenderStyledCheckbox from '../../forms/renders/RenderStyledCheckbox';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import {DvTitle} from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
-import RenderSpecialityArea from '../renders/RenderSpecialityArea'
-import RenderSkillsArea from '../renders/RenderSkillsArea'
+import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
+import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 
 const SpecialistWelcomeForm1 = props => {
 
