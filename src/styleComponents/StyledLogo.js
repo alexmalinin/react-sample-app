@@ -15,3 +15,4 @@ export const StyledLogo = styled(NavLink)`
         }
     }
 `;
+

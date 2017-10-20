@@ -41,8 +41,20 @@ export default styled.div`
     }
     
     @media (max-width: 767px) {
+        
+        label {
+            font-size: 16px; 
+        }
+        
         div {
             margin: 0px 5px 15px 0;
         }
     } 
+    
+    @media (max-width: 414px) {
+        
+        label {
+            font-size: 14px; 
+        }
+    }
 `;
