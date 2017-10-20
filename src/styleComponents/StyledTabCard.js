@@ -14,7 +14,7 @@ export const RenderWorkCard = styled.div`
     .header-card,
     .content-card,
     .action-card {
-       padding: 40px 80px; 
+       padding: 50px 80px; 
     }
     
     .header-card {
@@ -87,9 +87,142 @@ export const RenderWorkCard = styled.div`
             }
         }
     }
+    
+    @media (max-width: 1920px) {
+    
+        border: 1px solid #808080;
+        ${props => props.border ? `border-top: 7px solid ${props.border}` : `border-top: 7px solid #1991fa`};
+        max-width: 700px;
+        
+        .header-card,
+        .content-card,
+        .action-card {
+            padding: 30px 40px;
+        }
+        
+        .header-card {
+        
+            h2 {
+                font-size: 34px;
+                margin-bottom: 25px;
+            }
+            
+            span {
+                font-size: 22px;
+                margin-bottom: 30px;
+            }
+            
+            p {
+                font-size: 18px;
+                
+                img {
+                    max-width: 32px;
+                }
+            }
+        }
+        
+        .content-card {
+            font-size: 18px;
+            border-top: 1px solid #808080;
+            
+            h4 {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+        }
+        
+        .action-card {
+            font-size: 18px;
+        
+            a {
+                padding-left: 30px;
+                
+                &:before {
+                    width: 19px;
+                    height: 1px;
+                    left: 0;
+                    top: 50%;
+                }
+                
+                &:after {
+                    width: 1px;
+                    height: 18px;
+                    left: 9px;
+                    top: 2px;
+                }
+            }
+        }
+    }
+    
+    @media (max-width: 768px) {
+    
+        border: 1px solid #808080;
+        ${props => props.border ? `border-top: 7px solid ${props.border}` : `border-top: 7px solid #1991fa`};
+        max-width: 700px;
+        
+        .header-card,
+        .content-card,
+        .action-card {
+            padding: 20px 15px;
+        }
+        
+        .header-card {
+        
+            h2 {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+            
+            span {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            p {
+                font-size: 14px;
+                
+                img {
+                    max-width: 22px;
+                }
+            }
+        }
+        
+        .content-card {
+            font-size: 14px;
+            
+            h4 {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        .action-card {
+            font-size: 14px;
+        
+            a {
+                padding-left: 30px;
+                
+                &:before {
+                    width: 15px;
+                    height: 1px;
+                    left: 0;
+                    top: 50%;
+                }
+                
+                &:after {
+                    width: 1px;
+                    height: 13px;
+                    left: 7px;
+                    top: 2px;
+                }
+            }
+        }
+    }
 `;
 
 export const StyledTabs = styled(Tab)`
+    
+    margin-bottom: 180px;
     
     .ui.text.menu {
         justify-content: center;
@@ -117,5 +250,21 @@ export const StyledTabs = styled(Tab)`
     .ui.segment {
         border: none;
         box-shadow: none;
+    }
+    
+    @media (max-width: 1920px) {
+    
+        .ui.text.menu {
+            font-size: 28px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        
+        margin-bottom: 60px;
+        
+        .ui.text.menu {
+            font-size: 22px;
+        }
     }
 `;

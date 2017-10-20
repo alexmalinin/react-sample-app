@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export default styled.div`
     
-    
+    max-width: 515px;
+    margin: 0 auto;
     margin-bottom: 40px;
     
     h3 {
@@ -17,6 +18,17 @@ export default styled.div`
         font-size: 18px;
         font-weight: 400;
         text-align: center;
+    }
+    
+    @media (min-width: 1921px) {
+        
+        h3 {
+            font-size: 48px;
+        }
+        
+        p {
+            font-size: 28px;
+        }
     }
     
     @media (max-width: 1920px) {
