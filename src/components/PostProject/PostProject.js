@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
 import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
@@ -16,7 +15,7 @@ class PostProject extends Component {
             <div>
                 <HeaderIntro/>
                 <Container indentBot indentTop>
-                    <DvTitleBig mTop="137" fz="">
+                    <DvTitleBig mTop='137' fz='' sm>
                         post
                         <br/>
                         project /

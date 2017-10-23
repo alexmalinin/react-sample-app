@@ -4,17 +4,22 @@ import {testCheckboxes} from '../../../helpers/selects/testCheckboxes';
 import {renderField} from '../../forms/renders/RenderField';
 import {DropdownAvailability} from '../../../styleComponents/StyledDropdown';
 import RenderCheckbox from '../../forms/renders/RenderCheckbox';
+import { DropDownCircle } from '../../../styleComponents/StyledDropdown';
 import SlideTogle from '../../SlideTogle';
 
 class WebDevelopment extends Component {
+
+    state = {
+        isOpen: false
+    };
 
     render() {
         const { handleSubmit, submitting } = this.props;
 
         return(
-            <DropdownAvailability>
-                <SlideTogle height={'auto'}>
-                    <p>Application design /</p>
+            <DropDownCircle>
+                <SlideTogle height={'0'}>
+                    <p onClick={ this.handleClick }>Application design /<a className={ this.state.isOpen && 'active' }/></p>
                     { testCheckboxes
                         ? testCheckboxes.map( item =>
                             <Field
@@ -27,8 +32,14 @@ class WebDevelopment extends Component {
                         : <p>empty</p>
                     }
                 </SlideTogle>
-            </DropdownAvailability>
+            </DropDownCircle>
         )
+    }
+
+    handleClick = ev => {
+        this.setState({
+            isOpen: !this.state.isOpen,
+        })
     }
 }
 

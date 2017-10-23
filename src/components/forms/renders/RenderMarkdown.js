@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import RichTextEditor from 'react-rte';
-import RenderTextArea from './RenderTextArea';
-import { Field } from 'redux-form';
-import { Button } from 'semantic-ui-react';
-import StyledUploader from '../../../styleComponents/forms/StyledUploader';
+import { StyledMarkdown } from '../../../styleComponents/StyledMarkdown';
 
 class RenderMarkdown extends Component {
 
@@ -31,7 +28,7 @@ class RenderMarkdown extends Component {
         };
 
         return (
-            <div>
+            <StyledMarkdown>
                 <div ref={this.EditorTool}>
                     <RichTextEditor
                         value={this.state.value}
@@ -39,22 +36,21 @@ class RenderMarkdown extends Component {
                         toolbarConfig={toolbarConfig}
                     />
                 </div>
-                    {/*<div ref={this.Trigger}>*/}
-                        {/*<Field name={name} component={RenderTextArea} text={this.state.value.toString('html')}/>*/}
-                    {/*</div>*/}
-            </div>
+            </StyledMarkdown>
         )
     }
 
-    // Trigger = ref => {
-    //     this.TextAreaClick = ref;
-    // };
-
     EditorTool = ref => {
-        if (!ref) return
+        if (!ref) return;
         let { title } = this.props;
-        let text = document.createElement("div");
+        let text = document.createElement('div');
         let buttons = ref.querySelectorAll('div')[2];
+        let main = ref.querySelectorAll('div')[0];
+        let toolbar = ref.querySelectorAll('div')[1];
+        main.classList.add('RichTextEditor');
+        toolbar.classList.add('EditorToolbar');
+        toolbar.childNodes[0].classList.add('button-group');
+        toolbar.childNodes[1].classList.add('button-group');
         text.className = 'EditorTitle';
         text.innerText = title;
         let Toolbar = buttons.parentNode;
@@ -62,9 +58,6 @@ class RenderMarkdown extends Component {
     };
 
     onChange = (value) => {
-        // console.log();
-        // window.text = this.TextAreaClick;
-        // this.TextAreaClick.querySelectorAll('textarea')[0].focus();
         this.setState({value});
     };
 }

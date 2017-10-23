@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import Services from '../Services';
-
-import { DvButton } from '../../../styleComponents/layout/DvButton';
-import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
-import {renderField} from '../../forms/renders/RenderField';
-import {daysAvailable} from '../../../helpers/selects/daysAvailable';
-import {testCheckboxes} from '../../../helpers/selects/testCheckboxes';
+import { renderField } from '../../forms/renders/RenderField';
+import { testCheckboxes } from '../../../helpers/selects/testCheckboxes';
 import RenderCheckbox from '../../forms/renders/RenderCheckbox';
-import {DropdownAvailability} from '../../../styleComponents/StyledDropdown';
+import { DropDownCircle } from '../../../styleComponents/StyledDropdown';
 import SlideTogle from '../../SlideTogle';
 
 class WebDevelopment extends Component {
+
+    state = {
+        isOpen: false
+    };
 
     render() {
         const { handleSubmit, submitting } = this.props;
 
         return(
-            <DropdownAvailability>
-                <SlideTogle height={'auto'}>
-                    <p>Web development /</p>
+            <DropDownCircle>
+                <SlideTogle height={'0'}>
+                    <p onClick={ this.handleClick }>Web development /<a className={ this.state.isOpen && 'active' }/></p>
                     { testCheckboxes
                         ? testCheckboxes.map( item =>
                             <Field
@@ -32,8 +31,14 @@ class WebDevelopment extends Component {
                         : <p>empty</p>
                     }
                 </SlideTogle>
-            </DropdownAvailability>
+            </DropDownCircle>
         )
+    }
+
+    handleClick = ev => {
+        this.setState({
+            isOpen: !this.state.isOpen,
+        })
     }
 }
 

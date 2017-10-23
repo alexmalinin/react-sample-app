@@ -24,6 +24,15 @@ export const DvTitleBig = styled.h1`
     @media (max-width: 1920px) {
         &:first-child {
             margin-top: 0;
+       
+            ${props => props.sm ? css`
+                font-size: 275px;
+                line-height: 215px;
+                margin-top: 60px;
+                margin-left: -20px;` 
+        
+                : ``
+            };
         }
     }
     
@@ -49,6 +58,27 @@ export const DvTitleBig = styled.h1`
         &:first-child {
             font-size: 140px;
             line-height: 140px;
+            
+            ${props => props.sm ? css`
+                font-size: 125px;
+                line-height: 110px;
+                margin-top: 0px;
+                margin-left: -10px;`
+        
+            : ``
+            };
+        }
+    }
+    
+    @media (max-width: 496px) {
+    
+        &:first-child {
+            
+            ${props => props.sm ? css`
+                font-size: 80px;
+                line-height: 75px;`
+            : ``
+            };
         }
     }
 `;
@@ -59,6 +89,7 @@ export const DvTitle = styled.h1`
     font-weight: 300;    
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
+    ${props => props.mBot ? `margin-bottom: ${props.mBot}px` : ``};
     ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
     
     &:first-child {
@@ -71,6 +102,9 @@ export const DvTitle = styled.h1`
     
     @media(max-width: 1920px) {
     
+        margin-top: 30px;
+        font-size: 60px;
+        
        &:first-child {
           margin-top: 30px;
           font-size: 60px;
