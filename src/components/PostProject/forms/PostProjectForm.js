@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import Services from '../Services';
 import Details from '../Deails';
 
 import { DvButton } from '../../../styleComponents/layout/DvButton';
-import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
+import { DvTitle } from '../../../styleComponents/layout/DvTitles';
 
 class PostProjectForm extends Component {
 
@@ -12,17 +12,21 @@ class PostProjectForm extends Component {
         const { handleSubmit, submitting } = this.props;
 
         return(
-            <form name="details" onSubmit={handleSubmit}>
-                <DvTitleSmall>
+            <form name='details' onSubmit={handleSubmit}>
+                <DvTitle mTop='90' mBot='90'>
                     What services do
                     <br/>
                     you need?
-                </DvTitleSmall>
+                </DvTitle>
+
                 <Services/>
-                <DvTitleSmall>
+
+                <DvTitle mTop='90' mBot='90'>
                     Project Details
-                </DvTitleSmall>
+                </DvTitle>
+
                 <Details/>
+
                 <DvButton
                     type='submit'
                     disabled={submitting}

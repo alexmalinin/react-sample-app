@@ -8,7 +8,7 @@ export default styled.header`
       .inside-header {
         position: fixed;
         width: 100%;
-        z-index: 2;
+        z-index: 11;
       }
     
       .top-header {
