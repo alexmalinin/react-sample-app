@@ -122,8 +122,32 @@ export const DvTitle = styled.h1`
 export const DvTitleMedium = styled.h2`
     
     font-family: 'Proxima Nova';
-    font-size: 250px;
+    font-size: 260px;
     line-height: 0.8;
+    
+    @media (max-width: 1200px) {
+        font-size: 220px;
+        
+        ${props => props.left ? css`
+            text-align: left` : `text-align: right`
+        };
+    }
+    
+    @media (max-width: 991px) {
+        font-size: 165px;
+    }
+    
+    
+    @media (max-width: 768px) {
+        font-size: 140px;
+        text-align: left;
+        line-height: 1;
+        margin-bottom: 30px !important; //overwrite semantic style
+        
+        ${props => props.left && css`
+            font-size: 85px;`
+        };
+    }
 
 `;
 

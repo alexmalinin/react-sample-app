@@ -19,24 +19,24 @@ class Home extends Component {
             <StyledHome>
                 <Container>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.blue}>
                         <img src='/images/logo-home.png' alt=''/>
-                        <p>
+                        <p className='limit-width'>
                             is a platform that brings specialist digital <br/>
                             <ColoredLinks to='/how_it_works' color={colors.green}>contractors</ColoredLinks> together to create <ColoredLinks to='/how_it_works' color={colors.purple}>teams</ColoredLinks> that <br/>
                             deliver complex <ColoredLinks to='/projects' color={colors.blue}>projects</ColoredLinks>.
                         </p>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.purple}>
                         <Grid>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
+                            <Grid.Row>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <DvTitleMedium>
                                         why/
                                     </DvTitleMedium>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <p>
                                         The necessary <ColoredLinks to='/how_it_works' color={colors.blue}>skills</ColoredLinks> to
                                         complete  a digital project is ever-expanding and varying.
@@ -54,15 +54,15 @@ class Home extends Component {
                         </Grid>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.blue}>
                         <Grid>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
+                            <Grid.Row>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <DvTitleMedium>
                                         find/
                                     </DvTitleMedium>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam autem est
                                         odio perspiciatis quod, sapiente tenetur! Delectus dolorem quas qui repudiandae
@@ -74,15 +74,15 @@ class Home extends Component {
                         </Grid>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.purple}>
                         <Grid>
-                            <Grid.Row columns={2}>
-                                <Grid.Column>
+                            <Grid.Row>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <DvTitleMedium>
                                         vip/
                                     </DvTitleMedium>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={8} computer={8}>
                                     <p className='bolder' color={colors.blue}>
                                         This is an invitation only platform.
                                     </p>
@@ -96,16 +96,16 @@ class Home extends Component {
                         </Grid>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.blue}>
                         <Grid>
                             <Grid.Row>
-                                <Grid.Column width={6}>
+                                <Grid.Column mobile={16} tablet={8} computer={7}>
                                     <div className='title'>
                                         Contractors
                                     </div>
                                 </Grid.Column>
 
-                                <Grid.Column width={7}>
+                                <Grid.Column mobile={16} tablet={7} computer={7}>
                                     <p className='description'>
                                         Create teams and invite others on the network to join. Build long lasting relationships
                                         and work on future projects together.
@@ -114,13 +114,13 @@ class Home extends Component {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <Grid.Column width={6}>
+                                <Grid.Column mobile={16} tablet={8} computer={7}>
                                     <div className='title'>
                                         Projects
                                     </div>
                                 </Grid.Column>
 
-                                <Grid.Column width={7}>
+                                <Grid.Column mobile={16} tablet={7} computer={7}>
                                     <p className='description'>
                                         Post your project and we will work with you to scope out the requirements to make sure
                                         there is clarity from the start. Select to have an experienced product manager take
@@ -130,13 +130,13 @@ class Home extends Component {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <Grid.Column width={6}>
+                                <Grid.Column mobile={16} tablet={8} computer={7}>
                                     <div className='title'>
                                         Teams
                                     </div>
                                 </Grid.Column>
 
-                                <Grid.Column width={7}>
+                                <Grid.Column mobile={16} tablet={7} computer={7}>
                                     <p className='description'>
                                         Create a project and peruse the platform to find the the right people needed for your
                                         project. Hand-pick your team and introduce yourself. You can save your teams and use
@@ -147,18 +147,18 @@ class Home extends Component {
                         </Grid>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.purple}>
                         <Grid>
                             <Grid.Row columns={1}>
                                 <Grid.Column>
-                                    <DvTitleMedium>
+                                    <DvTitleMedium left>
                                         our values/
                                     </DvTitleMedium>
                                 </Grid.Column>
                             </Grid.Row>
 
                             <Grid.Row columns={3}>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Innovation /</span>
                                         <p>
@@ -168,7 +168,7 @@ class Home extends Component {
                                         </p>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Globalisation /</span>
                                         <p>
@@ -177,7 +177,7 @@ class Home extends Component {
                                         </p>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Transparency /</span>
                                         <p>
@@ -186,7 +186,7 @@ class Home extends Component {
                                         </p>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Flexibility /</span>
                                         <p>
@@ -195,7 +195,7 @@ class Home extends Component {
                                         </p>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Respect /</span>
                                         <p>
@@ -205,7 +205,7 @@ class Home extends Component {
                                         </p>
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column>
+                                <Grid.Column mobile={16} tablet={5} computer={5}>
                                     <div className='values'>
                                         <span>Integrity /</span>
                                         <p>
@@ -218,7 +218,7 @@ class Home extends Component {
                         </Grid>
                     </FullScreen>
 
-                    <FullScreen centered>
+                    <FullScreen centered border={colors.blue}>
                         <SubscribeForm onSubmit={this.submit}/>
                     </FullScreen>
 
