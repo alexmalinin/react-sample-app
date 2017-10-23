@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 export const FullScreen = styled.div`
     
+    position: relative;
     min-height: 800px;
     height: 100vh;
     
@@ -18,6 +19,28 @@ export const FullScreen = styled.div`
     `};
     
     ${props => props.indent && `margin-top: 160px;`};
+    
+    @media (max-width: 1200px) {
+    
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    @media (max-width: 768px) {
+    
+        padding: 80px 0;
+    
+        ${props => props.border && css`
+            &:after {
+                content: '';
+                position: absolute;
+                height: 18px;
+                width: calc(100% + 30px);
+                background: ${props.border};
+                bottom: 0;`
+            }
+        }
+    }
 `;
 
 export const ColoredLinks = styled(NavLink)`
@@ -102,5 +125,52 @@ export const StyledHome = styled.div`
         font-weight: 300;
         padding-left: 10%;
         line-height: 1;
+    }
+    
+    @media (max-width: 1200px) {
+        font-size: 24px;
+        
+        br {
+            display: none;
+        }
+        
+        .limit-width {
+            max-width: 440px;
+        }
+    }
+    
+    @media (max-width: 991px) {
+        font-size: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        font-size: 30px;
+    
+        img {
+            max-width: 550px;
+        }
+        
+        .title {
+            justify-content: start;
+            padding: 0 0 40px 0;
+            font-size: 34px;
+            border-right: none;
+        }
+        
+        .description {
+            border-bottom: 3px solid #1991fa;
+            text-align: justify;
+            align-items: center;
+            font-size: 18px;
+            padding: 0 0 20px 0;
+        }
+    }
+    
+    @media (max-width: 569px) {
+        font-size: 24px;
+    
+        img {
+            max-width: 310px;
+        }
     }
 `;
