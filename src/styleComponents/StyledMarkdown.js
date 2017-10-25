@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledMarkdown = styled.div`
+    position: relative;
+    z-index: 0;
     
     .RichTextEditor {
         border: none;
