@@ -54,7 +54,7 @@ export const StyledMarkdown = styled.div`
             border: 2px solid #ccc;
             border-top: none;
             
-            & * div {
+            .public-DraftEditor-content {
                 min-height: 260px;
             }
         }
@@ -96,7 +96,7 @@ export const StyledMarkdown = styled.div`
                 border: 1px solid #ccc;
                 border-top: none;
                 
-                & * div {
+                .public-DraftEditor-content {
                     min-height: 160px;
                 }
             }
