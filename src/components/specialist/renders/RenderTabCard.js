@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import testProfileInfo from '../../../helpers/testProfileInfo';
-import { RenderWorkCard } from '../../../styleComponents/StyledTabCard'
+import { RenderWorkCard } from '../../../styleComponents/StyledTabCard';
+import SlideTogle from '../../SlideTogle';
 
 class RenderTabCard extends Component {
 
@@ -38,9 +39,22 @@ class RenderTabCard extends Component {
                 </div>
 
                 <div className='action-card'>
-                    <a onClick={ this.handleClick } className={ isOpen && 'active' }>
-                        Show { isOpen ? 'less' : 'more' } details
-                    </a>
+                    <SlideTogle height={'0'}>
+                        <a onClick={ this.handleClick } className={ isOpen && 'active' }>
+                            Show { isOpen ? 'less' : 'more' } details
+                        </a>
+                        <div>
+                            <p>
+                                <br/>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Duis aute irure dolor in reprehenderit
+                                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            </p>
+                        </div>
+                    </SlideTogle>
+
                 </div>
             </RenderWorkCard>
         )

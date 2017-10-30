@@ -4,7 +4,8 @@ import { required, minLength2 } from '../../../helpers/validate';
 import {RenderField} from './RenderField';
 
 const InputField = props => {
-    const { name, placeholder, disabled, noValidate } = props;
+    const { name, placeholder, disabled, validate } = props;
+
 
     return (
         <Field
@@ -13,7 +14,7 @@ const InputField = props => {
             placeholder={placeholder}
             component={RenderField}
             disabled={disabled}
-            validate={noValidate ? false : [required, minLength2]}
+            validate={validate ? [required, minLength2] : []}
         />
     )
 };

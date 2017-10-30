@@ -9,6 +9,7 @@ import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
 import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
 import Tabs from '../../styleComponents/Tabs';
 import { userType } from '../../actions/actions';
+import { postSignUpData } from '../../actions/actions';
 import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
 import SignUpFormClient from '../client/forms/SignUpFormClient';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
@@ -70,6 +71,7 @@ class SignUp extends Component {
     submit = userType => values => {
         console.log('---userType:',userType);
         console.log('----values:',values);
+        this.props.postSignUpData(this.state.activeTab, values);
         this.setState({
             confirm: !this.state.confirm,
         })
@@ -85,4 +87,4 @@ class SignUp extends Component {
 
 }
 
-export default connect(({form}) => ({form}), {userType})(SignUp);
+export default connect(({form}) => ({form}), {userType, postSignUpData})(SignUp);

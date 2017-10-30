@@ -40,7 +40,7 @@ class SignUpForm extends Component  {
                 {person === 'Client' && this.props.children}
 
                 <Field
-                    name="info"
+                    name="hear_from"
                     component={RenderSelect}
                     placeholder="How did you hear about Digital Village /"
                     options={[{ label: 'Internet Article', value: 'Internet Article' },
@@ -60,7 +60,7 @@ class SignUpForm extends Component  {
 
                 <StyledRequireBox>
                     <Field
-                        name="confirm"
+                        name="terms"
                         component={RenderCheckbox}
                         // disabled={hasPerson === 'Agency'}
                         validate={[required, minLength2]}

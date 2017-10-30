@@ -1,8 +1,8 @@
-import { PORT } from '../constans/constans'
+import { PORT, SIGN_UP_STEP_1, CHANGE_USER_TYPE, SIGN_IN } from '../constans/constans'
 
 export function userType(user) {
     const action = {
-        type: 'CHANGE_USER_TYPE',
+        type: CHANGE_USER_TYPE,
         user,
     };
 
@@ -40,11 +40,22 @@ export function postContacts(contacts) {
 export function signIn(data) {
     const { first_name, last_name } = data;
     const action = {
-        type: 'SIGN_IN',
+        type: SIGN_IN,
         first_name,
         last_name,
     };
-    console.log(action);
+    return action;
+}
+
+// Client
+
+export function postSignUpData(user, data) {
+    const action = {
+        type: SIGN_UP_STEP_1,
+        user,
+        payload: data,
+        signUp: `${PORT}/api/v1/customers`,
+    };
     return action;
 }
 

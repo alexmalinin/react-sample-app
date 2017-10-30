@@ -12,10 +12,10 @@ const SignUpFormClient = props =>  {
             <InputField
                 name="company_name"
                 placeholder="Company name /"
-                noValidate={true}
+                validate={false}
             />
             <Field
-                name="company-employeers"
+                name="employers_number"
                 component={RenderSelect}
                 placeholder="Number of employeers /"
                 options={employeers}
