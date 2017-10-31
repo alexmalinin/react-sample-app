@@ -11,9 +11,12 @@ import { Container } from '../../styleComponents/layout/Container';
 
 class Verification extends Component {
 
+    componentWillMount() {
+        this.user = window.location.pathname.match(/\w+/g)[2];
+    }
+
     render() {
         const { confirm, confirmAccount } = this.props;
-
         return (
             <main>
                 <HeaderIntro/>
@@ -25,6 +28,7 @@ class Verification extends Component {
                         <VerificationForm/>
                     </DvForm>
                     <DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
+                    <DvButton className='verify-btn'  primary content='SAVE & CONTINUE'/>
                     { confirm && this.getUserRedirect() }
                 </Container>
             </main>
@@ -32,11 +36,11 @@ class Verification extends Component {
     }
 
     getUserRedirect(){
-        const { changeUserType } = this.props;
+        const { changeUserType, user } = this.props;
 
         return(
             <div>
-                {changeUserType === 'Specialist' ?
+                {this.user === 'specialists' ?
                     <Redirect to="/specialists/dashboard/welcome-to-the-village-1"/> :
                     <Redirect to="/client/dashboard/welcome-to-the-village"/>
                 }

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import FlexDirection from '../styleComponents/FlexDirection';
 import Home from './Home';
 import Contact from './Contact/Contact';
 import Dashboard from './Dashboard';
@@ -9,6 +11,7 @@ import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
 import ForgotPassword from './ForgotPassword';
 import Verification from './Verification/Verification';
+import ConfirmEmail from './ConfirmEmail';
 import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
 import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
 import ClientWelcome from './client/ClientWelcome';
@@ -18,17 +21,24 @@ import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
-import FlexDirection from '../styleComponents/FlexDirection';
 import Footer from './layout/Footer'
 
 class App extends Component {
+
+    componentWillMount() {
+        this.token = localStorage.getItem('confirmation_token');
+        console.log(this.token)
+    }
+
     render() {
+        const {signUpData} = this.props;
+
         return (
             <Router>
                 <FlexDirection>
                     <Switch>
                         <Route exact path='/' render={ () => <Redirect to='/sign_up'/>}/>
-                        <Route path='/home' component={Home}/>
+                        <Route path= '/home' component={Home}/>
                         <Route path='/contact' component={Contact}/>
                         <Route path='/how_it_works' component={Dashboard}/>
                         <Route path='/projects' component={Dashboard}/>
@@ -40,7 +50,8 @@ class App extends Component {
                         <Route path='/sign_in' component={SignIn}/>
                         <Route path='/forgot_password' component={ForgotPassword}/>
                         <Route path='/sign_up' component={SignUp}/>
-                        <Route path='/verification' component={Verification}/>
+                        { this.token && this.renderToken() }
+                        <Route path='/confirm_email' component={ConfirmEmail}/>
                         <Route path='/specialists/dashboard/welcome-to-the-village-1' component={SpecialistsWelcome1}/>
                         <Route path='/specialists/dashboard/welcome-to-the-village-2' component={SpecialistsWelcome2}/>
                         <Route path='/specialists/dashboard/profile' component={SpecialistsProfile}/>
@@ -56,6 +67,17 @@ class App extends Component {
             </Router>
         );
     }
+
+    renderToken = () => {
+        return [
+                <Route key="0" path={`/api/v1/specialists/confirmation/${localStorage.getItem('confirmation_token')}`}
+                       render = { () => <Verification user='Specialist' /> }
+                />,
+                <Route key="1" path={`/api/v1/customer/confirmation/${localStorage.getItem('confirmation_token')}`}
+                       render = { () => <Verification user='Client' /> }
+                />
+            ]
+    }
 }
 
-export default App;
+export default connect(({signUpData}) => ({signUpData}))(App);

@@ -55,7 +55,7 @@ class SignUp extends Component {
                             <Grid.Column mobile={16} tablet={9} computer={8}>
                                 <Tabs mTop='180' action=''>
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
-                                    { confirm && <Redirect to='/verification'/> }
+                                    { confirm && <Redirect to='/confirm_email'/> }
                                 </Tabs>
                                 <StyledFormHint>
                                     <span>Already have an account? <Link to='/sign_in'>Log in</Link></span>

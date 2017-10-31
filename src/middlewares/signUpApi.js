@@ -2,31 +2,64 @@ import axios from 'axios';
 import { SUCCESS } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, signUp, payload, ...rest } = action;
+    const { type, signUp, user, api_request, payload, ...rest } = action;
     if (!signUp) return next(action);
 
-    axios({
-        method: 'post',
-        url: signUp,
-        data: {
-            "customer": {
-                "first_name": `${payload["first_name"]}`,
-                "last_name": `${payload["last_name"]}`,
-                "email": `${payload["email"]}`,
-                "hear_from": `${payload["hear_from"]["value"]}`,
-                "employers_number": `${payload["employers_number"]["value"]}`,
-                "phone_number": `${payload["phone-select"]["label"] + payload["phone-input"]}`,
-                "company_name": `${payload["company_name"]}`,
-                "terms": true
+    // Client
+
+    if (user === 'Client') {
+        return axios({
+            method: 'post',
+            url: signUp,
+            data: {
+                "customer": {
+                    "first_name": `${payload["first_name"]}`,
+                    "last_name": `${payload["last_name"]}`,
+                    "email": `${payload["email"]}`,
+                    "hear_from": `${payload["hear_from"]["value"]}`,
+                    "employers_number": `${payload["employers_number"]["value"]}`,
+                    "phone_number": `${payload["phone-select"]["label"] + payload["phone-input"]}`,
+                    "company_name": `${payload["company_name"]}`,
+                    "terms": true
+                }
             }
-        }
-    }).then(function (response) {
-        return next({ ...rest, type: type + SUCCESS, data: response.data });
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
 
+        }).then(function (response) {
+            return next({ ...rest, type: type + SUCCESS, data: response.data });
+        }).then(function (response) {
+            localStorage.setItem('user_email', `${response.data.email}`);
+            localStorage.setItem('confirmation_token', `${response.data["confirmation_token"]}`);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
+    // Specialists
+
+    } else {
+        return axios({
+            method: 'post',
+            url: signUp,
+            data: {
+                "specialist": {
+                    "first_name": `${payload["first_name"]}`,
+                    "last_name": `${payload["last_name"]}`,
+                    "phone_number": `${payload["phone-select"]["label"] + payload["phone-input"]}`,
+                    "email": `${payload["email"]}`,
+                    "hear_from": `${payload["hear_from"]["value"]}`,
+                    "terms": true
+                }
+            }
+
+        }).then(function (response) {
+            return next({ ...rest, type: type + SUCCESS, data: response.data });
+        }).then(function (response) {
+            localStorage.setItem('user_email', `${response.data.email}`);
+            localStorage.setItem('confirmation_token', `${response.data["confirmation_token"]}`);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
 };

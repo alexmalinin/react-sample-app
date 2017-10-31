@@ -47,16 +47,34 @@ export function signIn(data) {
     return action;
 }
 
-// Client
+// Client and Specialist signUp step 1
 
 export function postSignUpData(user, data) {
+    let api_request = user === 'Client' ? 'customers' : 'specialists';
     const action = {
         type: SIGN_UP_STEP_1,
         user,
         payload: data,
-        signUp: `${PORT}/api/v1/customers`,
+        api_request,
+        signUp: `${PORT}/api/v1/${api_request}`,
     };
     return action;
 }
+
+// Client and Specialist Verification
+
+// export function postSignUpData(user, data) {
+//     let api_request = user === 'Client' ? 'customers' : 'specialists';
+//     const action = {
+//         type: SIGN_UP_STEP_1,
+//         user,
+//         payload: data,
+//         api_request,
+//         signUp: `${PORT}/api/v1/${api_request}`,
+//     };
+//     return action;
+// }
+
+
 
 
