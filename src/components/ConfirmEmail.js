@@ -21,7 +21,7 @@ class ConfirmEmail extends Component {
                     <DvTitle mTop='126'>
                         Confirmation
                     </DvTitle>
-                    <p>Please confirm your email: <b>{signUpData ? signUpData.data.email : localStorage.getItem('user_email')}</b> </p>
+                    <p>Please confirm your email: <b>{signUpData ? signUpData.email : localStorage.getItem('user_email')}</b></p>
                     {/*<DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>*/}
                     {/*{ confirm && this.getUserRedirect() }*/}
                 </Container>
@@ -43,4 +43,4 @@ class ConfirmEmail extends Component {
     // }
 }
 
-export default connect(({changeUserType, signUpData}) => ({changeUserType, signUpData}))(confirm(ConfirmEmail));
+export default connect(({signUpData}) => ({signUpData}))(confirm(ConfirmEmail));

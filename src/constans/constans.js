@@ -4,5 +4,8 @@ export const PORT =
 export const SIGN_UP_STEP_1 = 'SIGN_UP_STEP_1';
 export const CHANGE_USER_TYPE = 'CHANGE_USER_TYPE';
 export const SIGN_IN = 'SIGN_IN';
+export const GET_USER_ID = 'GET_USER_ID';
+export const VERIFICATION = 'VERIFICATION';
+export const CONFIRM_PASSWORDS = 'CONFIRM_PASSWORDS';
 
 export const SUCCESS = '_SUCCESS';

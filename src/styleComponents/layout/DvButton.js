@@ -14,6 +14,10 @@ export const DvButton = styled(Button)`
         &.verify-btn {
             padding: 40px;
         }
+        
+        &.width200 {
+          width: 200%;
+        }
     }
     
     // ${props => props.large ? `width: calc(100% + 100%);` : ``};
@@ -31,6 +35,10 @@ export const DvButton = styled(Button)`
         &.ui.button {
             &.verify-btn {
                 font-size: 18px;
+            }
+            
+            &.width200 {
+                width: 100%;
             }
         }
     }

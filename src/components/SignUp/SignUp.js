@@ -26,12 +26,12 @@ class SignUp extends Component {
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormSpecialist person={activeTab} onSubmit={this.submit('Specialist')}/>
+                    <SignUpFormSpecialist person={activeTab} onSubmit={this.submit('specialists')}/>
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormClient person={activeTab} onSubmit={this.submit('Client')}/>
+                    <SignUpFormClient person={activeTab} onSubmit={this.submit('customers')}/>
                 </StyledSignUpForm>
             },
         ];
@@ -69,9 +69,7 @@ class SignUp extends Component {
     }
 
     submit = userType => values => {
-        console.log('---userType:',userType);
-        console.log('----values:',values);
-        this.props.postSignUpData(this.state.activeTab, values);
+        this.props.postSignUpData(userType, values);
         this.setState({
             confirm: !this.state.confirm,
         })

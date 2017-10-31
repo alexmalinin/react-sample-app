@@ -2,12 +2,13 @@ import axios from 'axios';
 import { SUCCESS } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, signUp, user, api_request, payload, ...rest } = action;
+    const { type, signUp, user, payload, ...rest } = action;
     if (!signUp) return next(action);
 
     // Client
+    console.log('payload', payload);
 
-    if (user === 'Client') {
+    if (user === 'customers') {
         return axios({
             method: 'post',
             url: signUp,
@@ -27,8 +28,8 @@ export default store => next => action => {
         }).then(function (response) {
             return next({ ...rest, type: type + SUCCESS, data: response.data });
         }).then(function (response) {
-            localStorage.setItem('user_email', `${response.data.email}`);
-            localStorage.setItem('confirmation_token', `${response.data["confirmation_token"]}`);
+            // localStorage.setItem('user_email', `${response.data.email}`);
+            return true
         })
         .catch(function (error) {
             console.log(error);
@@ -55,7 +56,7 @@ export default store => next => action => {
             return next({ ...rest, type: type + SUCCESS, data: response.data });
         }).then(function (response) {
             localStorage.setItem('user_email', `${response.data.email}`);
-            localStorage.setItem('confirmation_token', `${response.data["confirmation_token"]}`);
+            return true
         })
         .catch(function (error) {
             console.log(error);

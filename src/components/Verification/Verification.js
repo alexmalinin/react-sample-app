@@ -8,15 +8,19 @@ import { DvButton } from '../../styleComponents/layout/DvButton';
 import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
+import {verifyPassword, getUserId} from '../../actions/actions'
 
 class Verification extends Component {
 
     componentWillMount() {
-        this.user = window.location.pathname.match(/\w+/g)[2];
+        let { match } = this.props;
+        this.token = match.params.token;
+        this.user = match.params.user;
+        this.props.getUserId(this.user, this.token);
     }
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        const { confirm, confirmAccount, confirmPassword } = this.props;
         return (
             <main>
                 <HeaderIntro/>
@@ -25,28 +29,42 @@ class Verification extends Component {
                         Account Verification
                     </DvTitle>
                     <DvForm widthAuto>
-                        <VerificationForm/>
+                        <VerificationForm onSubmit={this.submit}/>
                     </DvForm>
-                    <DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>
-                    <DvButton className='verify-btn'  primary content='SAVE & CONTINUE'/>
-                    { confirm && this.getUserRedirect() }
+                    { confirmPassword && this.getUserRedirect() }
                 </Container>
             </main>
         )
     }
 
+    // postRequest = ev => {
+    //     // this.props.verifyPassword(this.user, )
+    // };
+
     getUserRedirect(){
         const { changeUserType, user } = this.props;
+        let redirect;
+        if (this.user === 'customer') {
+            redirect = <Redirect to="/client/dashboard/welcome-to-the-village"/>
+        } else if (this.user === 'specialists'){
+            redirect = <Redirect to="/specialists/dashboard/welcome-to-the-village-1"/>
+        }
 
         return(
             <div>
-                {this.user === 'specialists' ?
-                    <Redirect to="/specialists/dashboard/welcome-to-the-village-1"/> :
-                    <Redirect to="/client/dashboard/welcome-to-the-village"/>
-                }
+                {this.user ? redirect : null}
             </div>
         )
     }
+
+    submit = values => {
+        const {UserId , verifyPassword } = this.props;
+        verifyPassword(this.user + 's', UserId, values);
+    };
 }
 
-export default connect(({changeUserType}) => ({changeUserType}))(confirm(Verification));
+export default connect(({UserId, confirmPassword}) => ({UserId, confirmPassword}),
+    {
+        verifyPassword,
+        getUserId,
+    })(confirm(Verification));

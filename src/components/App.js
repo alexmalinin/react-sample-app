@@ -50,7 +50,7 @@ class App extends Component {
                         <Route path='/sign_in' component={SignIn}/>
                         <Route path='/forgot_password' component={ForgotPassword}/>
                         <Route path='/sign_up' component={SignUp}/>
-                        { this.token && this.renderToken() }
+                        {this.renderToken()}
                         <Route path='/confirm_email' component={ConfirmEmail}/>
                         <Route path='/specialists/dashboard/welcome-to-the-village-1' component={SpecialistsWelcome1}/>
                         <Route path='/specialists/dashboard/welcome-to-the-village-2' component={SpecialistsWelcome2}/>
@@ -70,11 +70,11 @@ class App extends Component {
 
     renderToken = () => {
         return [
-                <Route key="0" path={`/api/v1/specialists/confirmation/${localStorage.getItem('confirmation_token')}`}
-                       render = { () => <Verification user='Specialist' /> }
+                <Route key="0" path="/api/v1/:user/confirmation/:token"
+                       render = { props => <Verification {...props} user='Specialist' /> }
                 />,
-                <Route key="1" path={`/api/v1/customer/confirmation/${localStorage.getItem('confirmation_token')}`}
-                       render = { () => <Verification user='Client' /> }
+                <Route key="1" path="/api/v1/:user/confirmation/:token"
+                       render = { props => <Verification {...props} user='Client' /> }
                 />
             ]
     }

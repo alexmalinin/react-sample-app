@@ -1,4 +1,4 @@
-import { PORT, SIGN_UP_STEP_1, CHANGE_USER_TYPE, SIGN_IN } from '../constans/constans'
+import { PORT, SIGN_UP_STEP_1, CHANGE_USER_TYPE, SIGN_IN, VERIFICATION, GET_USER_ID } from '../constans/constans'
 
 export function userType(user) {
     const action = {
@@ -50,30 +50,42 @@ export function signIn(data) {
 // Client and Specialist signUp step 1
 
 export function postSignUpData(user, data) {
-    let api_request = user === 'Client' ? 'customers' : 'specialists';
     const action = {
         type: SIGN_UP_STEP_1,
         user,
         payload: data,
-        api_request,
-        signUp: `${PORT}/api/v1/${api_request}`,
+        signUp: `${PORT}/api/v1/${user}`,
     };
+    console.log(action);
+    return action;
+}
+
+// Get User Id by confirmation token
+
+export function getUserId (user, token) {
+    const action = {
+        type: GET_USER_ID,
+        user,
+        userConfirmationToken: `${PORT}/api/v1/${user}/${token}`,
+    };
+    console.log(action);
+
     return action;
 }
 
 // Client and Specialist Verification
 
-// export function postSignUpData(user, data) {
-//     let api_request = user === 'Client' ? 'customers' : 'specialists';
-//     const action = {
-//         type: SIGN_UP_STEP_1,
-//         user,
-//         payload: data,
-//         api_request,
-//         signUp: `${PORT}/api/v1/${api_request}`,
-//     };
-//     return action;
-// }
+export function verifyPassword (user, id, data) {
+    const action = {
+        type: VERIFICATION,
+        user,
+        payload: data,
+        verification: `${PORT}/api/v1/${user}/${id}`,
+    };
+
+    return action;
+}
+
 
 
 
