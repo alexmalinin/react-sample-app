@@ -41,18 +41,19 @@ class Verification extends Component {
     //     // this.props.verifyPassword(this.user, )
     // };
 
-    getUserRedirect(){
-        const { UserId } = this.props;
-        let redirect;
-        if (this.user === 'customer') {
-            redirect = <Redirect to={`/client/dashboard/welcome-to-the-village/${UserId}`}/>
-        } else if (this.user === 'specialist'){
-            redirect = <Redirect to={`/specialists/dashboard/welcome-to-the-village-1/${UserId}`}/>
-        }
+    getUserRedirect = () => {
+        // const { UserId } = this.props;
+        // let redirect;
+        // if (this.user === 'customer') {
+        //     redirect = <Redirect to={`/client/dashboard/welcome-to-the-village/${UserId}`}/>
+        // } else if (this.user === 'specialist'){
+        //     redirect = <Redirect to={`/specialists/dashboard/welcome-to-the-village-1/${UserId}`}/>
+        // }
 
         return(
             <div>
-                {this.user ? redirect : null}
+                {/*{this.user ? redirect : null}*/}
+                <Redirect to="/sign_in"/>
             </div>
         )
     }

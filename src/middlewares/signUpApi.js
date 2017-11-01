@@ -7,6 +7,7 @@ export default store => next => action => {
 
     // Client
     console.log('payload', payload);
+    console.log('user', user)
 
     if (user === 'customers') {
         return axios({

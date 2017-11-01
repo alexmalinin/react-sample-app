@@ -10,11 +10,6 @@ import { welcomeClient } from '../../actions/actions';
 
 class ClientWelcome extends Component {
 
-    componentWillMount() {
-        let { match } = this.props;
-        this.userId = match.params.id;
-    }
-
     render() {
         const { signUpData } = this.props;
         let confirm = signUpData ? signUpData.welcomeClient : false;
@@ -42,7 +37,7 @@ class ClientWelcome extends Component {
     }
 
     submit = values => {
-        this.props.welcomeClient(this.userId, values);
+        this.props.welcomeClient(values);
     };
 }
 

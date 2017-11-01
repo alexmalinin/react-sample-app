@@ -1,13 +1,18 @@
 import axios from 'axios';
 import { SUCCESS } from '../constans/constans';
+import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
     const { type, welcomeClient, payload, ...rest } = action;
     if (!welcomeClient) return next(action);
 
+    let token = localStorage.getItem('jwt_token');
+
+    let { sub } = jwtDecode(token);
+    console.log(sub);
     axios({
         method: 'put',
-        url: welcomeClient,
+        url: welcomeClient + sub,
         data: {
             "customer": {
                 "we_are": `${payload["we_are"]}`,
@@ -16,7 +21,10 @@ export default store => next => action => {
                 "industry": `${payload["industry"]}`,
                 "description": `${payload["description"]}`,
             }
-        }
+        },
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        },
     }).then(function (response) {
         return next({ ...rest, type: type + SUCCESS, data: response.data });
     })

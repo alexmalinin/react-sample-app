@@ -19,7 +19,11 @@ class SignUp extends Component {
     };
 
     render() {
-        const { confirm } = this.props;
+        const { signInReducer } = this.props;
+        console.log('signIn', signInReducer)
+        let confirm = signInReducer ? signInReducer.isLogIn : false
+        console.log(confirm);
+
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
@@ -49,8 +53,8 @@ class SignUp extends Component {
                             <Grid.Column mobile={16} tablet={9} computer={8}>
                                 <Tabs mTop='180' action=''>
                                     <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab}/>
-                                    { confirm && <Redirect to='/verification'/> }
                                 </Tabs>
+                                { confirm &&  this.loginRedirect()}
                                 <StyledFormHint>
                                     <span>Don't have an account? <Link to='/sign_up'>Sign up</Link></span>
                                 </StyledFormHint>
@@ -62,8 +66,18 @@ class SignUp extends Component {
         )
     }
 
+    loginRedirect = () => {
+        let { changeUserType } = this.props;
+        let user = changeUserType === "Specialist" ? "specialists" : "client";
+        return (
+            <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
+        )
+    };
+
     submit = values => {
-        this.props.signIn(values)
+        let { changeUserType } = this.props;
+        let user = changeUserType === "Specialist" ? "specialist" : "customer";
+        this.props.signIn(user, values)
     };
 
     activeTab = ev => {
@@ -72,4 +86,4 @@ class SignUp extends Component {
     }
 }
 
-export default connect(null, {signIn, userType })(SignUp);
+export default connect((({changeUserType, signInReducer}) => ({changeUserType, signInReducer})), {signIn, userType })(SignUp);

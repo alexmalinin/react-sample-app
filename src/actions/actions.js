@@ -44,13 +44,13 @@ export function postContacts(contacts) {
 //     return action;
 // }
 
-export function signIn(data) {
-    const { first_name, last_name } = data;
+export function signIn(user, data) {
     const action = {
         type: SIGN_IN,
-        first_name,
-        last_name,
+        payload: data,
+        signIn: `${PORT}/api/v1/${user}_token`
     };
+
     return action;
 }
 
@@ -94,11 +94,11 @@ export function verifyPassword (user, id, data) {
 
 // Client Welcome
 
-export function welcomeClient (id, data) {
+export function welcomeClient (data) {
     const action = {
         type: WELCOME_CLIENT,
         payload: data,
-        welcomeClient: `${PORT}/api/v1/customers/${id}`,
+        welcomeClient: `${PORT}/api/v1/customers/`,
     };
 
     return action;

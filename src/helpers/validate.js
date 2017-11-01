@@ -6,3 +6,4 @@ export const email = value =>
 export const minLength = min => value =>
     value && value.length < min ? `Must be ${min} characters or more` : undefined;
 export const minLength2 = minLength(2);
+export const minLength8 = minLength(8);
