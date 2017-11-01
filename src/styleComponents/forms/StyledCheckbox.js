@@ -12,6 +12,7 @@ export default styled.div`
     input:checked + div {
         background-color: #1991fa;
         color: #fff;
+        cursor: pointer;
     }
     
     label {
@@ -27,6 +28,7 @@ export default styled.div`
         padding: 16px 25px;
         border-radius: 25px;
         margin: 0 30px 40px 0;
+        cursor: pointer;
     }
     
     @media (max-width: 1920px) {

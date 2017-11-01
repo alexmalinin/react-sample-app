@@ -25,11 +25,6 @@ import Footer from './layout/Footer'
 
 class App extends Component {
 
-    componentWillMount() {
-        this.token = localStorage.getItem('confirmation_token');
-        console.log(this.token)
-    }
-
     render() {
         const {signUpData} = this.props;
 
@@ -52,12 +47,12 @@ class App extends Component {
                         <Route path='/sign_up' component={SignUp}/>
                         {this.renderToken()}
                         <Route path='/confirm_email' component={ConfirmEmail}/>
-                        <Route path='/specialists/dashboard/welcome-to-the-village-1' component={SpecialistsWelcome1}/>
+                        <Route path='/specialists/dashboard/welcome-to-the-village-1/:id' component={SpecialistsWelcome1}/>
                         <Route path='/specialists/dashboard/welcome-to-the-village-2' component={SpecialistsWelcome2}/>
                         <Route path='/specialists/dashboard/profile' component={SpecialistsProfile}/>
                         <Route path='/specialists/dashboard/my_teams' component={SpecialistsMyTeams}/>
                         <Route path='/specialists/dashboard/availability' component={SpecialistsAvailability}/>
-                        <Route path='/client/dashboard/welcome-to-the-village' component={ClientWelcome}/>
+                        <Route path='/client/dashboard/welcome-to-the-village/:id' component={ClientWelcome}/>
                         <Route path='/client/dashboard/profile' component={ClientProfile}/>
                         <Route path='/client/dashboard/projects' component={ClientProjects}/>
                         <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>

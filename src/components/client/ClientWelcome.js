@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderBasic from '../layout/HeaderBasic';
 import DvGrid from '../../styleComponents/layout/DvGrid';
 import {DvTitle} from '../../styleComponents/layout/DvTitles';
-import confirm from '../../decorators/confirm';
 import ClientWelcomeForm from './forms/ClientWelcomeForm';
+import { welcomeClient } from '../../actions/actions';
 
 class ClientWelcome extends Component {
 
-    render() {
-        const { confirm, confirmAccount } = this.props;
+    componentWillMount() {
+        let { match } = this.props;
+        this.userId = match.params.id;
+    }
 
+    render() {
+        const { signUpData } = this.props;
+        let confirm = signUpData ? signUpData.welcomeClient : false;
         return (
             <div>
                 <HeaderBasic/>
@@ -36,9 +42,8 @@ class ClientWelcome extends Component {
     }
 
     submit = values => {
-        this.props.confirmAccount();
-        console.log('values:', values);
+        this.props.welcomeClient(this.userId, values);
     };
 }
 
-export default confirm(ClientWelcome);
+export default connect((({signUpData}) => ({signUpData})), {welcomeClient})(ClientWelcome);

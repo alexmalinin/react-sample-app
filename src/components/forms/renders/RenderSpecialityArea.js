@@ -15,6 +15,7 @@ class RenderSpecialityArea extends Component {
                     {speciality
                         ? speciality.map(item =>
                             <Field
+                                key = {item.label}
                                 name={`skills.${item.label}`}
                                 component={RenderStyledCheckbox}
                                 label={item.label}

@@ -42,12 +42,12 @@ class Verification extends Component {
     // };
 
     getUserRedirect(){
-        const { changeUserType, user } = this.props;
+        const { UserId } = this.props;
         let redirect;
         if (this.user === 'customer') {
-            redirect = <Redirect to="/client/dashboard/welcome-to-the-village"/>
-        } else if (this.user === 'specialists'){
-            redirect = <Redirect to="/specialists/dashboard/welcome-to-the-village-1"/>
+            redirect = <Redirect to={`/client/dashboard/welcome-to-the-village/${UserId}`}/>
+        } else if (this.user === 'specialist'){
+            redirect = <Redirect to={`/specialists/dashboard/welcome-to-the-village-1/${UserId}`}/>
         }
 
         return(
@@ -59,6 +59,7 @@ class Verification extends Component {
 
     submit = values => {
         const {UserId , verifyPassword } = this.props;
+        localStorage.setItem('userId', UserId);
         verifyPassword(this.user + 's', UserId, values);
     };
 }

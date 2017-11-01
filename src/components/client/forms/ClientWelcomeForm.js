@@ -20,20 +20,15 @@ const ClientWelcomeForm = props => {
                 <Grid.Row columns={2}>
                     <Grid.Column>
                         <Field
-                            name="client-categories"
+                            name="we_are"
                             component={RenderSelect}
                             options={clientCategories}
                             placeholder="We are a... /"
                             validate={[required]}
                         />
-                        <InputField
-                            name="client-company"
-                            placeholder="Company name /"
-                            validate={[required]}
-                        />
                         <LocationField/>
                         <InputField
-                            name="client-industry"
+                            name="industry"
                             placeholder="Industry /"
                             validate={[required]}
                         />
@@ -42,7 +37,7 @@ const ClientWelcomeForm = props => {
                 <Grid.Row>
                     <Grid.Column>
                         <span>Tell us about your business /</span>
-                        <Field name="client-business" component={RenderTextArea}/>
+                        <Field name="description" component={RenderTextArea}/>
                         <DvButton
                             type="submit"
                             disabled={submitting}

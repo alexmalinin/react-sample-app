@@ -1,4 +1,11 @@
-import { PORT, SIGN_UP_STEP_1, CHANGE_USER_TYPE, SIGN_IN, VERIFICATION, GET_USER_ID } from '../constans/constans'
+import { PORT,
+         SIGN_UP_STEP_1,
+         CHANGE_USER_TYPE,
+         SIGN_IN,
+         VERIFICATION,
+         GET_USER_ID,
+         WELCOME_CLIENT,
+} from '../constans/constans'
 
 export function userType(user) {
     const action = {
@@ -56,7 +63,7 @@ export function postSignUpData(user, data) {
         payload: data,
         signUp: `${PORT}/api/v1/${user}`,
     };
-    console.log(action);
+
     return action;
 }
 
@@ -68,7 +75,6 @@ export function getUserId (user, token) {
         user,
         userConfirmationToken: `${PORT}/api/v1/${user}/${token}`,
     };
-    console.log(action);
 
     return action;
 }
@@ -81,6 +87,18 @@ export function verifyPassword (user, id, data) {
         user,
         payload: data,
         verification: `${PORT}/api/v1/${user}/${id}`,
+    };
+
+    return action;
+}
+
+// Client Welcome
+
+export function welcomeClient (id, data) {
+    const action = {
+        type: WELCOME_CLIENT,
+        payload: data,
+        welcomeClient: `${PORT}/api/v1/customers/${id}`,
     };
 
     return action;
