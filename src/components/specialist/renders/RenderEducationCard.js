@@ -3,29 +3,37 @@ import { Card } from 'semantic-ui-react'
 import { StyledEducationCard } from '../../../styleComponents/StyledCard'
 
 
-const RenderEducationCard = () => (
+const RenderEducationCard = ({education}) => {
 
-        <StyledEducationCard>
-            <Card.Content>
-                <Card.Header>Sydney University</Card.Header>
-                <Card.Meta>Graphic Design BA (Hons)</Card.Meta>
-                <Card.Description>
-                    <p className='period'>
-                        <img src='/images/time.png' alt=''/> Jul 2009 - Jul 2012: 3 years
-                    </p>
+    return (
+            <StyledEducationCard>
+                { education &&
+                    <Card.Content>
+                        {education.school &&
+                            <Card.Header>{education.school}</Card.Header>
+                        }
+                        { (education["area_of_study"] || education.degree) &&
+                            <Card.Meta> { education["area_of_study"]} {education.degree}</Card.Meta>
+                        }
+                        {(education.from || education.to || education.description) &&
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-
-                    <p>
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat.
-                    </p>
-                </Card.Description>
-            </Card.Content>
-        </StyledEducationCard>
-);
+                            <Card.Description>
+                                {education.from && education.to &&
+                                    <p className='period'>
+                                        <img src='/images/time.png' alt=''/> {education.from} - {education.to}
+                                    </p>
+                                }
+                                { education.description &&
+                                    <p>
+                                        {education.description}
+                                    </p>
+                                }
+                            </Card.Description>
+                        }
+                    </Card.Content>
+                }
+            </StyledEducationCard>
+    )
+};
 
 export default RenderEducationCard;

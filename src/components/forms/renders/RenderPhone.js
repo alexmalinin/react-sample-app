@@ -12,7 +12,6 @@ const RenderPhone = ({hasPerson,}) =>
                 component={RenderSelect}
                 placeholder='+61'
                 options={phoneCodes}
-                disabled={hasPerson === 'Agency'}
                 validate={[required]}
             />
             <Field
@@ -20,7 +19,6 @@ const RenderPhone = ({hasPerson,}) =>
                 component={RenderField}
                 type='number'
                 placeholder=''
-                disabled={hasPerson === 'Agency'}
                 validate={[required]}
             />
         </div>

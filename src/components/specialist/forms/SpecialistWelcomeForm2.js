@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
 import { required, } from '../../../helpers/validate';
 import { RenderField } from '../../forms/renders/RenderField';
@@ -12,16 +13,17 @@ import RenderTextArea from '../../forms/renders/RenderTextArea';
 import RenderPhone from '../../forms/renders/RenderPhone';
 import Availability from '../Availability/Availability';
 import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
-import RenderEducationCard from '../renders/RenderEducationCard';
+import RenderCards from '../renders/RenderCards';
 import RenderWorkCard from '../renders/RenderWorkCard';
 import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
 import { AddNewBtn } from '../../../styleComponents/layout/DvButton'
-
+import EdicationModal from '../../modals/EdicationModal';
+import WorkExperienceModal from '../../modals/WorkExperienceModal';
 
 class SpecialistWelcomeForm2 extends Component {
 
     render() {
-        const { handleSubmit, submitting, hasPerson } = this.props;
+        const { handleSubmit, submitting, educations } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -47,11 +49,10 @@ class SpecialistWelcomeForm2 extends Component {
                                     <p><b>Education</b> / List any formal education here /</p>
 
                                     <div className='flex-wrapper'>
-                                        <RenderEducationCard/>
-                                        <RenderEducationCard/>
+                                        <RenderCards educations={educations}/>
                                     </div>
 
-                                    <AddNewBtn basic content='Add new'/>
+                                    <EdicationModal/>
                                 </div>
 
                                 <div>
@@ -62,10 +63,9 @@ class SpecialistWelcomeForm2 extends Component {
 
                                     <div className='flex-wrapper'>
                                         <RenderWorkCard/>
-                                        <RenderWorkCard/>
                                     </div>
 
-                                    <AddNewBtn basic content='Add new'/>
+                                    <WorkExperienceModal/>
                                 </div>
 
                                 <div className='rate'>
@@ -119,7 +119,7 @@ class SpecialistWelcomeForm2 extends Component {
                                     <p><b>What is your contact number? /</b></p>
                                     <StyledPhoneField>
                                         <span>Phone /</span>
-                                        <RenderPhone hasPerson={hasPerson}/>
+                                        <RenderPhone/>
                                     </StyledPhoneField>
                                 </div>
 
@@ -147,4 +147,6 @@ export default reduxForm({
     form: 'SpecialistWelcomeForm2',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
-})(SpecialistWelcomeForm2)
+})(
+    connect(({educations}) => ({educations}))(SpecialistWelcomeForm2)
+)

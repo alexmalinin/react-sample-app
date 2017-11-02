@@ -18,6 +18,10 @@ body,
   margin-right: 0;
 }
 
+.ui.page.modals.dimmer.transition.visible.active {
+    overflow: auto;
+}
+
 /*_____________Global__________________*/
 
 .Select-control {

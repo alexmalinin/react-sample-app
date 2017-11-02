@@ -5,6 +5,7 @@ import { PORT,
          VERIFICATION,
          GET_USER_ID,
          WELCOME_CLIENT,
+         EDUCATION
 } from '../constans/constans'
 
 export function userType(user) {
@@ -30,19 +31,6 @@ export function postContacts(contacts) {
     return action;
 }
 
-// export function postSignUp(data) {
-//     const { first_name, last_name, email, message } = data;
-//     const action = {
-//         type: 'CONTACTS',
-//         contactRequest: `${PORT}api/v1/contact_requests`,
-//         first_name,
-//         last_name,
-//         email,
-//         message,
-//     };
-//
-//     return action;
-// }
 
 export function signIn(user, data) {
     const action = {
@@ -104,7 +92,16 @@ export function welcomeClient (data) {
     return action;
 }
 
+// education action
 
+export function education (data) {
+    const action = {
+        type: EDUCATION,
+        payload: data,
+    };
+
+    return action;
+}
 
 
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Header, Modal } from 'semantic-ui-react';
+import { AddNewBtn } from '../../styleComponents/layout/DvButton'
 
-const PrivacyPolicy = () => (
-    <Modal trigger={<b>privacy policy</b>} closeIcon>
-        <Modal.Header>Privacy Policy</Modal.Header>
+const WorkExperienceModal = () => (
+    <Modal trigger={<AddNewBtn basic content='Add new'/>} closeIcon>
+        <Modal.Header>Work Experience</Modal.Header>
         <Modal.Content image>
             <Modal.Description>
                 <Header>Please read this information</Header>
@@ -13,4 +14,4 @@ const PrivacyPolicy = () => (
     </Modal>
 );
 
-export default PrivacyPolicy;
+export default WorkExperienceModal;

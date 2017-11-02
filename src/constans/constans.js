@@ -8,5 +8,6 @@ export const GET_USER_ID = 'GET_USER_ID';
 export const VERIFICATION = 'VERIFICATION';
 export const CONFIRM_PASSWORDS = 'CONFIRM_PASSWORDS';
 export const WELCOME_CLIENT = 'WELCOME_CLIENT';
+export const EDUCATION = 'EDUCATION';
 
 export const SUCCESS = '_SUCCESS';
