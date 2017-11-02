@@ -18,7 +18,7 @@ export default styled.form`
         }
         
         .ui.input input {
-            font-size: 20px;
+            font-size: 14px;
         }
     }
     
