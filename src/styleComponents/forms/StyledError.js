@@ -6,9 +6,10 @@ export default styled.span`
     position: absolute;
     top: -20px;
     left: 0px;
+    font-size: 14px;
     
     @media (min-width: 1921px) {
         top: -22px;
-        font-size: 18px;
+        font-size: 20px;
     }
 `;
