@@ -23,7 +23,7 @@ class SpecialistsWelcome1 extends Component {
     }
 
     submit = values => {
-        this.props.confirmAccount();
+        // this.props.confirmAccount();
         console.log('values:', values);
     };
 }

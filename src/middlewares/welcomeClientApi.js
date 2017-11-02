@@ -8,14 +8,13 @@ export default store => next => action => {
 
     let token = localStorage.getItem('jwt_token');
 
-    let { sub } = jwtDecode(token);
-    console.log(sub);
+    let { id } = jwtDecode(token);
     axios({
         method: 'put',
-        url: welcomeClient + sub,
+        url: welcomeClient + id,
         data: {
             "customer": {
-                "we_are": `${payload["we_are"]}`,
+                "we_are": `${payload["we_are"]["label"]}`,
                 "country": `${payload["country"]}`,
                 "city": `${payload["city"]}`,
                 "industry": `${payload["industry"]}`,

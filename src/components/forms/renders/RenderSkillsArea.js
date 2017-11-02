@@ -10,7 +10,7 @@ class RenderSkillsArea extends Component {
             <StyledSkillsArea>
                 <span>Enter your skills here /</span>
                 <Field
-                    name="custom-skills"
+                    name="skills_attributes"
                     component={RenderMultiSelect}
                     placeholder=""
                 />

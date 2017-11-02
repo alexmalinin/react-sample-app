@@ -7,16 +7,18 @@ import StyledSpecialityArea from '../../../styleComponents/forms/StyledSpecialit
 class RenderSpecialityArea extends Component {
 
     render() {
+        const { industry } = this.props;
+
         return (
             <StyledSpecialityArea>
                 <p>Select your speciality within that area /</p>
 
                 <div>
-                    {speciality
-                        ? speciality.map(item =>
+                    {industry
+                        ? speciality[industry.value].map(item =>
                             <Field
                                 key = {item.label}
-                                name={`skills.${item.label}`}
+                                name={`speciality_ids.${item.label}`}
                                 component={RenderStyledCheckbox}
                                 label={item.label}
                                 value={item.value}

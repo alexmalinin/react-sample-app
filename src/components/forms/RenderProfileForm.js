@@ -25,7 +25,6 @@ const RenderProfileForm = props => {
             <InputField
                 name="country"
                 placeholder="Country /"
-                validate={[required]}
             />
 
             <StyledPhoneField>
