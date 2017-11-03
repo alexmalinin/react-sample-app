@@ -8,11 +8,12 @@ import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './forms/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
+import { indusrties } from '../../actions/actions'
 
 class SpecialistsWelcome2 extends Component {
 
     render() {
-        const { confirm, confirmAccount } = this.props;
+        const { confirm, confirmAccount, indusrties } = this.props;
 
         return (
             <div>
@@ -46,8 +47,8 @@ class SpecialistsWelcome2 extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <DvButton onClick={confirmAccount} primary content='SAVE'/>
-                                {confirm && <Redirect to="/specialists/dashboard/profile"/> }
+                                {/*<DvButton onClick={confirmAccount} primary content='SAVE'/>*/}
+                                {/*{confirm && <Redirect to="/specialists/dashboard/profile"/> }*/}
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -57,7 +58,7 @@ class SpecialistsWelcome2 extends Component {
     }
 
     submit = values => {
-        this.props.confirmAccount();
+        this.props.updateSpecialistStep2
         console.log('values:', values);
     };
 }

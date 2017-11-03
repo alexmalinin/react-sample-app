@@ -22,7 +22,7 @@ import { formValueSelector } from 'redux-form';
 class SpecialistWelcomeForm1 extends Component {
 
     render() {
-        const { handleSubmit, submitting, industry } = this.props;
+        const { handleSubmit, submitting, industry, indusrties } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -42,7 +42,7 @@ class SpecialistWelcomeForm1 extends Component {
                                     name='industry'
                                     component={RenderSelect}
                                     placeholder='Select your area within the digital industry /'
-                                    options={industries}
+                                    options={indusrties["industry"]}
                                     validate={[required]}
                                 />
                                 <InputField
@@ -57,7 +57,7 @@ class SpecialistWelcomeForm1 extends Component {
 
                     <Grid.Row>
                         <Grid.Column>
-                            <RenderSpecialityArea industry={industry}/>
+                            <RenderSpecialityArea speciality={indusrties["speciality"]} industry={industry}/>
                             <RenderSkillsArea/>
                         </Grid.Column>
                     </Grid.Row>

@@ -7,8 +7,8 @@ export default store => next => action => {
     if (!welcomeClient) return next(action);
 
     let token = localStorage.getItem('jwt_token');
-
     let { id } = jwtDecode(token);
+
     axios({
         method: 'put',
         url: welcomeClient + id,

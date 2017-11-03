@@ -13,7 +13,6 @@ class RenderCards extends Component {
 
     render() {
         const { educations, experiences } = this.props;
-
         return (
             <div>
                 { educations

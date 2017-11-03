@@ -9,6 +9,8 @@ import getUserIdByTokenConfirmation from '../middlewares/getUserIdByTokenConfirm
 import verificationApi from '../middlewares/verificationApi';
 import signInApi from '../middlewares/signInApi';
 import welcomeClientApi from '../middlewares/welcomeClientApi';
+import getIndustiresApi from '../middlewares/getIndustiresApi';
+import updateSpecStep2Api from '../middlewares/updateSpecStep2Api';
 
 const enhancer = applyMiddleware(
     // logger,
@@ -18,6 +20,8 @@ const enhancer = applyMiddleware(
     verificationApi,
     signInApi,
     welcomeClientApi,
+    getIndustiresApi,
+    updateSpecStep2Api,
 );
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), enhancer);

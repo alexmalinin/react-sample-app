@@ -6,6 +6,7 @@ import signUpData from './signUpReducer';
 import signInReducer from './signInReducer';
 import UserId from './getUserIdByTokenConfirmationReducer';
 import confirmPassword from './confirmPassword';
+import indusrties from './indusrtiesReducer.js';
 import educations from './educationsReducer';
 import experiences from './workExperienceReducer';
 // import contactRequest from './contactRequestReducer';
@@ -16,6 +17,7 @@ export default combineReducers({
     signInReducer,
     UserId,
     confirmPassword,
+    indusrties,
     educations,
     experiences,
     form: reduxFormReducer,

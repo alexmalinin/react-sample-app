@@ -13,6 +13,7 @@ import RenderTextArea from '../../forms/renders/RenderTextArea';
 import RenderPhone from '../../forms/renders/RenderPhone';
 import Availability from '../Availability/Availability';
 import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
+import { DvButton } from '../../../styleComponents/layout/DvButton';
 import RenderCards from '../renders/RenderCards';
 import RenderWorkCard from '../renders/RenderWorkCard';
 import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
@@ -115,20 +116,20 @@ class SpecialistWelcomeForm2 extends Component {
                                     />
                                 </div>
 
-                                <div className='half-column'>
-                                    <p><b>What is your contact number? /</b></p>
-                                    <StyledPhoneField>
-                                        <span>Phone /</span>
-                                        <RenderPhone/>
-                                    </StyledPhoneField>
-                                </div>
+                                {/*<div className='half-column'>*/}
+                                    {/*<p><b>What is your contact number? /</b></p>*/}
+                                    {/*<StyledPhoneField>*/}
+                                        {/*<span>Phone /</span>*/}
+                                        {/*<RenderPhone/>*/}
+                                    {/*</StyledPhoneField>*/}
+                                {/*</div>*/}
 
-                                {/*<DvButton*/}
-                                    {/*type='submit'*/}
-                                    {/*disabled={submitting}*/}
-                                    {/*content='SAVE'*/}
-                                    {/*primary*/}
-                                {/*/>*/}
+                                <DvButton
+                                    type='submit'
+                                    disabled={submitting}
+                                    content='SAVE'
+                                    primary
+                                />
                             </StyledSpecialistWelcomeForm2>
                         </Grid.Column>
                     </Grid.Row>

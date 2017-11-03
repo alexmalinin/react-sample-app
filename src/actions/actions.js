@@ -6,7 +6,9 @@ import { PORT,
          GET_USER_ID,
          WELCOME_CLIENT,
          EDUCATION,
-         WORK_EXPERIENCE
+         WORK_EXPERIENCE,
+         GET_INDUSTRIES,
+         UPDATE_SPECIALIST_STEP_2
 } from '../constans/constans'
 
 export function userType(user) {
@@ -115,6 +117,25 @@ export function workExperience (data) {
     return action;
 }
 
+// get Industries for specialists sign up step 2
 
+export function getIndustries() {
+    const action = {
+        type: GET_INDUSTRIES,
+        getIndustries: `${PORT}/api/v1/industry_areas`,
+    };
 
+    return action;
+}
 
+// update data for specialists sign up step 2
+
+export function updateSpecStep2(data) {
+    const action = {
+        type: UPDATE_SPECIALIST_STEP_2,
+        payload: data,
+        updateSpecStep2: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
