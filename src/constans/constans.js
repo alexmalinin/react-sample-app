@@ -9,5 +9,6 @@ export const VERIFICATION = 'VERIFICATION';
 export const CONFIRM_PASSWORDS = 'CONFIRM_PASSWORDS';
 export const WELCOME_CLIENT = 'WELCOME_CLIENT';
 export const EDUCATION = 'EDUCATION';
+export const WORK_EXPERIENCE = 'WORK_EXPERIENCE';
 
 export const SUCCESS = '_SUCCESS';

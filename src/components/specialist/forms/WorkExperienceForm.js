@@ -22,7 +22,7 @@ import {clientCategories} from '../../../helpers/selects/clientCategories';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import axios from 'axios';
 
-class EducationForm extends Component {
+class WorkExperienceForm extends Component {
 
     render() {
         const { handleSubmit, submitting } = this.props;
@@ -43,18 +43,14 @@ class EducationForm extends Component {
                                     {/*most out of the Digital Village platform.*/}
                                 {/*</p>*/}
                                 <InputField
-                                    name='school'
-                                    placeholder='School /'
+                                    name='name'
+                                    placeholder='Company/Project /'
                                     // validate={[required]}
                                 />
+                                <LocationField/>
                                 <InputField
-                                    name='area_of_study'
-                                    placeholder='Area of study /'
-                                    // validate={[required]}
-                                />
-                                <InputField
-                                    name='degree'
-                                    placeholder='Degree /'
+                                    name='position'
+                                    placeholder='Title/Position/Role /'
                                     // validate={[required]}
                                 />
                                 <InputField
@@ -110,7 +106,7 @@ class EducationForm extends Component {
 }
 
 export default reduxForm({
-    form: 'EducationForm',
+    form: 'WorkExperienceForm',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
-})(EducationForm);
+})(WorkExperienceForm);

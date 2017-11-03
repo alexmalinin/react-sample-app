@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect }  from 'react-redux'
 import { Header, Modal } from 'semantic-ui-react';
-import { AddNewBtn } from '../../styleComponents/layout/DvButton'
+import { AddNewBtn } from '../../styleComponents/layout/DvButton';
+import WorkExperienceForm from '../specialist/forms/WorkExperienceForm';
+import { workExperience } from "../../actions/actions";
 
-const WorkExperienceModal = () => (
-    <Modal trigger={<AddNewBtn basic content='Add new'/>} closeIcon>
-        <Modal.Header>Work Experience</Modal.Header>
-        <Modal.Content image>
-            <Modal.Description>
-                <Header>Please read this information</Header>
-                <p>This information will be soon</p>
-            </Modal.Description>
-        </Modal.Content>
-    </Modal>
-);
+class WorkExperienceModal extends Component {
+    render() {
 
-export default WorkExperienceModal;
+        return(
+            <Modal trigger={<AddNewBtn basic content='Add new'/>} closeIcon>
+                <Modal.Header>Work Experience</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        <Header>/ Tell us about previous companies
+                            you’ve worked at, projects you’ve worked on or things
+                            you’ve built /
+                        </Header>
+                        <WorkExperienceForm onSubmit={this.submit}/>
+                    </Modal.Description>
+                </Modal.Content>
+            </Modal>
+        )
+    }
+
+    submit = values => {
+        let close = document.querySelector('i.close.icon');
+        close.click();
+        this.props.workExperience(values);
+    };
+}
+
+
+export default connect(null, { workExperience })(WorkExperienceModal);

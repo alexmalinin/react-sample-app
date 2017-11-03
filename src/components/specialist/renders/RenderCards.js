@@ -12,7 +12,7 @@ import RenderWorkCard from './RenderWorkCard'
 class RenderCards extends Component {
 
     render() {
-        const { educations, works } = this.props;
+        const { educations, experiences } = this.props;
 
         return (
             <div>
@@ -23,9 +23,9 @@ class RenderCards extends Component {
                     : null
                 }
 
-                { works
-                    ? works.map( (work, index) =>
-                        <RenderWorkCard key={index} work={work}/>
+                { experiences
+                    ? experiences.map( (experiences, index) =>
+                        <RenderWorkCard key={index} experiences={experiences}/>
                       )
                     : null
                 }

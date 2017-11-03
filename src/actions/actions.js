@@ -5,7 +5,8 @@ import { PORT,
          VERIFICATION,
          GET_USER_ID,
          WELCOME_CLIENT,
-         EDUCATION
+         EDUCATION,
+         WORK_EXPERIENCE
 } from '../constans/constans'
 
 export function userType(user) {
@@ -102,6 +103,18 @@ export function education (data) {
 
     return action;
 }
+
+// workExperience action
+
+export function workExperience (data) {
+    const action = {
+        type: WORK_EXPERIENCE,
+        payload: data,
+    };
+
+    return action;
+}
+
 
 
 

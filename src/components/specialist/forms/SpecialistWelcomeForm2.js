@@ -23,7 +23,7 @@ import WorkExperienceModal from '../../modals/WorkExperienceModal';
 class SpecialistWelcomeForm2 extends Component {
 
     render() {
-        const { handleSubmit, submitting, educations } = this.props;
+        const { handleSubmit, submitting, educations, experiences } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -62,7 +62,7 @@ class SpecialistWelcomeForm2 extends Component {
                                     </p>
 
                                     <div className='flex-wrapper'>
-                                        <RenderWorkCard/>
+                                        <RenderCards experiences={experiences}/>
                                     </div>
 
                                     <WorkExperienceModal/>
@@ -148,5 +148,5 @@ export default reduxForm({
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
 })(
-    connect(({educations}) => ({educations}))(SpecialistWelcomeForm2)
+    connect(({educations, experiences}) => ({educations, experiences}))(SpecialistWelcomeForm2)
 )
