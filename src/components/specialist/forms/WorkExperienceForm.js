@@ -76,7 +76,7 @@ class WorkExperienceForm extends Component {
                         </Grid.Column>
                     </Grid.Row>
 
-                    <Grid.Row>
+                    <Grid.Row columns={2}>
                         <Grid.Column>
                             <DvButton
                                 type="submit"
@@ -84,6 +84,8 @@ class WorkExperienceForm extends Component {
                                 content='SAVE & CONTINUE'
                                 primary
                             />
+                        </Grid.Column>
+                        <Grid.Column>
                             <DvButton
                                 onClick={ this.closeModal }
                                 content='CLOSE'

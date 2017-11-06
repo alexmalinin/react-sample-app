@@ -2,8 +2,6 @@ import styled from 'styled-components'
 
 export default styled.div`
 
-    position: relative;
-    
     textarea {
         border: 2px solid #ccc;
         width: 100%;
