@@ -5,7 +5,6 @@ import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
 import { Container } from '../../styleComponents/layout/Container';
 import confirm from '../../decorators/confirm';
 import PostProjectForm from './forms/PostProjectForm';
-import Footer from '../layout/Footer';
 
 class PostProject extends Component {
 
@@ -31,7 +30,6 @@ class PostProject extends Component {
                         </Grid.Row>
                     </Grid>
                 </Container>
-                <Footer/>
             </div>
         )
     }

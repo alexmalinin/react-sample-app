@@ -1,4 +1,5 @@
 import { PORT,
+         HIDE_FOOTER,
          SIGN_UP_STEP_1,
          CHANGE_USER_TYPE,
          SIGN_IN,
@@ -11,6 +12,14 @@ import { PORT,
          UPDATE_SPECIALIST_STEP_2,
          UPDATE_SPECIALIST_STEP_3
 } from '../constans/constans'
+
+export function hideFooter() {
+    const action = {
+        type: HIDE_FOOTER,
+    };
+
+    return action;
+}
 
 export function userType(user) {
     const action = {

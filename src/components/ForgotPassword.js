@@ -4,7 +4,6 @@ import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/layout/DvGrid';
 import {DvTitleBig} from '../styleComponents/layout/DvTitles';
-import Footer from './layout/Footer';
 
 class ForgotPassword extends Component {
 
@@ -28,7 +27,6 @@ class ForgotPassword extends Component {
                         </Grid.Row>
                     </Grid>
                 </DvGrid>
-                <Footer/>
             </div>
         )
     }

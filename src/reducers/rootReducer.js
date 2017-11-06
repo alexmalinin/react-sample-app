@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 
+import hideFooter from './hideFooter';
 import changeUserType from './changeUserTypeReducer';
 import signUpData from './signUpReducer';
 import signInReducer from './signInReducer';
@@ -12,6 +13,7 @@ import experiences from './workExperienceReducer';
 // import contactRequest from './contactRequestReducer';
 
 export default combineReducers({
+    hideFooter,
     changeUserType,
     signUpData,
     signInReducer,

@@ -11,8 +11,6 @@ import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
 import SignInForm from './SignInForm';
 import { signIn, userType } from '../../actions/actions';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
-import Footer from '../layout/Footer';
-
 
 class SignUp extends Component {
 
@@ -64,7 +62,6 @@ class SignUp extends Component {
                         </Grid.Row>
                     </Grid>
                 </DvGrid>
-                <Footer/>
             </div>
         )
     }

@@ -4,7 +4,6 @@ import { Grid} from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/layout/DvGrid';
 import {DvTitle} from '../styleComponents/layout/DvTitles';
-import Footer from './layout/Footer';
 
 class OverviewPostedProject extends Component {
 
@@ -31,7 +30,6 @@ class OverviewPostedProject extends Component {
                         </Grid.Row>
                     </Grid>
                 </DvGrid>
-                <Footer/>
             </div>
         )
     }

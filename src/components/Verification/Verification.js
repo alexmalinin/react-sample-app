@@ -9,7 +9,6 @@ import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
 import {verifyPassword, getUserId} from '../../actions/actions'
-import Footer from '../layout/Footer';
 
 class Verification extends Component {
 
@@ -23,21 +22,18 @@ class Verification extends Component {
     render() {
         const { confirm, confirmAccount, confirmPassword } = this.props;
         return (
-            <div>
-                <main>
-                    <HeaderIntro/>
-                    <Container indentBot>
-                        <DvTitle mTop='126'>
-                            Account Verification
-                        </DvTitle>
-                        <DvForm widthAuto>
-                            <VerificationForm onSubmit={this.submit}/>
-                        </DvForm>
-                        { confirmPassword && this.getUserRedirect() }
-                    </Container>
-                </main>
-                <Footer/>
-            </div>
+            <main>
+                <HeaderIntro/>
+                <Container indentBot>
+                    <DvTitle mTop='126'>
+                        Account Verification
+                    </DvTitle>
+                    <DvForm widthAuto>
+                        <VerificationForm onSubmit={this.submit}/>
+                    </DvForm>
+                    { confirmPassword && this.getUserRedirect() }
+                </Container>
+            </main>
         )
     }
 

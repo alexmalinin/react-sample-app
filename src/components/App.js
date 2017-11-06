@@ -22,6 +22,7 @@ import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
+import Footer from './layout/Footer';
 
 class App extends Component {
 
@@ -58,6 +59,7 @@ class App extends Component {
                         <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
                         <Route path='*' component={NotFound}/>
                     </Switch>
+                    <Footer/>
                 </FlexDirection>
             </Router>
         );

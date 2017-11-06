@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { hideFooter } from '../actions/actions'
 
 class NotFound extends Component {
+
+    componentWillMount() {
+        this.props.hideFooter()
+    }
 
     render() {
 
@@ -17,4 +23,4 @@ class NotFound extends Component {
     };
 }
 
-export default NotFound
+export default connect(null , { hideFooter })(NotFound)
