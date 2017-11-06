@@ -5,6 +5,7 @@ export default store => next => action => {
     const { type, signIn, payload, ...rest } = action;
     if (!signIn) return next(action);
 
+    let firstLogin;
     // Client
     axios({
         method: 'post',
@@ -18,7 +19,8 @@ export default store => next => action => {
 
     }).then(function (response) {
         localStorage.setItem('jwt_token', response.data["jwt"]);
-        return next({ ...rest, type: type + SUCCESS, data: response.data });
+        firstLogin = !response.data["industry"];
+        return next({ ...rest, type: type + SUCCESS, data: response.data, firstLogin : firstLogin });
     })
     .catch(function (error) {
         console.log(error);

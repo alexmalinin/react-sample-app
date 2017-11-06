@@ -20,9 +20,7 @@ class SignUp extends Component {
 
     render() {
         const { signInReducer } = this.props;
-        console.log('signIn', signInReducer)
         let confirm = signInReducer ? signInReducer.isLogIn : false
-        console.log(confirm);
 
         const panes = [
             { menuItem: 'Specialist', render: () =>
@@ -67,11 +65,19 @@ class SignUp extends Component {
     }
 
     loginRedirect = () => {
-        let { changeUserType } = this.props;
+        let { changeUserType, signInReducer } = this.props;
+        let { firstLogin } = signInReducer;
         let user = changeUserType === "Specialist" ? "specialists" : "client";
-        return (
-            <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
-        )
+        if (firstLogin) {
+            return (
+                <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
+            )
+        } else {
+            return (
+                <Redirect to={`/${user}/dashboard/profile`} />
+            )
+        }
+
     };
 
     submit = values => {
