@@ -30,7 +30,6 @@ class SpecialistsWelcome1 extends Component {
 
     submit = values => {
         this.props.updateSpecStep2(values);
-        console.log('values:', values);
     };
 }
 

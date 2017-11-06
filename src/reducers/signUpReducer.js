@@ -1,4 +1,10 @@
-import { SIGN_UP_STEP_1, SUCCESS, VERIFICATION, WELCOME_CLIENT, UPDATE_SPECIALIST_STEP_2 } from '../constans/constans';
+import { SIGN_UP_STEP_1,
+        SUCCESS,
+        VERIFICATION,
+        WELCOME_CLIENT,
+        UPDATE_SPECIALIST_STEP_2,
+        UPDATE_SPECIALIST_STEP_3
+} from '../constans/constans';
 
 let result;
 
@@ -13,7 +19,10 @@ export default (state = null, action) => {
             result = {data, welcomeClient: true};
             return result;
         case UPDATE_SPECIALIST_STEP_2 + SUCCESS:
-            let result = {data, welcomeSpecStep1: true};
+            result = {data, welcomeSpecStep1: true};
+            return result;
+        case UPDATE_SPECIALIST_STEP_3 + SUCCESS:
+            result = {data, welcomeSpecStep2: true};
             return result;
         default:
             return state;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderBasic from '../layout/HeaderBasic';
@@ -8,12 +9,13 @@ import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './forms/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
-import { indusrties } from '../../actions/actions'
+import { updateSpecStep3 } from '../../actions/actions'
 
 class SpecialistsWelcome2 extends Component {
 
     render() {
-        const { confirm, confirmAccount, indusrties } = this.props;
+        const { signUpData } = this.props;
+        let confirm = signUpData ? signUpData.welcomeSpecStep2 : false;
 
         return (
             <div>
@@ -43,24 +45,16 @@ class SpecialistsWelcome2 extends Component {
                     <SpecialistWelcomeResult1/>
 
                     <SpecialistWelcomeForm2 onSubmit={this.submit}/>
-
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column>
-                                {/*<DvButton onClick={confirmAccount} primary content='SAVE'/>*/}
-                                {/*{confirm && <Redirect to="/specialists/dashboard/profile"/> }*/}
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                    {confirm && <Redirect to="/specialists/dashboard/profile"/> }
                 </Container>
             </div>
         )
     }
 
     submit = values => {
-        this.props.updateSpecialistStep2
-        console.log('values:', values);
+        let { updateSpecStep3, educations, experiences } = this.props;
+        updateSpecStep3(values, educations, experiences);
     };
 }
 
-export default confirm(SpecialistsWelcome2);
+export default connect(({ signUpData, educations, experiences}) => ({signUpData, educations, experiences}), { updateSpecStep3 })(confirm(SpecialistsWelcome2));

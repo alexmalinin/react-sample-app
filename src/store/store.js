@@ -11,6 +11,7 @@ import signInApi from '../middlewares/signInApi';
 import welcomeClientApi from '../middlewares/welcomeClientApi';
 import getIndustiresApi from '../middlewares/getIndustiresApi';
 import updateSpecStep2Api from '../middlewares/updateSpecStep2Api';
+import updateSpecStep3Api from '../middlewares/updateSpecStep3Api';
 
 const enhancer = applyMiddleware(
     // logger,
@@ -22,6 +23,7 @@ const enhancer = applyMiddleware(
     welcomeClientApi,
     getIndustiresApi,
     updateSpecStep2Api,
+    updateSpecStep3Api,
 );
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), enhancer);

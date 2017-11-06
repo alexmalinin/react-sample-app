@@ -45,23 +45,23 @@ class WorkExperienceForm extends Component {
                                 <InputField
                                     name='name'
                                     placeholder='Company/Project /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <LocationField/>
                                 <InputField
                                     name='position'
                                     placeholder='Title/Position/Role /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
-                                    name='from'
+                                    name='started_at'
                                     placeholder='From /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
-                                    name='to'
+                                    name='finished_at'
                                     placeholder='To /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                             </StyledWelcomeForm>
                         </Grid.Column>

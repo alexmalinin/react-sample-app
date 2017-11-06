@@ -17,9 +17,9 @@ const RenderCard = ({experiences}) => {
                                 <img src='/images/location.png' alt=''/> {experiences.country}, {experiences.city}
                             </p>
                         }
-                        {(experiences.from || experiences.to) &&
+                        {(experiences["started_at"] || experiences["finished_at"]) &&
                             <p className='period'>
-                                <img src='/images/time.png' alt=''/> {experiences.from} - {experiences.to}
+                                <img src='/images/time.png' alt=''/> {experiences["started_at"]} - {experiences["finished_at"]}
                             </p>
                         }
 

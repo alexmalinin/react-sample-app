@@ -43,29 +43,29 @@ class EducationForm extends Component {
                                     {/*most out of the Digital Village platform.*/}
                                 {/*</p>*/}
                                 <InputField
-                                    name='school'
+                                    name='name'
                                     placeholder='School /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
-                                    name='area_of_study'
+                                    name='specialisation'
                                     placeholder='Area of study /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
                                     name='degree'
                                     placeholder='Degree /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
-                                    name='from'
+                                    name='started_at'
                                     placeholder='From /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                                 <InputField
-                                    name='to'
+                                    name='finished_at'
                                     placeholder='To /'
-                                    // validate={[required]}
+                                    validate={[required]}
                                 />
                             </StyledWelcomeForm>
                         </Grid.Column>

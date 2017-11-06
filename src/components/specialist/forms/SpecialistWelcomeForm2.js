@@ -35,7 +35,7 @@ class SpecialistWelcomeForm2 extends Component {
                                 <DvTitleSmall>Awesome! Tell us more! /</DvTitleSmall>
                                 <p>Upload your photo /</p>
                                 <Field
-                                    name='person-image'
+                                    name='person'
                                     component={RenderImage}
                                     type='file'
                                     placeholder='Choose your photo /'
@@ -43,7 +43,7 @@ class SpecialistWelcomeForm2 extends Component {
 
                                 <div className='text-area-group'>
                                     <p>Write a paragraph or two about your professional experience /</p>
-                                    <Field name='message' component={RenderTextArea} validate={required}/>
+                                    <Field name='professional_experience_info' component={RenderTextArea} validate={required}/>
                                 </div>
 
                                 <div>

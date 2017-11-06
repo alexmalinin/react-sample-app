@@ -8,7 +8,8 @@ import { PORT,
          EDUCATION,
          WORK_EXPERIENCE,
          GET_INDUSTRIES,
-         UPDATE_SPECIALIST_STEP_2
+         UPDATE_SPECIALIST_STEP_2,
+         UPDATE_SPECIALIST_STEP_3
 } from '../constans/constans'
 
 export function userType(user) {
@@ -135,6 +136,18 @@ export function updateSpecStep2(data) {
         type: UPDATE_SPECIALIST_STEP_2,
         payload: data,
         updateSpecStep2: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+export function updateSpecStep3(data, education, experience) {
+    const action = {
+        type: UPDATE_SPECIALIST_STEP_3,
+        payload: data,
+        education,
+        experience,
+        updateSpecStep3: `${PORT}/api/v1/specialists/`,
     };
 
     return action;

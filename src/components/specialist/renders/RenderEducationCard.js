@@ -9,18 +9,18 @@ const RenderEducationCard = ({education}) => {
             <StyledEducationCard>
                 { education &&
                     <Card.Content>
-                        {education.school &&
-                            <Card.Header>{education.school}</Card.Header>
+                        {education.name &&
+                            <Card.Header>{education.name}</Card.Header>
                         }
-                        { (education["area_of_study"] || education.degree) &&
-                            <Card.Meta> { education["area_of_study"]} {education.degree}</Card.Meta>
+                        { (education.specialisation || education.degree) &&
+                            <Card.Meta> { education.specialisation } { education.degree }</Card.Meta>
                         }
                         {(education.from || education.to || education.description) &&
 
                             <Card.Description>
-                                {education.from && education.to &&
+                                {education["started_at"] && education["finished_at"] &&
                                     <p className='period'>
-                                        <img src='/images/time.png' alt=''/> {education.from} - {education.to}
+                                        <img src='/images/time.png' alt=''/> {education.started_at} - {education["finished_at"]}
                                     </p>
                                 }
                                 { education.description &&
