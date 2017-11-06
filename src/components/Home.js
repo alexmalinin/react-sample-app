@@ -3,7 +3,8 @@ import { Grid } from 'semantic-ui-react'
 import { StyledHome, FullScreen, ColoredLinks } from '../styleComponents/StyledHome'
 import { Container } from '../styleComponents/layout/Container'
 import { DvTitleMedium } from '../styleComponents/layout/DvTitles'
-import SubscribeForm from './forms/SubscribeForm'
+import SubscribeForm from './forms/SubscribeForm';
+import Footer from './layout/Footer';
 
 class Home extends Component {
 
@@ -223,6 +224,7 @@ class Home extends Component {
                     </FullScreen>
 
                 </Container>
+                <Footer/>
             </StyledHome>
         )
     }

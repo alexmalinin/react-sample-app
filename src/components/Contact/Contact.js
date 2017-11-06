@@ -8,6 +8,7 @@ import DvDivider from '../../styleComponents/layout/DvDivider';
 import { postContacts } from '../../actions/actions';
 import { Container } from '../../styleComponents/layout/Container';
 import StyledContactUs from '../../styleComponents/StyledContactUs';
+import Footer from '../layout/Footer';
 
 class SignUp extends Component {
 
@@ -90,6 +91,7 @@ class SignUp extends Component {
                         </div>
                     </StyledContactUs>
                 </Container>
+                <Footer/>
             </div>
         )
     }

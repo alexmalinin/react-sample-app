@@ -8,6 +8,7 @@ import { DvButton } from '../styleComponents/layout/DvButton';
 import confirm from '../decorators/confirm';
 import VerificationForm from './Verification/VerificationForm';
 import { Container } from '../styleComponents/layout/Container';
+import Footer from './layout/Footer';
 
 class ConfirmEmail extends Component {
 
@@ -15,17 +16,21 @@ class ConfirmEmail extends Component {
         const { confirm, confirmAccount, signUpData } = this.props;
 
         return (
-            <main>
-                <HeaderIntro/>
-                <Container indentBot>
-                    <DvTitle mTop='126'>
-                        Confirmation
-                    </DvTitle>
-                    <p>Please confirm your email: <b>{signUpData ? signUpData.email : localStorage.getItem('user_email')}</b></p>
-                    {/*<DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>*/}
-                    {/*{ confirm && this.getUserRedirect() }*/}
-                </Container>
-            </main>
+            <div>
+                <main>
+                    <HeaderIntro/>
+                    <Container indentBot>
+                        <DvTitle mTop='126'>
+                            Confirmation
+                        </DvTitle>
+                        <p>Please confirm your email: <b>{signUpData ? signUpData.email : localStorage.getItem('user_email')}</b></p>
+                        {/*<DvButton className='verify-btn' onClick={confirmAccount} primary content='SAVE & CONTINUE'/>*/}
+                        {/*{ confirm && this.getUserRedirect() }*/}
+                    </Container>
+
+                </main>
+                <Footer/>
+            </div>
         )
     }
 

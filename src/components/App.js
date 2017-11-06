@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import FlexDirection from '../styleComponents/FlexDirection';
 import Home from './Home';
+import NotFound from './NotFound';
 import Contact from './Contact/Contact';
 import Dashboard from './Dashboard';
 import PostProject from './PostProject/PostProject';
@@ -21,7 +22,6 @@ import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
-import Footer from './layout/Footer'
 
 class App extends Component {
 
@@ -35,11 +35,11 @@ class App extends Component {
                         <Route exact path='/' render={ () => <Redirect to='/sign_up'/>}/>
                         <Route path= '/home' component={Home}/>
                         <Route path='/contact' component={Contact}/>
-                        <Route path='/how_it_works' component={Dashboard}/>
-                        <Route path='/projects' component={Dashboard}/>
-                        <Route path='/specialist_profiles' component={Dashboard}/>
-                        <Route path='/contact' component={Dashboard}/>
-                        <Route path='/qas' component={Dashboard}/>
+                        <Route path='/how_it_works' component={NotFound}/>
+                        <Route path='/projects' component={NotFound}/>
+                        <Route path='/specialist_profiles' component={NotFound}/>
+                        <Route path='/contact' component={NotFound}/>
+                        <Route path='/qas' component={NotFound}/>
                         <Route path='/post_project' component={PostProject}/>
                         <Route path='/project_overview' component={OverviewPostedProject}/>
                         <Route path='/sign_in' component={SignIn}/>
@@ -56,8 +56,8 @@ class App extends Component {
                         <Route path='/client/dashboard/profile' component={ClientProfile}/>
                         <Route path='/client/dashboard/projects' component={ClientProjects}/>
                         <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
+                        <Route path='*' component={NotFound}/>
                     </Switch>
-                    <Footer/>
                 </FlexDirection>
             </Router>
         );

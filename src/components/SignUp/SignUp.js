@@ -13,6 +13,7 @@ import { postSignUpData } from '../../actions/actions';
 import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
 import SignUpFormClient from '../client/forms/SignUpFormClient';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
+import Footer from '../layout/Footer';
 
 class SignUp extends Component {
 
@@ -64,6 +65,7 @@ class SignUp extends Component {
                         </Grid.Row>
                     </Grid>
                 </DvGrid>
+                <Footer/>
             </div>
         )
     }
