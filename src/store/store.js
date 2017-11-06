@@ -1,8 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import axios from 'axios';
 
 import reducer from '../reducers/rootReducer';
-import logger from '../middlewares/logger';
 import contactRequestApi from '../middlewares/contactRequestApi';
 import signUpApi from '../middlewares/signUpApi';
 import getUserIdByTokenConfirmation from '../middlewares/getUserIdByTokenConfirmationApi';
@@ -14,7 +12,6 @@ import updateSpecStep2Api from '../middlewares/updateSpecStep2Api';
 import updateSpecStep3Api from '../middlewares/updateSpecStep3Api';
 
 const enhancer = applyMiddleware(
-    // logger,
     contactRequestApi,
     signUpApi,
     getUserIdByTokenConfirmation,

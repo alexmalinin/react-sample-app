@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { SUCCESS } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
-let token = localStorage.getItem('jwt_token');
-let { id } = jwtDecode(token);
 
 export default store => next => action => {
     const { type, updateSpecStep3, payload, education, experience, ...rest } = action;
@@ -11,8 +9,8 @@ export default store => next => action => {
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    // let attr = payload.skills_attributes.map( attr => { return {"name" : attr.label} } );
-    // let spec_attr = Object.keys(payload.speciality_ids.map( id => Object.keys(id))).map( string => +string);
+    let attr = payload.skills_attributes.map( attr => { return {"name" : attr.label} } );
+    let spec_attr = Object.keys(payload.speciality_ids.map( id => Object.keys(id))).map( string => +string);
 
 
     console.log('data',

@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { SUCCESS } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
-let token = localStorage.getItem('jwt_token');
-let { id } = jwtDecode(token);
 
 export default store => next => action => {
     const { type, updateSpecStep2, payload, ...rest } = action;
