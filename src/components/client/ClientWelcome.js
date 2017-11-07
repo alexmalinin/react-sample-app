@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderBasic from '../layout/HeaderBasic';
-import DvGrid from '../../styleComponents/layout/DvGrid';
 import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import ClientWelcomeForm from './forms/ClientWelcomeForm';
 import { welcomeClient } from '../../actions/actions';
+import { Container } from '../../styleComponents/layout/Container';
+import StyledWelcome from '../../styleComponents/StyledWelcome';
 
 class ClientWelcome extends Component {
 
@@ -14,25 +15,25 @@ class ClientWelcome extends Component {
         const { signUpData } = this.props;
         let confirm = signUpData ? signUpData.welcomeClient : false;
         return (
-            <div>
+            <StyledWelcome>
                 <HeaderBasic/>
-                <DvGrid left="343px" right="340px" grid={"no-pad"}>
+                <Container indentBot>
                     <Grid>
-                        <Grid.Row columns={2}>
+                        <Grid.Row>
                             <Grid.Column>
-                                <DvTitle mTop="80">
-                                    Welcome to The Digital Village!
+                                <DvTitle mTop='80'>
+                                    Welcome to The <br/> Digital Village!
                                 </DvTitle>
-                                <p>Please complete your profile so we can better support
+                                <p>Please complete your profile so we can better support <br/>
                                     and supply you with the most relevant requests.
                                 </p>
+                                <ClientWelcomeForm onSubmit={this.submit} />
+                                {confirm && <Redirect to='/client/dashboard/profile'/> }
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                    <ClientWelcomeForm onSubmit={this.submit} />
-                    {confirm && <Redirect to="/client/dashboard/profile"/> }
-                </DvGrid>
-            </div>
+                </Container>
+            </StyledWelcome>
         )
     }
 

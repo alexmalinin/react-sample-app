@@ -16,37 +16,29 @@ const ClientWelcomeForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Grid>
-                <Grid.Row columns={2}>
-                    <Grid.Column>
-                        <Field
-                            name="we_are"
-                            component={RenderSelect}
-                            options={clientCategories}
-                            placeholder="We are a... /"
-                            validate={[required]}
-                        />
-                        <LocationField/>
-                        <InputField
-                            name="industry"
-                            placeholder="Industry /"
-                            validate={[required]}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column>
-                        <span>Tell us about your business /</span>
-                        <Field name="description" component={RenderTextArea}/>
-                        <DvButton
-                            type="submit"
-                            disabled={submitting}
-                            content='SAVE & CONTINUE'
-                            primary
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+            <div className='wrapper'>
+                <Field
+                    name="we_are"
+                    component={RenderSelect}
+                    options={clientCategories}
+                    placeholder="We are a... /"
+                    validate={[required]}
+                />
+                <LocationField/>
+                <InputField
+                    name="industry"
+                    placeholder="Industry /"
+                    validate={[required]}
+                />
+            </div>
+            <span>Tell us about your business /</span>
+            <Field name="description" component={RenderTextArea}/>
+            <DvButton
+                type="submit"
+                disabled={submitting}
+                content='SAVE & CONTINUE'
+                primary
+            />
         </form>
     )
 };

@@ -49,9 +49,7 @@ class SpecialistWelcomeForm2 extends Component {
                                 <div>
                                     <p><b>Education</b> / List any formal education here /</p>
 
-                                    <div className='flex-wrapper'>
-                                        <RenderCards educations={educations}/>
-                                    </div>
+                                    <RenderCards educations={educations}/>
 
                                     <EdicationModal/>
                                 </div>
@@ -62,9 +60,7 @@ class SpecialistWelcomeForm2 extends Component {
                                         you’ve built /
                                     </p>
 
-                                    <div className='flex-wrapper'>
-                                        <RenderCards experiences={experiences}/>
-                                    </div>
+                                    <RenderCards experiences={experiences}/>
 
                                     <WorkExperienceModal/>
                                 </div>

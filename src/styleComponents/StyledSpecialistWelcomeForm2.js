@@ -22,6 +22,7 @@ export default styled.div`
     .flex-wrapper {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
     
     .rate {
