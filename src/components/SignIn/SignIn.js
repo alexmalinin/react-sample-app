@@ -20,7 +20,7 @@ class SignUp extends Component {
 
     render() {
         const { signInReducer } = this.props;
-        let confirm = signInReducer ? signInReducer.isLogIn : false
+        let confirm = signInReducer ? signInReducer.isLogIn : false;
 
         const panes = [
             { menuItem: 'Specialist', render: () =>
@@ -67,6 +67,7 @@ class SignUp extends Component {
     loginRedirect = () => {
         let { changeUserType, signInReducer } = this.props;
         let { firstLogin } = signInReducer;
+        console.log(firstLogin);
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (firstLogin) {
             return (

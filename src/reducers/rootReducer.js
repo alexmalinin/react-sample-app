@@ -10,6 +10,7 @@ import confirmPassword from './confirmPassword';
 import indusrties from './indusrtiesReducer.js';
 import educations from './educationsReducer';
 import experiences from './workExperienceReducer';
+import clientData from './showClientDataReducer';
 // import contactRequest from './contactRequestReducer';
 
 export default combineReducers({
@@ -22,6 +23,7 @@ export default combineReducers({
     indusrties,
     educations,
     experiences,
+    clientData,
     form: reduxFormReducer,
     // contactRequest,
 });

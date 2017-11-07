@@ -10,6 +10,7 @@ import welcomeClientApi from '../middlewares/welcomeClientApi';
 import getIndustiresApi from '../middlewares/getIndustiresApi';
 import updateSpecStep2Api from '../middlewares/updateSpecStep2Api';
 import updateSpecStep3Api from '../middlewares/updateSpecStep3Api';
+import showClientDataApi from '../middlewares/showClientDataApi';
 
 const enhancer = applyMiddleware(
     contactRequestApi,
@@ -21,6 +22,7 @@ const enhancer = applyMiddleware(
     getIndustiresApi,
     updateSpecStep2Api,
     updateSpecStep3Api,
+    showClientDataApi
 );
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), enhancer);

@@ -10,7 +10,8 @@ import { PORT,
          WORK_EXPERIENCE,
          GET_INDUSTRIES,
          UPDATE_SPECIALIST_STEP_2,
-         UPDATE_SPECIALIST_STEP_3
+         UPDATE_SPECIALIST_STEP_3,
+         SHOW_CLIENT_DATA
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -150,6 +151,8 @@ export function updateSpecStep2(data) {
     return action;
 }
 
+// update data for specialists sign up step 3
+
 export function updateSpecStep3(data, education, experience) {
     const action = {
         type: UPDATE_SPECIALIST_STEP_3,
@@ -157,6 +160,15 @@ export function updateSpecStep3(data, education, experience) {
         education,
         experience,
         updateSpecStep3: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+export function showClientData() {
+    const action = {
+        type: SHOW_CLIENT_DATA,
+        showClientData: `${PORT}/api/v1/customers/`
     };
 
     return action;

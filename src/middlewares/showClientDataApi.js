@@ -1,27 +1,21 @@
 import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 import { SUCCESS } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, signIn, payload, ...rest } = action;
-    if (!signIn) return next(action);
+    const { type, showClientData, ...rest } = action;
+    if (!showClientData) return next(action);
 
-    let firstLogin;
+    let token = localStorage.getItem('jwt_token');
+    let { id } = jwtDecode(token);
+
     // Client
     axios({
-        method: 'post',
-        url: signIn,
-        data: {
-            "auth": {
-                "email": payload["email"],
-                "password": payload["password"]
-            }
-        }
-
+        method: 'get',
+        url: showClientData + id
     }).then(function (response) {
-        localStorage.setItem('jwt_token', response.data["jwt"]);
-        console.log(response)
-        firstLogin = !response.data["industry"];
-        return next({ ...rest, type: type + SUCCESS, data: response.data, firstLogin : firstLogin });
+        console.log(response);
+        return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .catch(function (error) {
         console.log(error);

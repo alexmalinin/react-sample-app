@@ -15,8 +15,11 @@ export default store => next => action => {
         data: {
             "customer": {
                 "we_are": `${payload["we_are"]["label"]}`,
-                "country": `${payload["country"]}`,
-                "city": `${payload["city"]}`,
+                "address_attributes" : {
+                    "country": `${payload["country"]}`,
+                    "city": `${payload["city"]}`,
+                    "user_id": id
+                },
                 "industry": `${payload["industry"]}`,
                 "description": `${payload["description"]}`,
             }
