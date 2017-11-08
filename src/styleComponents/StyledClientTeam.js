@@ -28,7 +28,7 @@ export default styled.div`
     
         & > div {
             max-width: 375px;
-            margin: 30px 0 0 0;
+            margin: 0 0 30px 0;
         }
     }
     

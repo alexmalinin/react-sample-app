@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import { DvTitle } from '../../styleComponents/layout/DvTitles'
-import { Grid } from 'semantic-ui-react'
+import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles'
 import { DvButton } from '../../styleComponents/layout/DvButton'
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
+import RenderProjectCard from '../client/renders/RenderProjectCard';
+import StyledClientTeam from '../../styleComponents/StyledClientTeam';
+
 
 class SpecialistsMyTeams extends Component {
 
     render() {
 
         return (
-            <div>
+            <StyledClientTeam>
                 <HeaderBasic/>
                 <ContainerLarge>
                     <DvTitle mTop='80'>
@@ -22,20 +23,21 @@ class SpecialistsMyTeams extends Component {
 
                 <SubHeader/>
 
-                <Container indentTop indentBot>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column width={6}>
-                            </Grid.Column>
-
-                            <Grid.Column width={12}>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-
+                <Container indentTop indentBot relative>
+                    <div className='gag'>
+                        <h4>
+                            Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
+                        </h4>
+                    </div>
+                    <DvTitleSmall fz='28' indentNull xsCenter>My Teams</DvTitleSmall>
+                    <div className='flex-wrapper indent-top'>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                    </div>
                     <DvButton primary content='SAVE & UPDATE'/>
                 </Container>
-            </div>
+            </StyledClientTeam>
         )
     }
 }
