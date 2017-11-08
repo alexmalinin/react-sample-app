@@ -8,6 +8,10 @@ import { Container, ContainerLarge } from '../../styleComponents/layout/Containe
 
 class ClientProfile extends Component {
 
+    componentWillMount() {
+        this.props.showClientData();
+    }
+
     render() {
 
         return (

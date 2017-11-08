@@ -113,6 +113,6 @@ class EducationForm extends Component {
 
 export default reduxForm({
     form: 'EducationForm',
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
     forceUnregisterOnUnmount: true,
 })(EducationForm);

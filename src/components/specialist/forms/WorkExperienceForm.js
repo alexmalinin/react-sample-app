@@ -109,6 +109,6 @@ class WorkExperienceForm extends Component {
 
 export default reduxForm({
     form: 'WorkExperienceForm',
-    destroyOnUnmount: false,
+    destroyOnUnmount: true,
     forceUnregisterOnUnmount: true,
 })(WorkExperienceForm);

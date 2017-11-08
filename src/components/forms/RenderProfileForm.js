@@ -12,10 +12,6 @@ import { showClientData } from '../../actions/actions';
 
 class RenderProfileForm  extends Component {
 
-    componentWillMount() {
-        this.props.showClientData();
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.clientData) {
             let { first_name, last_name, email, phone_code, address, phone_number } = nextProps.clientData;

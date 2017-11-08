@@ -9,23 +9,23 @@ export default store => next => action => {
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    console.log('data',
-        {
-            data: {
-                "specialist": {
-                    "avatar": payload["person"],
-                    "professional_experience_info": payload["professional_experience_info"],
-                    "hourly_rate": payload["hourly-rate"],
-                    "daily_rate": payload["daily-rate"],
-                    "available": payload["availability"],
-                    "available_days": payload["days"],
-                    "hours_per_week": payload["work-hourses"]["label"],
-                    "educations_attributes": education,
-                    "work_experiences_attributes": experience
-                }
-            }
-
-        });
+    // console.log('data',
+    //     {
+    //         data: {
+    //             "specialist": {
+    //                 "avatar": payload["person"],
+    //                 "professional_experience_info": payload["professional_experience_info"],
+    //                 "hourly_rate": payload["hourly-rate"],
+    //                 "daily_rate": payload["daily-rate"],
+    //                 "available": payload["availability"],
+    //                 "available_days": payload["days"],
+    //                 "hours_per_week": payload["work-hourses"]["label"],
+    //                 "educations_attributes": education,
+    //                 "work_experiences_attributes": experience
+    //             }
+    //         }
+    //
+    //     });
 
     axios({
         method: 'put',
@@ -55,6 +55,23 @@ export default store => next => action => {
 
     })
     .catch(function (error) {
+        console.log('data',
+                {
+                    data: {
+                        "specialist": {
+                            "avatar": payload["person"],
+                            "professional_experience_info": payload["professional_experience_info"],
+                            "hourly_rate": payload["hourly-rate"],
+                            "daily_rate": payload["daily-rate"],
+                            "available": payload["availability"],
+                            "available_days": payload["days"],
+                            "hours_per_week": payload["work-hourses"]["label"],
+                            "educations_attributes": education,
+                            "work_experiences_attributes": experience
+                        }
+                    }
+
+                });
         console.log(error);
     });
 };

@@ -22,6 +22,7 @@ class SpecialistsWelcome2 extends Component {
         const { signUpData, chosenSkills } = this.props;
         let confirm = signUpData ? signUpData.welcomeSpecStep2 : false;
         let { industry_title } = chosenSkills;
+        console.log('confirm', confirm);
 
         return (
             <div>
