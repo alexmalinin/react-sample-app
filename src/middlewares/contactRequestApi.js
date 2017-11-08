@@ -1,30 +1,21 @@
 import axios from 'axios';
 
 export default store => next => action => {
-    const { type, contactRequest, first_name, last_name, email, message, ...rest } = action;
+    const { type, contactRequest, payload, ...rest } = action;
     if (!contactRequest) return next(action);
 
-    let data = {
-        first_name,
-        last_name,
-        email,
-        message,
-    };
-
-    console.log(data);
+    console.log('payload', payload);
 
     axios({
-        method: 'post',
+        method: 'POST',
         url: contactRequest,
         data: {
-            first_name,
-            last_name,
-            email,
-            message,
+            payload
         }
     }).then( response => {
         console.log('success');
     }).catch( error => {
+        console.log('error');
         console.log(error);
     });
 };

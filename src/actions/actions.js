@@ -33,15 +33,11 @@ export function userType(user) {
     return action;
 }
 
-export function postContacts(contacts) {
-    const { first_name, last_name, email, message } = contacts;
+export function postContacts(data) {
     const action = {
         type: 'CONTACTS',
+        payload: data,
         contactRequest: `${PORT}api/v1/contact_requests`,
-        first_name,
-        last_name,
-        email,
-        message,
     };
 
     return action;

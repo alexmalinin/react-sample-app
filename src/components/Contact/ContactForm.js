@@ -13,10 +13,12 @@ const ContactForm = props => {
             <InputField
                 name='first_name'
                 placeholder='First Name /'
+                validate={required}
             />
             <InputField
                 name='last_name'
                 placeholder='Last Name /'
+                validate={required}
             />
             <EmailField
                 name='email'
@@ -25,7 +27,11 @@ const ContactForm = props => {
 
             <div className='text-area-group'>
                 <p>Massage /</p>
-                <Field name='message' component={RenderTextArea} validate={required}/>
+                <Field
+                    name='message'
+                    component={RenderTextArea}
+                    validate={required}
+                />
             </div>
             <DvButton
                 type='submit'

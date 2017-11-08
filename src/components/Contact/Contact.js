@@ -11,13 +11,6 @@ import StyledContactUs from '../../styleComponents/StyledContactUs';
 
 class SignUp extends Component {
 
-    state ={
-        name: '',
-        surname: '',
-        email: '',
-        message: '',
-    };
-
     render() {
         window.state = this.state;
 
@@ -97,40 +90,6 @@ class SignUp extends Component {
     submit = values => {
         this.props.postContacts(values)
     };
-
-    contactUs = ev => {
-        ev.preventDefault();
-        // this.props.postContacts(this.state);
-
-    };
-
-    name = ev => {
-        let name = ev.target.value;
-        this.setState({
-            name,
-        })
-    };
-
-    surname = ev => {
-        let surname = ev.target.value;
-        this.setState({
-            surname,
-        })
-    };
-
-    email = ev => {
-        let email = ev.target.value;
-        this.setState({
-            email,
-        })
-    };
-
-    message = ev => {
-        let message = ev.target.value;
-        this.setState({
-            message,
-        })
-    }
 }
 
 export default connect(null, { postContacts })(SignUp);
