@@ -151,6 +151,17 @@ export function updateSpecStep2(data) {
     return action;
 }
 
+// get chosen skills
+
+// export function chosenSkills(){
+//     const action = {
+//         type: SHOW_CHOSEN_SKILLS,
+//         showChosenSkills: `${PORT}/api/v1/specialists/`,
+//     };
+//
+//     return action;
+// }
+
 // update data for specialists sign up step 3
 
 export function updateSpecStep3(data, education, experience) {
@@ -165,10 +176,12 @@ export function updateSpecStep3(data, education, experience) {
     return action;
 }
 
+// Show client Data Profile
+
 export function showClientData() {
     const action = {
         type: SHOW_CLIENT_DATA,
-        showClientData: `${PORT}/api/v1/customers/`
+        showClientData: `${PORT}/api/v1/customers/`,
     };
 
     return action;

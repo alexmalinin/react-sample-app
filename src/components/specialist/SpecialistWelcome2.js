@@ -13,6 +13,10 @@ import { updateSpecStep3 } from '../../actions/actions'
 
 class SpecialistsWelcome2 extends Component {
 
+    componentWillUpdate() {
+
+    }
+
     render() {
         const { signUpData } = this.props;
         let confirm = signUpData ? signUpData.welcomeSpecStep2 : false;

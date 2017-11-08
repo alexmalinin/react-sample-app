@@ -15,7 +15,8 @@ class SpecialistsWelcome1 extends Component {
     }
 
     render() {
-        const { confirm, indusrties } = this.props;
+        const { indusrties, signUpData } = this.props;
+        let confirm = signUpData ? signUpData.welcomeSpecStep1 : null;
 
         return (
             <div>
@@ -33,4 +34,4 @@ class SpecialistsWelcome1 extends Component {
     };
 }
 
-export default connect(({indusrties}) => ({indusrties}), { getIndustries, updateSpecStep2 })(confirm(SpecialistsWelcome1));
+export default connect(({indusrties, signUpData}) => ({indusrties, signUpData}), { getIndustries, updateSpecStep2 })(confirm(SpecialistsWelcome1));
