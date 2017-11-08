@@ -11,22 +11,10 @@ import RenderPhone from './renders/RenderPhone';
 
 class RenderProfileForm  extends Component {
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.clientData) {
-            let { first_name, last_name, email, phone_code, address, phone_number } = nextProps.clientData;
-            this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
-            this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
-            this.props.dispatch(change('RenderProfileForm', 'email',        email));
-            this.props.dispatch(change('RenderProfileForm', 'phone_code',   phone_code));
-            this.props.dispatch(change('RenderProfileForm', 'phone_number', +phone_number));
-            this.props.dispatch(change('RenderProfileForm', 'country',      address.country));
-        }
-    }
-
     render() {
 
-        const { handleSubmit, submitting, clientData } = this.props;
-        let renderPlace = clientData ? clientData.phone_code : null;
+        const { handleSubmit, submitting, clientData, specialistData } = this.props;
+        let renderPlace = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -71,16 +59,28 @@ class RenderProfileForm  extends Component {
             </form>
         )
     }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.clientData) {
+            this.fillFields(nextProps.clientData)
+        } else if (nextProps.specialistData) {
+            this.fillFields(nextProps.specialistData)
+        }
+    }
+
+    fillFields = data => {
+        let { first_name, last_name, email, address, phone_code, phone_number } = data;
+        this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
+        this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
+        this.props.dispatch(change('RenderProfileForm', 'email',        email));
+        this.props.dispatch(change('RenderProfileForm', 'phone_code',   phone_code));
+        this.props.dispatch(change('RenderProfileForm', 'phone_number', +phone_number));
+        this.props.dispatch(change('RenderProfileForm', 'country',      address.country));
+    }
 };
 
 RenderProfileForm = reduxForm({
     form: 'RenderProfileForm'
 })(RenderProfileForm);
 
-export default connect( ({clientData}) => ({clientData}))(RenderProfileForm);
-
-// export default connect( state => ({
-//     initialValues: {
-//         first_name: 'some value here'
-//     }
-// }))(RenderProfileForm)
+export default connect( ({clientData, specialistData}) => ({clientData, specialistData}))(RenderProfileForm);

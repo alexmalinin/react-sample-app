@@ -75,6 +75,7 @@ class RenderImage extends Component {
     };
 
     handleTrigger = ev => {
+        ev.preventDefault();
         this.container.click();
     }
 }

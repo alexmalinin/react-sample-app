@@ -12,7 +12,8 @@ import { PORT,
          WORK_EXPERIENCE,
          SHOW_CHOSEN_SKILLS,
          UPDATE_SPECIALIST_STEP_3,
-         SHOW_CLIENT_DATA
+         SHOW_CLIENT_DATA,
+         SHOW_SPECIALIST_DATA
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -182,6 +183,17 @@ export function showClientData() {
     const action = {
         type: SHOW_CLIENT_DATA,
         showClientData: `${PORT}/api/v1/customers/`,
+    };
+
+    return action;
+}
+
+// Show specialist Data Profile
+
+export function showSpecialistData() {
+    const action = {
+        type: SHOW_SPECIALIST_DATA,
+        showSpecialistData: `${PORT}/api/v1/specialists/`,
     };
 
     return action;

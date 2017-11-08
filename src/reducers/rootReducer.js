@@ -12,6 +12,7 @@ import educations from './educationsReducer';
 import experiences from './workExperienceReducer';
 import chosenSkills from './showChosenSkillsReducer';
 import clientData from './showClientDataReducer';
+import specialistData from './showSpecialistDataReducer';
 // import contactRequest from './contactRequestReducer';
 
 export default combineReducers({
@@ -26,6 +27,7 @@ export default combineReducers({
     experiences,
     chosenSkills,
     clientData,
+    specialistData,
     form: reduxFormReducer,
     // contactRequest,
 });
