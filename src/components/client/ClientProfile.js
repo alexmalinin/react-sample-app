@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'
 import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
+import { showClientData } from '../../actions/actions';
 
 class ClientProfile extends Component {
 
@@ -45,4 +47,4 @@ class ClientProfile extends Component {
     };
 }
 
-export default ClientProfile;
+export default connect(null, {showClientData})(ClientProfile);

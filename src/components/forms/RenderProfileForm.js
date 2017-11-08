@@ -8,7 +8,6 @@ import {RenderField} from './renders/RenderField';
 import EmailField from './renders/EmailField';
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField';
 import RenderPhone from './renders/RenderPhone';
-import { showClientData } from '../../actions/actions';
 
 class RenderProfileForm  extends Component {
 
@@ -78,9 +77,7 @@ RenderProfileForm = reduxForm({
     form: 'RenderProfileForm'
 })(RenderProfileForm);
 
-export default connect( ({clientData}) => ({clientData}),
-    { showClientData }
-)(RenderProfileForm);
+export default connect( ({clientData}) => ({clientData}))(RenderProfileForm);
 
 // export default connect( state => ({
 //     initialValues: {
