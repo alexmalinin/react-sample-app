@@ -105,7 +105,6 @@ class SpecialistWelcomeForm2 extends Component {
                                     <Field
                                         name="project-interest"
                                         component={RenderSelect}
-                                        multi={true}
                                         placeholder="You can select more than one"
                                         options={projectInterest}
                                         validate={[required]}
