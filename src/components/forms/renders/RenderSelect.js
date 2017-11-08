@@ -13,12 +13,13 @@ export default class RenderSelect extends Component {
             ...rest
         } = this.props;
         let { value, onChange } = input;
+        console.log('value', value);
 
         return (
             <StyledInputs>
                 <StyledSelect
                     error={touched && error}
-                    value={value}
+                    value={ value }
                     onChange={onChange}
                     {...rest}
                 />
