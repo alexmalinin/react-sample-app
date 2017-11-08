@@ -4,11 +4,11 @@ import { Card } from 'semantic-ui-react';
 export const StyledEducationCard = styled(Card)`
 
     &.ui.card {
-        width: 48%;
+        flex: 49% 0 0;
         border-radius: 0;
-        margin: 0;
+        margin: 25px 0 0 0 !important;
         
-        &>.content {
+        & > .content {
             padding: 50px 30px;
             
             >.header:not(.ui) {
@@ -41,17 +41,18 @@ export const StyledEducationCard = styled(Card)`
     }
     
     @media (min-width: 1921px) {
-        &.ui.card{
+    
+        &.ui.card {
 
             &>.content {
                 padding: 50px 80px;
                 
-                >.header:not(.ui) {
+                > .header:not(.ui) {
                     font-size: 48px;
                     margin-bottom: 25px;
                 }    
                 
-                >.description {
+                > .description {
                     color: #000;
                     
                     p {

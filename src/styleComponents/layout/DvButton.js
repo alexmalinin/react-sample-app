@@ -20,7 +20,7 @@ export const DvButton = styled(Button)`
         }
     }
     
-    // ${props => props.large ? `width: calc(100% + 100%);` : ``};
+    
     
     @media (max-width: 1920px) {
         &.ui.button {

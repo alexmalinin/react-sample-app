@@ -14,7 +14,7 @@ class RenderCards extends Component {
     render() {
         const { educations, experiences } = this.props;
         return (
-            <div>
+            <div className='flex-wrapper'>
                 { educations
                     ? educations.map( (education, index) =>
                         <RenderEducationCard key={index} education={education}/>
