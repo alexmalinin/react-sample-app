@@ -14,15 +14,11 @@ class RenderProfileForm  extends Component {
 
     componentWillMount() {
         this.props.showClientData();
-        // console.log(first_name)
-        // set the value individually
-
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.clientData) {
             let { first_name, last_name, email, phone_code, address, phone_number } = nextProps.clientData;
-            // this.props.initialize({ first_name, last_name, email, 'phone-input' : +phone_number, "country" : address.country });
             this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
             this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
             this.props.dispatch(change('RenderProfileForm', 'email',        email));

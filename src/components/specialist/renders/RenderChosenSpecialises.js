@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import React from 'react';
 
-class RenderChosenSpecialises extends Component {
+const RenderChosenSpecialises = () => {
 
-    render() {
+    return (
+        <div>
+            <h3>Will Render chosen Specialises</h3>
+        </div>
+    )
+};
 
-        return (
-            <div>
-                <h3>Will Render chosen Specialises</h3>
-            </div>
-        )
-    }
-}
+export default RenderChosenSpecialises;
 
-export default RenderChosenSpecialises
+

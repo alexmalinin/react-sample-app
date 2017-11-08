@@ -6,10 +6,11 @@ import { PORT,
          VERIFICATION,
          GET_USER_ID,
          WELCOME_CLIENT,
-         EDUCATION,
-         WORK_EXPERIENCE,
          GET_INDUSTRIES,
          UPDATE_SPECIALIST_STEP_2,
+         EDUCATION,
+         WORK_EXPERIENCE,
+         SHOW_CHOSEN_SKILLS,
          UPDATE_SPECIALIST_STEP_3,
          SHOW_CLIENT_DATA
 } from '../constans/constans'
@@ -153,14 +154,13 @@ export function updateSpecStep2(data) {
 
 // get chosen skills
 
-// export function chosenSkills(){
-//     const action = {
-//         type: SHOW_CHOSEN_SKILLS,
-//         showChosenSkills: `${PORT}/api/v1/specialists/`,
-//     };
-//
-//     return action;
-// }
+export function showChosenSkills(){
+    const action = {
+        type: SHOW_CHOSEN_SKILLS,
+        showChosenSkills: `${PORT}/api/v1/specialists/`,
+    };
+    return action;
+}
 
 // update data for specialists sign up step 3
 

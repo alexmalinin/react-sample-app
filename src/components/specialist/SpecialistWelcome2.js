@@ -6,20 +6,22 @@ import HeaderBasic from '../layout/HeaderBasic';
 import {DvTitle} from '../../styleComponents/layout/DvTitles'
 import { DvButton } from '../../styleComponents/layout/DvButton'
 import confirm from '../../decorators/confirm'
-import SpecialistWelcomeResult1 from './forms/SpecialistWelcomeResult1';
+import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
-import { updateSpecStep3 } from '../../actions/actions'
+import { updateSpecStep3, showChosenSkills } from '../../actions/actions'
 
 class SpecialistsWelcome2 extends Component {
 
-    componentWillUpdate() {
+    componentWillMount() {
+        this.props.showChosenSkills()
 
     }
 
     render() {
-        const { signUpData } = this.props;
+        const { signUpData, chosenSkills } = this.props;
         let confirm = signUpData ? signUpData.welcomeSpecStep2 : false;
+        let { industry_title } = chosenSkills;
 
         return (
             <div>
@@ -39,14 +41,14 @@ class SpecialistsWelcome2 extends Component {
                                     how we can support you further to get the most out of this platform.
                                 </p>
                                 <h2>What you’ve told us so far /</h2>
-                                <p>You are a <b>[experience_level] [Title]</b> working in
+                                <p>You are a <b>{industry_title}</b> working in
                                     <b> [Industry_Area]</b> that specialises in
                                 </p>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
 
-                    <SpecialistWelcomeResult1/>
+                    <SpecialistWelcomeResult1 chosenSkills={chosenSkills} />
 
                     <SpecialistWelcomeForm2 onSubmit={this.submit}/>
                     {confirm && <Redirect to="/specialists/dashboard/profile"/> }
@@ -61,4 +63,7 @@ class SpecialistsWelcome2 extends Component {
     };
 }
 
-export default connect(({ signUpData, educations, experiences}) => ({signUpData, educations, experiences}), { updateSpecStep3 })(confirm(SpecialistsWelcome2));
+export default connect(
+    ({ signUpData, chosenSkills, educations, experiences}) => ({signUpData, chosenSkills, educations, experiences}),
+    { updateSpecStep3, showChosenSkills }
+)(confirm(SpecialistsWelcome2));

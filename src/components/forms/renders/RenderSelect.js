@@ -13,7 +13,6 @@ export default class RenderSelect extends Component {
             ...rest
         } = this.props;
         let { value, onChange } = input;
-        console.log('value', value);
 
         return (
             <StyledInputs>

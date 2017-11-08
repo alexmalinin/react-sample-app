@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import React from 'react';
 
-class GetCustomSkills extends Component {
+const GetCustomSkills = () => {
 
-    render() {
+    return (
+        <div>
+           <h3>Will Render chosen skills</h3>
+        </div>
+    )
+};
 
-        return (
-            <div>
-               <h3>Will Render chosen skills</h3>
-            </div>
-        )
-    }
-}
-
-export default GetCustomSkills
+export default GetCustomSkills;

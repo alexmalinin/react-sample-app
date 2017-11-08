@@ -3,13 +3,15 @@ import {renderField} from '../../forms/renders/RenderField';
 import { DvButton } from '../../../styleComponents/layout/DvButton'
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import RenderCustomSkills from '../renders/RenderCustomSkills';
-import RenderChosenSpecialises from '../renders/RenderChosenSpecialises';
+import RenderCustomSkills from './RenderCustomSkills';
+import RenderChosenSpecialises from './RenderChosenSpecialises';
 import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistWelcomeResult1 extends Component {
 
     render() {
+        let {chosenSkills = []} = this.props;
+        console.log(chosenSkills);
 
         return (
             <Grid>
