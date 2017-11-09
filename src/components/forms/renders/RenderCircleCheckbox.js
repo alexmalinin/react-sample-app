@@ -11,12 +11,15 @@ class RenderCircleCheckbox extends Component {
 
         return(
             <div>
-                <Days
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                    label={label}
-                    disabled={disabled}
-                />
+                <label>
+                    {label}
+                    <input type="checkbox"
+                        // onFocus={onFocus}
+                        // onBlur={onBlur}
+                        {...input}
+                        disabled={disabled}
+                    />
+                </label>
                 {touched &&
                 ((error &&
                 <StyledError>
