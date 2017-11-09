@@ -22,7 +22,9 @@ class SpecialistsWelcome2 extends Component {
         const { signUpData, chosenSkills } = this.props;
         let confirm = signUpData ? signUpData.welcomeSpecStep2 : false;
         let { industry_title } = chosenSkills;
-        console.log('confirm', confirm);
+        let { specialities = [] } = chosenSkills;
+        let industry_area = specialities[0] ? specialities[0]["industry_area"]["name"] : null
+            console.log('confirm', industry_area);
 
         return (
             <div>
@@ -43,7 +45,7 @@ class SpecialistsWelcome2 extends Component {
                                 </p>
                                 <h2>What you’ve told us so far /</h2>
                                 <p>You are a <b>{industry_title}</b> working in
-                                    <b> [Industry_Area]</b> that specialises in
+                                    <b> {industry_area}</b> that specialises in
                                 </p>
                             </Grid.Column>
                         </Grid.Row>

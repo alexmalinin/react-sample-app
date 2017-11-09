@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from './Availability/SpecialistAvailabilityForm';
-import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles'
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
+import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
+import { showSpecialistData } from '../../actions/actions';
 
 class SpecialistsAvailability extends Component {
+
+    componentWillMount() {
+        this.props.showSpecialistData();
+    }
 
     render() {
 
@@ -32,4 +37,4 @@ class SpecialistsAvailability extends Component {
     };
 }
 
-export default SpecialistsAvailability;
+export default connect(null, {showSpecialistData} )(SpecialistsAvailability);

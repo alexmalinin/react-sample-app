@@ -72,7 +72,7 @@ class SpecialistWelcomeForm2 extends Component {
                                         <div>
                                             <p>Hourly</p>
                                             <Field
-                                                name="hourly-rate"
+                                                name="hourly_rate"
                                                 component={RenderField}
                                                 type="number"
                                                 placeholder="AUD $"
@@ -81,7 +81,7 @@ class SpecialistWelcomeForm2 extends Component {
                                         <div>
                                             <p>Daily</p>
                                             <Field
-                                                name="daily-rate"
+                                                name="daily_rate"
                                                 component={RenderField}
                                                 type="number"
                                                 placeholder="AUD $"

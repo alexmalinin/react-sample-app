@@ -28,9 +28,7 @@ class SlideTogle extends Component {
     }
 
     handleHeight = ev => {
-        console.log('click');
         let { height } = this.state;
-        console.log(height);
 
         height === 'auto'
             ? this.setState({

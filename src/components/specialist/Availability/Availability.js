@@ -14,7 +14,8 @@ import SlideTogle from '../../SlideTogle';
 class Availability extends Component {
 
     render() {
-        let { submitting, submitBtn  } = this.props;
+
+        let { submitting, submitBtn } = this.props;
 
         return (
             <StyledAvailabilityForm>
@@ -22,21 +23,21 @@ class Availability extends Component {
                     <b>Set your availability</b> / This can be easily changed at anytime
                 </p>
                 <DropdownAvailability>
-                    <SlideTogle height={0}>
+                    <SlideTogle height={"auto"}>
                         <p>Full-time / Part-time / Not available</p>
                         <AvailabilityTime/>
                     </SlideTogle>
                 </DropdownAvailability>
 
                 <DropdownAvailability customPadd>
-                    <SlideTogle height={0}>
+                    <SlideTogle height={"auto"}>
                         <p>Days available</p>
                         <AvailabilityDays/>
                     </SlideTogle>
                 </DropdownAvailability>
 
                 <Field
-                    name='work-hourses'
+                    name='hours_per_week'
                     component={RenderSelect}
                     placeholder='Hours per week'
                     options={workHourses}

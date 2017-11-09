@@ -34,11 +34,11 @@ export default store => next => action => {
             "specialist": {
                 "avatar"                       : payload["person"],
                 "professional_experience_info" : payload["professional_experience_info"],
-                "hourly_rate"                  : payload["hourly-rate"],
-                "daily_rate"                   : payload["daily-rate"],
+                "hourly_rate"                  : payload["hourly_rate"],
+                "daily_rate"                   : payload["daily_rate"],
                 "available"                    : payload["availability"],
                 "available_days"               : payload["days"],
-                "hours_per_week"               : payload["work-hourses"]["label"],
+                "hours_per_week"               : payload["hours_per_week"]["label"],
                 "educations_attributes"        : education,
                 "work_experiences_attributes"  : experience
             }
@@ -65,7 +65,7 @@ export default store => next => action => {
                             "daily_rate": payload["daily-rate"],
                             "available": payload["availability"],
                             "available_days": payload["days"],
-                            "hours_per_week": payload["work-hourses"]["label"],
+                            "hours_per_week": payload["hours_per_week"]["label"],
                             "educations_attributes": education,
                             "work_experiences_attributes": experience
                         }

@@ -22,10 +22,10 @@ class SpecialistsProfile extends Component {
 
     render() {
 
-        const panes = [
-            { menuItem: 'Work History', render: () => <Tab.Pane attached={false}><RenderTabCard context='work'/></Tab.Pane> },
-            { menuItem: 'Education', render: () => <Tab.Pane attached={false}><RenderTabCard context='education'/></Tab.Pane> },
-        ];
+        // const panes = [
+        //     { menuItem: 'Work History', render: () => <Tab.Pane attached={false}><RenderTabCard context='work'/></Tab.Pane> },
+        //     { menuItem: 'Education', render: () => <Tab.Pane attached={false}><RenderTabCard context='education'/></Tab.Pane> },
+        // ];
 
         return (
             <div>

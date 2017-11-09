@@ -46,3 +46,23 @@ body,
   display: inline-block;
   margin-top: 50px;
 }
+
+
+.ui.checkbox input:checked~.box:after,
+.ui.checkbox input:checked~label:after {
+    font-size: 0;
+    position: absolute;
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    background-color: #1991fa;
+    top: 3px;
+    left: -17px!important;
+    transition-property: none!important;
+    transition-duration: 0s;
+}
+
+.ui.checkbox .box:after,
+.ui.checkbox label:after {
+    transition: none!important;
+}
