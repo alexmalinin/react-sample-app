@@ -17,22 +17,27 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 class SignUp extends Component {
 
     state = {
-        activeTab: this.props.changeUserType || 'Specialist',
+        // activeTab: this.props.changeUserType || 'Specialist',
         confirm: false,
     };
 
+    componentWillMount() {
+        localStorage.removeItem('user_email');
+    }
+
     render() {
         let { confirm, activeTab } = this.state;
-        const activeIndex = activeTab === 'Specialist' ? 0 : 1;
+        const { changeUserType } = this.props;
+        const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormSpecialist person={activeTab} onSubmit={this.submit('specialists')}/>
+                    <SignUpFormSpecialist person={changeUserType} onSubmit={this.submit('specialists')}/>
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormClient person={activeTab} onSubmit={this.submit('customers')}/>
+                    <SignUpFormClient person={changeUserType} onSubmit={this.submit('customers')}/>
                 </StyledSignUpForm>
             },
         ];
@@ -92,10 +97,10 @@ class SignUp extends Component {
 
     handleTabChange  = (ev, {activeIndex}) => {
         const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
-        this.setState({ activeTab })
-        // this.props.userType(activeTab);
+        // this.setState({ activeTab })
+        this.props.userType(activeTab);
     }
 
 }
 
-export default connect(({form}) => ({form}), {userType, postSignUpData})(SignUp);
+export default connect(({form, changeUserType}) => ({form, changeUserType}), {userType, postSignUpData})(SignUp);

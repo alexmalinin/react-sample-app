@@ -17,6 +17,7 @@ import { showSpecialistData } from '../../actions/actions';
 class SpecialistsProfile extends Component {
 
     componentWillMount() {
+        localStorage.removeItem('user_email');
         this.props.showSpecialistData();
     }
 

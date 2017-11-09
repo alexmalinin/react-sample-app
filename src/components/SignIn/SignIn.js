@@ -14,19 +14,21 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 
 class SignUp extends Component {
 
-    state = {
-        activeTab: this.props.changeUserType || 'Specialist',
-    };
+    // state = {
+    //     activeTab: this.props.changeUserType || 'Specialist',
+    // };
+    componentWillMount() {
+        this.userEmail = localStorage.getItem('user_email');
+    }
 
     render() {
-        const { activeTab } = this.state;
-        const activeIndex = activeTab === 'Specialist' ? 0 : 1;
-        const { signInReducer } = this.props;
+        const { signInReducer, changeUserType } = this.props;
+        const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         let confirm = signInReducer ? signInReducer.isLogIn : false;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignInForm onSubmit={this.submit}/>
+                    <SignInForm email={this.userEmail} onSubmit={this.submit}/>
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
@@ -101,8 +103,8 @@ class SignUp extends Component {
 
     handleTabChange  = (ev, {activeIndex}) => {
         const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
-        this.setState({ activeTab })
-        // this.props.userType(activeTab);
+        // this.setState({ activeTab })
+        this.props.userType(activeTab);
     }
 }
 

@@ -27,7 +27,10 @@ import Footer from './layout/Footer';
 class App extends Component {
 
     render() {
-        const {signUpData} = this.props;
+        const {signUpData = []} = this.props;
+        // let render_step1 = signUpData ? signUpData["signUpDatawelcomeClient"] : null;
+        // let render_step2 = signUpData ? signUpData["welcomeSpecStep1"] : null;
+        // // let render_step3 = signUpData ? signUpData["welcomeSpecStep1"] : null;
 
         return (
             <Router>
@@ -48,8 +51,14 @@ class App extends Component {
                         <Route path='/sign_up' component={SignUp}/>
                         {this.renderToken()}
                         <Route path='/confirm_email' component={ConfirmEmail}/>
-                        <Route path='/specialists/dashboard/welcome-to-the-village-1/' component={SpecialistsWelcome1}/>
-                        <Route path='/specialists/dashboard/welcome-to-the-village-2' component={SpecialistsWelcome2}/>
+                        <Route
+                            path='/specialists/dashboard/welcome-to-the-village-1/'
+                            component={SpecialistsWelcome1}
+                        />
+                        <Route
+                            path='/specialists/dashboard/welcome-to-the-village-2'
+                            component={SpecialistsWelcome2}
+                        />
                         <Route path='/specialists/dashboard/profile' component={SpecialistsProfile}/>
                         <Route path='/specialists/dashboard/my_teams' component={SpecialistsMyTeams}/>
                         <Route path='/specialists/dashboard/availability' component={SpecialistsAvailability}/>
@@ -75,6 +84,13 @@ class App extends Component {
                 />
             ]
     }
+
+    // renderSpecialistStep1 = () => {
+    //
+    //     return (
+    //
+    //     )
+    // }
 }
 
 export default connect(({signUpData}) => ({signUpData}))(App);

@@ -11,6 +11,7 @@ import { showClientData } from '../../actions/actions';
 class ClientProfile extends Component {
 
     componentWillMount() {
+        localStorage.removeItem('user_email');
         this.props.showClientData();
     }
 
