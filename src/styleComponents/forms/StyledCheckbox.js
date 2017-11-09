@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
-    display: inline-block;
+    display: block;
+    ${props => props.indentBot ? `margin-bottom: 90px` : ``};
     
     input {
         opacity: 0;
@@ -32,6 +33,9 @@ export default styled.div`
     }
     
     @media (max-width: 1920px) {
+    
+        ${props => props.indentBot ? `margin-bottom: 40px` : ``};
+        
         label {
             font-size: 18px; 
         }    
@@ -54,6 +58,7 @@ export default styled.div`
     } 
     
     @media (max-width: 414px) {
+        ${props => props.indentBot ? `margin-bottom: 20px` : ``};
         
         label {
             font-size: 14px; 

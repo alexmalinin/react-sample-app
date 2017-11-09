@@ -1,11 +1,19 @@
 import React from 'react';
-
-const GetCustomSkills = () => {
+import StyledCheckbox from '../../../styleComponents/forms/StyledCheckbox'
+const GetCustomSkills = ( { skills } ) => {
 
     return (
-        <div>
-           <h3>Will Render chosen skills</h3>
-        </div>
+        <StyledCheckbox indentBot>
+            <p>Your Skillset includes /</p>
+
+            {skills && skills.map(item => {
+                return (
+                    <div key={item.name}>
+                        {item.name}
+                    </div>
+                )
+            })}
+        </StyledCheckbox>
     )
 };
 
