@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderSelect from '../../forms/renders/RenderSelect';
+import { required } from '../../../helpers/validate';
 import { employeers } from '../../../helpers/selects/employeers';
 import SignUpForm from '../../SignUp/SignUpForm';
 import InputField from '../../forms/renders/InputField'
@@ -19,6 +20,7 @@ const SignUpFormClient = props =>  {
                 component={RenderSelect}
                 placeholder="Number of employeers /"
                 options={employeers}
+                validate={[required]}
             />
         </SignUpForm>
     )

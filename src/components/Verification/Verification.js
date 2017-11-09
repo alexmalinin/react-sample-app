@@ -8,7 +8,7 @@ import { DvButton } from '../../styleComponents/layout/DvButton';
 import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
-import {verifyPassword, getUserId} from '../../actions/actions'
+import {verifyPassword, getUserId, userType} from '../../actions/actions';
 
 class Verification extends Component {
 
@@ -41,6 +41,11 @@ class Verification extends Component {
     //     // this.props.verifyPassword(this.user, )
     // };
 
+    componentDidMount() {
+        let tab = this.user === 'customer' ? 'Client' : 'Specialist';
+        this.props.userType(tab);
+    }
+
     getUserRedirect = () => {
         // const { UserId } = this.props;
         // let redirect;
@@ -63,10 +68,12 @@ class Verification extends Component {
         localStorage.setItem('userId', UserId);
         verifyPassword(this.user + 's', UserId, values);
     };
+
 }
 
 export default connect(({UserId, confirmPassword}) => ({UserId, confirmPassword}),
     {
         verifyPassword,
         getUserId,
+        userType,
     })(confirm(Verification));
