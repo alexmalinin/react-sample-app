@@ -15,13 +15,14 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 class SignUp extends Component {
 
     state = {
-        activeTab: 'Specialist',
+        activeTab: this.props.changeUserType || 'Specialist',
     };
 
     render() {
+        const { activeTab } = this.state;
+        const activeIndex = activeTab === 'Specialist' ? 0 : 1;
         const { signInReducer } = this.props;
         let confirm = signInReducer ? signInReducer.isLogIn : false;
-
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
@@ -50,7 +51,13 @@ class SignUp extends Component {
                             </Grid.Column>
                             <Grid.Column mobile={16} tablet={9} computer={8}>
                                 <Tabs mTop='180' action=''>
-                                    <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab}/>
+                                    <Tab
+                                        menu={{ text: true }}
+                                        panes={panes}
+                                        activeIndex={activeIndex}
+                                        // onClick={this.activeTab}
+                                        onTabChange={this.handleTabChange}
+                                    />
                                 </Tabs>
                                 { confirm &&  this.loginRedirect()}
                                 <StyledFormHint>
@@ -87,9 +94,15 @@ class SignUp extends Component {
         this.props.signIn(user, values)
     };
 
-    activeTab = ev => {
-        let item = ev.target;
-        item.classList.contains('item') ? this.props.userType(item.text) : null;
+    // activeTab = ev => {
+    //     let item = ev.target;
+    //     item.classList.contains('item') ? this.props.userType(item.text) : null;
+    // }
+
+    handleTabChange  = (ev, {activeIndex}) => {
+        const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
+        this.setState({ activeTab })
+        // this.props.userType(activeTab);
     }
 }
 

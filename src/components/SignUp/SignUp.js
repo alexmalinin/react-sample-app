@@ -17,12 +17,13 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 class SignUp extends Component {
 
     state = {
-        activeTab: 'Specialist',
+        activeTab: this.props.changeUserType || 'Specialist',
         confirm: false,
     };
 
     render() {
         let { confirm, activeTab } = this.state;
+        const activeIndex = activeTab === 'Specialist' ? 0 : 1;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
@@ -54,7 +55,13 @@ class SignUp extends Component {
 
                             <Grid.Column mobile={16} tablet={9} computer={8}>
                                 <Tabs mTop='180' action=''>
-                                    <Tab menu={{ text: true }} panes={panes} onClick={this.activeTab} />
+                                    <Tab
+                                        menu={{ text: true }}
+                                        panes={panes}
+                                        activeIndex={activeIndex}
+                                        // onClick={this.activeTab}
+                                        onTabChange={this.handleTabChange}
+                                    />
                                     { confirm && <Redirect to='/confirm_email'/> }
                                 </Tabs>
                                 <StyledFormHint>
@@ -75,12 +82,18 @@ class SignUp extends Component {
         })
     };
 
-    activeTab = ev => {
-        let item = ev.target;
-        item.classList.contains('item') ? this.props.userType(item.text) : null;
-        this.setState({
-            activeTab: item.classList.contains('item') ? item.text : this.state.activeTab,
-        })
+    // activeTab = ev => {
+    //     let item = ev.target;
+    //     item.classList.contains('item') ? this.props.userType(item.text) : null;
+    //     this.setState({
+    //         activeTab: item.classList.contains('item') ? item.text : this.state.activeTab,
+    //     })
+    // }
+
+    handleTabChange  = (ev, {activeIndex}) => {
+        const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
+        this.setState({ activeTab })
+        // this.props.userType(activeTab);
     }
 
 }
