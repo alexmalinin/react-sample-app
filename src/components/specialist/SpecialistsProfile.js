@@ -17,6 +17,7 @@ import { showSpecialistData } from '../../actions/actions';
 class SpecialistsProfile extends Component {
 
     componentWillMount() {
+        sessionStorage.removeItem('spec_step2');
         localStorage.removeItem('user_email');
         this.props.showSpecialistData();
     }

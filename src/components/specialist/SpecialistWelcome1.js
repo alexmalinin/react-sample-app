@@ -11,6 +11,7 @@ import { getIndustries, updateSpecStep2 } from '../../actions/actions'
 class SpecialistsWelcome1 extends Component {
 
     componentWillMount() {
+        sessionStorage.setItem('spec_step1', true);
         this.props.getIndustries();
     }
 

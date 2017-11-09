@@ -5,6 +5,8 @@ export default store => next => action => {
     const { type, signIn, payload, ...rest } = action;
     if (!signIn) return next(action);
 
+    next({ ...rest, type: type, data: payload });
+
     let firstLogin;
     // Client
     axios({
