@@ -55,14 +55,14 @@ class App extends Component {
                         {this.renderToken()}
                         <Route path='/confirm_email' component={ConfirmEmail}/>
 
-                        { ( render_step1 || render_this_step1 ) &&
+                        { /*( render_step1 || render_this_step1 ) &&*/
                             <Route
                                 path='/specialists/dashboard/welcome-to-the-village-1/'
                                 component={SpecialistsWelcome1}
                             />
                         }
 
-                        { ( render_step2 || render_this_step2 ) &&
+                        { /*( render_step2 || render_this_step2 ) &&*/
                             <Route
                                 path='/specialists/dashboard/welcome-to-the-village-2'
                                 component={SpecialistsWelcome2}
