@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
-import {renderField} from '../../forms/renders/RenderField';
+import { connect } from 'react-redux';
 import { DvButton } from '../../../styleComponents/layout/DvButton'
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderCustomSkills from './RenderCustomSkills';
 import RenderChosenSpecialises from './RenderChosenSpecialises';
 import { run } from '../../../helpers/scrollToElement';
+import { showChosenSkills } from '../../../actions/actions'
 
 class SpecialistWelcomeResult1 extends Component {
 
+    componentWillMount() {
+        this.props.showChosenSkills()
+    }
+
     render() {
-        let {chosenSkills = []} = this.props;
+        let { chosenSkills = [] } = this.props;
         console.log(chosenSkills);
+        let allSkills = chosenSkills.skills;
+        let allSpecialities = chosenSkills.specialities;
+        let { industry_title } = chosenSkills;
+        let { specialities = [] } = chosenSkills;
+        let industry_area = specialities[0] ? specialities[0]['industry_area']['name'] : null;
 
         return (
-            <Grid>
-                <Grid.Row>
-                    <Grid.Column>
-                        <RenderChosenSpecialises/>
-                        <p>Your Skillset includes /</p>
+            <div>
+                <RenderChosenSpecialises
+                    specialities={allSpecialities}
+                    title={industry_title}
+                    area={industry_area}
+                />
+                <RenderCustomSkills skills={allSkills}/>
 
-                        <RenderCustomSkills/>
-
-                        <DvButton
-                            content='CONTINUE'
-                            primary
-                            onClick={this.scroll}
-                        />
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
+                <DvButton
+                    content='CONTINUE'
+                    primary
+                    onClick={this.scroll}
+                />
+            </div>
         )
     }
 
@@ -39,4 +46,7 @@ class SpecialistWelcomeResult1 extends Component {
 }
 
 
-export default SpecialistWelcomeResult1
+export default connect(
+    ({chosenSkills}) => ({chosenSkills}),
+    { showChosenSkills }
+)(SpecialistWelcomeResult1)
