@@ -7,6 +7,7 @@ export default styled.span`
     top: -20px;
     left: 0px;
     font-size: 14px;
+    font-weight: 300;
     
     @media (min-width: 1921px) {
         top: -22px;

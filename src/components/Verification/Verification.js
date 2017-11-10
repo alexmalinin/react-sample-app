@@ -24,7 +24,7 @@ class Verification extends Component {
         return (
             <main>
                 <HeaderIntro/>
-                <Container indentBot>
+                <Container>
                     <DvTitle mTop='126'>
                         Account Verification
                     </DvTitle>

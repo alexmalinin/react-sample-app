@@ -4,6 +4,7 @@ import { Button } from 'semantic-ui-react'
 export const DvButton = styled(Button)`  
  
     &.ui.button {
+        ${props => props.indentTop ? `margin-top: 60px` : ``};
         border-radius: 0;
         width: 100%;
         font-size: 24px;
