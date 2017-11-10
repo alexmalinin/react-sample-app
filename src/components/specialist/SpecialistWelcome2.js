@@ -14,7 +14,6 @@ class SpecialistsWelcome2 extends Component {
 
 
     componentWillMount() {
-        this.props.showChosenSkills();
         sessionStorage.removeItem('spec_step1');
         sessionStorage.setItem('spec_step2', true);
     }

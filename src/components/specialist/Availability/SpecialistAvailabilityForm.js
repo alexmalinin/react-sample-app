@@ -24,12 +24,12 @@ class SpecialistAvailabilityForm extends Component {
     }
     //
     fillFields = data => {
-        let { hours_per_week, available_days } = data;
+        let { hours_per_week, available_days, available } = data;
         // this.props.initialize('SpecialistAvailabilityForm', 'days', {"Monday": true});
         console.log('data', data);
-        this.props.dispatch(change('SpecialistAvailabilityForm', 'hours_per_week',   "20 - 30"));
+        this.props.dispatch(change('SpecialistAvailabilityForm', 'hours_per_week',   hours_per_week));
         this.props.dispatch(change('SpecialistAvailabilityForm', 'days',   available_days));
-        this.props.dispatch(change('SpecialistAvailabilityForm', 'availability', "Full Time"));
+        this.props.dispatch(change('SpecialistAvailabilityForm', 'availability', available));
         // this.props.dispatch(change('SpecialistAvailabilityForm', 'hours_per_week',   "20 - 30"));
         // this.props.dispatch(focus('SpecialistAvailabilityForm', 'days.Monday'));
     }
