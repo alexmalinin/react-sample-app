@@ -13,7 +13,7 @@ const SignUpFormClient = props =>  {
             <InputField
                 name="company_name"
                 placeholder="Company name /"
-                validate={false}
+                validate={[required]}
             />
             <Field
                 name="employers_number"

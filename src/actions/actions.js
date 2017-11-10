@@ -4,6 +4,7 @@ import { PORT,
          CHANGE_USER_TYPE,
          SIGN_IN,
          VERIFICATION,
+         DELETE_CONFIRMATION_TOKEN,
          GET_USER_ID,
          WELCOME_CLIENT,
          GET_INDUSTRIES,
@@ -44,6 +45,7 @@ export function postContacts(data) {
 }
 
 
+
 export function signIn(user, data) {
     const action = {
         type: SIGN_IN,
@@ -74,6 +76,17 @@ export function getUserId (user, token) {
         type: GET_USER_ID,
         user,
         userConfirmationToken: `${PORT}/api/v1/${user}/${token}`,
+    };
+
+    return action;
+}
+
+// Client and Specialist get request to API for deleting confirmation token
+
+export function deleteConfirmationToken (user, token) {
+    const action = {
+        type: DELETE_CONFIRMATION_TOKEN,
+        deleteConfirmationToken: `${PORT}/api/v1/${user}/confirmation/${token}`,
     };
 
     return action;

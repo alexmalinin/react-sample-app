@@ -1,32 +1,34 @@
 import { createStore, applyMiddleware } from 'redux';
 
 import reducer from '../reducers/rootReducer';
-import contactRequestApi from '../middlewares/contactRequestApi';
-import signUpApi from '../middlewares/signUpApi';
+import contactRequest from '../middlewares/contactRequestApi';
+import signUp from '../middlewares/signUpApi';
 import getUserIdByTokenConfirmation from '../middlewares/getUserIdByTokenConfirmationApi';
-import verificationApi from '../middlewares/verificationApi';
-import signInApi from '../middlewares/signInApi';
-import welcomeClientApi from '../middlewares/welcomeClientApi';
-import getIndustiresApi from '../middlewares/getIndustiresApi';
-import updateSpecStep2Api from '../middlewares/updateSpecStep2Api';
-import showChosenSkillsApi from '../middlewares/showChosenSkillsApi';
-import updateSpecStep3Api from '../middlewares/updateSpecStep3Api';
-import showClientDataApi from '../middlewares/showClientDataApi';
-import showSpecialistDataApi from '../middlewares/showSpecialistDataApi';
+import deleteConfirmationToken from '../middlewares/deleteConfirmationTokenApi';
+import verification from '../middlewares/verificationApi';
+import signIn from '../middlewares/signInApi';
+import welcomeClient from '../middlewares/welcomeClientApi';
+import getIndustires from '../middlewares/getIndustiresApi';
+import updateSpecStep2 from '../middlewares/updateSpecStep2Api';
+import showChosenSkills from '../middlewares/showChosenSkillsApi';
+import updateSpecStep3 from '../middlewares/updateSpecStep3Api';
+import showClientData from '../middlewares/showClientDataApi';
+import showSpecialistData from '../middlewares/showSpecialistDataApi';
 
 const enhancer = applyMiddleware(
-    contactRequestApi,
-    signUpApi,
+    contactRequest,
+    signUp,
     getUserIdByTokenConfirmation,
-    verificationApi,
-    signInApi,
-    welcomeClientApi,
-    getIndustiresApi,
-    updateSpecStep2Api,
-    showChosenSkillsApi,
-    updateSpecStep3Api,
-    showClientDataApi,
-    showSpecialistDataApi,
+    verification,
+    deleteConfirmationToken,
+    signIn,
+    welcomeClient,
+    getIndustires,
+    updateSpecStep2,
+    showChosenSkills,
+    updateSpecStep3,
+    showClientData,
+    showSpecialistData,
 );
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), enhancer);

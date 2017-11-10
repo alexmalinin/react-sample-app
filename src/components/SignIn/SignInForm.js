@@ -34,7 +34,7 @@ class SignInForm extends Component {
                     validate={[required, minLength8]}
                 />
                 <StyledFormHint>
-                    <Link to="/forgot_password">I've forgotten</Link>
+                    <Link to="/forgot_password">I've forgotten password</Link>
                 </StyledFormHint>
 
                 <DvButtonForm

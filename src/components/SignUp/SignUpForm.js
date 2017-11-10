@@ -29,11 +29,13 @@ class SignUpForm extends Component  {
                 <InputField
                     name="first_name"
                     placeholder="First Name /"
+                    validate={[required]}
                     // disabled={hasPerson === 'Agency'}
                 />
                 <InputField
                     name="last_name"
                     placeholder="Last Name /"
+                    validate={[required]}
                     // disabled={hasPerson === 'Agency'}
                 />
 

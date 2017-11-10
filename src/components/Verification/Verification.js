@@ -8,7 +8,7 @@ import { DvButton } from '../../styleComponents/layout/DvButton';
 import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
-import {verifyPassword, getUserId, userType} from '../../actions/actions';
+import { verifyPassword, getUserId, userType, deleteConfirmationToken} from '../../actions/actions';
 
 class Verification extends Component {
 
@@ -69,6 +69,10 @@ class Verification extends Component {
         verifyPassword(this.user + 's', UserId, values);
     };
 
+    componentWillUnmount() {
+        this.props.deleteConfirmationToken(this.user, this.token);
+    }
+
 }
 
 export default connect(({UserId, confirmPassword}) => ({UserId, confirmPassword}),
@@ -76,4 +80,5 @@ export default connect(({UserId, confirmPassword}) => ({UserId, confirmPassword}
         verifyPassword,
         getUserId,
         userType,
+        deleteConfirmationToken,
     })(confirm(Verification));
