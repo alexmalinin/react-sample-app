@@ -11,8 +11,8 @@ class RenderRadio extends Component {
         return (
             <StyledRadio>
                 <label>
-                    <input className="ownInput"
-                           type="radio"
+                    <input className='ownInput'
+                           type='radio'
                            {...input}
                            name={name}
 
