@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { reduxForm, Field, change, SubmissionError } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
@@ -23,17 +24,27 @@ class SignUp extends Component {
 
     render() {
         const { signInReducer, changeUserType } = this.props;
+        let { failSignIn } = signInReducer || false;
+        console.log('render signInReducer',signInReducer);
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
-        let confirm = signInReducer ? signInReducer.isLogIn : false;
+        let confirm = signInReducer;
         const panes = [
             { menuItem: 'Specialist', render: () =>
-                <StyledSignUpForm attached={false}>
-                    <SignInForm email={this.userEmail} onSubmit={this.submit}/>
+                <StyledSignUpForm attached={ false }>
+                    <SignInForm
+                        email={ this.userEmail }
+                        failSignIn={ failSignIn }
+                        onSubmit={ this.submit }
+                    />
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
-                <StyledSignUpForm attached={false} onClick={this.activeTab}>
-                    <SignInForm onSubmit={this.submit}/>
+                <StyledSignUpForm attached={ false }>
+                    <SignInForm
+                        email={ this.userEmail }
+                        failSignIn={ failSignIn }
+                        onSubmit={this.submit}
+                    />
                 </StyledSignUpForm>
             },
         ];
@@ -75,20 +86,35 @@ class SignUp extends Component {
 
     loginRedirect = () => {
         let { changeUserType, signInReducer } = this.props;
-        let { firstLogin } = signInReducer;
-        console.log(firstLogin);
+        console.log('signInReducer', signInReducer);
+        let { isLogIn, data } = signInReducer;
+        let status = data ? data["status"] : null
+        console.log('isLogIn', isLogIn);
+        console.log('status', status);
+
         let user = changeUserType === "Specialist" ? "specialists" : "client";
-        if (firstLogin) {
+        if (isLogIn && status !== "logged") {
             return (
                 <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
             )
-        } else {
+        }
+
+        if (status === "logged") {
             return (
                 <Redirect to={`/${user}/dashboard/profile`} />
             )
         }
-
+        // } else {
+        //     return (
+        //         <Redirect to={`/${user}/dashboard/profile`} />
+        //     )
+        // }
+        console.log('redirect')
     };
+
+    // componentWillReceiveProps(nextState) {
+    //     console.log(nextState.signInReducer);
+    // }
 
     submit = values => {
         let { changeUserType } = this.props;

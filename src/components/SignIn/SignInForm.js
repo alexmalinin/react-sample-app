@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field, change } from 'redux-form';
+import { reduxForm, Field, change, stopSubmit } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { required, minLength8, email } from '../../helpers/validate';
 import { RenderField } from '../forms/renders/RenderField';
@@ -46,6 +46,12 @@ class SignInForm extends Component {
             </form>
         )
     };
+
+    componentWillReceiveProps(nextState) {
+        if (nextState.failSignIn) {
+            this.props.dispatch(stopSubmit("SignInForm", {"email": 'Don\'t exist this email', "password": 'Check your password again'} ));
+        }
+    }
 }
 
 export default reduxForm({

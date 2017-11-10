@@ -12,6 +12,7 @@ import { PORT,
          EDUCATION,
          WORK_EXPERIENCE,
          SHOW_CHOSEN_SKILLS,
+         GET_PROJECT_TYPES,
          UPDATE_SPECIALIST_STEP_3,
          SHOW_CLIENT_DATA,
          SHOW_SPECIALIST_DATA
@@ -145,6 +146,17 @@ export function getIndustries() {
     const action = {
         type: GET_INDUSTRIES,
         getIndustries: `${PORT}/api/v1/industry_areas`,
+    };
+
+    return action;
+}
+
+// Get all project types
+
+export function getProjectTypes() {
+    const action = {
+        type: GET_PROJECT_TYPES,
+        getIndustries: `${PORT}/api/v1/project_types`,
     };
 
     return action;

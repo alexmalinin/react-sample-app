@@ -17,8 +17,10 @@ export const UPDATE_SPECIALIST_STEP_2   = 'UPDATE_SPECIALIST_STEP_2';
 export const SHOW_CHOSEN_SKILLS         = 'SHOW_CHOSEN_SKILLS';
 export const EDUCATION                  = 'EDUCATION';
 export const WORK_EXPERIENCE            = 'WORK_EXPERIENCE';
+export const GET_PROJECT_TYPES          = 'GET_PROJECT_TYPES';
 export const UPDATE_SPECIALIST_STEP_3   = 'UPDATE_SPECIALIST_STEP_3';
 export const SHOW_CLIENT_DATA           = 'SHOW_CLIENT_DATA';
 export const SHOW_SPECIALIST_DATA       = 'SHOW_SPECIALIST_DATA';
 
 export const SUCCESS                    = '_SUCCESS';
+export const FAIL                       = '_FAIL';
