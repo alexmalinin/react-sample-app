@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Checkbox } from 'semantic-ui-react'
-import { Days } from '../../../styleComponents/StyledDropdown';
 import StyledError from '../../../styleComponents/forms/StyledError'
+import StyledRadio from '../../../styleComponents/forms/StyledRadio'
 
 class RenderCircleCheckbox extends Component {
 
@@ -10,15 +9,15 @@ class RenderCircleCheckbox extends Component {
         let { onFocus, onBlur } = input;
 
         return(
-            <div>
+            <StyledRadio>
                 <label>
-                    {label}
-                    <input type="checkbox"
+                    <input type='checkbox' className='ownInput'
                         // onFocus={onFocus}
                         // onBlur={onBlur}
                         {...input}
                         disabled={disabled}
                     />
+                    <span className={`ownRadio`}>{label}</span>
                 </label>
                 {touched &&
                 ((error &&
@@ -29,7 +28,7 @@ class RenderCircleCheckbox extends Component {
                 <span>
                 {warning}
                 </span>))}
-            </div>
+            </StyledRadio>
         )
     }
 }
