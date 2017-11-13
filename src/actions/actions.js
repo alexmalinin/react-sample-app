@@ -1,5 +1,6 @@
 import { PORT,
          HIDE_FOOTER,
+         SIDEBAR,
          SIGN_UP_STEP_1,
          CHANGE_USER_TYPE,
          SIGN_IN,
@@ -21,6 +22,16 @@ import { PORT,
 export function hideFooter() {
     const action = {
         type: HIDE_FOOTER,
+    };
+
+    return action;
+}
+
+// show/hide mobile menu
+
+export function toggleSidebar() {
+    const action = {
+        type: SIDEBAR,
     };
 
     return action;

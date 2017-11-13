@@ -1,42 +1,39 @@
-import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom'
-import {Button} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import StyledHeader from '../../styleComponents/layout/StyledHeader';
-import NavigationLinks from './NavigationLinks'
 import Logotype from './Logotype'
 import { ContainerLarge } from '../../styleComponents/layout/Container';
+import { Icon } from 'semantic-ui-react';
+import Navbar from './Navbar';
+import StyledMobileButton from '../../styleComponents/layout/StyledMobileButton';
+import { toggleSidebar } from "../../actions/actions";
 
 class Header extends Component {
-
-    state = {
-        activeItem: 'home',
-    };
 
     render() {
         return (
 
             <StyledHeader className='header-intro'>
-                <div className='inside-header'>
                     <div className='top-header'>
                         <ContainerLarge>
                             <Logotype/>
+                            <StyledMobileButton onClick={ this.toggleVisibility }>
+                                <Icon name='content' />
+                            </StyledMobileButton>
                         </ContainerLarge>
                     </div>
                     <div className='bot-header'>
                         <ContainerLarge>
-                            <NavigationLinks/>
-                            <ul className='right-board'>
-                                <li><NavLink to='/post_project'>Post a project</NavLink></li>
-                                <li className='proxy'><NavLink to='/sign_in'>log in</NavLink></li>
-                                <li className='proxy'><NavLink to='/sign_up'><Button inverted>sign up</Button></NavLink>
-                                </li>
-                            </ul>
+                            <Navbar/>
                         </ContainerLarge>
                     </div>
-                </div>
             </StyledHeader>
         )
     }
+
+    toggleVisibility = () => {
+        this.props.toggleSidebar();
+    }
 }
 
-export default Header
+export default connect(null, { toggleSidebar })(Header);
