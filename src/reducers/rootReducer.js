@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { reducer as reduxFormReducer } from 'redux-form';
 
 import hideFooter from './hideFooter';
+import sidebar from './sidebar';
 import changeUserType from './changeUserTypeReducer';
 import signUpData from './signUpReducer';
 import signInReducer from './signInReducer';
@@ -17,6 +18,7 @@ import specialistData from './showSpecialistDataReducer';
 
 export default combineReducers({
     hideFooter,
+    sidebar,
     changeUserType,
     signUpData,
     signInReducer,

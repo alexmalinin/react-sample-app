@@ -4,6 +4,7 @@ export const PORT =
         : process.env.REACT_APP_API_PROD;
 
 export const HIDE_FOOTER                = 'HIDE_FOOTER';
+export const SIDEBAR                    = 'SIDEBAR';
 export const SIGN_UP_STEP_1             = 'SIGN_UP_STEP_1';
 export const CHANGE_USER_TYPE           = 'CHANGE_USER_TYPE';
 export const SIGN_IN                    = 'SIGN_IN';
