@@ -6,9 +6,9 @@ const GetCustomSkills = ( { skills } ) => {
         <StyledCheckbox indentBot>
             <p>Your Skillset includes /</p>
 
-            {skills && skills.map(item => {
+            {skills && skills.map((item, index ) => {
                 return (
-                    <div key={item.name}>
+                    <div key={item.name + index}>
                         {item.name}
                     </div>
                 )

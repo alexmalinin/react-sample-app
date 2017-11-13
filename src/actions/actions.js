@@ -8,12 +8,12 @@ import { PORT,
          GET_USER_ID,
          WELCOME_CLIENT,
          GET_INDUSTRIES,
-         UPDATE_SPECIALIST_STEP_2,
+         UPDATE_SPECIALIST_STEP_1,
          EDUCATION,
          WORK_EXPERIENCE,
          SHOW_CHOSEN_SKILLS,
          GET_PROJECT_TYPES,
-         UPDATE_SPECIALIST_STEP_3,
+         UPDATE_SPECIALIST_STEP_2,
          SHOW_CLIENT_DATA,
          SHOW_SPECIALIST_DATA
 } from '../constans/constans'
@@ -164,11 +164,11 @@ export function getProjectTypes() {
 
 // update data for specialists sign up step 2
 
-export function updateSpecStep2(data) {
+export function updateSpecStep1(data) {
     const action = {
-        type: UPDATE_SPECIALIST_STEP_2,
+        type: UPDATE_SPECIALIST_STEP_1,
         payload: data,
-        updateSpecStep2: `${PORT}/api/v1/specialists/`,
+        updateSpecStep1: `${PORT}/api/v1/specialists/`,
     };
 
     return action;
@@ -186,13 +186,13 @@ export function showChosenSkills(){
 
 // update data for specialists sign up step 3
 
-export function updateSpecStep3(data, education, experience) {
+export function updateSpecStep2(data, education, experience) {
     const action = {
-        type: UPDATE_SPECIALIST_STEP_3,
+        type: UPDATE_SPECIALIST_STEP_2,
         payload: data,
         education,
         experience,
-        updateSpecStep3: `${PORT}/api/v1/specialists/`,
+        updateSpecStep2: `${PORT}/api/v1/specialists/`,
     };
 
     return action;

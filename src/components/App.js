@@ -28,9 +28,9 @@ class App extends Component {
 
     render() {
         const {signUpData, signInReducer} = this.props;
-        console.log('-------signUpData', signUpData);
         let render_step1 = signInReducer ? signInReducer["isLogIn"] : null;
         let render_this_step1 = sessionStorage.getItem('spec_step1');
+        let render_client_step = sessionStorage.getItem('client_step');
         let render_step2 = signUpData ? signUpData["welcomeSpecStep1"] : null;
         let render_this_step2 = sessionStorage.getItem('spec_step2');
         // let render_step3 = signUpData ? signUpData["welcomeSpecStep1"] : null;
@@ -55,14 +55,14 @@ class App extends Component {
                         {this.renderToken()}
                         <Route path='/confirm_email' component={ConfirmEmail}/>
 
-                        { /*( render_step1 || render_this_step1 ) &&*/
+                        { ( render_step1 || render_this_step1 ) &&
                             <Route
                                 path='/specialists/dashboard/welcome-to-the-village-1/'
                                 component={SpecialistsWelcome1}
                             />
                         }
 
-                        { /*( render_step2 || render_this_step2 ) &&*/
+                        { ( render_step2 || render_this_step2 ) &&
                             <Route
                                 path='/specialists/dashboard/welcome-to-the-village-2'
                                 component={SpecialistsWelcome2}
@@ -73,7 +73,10 @@ class App extends Component {
                         <Route path='/specialists/dashboard/profile' component={SpecialistsProfile}/>
                         <Route path='/specialists/dashboard/my_teams' component={SpecialistsMyTeams}/>
                         <Route path='/specialists/dashboard/availability' component={SpecialistsAvailability}/>
-                        <Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
+                        {
+                            ( render_step1 || render_client_step ) &&
+                            < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
+                        }
                         <Route path='/client/dashboard/profile' component={ClientProfile}/>
                         <Route path='/client/dashboard/projects' component={ClientProjects}/>
                         <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>

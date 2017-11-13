@@ -7,7 +7,7 @@ import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
-import { updateSpecStep3 } from '../../actions/actions'
+import { updateSpecStep2 } from '../../actions/actions'
 import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2'
 
 class SpecialistsWelcome2 extends Component {
@@ -56,12 +56,12 @@ class SpecialistsWelcome2 extends Component {
     }
 
     submit = values => {
-        let { updateSpecStep3, educations, experiences } = this.props;
-        updateSpecStep3(values, educations, experiences);
+        let { updateSpecStep2, educations, experiences } = this.props;
+        updateSpecStep2(values, educations, experiences);
     };
 }
 
 export default connect(
     ({ signUpData, educations, experiences}) => ({signUpData, educations, experiences}),
-    { updateSpecStep3 }
+    { updateSpecStep2 }
 )(confirm(SpecialistsWelcome2));

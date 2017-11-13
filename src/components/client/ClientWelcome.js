@@ -11,6 +11,10 @@ import StyledWelcome from '../../styleComponents/StyledWelcome';
 
 class ClientWelcome extends Component {
 
+    componentWillMount() {
+        sessionStorage.setItem('client_step', true);
+    }
+
     render() {
         const { signUpData } = this.props;
         let confirm = signUpData ? signUpData.welcomeClient : false;

@@ -6,7 +6,7 @@ import DvGrid from '../../styleComponents/layout/DvGrid';
 import confirm from '../../decorators/confirm';
 import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
 import { Container }from '../../styleComponents/layout/Container';
-import { getIndustries, updateSpecStep2 } from '../../actions/actions'
+import { getIndustries, updateSpecStep1 } from '../../actions/actions'
 
 class SpecialistsWelcome1 extends Component {
 
@@ -31,8 +31,8 @@ class SpecialistsWelcome1 extends Component {
     }
 
     submit = values => {
-        this.props.updateSpecStep2(values);
+        this.props.updateSpecStep1(values);
     };
 }
 
-export default connect(({indusrties, signUpData}) => ({indusrties, signUpData}), { getIndustries, updateSpecStep2 })(confirm(SpecialistsWelcome1));
+export default connect(({indusrties, signUpData}) => ({indusrties, signUpData}), { getIndustries, updateSpecStep1 })(confirm(SpecialistsWelcome1));

@@ -3,68 +3,51 @@ import { SUCCESS } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
-    const { type, updateSpecStep2, payload = [], ...rest } = action;
+    const { type, updateSpecStep2, payload, education, experience, ...rest } = action;
     if (!updateSpecStep2) return next(action);
 
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    console.log('-----for attr', payload);
-
-    let attr = payload.skills_attributes.map( attr => { return {"name" : attr.label} } );
-    let spec_attr = Object.keys(payload.speciality_ids.map( id => Object.keys(id))).map( string => +string);
-
-    console.log('id', id);
-    // console.log( 'data',
-    //     { data: {
-    //         "specialist": {
-    //             "industry": {
-    //                 "name": payload["industry"]["label"],
-    //                 "id": payload["industry"]["value"],
-    //
-    //             },
-    //             "industry_title": payload["industry_title"],
-    //             "address_attributes": {
-    //                 "city": payload["city"],
-    //                 "country": payload["country"],
-    //                 "user_id": id
-    //             },
-    //             "specialist_skills_attributes": {
-    //                 "skill_attributes" : attr
-    //             },
-    //
-    //             "speciality_ids": spec_attr
+    // console.log('data',
+    //     {
+    //         data: {
+    //             "specialist": {
+    //                 "avatar": payload["person"],
+    //                 "professional_experience_info": payload["professional_experience_info"],
+    //                 "hourly_rate": payload["hourly-rate"],
+    //                 "daily_rate": payload["daily-rate"],
+    //                 "available": payload["availability"],
+    //                 "available_days": payload["days"],
+    //                 "hours_per_week": payload["work-hourses"]["label"],
+    //                 "educations_attributes": education,
+    //                 "work_experiences_attributes": experience
+    //             }
     //         }
-    //     }
     //
-    // });
+    //     });
 
     axios({
         method: 'put',
         url: updateSpecStep2 + id,
         data: {
             "specialist": {
-                "industry": {
-                    "name"                      : payload["industry"]["label"],
-                    "id"                        : payload["industry"]["value"],
-                },
-                "industry_title"                : payload["industry_title"],
-                "address_attributes"            : {
-                    "city"                  : payload["city"],
-                    "country"               : payload["country"],
-                    "user_id"               : id
-                },
-                "specialist_skills_attributes"  : {
-                    "skill_attributes"      : attr
-                },
-                "speciality_ids"            : spec_attr
+                "avatar"                       : payload["person"],
+                "professional_experience_info" : payload["professional_experience_info"],
+                "hourly_rate"                  : payload["hourly_rate"],
+                "daily_rate"                   : payload["daily_rate"],
+                "available"                    : payload["availability"],
+                "available_days"               : payload["days"],
+                "hours_per_week"               : payload["hours_per_week"]["label"],
+                "educations_attributes"        : education,
+                "work_experiences_attributes"  : experience
             }
 
         },
 
         headers: {
             'Authorization': `Bearer ${token}`,
-        },
+        }
 
     }).then(function (response) {
         console.log(response);
@@ -72,6 +55,23 @@ export default store => next => action => {
 
     })
     .catch(function (error) {
+        console.log('data',
+                {
+                    data: {
+                        "specialist": {
+                            "avatar": payload["person"],
+                            "professional_experience_info": payload["professional_experience_info"],
+                            "hourly_rate": payload["hourly-rate"],
+                            "daily_rate": payload["daily-rate"],
+                            "available": payload["availability"],
+                            "available_days": payload["days"],
+                            "hours_per_week": payload["hours_per_week"]["label"],
+                            "educations_attributes": education,
+                            "work_experiences_attributes": experience
+                        }
+                    }
+
+                });
         console.log(error);
     });
 };

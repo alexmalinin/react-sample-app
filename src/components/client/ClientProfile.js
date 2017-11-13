@@ -12,6 +12,7 @@ class ClientProfile extends Component {
 
     componentWillMount() {
         localStorage.removeItem('user_email');
+        sessionStorage.removeItem('client_step');
         this.props.showClientData();
     }
 
