@@ -4,6 +4,7 @@ import { StyledHome, FullScreen, ColoredLinks } from '../styleComponents/StyledH
 import { Container } from '../styleComponents/layout/Container'
 import { DvTitleMedium } from '../styleComponents/layout/DvTitles'
 import SubscribeForm from './forms/SubscribeForm'
+import ScrollArrow from './layout/ScrollArrrow'
 
 class Home extends Component {
 
@@ -18,7 +19,7 @@ class Home extends Component {
         return (
             <StyledHome>
                 <Container>
-
+                    <ScrollArrow/>
                     <FullScreen centered border={colors.blue}>
                         <img src='/images/logo-home.png' alt=''/>
                         <p className='limit-width'>

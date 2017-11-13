@@ -5,13 +5,13 @@ import StyledVerificationForm from '../../styleComponents/StyledVerificationForm
 import { DvButton } from '../../styleComponents/layout/DvButton';
 
 const validate = values => {
-    const errors = {}
+    const errors = {};
     if (!values.password) {
         errors.password = 'Required';
     }
 
     if (values.password ? values.password.length < 8 : false) {
-        errors.password = 'Minimun length 8 digits';
+        errors.password = 'Minimum length 8 digits';
     }
 
     if (!values.password_confirmation) {
@@ -32,22 +32,22 @@ const VerificationForm = props => {
         <StyledVerificationForm onSubmit={handleSubmit}>
             <Field
                 component={RenderField}
-                name="password"
-                placeholder="Password /"
-                type="password"
+                name='password'
+                placeholder='Password /'
+                type='password'
 
             />
             <Field
                 component={RenderField}
-                name="password_confirmation"
-                placeholder="Confirm password /"
-                type="password"
+                name='password_confirmation'
+                placeholder='Confirm password /'
+                type='password'
             />
-            <DvButton className='verify-btn width200'
+            <DvButton indentTop className='verify-btn width200'
                 /*onClick={confirmAccount}*/
                       onClick={this.postRequest}
                       primary
-                      type="submit"
+                      type='submit'
                       disabled={submitting}
                       content='SAVE & CONTINUE'
             />

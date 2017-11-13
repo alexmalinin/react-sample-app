@@ -11,14 +11,14 @@ const SignUpFormClient = props =>  {
     return (
         <SignUpForm {...props}>
             <InputField
-                name="company_name"
-                placeholder="Company name /"
-                validate={[required]}
+                name='company_name'
+                placeholder='Company name /'
+                validate={false}
             />
             <Field
-                name="employers_number"
+                name='employers_number'
                 component={RenderSelect}
-                placeholder="Number of employeers /"
+                placeholder='Number of employees /'
                 options={employeers}
                 validate={[required]}
             />
