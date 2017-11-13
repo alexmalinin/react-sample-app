@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Field } from 'redux-form';
+import { Field, stopSubmit } from 'redux-form';
 import { required, minLength2 } from '../../helpers/validate';
 import RenderSelect from '../forms/renders/RenderSelect';
 import RenderPhone from '../forms/renders/RenderPhone';
@@ -16,27 +16,23 @@ class SignUpForm extends Component  {
 
     render() {
         const { handleSubmit, submitting, person, changeUserType, hasPerson } = this.props;
+
         return (
             <form onSubmit={handleSubmit}>
-
-                {/*{person === 'Specialist' && this.props.children}*/}
 
                 <EmailField
                     name="email"
                     placeholder="Your email /"
-                    // disabled={hasPerson === 'Agency'}
                 />
                 <InputField
                     name="first_name"
                     placeholder="First Name /"
                     validate={[required]}
-                    // disabled={hasPerson === 'Agency'}
                 />
                 <InputField
                     name="last_name"
                     placeholder="Last Name /"
                     validate={[required]}
-                    // disabled={hasPerson === 'Agency'}
                 />
 
                 {person === 'Client' && this.props.children}
@@ -51,7 +47,6 @@ class SignUpForm extends Component  {
                         { label: 'Newspaper/Magazine', value: 'Newspaper/Magazine' },
                         { label: 'Friends/Colleges', value: 'Friends/Colleges' },
                         { label: 'Other', value: 'Other' }]}
-                    // disabled={hasPerson === 'Agency'}
                     validate={[required]}
                 />
 
@@ -64,26 +59,11 @@ class SignUpForm extends Component  {
                     <Field
                         name="terms"
                         component={RenderCheckbox}
-                        // disabled={hasPerson === 'Agency'}
                         validate={[required, minLength2]}
                     />
                     <span>I have read and I agree to the <br/> <ModalTerms/> and <PrivacyPolicy/></span>
                 </StyledRequireBox>
 
-                {/*{hasPerson === 'Agency'*/}
-                    {/*? <DvButtonForm*/}
-                        {/*type="submit"*/}
-                        {/*disabled={true}*/}
-                        {/*content='Continue'*/}
-                        {/*primary*/}
-                    {/*/>*/}
-                    {/*: <DvButtonForm*/}
-                        {/*type="submit"*/}
-                        {/*disabled={submitting}*/}
-                        {/*content='Continue'*/}
-                        {/*primary*/}
-                    {/*/>*/}
-                {/*}*/}
                 <DvButtonForm
                     type="submit"
                     disabled={submitting}
@@ -93,6 +73,13 @@ class SignUpForm extends Component  {
             </form>
         )
     }
+
+    // componentWillReceiveProps(nextState) {
+    //     console.log(nextState);
+    //     if (nextState.failLogin) {
+    //             this.props.dispatch(stopSubmit('SignUpFormSpecialist', {'email': 'wrong email' }))
+    //     }
+    // }
 }
 
 

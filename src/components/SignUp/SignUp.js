@@ -8,8 +8,7 @@ import DvGrid from '../../styleComponents/layout/DvGrid';
 import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
 import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
 import Tabs from '../../styleComponents/Tabs';
-import { userType } from '../../actions/actions';
-import { postSignUpData } from '../../actions/actions';
+import { postSignUpData, userType } from '../../actions/actions';
 import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
 import SignUpFormClient from '../client/forms/SignUpFormClient';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
@@ -17,7 +16,6 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 class SignUp extends Component {
 
     state = {
-        // activeTab: this.props.changeUserType || 'Specialist',
         confirm: false,
     };
 
@@ -27,18 +25,19 @@ class SignUp extends Component {
     }
 
     render() {
-        let { confirm, activeTab } = this.state;
-        const { changeUserType } = this.props;
+        let { confirm }  = this.state;
+        const { changeUserType, signUpData } = this.props;
+        let { failLogin } = signUpData || false;
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormSpecialist person={changeUserType} onSubmit={this.submit('specialists')}/>
+                    <SignUpFormSpecialist person={changeUserType} failLogin={failLogin} onSubmit={this.submit('specialists')}/>
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormClient person={changeUserType} onSubmit={this.submit('customers')}/>
+                    <SignUpFormClient person={changeUserType} failLogin={failLogin} onSubmit={this.submit('customers')}/>
                 </StyledSignUpForm>
             },
         ];
@@ -83,25 +82,28 @@ class SignUp extends Component {
 
     submit = userType => values => {
         this.props.postSignUpData(userType, values);
-        this.setState({
-            confirm: !this.state.confirm,
-        })
     };
 
-    // activeTab = ev => {
-    //     let item = ev.target;
-    //     item.classList.contains('item') ? this.props.userType(item.text) : null;
-    //     this.setState({
-    //         activeTab: item.classList.contains('item') ? item.text : this.state.activeTab,
-    //     })
-    // }
+    componentWillUpdate(nextProps) {
+        if (nextProps.signUpData) {
+            if (!nextProps.signUpData.hasOwnProperty('failLogin')) {
+                this.setState({
+                    confirm: !this.state.confirm,
+                })
+            }
+        }
+    }
 
     handleTabChange  = (ev, {activeIndex}) => {
         const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
-        // this.setState({ activeTab })
         this.props.userType(activeTab);
     }
 
 }
 
-export default connect(({form, changeUserType}) => ({form, changeUserType}), {userType, postSignUpData})(SignUp);
+export default connect(
+    ({form, changeUserType, signUpData}) => ({form, changeUserType, signUpData}),
+    {   userType,
+        postSignUpData,
+    }
+)(SignUp);

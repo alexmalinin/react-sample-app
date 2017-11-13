@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { SUCCESS } from '../constans/constans';
+import { SUCCESS, FAIL } from '../constans/constans';
 
 export default store => next => action => {
     const { type, signUp, user, payload, ...rest } = action;
     if (!signUp) return next(action);
+
+    next({ ...rest, type: type, data: payload });
 
     // Client
 
@@ -26,13 +28,11 @@ export default store => next => action => {
             }
 
         }).then(function (response) {
-            return next({ ...rest, type: type + SUCCESS, data: response.data });
-        }).then(function (response) {
             localStorage.setItem('user_email', response.data.email);
-            return true
+            return next({ ...rest, type: type + SUCCESS, data: response.data });
         })
         .catch(function (error) {
-            console.log(error);
+            return next({ ...rest, type: type + FAIL, data: error.response.data.message })
         });
 
     // Specialists
@@ -54,13 +54,11 @@ export default store => next => action => {
             }
 
         }).then(function (response) {
-            return next({ ...rest, type: type + SUCCESS, data: response.data });
-        }).then(function (response) {
             localStorage.setItem('user_email', response.data.email);
-            return true
+            return next({ ...rest, type: type + SUCCESS, data: response.data });
         })
         .catch(function (error) {
-            console.log(error);
+            return next({ ...rest, type: type + FAIL, data: error.response.data.message });
         });
     }
 

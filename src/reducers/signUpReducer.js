@@ -1,9 +1,10 @@
 import { SIGN_UP_STEP_1,
-        SUCCESS,
         VERIFICATION,
         WELCOME_CLIENT,
         UPDATE_SPECIALIST_STEP_1,
-        UPDATE_SPECIALIST_STEP_2
+        UPDATE_SPECIALIST_STEP_2,
+        SUCCESS,
+        FAIL,
 } from '../constans/constans';
 
 let result;
@@ -14,6 +15,9 @@ export default (state = null, action) => {
         case SIGN_UP_STEP_1 + SUCCESS:
             result = {data, isLogIn: true};
             return data;
+        case SIGN_UP_STEP_1 + FAIL:
+            result = {data, failLogin: true };
+            return result;
         case VERIFICATION + SUCCESS:
             return data;
         case WELCOME_CLIENT + SUCCESS:

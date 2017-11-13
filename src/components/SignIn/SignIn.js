@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field, change, SubmissionError } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
@@ -25,7 +24,6 @@ class SignUp extends Component {
     render() {
         const { signInReducer, changeUserType } = this.props;
         let { failSignIn } = signInReducer || false;
-        console.log('render signInReducer',signInReducer);
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         let confirm = signInReducer;
         const panes = [
@@ -86,11 +84,8 @@ class SignUp extends Component {
 
     loginRedirect = () => {
         let { changeUserType, signInReducer } = this.props;
-        console.log('signInReducer', signInReducer);
         let { isLogIn, data } = signInReducer;
-        let status = data ? data["status"] : null
-        console.log('isLogIn', isLogIn);
-        console.log('status', status);
+        let status = data ? data["status"] : null;
 
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (isLogIn && status !== "logged") {
@@ -109,7 +104,6 @@ class SignUp extends Component {
         //         <Redirect to={`/${user}/dashboard/profile`} />
         //     )
         // }
-        console.log('redirect')
     };
 
     // componentWillReceiveProps(nextState) {
