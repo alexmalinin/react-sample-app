@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from './layout/HeaderIntro';
 import DvGrid from '../styleComponents/layout/DvGrid';

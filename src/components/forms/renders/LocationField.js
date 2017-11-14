@@ -2,7 +2,7 @@ import React from 'react';
 import { required } from '../../../helpers/validate';
 import InputField from './InputField'
 
-const LocationField = props => {
+const LocationField = () => {
     return (
         <div>
             <InputField

@@ -20,8 +20,7 @@ class SignUp extends Component {
     };
 
     componentWillMount() {
-        // only for time
-        // localStorage.removeItem('user_email');
+        localStorage.removeItem('user_email');
     }
 
     render() {

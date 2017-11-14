@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import HeaderIntro from '../layout/HeaderIntro';
 import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import DvForm from '../../styleComponents/Tabs';
-import { DvButton } from '../../styleComponents/layout/DvButton';
 import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
@@ -37,27 +36,14 @@ class Verification extends Component {
         )
     }
 
-    // postRequest = ev => {
-    //     // this.props.verifyPassword(this.user, )
-    // };
-
     componentDidMount() {
         let tab = this.user === 'customer' ? 'Client' : 'Specialist';
         this.props.userType(tab);
     }
 
     getUserRedirect = () => {
-        // const { UserId } = this.props;
-        // let redirect;
-        // if (this.user === 'customer') {
-        //     redirect = <Redirect to={`/client/dashboard/welcome-to-the-village/${UserId}`}/>
-        // } else if (this.user === 'specialist'){
-        //     redirect = <Redirect to={`/specialists/dashboard/welcome-to-the-village-1/${UserId}`}/>
-        // }
-
         return(
             <div>
-                {/*{this.user ? redirect : null}*/}
                 <Redirect to="/sign_in"/>
             </div>
         )

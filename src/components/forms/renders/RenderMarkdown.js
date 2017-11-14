@@ -9,8 +9,6 @@ class RenderMarkdown extends Component {
     };
 
     render() {
-        let { name } = this.props;
-        window.value = this.state.value.toString('html');
 
         const toolbarConfig = {
             // Optionally specify the groups to display (displayed in the order listed).

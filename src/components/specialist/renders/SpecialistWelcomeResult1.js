@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DvButton } from '../../../styleComponents/layout/DvButton'
-import { Grid } from 'semantic-ui-react';
 import RenderCustomSkills from './RenderCustomSkills';
 import RenderChosenSpecialises from './RenderChosenSpecialises';
 import { run } from '../../../helpers/scrollToElement';

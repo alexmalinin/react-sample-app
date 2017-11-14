@@ -4,20 +4,15 @@ import { Field, reduxForm } from 'redux-form';
 import { required, } from '../../../helpers/validate';
 import { RenderField } from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
-import StyledPhoneField from '../../../styleComponents/forms/StyledPhoneField';
 import {projectInterest} from '../../../helpers/selects/projectInterest';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import RenderImage from '../../forms/renders/RenderImage';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
-import RenderPhone from '../../forms/renders/RenderPhone';
 import Availability from '../Availability/Availability';
 import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import RenderCards from '../renders/RenderCards';
-import RenderWorkCard from '../renders/RenderWorkCard';
 import StyledSpecialistWelcomeForm2 from '../../../styleComponents/StyledSpecialistWelcomeForm2'
-import { AddNewBtn } from '../../../styleComponents/layout/DvButton'
 import EdicationModal from '../../modals/EdicationModal';
 import WorkExperienceModal from '../../modals/WorkExperienceModal';
 
@@ -90,14 +85,6 @@ class SpecialistWelcomeForm2 extends Component {
                                     </div>
                                 </div>
 
-                                {/*<Field*/}
-                                    {/*name="work-hourses"*/}
-                                    {/*component={RenderSelect}*/}
-                                    {/*placeholder="Hours per week"*/}
-                                    {/*options={workHourses}*/}
-                                    {/*validate={[required]}*/}
-                                {/*/>*/}
-
                                 <Availability/>
 
                                 <div className='half-column'>
@@ -110,14 +97,6 @@ class SpecialistWelcomeForm2 extends Component {
                                         validate={[required]}
                                     />
                                 </div>
-
-                                {/*<div className='half-column'>*/}
-                                    {/*<p><b>What is your contact number? /</b></p>*/}
-                                    {/*<StyledPhoneField>*/}
-                                        {/*<span>Phone /</span>*/}
-                                        {/*<RenderPhone/>*/}
-                                    {/*</StyledPhoneField>*/}
-                                {/*</div>*/}
 
                                 <DvButton
                                     type='submit'

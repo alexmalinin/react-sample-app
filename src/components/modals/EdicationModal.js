@@ -24,7 +24,6 @@ class EdicationModal extends Component {
     }
 
     submit = values => {
-        // this.props.confirmAccount();
         let close = document.querySelector('i.close.icon');
         close.click();
         this.props.education(values);

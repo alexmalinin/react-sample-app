@@ -3,13 +3,11 @@ import { Grid } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
 import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
 import { Container } from '../../styleComponents/layout/Container';
-import confirm from '../../decorators/confirm';
 import PostProjectForm from './forms/PostProjectForm';
 
 class PostProject extends Component {
 
     render() {
-        const { confirm, confirmAccount } = this.props;
 
         return (
             <div>
@@ -24,8 +22,6 @@ class PostProject extends Component {
                         <Grid.Row>
                             <Grid.Column>
                                     <PostProjectForm onSubmit={this.submit}/>
-                                    {/*<DvButton onClick={confirmAccount} primary content='Continue'/>*/}
-                                    {/*{confirm && <Redirect to="/project_overview"/> }*/}
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -39,4 +35,4 @@ class PostProject extends Component {
     };
 }
 
-export default confirm(PostProject);
+export default PostProject;

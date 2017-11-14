@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm, stopSubmit } from 'redux-form';
-import RenderSignUpRadio from '../../forms/renders/RenderSignUpRadio';
+import { reduxForm, stopSubmit } from 'redux-form';
 import SignUpForm from '../../SignUp/SignUpForm';
-import { formValueSelector } from 'redux-form';
 
 let renderErrror = true;
 

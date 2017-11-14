@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {testCheckboxes} from '../../../helpers/selects/testCheckboxes';
 import {renderField} from '../../forms/renders/RenderField';
-import {DropdownAvailability} from '../../../styleComponents/StyledDropdown';
 import RenderCheckbox from '../../forms/renders/RenderCheckbox';
 import { DropDownCircle } from '../../../styleComponents/StyledDropdown';
 import SlideTogle from '../../SlideTogle';
@@ -14,7 +13,6 @@ class WebDevelopment extends Component {
     };
 
     render() {
-        const { handleSubmit, submitting } = this.props;
 
         return(
             <DropDownCircle>
@@ -36,7 +34,7 @@ class WebDevelopment extends Component {
         )
     }
 
-    handleClick = ev => {
+    handleClick = () => {
         this.setState({
             isOpen: !this.state.isOpen,
         })

@@ -5,12 +5,6 @@ class RenderImage extends Component {
 
     state = { file: '', imagePreviewUrl: '' };
 
-
-    // _handleSubmit(e) {
-    //     e.preventDefault();
-    //     console.log('handle uploading-', this.state.file);
-    // }
-
     _handleImageChange(e) {
         e.preventDefault();
 
@@ -37,10 +31,7 @@ class RenderImage extends Component {
             name,
             type,
             disabled,
-            meta: { touched, error, warning }
         } = this.props;
-
-        let { value, onChange, onFocus, onBlur } = input;
 
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
@@ -62,10 +53,6 @@ class RenderImage extends Component {
                     placeholder={placeholder}
                     type={type}
                     onChange={(e) => this._handleImageChange(e)}/>
-                {/*<button className="submitButton"*/}
-                {/*type="submit"*/}
-                {/*onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>*/}
-
             </StyledUploader>
         )
     }

@@ -1,26 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {required} from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
-import RenderSelect from '../../forms/renders/RenderSelect';
-import RenderMultiSelect from '../../forms/renders/RenderMultiSelect';
-import {industries} from '../../../helpers/selects/industries';
-import {speciality} from '../../../helpers/selects/speciality';
 import {DvButton} from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
-import LocationField from '../../forms/renders/LocationField';
-import RenderStyledCheckbox from '../../forms/renders/RenderStyledCheckbox';
-import {Route, Redirect} from 'react-router';
 import {Grid} from 'semantic-ui-react';
-import {DvTitle} from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
-import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
-import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
-import {formValueSelector} from 'redux-form';
-import {clientCategories} from '../../../helpers/selects/clientCategories';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
-import axios from 'axios';
 
 class EducationForm extends Component {
 
@@ -35,13 +21,6 @@ class EducationForm extends Component {
                             <StyledWelcomeForm>
                                 <br/>
                                 <br/>
-                                {/*<DvTitle mTop='80' xs>*/}
-                                {/*Welcome to The Digital Village!*/}
-                                {/*</DvTitle>*/}
-                                {/*<p>*/}
-                                {/*Please complete your profile so we can help you make the*/}
-                                {/*most out of the Digital Village platform.*/}
-                                {/*</p>*/}
                                 <InputField
                                     name='name'
                                     placeholder='School /'

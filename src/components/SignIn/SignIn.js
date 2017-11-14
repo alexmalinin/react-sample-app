@@ -14,9 +14,6 @@ import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 
 class SignUp extends Component {
 
-    // state = {
-    //     activeTab: this.props.changeUserType || 'Specialist',
-    // };
     componentWillMount() {
         this.userEmail = localStorage.getItem('user_email');
     }
@@ -66,7 +63,6 @@ class SignUp extends Component {
                                         menu={{ text: true }}
                                         panes={panes}
                                         activeIndex={activeIndex}
-                                        // onClick={this.activeTab}
                                         onTabChange={this.handleTabChange}
                                     />
                                 </Tabs>
@@ -106,24 +102,14 @@ class SignUp extends Component {
         // }
     };
 
-    // componentWillReceiveProps(nextState) {
-    //     console.log(nextState.signInReducer);
-    // }
-
     submit = values => {
         let { changeUserType } = this.props;
         let user = changeUserType === "Specialist" ? "specialist" : "customer";
         this.props.signIn(user, values)
     };
 
-    // activeTab = ev => {
-    //     let item = ev.target;
-    //     item.classList.contains('item') ? this.props.userType(item.text) : null;
-    // }
-
     handleTabChange  = (ev, {activeIndex}) => {
         const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
-        // this.setState({ activeTab })
         this.props.userType(activeTab);
     }
 }

@@ -13,7 +13,6 @@ class WebDevelopment extends Component {
     };
 
     render() {
-        const { handleSubmit, submitting } = this.props;
 
         return(
             <DropDownCircle>
@@ -35,7 +34,7 @@ class WebDevelopment extends Component {
         )
     }
 
-    handleClick = ev => {
+    handleClick = () => {
         this.setState({
             isOpen: !this.state.isOpen,
         })

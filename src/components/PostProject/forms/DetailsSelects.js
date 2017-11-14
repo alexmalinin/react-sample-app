@@ -13,7 +13,6 @@ import InputField from "../../forms/renders/InputField";
 class DetailsSelects extends Component {
 
     render() {
-        const { handleSubmit, submitting } = this.props;
 
         return(
             <div>

@@ -36,7 +36,6 @@ class App extends Component {
         let render_client_step = sessionStorage.getItem('client_step');
         let render_step2 = signUpData ? signUpData['welcomeSpecStep1'] : null;
         let render_this_step2 = sessionStorage.getItem('spec_step2');
-        // let render_step3 = signUpData ? signUpData['welcomeSpecStep1'] : null;
 
         return (
             <Router>

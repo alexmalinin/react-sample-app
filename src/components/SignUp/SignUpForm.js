@@ -15,7 +15,7 @@ import EmailField from '../forms/renders/EmailField';
 class SignUpForm extends Component  {
 
     render() {
-        const { handleSubmit, submitting, person, changeUserType, hasPerson } = this.props;
+        const { handleSubmit, submitting, person, hasPerson } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -73,13 +73,6 @@ class SignUpForm extends Component  {
             </form>
         )
     }
-
-    // componentWillReceiveProps(nextState) {
-    //     console.log(nextState);
-    //     if (nextState.failLogin) {
-    //             this.props.dispatch(stopSubmit('SignUpFormSpecialist', {'email': 'wrong email' }))
-    //     }
-    // }
 }
 
 

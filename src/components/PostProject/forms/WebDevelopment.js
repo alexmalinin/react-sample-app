@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field } from 'redux-form';
 import { renderField } from '../../forms/renders/RenderField';
 import { testCheckboxes } from '../../../helpers/selects/testCheckboxes';
 import RenderCheckbox from '../../forms/renders/RenderCheckbox';
@@ -13,7 +13,6 @@ class WebDevelopment extends Component {
     };
 
     render() {
-        const { handleSubmit, submitting } = this.props;
 
         return(
             <DropDownCircle>
@@ -35,7 +34,7 @@ class WebDevelopment extends Component {
         )
     }
 
-    handleClick = ev => {
+    handleClick = () => {
         this.setState({
             isOpen: !this.state.isOpen,
         })
