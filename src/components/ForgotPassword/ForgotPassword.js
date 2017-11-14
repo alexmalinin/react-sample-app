@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import HeaderIntro from './layout/HeaderIntro';
-import DvGrid from '../styleComponents/layout/DvGrid';
-import {DvTitleBig} from '../styleComponents/layout/DvTitles';
+import HeaderIntro from '../layout/HeaderIntro';
+import DvGrid from '../../styleComponents/layout/DvGrid';
+import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
+import ForgotPasswordForm from "./ForgotPasswordForm";
 
 class ForgotPassword extends Component {
 
@@ -23,12 +24,17 @@ class ForgotPassword extends Component {
                                 </DvTitleBig>
                             </Grid.Column>
                             <Grid.Column>
+                                <ForgotPasswordForm onSubmit={ this.submit }/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </DvGrid>
             </div>
         )
+    }
+
+    submit = (values) => {
+        console.log(values);
     }
 }
 

@@ -9,7 +9,7 @@ import PostProject from './PostProject/PostProject';
 import OverviewPostedProject from './OverviewPostedProject';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from './ForgotPassword/ForgotPassword';
 import Verification from './Verification/Verification';
 import ConfirmEmail from './ConfirmEmail';
 import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';

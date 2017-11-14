@@ -86,7 +86,7 @@ class SignUp extends Component {
         let { changeUserType, signInReducer } = this.props;
         let { isLogIn, data } = signInReducer;
         let status = data ? data["status"] : null;
-
+        console.log('signInReducer', signInReducer);
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (isLogIn && status !== "logged") {
             return (
@@ -98,12 +98,11 @@ class SignUp extends Component {
             return (
                 <Redirect to={`/${user}/dashboard/profile`} />
             )
-        }
-        // } else {
-        //     return (
-        //         <Redirect to={`/${user}/dashboard/profile`} />
-        //     )
-        // }
+        }/* else {
+            return (
+                <Redirect to={`/${user}/dashboard/profile`} />
+            )
+        }*/
     };
 
     // componentWillReceiveProps(nextState) {
