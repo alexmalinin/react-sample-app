@@ -51,7 +51,7 @@ class SignUp extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} tablet={7} computer={8}>
-                                <DvTitleBig mTop='100' fz="" flex='justify'>
+                                <DvTitleBig mTop='100' fz='' flex='justify'>
                                     sign
                                     <br/>
                                     in/
@@ -82,7 +82,7 @@ class SignUp extends Component {
         let { changeUserType, signInReducer } = this.props;
         let { isLogIn, data } = signInReducer;
         let status = data ? data["status"] : null;
-
+        console.log('signInReducer', signInReducer);
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (isLogIn && status !== "logged") {
             return (
@@ -94,12 +94,11 @@ class SignUp extends Component {
             return (
                 <Redirect to={`/${user}/dashboard/profile`} />
             )
-        }
-        // } else {
-        //     return (
-        //         <Redirect to={`/${user}/dashboard/profile`} />
-        //     )
-        // }
+        }/* else {
+            return (
+                <Redirect to={`/${user}/dashboard/profile`} />
+            )
+        }*/
     };
 
     submit = values => {
