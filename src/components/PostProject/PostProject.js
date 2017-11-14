@@ -15,7 +15,7 @@ class PostProject extends Component {
             <div>
                 <HeaderIntro/>
                 <Container indentBot indentTop>
-                    <DvTitleBig mTop='137' fz='' sm>
+                    <DvTitleBig mTop='137' fz=''>
                         post
                         <br/>
                         project /

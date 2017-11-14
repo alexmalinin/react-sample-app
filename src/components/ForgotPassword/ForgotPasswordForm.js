@@ -22,12 +22,12 @@ class ForgotPasswordForm extends Component {
         return (
             <form onSubmit={handleSubmit}>
                 <EmailField
-                    name="email"
-                    placeholder="Email /"
+                    name='email'
+                    placeholder='Email /'
                 />
 
-                <DvButtonForm
-                    type="submit"
+                <DvButtonForm passwordForm
+                    type='submit'
                     disabled={submitting}
                     content='Submit'
                     primary

@@ -24,6 +24,10 @@ body,
   margin-right: 0;
 }
 
+.ui.segment {
+  border-radius: 0;
+}
+
 .ui.page.modals.dimmer.transition.visible.active {
     overflow: auto;
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
-import DvGrid from '../../styleComponents/layout/DvGrid';
-import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
-import ForgotPasswordForm from "./ForgotPasswordForm";
+import { DvTitleMedium } from '../../styleComponents/layout/DvTitles';
+import ForgotPasswordForm from './ForgotPasswordForm';
+import { Container } from "../../styleComponents/layout/Container";
 
 class ForgotPassword extends Component {
 
@@ -13,22 +12,25 @@ class ForgotPassword extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid left="320px" right="265px" grid={"no-pad"}>
+                <Container indentBot indentTop>
                     <Grid>
-                        <Grid.Row columns={2}>
+                        <Grid.Row>
                             <Grid.Column>
-                                <DvTitleBig mTop="137" fz="">
+                                <DvTitleMedium mTop='137' fz='' left>
                                     Forgot
                                     <br/>
                                     Password/
-                                </DvTitleBig>
+                                </DvTitleMedium>
                             </Grid.Column>
-                            <Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <Grid.Column tablet={16} computer={8}>
                                 <ForgotPasswordForm onSubmit={ this.submit }/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
-                </DvGrid>
+                </Container>
             </div>
         )
     }
