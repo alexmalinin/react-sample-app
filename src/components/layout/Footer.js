@@ -11,7 +11,7 @@ class FooterBasic extends Component {
         let { hideFooter } = this.props;
 
         return (
-            <div>
+            <div className='footer'>
                 {!hideFooter &&
                     <SFooter>
                         <ContainerLarge>

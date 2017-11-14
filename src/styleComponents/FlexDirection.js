@@ -10,7 +10,8 @@ export default styled.div`
         flex: 1 0 auto;
     }
     
-    footer {
+    footer,
+    .footer {
         flex: 0 0 auto;
     }
 `;
