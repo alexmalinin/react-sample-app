@@ -12,7 +12,9 @@ ul {
 
 html,
 body,
-#root {
+#root,
+#root > div,
+.pusher {
   height: 100%;
 }
 
