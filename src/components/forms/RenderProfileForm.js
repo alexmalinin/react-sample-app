@@ -14,7 +14,7 @@ class RenderProfileForm  extends Component {
     render() {
 
         const { handleSubmit, submitting, clientData, specialistData } = this.props;
-        let renderPlace = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
+        let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -35,7 +35,7 @@ class RenderProfileForm  extends Component {
 
                 <StyledPhoneField>
                     <span>Phone /</span>
-                    <RenderPhone value={renderPlace}/>
+                    <RenderPhone value={renderPlaceholder}/>
                 </StyledPhoneField>
 
                 <EmailField
@@ -60,7 +60,15 @@ class RenderProfileForm  extends Component {
         )
     }
 
-    componentWillReceiveProps(nextProps) {
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.anyTouched) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    componentWillUpdate(nextProps) {
         if (nextProps.clientData) {
             this.fillFields(nextProps.clientData)
         } else if (nextProps.specialistData) {
@@ -68,8 +76,10 @@ class RenderProfileForm  extends Component {
         }
     }
 
+
     fillFields = data => {
         let { first_name, last_name, email, address, phone_code, phone_number } = data;
+
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));

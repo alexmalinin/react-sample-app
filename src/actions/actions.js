@@ -16,7 +16,9 @@ import { PORT,
          GET_PROJECT_TYPES,
          UPDATE_SPECIALIST_STEP_2,
          SHOW_CLIENT_DATA,
-         SHOW_SPECIALIST_DATA
+         SHOW_SPECIALIST_DATA,
+         UPDATE_SPECIALIST_PROFILE,
+         UPDATE_CLIENT_PROFILE,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -55,8 +57,6 @@ export function postContacts(data) {
 
     return action;
 }
-
-
 
 export function signIn(user, data) {
     const action = {
@@ -226,6 +226,32 @@ export function showSpecialistData() {
     const action = {
         type: SHOW_SPECIALIST_DATA,
         showSpecialistData: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+// update Specialist Data Profile
+
+export function updateSpecialistProfile(data) {
+    const action = {
+        type: UPDATE_SPECIALIST_PROFILE,
+        payload: data,
+        updateSpecialistProfile1: `${PORT}/api/v1/specialists/`,
+        updateSpecialistProfile2: '/dashboard/profile'
+    };
+
+    return action;
+}
+
+// update Client Data Profile
+
+export function updateClientProfile(data) {
+    const action = {
+        type: UPDATE_CLIENT_PROFILE,
+        payload: data,
+        updateClientProfile1: `${PORT}/api/v1/customers/`,
+        updateClientProfile2: '/dashboard/profile'
     };
 
     return action;

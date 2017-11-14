@@ -12,7 +12,7 @@ import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox';
 import RenderTabCard from './renders/RenderTabCard';
 import { StyledTabs } from '../../styleComponents/StyledTabCard';
 import SubscribeForm from '../forms/SubscribeForm';
-import { showSpecialistData } from '../../actions/actions';
+import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
 
 class SpecialistsProfile extends Component {
 
@@ -159,9 +159,8 @@ class SpecialistsProfile extends Component {
     }
 
     submit = values => {
-        console.log('----values:', values);
-
+        this.props.updateSpecialistProfile(values);
     };
 }
 
-export default connect(null, { showSpecialistData } )(SpecialistsProfile);
+export default connect(null, { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);

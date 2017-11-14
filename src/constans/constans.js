@@ -22,6 +22,8 @@ export const GET_PROJECT_TYPES          = 'GET_PROJECT_TYPES';
 export const UPDATE_SPECIALIST_STEP_2   = 'UPDATE_SPECIALIST_STEP_2';
 export const SHOW_CLIENT_DATA           = 'SHOW_CLIENT_DATA';
 export const SHOW_SPECIALIST_DATA       = 'SHOW_SPECIALIST_DATA';
+export const UPDATE_SPECIALIST_PROFILE  = 'UPDATE_SPECIALIST_PROFILE';
+export const UPDATE_CLIENT_PROFILE      = 'UPDATE_CLIENT_PROFILE';
 
 export const SUCCESS                    = '_SUCCESS';
 export const FAIL                       = '_FAIL';

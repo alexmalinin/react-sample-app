@@ -6,7 +6,7 @@ import { Grid } from 'semantic-ui-react'
 import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { showClientData } from '../../actions/actions';
+import { showClientData, updateClientProfile } from '../../actions/actions';
 
 class ClientProfile extends Component {
 
@@ -45,8 +45,8 @@ class ClientProfile extends Component {
     }
 
     submit = values => {
-        console.log('----values:', values);
+        this.props.updateClientProfile(values);
     };
 }
 
-export default connect(null, {showClientData})(ClientProfile);
+export default connect(null, {showClientData, updateClientProfile})(ClientProfile);

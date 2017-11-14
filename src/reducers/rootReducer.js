@@ -14,6 +14,7 @@ import experiences from './workExperienceReducer';
 import chosenSkills from './showChosenSkillsReducer';
 import clientData from './showClientDataReducer';
 import specialistData from './showSpecialistDataReducer';
+// import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
 
 export default combineReducers({
