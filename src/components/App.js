@@ -21,6 +21,7 @@ import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
+import SpecialistsIndustry from './specialist/SpecialistIndustry';
 import Footer from './layout/Footer';
 import { Segment, Menu, Sidebar } from 'semantic-ui-react';
 import NavigationLinks from './layout/NavigationLinks';
@@ -80,9 +81,10 @@ class App extends Component {
                                     }
 
 
-                                    <Route path='/specialists/dashboard/profile' component={SpecialistsProfile}/>
-                                    <Route path='/specialists/dashboard/my_teams' component={SpecialistsMyTeams}/>
-                                    <Route path='/specialists/dashboard/availability' component={SpecialistsAvailability}/>
+                                    <Route path='/specialists/dashboard/profile' component={ SpecialistsProfile }/>
+                                    <Route path='/specialists/dashboard/my_teams' component={ SpecialistsMyTeams }/>
+                                    <Route path='/specialists/dashboard/availability' component={ SpecialistsAvailability }/>
+                                    <Route path='/specialists/dashboard/industry' component={ SpecialistsIndustry } />
                                     {
                                         ( render_step1 || render_client_step ) &&
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>

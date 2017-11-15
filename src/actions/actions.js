@@ -244,6 +244,18 @@ export function updateSpecialistProfile(data) {
     return action;
 }
 
+// export function updateSpecialistAvailability(data) {
+//     const action = {
+//         type: UPDATE_SPECIALIST_PROFILE,
+//         payload: data,
+//         updateSpecialistAvailability1: `${PORT}/api/v1/specialists/`,
+//         updateSpecialistProfile2: '/dashboard/profile'
+//     };
+//
+//     return action;
+// }
+
+
 // update Client Data Profile
 
 export function updateClientProfile(data) {

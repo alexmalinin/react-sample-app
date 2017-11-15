@@ -13,7 +13,7 @@ export default store => next => action => {
 
     let attr = payload.skills_attributes.map( attr => { return {"name" : attr.label} } );
     let spec_attr = Object.keys(payload.speciality_ids.map( id => Object.keys(id))).map( string => +string);
-
+    console.log('attr', spec_attr);
     console.log('id', id);
     // console.log( 'data',
     //     { data: {

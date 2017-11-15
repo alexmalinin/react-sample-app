@@ -23,7 +23,7 @@ class SpecialistsWelcome1 extends Component {
             <div>
                 <HeaderBasic/>
                 <Container indentBot>
-                    <SpecialistWelcomeForm1 indusrties={indusrties} onSubmit={this.submit}/>
+                    <SpecialistWelcomeForm1 indusrties={indusrties} welcomeText={true} onSubmit={this.submit}/>
                     {confirm && <Redirect to="/specialists/dashboard/welcome-to-the-village-2"/> }
                 </Container>
             </div>

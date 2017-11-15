@@ -13,62 +13,17 @@ import {DvTitle} from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
 import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
+import SkillsForm from "./SkillsForm";
 import { formValueSelector } from 'redux-form';
+
 
 class SpecialistWelcomeForm1 extends Component {
 
     render() {
-        const { handleSubmit, submitting, industry, indusrties } = this.props;
 
         return (
-            <form onSubmit={handleSubmit}>
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column mobile={16} computer={8}>
-                            <StyledWelcomeForm>
-                                <DvTitle mTop='80' xs>
-                                    Welcome to The Digital Village!
-                                </DvTitle>
-                                <p>
-                                    Please complete your profile so we can help you make the
-                                    most out of the Digital Village platform.
-                                </p>
-
-                                <Field
-                                    name='industry'
-                                    component={RenderSelect}
-                                    placeholder='Select your area within the digital industry /'
-                                    options={indusrties["industry"]}
-                                    validate={[required]}
-                                />
-                                <InputField
-                                    name='industry_title'
-                                    placeholder='What is your industry title? /'
-                                    validate={[required]}
-                                />
-                                <LocationField/>
-                            </StyledWelcomeForm>
-                        </Grid.Column>
-                    </Grid.Row>
-
-                    <Grid.Row>
-                        <Grid.Column>
-                            <RenderSpecialityArea speciality={indusrties["speciality"]} industry={industry}/>
-                            <RenderSkillsArea/>
-                        </Grid.Column>
-                    </Grid.Row>
-
-                    <Grid.Row>
-                        <Grid.Column>
-                            <DvButton
-                                type="submit"
-                                disabled={submitting}
-                                content='SAVE & CONTINUE'
-                                primary
-                            />
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+            <form onSubmit={this.props.handleSubmit}>
+                <SkillsForm { ...this.props }/>
             </form>
         )
     };

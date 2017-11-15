@@ -11,7 +11,6 @@ export default class RenderRadio extends Component {
                     <label>
                         <input
                             {...input}
-                            label={label}
                             type="checkbox"
                             disabled={disabled}
                         />

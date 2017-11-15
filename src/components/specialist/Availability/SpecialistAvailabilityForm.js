@@ -6,10 +6,10 @@ import { reduxForm, change } from 'redux-form';
 class SpecialistAvailabilityForm extends Component {
 
    render() {
-       const { specialistData } = this.props;
+       const { specialistData, handleSubmit } = this.props;
 
         return (
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Availability specialistData={specialistData} {...this.props} submitBtn={true}/>
             </form>
         )
