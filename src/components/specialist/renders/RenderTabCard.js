@@ -10,10 +10,13 @@ class RenderTabCard extends Component {
     };
 
     render () {
-        const { context } = this.props;
+        const { context, work, education } = this.props;
         const { isOpen } = this.state;
 
-        let obj = context === 'work' ? testProfileInfo[0] : testProfileInfo[1];
+
+        // let obj = context === 'work' ? testProfileInfo[0] : testProfileInfo[1];
+        let data = context === 'work' ? work : education;
+        console.log(data);
 
         const color = {
             purple: '#8f1ae5',
@@ -23,18 +26,18 @@ class RenderTabCard extends Component {
         return (
             <RenderWorkCard border={color.purple}>
                 <div className='header-card'>
-                    <h2>{ obj.position }</h2>
-                    <span>{ obj.company }</span>
+                    <h2>{ data ? data[0].position : null}</h2>
+                    <span>{ data ? data[0].name : null }</span>
                     <p>
                         <img src='/images/time.png' alt=''/>
-                        { obj.from } - { obj.to }: { obj.summary }
+                        { data ? data.startet_at : null } -  { data ? data.finished_at : null }
                     </p>
                 </div>
 
                 <div className='content-card'>
                     <h4>KEY ACHIEVEMENTS:</h4>
                     <p>
-                        {obj.achievement}
+                        {/*{obj.achievement}*/}
                     </p>
                 </div>
 
@@ -46,11 +49,7 @@ class RenderTabCard extends Component {
                         <div>
                             <p>
                                 <br/>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                Duis aute irure dolor in reprehenderit
-                                in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                { data ? data[0].description : null }
                             </p>
                         </div>
                     </SlideTogle>

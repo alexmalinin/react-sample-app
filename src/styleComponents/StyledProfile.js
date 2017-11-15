@@ -45,9 +45,8 @@ export default styled.div`
     
     .skills {
         max-width: 1170px;
-        margin: 0 auto;
         font-size: 28px;
-        margin-bottom: 90px;
+        margin: 0 auto 90px;
         
         h4 {
             font-size: 28px;
@@ -89,7 +88,7 @@ export default styled.div`
             }
             
             .flex-wrapper {
-                justify-content: center;
+                justify-content: space-around;
             }
         }
     }

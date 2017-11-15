@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from './Availability/SpecialistAvailabilityForm';
-import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
+import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { showSpecialistData } from '../../actions/actions';
 
