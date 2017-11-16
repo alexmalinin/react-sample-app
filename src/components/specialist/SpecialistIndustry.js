@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistIndustryForm from './forms/SpecialistIndustryForm';
-import { getIndustries, showSpecialistData } from '../../actions/actions'
+import { getIndustries, showSpecialistData, updateSpecStep1 } from '../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 
@@ -35,8 +35,8 @@ class SpecialistIndustry extends Component {
     }
 
     submit = values => {
-        console.log('---values',values)
+        this.props.updateSpecStep1(values);
     };
 }
 
-export default connect(({ industries, specialistData }) => ({ industries, specialistData }), { getIndustries, showSpecialistData })(SpecialistIndustry);
+export default connect(({ industries, specialistData }) => ({ industries, specialistData }), { updateSpecStep1, getIndustries, showSpecialistData })(SpecialistIndustry);

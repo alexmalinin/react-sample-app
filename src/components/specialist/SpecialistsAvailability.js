@@ -5,7 +5,7 @@ import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from './Availability/SpecialistAvailabilityForm';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { showSpecialistData } from '../../actions/actions';
+import { showSpecialistData, updateSpecialistAvailability } from '../../actions/actions';
 
 class SpecialistsAvailability extends Component {
 
@@ -33,8 +33,8 @@ class SpecialistsAvailability extends Component {
     }
 
     submit = values => {
-        console.log('----values:',values);
+        this.props.updateSpecialistAvailability(values)
     };
 }
 
-export default connect(null, {showSpecialistData} )(SpecialistsAvailability);
+export default connect(null, {showSpecialistData, updateSpecialistAvailability} )(SpecialistsAvailability);

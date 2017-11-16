@@ -13,6 +13,7 @@ export default store => next => action => {
     let attr = payload.skills_attributes
         ? payload.skills_attributes.map( attr => { return {"name" : attr.label} } )
         : null;
+    console.log('payload.speciality_ids', payload.speciality_ids);
     let spec_attr = payload.speciality_ids
         ? Object.keys(payload.speciality_ids).map(item => +item.match(/\d+/)[0])
         : null;

@@ -1,4 +1,4 @@
-import { SHOW_SPECIALIST_DATA, SUCCESS, UPDATE_SPECIALIST_PROFILE } from '../constans/constans';
+import { SHOW_SPECIALIST_DATA, SUCCESS, UPDATE_SPECIALIST_PROFILE, UPDATE_SPECIALIST_AVAILABILITY } from '../constans/constans';
 
 export default (state = null, action) => {
     const { type, data } = action;
@@ -8,7 +8,9 @@ export default (state = null, action) => {
             console.log(data);
             return data;
         case UPDATE_SPECIALIST_PROFILE + SUCCESS:
-            return data;
+            return [state, ...data];
+        case UPDATE_SPECIALIST_AVAILABILITY + SUCCESS:
+            return [state, ...data];
         default:
             return state;
     }

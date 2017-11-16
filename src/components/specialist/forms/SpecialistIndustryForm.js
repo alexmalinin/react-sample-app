@@ -34,10 +34,9 @@ class SpecialistIndustryForm extends Component {
             renderSkills.push({"label": item['name'], "value": item['id']})
         }) : null;
 
-        let renderSpecialities = {length: 0};
+        let renderSpecialities = {};
         specialities ? specialities.forEach( item => {
-            renderSpecialities['_' + item['id']] = true;
-            renderSpecialities.length++;
+            return renderSpecialities['_' + item['id']] = true;
         }) : null;
 
         window.renderSpecialities = renderSpecialities;
@@ -46,7 +45,7 @@ class SpecialistIndustryForm extends Component {
         this.props.dispatch(change('SpecialistIndustryForm', 'city', address.city));
         this.props.dispatch(change('SpecialistIndustryForm', 'skills_attributes', renderSkills ));
         this.props.dispatch(change('SpecialistIndustryForm', 'industry', { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }));
-        renderSpecialities.length
+        Object.keys(renderSpecialities).length > 0
             ? this.props.dispatch(change('SpecialistIndustryForm', 'speciality_ids', renderSpecialities ))
             : null;
     }

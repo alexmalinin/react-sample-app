@@ -15,7 +15,8 @@ import showChosenSkills from '../middlewares/showChosenSkillsApi';
 import updateSpecStep2 from '../middlewares/updateSpecStep2Api';
 import showClientData from '../middlewares/showClientDataApi';
 import showSpecialistData from '../middlewares/showSpecialistDataApi';
-import updateSpecialistData from '../middlewares/updateSpecialistDataApi';
+import updateSpecialistProfile from '../middlewares/updateSpecialistProfileApi';
+import updateSpecialistAvailability from '../middlewares/updateSpecialistAvailabilityApi';
 import updateClientData from '../middlewares/updateClientDataApi';
 
 const enhancer = applyMiddleware(
@@ -33,7 +34,8 @@ const enhancer = applyMiddleware(
     updateSpecStep2,
     showClientData,
     showSpecialistData,
-    updateSpecialistData,
+    updateSpecialistProfile,
+    updateSpecialistAvailability,
     updateClientData,
 );
 

@@ -18,6 +18,7 @@ import { PORT,
          SHOW_CLIENT_DATA,
          SHOW_SPECIALIST_DATA,
          UPDATE_SPECIALIST_PROFILE,
+         UPDATE_SPECIALIST_AVAILABILITY,
          UPDATE_CLIENT_PROFILE,
 } from '../constans/constans'
 
@@ -244,16 +245,18 @@ export function updateSpecialistProfile(data) {
     return action;
 }
 
-// export function updateSpecialistAvailability(data) {
-//     const action = {
-//         type: UPDATE_SPECIALIST_PROFILE,
-//         payload: data,
-//         updateSpecialistAvailability1: `${PORT}/api/v1/specialists/`,
-//         updateSpecialistProfile2: '/dashboard/profile'
-//     };
-//
-//     return action;
-// }
+// update Specialist Data Availability
+
+export function updateSpecialistAvailability(data) {
+    const action = {
+        type: UPDATE_SPECIALIST_AVAILABILITY,
+        payload: data,
+        updateSpecialistAvailability1: `${PORT}/api/v1/specialists/`,
+        updateSpecialistAvailability2: '/dashboard/availability'
+    };
+
+    return action;
+}
 
 
 // update Client Data Profile

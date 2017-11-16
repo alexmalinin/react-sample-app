@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Availability from './Availability';
 import { reduxForm, change } from 'redux-form';
 
+let renderError = true
+
 class SpecialistAvailabilityForm extends Component {
 
    render() {
@@ -17,7 +19,10 @@ class SpecialistAvailabilityForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData) {
-            this.fillFields(nextProps.specialistData)
+            if(renderError) {
+                this.fillFields(nextProps.specialistData);
+                renderError = false;
+            }
         }
     }
 
