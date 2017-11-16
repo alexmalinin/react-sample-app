@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
@@ -17,7 +17,7 @@ import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, indusrties, welcomeText } = this.props;
+        const { submitting, industry, indusrties, welcomeText, specialistData } = this.props;
 
         return (
             <Grid>
@@ -71,7 +71,7 @@ class SkillsForm extends Component {
                 </Grid.Row>
             </Grid>
         )
-    };
+    }
 }
 
 export default SkillsForm;

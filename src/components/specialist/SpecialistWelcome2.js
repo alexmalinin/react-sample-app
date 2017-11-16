@@ -48,7 +48,6 @@ class SpecialistsWelcome2 extends Component {
                         <SpecialistWelcomeForm2 onSubmit={this.submit}/>
                         {confirm && <Redirect to='/specialists/dashboard/profile'/> }
 
-
                 </StyledSpecialistWelcomeForm2>
                 </Container>
             </div>

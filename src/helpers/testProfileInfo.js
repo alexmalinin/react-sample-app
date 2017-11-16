@@ -1,4 +1,4 @@
-const profileInfo = [
+const  profileInfo = [
     {position: 'Project Manager',
      company: 'Digital Village Pty Ltd',
      period: 'Apr 2016: 2 years 9 months',

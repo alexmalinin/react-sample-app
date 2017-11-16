@@ -1,5 +1,6 @@
 import React from 'react';
 import StyledCheckbox from '../../../styleComponents/forms/StyledCheckbox'
+
 const GetCustomSkills = ( { skills } ) => {
 
     return (

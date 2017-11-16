@@ -20,6 +20,7 @@ import ClientProjects from './client/ClientProjects';
 import ClientMyTeams from './client/ClientMyTeams';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
+import SpecialistsAbout from './specialist/SpecialistsAbout'
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
 import SpecialistsIndustry from './specialist/SpecialistIndustry';
 import Footer from './layout/Footer';
@@ -66,7 +67,7 @@ class App extends Component {
                                     { this.renderToken() }
                                     <Route path='/confirm_email' component={ ConfirmEmail }/>
 
-                                    { ( render_step1 || render_this_step1 ) &&
+                                    { /*( render_step1 || render_this_step1 ) &&*/
                                         <Route
                                             path='/specialists/dashboard/welcome-to-the-village-1/'
                                             component={SpecialistsWelcome1}
@@ -85,6 +86,7 @@ class App extends Component {
                                     <Route path='/specialists/dashboard/my_teams' component={ SpecialistsMyTeams }/>
                                     <Route path='/specialists/dashboard/availability' component={ SpecialistsAvailability }/>
                                     <Route path='/specialists/dashboard/industry' component={ SpecialistsIndustry } />
+                                    <Route path='/specialists/dashboard/about' component={SpecialistsAbout}/>
                                     {
                                         ( render_step1 || render_client_step ) &&
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>

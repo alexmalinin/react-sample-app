@@ -23,6 +23,7 @@ class RenderSpecialityArea extends Component {
                             <Field
                                 key = {item.value}
                                 name={`speciality_ids.${'_' + item.value}`}
+                                type="checkbox"
                                 component={RenderStyledCheckbox}
                                 label={item.label}
                             />)
