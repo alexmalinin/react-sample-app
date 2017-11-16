@@ -30,11 +30,15 @@ class SpecialistsAbout extends Component {
         const panes = [
             {
                 menuItem: 'Work History',
-                render: () => <Tab.Pane attached={false}><RenderTabCard context='work' work={work_experience}/></Tab.Pane>
+                render: () => <Tab.Pane attached={false}>
+                                <RenderTabCard context='work' work={work_experience}/>
+                              </Tab.Pane>
             },
             {
                 menuItem: 'Education',
-                render: () => <Tab.Pane attached={false}><RenderTabCard context='education' education={educations_experience}/></Tab.Pane>
+                render: () => <Tab.Pane attached={false}>
+                                <RenderTabCard context='education' education={educations_experience}/>
+                              </Tab.Pane>
             },
         ];
 
@@ -56,8 +60,8 @@ class SpecialistsAbout extends Component {
                     <StyledProfile>
 
                         <div className='main-info'>
-                            <h2>{specialistData ? specialistData.first_name : null}</h2>
-                            <p>{specialistData ? specialistData.industry_title : null}</p>
+                            <h2>{specialistData ? specialistData["first_name"] : null}</h2>
+                            <p>{specialistData ? specialistData["industry_title"] : null}</p>
 
                             <div className='profile-image'>
                                 <img src='/images/profile-image.png' alt=''/>
@@ -66,13 +70,14 @@ class SpecialistsAbout extends Component {
                             <div className='flex-between'>
                                 <span>
                                     <img src='/images/location.png' alt=''/>
-                                    {specialistData ? specialistData.address.city : null}, {specialistData ? specialistData.address.country : null}
+                                    {specialistData ? specialistData["address"]["city"] : null},
+                                    {specialistData ? specialistData["address"]["country"] : null}
 
                                 </span>
 
                                 <span>
                                     <img src='/images/time.png' alt=''/>
-                                    {specialistData ? specialistData.available : null}
+                                    {specialistData ? specialistData["available"] : null}
                                 </span>
                             </div>
                         </div>
@@ -84,18 +89,16 @@ class SpecialistsAbout extends Component {
 
                             <div className='flex-wrapper'>
 
-                                {allSkills && allSkills.map(item => {
-                                    return (
-                                        <StyledCheckbox key={item.name}>
-                                            <div>{item.name}</div>
-                                        </StyledCheckbox>
-                                    )
-                                })}
+                                { allSkills && allSkills.map(item =>
+                                    <StyledCheckbox key={item.name}>
+                                        <div>{item.name}</div>
+                                    </StyledCheckbox>
+                                ) }
 
                             </div>
 
                             <p>
-                                {specialistData ? specialistData.professional_experience_info : null}
+                                {specialistData ? specialistData["professional_experience_info"] : null}
                             </p>
                         </div>
 
