@@ -14,6 +14,7 @@ export default store => next => action => {
         url: showSpecialistData + id
     }).then(function (response) {
         console.log('type', type + SUCCESS);
+        console.log('response');
         return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .catch(function (error) {

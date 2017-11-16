@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistIndustryForm from './forms/SpecialistIndustryForm';
-import { getIndustries } from '../../actions/actions'
+import { getIndustries, showSpecialistData } from '../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 
@@ -11,10 +11,11 @@ class SpecialistIndustry extends Component {
 
     componentWillMount() {
         this.props.getIndustries();
+        this.props.showSpecialistData();
     }
 
     render() {
-        const { indusrties } = this.props;
+        const { indusrties, specialistData } = this.props;
 
         return (
             <div>
@@ -27,7 +28,7 @@ class SpecialistIndustry extends Component {
                 <SubHeader/>
                 <Container indentBot indentTop>
                     <DvTitleSmall>Industry</DvTitleSmall>
-                    <SpecialistIndustryForm indusrties={indusrties} onSubmit={this.submit}/>
+                    <SpecialistIndustryForm indusrties={indusrties} specialistData={specialistData} onSubmit={this.submit}/>
                 </Container>
             </div>
         )
@@ -38,4 +39,4 @@ class SpecialistIndustry extends Component {
     };
 }
 
-export default connect(({ indusrties }) => ({ indusrties }), { getIndustries })(SpecialistIndustry);
+export default connect(({ indusrties, specialistData }) => ({ indusrties, specialistData }), { getIndustries, showSpecialistData })(SpecialistIndustry);

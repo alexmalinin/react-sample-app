@@ -13,10 +13,10 @@ class RenderTabCard extends Component {
         const { context, work, education } = this.props;
         const { isOpen } = this.state;
 
-
+        console.log('education', education)
+        console.log('work', work)
         // let obj = context === 'work' ? testProfileInfo[0] : testProfileInfo[1];
         let data = context === 'work' ? work : education;
-        console.log(data);
 
         const color = {
             purple: '#8f1ae5',
@@ -26,7 +26,7 @@ class RenderTabCard extends Component {
         return (
             <RenderWorkCard border={color.purple}>
                 <div className='header-card'>
-                    <h2>{ data ? data[0].position : null}</h2>
+                    <h2>{ work ? work[0].position : education ? education[0].specialisation : null }</h2>
                     <span>{ data ? data[0].name : null }</span>
                     <p>
                         <img src='/images/time.png' alt=''/>

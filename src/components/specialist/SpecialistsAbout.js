@@ -23,9 +23,9 @@ class SpecialistsAbout extends Component {
         const {specialistData} = this.props;
         console.log(specialistData);
 
-        let allSkills = specialistData ? specialistData.skills : null;
-        let educations_experience = specialistData ? specialistData.educations : null;
-        let work_experience = specialistData ? specialistData.work_experiences : null;
+        let allSkills = specialistData ? specialistData["skills"] : null;
+        let educations_experience = specialistData ? specialistData["educations"] : null;
+        let work_experience = specialistData ? specialistData["work_experiences"] : null;
 
         const panes = [
             {
