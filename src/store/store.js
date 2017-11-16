@@ -9,6 +9,7 @@ import verification from '../middlewares/verificationApi';
 import signIn from '../middlewares/signInApi';
 import welcomeClient from '../middlewares/welcomeClientApi';
 import getIndustires from '../middlewares/getIndustiresApi';
+import getProjectTypes from '../middlewares/getProjectTypesApi';
 import updateSpecStep1 from '../middlewares/updateSpecStep1Api';
 import showChosenSkills from '../middlewares/showChosenSkillsApi';
 import updateSpecStep2 from '../middlewares/updateSpecStep2Api';
@@ -26,6 +27,7 @@ const enhancer = applyMiddleware(
     signIn,
     welcomeClient,
     getIndustires,
+    getProjectTypes,
     updateSpecStep1,
     showChosenSkills,
     updateSpecStep2,

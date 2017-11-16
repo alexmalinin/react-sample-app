@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
-import SpecialistIndustryForm from './forms/SpecialistIndustryForm';
-import { getIndustries, showSpecialistData } from '../../actions/actions'
+import SpecialistInfoForm from './forms/SpecialistInfoForm';
+import { getProjectTypes, showSpecialistData } from '../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 
 class SpecialistIndustry extends Component {
 
     componentWillMount() {
-        this.props.getIndustries();
         this.props.showSpecialistData();
+        this.props.getProjectTypes()
     }
 
     render() {
-        const { industries, specialistData } = this.props;
+        const { specialistData, projectTypes } = this.props;
 
         return (
             <div>
@@ -27,8 +27,8 @@ class SpecialistIndustry extends Component {
                 </ContainerLarge>
                 <SubHeader/>
                 <Container indentBot indentTop>
-                    <DvTitleSmall>Industry</DvTitleSmall>
-                    <SpecialistIndustryForm industries={industries} specialistData={specialistData} onSubmit={this.submit}/>
+                    <DvTitleSmall>Info</DvTitleSmall>
+                    <SpecialistInfoForm projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
                 </Container>
             </div>
         )
@@ -39,4 +39,7 @@ class SpecialistIndustry extends Component {
     };
 }
 
-export default connect(({ industries, specialistData }) => ({ industries, specialistData }), { getIndustries, showSpecialistData })(SpecialistIndustry);
+export default connect(
+    ({ specialistData, projectTypes }) => ({ specialistData, projectTypes }),
+    { showSpecialistData, getProjectTypes }
+    )(SpecialistIndustry);

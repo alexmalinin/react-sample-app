@@ -8,7 +8,8 @@ import signUpData from './signUpReducer';
 import signInReducer from './signInReducer';
 import UserId from './getUserIdByTokenConfirmationReducer';
 import confirmPassword from './confirmPassword';
-import indusrties from './indusrtiesReducer.js';
+import industries from './industriesReducer.js';
+import projectTypes from './projectTypesReducer';
 import educations from './educationsReducer';
 import experiences from './workExperienceReducer';
 import chosenSkills from './showChosenSkillsReducer';
@@ -25,9 +26,10 @@ export default combineReducers({
     signInReducer,
     UserId,
     confirmPassword,
-    indusrties,
+    industries,
     educations,
     experiences,
+    projectTypes,
     chosenSkills,
     clientData,
     specialistData,

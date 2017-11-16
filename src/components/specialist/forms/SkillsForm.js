@@ -17,7 +17,7 @@ import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, indusrties, welcomeText, specialistData } = this.props;
+        const { submitting, industry, industries, welcomeText, specialistData } = this.props;
 
         return (
             <Grid>
@@ -39,7 +39,7 @@ class SkillsForm extends Component {
                                 name='industry'
                                 component={RenderSelect}
                                 placeholder='Select your area within the digital industry /'
-                                options={indusrties["industry"]}
+                                options={industries["industry"]}
                                 validate={[required]}
                             />
                             <InputField
@@ -54,7 +54,7 @@ class SkillsForm extends Component {
 
                 <Grid.Row>
                     <Grid.Column>
-                        <RenderSpecialityArea speciality={indusrties["speciality"]} industry={industry}/>
+                        <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
                         <RenderSkillsArea/>
                     </Grid.Column>
                 </Grid.Row>

@@ -167,7 +167,7 @@ export function getIndustries() {
 export function getProjectTypes() {
     const action = {
         type: GET_PROJECT_TYPES,
-        getIndustries: `${PORT}/api/v1/project_types`,
+        getProjectTypes: `${PORT}/api/v1/project_types`,
     };
 
     return action;

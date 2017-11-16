@@ -14,7 +14,7 @@ const RenderTextArea = ({
                                 meta: { touched, error, warning }
                             }) =>
     <StyledTextArea>
-        <TextArea {...input} name={name} placeholder={placeholder} value={text}/>
+        <textarea {...input} name={name} placeholder={placeholder}/>
         {touched &&
         ((error &&
             <StyledError>

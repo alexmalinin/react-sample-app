@@ -16,14 +16,14 @@ class SpecialistsWelcome1 extends Component {
     }
 
     render() {
-        const { indusrties, signUpData } = this.props;
+        const { industries, signUpData } = this.props;
         let confirm = signUpData ? signUpData.welcomeSpecStep1 : null;
 
         return (
             <div>
                 <HeaderBasic/>
                 <Container indentBot>
-                    <SpecialistWelcomeForm1 indusrties={indusrties} welcomeText={true} onSubmit={this.submit}/>
+                    <SpecialistWelcomeForm1 industries={industries} welcomeText={true} onSubmit={this.submit}/>
                     {confirm && <Redirect to="/specialists/dashboard/welcome-to-the-village-2"/> }
                 </Container>
             </div>
@@ -35,4 +35,4 @@ class SpecialistsWelcome1 extends Component {
     };
 }
 
-export default connect(({indusrties, signUpData}) => ({indusrties, signUpData}), { getIndustries, updateSpecStep1 })(confirm(SpecialistsWelcome1));
+export default connect(({industries, signUpData}) => ({industries, signUpData}), { getIndustries, updateSpecStep1 })(confirm(SpecialistsWelcome1));

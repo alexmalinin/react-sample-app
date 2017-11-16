@@ -7,7 +7,7 @@ import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
-import { updateSpecStep2 } from '../../actions/actions'
+import { updateSpecStep2, getProjectTypes } from '../../actions/actions'
 import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2'
 
 class SpecialistsWelcome2 extends Component {
@@ -16,6 +16,7 @@ class SpecialistsWelcome2 extends Component {
     componentWillMount() {
         sessionStorage.removeItem('spec_step1');
         sessionStorage.setItem('spec_step2', true);
+        this.props.getProjectTypes()
     }
 
 
@@ -62,5 +63,5 @@ class SpecialistsWelcome2 extends Component {
 
 export default connect(
     ({ signUpData, educations, experiences}) => ({signUpData, educations, experiences}),
-    { updateSpecStep2 }
+    { updateSpecStep2, getProjectTypes }
 )(confirm(SpecialistsWelcome2));

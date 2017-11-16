@@ -6,10 +6,6 @@ import SkillsForm from "./SkillsForm";
 
 let renderError = true;
 
-
-window.change = change;
-
-
 class SpecialistIndustryForm extends Component {
 
     render() {
@@ -23,7 +19,10 @@ class SpecialistIndustryForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData) {
-            this.fillFields(nextProps.specialistData);
+            if (renderError) {
+                this.fillFields(nextProps.specialistData);
+                renderError = false
+            }
         }
     }
 
@@ -40,7 +39,7 @@ class SpecialistIndustryForm extends Component {
             renderSpecialities['_' + item['id']] = true;
             renderSpecialities.length++;
         }) : null;
-        console.log(renderSpecialities);
+
         window.renderSpecialities = renderSpecialities;
         this.props.dispatch(change('SpecialistIndustryForm', 'industry_title', industry_title));
         this.props.dispatch(change('SpecialistIndustryForm', 'country', address.country));
