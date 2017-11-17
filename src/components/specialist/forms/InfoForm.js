@@ -19,7 +19,11 @@ class InfoForm extends Component {
 
     render() {
         const { submitting, educations, experiences, projectTypes, signUp, specialistData } = this.props;
-        console.log('this.props', this.props);
+        let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
+        let experiencesChilds1 = specialistData ? specialistData["work_experiences"] : [];
+
+        let educationData  = [ ...educationsChilds1,  ...educations ];
+        let experienceData = [ ...experiencesChilds1, ...experiences];
 
         return (
                 <Grid>
@@ -44,7 +48,7 @@ class InfoForm extends Component {
                                     <p><b>Education</b> / List any formal education here /</p>
 
                                     <RenderCards
-                                        educations={ signUp ? educations : specialistData ? specialistData["educations"] : null }
+                                        educations={ educationData }
                                     />
 
                                     <EdicationModal/>
@@ -57,7 +61,7 @@ class InfoForm extends Component {
                                     </p>
 
                                     <RenderCards
-                                        experiences={ signUp ? experiences : specialistData ? specialistData["work_experiences"] : null }
+                                        experiences={ experienceData }
                                     />
 
                                     <WorkExperienceModal/>

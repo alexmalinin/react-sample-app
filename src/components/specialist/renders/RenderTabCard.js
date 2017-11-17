@@ -13,8 +13,6 @@ class RenderTabCard extends Component {
         const { context, work, education } = this.props;
         const { isOpen } = this.state;
 
-        console.log('education', education)
-        console.log('work', work)
         // let obj = context === 'work' ? testProfileInfo[0] : testProfileInfo[1];
         let data = context === 'work' ? work : education;
 

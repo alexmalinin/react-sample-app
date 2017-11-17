@@ -20,7 +20,7 @@ class SpecialistInfoForm extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData) {
             if (renderError) {
-                this.fillFields(nextProps.specialistData)
+                this.fillFields(nextProps.specialistData);
                 renderError = false
             }
         }
@@ -31,7 +31,6 @@ class SpecialistInfoForm extends Component {
 
         let renderProjectTypes = {"label": project_type["name"], "value": project_type["id"]};
 
-        console.log('data', data);
         this.props.dispatch(change('SpecialistInfoForm', 'professional_experience_info',  professional_experience_info));
         this.props.dispatch(change('SpecialistInfoForm', 'daily_rate',  daily_rate));
         this.props.dispatch(change('SpecialistInfoForm', 'hourly_rate',  hourly_rate));

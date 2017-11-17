@@ -7,6 +7,7 @@ class RenderCards extends Component {
 
     render() {
         const { educations, experiences } = this.props;
+        console.log('experiences', experiences);
         return (
             <div className='flex-wrapper'>
                 { educations

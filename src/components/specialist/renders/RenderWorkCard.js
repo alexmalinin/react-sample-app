@@ -1,14 +1,15 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react'
 import { StyledEducationCard } from '../../../styleComponents/StyledCard'
-
+import DeletingExperienceCard from "../../modals/DeletingExperienceCard";
 
 const RenderCard = ({experiences}) => {
-    console.log(experiences);
+
     return(
         <StyledEducationCard>
             { experiences &&
                 <Card.Content>
+                    <DeletingExperienceCard experiences={experiences} id={experiences["id"]}/>
                     {experiences.name && <Card.Header>{experiences.name}</Card.Header> }
                     {experiences.position && <Card.Meta>{experiences.position}</Card.Meta> }
                     <Card.Description>

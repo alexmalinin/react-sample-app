@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistInfoForm from './forms/SpecialistInfoForm';
-import { getProjectTypes, showSpecialistData } from '../../actions/actions'
+import { getProjectTypes, showSpecialistData, updateSpecialistInfo } from '../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 
@@ -15,7 +15,7 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
-        const { specialistData, projectTypes } = this.props;
+        const { specialistData, projectTypes, educations, experiences } = this.props;
 
         return (
             <div>
@@ -28,18 +28,22 @@ class SpecialistIndustry extends Component {
                 <SubHeader/>
                 <Container indentBot indentTop>
                     <DvTitleSmall>Info</DvTitleSmall>
-                    <SpecialistInfoForm projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
+                    <SpecialistInfoForm educations={educations} experiences={experiences} projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
                 </Container>
             </div>
         )
     }
 
     submit = values => {
-        console.log('---values',values)
+        console.log('render')
+        const { updateSpecialistInfo, educations, experiences } = this.props;
+        console.log('educations', educations);
+        console.log('experiences', experiences);
+        updateSpecialistInfo(values, educations, experiences)
     };
 }
 
 export default connect(
-    ({ specialistData, projectTypes }) => ({ specialistData, projectTypes }),
-    { showSpecialistData, getProjectTypes }
+    ({ specialistData, projectTypes, educations, experiences }) => ({ specialistData, projectTypes, educations, experiences }),
+    { showSpecialistData, getProjectTypes, updateSpecialistInfo }
     )(SpecialistIndustry);

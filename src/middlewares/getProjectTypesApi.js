@@ -9,7 +9,6 @@ export default store => next => action => {
         method: 'get',
         url: getProjectTypes
     }).then( response => {
-        console.log(response);
         let projectTypes = response.data.map( industry => {
             return { "value" : industry.id, "label" : industry.name }
         });
@@ -17,7 +16,6 @@ export default store => next => action => {
         return next({ type: type + SUCCESS, data: projectTypes, ...rest });
     })
     .catch( error => {
-        console.log('there');
         console.log(error);
     });
 };

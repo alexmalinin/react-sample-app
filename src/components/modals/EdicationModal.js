@@ -11,7 +11,7 @@ class EdicationModal extends Component {
     render() {
 
         return(
-            <Modal trigger={<AddNewBtn basic content='Add new'/>} closeIcon>
+            <Modal trigger={<AddNewBtn onClick={this.handleClick} basic content='Add new'/>} closeIcon>
                 <Modal.Header >Education</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>
@@ -22,6 +22,10 @@ class EdicationModal extends Component {
             </Modal>
         )
     }
+
+    handleClick = ev => {
+        ev.preventDefault();
+    };
 
     submit = values => {
         let close = document.querySelector('i.close.icon');

@@ -11,12 +11,32 @@ export default store => next => action => {
 
     console.log('-----for attr', payload);
     let attr = payload.skills_attributes
-        ? payload.skills_attributes.map( attr => { return {"name" : attr.label} } )
+        ? payload.skills_attributes.map( attr => { return {"name" : attr.label, "id": +attr.value} } )
         : null;
     console.log('payload.speciality_ids', payload.speciality_ids);
     let spec_attr = payload.speciality_ids
         ? Object.keys(payload.speciality_ids).map(item => +item.match(/\d+/)[0])
         : null;
+
+    console.log({
+        "specialist": {
+            "industry": {
+                "name"                      : payload["industry"]["label"],
+                "id"                        : payload["industry"]["value"],
+            },
+            "industry_title"                : payload["industry_title"],
+            "address_attributes"            : {
+                "city"                  : payload["city"],
+                "country"               : payload["country"],
+                "user_id"               : id
+            },
+            "specialist_skills_attributes"  : {
+                "skill_attributes"      : attr
+            },
+            "speciality_ids"            : spec_attr
+        }
+
+    });
 
     axios({
         method: 'put',

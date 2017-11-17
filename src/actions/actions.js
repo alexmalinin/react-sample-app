@@ -1,25 +1,29 @@
-import { PORT,
-         HIDE_FOOTER,
-         SIDEBAR,
-         SIGN_UP_STEP_1,
-         CHANGE_USER_TYPE,
-         SIGN_IN,
-         VERIFICATION,
-         DELETE_CONFIRMATION_TOKEN,
-         GET_USER_ID,
-         WELCOME_CLIENT,
-         GET_INDUSTRIES,
-         UPDATE_SPECIALIST_STEP_1,
-         EDUCATION,
-         WORK_EXPERIENCE,
-         SHOW_CHOSEN_SKILLS,
-         GET_PROJECT_TYPES,
-         UPDATE_SPECIALIST_STEP_2,
-         SHOW_CLIENT_DATA,
-         SHOW_SPECIALIST_DATA,
-         UPDATE_SPECIALIST_PROFILE,
-         UPDATE_SPECIALIST_AVAILABILITY,
-         UPDATE_CLIENT_PROFILE,
+import {
+    PORT,
+    HIDE_FOOTER,
+    SIDEBAR,
+    SIGN_UP_STEP_1,
+    CHANGE_USER_TYPE,
+    SIGN_IN,
+    VERIFICATION,
+    DELETE_CONFIRMATION_TOKEN,
+    GET_USER_ID,
+    WELCOME_CLIENT,
+    GET_INDUSTRIES,
+    UPDATE_SPECIALIST_STEP_1,
+    EDUCATION,
+    WORK_EXPERIENCE,
+    SHOW_CHOSEN_SKILLS,
+    GET_PROJECT_TYPES,
+    UPDATE_SPECIALIST_STEP_2,
+    SHOW_CLIENT_DATA,
+    SHOW_SPECIALIST_DATA,
+    UPDATE_SPECIALIST_PROFILE,
+    UPDATE_SPECIALIST_AVAILABILITY,
+    UPDATE_SPECIALIST_INFO,
+    DELETE_EXPERIENCE_CARD_WITH_ID,
+    DELETE_EXPERIENCE_CARD_WITHOUT_ID,
+    UPDATE_CLIENT_PROFILE,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -258,6 +262,59 @@ export function updateSpecialistAvailability(data) {
     return action;
 }
 
+export function updateSpecialistInfo(data, education, experience) {
+    const action = {
+        type: UPDATE_SPECIALIST_INFO,
+        payload: data,
+        education,
+        experience,
+        updateSpecialistInfo: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+// // delete education data card
+//
+// export function deleteEducationCardWithId(id) {
+//     const action = {
+//         type: DELETE_EXPERIENCE_CARD_WITH_ID,
+//         deleteCard1: `${PORT}/api/v1/specialists/`,
+//         deleteCard2: `/experiences/${id}`
+//     };
+//
+//     return action;
+// }
+//
+// export function deleteEducationCardWithOutId(education) {
+//     const action = {
+//         type: DELETE_EDUCATION_CARD_WITHOUT_ID,
+//         payload: education,
+//     };
+//
+//     return action;
+// }
+
+// delete work experience data card
+
+export function deleteExperienceCardWithId(id) {
+    const action = {
+        type: DELETE_EXPERIENCE_CARD_WITH_ID,
+        deleteCard1: `${PORT}/api/v1/specialists/`,
+        deleteCard2: `/experiences/${id}`
+    };
+
+    return action;
+}
+
+export function deleteExperienceCardWithOutId(experiences) {
+    const action = {
+        type: DELETE_EXPERIENCE_CARD_WITHOUT_ID,
+        payload: experiences,
+    };
+
+    return action;
+}
 
 // update Client Data Profile
 

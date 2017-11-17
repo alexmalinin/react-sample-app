@@ -58,6 +58,7 @@ class SpecialistsWelcome2 extends Component {
     submit = values => {
         let { updateSpecStep2, educations, experiences } = this.props;
         updateSpecStep2(values, educations, experiences);
+
     };
 }
 
