@@ -9,7 +9,7 @@ const RenderCard = ({experiences}) => {
         <StyledEducationCard>
             { experiences &&
                 <Card.Content>
-                    <DeletingExperienceCard experiences={experiences} id={experiences["id"]}/>
+                    <DeletingExperienceCard experience={experiences} id={experiences["id"]}/>
                     {experiences.name && <Card.Header>{experiences.name}</Card.Header> }
                     {experiences.position && <Card.Meta>{experiences.position}</Card.Meta> }
                     <Card.Description>

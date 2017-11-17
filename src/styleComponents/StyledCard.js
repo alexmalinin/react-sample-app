@@ -38,6 +38,15 @@ export const StyledEducationCard = styled(Card)`
                 margin-right: 15px;
             }
         }
+        
+        & .icon {
+          opacity: 0;
+        }
+        
+        &:hover .icon {
+          transition: opacity 0.3s ease-in-out;
+          opacity: 1;
+        } 
     }
     
     @media (min-width: 1921px) {

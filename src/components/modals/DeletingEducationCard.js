@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Button, Modal } from 'semantic-ui-react'
 import { S_DeleteCard }from '../../styleComponents/layout/S_DeleteCard';
-import { deleteExperienceCardWithId, deleteExperienceCardWithOutId } from "../../actions/actions";
+import { deleteEducationCardWithId, deleteEducationCardWithOutId } from "../../actions/actions";
 
-class DeletingExperienceCard extends Component {
+class DeletingEducationCard extends Component {
 
     state = {
         open: false
@@ -13,7 +13,7 @@ class DeletingExperienceCard extends Component {
 
     render() {
         const { open, size } = this.state;
-        const { id, experience } = this.props;
+        const { id, education } = this.props;
 
         return (
             <div>
@@ -33,7 +33,7 @@ class DeletingExperienceCard extends Component {
                             No
                         </Button>
                         <Button
-                            onClick={this.deleteCard(id, experience)}
+                            onClick={this.deleteCard(id, education)}
                             positive
                             icon='checkmark'
                             labelPosition='right'
@@ -49,9 +49,9 @@ class DeletingExperienceCard extends Component {
         this.setState({ open: false })
     };
 
-    deleteCard = (id, experience) => () => {
-        const { deleteExperienceCardWithId, deleteExperienceCardWithOutId } = this.props;
-        id ? deleteExperienceCardWithId(id) : deleteExperienceCardWithOutId(experience);
+    deleteCard = (id, education) => () => {
+        const { deleteEducationCardWithId, deleteEducationCardWithOutId } = this.props;
+        id ? deleteEducationCardWithId(id) : deleteEducationCardWithOutId(education);
         this.setState({ open: false })
     };
 
@@ -62,4 +62,4 @@ class DeletingExperienceCard extends Component {
     close = () => this.setState({ open: false });
 }
 
-export default connect(null, {deleteExperienceCardWithId, deleteExperienceCardWithOutId})(DeletingExperienceCard)
+export default connect(null, {deleteEducationCardWithId, deleteEducationCardWithOutId})(DeletingEducationCard)

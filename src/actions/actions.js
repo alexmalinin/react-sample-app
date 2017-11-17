@@ -21,6 +21,8 @@ import {
     UPDATE_SPECIALIST_PROFILE,
     UPDATE_SPECIALIST_AVAILABILITY,
     UPDATE_SPECIALIST_INFO,
+    DELETE_EDUCATION_CARD_WITH_ID,
+    DELETE_EDUCATION_CARD_WITHOUT_ID,
     DELETE_EXPERIENCE_CARD_WITH_ID,
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     UPDATE_CLIENT_PROFILE,
@@ -274,43 +276,43 @@ export function updateSpecialistInfo(data, education, experience) {
     return action;
 }
 
-// // delete education data card
-//
-// export function deleteEducationCardWithId(id) {
-//     const action = {
-//         type: DELETE_EXPERIENCE_CARD_WITH_ID,
-//         deleteCard1: `${PORT}/api/v1/specialists/`,
-//         deleteCard2: `/experiences/${id}`
-//     };
-//
-//     return action;
-// }
-//
-// export function deleteEducationCardWithOutId(education) {
-//     const action = {
-//         type: DELETE_EDUCATION_CARD_WITHOUT_ID,
-//         payload: education,
-//     };
-//
-//     return action;
-// }
+// delete education data card
+
+export function deleteEducationCardWithId(id) {
+    const action = {
+        type: DELETE_EDUCATION_CARD_WITH_ID,
+        deleteEducationCard1: `${PORT}/api/v1/specialists/`,
+        deleteEducationCard2: `/educations/${id}`
+    };
+
+    return action;
+}
+
+export function deleteEducationCardWithOutId(education) {
+    const action = {
+        type: DELETE_EDUCATION_CARD_WITHOUT_ID,
+        payload: education,
+    };
+
+    return action;
+}
 
 // delete work experience data card
 
 export function deleteExperienceCardWithId(id) {
     const action = {
         type: DELETE_EXPERIENCE_CARD_WITH_ID,
-        deleteCard1: `${PORT}/api/v1/specialists/`,
-        deleteCard2: `/experiences/${id}`
+        deleteExperienceCard1: `${PORT}/api/v1/specialists/`,
+        deleteExperienceCard2: `/experiences/${id}`
     };
 
     return action;
 }
 
-export function deleteExperienceCardWithOutId(experiences) {
+export function deleteExperienceCardWithOutId(experience) {
     const action = {
         type: DELETE_EXPERIENCE_CARD_WITHOUT_ID,
-        payload: experiences,
+        payload: experience,
     };
 
     return action;
