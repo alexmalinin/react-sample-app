@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { reduxForm, Field, change, stopSubmit } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { required, minLength8 } from '../../helpers/validate';
 import { RenderField } from '../forms/renders/RenderField';
 import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import EmailField from '../forms/renders/EmailField';
+import { Message } from 'semantic-ui-react';
+import { S_DeleteCard } from "../../styleComponents/layout/S_DeleteCard";
+
 
 class SignInForm extends Component {
+
+    state = {
+        visibleError: false,
+    };
 
     componentWillMount() {
         let { email } = this.props;
@@ -18,9 +25,18 @@ class SignInForm extends Component {
 
     render() {
         const { handleSubmit, submitting } = this.props;
+        const { visibleError } = this.state;
 
         return (
             <form onSubmit={handleSubmit}>
+                { visibleError && <Message
+                    floating
+                    negative
+                    style={{marginBottom: '25px'}}
+                >
+                    Incorrect email or password.
+                    {/*<S_DeleteCard color='red' className="remove icon" onClick={this.renderError(false)}/>*/}
+                </Message> }
                 <EmailField
                     name="email"
                     placeholder="Email /"
@@ -46,10 +62,15 @@ class SignInForm extends Component {
         )
     };
 
+    renderError = visible => () => {
+        this.setState({visibleError: visible})
+    };
+
+
     componentWillReceiveProps(nextState) {
         console.log(nextState);
         if (nextState.failSignIn) {
-            this.props.dispatch(stopSubmit("SignInForm", {"email": 'Don\'t exist this email', "password": 'Check your password again'} ));
+            this.renderError(true)()
         }
     }
 }

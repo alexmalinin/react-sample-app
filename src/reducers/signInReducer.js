@@ -13,8 +13,7 @@ export default (state = null, action) => {
             return result;
         case SIGN_IN + FAIL:
             result = { data, failSignIn: true };
-            console.log('fail');
-            return result
+            return result;
         default:
             return state;
     }

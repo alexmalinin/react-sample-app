@@ -20,7 +20,7 @@ class SignUp extends Component {
 
     render() {
         const { signInReducer, changeUserType } = this.props;
-        let { failSignIn } = signInReducer || false;
+        let { failSignIn, data } = signInReducer || false;
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         let confirm = signInReducer;
         const panes = [

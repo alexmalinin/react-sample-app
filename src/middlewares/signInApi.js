@@ -26,6 +26,6 @@ export default store => next => action => {
     })
     .catch(function (error) {
         console.log(error);
-        return next({ ...rest, type: type + FAIL, data: null })
+        return next({ ...rest, type: type + FAIL, data: null})
     });
 };
