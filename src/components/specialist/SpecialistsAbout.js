@@ -21,23 +21,33 @@ class SpecialistsAbout extends Component {
 
     render() {
         const {specialistData} = this.props;
-        console.log(specialistData);
 
         let allSkills = specialistData ? specialistData["skills"] : null;
-        let educations_experience = specialistData ? specialistData["educations"] : null;
-        let work_experience = specialistData ? specialistData["work_experiences"] : null;
+        let educations_experience = specialistData ? specialistData["educations"] : [];
+        let work_experience = specialistData ? specialistData["work_experiences"] : [];
+        console.log('educations_experience', educations_experience);
 
         const panes = [
             {
                 menuItem: 'Work History',
                 render: () => <Tab.Pane attached={false}>
-                                <RenderTabCard context='work' work={work_experience}/>
-                              </Tab.Pane>
+                                {work_experience.length
+                                    ? work_experience.map(
+                                        (work, index) =>
+                                            <RenderTabCard key={index} context='work' work={work}/> )
+                                    : <RenderTabCard context='work'/>
+                                }
+                                </Tab.Pane>
             },
             {
                 menuItem: 'Education',
                 render: () => <Tab.Pane attached={false}>
-                                <RenderTabCard context='education' education={educations_experience}/>
+                                { educations_experience.length
+                                    ? educations_experience.map(
+                                        (education, index) =>
+                                            <RenderTabCard key={index} context='education' education={education}/>)
+                                    : <RenderTabCard context='education'/>
+                                }
                               </Tab.Pane>
             },
         ];
@@ -101,8 +111,11 @@ class SpecialistsAbout extends Component {
                                 {specialistData ? specialistData["professional_experience_info"] : null}
                             </p>
                         </div>
-
-                        <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
+                        { (work_experience ||
+                          educations_experience) ?
+                          <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
+                            : null
+                        }
 
                         <SubscribeForm onSubmit={this.submit}/>
 

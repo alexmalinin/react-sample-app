@@ -10,8 +10,9 @@ const RenderPhone = ({hasPerson, value}) =>
             <Field
                 name='phone_code'
                 component={RenderSelect}
-                placeholder={value ? value : '+61'}
+                placeholder={value}
                 options={phoneCodes}
+                value={value}
                 validate={[required]}
             />
             <Field

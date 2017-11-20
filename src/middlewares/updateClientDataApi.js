@@ -19,13 +19,9 @@ export default store => next => action => {
             "profile": {
                 "first_name": payload['first_name'],
                 "last_name": payload['last_name'],
-                "phone_code": payload['phone_code'],
+                "phone_code": payload['phone_code']['label'],
                 "phone_number": payload['phone_number'],
                 "email": payload['email'],
-                "address_attributes": {
-                    "country": payload["country"],
-                    "user_id": id
-                }
             }
         }
     }).then(function (response) {

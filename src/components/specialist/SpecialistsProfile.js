@@ -46,6 +46,7 @@ class SpecialistsProfile extends Component {
     }
 
     submit = values => {
+        console.log('valuesSubmit', values);
         this.props.updateSpecialistProfile(values);
     };
 }
