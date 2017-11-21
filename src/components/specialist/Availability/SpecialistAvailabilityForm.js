@@ -23,6 +23,10 @@ class SpecialistAvailabilityForm extends Component {
                 this.fillFields(nextProps.specialistData);
                 renderError = false;
             }
+
+            if (nextProps.specialistData.successId) {
+                this.fillFields(nextProps.specialistData);
+            }
         }
     }
 

@@ -7,6 +7,8 @@ export default styled.div`
     background-color: #1991fa;
     margin-top: 52px;
     text-align: center;
+    z-index: 2;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

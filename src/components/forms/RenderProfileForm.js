@@ -61,13 +61,13 @@ class RenderProfileForm  extends Component {
         )
     }
 
-    shouldComponentUpdate(nextProps) {
-        if (nextProps.anyTouched) {
-            return false
-        } else {
-            return true
-        }
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.anyTouched) {
+    //         return false
+    //     } else {
+    //         return true
+    //     }
+    // }
 
     componentWillUpdate(nextProps) {
         if (nextProps.clientData) {
@@ -86,8 +86,6 @@ class RenderProfileForm  extends Component {
 
     fillFields = data => {
         let { first_name, last_name, email, address, phone_code, phone_number } = data;
-        console.log('vaues', store.getState().form.RenderProfileForm.values);
-        console.log('phone_code', phone_code);
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));

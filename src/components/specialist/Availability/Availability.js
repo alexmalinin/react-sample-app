@@ -15,7 +15,9 @@ class Availability extends Component {
 
     render() {
 
-        let { submitting, submitBtn } = this.props;
+        let { submitting, submitBtn, specialistData } = this.props;
+        let { successId } = specialistData || false;
+        console.log(successId)
 
         return (
             <StyledAvailabilityForm>
@@ -23,14 +25,14 @@ class Availability extends Component {
                     <b>Set your availability</b> / This can be easily changed at anytime
                 </p>
                 <DropdownAvailability>
-                    <SlideTogle height={0}>
+                    <SlideTogle rerender={successId} height={0}>
                         <p>Full-time / Part-time / Not available</p>
                         <AvailabilityTime/>
                     </SlideTogle>
                 </DropdownAvailability>
 
                 <DropdownAvailability customPadd>
-                    <SlideTogle height={0}>
+                    <SlideTogle rerender={successId} height={0}>
                         <p>Days available</p>
                         <AvailabilityDays/>
                     </SlideTogle>

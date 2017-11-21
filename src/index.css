@@ -57,3 +57,7 @@ body,
   display: inline-block;
   margin-top: 50px;
 }
+
+.relative {
+    position: relative;
+}

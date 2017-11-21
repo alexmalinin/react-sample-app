@@ -87,7 +87,6 @@ export default styled.div`
       align-items: center;
       justify-content: center;
       background-color:#fff;
-      border: 1px solid;
      }
     
     .perspective {

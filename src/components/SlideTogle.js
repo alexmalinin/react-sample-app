@@ -9,7 +9,7 @@ class SlideTogle extends Component {
 
     render() {
 
-        const { children } = this.props;
+        const { children, rerender } = this.props;
         let { height } = this.state;
         let [title, ...rest] = children;
         let childs = [...rest];
@@ -26,6 +26,18 @@ class SlideTogle extends Component {
             </div>
         )
     }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.rerender) {
+            this.hideHeight()
+        }
+    };
+
+    hideHeight = () => {
+        this.setState({
+            height: 0,
+        })
+    };
 
     handleHeight = ev => {
         let { height } = this.state;

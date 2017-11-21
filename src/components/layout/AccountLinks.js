@@ -7,7 +7,7 @@ class AccountLinks extends Component {
     render() {
         return(
             <ul>
-                <li><NavLink to='/post_project'>Post a project</NavLink></li>
+                <li><NavLink to='/post_project'>Post a Project</NavLink></li>
                 <li><NavLink to='/sign_in' className='proxy'>log in</NavLink></li>
                 <li><NavLink to='/sign_up' className='proxy'><Button inverted>sign up</Button></NavLink></li>
             </ul>
