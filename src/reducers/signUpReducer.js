@@ -12,6 +12,10 @@ let result;
 export default (state = null, action) => {
     const { type, data } = action;
     switch (type) {
+        case SIGN_UP_STEP_1:
+            console.log('there')
+            result = {data, Loading: true, failLogin: true};
+            return result;
         case SIGN_UP_STEP_1 + SUCCESS:
             result = {data, isLogIn: true};
             return data;

@@ -48,4 +48,49 @@ export default styled.div`
             padding-right: 0;
         }
     `};
+    
+    .relative {
+      position:relative;
+    }
+    
+    .loading {
+      transition: transform 0.7s ease-in-out;
+      backface-visibility: hidden;
+      
+      &.content-load {
+        transform: rotateY(0deg);
+      }
+      
+      &.content-loading {
+        transform: rotateY(-180deg);
+      }
+    }
+    
+    .frame-load {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transform: rotateY(0deg);
+    }
+    
+    .frame-loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transform: rotateY(180deg);
+    }
+    
+    .frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color:#fff;
+      border: 1px solid;
+     }
+    
+    .perspective {
+      perspective: 800px;
+    }
 `;

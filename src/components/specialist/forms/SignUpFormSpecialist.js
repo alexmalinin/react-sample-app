@@ -15,7 +15,7 @@ class SignUpFormSpecialist extends Component  {
 
     componentWillReceiveProps(nextState) {
         if (renderErrror) {
-            if (nextState.failLogin) {
+            if (nextState.failLogin && !nextState.Loading) {
                 renderErrror = false;
                 this.props.dispatch(stopSubmit('SignUpFormSpecialist', {'email': 'Email has already been taken' }))
             }

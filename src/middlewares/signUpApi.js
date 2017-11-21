@@ -54,8 +54,9 @@ export default store => next => action => {
             }
 
         }).then(function (response) {
+            // setTimeout( () => { return next({ ...rest, type: type + SUCCESS, data: response.data }) }, 30000)
             localStorage.setItem('user_email', response.data.email);
-            return next({ ...rest, type: type + SUCCESS, data: response.data });
+            return next({ ...rest, type: type + SUCCESS, data: response.data })
         })
         .catch(function (error) {
             return next({ ...rest, type: type + FAIL, data: error.response.data.message });

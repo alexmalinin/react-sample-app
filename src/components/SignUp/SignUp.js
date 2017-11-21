@@ -26,12 +26,17 @@ class SignUp extends Component {
     render() {
         let { confirm }  = this.state;
         const { changeUserType, signUpData } = this.props;
-        let { failLogin } = signUpData || false;
+        let { failLogin, Loading } = signUpData || false;
+        console.log('Loading', Loading);
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={false}>
-                    <SignUpFormSpecialist person={changeUserType} failLogin={failLogin} onSubmit={this.submit('specialists')}/>
+                    <SignUpFormSpecialist
+                        person={changeUserType}
+                        failLogin={failLogin}
+                        Loading={Loading}
+                        onSubmit={this.submit('specialists')}/>
                 </StyledSignUpForm>
             },
             { menuItem: 'Client', render: () =>
@@ -57,15 +62,19 @@ class SignUp extends Component {
                                 </DvTitleBig>
                             </Grid.Column>
 
-                            <Grid.Column mobile={16} tablet={9} computer={8}>
-                                <Tabs mTop='180' action=''>
-                                    <Tab
+                            <Grid.Column mobile={16} tablet={9} computer={8} className="perspective">
+                                <Tabs mTop='180' action='' className="relative">
+                                    <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
                                         menu={{ text: true }}
                                         panes={panes}
                                         activeIndex={activeIndex}
-                                        // onClick={this.activeTab}
                                         onTabChange={this.handleTabChange}
                                     />
+                                    <div className={Loading ? 'loading frame-load frame': 'frame loading frame-loading'}>
+                                        <div>
+                                            <img src='/images/preloader.gif'/>
+                                        </div>
+                                    </div>
                                     { confirm && <Redirect to='/confirm_email'/> }
                                 </Tabs>
                                 <StyledFormHint>
