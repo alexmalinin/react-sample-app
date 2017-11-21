@@ -25,10 +25,11 @@ class SkillsForm extends Component {
                     <Grid.Column mobile={16} computer={8}>
                         <StyledWelcomeForm>
                             { welcomeText && [
-                                <DvTitle mTop='80' xs>
+                                <DvTitle mTop='80' xs key="1">
                                     Welcome to The Digital Village!
+
                                 </DvTitle>,
-                                <p>
+                                <p key="2">
                                     Please complete your profile so we can help you make the
                                     most out of the Digital Village platform.
                                 </p>
