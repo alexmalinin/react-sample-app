@@ -1,5 +1,4 @@
 export const run = element => {
-    console.log(element);
     let timer;
     let current = window.pageYOffset;
     let to;
@@ -9,8 +8,8 @@ export const run = element => {
         to = 0;
     }
     return function() {
-        var point;
-        var clear;
+        let point;
+        let clear;
 
         if (current < to) {
             point = 5
@@ -27,10 +26,8 @@ export const run = element => {
                 }
             }
         }
+
         timer = setInterval(function() {
-            console.log('current', current)
-            console.log('to', to)
-            console.log('point', point)
             current += point;
             window.scrollTo(0, current);
             clear(current, to)

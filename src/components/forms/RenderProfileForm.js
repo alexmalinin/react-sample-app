@@ -8,12 +8,11 @@ import {RenderField} from './renders/RenderField';
 import EmailField from './renders/EmailField';
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField';
 import RenderPhone from './renders/RenderPhone';
-import store from "../../store/store";
 
 window.change = change;
 
-let renderErrorSpec   = true;
-let renderErrorClient = true;
+// let renderErrorSpec   = true;
+// let renderErrorClient = true;
 
 class RenderProfileForm  extends Component {
 
@@ -61,25 +60,25 @@ class RenderProfileForm  extends Component {
         )
     }
 
-    // shouldComponentUpdate(nextProps) {
-    //     if (nextProps.anyTouched) {
-    //         return false
-    //     } else {
-    //         return true
-    //     }
-    // }
+    shouldComponentUpdate(nextProps) {
+        if (nextProps.anyTouched) {
+            return false
+        } else {
+            return true
+        }
+    }
 
     componentWillUpdate(nextProps) {
         if (nextProps.clientData) {
-            if (renderErrorSpec) {
+            // if (renderErrorSpec) {
                 this.fillFields(nextProps.clientData);
-                renderErrorSpec = false;
-            }
+                // renderErrorSpec = false;
+            // }
         } else if (nextProps.specialistData) {
-            if (renderErrorClient) {
+            // if (renderErrorClient) {
                 this.fillFields(nextProps.specialistData);
-                renderErrorClient = false;
-            }
+                // renderErrorClient = false;
+            // }
         }
     }
 

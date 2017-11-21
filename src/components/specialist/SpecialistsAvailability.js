@@ -32,7 +32,7 @@ class SpecialistsAvailability extends Component {
                     </DvTitle>
                 </ContainerLarge>
                 <SubHeader/>
-                <Container indentBot indentTop className="relative">
+                <Container indentTop indentBot  className="relative">
                     <S_Message positive data-show={renderMessage}>
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
@@ -46,7 +46,7 @@ class SpecialistsAvailability extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData.successAvailabilityId) {
-            this.showMessage()
+            this.showMessage();
             run(0)();
         }
     }

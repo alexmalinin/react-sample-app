@@ -9,6 +9,7 @@ export const S_Message = styled(Message)`
         right: 22px;
         z-index: 1;
         transition: top 0.7s ease-in-out;
+        ${props => props['profile'] && `top: -140px`};
         ${props => props['data-show'] && `top: 0`};
     }
 `;

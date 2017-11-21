@@ -15,7 +15,7 @@ export default (state = null, action) => {
         case SHOW_SPECIALIST_DATA + SUCCESS:
             return data;
         case UPDATE_SPECIALIST_PROFILE + SUCCESS:
-            return [state, ...data];
+            return data;
         case UPDATE_SPECIALIST_AVAILABILITY + SUCCESS:
             return data;
         case UPDATE_SPECIALIST_STEP_1 + SUCCESS: // like UPDATE_SPECIALIST_INDUSTRY

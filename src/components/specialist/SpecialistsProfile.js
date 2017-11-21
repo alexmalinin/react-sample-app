@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Grid, Tab } from 'semantic-ui-react'
+import { Grid, Tab } from 'semantic-ui-react';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import { DvTitle } from '../../styleComponents/layout/DvTitles';
@@ -8,8 +8,15 @@ import RenderProfileForm from '../forms/RenderProfileForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
+import { S_Message } from '../../styleComponents/layout/S_Message';
+import { Message } from 'semantic-ui-react';
+import { run } from '../../helpers/scrollToElement';
 
 class SpecialistsProfile extends Component {
+
+    state = {
+        renderMessage: false,
+    };
 
     componentWillMount() {
         sessionStorage.removeItem('spec_step2');
@@ -18,6 +25,7 @@ class SpecialistsProfile extends Component {
     }
 
     render() {
+        const { renderMessage } = this.state;
 
         return (
             <div>
@@ -28,10 +36,12 @@ class SpecialistsProfile extends Component {
                         Welcome to The Village!
                     </DvTitle>
                 </ContainerLarge>
-
                 <SubHeader/>
-
-                <Container indentTop indentBot>
+                <Container indentTop indentBot className="relative">
+                    <S_Message positive profile data-show={renderMessage}>
+                        <Message.Header>Success!</Message.Header>
+                        <p>Form updated</p>
+                    </S_Message>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} computer={8}>
@@ -45,10 +55,32 @@ class SpecialistsProfile extends Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+        if (nextProps.specialistData.successProfileId) {
+            console.log('render');
+            this.showMessage();
+            run(0)();
+        }
+    }
+
+    showMessage = () => {
+        setTimeout( () => {
+                return this.setState({
+                    renderMessage: false,
+                })
+            }, 2000
+        );
+
+        this.setState({
+            renderMessage: true,
+        });
+    };
+
     submit = values => {
         console.log('valuesSubmit', values);
         this.props.updateSpecialistProfile(values);
     };
 }
 
-export default connect(null, { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
+export default connect(({specialistData}) => ({specialistData}), { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
