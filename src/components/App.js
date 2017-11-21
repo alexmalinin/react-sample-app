@@ -43,13 +43,13 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Sidebar.Pushable as={ Segment }>
-                        <StyledSidebar as={ Menu } animation='push' width='thin' direction='right' visible={ sidebar }
-                                 icon='labeled' vertical inverted>
-                            <NavigationLinks/>
-                            <AccountLinks/>
-                        </StyledSidebar>
-                        <Sidebar.Pusher>
+                    {/*<Sidebar.Pushable as={ Segment }>*/}
+                        {/*<StyledSidebar as={ Menu } animation='push' width='thin' direction='right' visible={ sidebar }*/}
+                                 {/*icon='labeled' vertical inverted>*/}
+                            {/*<NavigationLinks/>*/}
+                            {/*<AccountLinks/>*/}
+                        {/*</StyledSidebar>*/}
+                        {/*<Sidebar.Pusher>*/}
                             <FlexDirection>
                                 <Switch>
                                     <Route exact path='/' render={ () => <Redirect to='/sign_up'/>}/>
@@ -100,8 +100,8 @@ class App extends Component {
                                 </Switch>
                                 <Footer/>
                             </FlexDirection>
-                        </Sidebar.Pusher>
-                    </Sidebar.Pushable>
+                        {/*</Sidebar.Pusher>*/}
+                    {/*</Sidebar.Pushable>*/}
                 </div>
             </Router>
         );

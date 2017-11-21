@@ -8,6 +8,7 @@ import { Container, ContainerLarge } from '../../styleComponents/layout/Containe
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { showSpecialistData, updateSpecialistAvailability } from '../../actions/actions';
 import { Message } from 'semantic-ui-react';
+import { run } from '../../helpers/scrollToElement';
 
 class SpecialistsAvailability extends Component {
 
@@ -21,7 +22,6 @@ class SpecialistsAvailability extends Component {
 
     render() {
         const { renderMessage } = this.state;
-        const { specialistData } = this.props;
 
         return (
             <div>
@@ -44,6 +44,13 @@ class SpecialistsAvailability extends Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.specialistData.successAvailabilityId) {
+            this.showMessage()
+            run(0)();
+        }
+    }
+
     showMessage = () => {
         setTimeout( () => {
                 return this.setState({
@@ -56,12 +63,6 @@ class SpecialistsAvailability extends Component {
             renderMessage: true,
         });
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.specialistData.successId) {
-            this.showMessage()
-        }
-    }
 
     submit = values => {
         this.props.updateSpecialistAvailability(values)

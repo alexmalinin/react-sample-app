@@ -24,7 +24,7 @@ class SpecialistAvailabilityForm extends Component {
                 renderError = false;
             }
 
-            if (nextProps.specialistData.successId) {
+            if (nextProps.specialistData.successAvailabilityId) {
                 this.fillFields(nextProps.specialistData);
             }
         }

@@ -21,7 +21,7 @@ export default store => next => action => {
         }
     }).then(function (response) {
         let data = response.data;
-        data.successId = Date.now();
+        data.successAvailabilityId = Date.now();
         return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function (error) {
