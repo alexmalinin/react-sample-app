@@ -11,7 +11,7 @@ import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox';
 import StyledProfile from '../../styleComponents/StyledProfile';
 import RenderTabCard from './renders/RenderTabCard';
 import { showSpecialistData } from '../../actions/actions';
-
+import { PORT } from "../../constans/constans";
 
 class SpecialistsAbout extends Component {
 
@@ -25,7 +25,7 @@ class SpecialistsAbout extends Component {
         let allSkills = specialistData ? specialistData["skills"] : null;
         let educations_experience = specialistData ? specialistData["educations"] : [];
         let work_experience = specialistData ? specialistData["work_experiences"] : [];
-        console.log('educations_experience', educations_experience);
+        let {avatar} = specialistData || false;
 
         const panes = [
             {
@@ -74,7 +74,8 @@ class SpecialistsAbout extends Component {
                             <p>{specialistData ? specialistData["industry_title"] : null}</p>
 
                             <div className='profile-image'>
-                                <img src='/images/profile-image.png' alt=''/>
+                                {avatar ? <img src={PORT + avatar.url} alt=''/>
+                                        : <img src= '/images/undefUser.png' alt=''/>}
                             </div>
 
                             <div className='flex-between'>

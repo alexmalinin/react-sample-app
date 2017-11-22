@@ -22,7 +22,7 @@ class RenderProfileForm  extends Component {
         // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
 
         return (
-            <form onSubmit={handleSubmit}>
+            <form name='account' onSubmit={handleSubmit}>
                 <InputField
                     name="first_name"
                     placeholder="First Name /"
@@ -84,7 +84,7 @@ class RenderProfileForm  extends Component {
 
 
     fillFields = data => {
-        let { first_name, last_name, email, address, phone_code, phone_number } = data;
+        let { first_name, last_name, email, address, phone_code, phone_number, clearPassword } = data;
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));

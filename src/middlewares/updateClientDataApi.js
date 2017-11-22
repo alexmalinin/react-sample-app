@@ -25,7 +25,9 @@ export default store => next => action => {
             }
         }
     }).then(function (response) {
-        return next({ ...rest, type: type + SUCCESS, data: response.data });
+        let data = response.data;
+        data.successProfileId = Date.now();
+        return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function (error) {
         console.log(error);

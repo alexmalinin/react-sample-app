@@ -25,17 +25,20 @@ class InfoForm extends Component {
         let educationData  = [ ...educationsChilds1,  ...educations ];
         let experienceData = [ ...experiencesChilds1, ...experiences];
 
+        let { avatar } = specialistData || false;
+
         return (
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>
                             <StyledSpecialistWelcomeForm2>
                                 { signUp && <DvTitleSmall>Awesome! Tell us more! /</DvTitleSmall>}
-                                <p>Upload your photo /</p>
+                                { !avatar && <p>Upload your photo /</p>}
                                 <Field
                                     name='person'
                                     component={RenderImage}
                                     type='file'
+                                    avatar={avatar}
                                     placeholder='Choose your photo /'
                                 />
 

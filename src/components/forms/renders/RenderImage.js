@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Button } from 'semantic-ui-react';
 import StyledUploader from '../../../styleComponents/forms/StyledUploader';
+import { PORT } from "../../../constans/constans";
+
 class RenderImage extends Component {
 
     state = { file: '', imagePreviewUrl: '' };
@@ -24,6 +26,8 @@ class RenderImage extends Component {
     }
 
     render() {
+        const { avatar } = this.props;
+        console.log('---avatar', this.props.avatar);
 
         let {
             input,
@@ -35,7 +39,9 @@ class RenderImage extends Component {
 
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
-        if (imagePreviewUrl) {
+        if (avatar && !imagePreviewUrl) {
+            $imagePreview = (<img src={PORT + avatar.url}/>);
+        } else if (imagePreviewUrl) {
             $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
             $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
