@@ -109,7 +109,7 @@ class EducationForm extends Component {
         ev.preventDefault();
         let close = document.querySelector('i.close.icon');
         close.click();
-    }
+    };
 
     componentWillUnmount(){
         renderError = true

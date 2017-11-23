@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react'
 import { StyledEducationCard } from '../../../styleComponents/StyledCard'
+import EditingExperienceCard from "../../modals/EditingExperienceCard";
 import DeletingExperienceCard from "../../modals/DeletingExperienceCard";
 
 const RenderCard = ({experiences}) => {
@@ -9,6 +10,7 @@ const RenderCard = ({experiences}) => {
         <StyledEducationCard>
             { experiences &&
                 <Card.Content>
+                    <EditingExperienceCard experience={experiences} id={experiences["id"]}/>
                     <DeletingExperienceCard experience={experiences} id={experiences["id"]}/>
                     {experiences.name && <Card.Header>{experiences.name}</Card.Header> }
                     {experiences.position && <Card.Meta>{experiences.position}</Card.Meta> }

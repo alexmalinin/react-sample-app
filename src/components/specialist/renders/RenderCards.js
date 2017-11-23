@@ -7,18 +7,18 @@ class RenderCards extends Component {
 
     render() {
         const { educations, experiences } = this.props;
-        let normalizedEducations = educations ? educations : []
-        normalizedEducations.sort( (a,b) => {
-            let f = a.id;
-            let s = b.id;
-
-            if(f > s) {
-                return 1
-            } else {
-                return -1
-            }
-
-        });
+        // let normalizedEducations = educations ? educations : []
+        // // normalizedEducations.sort( (a,b) => {
+        // //     let f = a.id;
+        // //     let s = b.id;
+        // //
+        // //     if(f > s) {
+        // //         return 1
+        // //     } else {
+        // //         return -1
+        // //     }
+        // //
+        // // });
 
         return (
             <div className='flex-wrapper'>

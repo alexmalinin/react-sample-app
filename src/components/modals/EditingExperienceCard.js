@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Button, Header, Modal } from 'semantic-ui-react'
 import { S_PointCard }from '../../styleComponents/layout/S_PointCard';
 import { editExperienceCardWithId, editExperienceCardWithOutId } from "../../actions/actions";
-import WorkExperienceForm from "../specialist/forms/EducationForm";
+import WorkExperienceForm from "../specialist/forms/WorkExperienceForm";
 
-class DeletingEducationCard extends Component {
+class EditingExperienceCard extends Component {
 
     state = {
         open: false
@@ -17,9 +17,10 @@ class DeletingEducationCard extends Component {
         const { id, experience } = this.props;
         if (id) {
             this.experienceId = Math.random();
-            education.experienceSuccessId = this.experienceId
+            experience.experienceSuccessId = this.experienceId
+        } else {
+            console.log(experience.experienceSuccessId)
         }
-        console.log(education.educationSuccessId)
 
         return (
             <div>
@@ -30,7 +31,7 @@ class DeletingEducationCard extends Component {
                     </Modal.Header>
                     <Modal.Content >
                         <Modal.Description>
-                            <Header>/ List your formal education here /</Header>
+                            <Header>/ List your formal experience here /</Header>
                             <WorkExperienceForm experience={experience} onSubmit={this.submit}/>
                         </Modal.Description>
                     </Modal.Content>
@@ -53,4 +54,4 @@ class DeletingEducationCard extends Component {
     close = () => this.setState({ open: false });
 }
 
-export default connect(null, {editExperienceCardWithId, editExperienceCardWithOutId})(DeletingEducationCard)
+export default connect(null, {editExperienceCardWithId, editExperienceCardWithOutId})(EditingExperienceCard)

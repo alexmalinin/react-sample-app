@@ -20,7 +20,7 @@ import updateSpecialistAvailability from '../middlewares/updateSpecialistAvailab
 import updateSpecialistInfo         from '../middlewares/updateSpecialistInfoApi';
 import editEducation                from '../middlewares/education/editEducationApi';
 import deleteEducation              from '../middlewares/education/deleteEducationApi';
-import deleteExperience             from '../middlewares/deleteExperienceApi';
+import deleteExperience             from '../middlewares/experience/deleteExperienceApi';
 import updateClientData             from '../middlewares/updateClientDataApi';
 
 const enhancer = applyMiddleware(
@@ -47,7 +47,12 @@ const enhancer = applyMiddleware(
     updateClientData,
 );
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), enhancer);
+let reduxDevTools = process.env.NODE_ENV === 'development'
+                    ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+                    : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(); // before production {}
+
+
+const store = createStore(reducer, reduxDevTools, enhancer);
 
 process.env.NODE_ENV === 'development' ? (window.store = store) : null;
 

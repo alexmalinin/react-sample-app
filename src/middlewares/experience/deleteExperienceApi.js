@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SUCCESS } from '../constans/constans';
+import { SUCCESS } from '../../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {

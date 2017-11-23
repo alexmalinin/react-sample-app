@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change} from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
@@ -8,6 +8,8 @@ import LocationField from '../../forms/renders/LocationField';
 import { Grid } from 'semantic-ui-react';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
+
+let renderError = true;
 
 class WorkExperienceForm extends Component {
 
@@ -77,13 +79,41 @@ class WorkExperienceForm extends Component {
                 </Grid>
             </form>
         )
+    };
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.experience) {
+            if(nextProps.experience.experienceSuccessId) {
+                if (renderError) {
+                    this.fillFields(nextProps.experience);
+                    renderError = false
+                }
+            }
+        }
     }
+
+    fillFields = data => {
+        let { name, position, country, city, degree, description, started_at, finished_at } = data;
+
+        this.props.dispatch(change('WorkExperienceForm', 'name',        name));
+        this.props.dispatch(change('WorkExperienceForm', 'position',    position));
+        this.props.dispatch(change('WorkExperienceForm', 'country',     country));
+        this.props.dispatch(change('WorkExperienceForm', 'city',        city));
+        this.props.dispatch(change('WorkExperienceForm', 'degree',      degree));
+        this.props.dispatch(change('WorkExperienceForm', 'description', description));
+        this.props.dispatch(change('WorkExperienceForm', 'started_at',  started_at));
+        this.props.dispatch(change('WorkExperienceForm', 'finished_at', finished_at));
+    };
 
 
     closeModal = ev => {
         ev.preventDefault();
         let close = document.querySelector('i.close.icon');
         close.click();
+    };
+
+    componentWillUnmount(){
+        renderError = true
     }
 }
 

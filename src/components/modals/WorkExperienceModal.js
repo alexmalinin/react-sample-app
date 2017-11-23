@@ -31,8 +31,8 @@ class WorkExperienceModal extends Component {
     submit = experience => {
         let close = document.querySelector('i.close.icon');
         close.click();
-        let experienceId = Math.random();
-        experience.experienceSuccessId = experienceId
+        experience.experienceSuccessId = Math.random();
+        console.log(experience);
         this.props.workExperience(experience);
     };
 }
