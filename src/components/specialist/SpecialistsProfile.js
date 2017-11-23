@@ -56,7 +56,7 @@ class SpecialistsProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
+        console.log(nextProps);
         if (nextProps.specialistData.successProfileId) {
             console.log('render');
             this.showMessage();

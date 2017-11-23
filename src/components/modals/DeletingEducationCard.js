@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Button, Modal } from 'semantic-ui-react'
-import { S_DeleteCard }from '../../styleComponents/layout/S_DeleteCard';
+import { S_PointCard }from '../../styleComponents/layout/S_PointCard';
 import { deleteEducationCardWithId, deleteEducationCardWithOutId } from "../../actions/actions";
 
 class DeletingEducationCard extends Component {
@@ -14,10 +14,11 @@ class DeletingEducationCard extends Component {
     render() {
         const { open, size } = this.state;
         const { id, education } = this.props;
+        console.log(id)
 
         return (
             <div>
-                <S_DeleteCard color='red' className="remove icon" onClick={this.show('tiny')}/>
+                <S_PointCard color='red' className="remove icon" onClick={this.show('tiny')}/>
                 <Modal size={size} open={open} onClose={this.close}>
                     <Modal.Header>
                         Deleting Your Card

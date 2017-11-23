@@ -27,10 +27,11 @@ class EdicationModal extends Component {
         ev.preventDefault();
     };
 
-    submit = values => {
+    submit = education => {
         let close = document.querySelector('i.close.icon');
         close.click();
-        this.props.education(values);
+        education.educationSuccessId = Math.random();
+        this.props.education(education);
     };
 }
 

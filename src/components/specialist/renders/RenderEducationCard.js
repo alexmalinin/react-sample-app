@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'semantic-ui-react'
 import { StyledEducationCard } from '../../../styleComponents/StyledCard'
 import DeletingEducationCard from "../../modals/DeletingEducationCard";
+import EditingEducationCard from "../../modals/EditingEducationCard";
 
 const RenderEducationCard = ({education}) => {
 
@@ -9,6 +10,7 @@ const RenderEducationCard = ({education}) => {
             <StyledEducationCard>
                 { education &&
                     <Card.Content>
+                        <EditingEducationCard education={education} id={education["id"]}/>
                         <DeletingEducationCard education={education} id={education["id"]}/>
                         {education.name &&
                             <Card.Header>{education.name}</Card.Header>

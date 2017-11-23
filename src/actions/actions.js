@@ -21,6 +21,10 @@ import {
     UPDATE_SPECIALIST_PROFILE,
     UPDATE_SPECIALIST_AVAILABILITY,
     UPDATE_SPECIALIST_INFO,
+    EDIT_EDUCATION_CARD_WITH_ID,
+    EDIT_EDUCATION_CARD_WITHOUT_ID,
+    EDIT_EXPERIENCE_CARD_WITH_ID,
+    EDIT_EXPERIENCE_CARD_WITHOUT_ID,
     DELETE_EDUCATION_CARD_WITH_ID,
     DELETE_EDUCATION_CARD_WITHOUT_ID,
     DELETE_EXPERIENCE_CARD_WITH_ID,
@@ -276,6 +280,29 @@ export function updateSpecialistInfo(data, education, experience) {
     return action;
 }
 
+// edit education data card
+
+export function editEducationCardWithId(data, id) {
+    const action = {
+        type: EDIT_EDUCATION_CARD_WITH_ID,
+        payload: data,
+        editEducationCard1: `${PORT}/api/v1/specialists/`,
+        editEducationCard2: `/educations/${id}`
+    };
+
+    return action;
+}
+
+export function editEducationCardWithOutId(education, id) {
+    const action = {
+        type: EDIT_EDUCATION_CARD_WITHOUT_ID,
+        payload: education,
+        id: id,
+    };
+
+    return action;
+}
+
 // delete education data card
 
 export function deleteEducationCardWithId(id) {
@@ -296,6 +323,28 @@ export function deleteEducationCardWithOutId(education) {
 
     return action;
 }
+
+// edit work experience data card
+
+export function editExperienceCardWithId(id) {
+    const action = {
+        type: EDIT_EXPERIENCE_CARD_WITH_ID,
+        deleteExperienceCard1: `${PORT}/api/v1/specialists/`,
+        deleteExperienceCard2: `/experiences/${id}`
+    };
+
+    return action;
+}
+
+export function editExperienceCardWithOutId(experience) {
+    const action = {
+        type: EDIT_EXPERIENCE_CARD_WITHOUT_ID,
+        payload: experience,
+    };
+
+    return action;
+}
+
 
 // delete work experience data card
 

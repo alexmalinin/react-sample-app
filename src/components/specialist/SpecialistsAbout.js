@@ -15,6 +15,10 @@ import { PORT } from "../../constans/constans";
 
 class SpecialistsAbout extends Component {
 
+    // state = {
+    //     rerender: false,
+    // };
+
     componentWillMount() {
         this.props.showSpecialistData();
     }
@@ -125,6 +129,23 @@ class SpecialistsAbout extends Component {
             </div>
         )
     }
+
+    // shouldComponentUpdate() {
+    //     return true
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.specialistData) {
+    //         console.log('----update')
+    //         this.showMessage()
+    //     }
+    // }
+    //
+    // showMessage = () => {
+    //     this.setState({
+    //         rerender: !this.state.rerender,
+    //     });
+    // };
 }
 
 export default connect(({specialistData}) => ({specialistData}), {showSpecialistData})(SpecialistsAbout);

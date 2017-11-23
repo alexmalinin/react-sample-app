@@ -7,7 +7,7 @@ import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import EmailField from '../forms/renders/EmailField';
 import { Message } from 'semantic-ui-react';
-import { S_DeleteCard } from "../../styleComponents/layout/S_DeleteCard";
+import { S_DeleteCard } from "../../styleComponents/layout/S_PointCard";
 
 
 class SignInForm extends Component {

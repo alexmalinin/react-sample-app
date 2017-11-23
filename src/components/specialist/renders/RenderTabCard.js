@@ -13,9 +13,7 @@ class RenderTabCard extends Component {
         const { context, work, education } = this.props;
         const { isOpen } = this.state;
 
-        console.log(education);
         let data = context === 'work' ? work : education;
-        console.log('data', data);
 
         const color = {
             purple: '#8f1ae5',

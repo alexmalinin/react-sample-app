@@ -21,7 +21,9 @@ export default styled.div`
             
             img {
                 border-radius: 50%;
-                      border: 9px solid #fff;
+                border: 9px solid #fff;
+                max-width: 300px;
+                max-height: 300px;
             }
         }
         
