@@ -19,6 +19,7 @@ import updateSpecialistProfile      from '../middlewares/updateSpecialistProfile
 import updateSpecialistAvailability from '../middlewares/updateSpecialistAvailabilityApi';
 import updateSpecialistInfo         from '../middlewares/updateSpecialistInfoApi';
 import editEducation                from '../middlewares/education/editEducationApi';
+import editExperience               from '../middlewares/experience/editExperienceApi';
 import deleteEducation              from '../middlewares/education/deleteEducationApi';
 import deleteExperience             from '../middlewares/experience/deleteExperienceApi';
 import updateClientData             from '../middlewares/updateClientDataApi';
@@ -42,6 +43,7 @@ const enhancer = applyMiddleware(
     updateSpecialistAvailability,
     updateSpecialistInfo,
     editEducation,
+    editExperience,
     deleteEducation,
     deleteExperience,
     updateClientData,

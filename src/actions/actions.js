@@ -303,6 +303,29 @@ export function editEducationCardWithOutId(education, id) {
     return action;
 }
 
+// edit work experience data card
+
+export function editExperienceCardWithId(experience, id) {
+    const action = {
+        type: EDIT_EXPERIENCE_CARD_WITH_ID,
+        payload: experience,
+        editExperienceCard1: `${PORT}/api/v1/specialists/`,
+        editExperienceCard2: `/experiences/${id}`
+    };
+
+    return action;
+}
+
+export function editExperienceCardWithOutId(experience, id) {
+    const action = {
+        type: EDIT_EXPERIENCE_CARD_WITHOUT_ID,
+        id: id,
+        payload: experience,
+    };
+
+    return action;
+}
+
 // delete education data card
 
 export function deleteEducationCardWithId(id) {
@@ -319,27 +342,6 @@ export function deleteEducationCardWithOutId(education) {
     const action = {
         type: DELETE_EDUCATION_CARD_WITHOUT_ID,
         payload: education,
-    };
-
-    return action;
-}
-
-// edit work experience data card
-
-export function editExperienceCardWithId(id) {
-    const action = {
-        type: EDIT_EXPERIENCE_CARD_WITH_ID,
-        deleteExperienceCard1: `${PORT}/api/v1/specialists/`,
-        deleteExperienceCard2: `/experiences/${id}`
-    };
-
-    return action;
-}
-
-export function editExperienceCardWithOutId(experience) {
-    const action = {
-        type: EDIT_EXPERIENCE_CARD_WITHOUT_ID,
-        payload: experience,
     };
 
     return action;
