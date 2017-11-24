@@ -17,10 +17,15 @@ class Header extends Component {
                         <img src='/images/logo_basic.png'/>
                     </a>
 
-                    <NavLink className='button' to='/sign_up'>sign up</NavLink>
+                    <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink>
                 </ContainerLarge>
             </StyledHeaderBasic>
         )
+    }
+
+    logOut = () => {
+        localStorage.clear();
+        window.location.reload();
     }
 }
 
