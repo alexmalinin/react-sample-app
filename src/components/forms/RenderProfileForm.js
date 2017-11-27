@@ -43,14 +43,6 @@ class RenderProfileForm  extends Component {
                     placeholder="Email /"
                 />
 
-                <Field
-                    component={RenderField}
-                    name="password"
-                    placeholder="Password /"
-                    type="password"
-                    validate={[required]}
-                />
-
                 <DvButton type="submit"
                           disabled={submitting}
                           content='SAVE & UPDATE'

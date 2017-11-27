@@ -13,9 +13,6 @@ export default store => next => action => {
         method: 'put',
         url: updateClientProfile1 + id + updateClientProfile2,
         data: {
-            "customer": {
-                "password": payload['password']
-            },
             "profile": {
                 "first_name": payload['first_name'],
                 "last_name": payload['last_name'],

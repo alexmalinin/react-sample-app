@@ -75,7 +75,6 @@ class SpecialistsProfile extends Component {
         this.setState({
             renderMessage: true,
         });
-        document.getElementsByName('account')[0].childNodes[4].childNodes[0].childNodes[0].value = ''
     };
 
     submit = values => {

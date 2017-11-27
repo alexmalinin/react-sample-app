@@ -15,9 +15,6 @@ export default store => next => action => {
         method: 'put',
         url: updateSpecialistProfile1 + id + updateSpecialistProfile2,
         data: {
-            "specialist": {
-                "password": payload['password']
-            },
             "profile": {
                 "first_name": payload['first_name'],
                 "last_name": payload['last_name'],
