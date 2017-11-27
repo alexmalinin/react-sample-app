@@ -24,7 +24,7 @@ class SignInForm extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting } = this.props;
+        const { handleSubmit, submitting, user } = this.props;
         const { visibleError } = this.state;
 
         return (
@@ -49,7 +49,7 @@ class SignInForm extends Component {
                     validate={[required, minLength8]}
                 />
                 <StyledFormHint>
-                    <Link to="/forgot_password">I've forgotten password</Link>
+                    <Link onClick={this.handleReset(user)} to="/forgot_password">I've forgotten password</Link>
                 </StyledFormHint>
 
                 <DvButtonForm
@@ -60,6 +60,10 @@ class SignInForm extends Component {
                 />
             </form>
         )
+    };
+
+    handleReset = (user) => () => {
+        sessionStorage.setItem('user', user)
     };
 
     renderError = visible => () => {

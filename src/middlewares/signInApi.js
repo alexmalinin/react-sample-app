@@ -22,7 +22,7 @@ export default store => next => action => {
     }).then(function (response) {
         localStorage.setItem('jwt_token', response.data["jwt"]);
         console.log('login', response);
-        return next({ ...rest, type: type + SUCCESS, data: response.data, firstLogin : firstLogin });
+        return next({ ...rest, type: type + SUCCESS, data: response.data, firstLogin: firstLogin });
     })
     .catch(function (error) {
         console.log(error);

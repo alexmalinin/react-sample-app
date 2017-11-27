@@ -20,13 +20,14 @@ class SignUp extends Component {
 
     render() {
         const { signInReducer, changeUserType } = this.props;
-        let { failSignIn, data } = signInReducer || false;
+        let { failSignIn, Loading } = signInReducer || false;
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         let confirm = signInReducer;
         const panes = [
             { menuItem: 'Specialist', render: () =>
                 <StyledSignUpForm attached={ false }>
                     <SignInForm
+                        user="specialists"
                         email={ this.userEmail }
                         failSignIn={ failSignIn }
                         onSubmit={ this.submit }
@@ -36,6 +37,7 @@ class SignUp extends Component {
             { menuItem: 'Client', render: () =>
                 <StyledSignUpForm attached={ false }>
                     <SignInForm
+                        user="customers"
                         email={ this.userEmail }
                         failSignIn={ failSignIn }
                         onSubmit={this.submit}
@@ -57,14 +59,19 @@ class SignUp extends Component {
                                     in/
                                 </DvTitleBig>
                             </Grid.Column>
-                            <Grid.Column mobile={16} tablet={9} computer={8}>
-                                <Tabs mTop='180' action=''>
-                                    <Tab
+                            <Grid.Column mobile={16} tablet={9} computer={8} className="perspective">
+                                <Tabs mTop='180' action='' className="relative">
+                                    <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
                                         menu={{ text: true }}
                                         panes={panes}
                                         activeIndex={activeIndex}
                                         onTabChange={this.handleTabChange}
                                     />
+                                    <div className={Loading ? 'loading frame-load frame': 'frame loading frame-loading'}>
+                                        <div>
+                                            <img src='/images/preloader.gif'/>
+                                        </div>
+                                    </div>
                                 </Tabs>
                                 { confirm &&  this.loginRedirect()}
                                 <StyledFormHint>

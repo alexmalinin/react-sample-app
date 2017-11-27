@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Grid } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
 import { DvTitleMedium } from '../../styleComponents/layout/DvTitles';
 import ForgotPasswordForm from './ForgotPasswordForm';
 import { Container } from "../../styleComponents/layout/Container";
+import { getTokenForResetPassword } from '../../actions/actions';
 
 class ForgotPassword extends Component {
 
@@ -35,9 +37,10 @@ class ForgotPassword extends Component {
         )
     }
 
-    submit = (values) => {
-        console.log(values);
+    submit = (email) => {
+        let user = sessionStorage.getItem('user')
+        this.props.getTokenForResetPassword(email, user);
     }
 }
 
-export default ForgotPassword
+export default connect(null, {getTokenForResetPassword})(ForgotPassword)

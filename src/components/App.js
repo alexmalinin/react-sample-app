@@ -9,8 +9,9 @@ import PostProject from './PostProject/PostProject';
 import OverviewPostedProject from './OverviewPostedProject';
 import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
-import ForgotPassword from './ForgotPassword/ForgotPassword';
+import ForgotPassword from './ResetPassword/ForgotPassword';
 import Verification from './Verification/Verification';
+import ResetPage from './ResetPassword/ResetPage';
 import ConfirmEmail from './ConfirmEmail';
 import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
 import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
@@ -66,6 +67,7 @@ class App extends Component {
                                     <Route path='/forgot_password' component={ ForgotPassword }/>
                                     <Route path='/sign_up' component={ SignUp }/>
                                     { this.renderToken() }
+                                    { this.resetPassword() }
                                     <Route path='/confirm_email' component={ ConfirmEmail }/>
 
                                     { /*( render_step1 || render_this_step1 ) &&*/
@@ -105,6 +107,12 @@ class App extends Component {
                 </div>
             </Router>
         );
+    }
+
+    resetPassword = () => {
+        return <Route key='' path='/api/v1/:user/password_reset/:token'
+                   render={ props => <ResetPage {...props}/> }
+                />
     }
 
     renderToken = () => {

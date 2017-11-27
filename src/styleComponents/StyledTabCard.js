@@ -7,7 +7,7 @@ export const RenderWorkCard = styled.div`
     border: 2px solid #808080;
     ${props => props.border ? `border-top: 10px solid ${props.border}` : `border-top: 10px solid #1991fa`};
     max-width: 1240px;
-    margin: 0 auto;
+    margin: 0 auto 45px;
     line-height: 1;
     
     

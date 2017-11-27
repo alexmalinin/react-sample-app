@@ -5,6 +5,8 @@ import {
     SIGN_UP_STEP_1,
     CHANGE_USER_TYPE,
     SIGN_IN,
+    GET_TOKEN_FOR_RESET_PASSWORD,
+    GET_PASSWORDS_FOR_RESET_PASSWORD,
     VERIFICATION,
     DELETE_CONFIRMATION_TOKEN,
     GET_USER_ID,
@@ -91,6 +93,29 @@ export function postSignUpData(user, data) {
 
     return action;
 }
+
+// Forgot Password action
+
+export function getTokenForResetPassword(email, user) {
+    const action = {
+        type: GET_TOKEN_FOR_RESET_PASSWORD,
+        payload: email,
+        getTokenForResetPassword: `${PORT}/api/v1/${user}/password_request`
+    };
+
+    return action;
+}
+
+export function getPasswordsForResetPassword(passwords, user, token) {
+    const action = {
+        type: GET_PASSWORDS_FOR_RESET_PASSWORD,
+        payload: passwords,
+        getPasswordsForResetPassword: `${PORT}/api/v1/${user}/password_reset/${token}`
+    }
+
+    return action;
+}
+
 
 // Get User Id by confirmation token
 

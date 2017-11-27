@@ -104,7 +104,7 @@ class InfoForm extends Component {
                                     <Field
                                         name="project_type"
                                         component={RenderSelect}
-                                        placeholder="You can select more than one"
+                                        placeholder="You can select only one"
                                         options={projectTypes}
                                         validate={[required]}
                                     />
