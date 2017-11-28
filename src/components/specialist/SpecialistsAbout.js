@@ -78,8 +78,7 @@ class SpecialistsAbout extends Component {
                             <p>{specialistData ? specialistData["industry_title"] : null}</p>
 
                             <div className='profile-image'>
-                                {avatar ? <img src={PORT + avatar.url} alt=''/>
-                                        : <img src= '/images/undefUser.png' alt=''/>}
+                                <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt=''/>
                             </div>
 
                             <div className='flex-between'>

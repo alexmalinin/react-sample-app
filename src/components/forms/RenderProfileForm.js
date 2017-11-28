@@ -82,6 +82,7 @@ class RenderProfileForm  extends Component {
         this.props.dispatch(change('RenderProfileForm', 'email',        email));
         this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
         this.props.dispatch(change('RenderProfileForm', 'phone_number', +phone_number));
+        document.querySelector('input[type=email]').setAttribute('disabled', true);
     }
 };
 

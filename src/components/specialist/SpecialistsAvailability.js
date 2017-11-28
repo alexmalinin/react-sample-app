@@ -14,6 +14,7 @@ class SpecialistsAvailability extends Component {
 
     state = {
         renderMessage: false,
+        renderErrorMessage: false,
     };
 
     componentWillMount() {
@@ -21,7 +22,7 @@ class SpecialistsAvailability extends Component {
     }
 
     render() {
-        const { renderMessage } = this.state;
+        const { renderMessage, renderErrorMessage } = this.state;
 
         return (
             <div>
@@ -37,6 +38,10 @@ class SpecialistsAvailability extends Component {
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
                     </S_Message>
+                    <S_Message negative data-show={renderErrorMessage}>
+                        <Message.Header>Error!</Message.Header>
+                        <p>Something went wrong, please try again</p>
+                    </S_Message>
                     <DvTitleSmall>Availability</DvTitleSmall>
                     <SpecialistAvailabilityForm onSubmit={this.submit}/>
                 </Container>
@@ -46,22 +51,30 @@ class SpecialistsAvailability extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData.successAvailabilityId) {
+            this.showMessage('success');
+            run(0)();
+        } else if (nextProps.specialistData.errorAvailabilityId) {
             this.showMessage();
             run(0)();
         }
     }
 
-    showMessage = () => {
+    showMessage = status => {
         setTimeout( () => {
                 return this.setState({
                     renderMessage: false,
+                    renderErrorMessage: false,
                 })
             }, 2000
         );
 
-        this.setState({
-            renderMessage: true,
-        });
+        status === 'success'
+            ? this.setState({
+                renderMessage: true,
+            })
+            : this.setState({
+                renderErrorMessage: true,
+            })
     };
 
     submit = values => {

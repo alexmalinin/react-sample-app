@@ -14,6 +14,7 @@ class SpecialistIndustry extends Component {
 
     state = {
         renderMessage: false,
+        renderErrorMessage: false
     };
 
     componentWillMount() {
@@ -22,7 +23,7 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
-        const { renderMessage } = this.state;
+        const { renderMessage, renderErrorMessage } = this.state;
         const { specialistData, projectTypes, educations, experiences } = this.props;
 
         return (
@@ -39,6 +40,10 @@ class SpecialistIndustry extends Component {
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
                     </S_Message>
+                    <S_Message negative data-show={renderErrorMessage}>
+                        <Message.Header>Error!</Message.Header>
+                        <p>Something went wrong, please try again</p>
+                    </S_Message>
                     <DvTitleSmall>Info</DvTitleSmall>
                     <SpecialistInfoForm educations={educations} experiences={experiences} projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
                 </Container>
@@ -50,23 +55,30 @@ class SpecialistIndustry extends Component {
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successInfoId) {
                 console.log('ID', nextProps.specialistData.successInfoId);
-                run(0, 10)();
-                this.showMessage()
+                run(0, 6)();
+                this.showMessage('success')
+            } else if(nextProps.specialistData.errorInfoId) {
+                this.showMessage();
+                run(0, 6)();
             }
         }
     }
 
-    showMessage = () => {
+    showMessage = status => {
         setTimeout( () => {
                 return this.setState({
                     renderMessage: false,
+                    renderErrorMessage: false,
                 })
-            }, 2000
+            }, 3700
         );
-
-        this.setState({
-            renderMessage: true,
-        });
+        status === 'success'
+            ? this.setState({
+                renderMessage: true,
+                })
+            : this.setState({
+                renderErrorMessage: true,
+            })
     };
 
     submit = values => {

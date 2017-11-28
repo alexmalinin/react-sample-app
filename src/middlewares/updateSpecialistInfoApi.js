@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SUCCESS } from '../constans/constans';
+import { SUCCESS, FAIL } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
@@ -38,14 +38,15 @@ export default store => next => action => {
                 }
 
             }).then(function (response) {
-                console.log('yo', response);
                 let data = response.data;
-                data.successInfoId = Date.now();
+                data.successInfoId = Math.random();
                 return next({ ...rest, type: type + SUCCESS, data: data });
 
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function () {
+                let data = {};
+                data.errorInfoId = Math.random();
+                return next({ ...rest, type: type + FAIL, data: data });
             });
         }
     } else {
@@ -75,7 +76,9 @@ export default store => next => action => {
 
         })
         .catch(function (error) {
-            console.log(error);
+            let data = {};
+            data.errorInfoId = Math.random();
+            return next({ ...rest, type: type + FAIL, data: data });
         });
     }
 };

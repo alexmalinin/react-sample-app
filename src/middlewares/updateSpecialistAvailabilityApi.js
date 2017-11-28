@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { SUCCESS } from '../constans/constans';
+import { SUCCESS, FAIL } from '../constans/constans';
 
 export default store => next => action => {
     const { type, updateSpecialistAvailability1, updateSpecialistAvailability2, payload, ...rest } = action;
@@ -21,10 +21,12 @@ export default store => next => action => {
         }
     }).then(function (response) {
         let data = response.data;
-        data.successAvailabilityId = Date.now();
+        data.successAvailabilityId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });
     })
-    .catch(function (error) {
-        console.log(error);
+    .catch(function () {
+        let data = {};
+        data.errorAvailabilityId = Math.random();
+        return next({ ...rest, type: type + FAIL, data: data });
     });
 };
