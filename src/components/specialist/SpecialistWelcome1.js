@@ -6,7 +6,7 @@ import DvGrid from '../../styleComponents/layout/DvGrid';
 import confirm from '../../decorators/confirm';
 import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
 import { Container }from '../../styleComponents/layout/Container';
-import { getIndustries, updateSpecStep1 } from '../../actions/actions'
+import { getIndustries, updateSpecStep1 } from '../../actions/actions';
 
 class SpecialistsWelcome1 extends Component {
 

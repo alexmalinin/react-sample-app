@@ -7,12 +7,13 @@ export const run = element => {
     } else {
         to = 0;
     }
-    return function() {
+    return function(animation) { //boolean
         let point;
         let clear;
+        if (animation) return window.scrollTo(0, to); // without animation;
 
         if (current < to) {
-            point = 5
+            point = 5;
             clear = function(from, to) {
                 if (from > to) {
                     clearTimeout(timer)

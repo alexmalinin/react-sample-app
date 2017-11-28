@@ -8,7 +8,8 @@ import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
 import { updateSpecStep2, getProjectTypes } from '../../actions/actions'
-import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2'
+import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2';
+import { run } from '../../helpers/scrollToElement';
 
 class SpecialistsWelcome2 extends Component {
 
@@ -16,7 +17,8 @@ class SpecialistsWelcome2 extends Component {
     componentWillMount() {
         sessionStorage.removeItem('spec_step1');
         sessionStorage.setItem('spec_step2', true);
-        this.props.getProjectTypes()
+        this.props.getProjectTypes();
+        run(0)(true);
     }
 
 
