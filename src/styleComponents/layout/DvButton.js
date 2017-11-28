@@ -57,7 +57,7 @@ export const NewTeamBtn = styled.div`
     margin-top: 100px;
     text-align: center;
     
-    button {
+    a {
         display: inline-block;
         width: 120px;
         height: 120px;
@@ -84,6 +84,7 @@ export const NewTeamBtn = styled.div`
             height: 2px;
             background: #808080;
             left: 9px;
+            top: 49%;
             transition: all .2s ease-in-out
         }
         
@@ -120,7 +121,7 @@ export const NewTeamBtn = styled.div`
         max-width: 1275px;
         margin-top: 50px;
         
-        button {
+        a {
             width: 80px;
             height: 80px;
             border: 1px solid #808080;
