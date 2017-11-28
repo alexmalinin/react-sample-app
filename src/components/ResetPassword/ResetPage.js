@@ -7,7 +7,7 @@ import DvForm from '../../styleComponents/Tabs';
 import confirm from '../../decorators/confirm';
 import VerificationForm from '../Verification/VerificationForm';
 import { Container } from '../../styleComponents/layout/Container';
-import { getPasswordsForResetPassword, userType, deleteConfirmationToken} from '../../actions/actions';
+import { getPasswordsForResetPassword, userType } from '../../actions/actions';
 
 class ResetPage extends Component {
 
@@ -19,7 +19,6 @@ class ResetPage extends Component {
 
     render() {
         const { confirm, confirmAccount, signInReducer } = this.props;
-        console.log('signInReducer', signInReducer)
         return (
             <main>
                 <HeaderIntro/>
@@ -50,12 +49,11 @@ class ResetPage extends Component {
     };
 
     submit = passwords => {
-        // localStorage.setItem('userId', UserId);
         this.props.getPasswordsForResetPassword(passwords, this.user, this.token);
     };
 
     componentWillUnmount() {
-        // this.props.deleteConfirmationToken(this.user, this.token);
+        // this.props.deleteConfirmationToken(this.user, this.token); // need to do later
     }
 
 }
@@ -63,6 +61,5 @@ class ResetPage extends Component {
 export default connect(({ signInReducer }) => ({ signInReducer }),
     {
         userType,
-        deleteConfirmationToken,
         getPasswordsForResetPassword,
     })(confirm(ResetPage));

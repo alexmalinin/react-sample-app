@@ -22,13 +22,13 @@ export default store => next => action => {
                 url: updateSpecialistInfo + id,
                 data: {
                     "specialist": {
-                        "avatar": reader.result,
-                        "professional_experience_info": payload["professional_experience_info"],
-                        "hourly_rate": payload["hourly_rate"],
-                        "daily_rate": payload["daily_rate"],
-                        "educations_attributes": education,
-                        "work_experiences_attributes": experience,
-                        "project_type_id": payload["project_type"]["value"]
+                        "avatar"                        : reader.result,
+                        "professional_experience_info"  : payload["professional_experience_info"],
+                        "hourly_rate"                   : payload["hourly_rate"],
+                        "daily_rate"                    : payload["daily_rate"],
+                        "educations_attributes"         : education,
+                        "work_experiences_attributes"   : experience,
+                        "project_type_id"               : payload["project_type"]["value"]
                     }
 
                 },
@@ -54,12 +54,12 @@ export default store => next => action => {
             url: updateSpecialistInfo + id,
             data: {
                 "specialist": {
-                    "professional_experience_info": payload["professional_experience_info"],
-                    "hourly_rate": payload["hourly_rate"],
-                    "daily_rate": payload["daily_rate"],
-                    "educations_attributes": education,
-                    "work_experiences_attributes": experience,
-                    "project_type_id": payload["project_type"]["value"]
+                    "professional_experience_info"  : payload["professional_experience_info"],
+                    "hourly_rate"                   : payload["hourly_rate"],
+                    "daily_rate"                    : payload["daily_rate"],
+                    "educations_attributes"         : education,
+                    "work_experiences_attributes"   : experience,
+                    "project_type_id"               : payload["project_type"]["value"]
                 }
 
             },

@@ -12,6 +12,7 @@ import SignIn from './SignIn/SignIn';
 import ForgotPassword from './ResetPassword/ForgotPassword';
 import Verification from './Verification/Verification';
 import ResetPage from './ResetPassword/ResetPage';
+import ConfirmReset from './ResetPassword/ConfirmReset';
 import ConfirmEmail from './ConfirmEmail';
 import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
 import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
@@ -69,6 +70,7 @@ class App extends Component {
                                     { this.renderToken() }
                                     { this.resetPassword() }
                                     <Route path='/confirm_email' component={ ConfirmEmail }/>
+                                    <Route path='/reset_password' component={ ConfirmReset }/>
 
                                     { /*( render_step1 || render_this_step1 ) &&*/
                                         <Route
