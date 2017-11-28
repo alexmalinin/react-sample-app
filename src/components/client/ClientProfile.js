@@ -6,6 +6,7 @@ import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'
 import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
+import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { showClientData, updateClientProfile } from '../../actions/actions';
 import { S_Message } from '../../styleComponents/layout/S_Message';
@@ -56,6 +57,10 @@ class ClientProfile extends Component {
                                 <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
                                 <RenderProfileForm onSubmit={this.submit}/>
                             </Grid.Column>
+                            <Grid.Column mobile={16} computer={8}>
+                                <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
+                                <RenderResetPasswordForm onSubmit={this.submitReset}/>
+                            </Grid.Column>
                         </Grid.Row>
                     </Grid>
                 </Container>
@@ -94,6 +99,10 @@ class ClientProfile extends Component {
     submit = values => {
         this.props.updateClientProfile(values);
     };
+
+    submitReset = passwords => {
+        console.log(passwords)
+    }
 }
 
 export default connect(({clientData}) => ({clientData}), {showClientData, updateClientProfile})(ClientProfile);

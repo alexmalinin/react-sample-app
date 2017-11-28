@@ -1,0 +1,95 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import {Field, reduxForm, change} from 'redux-form';
+import {required} from '../../helpers/validate';
+import { DvButton } from '../../styleComponents/layout/DvButton'
+import InputField from './renders/InputField';
+import {RenderField} from './renders/RenderField';
+import EmailField from './renders/EmailField';
+import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField';
+import RenderPhone from './renders/RenderPhone';
+
+// window.change = change;
+
+// let renderErrorSpec   = true;
+// let renderErrorClient = true;
+
+class RenderResetPasswordForm  extends Component {
+
+    render() {
+
+        const { handleSubmit, submitting, clientData, specialistData } = this.props;
+        // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
+
+        return (
+            <form name='reset_password' onSubmit={handleSubmit}>
+                <Field
+                    component={RenderField}
+                    name='password'
+                    placeholder='Password /'
+                    type='password'
+
+                />
+                <Field
+                    component={RenderField}
+                    name='password_confirmation'
+                    placeholder='Confirm password /'
+                    type='password'
+                />
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <DvButton type="submit"
+                          disabled={submitting}
+                          content='SAVE & UPDATE'
+                          primary
+                />
+            </form>
+        )
+    }
+
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.anyTouched) {
+    //         return false
+    //     } else {
+    //         return true
+    //     }
+    // }
+    //
+    // componentWillUpdate(nextProps) {
+    //     if (nextProps.clientData) {
+    //         // if (renderErrorSpec) {
+    //             this.fillFields(nextProps.clientData);
+    //             // renderErrorSpec = false;
+    //         // }
+    //     } else if (nextProps.specialistData) {
+    //         // if (renderErrorClient) {
+    //             this.fillFields(nextProps.specialistData);
+    //             // renderErrorClient = false;
+    //         // }
+    //     }
+    // }
+    //
+    //
+    // fillFields = data => {
+    //     let { first_name, last_name, email, address, phone_code, phone_number, clearPassword } = data;
+    //     this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
+    //     this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
+    //     this.props.dispatch(change('RenderProfileForm', 'email',        email));
+    //     this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
+    //     this.props.dispatch(change('RenderProfileForm', 'phone_number', +phone_number));
+    // }
+};
+
+RenderResetPasswordForm = reduxForm({
+    form: 'RenderResetPasswordForm'
+})(RenderResetPasswordForm);
+
+export default RenderResetPasswordForm;
+// export default connect( ({clientData, specialistData}) => ({clientData, specialistData}))(RenderProfileForm);
