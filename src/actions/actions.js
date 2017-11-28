@@ -8,6 +8,7 @@ import {
     GET_TOKEN_FOR_RESET_PASSWORD,
     GET_PASSWORDS_FOR_RESET_PASSWORD,
     VERIFICATION,
+    CHANGE_PASSWORD,
     DELETE_CONFIRMATION_TOKEN,
     GET_USER_ID,
     WELCOME_CLIENT,
@@ -119,7 +120,7 @@ export function getPasswordsForResetPassword(passwords, user, token) {
 
 // Get User Id by confirmation token
 
-export function getUserId (user, token) {
+export function getUserId(user, token) {
     const action = {
         type: GET_USER_ID,
         user,
@@ -131,7 +132,7 @@ export function getUserId (user, token) {
 
 // Client and Specialist get request to API for deleting confirmation token
 
-export function deleteConfirmationToken (user, token) {
+export function deleteConfirmationToken(user, token) {
     const action = {
         type: DELETE_CONFIRMATION_TOKEN,
         deleteConfirmationToken: `${PORT}/api/v1/${user}/confirmation/${token}`,
@@ -142,7 +143,7 @@ export function deleteConfirmationToken (user, token) {
 
 // Client and Specialist Verification
 
-export function verifyPassword (user, id, data) {
+export function verifyPassword(user, id, data) {
     const action = {
         type: VERIFICATION,
         user,
@@ -153,9 +154,23 @@ export function verifyPassword (user, id, data) {
     return action;
 }
 
+// Client and Specialist change password
+
+export function changePassword(data, user) {
+    const action = {
+        type: CHANGE_PASSWORD,
+        payload: data,
+        user,
+        changePassword1: `${PORT}/api/v1/${user + 's'}/`,
+        changePassword2: '/dashboard/password',
+    };
+
+    return action;
+}
+
 // Client Welcome
 
-export function welcomeClient (data) {
+export function welcomeClient(data) {
     const action = {
         type: WELCOME_CLIENT,
         payload: data,
@@ -167,7 +182,7 @@ export function welcomeClient (data) {
 
 // education action
 
-export function education (data) {
+export function education(data) {
     const action = {
         type: EDUCATION,
         payload: data,
@@ -178,7 +193,7 @@ export function education (data) {
 
 // workExperience action
 
-export function workExperience (data) {
+export function workExperience(data) {
     const action = {
         type: WORK_EXPERIENCE,
         payload: data,

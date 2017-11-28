@@ -14,7 +14,6 @@ export default store => next => action => {
         method: 'get',
         url: showClientData + id
     }).then(function (response) {
-        console.log(response);
         return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .catch(function (error) {

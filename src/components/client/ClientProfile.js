@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {change} from 'redux-form';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'
@@ -8,7 +7,7 @@ import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
 import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { showClientData, updateClientProfile } from '../../actions/actions';
+import { showClientData, updateClientProfile, changePassword } from '../../actions/actions';
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
@@ -19,7 +18,6 @@ class ClientProfile extends Component {
         renderMessage: false,
         renderErrorMessage: false,
     };
-
 
     componentWillMount() {
         localStorage.removeItem('user_email');
@@ -33,7 +31,6 @@ class ClientProfile extends Component {
         return (
             <div>
                 <HeaderBasic/>
-
                 <ContainerLarge>
                     <DvTitle mTop="80">
                         Welcome to The Village!
@@ -58,11 +55,10 @@ class ClientProfile extends Component {
                                 <RenderProfileForm onSubmit={this.submit}/>
                             </Grid.Column>
                         </Grid.Row>
-
                         <Grid.Row>
                             <Grid.Column mobile={16} tablet={12} computer={8}>
                                 <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
-                                <RenderResetPasswordForm onSubmit={this.submitReset}/>
+                                <RenderResetPasswordForm user="customer"/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -72,13 +68,26 @@ class ClientProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.clientData.successProfileId) {
+        let client = nextProps.clientData;
+        let password = nextProps.confirmPassword;
+
+        if (client.successProfileId) {
             this.showMessage('success');
             run(0)();
-        } else if(nextProps.clientData.errorProfileId) {
+        } else if(client.errorProfileId) {
             this.showMessage();
             run(0)();
+        } else if(password) {
+            if (password.successPasswordId) {
+                this.showMessage('success');
+                run(0)();
+            } else if (password.errorPasswordId) {
+                this.showMessage();
+                run(0)();
+            }
         }
+
+        console.log(nextProps)
     }
 
     showMessage = status => {
@@ -103,9 +112,6 @@ class ClientProfile extends Component {
         this.props.updateClientProfile(values);
     };
 
-    submitReset = passwords => {
-        console.log(passwords)
-    }
 }
 
-export default connect(({clientData}) => ({clientData}), {showClientData, updateClientProfile})(ClientProfile);
+export default connect(({clientData, confirmPassword}) => ({clientData, confirmPassword}), {showClientData, updateClientProfile })(ClientProfile);

@@ -6,9 +6,10 @@ import signUp                       from '../middlewares/signUpApi';
 import getUserIdByTokenConfirmation from '../middlewares/getUserIdByTokenConfirmationApi';
 import deleteConfirmationToken      from '../middlewares/deleteConfirmationTokenApi';
 import verification                 from '../middlewares/verificationApi';
+import changePassword               from '../middlewares/passwords/changePasswordApi';
 import signIn                       from '../middlewares/signInApi';
-import getEmailForResetPassword     from '../middlewares/resetPassword/getEmailForResetPasswordApi';
-import getPasswordsForResetPassword from '../middlewares/resetPassword/getPasswordsForResetPasswordApi';
+import getEmailForResetPassword     from '../middlewares/passwords/getEmailForResetPasswordApi';
+import getPasswordsForResetPassword from '../middlewares/passwords/getPasswordsForResetPasswordApi';
 import welcomeClient                from '../middlewares/welcomeClientApi';
 import getIndustires                from '../middlewares/getIndustiresApi';
 import getProjectTypes              from '../middlewares/getProjectTypesApi';
@@ -31,6 +32,7 @@ const enhancer = applyMiddleware(
     signUp,
     getUserIdByTokenConfirmation,
     verification,
+    changePassword,
     deleteConfirmationToken,
     signIn,
     getEmailForResetPassword,

@@ -10,6 +10,7 @@ export const CHANGE_USER_TYPE                  = 'CHANGE_USER_TYPE';
 export const SIGN_IN                           = 'SIGN_IN';
 export const GET_USER_ID                       = 'GET_USER_ID';
 export const VERIFICATION                      = 'VERIFICATION';
+export const CHANGE_PASSWORD                   = 'CHANGE_PASSWORD';
 export const CONFIRM_PASSWORDS                 = 'CONFIRM_PASSWORDS';
 export const DELETE_CONFIRMATION_TOKEN         = 'DELETE_CONFIRMATION_TOKEN';
 export const GET_TOKEN_FOR_RESET_PASSWORD      = 'GET_TOKEN_FOR_RESET_PASSWORD';
