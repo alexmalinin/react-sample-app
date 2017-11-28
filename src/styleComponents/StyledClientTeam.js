@@ -49,4 +49,14 @@ export default styled.div`
             font-size: 48px;
         }
     }
+    
+    @media (max-width: 1200px) {
+      .flex-wrapper {
+        justify-content: center;
+        
+        & > div {
+                margin: 40px 15px 0 15px;
+            }
+      }
+    }
 `;

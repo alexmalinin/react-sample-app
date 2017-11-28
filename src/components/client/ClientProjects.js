@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import HeaderBasic from '../layout/HeaderBasic';
+import { NavLink } from 'react-router-dom'
 import SubHeader from '../layout/ClientSubHeader';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import { Grid } from 'semantic-ui-react';
-import { ContainerLarge } from '../../styleComponents/layout/Container'
+import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 import RenderProjectCard from './renders/RenderProjectCard';
-import { NewTeamBtn } from '../../styleComponents/layout/DvButton';
+import {NewTeamBtn} from '../../styleComponents/layout/DvButton';
+import StyledClientTeam from '../../styleComponents/StyledClientTeam';
+import Navbar from "../layout/Navbar";
 
 class ClientProfile extends Component {
 
     render() {
 
         return (
-            <div>
+            <StyledClientTeam>
                 <HeaderBasic/>
 
                 <ContainerLarge>
@@ -23,29 +25,28 @@ class ClientProfile extends Component {
 
                 <SubHeader/>
 
-                <ContainerLarge indentBot xsNoPadding>
-                    <DvTitle fz='48' mTop='80'>
-                        My Projects
-                    </DvTitle>
+                <Container indentTop  relative xsNoPadding>
+                    <div className='gag'>
+                        <h4>
+                            Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
+                        </h4>
+                    </div>
+                    <DvTitleSmall fz='28' indentNull xsCenter>My Projects</DvTitleSmall>
 
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column tablet={16} computer={2} widescreen={3}>
-                                <DvTitleSmall fz='28' xsCenter negative>Projects</DvTitleSmall>
-                            </Grid.Column>
+                    <div className='flex-wrapper'>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                    </div>
+                </Container>
 
-                            <Grid.Column tablet={16} computer={14} widescreen={13}>
-                                <RenderProjectCard/>
-                                <RenderProjectCard/>
-                                <NewTeamBtn>
-                                    <button/>
-                                    <span>Create a new team</span>
-                                </NewTeamBtn>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </ContainerLarge>
-            </div>
+                <Container indentBot>
+                    <NewTeamBtn>
+                        <NavLink to='/post_project'/>
+                        <span>Create a new team</span>
+                    </NewTeamBtn>
+                </Container>
+            </StyledClientTeam>
         )
     }
 }
