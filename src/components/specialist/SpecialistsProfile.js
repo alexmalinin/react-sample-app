@@ -5,6 +5,7 @@ import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import { DvTitle } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
+import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
@@ -49,9 +50,15 @@ class SpecialistsProfile extends Component {
                     </S_Message>
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column mobile={16} computer={8}>
-                                <DvTitleSmall>Basic details</DvTitleSmall>
+                            <Grid.Column mobile={16} tablet={12} computer={8}>
+                                <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
                                 <RenderProfileForm onSubmit={this.submit}/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column mobile={16} tablet={12} computer={8}>
+                                <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
+                                <RenderResetPasswordForm user="specialist"/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -61,13 +68,23 @@ class SpecialistsProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.specialistData.successProfileId) {
-            console.log('render');
+        let client = nextProps.specialistData;
+        let password = nextProps.confirmPassword;
+
+        if (client.successProfileId) {
             this.showMessage('success');
             run(0)();
-        } else if (nextProps.specialistData.errorProfileId) {
+        } else if(client.errorProfileId) {
             this.showMessage();
             run(0)();
+        } else if(password) {
+            if (password.successPasswordId) {
+                this.showMessage('success');
+                run(0)();
+            } else if (password.errorPasswordId) {
+                this.showMessage();
+                run(0)();
+            }
         }
     }
 
@@ -94,4 +111,4 @@ class SpecialistsProfile extends Component {
     };
 }
 
-export default connect(({specialistData}) => ({specialistData}), { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
+export default connect(({specialistData, confirmPassword}) => ({specialistData, confirmPassword}), { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);

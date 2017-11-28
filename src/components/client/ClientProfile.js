@@ -7,7 +7,7 @@ import { DvTitle , DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import RenderProfileForm from '../forms/RenderProfileForm';
 import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { showClientData, updateClientProfile, changePassword } from '../../actions/actions';
+import { showClientData, updateClientProfile } from '../../actions/actions';
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
@@ -86,8 +86,6 @@ class ClientProfile extends Component {
                 run(0)();
             }
         }
-
-        console.log(nextProps)
     }
 
     showMessage = status => {

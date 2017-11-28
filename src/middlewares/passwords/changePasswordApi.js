@@ -20,7 +20,6 @@ export default store => next => action => {
         }
 
     }).then(function (response) {
-        console.log('success');
         let data = response.data;
         data.successPasswordId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { required } from "../../helpers/validate";
 import {Field, reduxForm} from 'redux-form';
 import { DvButton } from '../../styleComponents/layout/DvButton'
 import {RenderField} from './renders/RenderField';
@@ -17,6 +18,7 @@ class RenderResetPasswordForm  extends Component {
                     name='password'
                     placeholder='Password /'
                     type='password'
+                    validate={[required]}
 
                 />
                 <Field
@@ -24,6 +26,7 @@ class RenderResetPasswordForm  extends Component {
                     name='password_confirmation'
                     placeholder='Confirm password /'
                     type='password'
+                    validate={[required]}
                 />
 
                 <DvButton type="submit"
