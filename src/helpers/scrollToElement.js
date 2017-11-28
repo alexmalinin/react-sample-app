@@ -1,4 +1,4 @@
-export const run = element => {
+export const run = (element, acceleration) => {
     let timer;
     let current = window.pageYOffset;
     let to;
@@ -13,14 +13,14 @@ export const run = element => {
         if (animation) return window.scrollTo(0, to); // without animation;
 
         if (current < to) {
-            point = 5;
+            point = acceleration || 5;
             clear = function(from, to) {
                 if (from > to) {
                     clearTimeout(timer)
                 }
             }
         } else {
-            point = -5;
+            point = -acceleration || -5;
             clear = function(from, to) {
                 if (from < to) {
                     clearTimeout(timer)

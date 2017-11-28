@@ -49,7 +49,8 @@ class SpecialistIndustry extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successInfoId) {
-                run(0)();
+                console.log('ID', nextProps.specialistData.successInfoId);
+                run(0, 10)();
                 this.showMessage()
             }
         }

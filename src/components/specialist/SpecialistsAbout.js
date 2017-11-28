@@ -137,7 +137,7 @@ class SpecialistsAbout extends Component {
     // componentWillReceiveProps(nextProps) {
     //     if (nextProps.specialistData) {
     //         console.log('----update')
-    //         this.showMessage()
+    //         // this.showMessage()
     //     }
     // }
     //

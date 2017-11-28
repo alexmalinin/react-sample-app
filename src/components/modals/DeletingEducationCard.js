@@ -14,7 +14,6 @@ class DeletingEducationCard extends Component {
     render() {
         const { open, size } = this.state;
         const { id, education } = this.props;
-        console.log(id)
 
         return (
             <div>

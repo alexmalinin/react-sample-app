@@ -27,8 +27,6 @@ class InfoForm extends Component {
 
         let { avatar } = specialistData || false;
 
-        console.log('rendeer');
-
         return (
                 <Grid>
                     <Grid.Row>
