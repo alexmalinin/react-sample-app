@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export default styled.div`
+export const StyledTextArea = styled.div`
 
     textarea {
         border: 2px solid #ccc;
@@ -21,3 +21,12 @@ export default styled.div`
         }
     }
 `;
+
+export const StyledLabelArea = styled.label`
+    position:relative;
+    
+    span {
+        top: -40px;
+    }
+`;
+

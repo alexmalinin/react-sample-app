@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import {Field, reduxForm, change} from 'redux-form';
+import React, { Component } from 'react';
+import { Field, reduxForm, change } from 'redux-form';
 import {required} from '../../../helpers/validate';
-import {renderField} from '../../forms/renders/RenderField';
-import {DvButton} from '../../../styleComponents/layout/DvButton';
+import { renderField } from '../../forms/renders/RenderField';
+import { DvButton } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
-import {Grid} from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
+import { StyledLabelArea } from '../../../styleComponents/forms/StyledTextArea';
 
 let renderError = true;
 
@@ -53,21 +54,21 @@ class EducationForm extends Component {
 
                     <Grid.Row>
                         <Grid.Column>
-                            <label>
+                            <StyledLabelArea>
                                 Description
                                 <Field
-                                    name="description"
+                                    name='description'
                                     component={RenderTextArea}
                                     validate={[required]}
                                 />
-                            </label>
+                            </StyledLabelArea>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row columns={2}>
                         <Grid.Column>
                             <DvButton
-                                type="submit"
+                                type='submit'
                                 disabled={submitting}
                                 content='SAVE & CONTINUE'
                                 primary
