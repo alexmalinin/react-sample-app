@@ -1,7 +1,6 @@
-import { TextArea } from 'semantic-ui-react';
 import React from 'react';
 import StyledError from '../../../styleComponents/forms/StyledError'
-import StyledTextArea from '../../../styleComponents/forms/StyledTextArea'
+import { StyledTextArea } from '../../../styleComponents/forms/StyledTextArea'
 
 
 const RenderTextArea = ({
