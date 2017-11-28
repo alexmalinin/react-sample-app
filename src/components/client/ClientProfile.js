@@ -53,12 +53,15 @@ class ClientProfile extends Component {
                     </S_Message>
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column mobile={16} computer={8}>
+                            <Grid.Column mobile={16} tablet={12} computer={8}>
                                 <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
                                 <RenderProfileForm onSubmit={this.submit}/>
                             </Grid.Column>
-                            <Grid.Column mobile={16} computer={8}>
-                                <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <Grid.Column mobile={16} tablet={12} computer={8}>
+                                <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
                                 <RenderResetPasswordForm onSubmit={this.submitReset}/>
                             </Grid.Column>
                         </Grid.Row>

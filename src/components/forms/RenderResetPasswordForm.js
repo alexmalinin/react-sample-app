@@ -37,14 +37,6 @@ class RenderResetPasswordForm  extends Component {
                     type='password'
                 />
 
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-
                 <DvButton type="submit"
                           disabled={submitting}
                           content='SAVE & UPDATE'

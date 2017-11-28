@@ -154,7 +154,6 @@ export const DvTitleMedium = styled.h2`
 export const DvTitleSmall = styled.h2`
      
     font-size: 48px;
-    font-weight: 400;
     margin-bottom: 90px;
     font-weight: 300;  
     
@@ -167,6 +166,8 @@ export const DvTitleSmall = styled.h2`
     ${props => props.negative && css`
         margin-left: -15px
     `};
+    
+    ${props => props.mTop ? `margin-top: ${props.mTop}px !important` : `margin-top: 0px`};
         
     @media (max-width: 1920px) {
         font-size: 34px;
