@@ -75,7 +75,7 @@ export default store => next => action => {
             return next({ ...rest, type: type + SUCCESS, data: data });
 
         })
-        .catch(function (error) {
+        .catch(function () {
             let data = {};
             data.errorInfoId = Math.random();
             return next({ ...rest, type: type + FAIL, data: data });

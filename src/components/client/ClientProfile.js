@@ -16,6 +16,7 @@ class ClientProfile extends Component {
 
     state = {
         renderMessage: false,
+        renderErrorMessage: false,
     };
 
 
@@ -26,7 +27,7 @@ class ClientProfile extends Component {
     }
 
     render() {
-        const { renderMessage } = this.state;
+        const { renderMessage, renderErrorMessage } = this.state;
 
         return (
             <div>
@@ -45,6 +46,10 @@ class ClientProfile extends Component {
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
                     </S_Message>
+                    <S_Message negative profile data-show={renderErrorMessage}>
+                        <Message.Header>Error!</Message.Header>
+                        <p>Something went wrong, please try again</p>
+                    </S_Message>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column mobile={16} computer={8}>
@@ -59,24 +64,31 @@ class ClientProfile extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         if (nextProps.clientData.successProfileId) {
+            this.showMessage('success');
+            run(0)();
+        } else if(nextProps.clientData.errorProfileId) {
             this.showMessage();
             run(0)();
         }
     }
 
-    showMessage = () => {
+    showMessage = status => {
         setTimeout( () => {
                 return this.setState({
                     renderMessage: false,
+                    renderErrorMessage: false,
                 })
             }, 2000
         );
 
-        this.setState({
-            renderMessage: true,
-        });
+        status === 'success'
+            ? this.setState({
+                renderMessage: true,
+            })
+            : this.setState({
+                renderErrorMessage: true,
+            })
     };
 
     submit = values => {
