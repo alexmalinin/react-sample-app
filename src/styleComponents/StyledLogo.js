@@ -11,7 +11,7 @@ export const StyledLogo = styled(NavLink)`
     
     @media (max-width: 767px) {
         img {
-            max-width: 260px;
+            max-width: 220px;
         }
     }
 `;

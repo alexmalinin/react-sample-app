@@ -27,7 +27,8 @@ import SpecialistsIndustry from './specialist/SpecialistIndustry';
 import SpecialistsInfo from './specialist/SpecialistInfo';
 import SpecialistsAbout from './specialist/SpecialistsAbout';
 import Footer from './layout/Footer';
-import { Segment, Menu, Sidebar } from 'semantic-ui-react';
+import Sidebar from '../components/layout/Sidebar';
+// import { Segment, Menu, Sidebar } from 'semantic-ui-react';
 import NavigationLinks from './layout/NavigationLinks';
 import AccountLinks from './layout/AccountLinks';
 import StyledSidebar from '../styleComponents/layout/StyledSidebar';
@@ -45,6 +46,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
+                    <Sidebar/>
                     {/*<Sidebar.Pushable as={ Segment }>*/}
                         {/*<StyledSidebar as={ Menu } animation='push' width='thin' direction='right' visible={ sidebar }*/}
                                  {/*icon='labeled' vertical inverted>*/}
@@ -52,6 +54,7 @@ class App extends Component {
                             {/*<AccountLinks/>*/}
                         {/*</StyledSidebar>*/}
                         {/*<Sidebar.Pusher>*/}
+
                             <FlexDirection>
                                 <Switch>
                                     <Route exact path='/' render={ () => <Redirect to='/sign_up'/>}/>

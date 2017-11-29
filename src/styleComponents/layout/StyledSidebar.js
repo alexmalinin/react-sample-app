@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import {Sidebar} from 'semantic-ui-react';
+import { slide as Menu } from 'react-burger-menu'
 
-export default styled(Sidebar)`
+export default styled(Menu)`
 
    ul {
-   
       li {
           text-align: right;
-          padding: 15px 10px;
-          border-bottom: 1px solid #313131;
                 
           &.linked-in {
               display: none;
@@ -16,16 +13,53 @@ export default styled(Sidebar)`
       }
       
       a {
-         color: #fff;
-         font-size: 16px;
+          display: inline-block;
+          font-size: 25px;
+          color: #fff;
+          padding: 0 25px 0 0;
+          line-height: 2.5;
+          font-weight: bold;
+          width: 100%;
         
          &.proxy {
             text-transform: uppercase;
+            margin-top: 25px;
               
             button {
                text-transform: uppercase;
+               font-size: 25px;
             }
          }
       }
+   }
+   
+   @media (max-width: 520px) {
+      ul {
+          li {
+              text-align: right;
+                    
+              &.linked-in {
+                  display: none;
+              }
+          }
+          
+          a {
+              display: inline-block;
+              font-size: 20px;
+              color: #fff;
+              padding: 0 25px 0 0;
+              line-height: 2.5;
+              font-weight: bold;
+              width: 100%;
+            
+             &.proxy {
+                margin-top: 20px;
+                  
+                button {
+                   font-size: 20px;
+                }
+             }
+          }
+       }
    }
 `;
