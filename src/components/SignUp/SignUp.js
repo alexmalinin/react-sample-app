@@ -12,6 +12,7 @@ import { postSignUpData, userType } from '../../actions/actions';
 import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
 import SignUpFormClient from '../client/forms/SignUpFormClient';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
+import { run } from '../../helpers/scrollToElement';
 
 class SignUp extends Component {
 
@@ -21,6 +22,8 @@ class SignUp extends Component {
 
     componentWillMount() {
         localStorage.removeItem('user_email');
+        run(0)()
+
     }
 
     render() {

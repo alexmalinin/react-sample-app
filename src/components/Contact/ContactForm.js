@@ -36,7 +36,7 @@ const ContactForm = props => {
             <DvButton
                 type='submit'
                 disabled={submitting}
-                content='Continue'
+                content='SEND'
                 primary
             />
         </form>

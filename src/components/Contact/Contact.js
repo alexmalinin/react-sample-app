@@ -9,10 +9,9 @@ import { postContacts } from '../../actions/actions';
 import { Container } from '../../styleComponents/layout/Container';
 import StyledContactUs from '../../styleComponents/StyledContactUs';
 
-class SignUp extends Component {
+class Contact extends Component {
 
     render() {
-        window.state = this.state;
 
         return (
             <div>
@@ -92,4 +91,4 @@ class SignUp extends Component {
     };
 }
 
-export default connect(null, { postContacts })(SignUp);
+export default connect(null, { postContacts })(Contact);

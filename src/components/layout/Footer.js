@@ -24,7 +24,7 @@ class FooterBasic extends Component {
                                             to create temporary or long-term teams, businesses & groups.
                                         </p>
                                         <span>
-                                            ©Copyright 2017 by Digital Village Pty Ltd. All rights reserved. (beta-version: 0.0.3)
+                                            ©Copyright 2017 by Digital Village Pty Ltd. All rights reserved. (beta-version: 0.0.4)
                                         </span>
                                     </Grid.Column>
                                     <Grid.Column mobile={16} tablet={8} computer={8}>

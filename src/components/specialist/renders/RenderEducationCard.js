@@ -18,10 +18,9 @@ const RenderEducationCard = ({education}) => {
                         { (education.specialisation || education.degree) &&
                             <Card.Meta> { education.specialisation } { education.degree }</Card.Meta>
                         }
-                        {(education.from || education.to || education.description) &&
-
+                        {
                             <Card.Description>
-                                {education["started_at"] && education["finished_at"] &&
+                                { education["started_at"] && education["finished_at"] &&
                                     <p className='period'>
                                         <img src='/images/time.png' alt=''/> {education.started_at} - {education["finished_at"]}
                                     </p>

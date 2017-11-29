@@ -9,6 +9,8 @@ export default store => next => action => {
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
+    console.log('payload[\'phone_number\'],', payload['phone_number'],)
+
     axios({
         method: 'put',
         url: updateSpecialistProfile1 + id + updateSpecialistProfile2,

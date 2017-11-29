@@ -42,6 +42,7 @@ class EditingEducationCard extends Component {
     };
 
     submit = education => {
+        education.description ? education.description : education.description = ''
         let {editEducationCardWithId, editEducationCardWithOutId, id} = this.props;
         id ? editEducationCardWithId(education, id) : editEducationCardWithOutId(education, this.props.education.educationSuccessId);
         this.close()

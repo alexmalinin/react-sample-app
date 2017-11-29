@@ -57,7 +57,7 @@ class WorkExperienceForm extends Component {
                                 <Field
                                     name="description"
                                     component={RenderTextArea}
-                                    validate={[required]}
+                                    // validate={[required]}
                                 />
                             </StyledLabelArea>
                         </Grid.Column>
@@ -105,7 +105,7 @@ class WorkExperienceForm extends Component {
         this.props.dispatch(change('WorkExperienceForm', 'country',     country));
         this.props.dispatch(change('WorkExperienceForm', 'city',        city));
         this.props.dispatch(change('WorkExperienceForm', 'degree',      degree));
-        this.props.dispatch(change('WorkExperienceForm', 'description', description));
+        this.props.dispatch(change('WorkExperienceForm', 'description', description || ''));
         this.props.dispatch(change('WorkExperienceForm', 'started_at',  started_at));
         this.props.dispatch(change('WorkExperienceForm', 'finished_at', finished_at));
     };

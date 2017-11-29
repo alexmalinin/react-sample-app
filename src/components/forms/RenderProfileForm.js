@@ -77,11 +77,12 @@ class RenderProfileForm  extends Component {
 
     fillFields = data => {
         let { first_name, last_name, email, address, phone_code, phone_number, clearPassword } = data;
+        console.log('phone_number', phone_number)
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));
         this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
-        this.props.dispatch(change('RenderProfileForm', 'phone_number', +phone_number));
+        this.props.dispatch(change('RenderProfileForm', 'phone_number', phone_number));
     }
 };
 

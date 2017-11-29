@@ -45,6 +45,7 @@ class EditingExperienceCard extends Component {
     };
 
     submit = experience => {
+        experience.description ? experience.description : experience.description = ''
         let {editExperienceCardWithId, editExperienceCardWithOutId, id} = this.props;
         id ? editExperienceCardWithId(experience, id)
            : editExperienceCardWithOutId(experience, this.props.experience.experienceSuccessId);

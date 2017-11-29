@@ -59,7 +59,7 @@ class EducationForm extends Component {
                                 <Field
                                     name='description'
                                     component={RenderTextArea}
-                                    validate={[required]}
+                                    // validate={[required]}
                                 />
                             </StyledLabelArea>
                         </Grid.Column>
@@ -105,7 +105,7 @@ class EducationForm extends Component {
         this.props.dispatch(change('EducationForm', 'name',          name));
         this.props.dispatch(change('EducationForm', 'specialisation',specialisation));
         this.props.dispatch(change('EducationForm', 'degree',        degree));
-        this.props.dispatch(change('EducationForm', 'description',   description));
+        this.props.dispatch(change('EducationForm', 'description',   description || ''));
         this.props.dispatch(change('EducationForm', 'started_at',    started_at));
         this.props.dispatch(change('EducationForm', 'finished_at',   finished_at));
     };
