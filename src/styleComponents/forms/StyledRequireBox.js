@@ -8,6 +8,10 @@ export default styled.div`
     font-weight: 300;
     line-height: 1;
     
+    b {
+      cursor: pointer;
+    }
+    
     & > span {
         margin-left: 15px;
     }
