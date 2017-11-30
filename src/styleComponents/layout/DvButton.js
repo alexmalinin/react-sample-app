@@ -172,7 +172,7 @@ export const AddNewBtn = styled(Button)`
         box-shadow: none;
         position: relative;
         padding-left: 50px;
-        margin-top: 50px;
+        margin-top: 20px;
         color: #000 !important; // overwrite semantic theme
         
         &:before {

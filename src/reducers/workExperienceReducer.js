@@ -1,5 +1,6 @@
 import {
     WORK_EXPERIENCE,
+    CLEAR_WORK_EXPERIENCE,
     UPDATE_SPECIALIST_INFO,
     EDIT_EXPERIENCE_CARD_WITHOUT_ID,
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
@@ -12,6 +13,8 @@ export default (state = [], action) => {
     switch (type) {
         case WORK_EXPERIENCE:
             return [...state, payload];
+        case CLEAR_WORK_EXPERIENCE:
+            return [];
         case UPDATE_SPECIALIST_INFO + SUCCESS:
             return [];
         case EDIT_EXPERIENCE_CARD_WITHOUT_ID:

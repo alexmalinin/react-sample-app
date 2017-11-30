@@ -7,7 +7,7 @@ import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
 import { Container } from '../../styleComponents/layout/Container'
-import { updateSpecStep2, getProjectTypes } from '../../actions/actions'
+import { updateSpecStep2, getProjectTypes, clearEducation, clearworkExperience } from '../../actions/actions'
 import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2';
 import { run } from '../../helpers/scrollToElement';
 
@@ -62,9 +62,15 @@ class SpecialistsWelcome2 extends Component {
         updateSpecStep2(values, educations, experiences);
 
     };
+
+    componentWillUnmount(){
+        const { clearEducation, clearworkExperience } = this.props;
+        clearEducation();
+        clearworkExperience();
+    }
 }
 
 export default connect(
     ({ signUpData, educations, experiences}) => ({signUpData, educations, experiences}),
-    { updateSpecStep2, getProjectTypes }
+    { updateSpecStep2, getProjectTypes, clearEducation, clearworkExperience }
 )(confirm(SpecialistsWelcome2));

@@ -19,6 +19,8 @@ import {
     SHOW_CHOSEN_SKILLS,
     GET_PROJECT_TYPES,
     UPDATE_SPECIALIST_STEP_2,
+    CLEAR_EDUCATION,
+    CLEAR_WORK_EXPERIENCE,
     SHOW_CLIENT_DATA,
     SHOW_SPECIALIST_DATA,
     UPDATE_SPECIALIST_PROFILE,
@@ -191,6 +193,14 @@ export function education(data) {
     return action;
 }
 
+export function clearEducation() {
+    const action = {
+        type: CLEAR_EDUCATION
+    }
+
+    return action;
+}
+
 // workExperience action
 
 export function workExperience(data) {
@@ -198,6 +208,14 @@ export function workExperience(data) {
         type: WORK_EXPERIENCE,
         payload: data,
     };
+
+    return action;
+}
+
+export function clearworkExperience() {
+    const action = {
+        type: CLEAR_WORK_EXPERIENCE
+    }
 
     return action;
 }
