@@ -9,6 +9,7 @@
     "prosemirror": "^0.11.1",
     "react": "^15.6.1",
     "react-animate-height": "^0.10.3",
+    "react-burger-menu": "^2.1.11",
     "react-dom": "^15.6.1",
     "react-prosemirror": "^0.2.1",
     "react-redux": "^5.0.6",

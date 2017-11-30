@@ -30,7 +30,7 @@ body,
 }
 
 .ui.page.modals.dimmer.transition.visible.active {
-    overflow: auto;
+  overflow: auto;
 }
 
 /*_____________Global__________________*/
@@ -41,6 +41,53 @@ body,
 
 .Select-clear-zone {
   display: none;
+}
+
+.bm-burger-button {
+  display: none;
+}
+
+nav.bm-item-list {
+  padding: 60px 0;
+  text-align: right;
+}
+
+.bm-menu-wrap,
+.bm-item-list,
+.bm-menu {
+  height: auto !important; /*overwrite inline styles*/
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.925) !important; /*overwrite inline styles*/
+}
+
+.bm-cross-button {
+  width: 30px !important; /*overwrite inline styles*/
+  height: 30px !important; /*overwrite inline styles*/
+  background: #000;
+}
+
+.bm-cross-button:before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  top: 14px;
+  left: 5px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+
+.bm-cross-button:after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  top: 14px;
+  left: 5px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(-45deg);
 }
 
 @media (min-width: 1921px) {
@@ -59,5 +106,29 @@ body,
 }
 
 .relative {
-    position: relative;
+  position: relative;
+}
+
+@media (max-width: 991px) {
+  .bm-cross-button {
+    right: 34px !important; /*overwrite inline styles*/
+    top: 13px !important; /*overwrite inline styles*/
+  }
+}
+
+@media (max-width: 768px) {
+  .bm-cross-button {
+    right: 20px !important; /*overwrite inline styles*/
+    top: 9px !important; /*overwrite inline styles*/
+  }
+
+  .bm-menu-wrap {
+    width: 50% !important; /*overwrite inline styles*/
+  }
+}
+
+@media (max-width: 520px) {
+  .bm-menu-wrap {
+    width: 80% !important; /*overwrite inline styles*/
+  }
 }
