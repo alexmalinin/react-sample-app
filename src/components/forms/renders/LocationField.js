@@ -4,7 +4,8 @@ import InputField from './InputField'
 
 const LocationField = () => {
     return (
-        <div>
+        <div id="city">
+            <span id="country"/>
             <InputField
                 name="country"
                 placeholder="Country /"

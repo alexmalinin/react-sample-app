@@ -40,7 +40,7 @@ class SpecialistWelcomeResult1 extends Component {
     }
 
     scroll = ev => {
-        run(ev.target)();
+        run(ev.target, false, 'bottom')();
     }
 }
 

@@ -8,7 +8,7 @@ class AvailabilityHours extends Component  {
     render() {
         return (
             <div className='checkbox-group'>
-                { workHourses ? workHourses.map(item =>
+                { workHourses ? workHourses.map( item =>
                         <Field name='hours_per_week'
                                key={item}
                                component={RenderRadio}

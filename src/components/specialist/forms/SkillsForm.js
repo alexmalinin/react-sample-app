@@ -35,7 +35,7 @@ class SkillsForm extends Component {
                                 </p>
                                 ]
                             }
-
+                            <span id="industry"/> {/*for error scrolling*/}
                             <Field
                                 name='industry'
                                 component={RenderSelect}
@@ -43,11 +43,13 @@ class SkillsForm extends Component {
                                 options={industries["industry"]}
                                 validate={[required]}
                             />
+                            <span id="industry_title"/> {/*for error scrolling*/}
                             <InputField
                                 name='industry_title'
                                 placeholder='What is your industry title? /'
                                 validate={[required]}
                             />
+                            {/*<span id="industry_title"></span> /!*for error scrolling*!/*/}
                             <LocationField/>
                         </StyledWelcomeForm>
                     </Grid.Column>

@@ -42,9 +42,9 @@ class InfoForm extends Component {
                                     placeholder='Choose your photo /'
                                 />
 
-                                <div className='text-area-group'>
+                                <div id="professional_experience_info" className='text-area-group'>
                                     <p>Write a paragraph or two about your professional experience /</p>
-                                    <Field name='professional_experience_info' id="professional_experience_info" component={RenderTextArea} validate={required}/>
+                                    <Field name='professional_experience_info' component={RenderTextArea} validate={required}/>
                                 </div>
 
                                 <div>
@@ -97,7 +97,7 @@ class InfoForm extends Component {
 
                                 { signUp && <Availability/> }
 
-                                <div className='half-column'>
+                                <div id="project_type" className='half-column'>
                                     <p><b>What kind of Projects are you interested in? /</b></p>
                                     <Field
                                         name="project_type"

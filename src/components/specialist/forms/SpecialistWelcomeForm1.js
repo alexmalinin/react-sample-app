@@ -15,7 +15,7 @@ import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
 import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 import SkillsForm from "./SkillsForm";
 import { formValueSelector } from 'redux-form';
-
+import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistWelcomeForm1 extends Component {
 
@@ -29,10 +29,16 @@ class SpecialistWelcomeForm1 extends Component {
     };
 }
 
+const handleSubmitFail = (errors) => {
+    // console.log(Object.keys(errors)[0]);
+    run(document.getElementById(`${Object.keys(errors)[0]}`))();
+};
+
 SpecialistWelcomeForm1 = reduxForm({
     form: 'SpecialistWelcomeForm1',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
+    onSubmitFail: handleSubmitFail,
 })(SpecialistWelcomeForm1);
 
 const selector = formValueSelector('SpecialistWelcomeForm1');
