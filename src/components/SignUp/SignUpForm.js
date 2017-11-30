@@ -21,31 +21,31 @@ class SignUpForm extends Component  {
             <form onSubmit={handleSubmit}>
 
                 <EmailField
-                    name="email"
-                    placeholder="Your email /"
+                    name='email'
+                    placeholder='Your email /'
                 />
                 <InputField
-                    name="first_name"
-                    placeholder="First Name /"
+                    name='first_name'
+                    placeholder='First Name /'
                     validate={[required]}
                 />
                 <InputField
-                    name="last_name"
-                    placeholder="Last Name /"
+                    name='last_name'
+                    placeholder='Last Name /'
                     validate={[required]}
                 />
 
                 {person === 'Client' && this.props.children}
 
                 <Field
-                    name="hear_from"
+                    name='hear_from'
                     component={RenderSelect}
-                    placeholder="How did you hear about Digital Village /"
-                    options={[{ label: 'Internet Article', value: 'Internet Article' },
-                        { label: 'Internet Search', value: 'Internet Search' },
-                        { label: 'Poster', value: 'Poster' },
-                        { label: 'Newspaper/Magazine', value: 'Newspaper/Magazine' },
-                        { label: 'Friends/Colleges', value: 'Friends/Colleges' },
+                    placeholder='How did you hear about Digital Village /'
+                    options={[{ label: 'Facebook', value: 'Facebook' },
+                        { label: 'Digital Village Nomads', value: 'Digital Village Nomads' },
+                        { label: 'LinkedIn', value: 'LinkedIn' },
+                        { label: 'Friend/Colleague', value: 'Friend/Colleague' },
+                        { label: 'TV/Radio', value: 'TV/Radio' },
                         { label: 'Other', value: 'Other' }]}
                     validate={[required]}
                 />
@@ -57,7 +57,7 @@ class SignUpForm extends Component  {
 
                 <StyledRequireBox>
                     <Field
-                        name="terms"
+                        name='terms'
                         component={RenderCheckbox}
                         validate={[required, minLength2]}
                     />
@@ -65,7 +65,7 @@ class SignUpForm extends Component  {
                 </StyledRequireBox>
 
                 <DvButtonForm
-                    type="submit"
+                    type='submit'
                     disabled={submitting}
                     content='Continue'
                     primary
@@ -74,6 +74,5 @@ class SignUpForm extends Component  {
         )
     }
 }
-
 
 export default SignUpForm;
