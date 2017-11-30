@@ -9,7 +9,6 @@ export default store => next => action => {
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    window.payload = payload;
     let image = payload["person"] ? payload["person"][0] : null;
 
     if (image) {
@@ -28,7 +27,7 @@ export default store => next => action => {
                         "daily_rate"                    : payload["daily_rate"],
                         "available"                     : payload["availability"],
                         "available_days"                : payload["days"],
-                        "hours_per_week"                : payload["hours_per_week"]["label"],
+                        "hours_per_week"                : payload["hours_per_week"],
                         "educations_attributes"         : education,
                         "work_experiences_attributes"   : experience,
                         "project_type_id"               : payload["project_type"]["value"]
@@ -41,7 +40,6 @@ export default store => next => action => {
                 }
 
             }).then(function (response) {
-                console.log(response);
                 return next({ ...rest, type: type + SUCCESS, data: response.data });
 
             })
@@ -61,7 +59,7 @@ export default store => next => action => {
                     "daily_rate"                    : payload["daily_rate"],
                     "available"                     : payload["availability"],
                     "available_days"                : payload["days"],
-                    "hours_per_week"                : payload["hours_per_week"]["label"],
+                    "hours_per_week"                : payload["hours_per_week"],
                     "educations_attributes"         : education,
                     "work_experiences_attributes"   : experience,
                     "project_type_id"               : payload["project_type"]["value"]
@@ -74,7 +72,6 @@ export default store => next => action => {
             }
 
         }).then(function (response) {
-            console.log(response);
             return next({ ...rest, type: type + SUCCESS, data: response.data });
 
         })

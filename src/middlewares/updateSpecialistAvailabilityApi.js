@@ -16,7 +16,7 @@ export default store => next => action => {
             "availability": {
                 "available"      : payload["availability"],
                 "available_days" : payload["days"],
-                "hours_per_week" : payload["hours_per_week"]["label"],
+                "hours_per_week" : payload["hours_per_week"],
             }
         }
     }).then(function (response) {

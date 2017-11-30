@@ -13,7 +13,9 @@ export default store => next => action => {
         method: 'get',
         url: showSpecialistData + id
     }).then(function (response) {
-        return next({ ...rest, type: type + SUCCESS, data: response.data });
+        let data = response.data;
+        data.successId = Math.random();
+        return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function (error) {
         console.log(error);

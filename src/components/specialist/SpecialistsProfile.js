@@ -21,6 +21,7 @@ class SpecialistsProfile extends Component {
     };
 
     componentWillMount() {
+        run(0)(true);
         sessionStorage.removeItem('spec_step2');
         localStorage.removeItem('user_email');
         this.props.showSpecialistData();

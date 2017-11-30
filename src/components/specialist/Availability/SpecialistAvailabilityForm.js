@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Availability from './Availability';
 import { reduxForm, change } from 'redux-form';
+import { showSpecialistData } from "../../../actions/actions";
 
-let renderError = true
+let renderError = true;
 
 class SpecialistAvailabilityForm extends Component {
 
-   render() {
+    render() {
        const { specialistData, handleSubmit } = this.props;
 
         return (
@@ -19,9 +20,8 @@ class SpecialistAvailabilityForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.specialistData) {
-            if(renderError) {
+            if (renderError) {
                 this.fillFields(nextProps.specialistData);
-                renderError = false;
             }
 
             if (nextProps.specialistData.successAvailabilityId) {
@@ -32,10 +32,10 @@ class SpecialistAvailabilityForm extends Component {
 
     fillFields = data => {
         let { hours_per_week, available_days, available } = data;
-        console.log('data', data);
-        this.props.dispatch(change('SpecialistAvailabilityForm', 'hours_per_week',   hours_per_week));
+
         this.props.dispatch(change('SpecialistAvailabilityForm', 'days',   available_days));
         this.props.dispatch(change('SpecialistAvailabilityForm', 'availability', available));
+        this.props.dispatch(change('SpecialistAvailabilityForm', 'hours_per_week',   hours_per_week));
     }
 }
 
@@ -45,4 +45,4 @@ SpecialistAvailabilityForm = reduxForm({
     forceUnregisterOnUnmount: true,
 })(SpecialistAvailabilityForm);
 
-export default connect(({specialistData}) => ({specialistData}))(SpecialistAvailabilityForm);
+export default connect(({specialistData}) => ({specialistData}), {showSpecialistData})(SpecialistAvailabilityForm);
