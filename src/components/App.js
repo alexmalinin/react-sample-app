@@ -58,6 +58,7 @@ class App extends Component {
                             <FlexDirection>
                                 <Switch>
                                     <Route exact path='/' render={ () => <Redirect to='/sign_up'/>}/>
+                                    <Route path='/index.html' component={ () => <Redirect to='/sign_up'/> }/>
                                     <Route path='/home' component={ Home }/>
                                     <Route path='/contact' component={ Contact }/>
                                     <Route path='/how_it_works' component={ NotFound }/>
