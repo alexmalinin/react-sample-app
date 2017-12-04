@@ -25,7 +25,7 @@ class Header extends Component {
 
     logOut = () => {
         localStorage.clear();
-        window.location.reload();
+        // window.location.reload();
     }
 }
 
