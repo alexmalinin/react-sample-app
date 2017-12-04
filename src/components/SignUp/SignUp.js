@@ -6,7 +6,7 @@ import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
 import DvGrid from '../../styleComponents/layout/DvGrid';
 import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
-import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
+import StyledSignUpForm from '../../styleComponents/StyledSignUpForm';
 import Tabs from '../../styleComponents/Tabs';
 import { postSignUpData, userType } from '../../actions/actions';
 import SignUpFormSpecialist from '../specialist/forms/SignUpFormSpecialist';
@@ -22,15 +22,16 @@ class SignUp extends Component {
 
     componentWillMount() {
         localStorage.removeItem('user_email');
-        run(0)()
-
+        run(0)();
+        this.setState({
+            confirm: false,
+        })
     }
 
     render() {
         let { confirm }  = this.state;
         const { changeUserType, signUpData } = this.props;
         let { failLogin, Loading } = signUpData || false;
-        console.log('Loading', Loading);
         const activeIndex = changeUserType === 'Specialist' ? 0 : 1;
         const panes = [
             { menuItem: 'Specialist', render: () =>
@@ -91,13 +92,19 @@ class SignUp extends Component {
         )
     }
 
+    // redirect = ref => {
+    //     let a = ref ? ref.querySelector('a') : null;
+    //     a ? a.click() : null;
+    // };
+
     submit = userType => values => {
         this.props.postSignUpData(userType, values);
     };
 
-    componentWillUpdate(nextProps) {
+    componentWillReceiveProps(nextProps) {
+       console.log(nextProps.signUpData);
         if (nextProps.signUpData) {
-            if (!nextProps.signUpData.hasOwnProperty('failLogin')) {
+            if (nextProps.signUpData.id) {
                 this.setState({
                     confirm: !this.state.confirm,
                 })
@@ -108,9 +115,9 @@ class SignUp extends Component {
     handleTabChange  = (ev, {activeIndex}) => {
         const activeTab = activeIndex === 0 ? 'Specialist' : 'Client';
         this.props.userType(activeTab);
-    }
-
+    };
 }
+
 
 export default connect(
     ({form, changeUserType, signUpData}) => ({form, changeUserType, signUpData}),

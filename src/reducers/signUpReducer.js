@@ -1,4 +1,5 @@
 import { SIGN_UP_STEP_1,
+        RESET_SIGN_UP,
         VERIFICATION,
         WELCOME_CLIENT,
         UPDATE_SPECIALIST_STEP_1,
@@ -21,6 +22,8 @@ export default (state = null, action) => {
         case SIGN_UP_STEP_1 + FAIL:
             result = {data, failLogin: true };
             return result;
+        case RESET_SIGN_UP:
+            return null;
         case VERIFICATION + SUCCESS:
             return data;
         case WELCOME_CLIENT + SUCCESS:

@@ -32,7 +32,7 @@ export default store => next => action => {
             return next({ ...rest, type: type + SUCCESS, data: response.data });
         })
         .catch(function (error) {
-            return next({ ...rest, type: type + FAIL, data: error.response.data.message })
+            return next({ ...rest, type: type + FAIL, data: error })
         });
 
     // Specialists
@@ -59,7 +59,7 @@ export default store => next => action => {
             return next({ ...rest, type: type + SUCCESS, data: response.data })
         })
         .catch(function (error) {
-            return next({ ...rest, type: type + FAIL, data: error.response.data.message });
+            return next({ ...rest, type: type + FAIL, data: error });
         });
     }
 

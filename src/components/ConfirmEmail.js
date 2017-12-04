@@ -4,6 +4,7 @@ import HeaderIntro from './layout/HeaderIntro';
 import {DvTitle} from '../styleComponents/layout/DvTitles';
 import confirm from '../decorators/confirm';
 import { Container } from '../styleComponents/layout/Container';
+import { resetSignUpData } from "../actions/actions";
 
 class ConfirmEmail extends Component {
 
@@ -22,6 +23,10 @@ class ConfirmEmail extends Component {
             </main>
         )
     }
+
+    componentDidMount() {
+        this.props.resetSignUpData();
+    }
 }
 
-export default connect(({signUpData}) => ({signUpData}))(confirm(ConfirmEmail));
+export default connect(({signUpData}) => ({signUpData}), {resetSignUpData})(confirm(ConfirmEmail));

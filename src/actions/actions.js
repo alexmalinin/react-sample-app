@@ -3,6 +3,7 @@ import {
     HIDE_FOOTER,
     SIDEBAR,
     SIGN_UP_STEP_1,
+    RESET_SIGN_UP,
     CHANGE_USER_TYPE,
     SIGN_IN,
     GET_TOKEN_FOR_RESET_PASSWORD,
@@ -92,6 +93,16 @@ export function postSignUpData(user, data) {
         user,
         payload: data,
         signUp: `${PORT}/api/v1/${user}`,
+    };
+
+    return action;
+}
+
+// Reset signUpData;
+
+export function resetSignUpData() {
+    const action = {
+        type: RESET_SIGN_UP,
     };
 
     return action;

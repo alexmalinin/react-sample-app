@@ -6,6 +6,7 @@ export const PORT =
 export const HIDE_FOOTER                       = 'HIDE_FOOTER';
 export const SIDEBAR                           = 'SIDEBAR';
 export const SIGN_UP_STEP_1                    = 'SIGN_UP_STEP_1';
+export const RESET_SIGN_UP                     = 'RESET_SIGN_UP';
 export const CHANGE_USER_TYPE                  = 'CHANGE_USER_TYPE';
 export const SIGN_IN                           = 'SIGN_IN';
 export const GET_USER_ID                       = 'GET_USER_ID';
