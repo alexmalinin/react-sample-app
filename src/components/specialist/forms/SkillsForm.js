@@ -17,7 +17,7 @@ import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, welcomeText, specialistData } = this.props;
+        const { submitting, industry, industries, welcomeText } = this.props;
 
         return (
             <Grid>
@@ -49,7 +49,6 @@ class SkillsForm extends Component {
                                 placeholder='What is your industry title? /'
                                 validate={[required]}
                             />
-                            {/*<span id="industry_title"></span> /!*for error scrolling*!/*/}
                             <LocationField/>
                         </StyledWelcomeForm>
                     </Grid.Column>

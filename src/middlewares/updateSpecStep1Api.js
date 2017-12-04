@@ -34,7 +34,7 @@ export default store => next => action => {
                 "specialist_skills_attributes"  : {
                     "skill_attributes"      : attr
                 },
-                "speciality_ids"            : spec_attr
+                "speciality_ids"            : spec_attr || ''
             }
 
         },

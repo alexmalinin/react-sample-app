@@ -15,7 +15,7 @@ class SpecialistWelcomeResult1 extends Component {
     render() {
         let { chosenSkills = [] } = this.props;
         console.log(chosenSkills);
-        let allSkills = chosenSkills.skills;
+        let allSkills = chosenSkills.skills || [];
         let allSpecialities = chosenSkills.specialities;
         let { industry_title } = chosenSkills;
         let { specialities = [] } = chosenSkills;
@@ -28,7 +28,7 @@ class SpecialistWelcomeResult1 extends Component {
                     title={industry_title}
                     area={industry_area}
                 />
-                <RenderCustomSkills skills={allSkills}/>
+                {allSkills.length > 0 && <RenderCustomSkills skills={allSkills}/>}
 
                 <DvButton
                     content='CONTINUE'

@@ -32,6 +32,7 @@ class SpecialistsWelcome1 extends Component {
 
     submit = values => {
         this.props.updateSpecStep1(values);
+        localStorage.setItem('fillForm1', JSON.stringify(values))
     };
 }
 

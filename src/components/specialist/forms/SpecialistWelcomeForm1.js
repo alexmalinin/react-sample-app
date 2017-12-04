@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
@@ -26,11 +26,50 @@ class SpecialistWelcomeForm1 extends Component {
                 <SkillsForm { ...this.props }/>
             </form>
         )
+    }
+
+    componentDidMount() {
+        this.fill = localStorage.getItem('fillForm1') ? localStorage.getItem('fillForm1') : null;
+        this.fill && this.fillFieldsStatic(JSON.parse(this.fill));
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.industries) {
+            this.fill && this.fillFieldAsync(JSON.parse(this.fill))
+        }
+    }
+
+    fillFieldAsync = data => {
+        let { industry, speciality_ids } = data;
+        let renderSpecialities = {};
+        let specialities = Object.keys(speciality_ids);
+        specialities ? specialities.forEach( item => {
+            return renderSpecialities[item] = true;
+        }) : null;
+
+        this.props.dispatch(change('SpecialistWelcomeForm1', 'industry', industry ));
+        Object.keys(renderSpecialities).length > 0
+            ? this.props.dispatch(change('SpecialistWelcomeForm1', 'speciality_ids', renderSpecialities ))
+            : null;
     };
+
+    fillFieldsStatic = data => {
+        let { skills_attributes, country, city, industry_title, } = data;
+        let renderSkills = [];
+        skills_attributes ? skills_attributes.forEach( item => {
+            renderSkills.push(item)
+        }) : null;
+
+        this.props.dispatch(change('SpecialistWelcomeForm1', 'industry_title', industry_title));
+        this.props.dispatch(change('SpecialistWelcomeForm1', 'country', country));
+        this.props.dispatch(change('SpecialistWelcomeForm1', 'city', city));
+        this.props.dispatch(change('SpecialistWelcomeForm1', 'skills_attributes', renderSkills ));
+        // console.log('renderSkills', renderSkills);
+    }
 }
 
 const handleSubmitFail = (errors) => {
-    // console.log(Object.keys(errors)[0]);
     run(document.getElementById(`${Object.keys(errors)[0]}`))();
 };
 

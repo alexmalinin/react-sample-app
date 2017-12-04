@@ -39,7 +39,6 @@ class SpecialistIndustryForm extends Component {
             return renderSpecialities['_' + item['id']] = true;
         }) : null;
 
-        window.renderSpecialities = renderSpecialities;
         this.props.dispatch(change('SpecialistIndustryForm', 'industry_title', industry_title));
         this.props.dispatch(change('SpecialistIndustryForm', 'country', address.country));
         this.props.dispatch(change('SpecialistIndustryForm', 'city', address.city));
