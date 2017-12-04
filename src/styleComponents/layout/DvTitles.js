@@ -148,6 +148,12 @@ export const DvTitleMedium = styled.h2`
             font-size: 85px;`
         };
     }
+    
+    @media (max-width: 414px) {
+        ${props => props.xs && css`
+            font-size: 62px;`
+        };
+    }
 
 `;
 

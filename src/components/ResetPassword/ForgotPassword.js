@@ -23,7 +23,7 @@ class ForgotPassword extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                <DvTitleMedium mTop='137' fz='' left>
+                                <DvTitleMedium mTop='137' fz='' left xs>
                                     Forgot
                                     <br/>
                                     Password/
