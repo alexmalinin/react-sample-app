@@ -65,16 +65,17 @@ class EducationForm extends Component {
                         </Grid.Column>
                     </Grid.Row>
 
-                    <Grid.Row columns={2}>
-                        <Grid.Column>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
                             <DvButton
                                 type='submit'
                                 disabled={submitting}
                                 content='SAVE & CONTINUE'
                                 primary
+                                xsIndent
                             />
                         </Grid.Column>
-                        <Grid.Column>
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
                             <DvButton
                                 onClick={ this.closeModal }
                                 content='CLOSE'

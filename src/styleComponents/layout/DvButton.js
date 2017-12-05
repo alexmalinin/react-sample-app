@@ -47,6 +47,7 @@ export const DvButton = styled(Button)`
     @media (max-width: 767px) {
         &.ui.button {
             font-size: 18px;
+             ${props => props.xsIndent ? `margin-bottom: 30px` : ``};
         }
     }
 `;

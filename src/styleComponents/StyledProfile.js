@@ -14,9 +14,13 @@ export default styled.div`
         }
         
         .profile-image {
-            display: inline-block;
-            margin-bottom: 60px;
             border-radius: 50%;
+            margin: 0 auto 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 300px;
             border: 4px solid #1991fa;
             
             img {
@@ -111,6 +115,8 @@ export default styled.div`
             
             .profile-image {
                 margin-bottom: 30px;
+                height: 290px;
+                width: 290px;
                 
                 img {
                     max-width: 290px;
