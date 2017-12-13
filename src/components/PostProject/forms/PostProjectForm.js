@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import Services from '../Services';
-import Details from '../Deails';
+import Details from './Details';
 
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';

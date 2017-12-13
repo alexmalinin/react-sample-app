@@ -6,8 +6,8 @@ import {DvTitle} from '../../styleComponents/layout/DvTitles'
 import confirm from '../../decorators/confirm'
 import SpecialistWelcomeResult1 from './renders/SpecialistWelcomeResult1';
 import SpecialistWelcomeForm2 from './forms/SpecialistWelcomeForm2';
-import { Container } from '../../styleComponents/layout/Container'
-import { updateSpecStep2, getProjectTypes, clearEducation, clearworkExperience } from '../../actions/actions'
+import { Container } from '../../styleComponents/layout/Container';
+import { updateSpecStep2, getProjectTypes, clearEducation, clearworkExperience } from '../../actions/actions';
 import StyledSpecialistWelcomeForm2 from '../../styleComponents/StyledSpecialistWelcomeForm2';
 import { run } from '../../helpers/scrollToElement';
 
