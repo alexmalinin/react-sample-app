@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import Services from '../Services';
 import Details from './Details';
-
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';
+import { Grid } from "semantic-ui-react";
 
 class PostProjectForm extends Component {
 
@@ -27,12 +27,28 @@ class PostProjectForm extends Component {
 
                 <Details/>
 
-                <DvButton
-                    type='submit'
-                    disabled={submitting}
-                    content='Continue'
-                    primary
-                />
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
+                            <DvButton
+                                type='submit'
+                                disabled={submitting}
+                                content='Save'
+                                primary
+                                xsIndent
+                            />
+                        </Grid.Column>
+
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
+                            <DvButton
+                                type='submit'
+                                disabled={submitting}
+                                content='Submit'
+                                primary
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </form>
         )
     }
