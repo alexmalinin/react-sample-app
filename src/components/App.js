@@ -119,7 +119,7 @@ class App extends Component {
         return <Route key='' path='/api/v1/:user/password_reset/:token'
                    render={ props => <ResetPage {...props}/> }
                 />
-    }
+    };
 
     renderToken = () => {
         return [
