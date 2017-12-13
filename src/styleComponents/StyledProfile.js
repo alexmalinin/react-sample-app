@@ -23,11 +23,21 @@ export default styled.div`
             height: 300px;
             border: 4px solid #1991fa;
             
-            img {
+            .image-wrapper {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
                 border-radius: 50%;
                 border: 9px solid #fff;
-                max-width: 300px;
-                max-height: 300px;
+                max-width: 291px;
+                max-height: 291px;
+            }
+            
+            img {
+                height: 100%;
             }
         }
         
