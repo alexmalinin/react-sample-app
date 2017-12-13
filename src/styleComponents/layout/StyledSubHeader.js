@@ -63,9 +63,18 @@ export default styled.div`
         } 
     }
     
+    @media (max-width: 640px) {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        
+        a {
+          margin: 0 18px !important;
+        }
+    }
+    
     @media (max-width: 401px) {
         a {
-            font-size: 18px;
+            font-size: 16px;
             
             & + a {
                 margin-left: 20px;
