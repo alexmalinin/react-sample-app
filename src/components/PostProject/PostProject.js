@@ -21,7 +21,7 @@ class PostProject extends Component {
                     <Grid>
                         <Grid.Row>
                             <Grid.Column>
-                                    <PostProjectForm onSubmit={this.submit}/>
+                                    <PostProjectForm /*onSubmit={this.submit}*//>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -30,9 +30,9 @@ class PostProject extends Component {
         )
     }
 
-    submit = values => {
-        console.log('----values:',values);
-    };
+    // submit = values => {
+    //     console.log('----values:',values);
+    // };
 }
 
 export default PostProject;

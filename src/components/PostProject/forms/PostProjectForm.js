@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Services from '../Services';
 import Details from './Details';
@@ -8,11 +9,16 @@ import { Grid } from "semantic-ui-react";
 
 class PostProjectForm extends Component {
 
+    state = {
+        request: ''
+    };
+
     render() {
-        const { handleSubmit, submitting } = this.props;
+        let { handleSubmit, submitting } = this.props;
+        let { request } = this.state;
 
         return(
-            <form name='details' onSubmit={handleSubmit}>
+            <form name='details' onSubmit={handleSubmit((values) => console.log(values, request))}>
                 <DvTitle mTop='90' mBot='90'>
                     What services do
                     <br/>
@@ -36,6 +42,7 @@ class PostProjectForm extends Component {
                                 content='Save'
                                 primary
                                 xsIndent
+                                onClick={this.handleRequest}
                             />
                         </Grid.Column>
 
@@ -45,6 +52,7 @@ class PostProjectForm extends Component {
                                 disabled={submitting}
                                 content='Submit'
                                 primary
+                                onClick={this.handleRequest}
                             />
                         </Grid.Column>
                     </Grid.Row>
@@ -52,8 +60,17 @@ class PostProjectForm extends Component {
             </form>
         )
     }
+
+    handleRequest = ev => {
+        let request = ev.target.innerText.toLowerCase();
+        this.setState({
+            request,
+        });
+    }
 }
 
-export default reduxForm({
+PostProjectForm = reduxForm({
     form: 'PostProjectForm'
-})(PostProjectForm)
+})(PostProjectForm);
+
+export default connect(null, {})(PostProjectForm);
