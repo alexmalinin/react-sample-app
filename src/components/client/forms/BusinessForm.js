@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
@@ -15,7 +15,7 @@ class BusinessForm extends Component {
         const {submitting} = this.props;
 
         return (
-            <div>
+            <React.Fragment>
                 <div className='wrapper'>
                     <Field
                         name="we_are"
@@ -39,12 +39,8 @@ class BusinessForm extends Component {
                     content='SAVE & CONTINUE'
                     primary
                 />
-            </div>
+            </React.Fragment>
         )
-    }
-
-    componentWillReceiveProps() {
-
     }
 }
 
