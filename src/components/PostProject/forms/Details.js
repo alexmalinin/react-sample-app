@@ -11,6 +11,7 @@ import RenderSelect from '../../forms/renders/RenderSelect';
 import { required, } from '../../../helpers/validate';
 import InputField from "../../forms/renders/InputField";
 import { getProjectTypes } from '../../../actions/actions'
+import RenderImage from "../../forms/renders/RenderImage";
 
 class Details extends Component  {
 
@@ -21,7 +22,8 @@ class Details extends Component  {
     render() {
 
         const { projectTypes } = this.props;
-        console.log(projectTypes);
+        let { avatar } = false;
+
         return (
             <div>
                 <RenderMarkdown
@@ -70,6 +72,15 @@ class Details extends Component  {
                                 options={remotes}
                                 validate={[required]}
                             />
+                            <Field
+                                name='person'
+                                component={RenderImage}
+                                type='file'
+                                avatar={avatar}
+                                placeholder='Choose your photo /'
+                            />
+                            {/*<iframe src="http://docs.google.com/gview?url=http://path.com/to/your/pdf.pdf&embedded=true"*/}
+                                    {/*style={{"width":'600px', "height":'500px'}} frameborder="0"></iframe>*/}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

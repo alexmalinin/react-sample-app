@@ -11,6 +11,7 @@ class SubHeader extends Component {
                 <NavLink className="button" to="/client/dashboard/profile">Profile</NavLink>
                 <NavLink className="button" to="/client/dashboard/projects">Projects</NavLink>
                 <NavLink className="button" to="/client/dashboard/my_teams">My Teams</NavLink>
+                <NavLink className="button" to="/client/dashboard/business">Business</NavLink>
             </StyledSubHeader>
         )
     }

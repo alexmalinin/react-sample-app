@@ -20,6 +20,7 @@ import ClientWelcome from './client/ClientWelcome';
 import ClientProfile from './client/ClientProfile';
 import ClientProjects from './client/ClientProjects';
 import ClientMyTeams from './client/ClientMyTeams';
+import ClientBusiness from './client/ClientBusiness';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
@@ -98,12 +99,13 @@ class App extends Component {
                                     <Route path='/specialists/dashboard/info' component={ SpecialistsInfo } />
                                     <Route path='/specialists/dashboard/about' component={SpecialistsAbout}/>
                                     {
-                                        ( render_step1 || render_client_step ) &&
+                                        /*( render_step1 || render_client_step ) &&*/
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
                                     }
                                     <Route path='/client/dashboard/profile' component={ClientProfile}/>
                                     <Route path='/client/dashboard/projects' component={ClientProjects}/>
                                     <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
+                                    <Route path='/client/dashboard/business' component={ClientBusiness}/>
                                     <Route path='*' component={NotFound}/>
                                 </Switch>
                                 <Footer/>

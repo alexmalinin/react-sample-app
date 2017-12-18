@@ -6,6 +6,7 @@ import Details from './Details';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';
 import { Grid } from "semantic-ui-react";
+import { saveCreatedProgect, submitCreatedProgect } from "../../../actions/actions";
 
 class PostProjectForm extends Component {
 
@@ -14,11 +15,14 @@ class PostProjectForm extends Component {
     };
 
     render() {
-        let { handleSubmit, submitting } = this.props;
+        let { handleSubmit, submitting, saveCreatedProgect, submitCreatedProgect } = this.props;
         let { request } = this.state;
 
         return(
-            <form name='details' onSubmit={handleSubmit((values) => console.log(values, request))}>
+            <form name='details' onSubmit={handleSubmit((values) => {
+                    request === 'save' ? saveCreatedProgect(values) : submitCreatedProgect(values);
+                })}
+            >
                 <DvTitle mTop='90' mBot='90'>
                     What services do
                     <br/>
@@ -73,4 +77,4 @@ PostProjectForm = reduxForm({
     form: 'PostProjectForm'
 })(PostProjectForm);
 
-export default connect(null, {})(PostProjectForm);
+export default connect(null, {saveCreatedProgect, submitCreatedProgect})(PostProjectForm);

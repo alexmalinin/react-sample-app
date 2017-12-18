@@ -10,7 +10,7 @@ import LocationField from '../../forms/renders/LocationField'
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import BusinessForm from "./BusinessForm";
 
-class ClientWelcomeForm extends Component {
+class ClientBusinessForm extends Component {
 
     render() {
         const { handleSubmit, submitting } = this.props;
@@ -24,7 +24,7 @@ class ClientWelcomeForm extends Component {
 }
 
 export default reduxForm({
-    form: 'ClientWelcomeForm',
+    form: 'ClientBusinessForm',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
-})(ClientWelcomeForm);
+})(ClientBusinessForm);

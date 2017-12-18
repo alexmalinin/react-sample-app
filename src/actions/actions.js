@@ -36,6 +36,9 @@ import {
     DELETE_EXPERIENCE_CARD_WITH_ID,
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     UPDATE_CLIENT_PROFILE,
+    UPDATE_CLIENT_BUSINESS,
+    SAVE_CREATED_PROJECT,
+    SUBMIT_CREATED_PROJECT,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -446,6 +449,40 @@ export function updateClientProfile(data) {
         payload: data,
         updateClientProfile1: `${PORT}/api/v1/customers/`,
         updateClientProfile2: '/dashboard/profile'
+    };
+
+    return action;
+}
+
+// update Client Data Business
+
+export function updateClientBusiness(data) {
+    const action = {
+        type: UPDATE_CLIENT_BUSINESS,
+        payload: data,
+        updateClientBusiness: `${PORT}/api/v1/customers/`,
+    };
+
+    return action;
+}
+
+// Post a Project
+
+export function saveCreatedProgect(data) {
+    const action = {
+        type: SAVE_CREATED_PROJECT,
+        payload: data,
+        saveCreatedProgect: `${PORT}/api/v1/customers/projects`
+    };
+
+    return action;
+}
+
+export function submitCreatedProgect(data) {
+    const action = {
+        type: SUBMIT_CREATED_PROJECT,
+        payload: data,
+        submitCreatedProgect: `${PORT}/api/v1/customers/projects`
     };
 
     return action;

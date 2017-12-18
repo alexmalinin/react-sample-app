@@ -40,6 +40,9 @@ export const DELETE_EDUCATION_CARD_WITHOUT_ID  = 'DELETE_EDUCATION_CARD_WITHOUT_
 export const DELETE_EXPERIENCE_CARD_WITH_ID    = 'DELETE_EXPERIENCE_CARD_WITH_ID';
 export const DELETE_EXPERIENCE_CARD_WITHOUT_ID = 'DELETE_EXPERIENCE_CARD_WITHOUT_ID';
 export const UPDATE_CLIENT_PROFILE             = 'UPDATE_CLIENT_PROFILE';
+export const UPDATE_CLIENT_BUSINESS            = 'UPDATE_CLIENT_BUSINESS';
+export const SAVE_CREATED_PROJECT              = 'SAVE_CREATED_PROJECT';
+export const SUBMIT_CREATED_PROJECT            = 'SUBMIT_CREATED_PROJECT';
 
 export const SUCCESS                           = '_SUCCESS';
 export const FAIL                              = '_FAIL';
