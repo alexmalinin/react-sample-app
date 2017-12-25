@@ -58,76 +58,70 @@ class SpecialistsAbout extends Component {
         ];
 
         return (
-            <div>
-                <HeaderBasic/>
-                <SubHeader/>
-                <S_MainContainer>
-                    <Container indentBot indentTop>
-                        {/*<ContainerLarge>*/}
-                        <DvTitle mTop='80'>
-                            Welcome to The Village!
-                        </DvTitle>
-                        {/*</ContainerLarge>*/}
-                        <DvTitleSmall>About</DvTitleSmall>
+            <Container indentBot indentTop>
+                {/*<ContainerLarge>*/}
+                <DvTitle mTop='80'>
+                    Welcome to The Village!
+                </DvTitle>
+                {/*</ContainerLarge>*/}
+                <DvTitleSmall>About</DvTitleSmall>
 
-                        <StyledProfile>
+                <StyledProfile>
 
-                            <div className='main-info'>
-                                <h2>{specialistData ? specialistData["first_name"] : null}</h2>
-                                <p>{specialistData ? specialistData["industry_title"] : null}</p>
+                    <div className='main-info'>
+                        <h2>{specialistData ? specialistData["first_name"] : null}</h2>
+                        <p>{specialistData ? specialistData["industry_title"] : null}</p>
 
-                                <div className='profile-image'>
-                                    <div className="image-wrapper">
-                                        <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt=''/>
-                                    </div>
-                                </div>
-
-                                <div className='flex-between'>
-                                    <span>
-                                        <img src='/images/location.png' alt=''/>
-                                        {specialistData ? specialistData["address"]["city"] : null},
-                                        {specialistData ? specialistData["address"]["country"] : null}
-
-                                    </span>
-
-                                    <span>
-                                        <img src='/images/time.png' alt=''/>
-                                        {specialistData ? specialistData["available"] : null}
-                                    </span>
-                                </div>
+                        <div className='profile-image'>
+                            <div className="image-wrapper">
+                                <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt=''/>
                             </div>
+                        </div>
 
-                            <div className='skills'>
-                                <h4>
-                                    All skills /
-                                </h4>
+                        <div className='flex-between'>
+                            <span>
+                                <img src='/images/location.png' alt=''/>
+                                {specialistData ? specialistData["address"]["city"] : null},
+                                {specialistData ? specialistData["address"]["country"] : null}
 
-                                <div className='flex-wrapper'>
+                            </span>
 
-                                    { allSkills && allSkills.map(item =>
-                                        <StyledCheckbox key={item.name}>
-                                            <div>{item.name}</div>
-                                        </StyledCheckbox>
-                                    ) }
+                            <span>
+                                <img src='/images/time.png' alt=''/>
+                                {specialistData ? specialistData["available"] : null}
+                            </span>
+                        </div>
+                    </div>
 
-                                </div>
+                    <div className='skills'>
+                        <h4>
+                            All skills /
+                        </h4>
 
-                                <p>
-                                    {specialistData ? specialistData["professional_experience_info"] : null}
-                                </p>
-                            </div>
-                            { (work_experience ||
-                              educations_experience) ?
-                              <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
-                                : null
-                            }
+                        <div className='flex-wrapper'>
 
-                            <SubscribeForm onSubmit={this.submit}/>
+                            { allSkills && allSkills.map(item =>
+                                <StyledCheckbox key={item.name}>
+                                    <div>{item.name}</div>
+                                </StyledCheckbox>
+                            ) }
 
-                        </StyledProfile>
-                    </Container>
-                </S_MainContainer>
-            </div>
+                        </div>
+
+                        <p>
+                            {specialistData ? specialistData["professional_experience_info"] : null}
+                        </p>
+                    </div>
+                    { (work_experience ||
+                      educations_experience) ?
+                      <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
+                        : null
+                    }
+
+                    <SubscribeForm onSubmit={this.submit}/>
+
+                </StyledProfile>
+            </Container>
         )
     }
 

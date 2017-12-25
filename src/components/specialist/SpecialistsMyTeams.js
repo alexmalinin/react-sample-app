@@ -14,31 +14,25 @@ class SpecialistsMyTeams extends Component {
     render() {
 
         return (
-            <StyledClientTeam>
-                <HeaderBasic/>
-                <SubHeader/>
-                <S_MainContainer>
-                    <Container indentTop indentBot relative>
-                        {/*<ContainerLarge>*/}
-                        <DvTitle mTop='80'>
-                            Welcome to The Village!
-                        </DvTitle>
-                        {/*</ContainerLarge>*/}
-                        <div className='gag'>
-                            <h4>
-                                Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
-                            </h4>
-                        </div>
-                        <DvTitleSmall fz='28' indentNull xsCenter>My Teams</DvTitleSmall>
-                        <div className='flex-wrapper indent-top'>
-                            <RenderProjectCard/>
-                            <RenderProjectCard/>
-                            <RenderProjectCard/>
-                        </div>
-                        <DvButton primary content='SAVE & UPDATE'/>
-                    </Container>
-                </S_MainContainer>
-            </StyledClientTeam>
+            <Container indentTop indentBot relative>
+                {/*<ContainerLarge>*/}
+                <DvTitle mTop='80'>
+                    Welcome to The Village!
+                </DvTitle>
+                {/*</ContainerLarge>*/}
+                <div className='gag'>
+                    <h4>
+                        Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
+                    </h4>
+                </div>
+                <DvTitleSmall fz='28' indentNull xsCenter>My Teams</DvTitleSmall>
+                <div className='flex-wrapper indent-top'>
+                    <RenderProjectCard/>
+                    <RenderProjectCard/>
+                    <RenderProjectCard/>
+                </div>
+                <DvButton primary content='SAVE & UPDATE'/>
+            </Container>
         )
     }
 }

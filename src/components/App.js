@@ -93,12 +93,7 @@ class App extends Component {
                                     }
 
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
-                                    <Route path='/specialists/dashboard/profile' component={ SpecialistsProfile }/>
-                                    <Route path='/specialists/dashboard/my_teams' component={ SpecialistsMyTeams }/>
-                                    <Route path='/specialists/dashboard/availability' component={ SpecialistsAvailability }/>
-                                    <Route path='/specialists/dashboard/industry' component={ SpecialistsIndustry } />
-                                    <Route path='/specialists/dashboard/info' component={ SpecialistsInfo } />
-                                    <Route path='/specialists/dashboard/about' component={SpecialistsAbout}/>
+                                    
                                     {
                                         /*( render_step1 || render_client_step ) &&*/
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
