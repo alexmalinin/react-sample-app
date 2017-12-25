@@ -3,13 +3,12 @@ import { Message } from 'semantic-ui-react';
 
 export const S_Message = styled(Message)`  
     &.ui.message {
-        position: absolute;
-        top: -153px;
+        position: fixed;
+        top: -80px;
         margin-top: 0;
         right: 22px;
         z-index: 1;
-        transition: top 0.7s ease-in-out;
-        ${props => props['profile'] && `top: -140px`};
-        ${props => props['data-show'] && `top: 0`};
+        transition: top 0.5s ease-in-out;
+        ${props => props['data-show'] ? `top: 20px` : ``};
     }
 `;

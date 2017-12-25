@@ -9,9 +9,12 @@ import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
+import AsideLeft from "./renders/AsideLeft";
+import AsideRight from "./renders/AsideRight";
 
 class SpecialistsProfile extends Component {
 
@@ -32,40 +35,35 @@ class SpecialistsProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
 
         return (
-            <div>
-                <HeaderBasic/>
-
-                <ContainerLarge>
-                    <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
-                <SubHeader/>
-                <Container indentTop indentBot className="relative">
-                    <S_Message positive profile data-show={renderMessage}>
-                        <Message.Header>Success!</Message.Header>
-                        <p>Form updated</p>
-                    </S_Message>
-                    <S_Message negative profile data-show={renderErrorMessage}>
-                        <Message.Header>Error!</Message.Header>
-                        <p>Something went wrong, please try again</p>
-                    </S_Message>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={8}>
-                                <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
-                                <RenderProfileForm onSubmit={this.submit}/>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={8}>
-                                <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
-                                <RenderResetPasswordForm user="specialist"/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Container>
-            </div>
+            <Container indentTop indentBot className="relative">
+                {/*<ContainerLarge>*/}
+                <DvTitle mTop='80'>
+                    Welcome to The Village!
+                </DvTitle>
+                {/*</ContainerLarge>*/}
+                <S_Message positive data-show={renderMessage}>
+                    <Message.Header>Success!</Message.Header>
+                    <p>Form updated</p>
+                </S_Message>
+                <S_Message negative data-show={renderErrorMessage}>
+                    <Message.Header>Error!</Message.Header>
+                    <p>Something went wrong, please try again</p>
+                </S_Message>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={12} computer={8}>
+                            <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
+                            <RenderProfileForm onSubmit={this.submit}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={12} computer={8}>
+                            <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
+                            <RenderResetPasswordForm user="specialist"/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Container>
         )
     }
 

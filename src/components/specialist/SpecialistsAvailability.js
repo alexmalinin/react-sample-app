@@ -5,6 +5,7 @@ import SubHeader from '../layout/SpecialistsSubHeader';
 import SpecialistAvailabilityForm from './Availability/SpecialistAvailabilityForm';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { showSpecialistData, updateSpecialistAvailability } from '../../actions/actions';
 import { Message } from 'semantic-ui-react';
@@ -25,27 +26,23 @@ class SpecialistsAvailability extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
 
         return (
-            <div>
-                <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
-                <SubHeader/>
-                <Container indentTop indentBot  className="relative">
-                    <S_Message positive data-show={renderMessage}>
-                        <Message.Header>Success!</Message.Header>
-                        <p>Form updated</p>
-                    </S_Message>
-                    <S_Message negative data-show={renderErrorMessage}>
-                        <Message.Header>Error!</Message.Header>
-                        <p>Something went wrong, please try again</p>
-                    </S_Message>
-                    <DvTitleSmall>Availability</DvTitleSmall>
-                    <SpecialistAvailabilityForm onSubmit={this.submit}/>
-                </Container>
-            </div>
+            <Container indentTop indentBot  className="relative">
+                {/*<ContainerLarge>*/}
+                <DvTitle mTop='80'>
+                    Welcome to The Village!
+                </DvTitle>
+                {/*</ContainerLarge>*/}
+                <S_Message positive data-show={renderMessage}>
+                    <Message.Header>Success!</Message.Header>
+                    <p>Form updated</p>
+                </S_Message>
+                <S_Message negative data-show={renderErrorMessage}>
+                    <Message.Header>Error!</Message.Header>
+                    <p>Something went wrong, please try again</p>
+                </S_Message>
+                <DvTitleSmall>Availability</DvTitleSmall>
+                <SpecialistAvailabilityForm onSubmit={this.submit}/>
+            </Container>
         )
     }
 

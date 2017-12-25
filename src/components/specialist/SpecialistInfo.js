@@ -8,6 +8,7 @@ import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
 import { Message } from 'semantic-ui-react';
 import { S_Message } from '../../styleComponents/layout/S_Message';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { run } from '../../helpers/scrollToElement';
 
 class SpecialistIndustry extends Component {
@@ -29,24 +30,26 @@ class SpecialistIndustry extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
                 <SubHeader/>
-                <Container indentBot indentTop className="relative">
-                    <S_Message positive data-show={renderMessage}>
-                        <Message.Header>Success!</Message.Header>
-                        <p>Form updated</p>
-                    </S_Message>
-                    <S_Message negative data-show={renderErrorMessage}>
-                        <Message.Header>Error!</Message.Header>
-                        <p>Something went wrong, please try again</p>
-                    </S_Message>
-                    <DvTitleSmall>Info</DvTitleSmall>
-                    <SpecialistInfoForm educations={educations} experiences={experiences} projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
-                </Container>
+                <S_MainContainer>
+                    <Container indentBot indentTop className="relative">
+                        {/*<ContainerLarge>*/}
+                            <DvTitle mTop='80'>
+                                Welcome to The Village!
+                            </DvTitle>
+                        {/*</ContainerLarge>*/}
+                        <S_Message positive data-show={renderMessage}>
+                            <Message.Header>Success!</Message.Header>
+                            <p>Form updated</p>
+                        </S_Message>
+                        <S_Message negative data-show={renderErrorMessage}>
+                            <Message.Header>Error!</Message.Header>
+                            <p>Something went wrong, please try again</p>
+                        </S_Message>
+                        <DvTitleSmall>Info</DvTitleSmall>
+                        <SpecialistInfoForm educations={educations} experiences={experiences} projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
+                    </Container>
+                </S_MainContainer>
             </div>
         )
     }

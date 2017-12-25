@@ -4,6 +4,7 @@ import { Tab } from 'semantic-ui-react'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import {StyledTabs } from '../../styleComponents/StyledTabCard';
 import SubscribeForm from '../forms/SubscribeForm';
@@ -59,74 +60,73 @@ class SpecialistsAbout extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
-
                 <SubHeader/>
+                <S_MainContainer>
+                    <Container indentBot indentTop>
+                        {/*<ContainerLarge>*/}
+                        <DvTitle mTop='80'>
+                            Welcome to The Village!
+                        </DvTitle>
+                        {/*</ContainerLarge>*/}
+                        <DvTitleSmall>About</DvTitleSmall>
 
-                <Container indentBot indentTop>
+                        <StyledProfile>
 
-                    <DvTitleSmall>About</DvTitleSmall>
+                            <div className='main-info'>
+                                <h2>{specialistData ? specialistData["first_name"] : null}</h2>
+                                <p>{specialistData ? specialistData["industry_title"] : null}</p>
 
-                    <StyledProfile>
+                                <div className='profile-image'>
+                                    <div className="image-wrapper">
+                                        <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt=''/>
+                                    </div>
+                                </div>
 
-                        <div className='main-info'>
-                            <h2>{specialistData ? specialistData["first_name"] : null}</h2>
-                            <p>{specialistData ? specialistData["industry_title"] : null}</p>
+                                <div className='flex-between'>
+                                    <span>
+                                        <img src='/images/location.png' alt=''/>
+                                        {specialistData ? specialistData["address"]["city"] : null},
+                                        {specialistData ? specialistData["address"]["country"] : null}
 
-                            <div className='profile-image'>
-                                <div className="image-wrapper">
-                                    <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt=''/>
+                                    </span>
+
+                                    <span>
+                                        <img src='/images/time.png' alt=''/>
+                                        {specialistData ? specialistData["available"] : null}
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className='flex-between'>
-                                <span>
-                                    <img src='/images/location.png' alt=''/>
-                                    {specialistData ? specialistData["address"]["city"] : null},
-                                    {specialistData ? specialistData["address"]["country"] : null}
+                            <div className='skills'>
+                                <h4>
+                                    All skills /
+                                </h4>
 
-                                </span>
+                                <div className='flex-wrapper'>
 
-                                <span>
-                                    <img src='/images/time.png' alt=''/>
-                                    {specialistData ? specialistData["available"] : null}
-                                </span>
+                                    { allSkills && allSkills.map(item =>
+                                        <StyledCheckbox key={item.name}>
+                                            <div>{item.name}</div>
+                                        </StyledCheckbox>
+                                    ) }
+
+                                </div>
+
+                                <p>
+                                    {specialistData ? specialistData["professional_experience_info"] : null}
+                                </p>
                             </div>
-                        </div>
+                            { (work_experience ||
+                              educations_experience) ?
+                              <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
+                                : null
+                            }
 
-                        <div className='skills'>
-                            <h4>
-                                All skills /
-                            </h4>
+                            <SubscribeForm onSubmit={this.submit}/>
 
-                            <div className='flex-wrapper'>
-
-                                { allSkills && allSkills.map(item =>
-                                    <StyledCheckbox key={item.name}>
-                                        <div>{item.name}</div>
-                                    </StyledCheckbox>
-                                ) }
-
-                            </div>
-
-                            <p>
-                                {specialistData ? specialistData["professional_experience_info"] : null}
-                            </p>
-                        </div>
-                        { (work_experience ||
-                          educations_experience) ?
-                          <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
-                            : null
-                        }
-
-                        <SubscribeForm onSubmit={this.submit}/>
-
-                    </StyledProfile>
-                </Container>
+                        </StyledProfile>
+                    </Container>
+                </S_MainContainer>
             </div>
         )
     }

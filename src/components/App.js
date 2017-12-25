@@ -21,6 +21,7 @@ import ClientProfile from './client/ClientProfile';
 import ClientProjects from './client/ClientProjects';
 import ClientMyTeams from './client/ClientMyTeams';
 import ClientBusiness from './client/ClientBusiness';
+import SpecialistDashboard from './specialist/SpecialistsDashboard';
 import SpecialistsProfile from './specialist/SpecialistsProfile';
 import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
 import SpecialistsAvailability from './specialist/SpecialistsAvailability';
@@ -91,7 +92,7 @@ class App extends Component {
                                         />
                                     }
 
-
+                                    <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
                                     <Route path='/specialists/dashboard/profile' component={ SpecialistsProfile }/>
                                     <Route path='/specialists/dashboard/my_teams' component={ SpecialistsMyTeams }/>
                                     <Route path='/specialists/dashboard/availability' component={ SpecialistsAvailability }/>
