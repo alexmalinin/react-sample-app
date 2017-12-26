@@ -1,27 +1,16 @@
 import React, {Component, Fragment} from 'react';
-import { connect } from 'react-redux';
-import { Grid, Tab } from 'semantic-ui-react';
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import { DvTitle } from '../../styleComponents/layout/DvTitles';
-import RenderProfileForm from '../forms/RenderProfileForm';
-import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
-import { S_Message } from '../../styleComponents/layout/S_Message';
-import { Message } from 'semantic-ui-react';
-import { run } from '../../helpers/scrollToElement';
-import AsideLeft from "./renders/AsideLeft";
-import AsideRight from "./renders/AsideRight";
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
+import AsideLeft from "../renders/AsideLeft";
+import AsideRight from "../renders/AsideRight";
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsAvailability from "./SpecialistsAvailability";
 import SpecialistIndustry from "./SpecialistIndustry";
 import SpecialistInfo from "./SpecialistInfo";
 import SpecialistsAbout from "./SpecialistsAbout";
-import StyledClientTeam from '../../styleComponents/StyledClientTeam';
+import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 
 class SpecialistsDashboard extends Component {
 

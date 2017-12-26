@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import SpecialistIndustryForm from './forms/SpecialistIndustryForm';
-import { getIndustries, showSpecialistData, updateSpecStep1 } from '../../actions/actions'
-import {DvTitle, DvTitleSmall} from '../../styleComponents/layout/DvTitles';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import SpecialistIndustryForm from '../forms/SpecialistIndustryForm';
+import { getIndustries, showSpecialistData, updateSpecStep1 } from '../../../actions/actions'
+import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
+import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import { Message } from 'semantic-ui-react';
-import { S_Message } from '../../styleComponents/layout/S_Message';
-import { run } from '../../helpers/scrollToElement';
+import { S_Message } from '../../../styleComponents/layout/S_Message';
+import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistIndustry extends Component {
 

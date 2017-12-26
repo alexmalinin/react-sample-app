@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles'
-import { DvButton } from '../../styleComponents/layout/DvButton'
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
-import RenderProjectCard from '../client/renders/RenderProjectCard';
-import StyledClientTeam from '../../styleComponents/StyledClientTeam';
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import { DvTitle, DvTitleSmall } from '../../../styleComponents/layout/DvTitles'
+import { DvButton } from '../../../styleComponents/layout/DvButton'
+import { Container, ContainerLarge } from '../../../styleComponents/layout/Container'
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
+import RenderProjectCard from '../../client/renders/RenderProjectCard';
+import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 
 
 class SpecialistsMyTeams extends Component {

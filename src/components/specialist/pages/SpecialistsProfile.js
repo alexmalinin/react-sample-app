@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Grid, Tab } from 'semantic-ui-react';
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import { DvTitle } from '../../styleComponents/layout/DvTitles';
-import RenderProfileForm from '../forms/RenderProfileForm';
-import RenderResetPasswordForm from '../forms/RenderResetPasswordForm';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import { showSpecialistData, updateSpecialistProfile } from '../../actions/actions';
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
-import { S_Message } from '../../styleComponents/layout/S_Message';
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import { DvTitle } from '../../../styleComponents/layout/DvTitles';
+import RenderProfileForm from '../../forms/RenderProfileForm';
+import RenderResetPasswordForm from '../../forms/RenderResetPasswordForm';
+import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
+import { DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
+import { showSpecialistData, updateSpecialistProfile } from '../../../actions/actions';
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
+import { S_Message } from '../../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
-import { run } from '../../helpers/scrollToElement';
-import AsideLeft from "./renders/AsideLeft";
-import AsideRight from "./renders/AsideRight";
+import { run } from '../../../helpers/scrollToElement';
+import AsideLeft from "../renders/AsideLeft";
+import AsideRight from "../renders/AsideRight";
 
 class SpecialistsProfile extends Component {
 

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Tab } from 'semantic-ui-react'
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
-import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import {StyledTabs } from '../../styleComponents/StyledTabCard';
-import SubscribeForm from '../forms/SubscribeForm';
-import StyledCheckbox from '../../styleComponents/forms/StyledCheckbox';
-import StyledProfile from '../../styleComponents/StyledProfile';
-import RenderTabCard from './renders/RenderTabCard';
-import { showSpecialistData } from '../../actions/actions';
-import { PORT } from "../../constans/constans";
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
+import { DvTitle, DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
+import {StyledTabs } from '../../../styleComponents/StyledTabCard';
+import SubscribeForm from '../../forms/SubscribeForm';
+import StyledCheckbox from '../../../styleComponents/forms/StyledCheckbox';
+import StyledProfile from '../../../styleComponents/StyledProfile';
+import RenderTabCard from '../renders/RenderTabCard';
+import { showSpecialistData } from '../../../actions/actions';
+import { PORT } from "../../../constans/constans";
 
 class SpecialistsAbout extends Component {
 

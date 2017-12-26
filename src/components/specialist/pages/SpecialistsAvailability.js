@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HeaderBasic from '../layout/HeaderBasic';
-import SubHeader from '../layout/SpecialistsSubHeader';
-import SpecialistAvailabilityForm from './Availability/SpecialistAvailabilityForm';
-import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
-import { S_Message } from '../../styleComponents/layout/S_Message';
-import { showSpecialistData, updateSpecialistAvailability } from '../../actions/actions';
+import HeaderBasic from '../../layout/HeaderBasic';
+import SubHeader from '../../layout/SpecialistsSubHeader';
+import SpecialistAvailabilityForm from '../Availability/SpecialistAvailabilityForm';
+import { DvTitle, DvTitleSmall } from '../../../styleComponents/layout/DvTitles';
+import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
+import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
+import { S_Message } from '../../../styleComponents/layout/S_Message';
+import { showSpecialistData, updateSpecialistAvailability } from '../../../actions/actions';
 import { Message } from 'semantic-ui-react';
-import { run } from '../../helpers/scrollToElement';
+import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistsAvailability extends Component {
 

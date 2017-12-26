@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import HeaderBasic from '../layout/HeaderBasic';
-import DvGrid from '../../styleComponents/layout/DvGrid';
-import confirm from '../../decorators/confirm';
-import SpecialistWelcomeForm1 from './forms/SpecialistWelcomeForm1';
-import { Container }from '../../styleComponents/layout/Container';
-import { getIndustries, updateSpecStep1 } from '../../actions/actions';
+import HeaderBasic from '../../layout/HeaderBasic';
+import DvGrid from '../../../styleComponents/layout/DvGrid';
+import confirm from '../../../decorators/confirm';
+import SpecialistWelcomeForm1 from '../forms/SpecialistWelcomeForm1';
+import { Container }from '../../../styleComponents/layout/Container';
+import { getIndustries, updateSpecStep1 } from '../../../actions/actions';
 
 class SpecialistsWelcome1 extends Component {
 
