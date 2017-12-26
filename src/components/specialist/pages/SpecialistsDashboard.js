@@ -10,6 +10,7 @@ import SpecialistsAvailability from "./SpecialistsAvailability";
 import SpecialistIndustry from "./SpecialistIndustry";
 import SpecialistInfo from "./SpecialistInfo";
 import SpecialistsAbout from "./SpecialistsAbout";
+import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 
 class SpecialistsDashboard extends Component {
@@ -46,6 +47,8 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistInfo/>;
             case 'about':
                 return <SpecialistsAbout/>;
+            case 'board':
+                return <SpecialistsBoard/>;
             default:
                 return <SpecialistsProfile/>
         }
