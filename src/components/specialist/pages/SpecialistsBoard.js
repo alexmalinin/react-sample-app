@@ -36,25 +36,34 @@ class SpecialistsBoard extends Component {
                 <DvTitleSmall>Board</DvTitleSmall>
                 <Progress percent={44} progress active color='blue'/>
                 <S_Board>
-                    <div onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
                         <h3>Backlog</h3>
-                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="item">1111111111111111111111</div>
-                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="item">2222222222222222222222</div>
-                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="item">3333333333333333333333</div>
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            1111111111111111111111
+                        </div>
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            2222222222222222222222
+                        </div>
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            3333333333333333333333
+                        </div>
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            4444444444444444444444
+                        </div>
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            5555555555555555555555
+                        </div>
                     </div>
-                    <div onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
                         <h3>In Progress</h3>
 
                     </div>
-                    <div onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
                         <h3>Done</h3>
                     </div>
                 </S_Board>
                 <div >
                 </div>
-                {/*<div className="item">4444444444444444444444</div>*/}
-                {/*<div className="item">5555555555555555555555</div>*/}
-
             </Container>
         )
     }
@@ -62,11 +71,8 @@ class SpecialistsBoard extends Component {
     handleDragStart = (ev) => {
         // ev.preventDefault();
         this.draggableElement = ev.target;
-        this.draggableElement.classList.add('hide')
+        this.draggableElement.classList.add('hide');
         ev.nativeEvent.dataTransfer.effectAllowed = 'move';
-        console.log(ev.target.getBoundingClientRect().height);
-        // console.log(ev.nativeEvent);
-        // console.log(ev.nativeEvent.dataTransfer);
     };
 
     handleDragOver = (ev) => {
@@ -78,40 +84,59 @@ class SpecialistsBoard extends Component {
 
     handleDrop = (ev) => {
         ev.preventDefault();
-        if (ev.target === this.draggableElement) return;
-        if (ev.target.classList.contains('item')) {
-           console.log('here')
-        } else {
-            ev.target.appendChild(this.draggableElement);
-        }
+        let thisElement = ev.target;
+        let thisEvent = ev.nativeEvent;
 
+        if (thisElement === this.draggableElement) return;
+
+        console.log('---this.hoveredElement.offsetY', this.hoveredPosition)
+        if (this.hoveredPosition === 'top') {
+            console.log('insert before');
+            this.hoveredElement.parentNode.insertBefore(this.draggableElement, this.hoveredElement);
+        } else if (this.hoveredPosition === 'bottom'){
+            this.hoveredElement.parentNode.insertBefore(this.draggableElement, this.hoveredElement.nextSibling);
+        } else {
+            console.log('here');
+            thisElement.appendChild(this.draggableElement);
+        }
     }
 
     handleDragEnter = (ev) => {
-        console.log('offsetY', ev.nativeEvent.offsetY);
-        console.log('Height', ev.target.getBoundingClientRect().height / 2);
+        // ev.nativeEvent.offsetY;
+        // console.log(ev.nativeEvent.offsetY);
+        // console.log('Height', ev.target.getBoundingClientRect().height / 2);
+        let thisElement = ev.target;
+        let thisEventOffset = ev.nativeEvent.offsetY;
 
-        if (ev.target === this.draggableElement) return;
-        this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px" : null;
-        this.hoveredElement = ev.target;
-        if (ev.nativeEvent.offsetY > ev.target.getBoundingClientRect().height / 2) {
-            ev.target.style = "margin-bottom: 0px";
-            ev.target.style = "margin-top:" +  Number(ev.target.getBoundingClientRect().height + 10) + 'px';
+        if (thisElement === this.draggableElement) return;
+        if (thisElement.classList.contains('dragContainer')) {
+            this.hoveredElement = thisElement;
+            this.hoveredPosition = 'container'
         } else {
-            ev.target.style = "margin-top: 10px";
-            ev.target.style = "margin-bottom:" +  Number(ev.target.getBoundingClientRect().height + 10) + 'px';
+            this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px" : null;
+            this.hoveredElement = thisElement;
+            if (thisEventOffset > ev.target.getBoundingClientRect().height / 2) {
+                this.hoveredPosition = 'top';
+                thisElement.style = "margin-bottom: 0px";
+                thisElement.style = "margin-top:" + Number(thisElement.getBoundingClientRect().height + 10) + 'px';
+            } else {
+                this.hoveredPosition = 'bottom';
+                thisElement.style = "margin-top: 10px";
+                thisElement.style = "margin-bottom:" + Number(thisElement.getBoundingClientRect().height + 10) + 'px';
+            }
         }
-        // console.log('style', window.getComputedStyle(ev.target).marginTop);
-        // ev.target.style = "margin-top:" +  Number(ev.target.getBoundingClientRect().height + 10) + 'px';
-    }
+    };
 
     // handleDragLeave = (ev) => {
-    //     console.log(ev.target)
-    //     ev.target.style = "margin-top: 10px";
+    //     setTimeout(() => {
+    //         console.log(this)
+    //         this.hoveredElement.style = "margin-top: 10px; margin-bottom: 10px";
+    //     }, 300);
     // }
 
     handleDragEnd = (ev) => {
-        this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px" : null;
+        this.draggableElement.classList.remove('hide');
+        this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px; margin-bottom: 10px" : null;
         console.log('---dragend')
     }
 }
