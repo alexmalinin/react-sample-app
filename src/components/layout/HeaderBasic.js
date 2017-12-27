@@ -10,14 +10,20 @@ class Header extends Component {
     };
 
     render() {
+
         return (
             <StyledHeaderBasic className='header-basic'>
                 <ContainerLarge>
                     <a href='/'>
+                        <span>Digital</span>
                         <img src='/images/logo_basic.png'/>
+                        <span>Village</span>
                     </a>
-
-                    <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink>
+                    <div>
+                        <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
+                        <span> | </span>
+                        <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink>
+                    </div>
                 </ContainerLarge>
             </StyledHeaderBasic>
         )
@@ -25,7 +31,7 @@ class Header extends Component {
 
     logOut = () => {
         localStorage.clear();
-        // window.location.reload();
+        window.location.reload();
     }
 }
 

@@ -13,6 +13,10 @@ export default styled.div`
     align-items: center;
     justify-content: center;
     
+    & > span {
+      padding: 10px;
+    }
+    
     a {
         color: #fff;
         font-family: Roboto, sans-serif;

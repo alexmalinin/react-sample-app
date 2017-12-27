@@ -14,19 +14,20 @@ import Verification from './Verification/Verification';
 import ResetPage from './ResetPassword/ResetPage';
 import ConfirmReset from './ResetPassword/ConfirmReset';
 import ConfirmEmail from './ConfirmEmail';
-import SpecialistsWelcome1 from './specialist/SpecialistWelcome1';
-import SpecialistsWelcome2 from './specialist/SpecialistWelcome2';
+import SpecialistsWelcome1 from './specialist/pages/SpecialistWelcome1';
+import SpecialistsWelcome2 from './specialist/pages/SpecialistWelcome2';
 import ClientWelcome from './client/ClientWelcome';
 import ClientProfile from './client/ClientProfile';
 import ClientProjects from './client/ClientProjects';
 import ClientMyTeams from './client/ClientMyTeams';
 import ClientBusiness from './client/ClientBusiness';
-import SpecialistsProfile from './specialist/SpecialistsProfile';
-import SpecialistsMyTeams from './specialist/SpecialistsMyTeams';
-import SpecialistsAvailability from './specialist/SpecialistsAvailability';
-import SpecialistsIndustry from './specialist/SpecialistIndustry';
-import SpecialistsInfo from './specialist/SpecialistInfo';
-import SpecialistsAbout from './specialist/SpecialistsAbout';
+import SpecialistDashboard from './specialist/pages/SpecialistsDashboard';
+import SpecialistsProfile from './specialist/pages/SpecialistsProfile';
+import SpecialistsMyTeams from './specialist/pages/SpecialistsMyTeams';
+import SpecialistsAvailability from './specialist/pages/SpecialistsAvailability';
+import SpecialistsIndustry from './specialist/pages/SpecialistIndustry';
+import SpecialistsInfo from './specialist/pages/SpecialistInfo';
+import SpecialistsAbout from './specialist/pages/SpecialistsAbout';
 import Footer from './layout/Footer';
 import Sidebar from '../components/layout/Sidebar';
 // import { Segment, Menu, Sidebar } from 'semantic-ui-react';
@@ -91,13 +92,8 @@ class App extends Component {
                                         />
                                     }
 
-
-                                    <Route path='/specialists/dashboard/profile' component={ SpecialistsProfile }/>
-                                    <Route path='/specialists/dashboard/my_teams' component={ SpecialistsMyTeams }/>
-                                    <Route path='/specialists/dashboard/availability' component={ SpecialistsAvailability }/>
-                                    <Route path='/specialists/dashboard/industry' component={ SpecialistsIndustry } />
-                                    <Route path='/specialists/dashboard/info' component={ SpecialistsInfo } />
-                                    <Route path='/specialists/dashboard/about' component={SpecialistsAbout}/>
+                                    <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
+                                    
                                     {
                                         /*( render_step1 || render_client_step ) &&*/
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
