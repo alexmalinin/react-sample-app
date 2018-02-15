@@ -12,6 +12,7 @@ import SpecialistInfo from "./SpecialistInfo";
 import SpecialistsAbout from "./SpecialistsAbout";
 import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
+import SpecialistsTest from "./SpecialistsTest";
 
 class SpecialistsDashboard extends Component {
 
@@ -49,6 +50,8 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistsAbout/>;
             case 'board':
                 return <SpecialistsBoard/>;
+            case 'test':
+                return <SpecialistsTest/>;
             default:
                 return <SpecialistsProfile/>
         }
