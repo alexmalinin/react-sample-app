@@ -36,11 +36,8 @@ class SpecialistsBoard extends Component {
                 <DvTitleSmall>Board</DvTitleSmall>
                 <Progress percent={44} progress active color='blue'/>
                 <S_Board>
-                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop} onDragEnter={this.handleDragEnter}>
                         <h3>Backlog</h3>
-                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
-                            1111111111111111111111
-                        </div>
                         <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
                             2222222222222222222222
                         </div>
@@ -54,11 +51,13 @@ class SpecialistsBoard extends Component {
                             5555555555555555555555
                         </div>
                     </div>
-                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop} onDragEnter={this.handleDragEnter}>
                         <h3>In Progress</h3>
-
+                        <div draggable="true" onDragEnter={this.handleDragEnter} onDragLeave={this.handleDragLeave} onDragStart={this.handleDragStart} onDragEnd={this.handleDragEnd} className="dragItem">
+                            1111111111111111111111
+                        </div>
                     </div>
-                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop}>
+                    <div className="dragContainer" onDragOver={this.handleDragOver} onDrop={this.handleDrop} onDragEnter={this.handleDragEnter}>
                         <h3>Done</h3>
                     </div>
                 </S_Board>
@@ -89,30 +88,27 @@ class SpecialistsBoard extends Component {
 
         if (thisElement === this.draggableElement) return;
 
-        console.log('---this.hoveredElement.offsetY', this.hoveredPosition)
         if (this.hoveredPosition === 'top') {
-            console.log('insert before');
             this.hoveredElement.parentNode.insertBefore(this.draggableElement, this.hoveredElement);
         } else if (this.hoveredPosition === 'bottom'){
             this.hoveredElement.parentNode.insertBefore(this.draggableElement, this.hoveredElement.nextSibling);
         } else {
-            console.log('here');
             thisElement.appendChild(this.draggableElement);
         }
     }
 
     handleDragEnter = (ev) => {
-        // ev.nativeEvent.offsetY;
-        // console.log(ev.nativeEvent.offsetY);
-        // console.log('Height', ev.target.getBoundingClientRect().height / 2);
         let thisElement = ev.target;
         let thisEventOffset = ev.nativeEvent.offsetY;
 
         if (thisElement === this.draggableElement) return;
-        if (thisElement.classList.contains('dragContainer')) {
-            this.hoveredElement = thisElement;
-            this.hoveredPosition = 'container'
+        if (thisElement === this.draggableElement.parentNode) {
+            return;
+        } else if (thisElement.classList.contains('dragContainer')){
+            // this.hoveredElement = thisElement;
+            this.hoveredPosition = 'container';
         } else {
+            document.querySelectorAll('.dragItem').forEach( item => item.style = "margin-top: 10px; margin-bottom: 10px" );
             this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px" : null;
             this.hoveredElement = thisElement;
             if (thisEventOffset > ev.target.getBoundingClientRect().height / 2) {
@@ -121,22 +117,25 @@ class SpecialistsBoard extends Component {
                 thisElement.style = "margin-top:" + Number(thisElement.getBoundingClientRect().height + 10) + 'px';
             } else {
                 this.hoveredPosition = 'bottom';
-                thisElement.style = "margin-top: 10px";
+                thisElement.style = "margin-top: 0px";
                 thisElement.style = "margin-bottom:" + Number(thisElement.getBoundingClientRect().height + 10) + 'px';
             }
         }
     };
 
-    // handleDragLeave = (ev) => {
-    //     setTimeout(() => {
-    //         console.log(this)
-    //         this.hoveredElement.style = "margin-top: 10px; margin-bottom: 10px";
-    //     }, 300);
-    // }
+    handleDragLeave = (ev) => {
+        let thisElement = ev.target;
+        console.log('---leave')
+        /*if (thisElement === this.draggableElement.parentNode) {
+            return;
+        } else*/ if (thisElement.classList.contains('dragContainer')) {
+            document.querySelectorAll('.dragItem').forEach( item => item.style = "margin-top: 10px; margin-bottom: 10px" );
+        }
+    }
 
     handleDragEnd = (ev) => {
         this.draggableElement.classList.remove('hide');
-        this.hoveredElement ? this.hoveredElement.style = "margin-top: 10px; margin-bottom: 10px" : null;
+        document.querySelectorAll('.dragItem').forEach( item => item.style = "margin-top: 10px; margin-bottom: 10px" );
         console.log('---dragend')
     }
 }
