@@ -9,12 +9,10 @@ const LocationField = () => {
             <InputField
                 name="country"
                 placeholder="Country /"
-                validate={[required]}
             />
             <InputField
                 name="city"
                 placeholder="City /"
-                validate={[required]}
             />
         </div>
     )

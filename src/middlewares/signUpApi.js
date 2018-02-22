@@ -43,13 +43,8 @@ export default store => next => action => {
             url: signUp,
             data: {
                 "specialist": {
-                    "first_name"       : payload["first_name"],
-                    "last_name"        : payload["last_name"],
-                    "phone_code"       : payload["phone_code"]["label"],
-                    "phone_number"     : payload["phone_number"],
-                    "email"            : payload["email"],
-                    "hear_from"        : payload["hear_from"]["value"],
-                    "terms"            : true
+                    "email"     : payload["email"],
+                    "terms"     : true
                 }
             }
 

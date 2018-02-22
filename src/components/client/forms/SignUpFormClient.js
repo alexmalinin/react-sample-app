@@ -15,18 +15,6 @@ class SignUpFormClient extends Component {
 
         return (
             <SignUpForm {...this.props}>
-                <InputField
-                    name='company_name'
-                    placeholder='Company name /'
-                    validate={false}
-                />
-                <Field
-                    name='employers_number'
-                    component={RenderSelect}
-                    placeholder='Number of employees /'
-                    options={employeers}
-                    validate={[required]}
-                />
             </SignUpForm>
         )
     };
