@@ -93,7 +93,8 @@ class SignUp extends Component {
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (isLogIn && status !== "logged") {
             return (
-              <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
+              <Redirect to={`/${user}/dashboard/profile`} />
+              // <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
             )
         }
 

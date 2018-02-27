@@ -8,13 +8,13 @@ class SubHeader extends Component {
 
         return (
             <StyledSubHeader>
-                <NavLink className='button' to='/specialists/dashboard/profile'>Account</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
                 <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/my_teams'>My Teams</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/industry'>My Services</NavLink>
                 <span>|</span>
                 <NavLink className='button' to='/specialists/dashboard/availability'>Availability</NavLink>
                 <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/industry'>Industry</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/my_teams'>My Teams</NavLink>
                 <span>|</span>
                 <NavLink className='button' to='/specialists/dashboard/info'>Info</NavLink>
                 <span>|</span>

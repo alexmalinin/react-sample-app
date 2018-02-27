@@ -27,7 +27,7 @@ class SpecialistIndustryForm extends Component {
     }
 
     fillFields = data => {
-        let { skills, specialities, address, industry_title, } = data;
+        let { skills, specialities, industry_title } = data;
 
         let renderSkills = [];
         skills ? skills.forEach( item => {
@@ -40,10 +40,10 @@ class SpecialistIndustryForm extends Component {
         }) : null;
 
         this.props.dispatch(change('SpecialistIndustryForm', 'industry_title', industry_title));
-        this.props.dispatch(change('SpecialistIndustryForm', 'country', address.country));
-        this.props.dispatch(change('SpecialistIndustryForm', 'city', address.city));
         this.props.dispatch(change('SpecialistIndustryForm', 'skills_attributes', renderSkills ));
-        this.props.dispatch(change('SpecialistIndustryForm', 'industry', { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }));
+        if (specialities[0]) {
+          this.props.dispatch(change('SpecialistIndustryForm', 'industry', { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }));
+        }
         Object.keys(renderSpecialities).length > 0
             ? this.props.dispatch(change('SpecialistIndustryForm', 'speciality_ids', renderSpecialities ))
             : null;

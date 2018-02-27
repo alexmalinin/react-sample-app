@@ -15,14 +15,7 @@ export default store => next => action => {
             url: signUp,
             data: {
                 "customer": {
-                    "first_name"       : payload["first_name"],
-                    "last_name"        : payload["last_name"],
                     "email"            : payload["email"],
-                    "hear_from"        : payload["hear_from"]["value"],
-                    "employers_number" : payload["employers_number"]["value"],
-                    "phone_code"       : payload["phone_code"]["label"],
-                    "phone_number"     : payload["phone_number"],
-                    "company_name"     : payload["company_name"],
                     "terms"            : true
                 }
             }
