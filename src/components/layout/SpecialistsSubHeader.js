@@ -12,7 +12,9 @@ class SubHeader extends Component {
                 <span>|</span>
                 <NavLink className='button' to='/specialists/dashboard/industry'>My Services</NavLink>
                 <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/availability'>Availability</NavLink>
+                <NavLink className='button' to='/specialists/dashboard/company'>My Company</NavLink>
+                <span>|</span>
+                <NavLink className='button' to='#'>My Billings</NavLink>
                 <span>|</span>
                 <NavLink className='button' to='/specialists/dashboard/my_teams'>My Teams</NavLink>
                 <span>|</span>

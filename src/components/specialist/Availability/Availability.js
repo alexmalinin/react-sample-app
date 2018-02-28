@@ -21,36 +21,27 @@ class Availability extends Component {
 
         return (
             <StyledAvailabilityForm>
-                <p>
-                    <b>Set your availability</b> / This can be easily changed at anytime
-                </p>
                 <DropdownAvailability>
                     <SlideTogle rerender={successId} height={0}>
-                        <p>Full-time / Part-time / Not available</p>
+                        <p>Availability</p>
                         <AvailabilityTime/>
                     </SlideTogle>
                 </DropdownAvailability>
 
-                <DropdownAvailability customPadd>
-                    <SlideTogle rerender={successId} height={0}>
-                        <p>Days available</p>
-                        <AvailabilityDays/>
-                    </SlideTogle>
-                </DropdownAvailability>
+                {/*<DropdownAvailability customPadd>*/}
+                    {/*<SlideTogle rerender={successId} height={0}>*/}
+                        {/*<p>Days available</p>*/}
+                        {/*<AvailabilityDays/>*/}
+                    {/*</SlideTogle>*/}
+                {/*</DropdownAvailability>*/}
 
-                <DropdownAvailability customPadd>
-                    <SlideTogle rerender={successId} height={0}>
-                        <p>Hours per week</p>
-                        <AvailabilityHours/>
-                    </SlideTogle>
-                </DropdownAvailability>
+                {/*<DropdownAvailability customPadd>*/}
+                    {/*<SlideTogle rerender={successId} height={0}>*/}
+                        {/*<p>Hours per week</p>*/}
+                        {/*<AvailabilityHours/>*/}
+                    {/*</SlideTogle>*/}
+                {/*</DropdownAvailability>*/}
 
-                {submitBtn ? <DvButton
-                    type='submit'
-                    disabled={submitting}
-                    content='SAVE & UPDATE'
-                    primary
-                    /> : null }
             </StyledAvailabilityForm>
         )
     }

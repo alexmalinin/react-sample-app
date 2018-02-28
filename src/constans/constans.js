@@ -23,6 +23,7 @@ export const SHOW_CHOSEN_SKILLS                = 'SHOW_CHOSEN_SKILLS';
 export const EDUCATION                         = 'EDUCATION';
 export const WORK_EXPERIENCE                   = 'WORK_EXPERIENCE';
 export const GET_PROJECT_TYPES                 = 'GET_PROJECT_TYPES';
+export const GET_EXPERIENCE_LEVELS             = 'GET_EXPERIENCE_LEVELS';
 export const UPDATE_SPECIALIST_STEP_2          = 'UPDATE_SPECIALIST_STEP_2';
 export const CLEAR_EDUCATION                   = 'CLEAR_EDUCATION';
 export const CLEAR_WORK_EXPERIENCE             = 'CLEAR_WORK_EXPERIENCE';

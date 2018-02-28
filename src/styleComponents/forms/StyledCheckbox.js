@@ -37,11 +37,11 @@ export default styled.div`
         ${props => props.indentBot ? `margin-bottom: 40px` : ``};
         
         label {
-            font-size: 18px; 
+            font-size: 14px; 
         }    
         
         div {
-            padding: 10px 20px;
+            padding: 7px 12px;
             margin: 0px 20px 15px 0;
         }
     }
@@ -49,7 +49,7 @@ export default styled.div`
     @media (max-width: 767px) {
         
         label {
-            font-size: 16px; 
+            font-size: 12px; 
         }
         
         div {
@@ -61,7 +61,7 @@ export default styled.div`
         ${props => props.indentBot ? `margin-bottom: 20px` : ``};
         
         label {
-            font-size: 14px; 
+            font-size: 10px; 
         }
     }
 `;

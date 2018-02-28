@@ -13,6 +13,7 @@ import getPasswordsForResetPassword from '../middlewares/passwords/getPasswordsF
 import welcomeClient                from '../middlewares/welcomeClientApi';
 import getIndustires                from '../middlewares/getIndustiresApi';
 import getProjectTypes              from '../middlewares/getProjectTypesApi';
+import getExperienceLevels          from '../middlewares/getExperienceLevelsApi';
 import updateSpecStep1              from '../middlewares/updateSpecStep1Api';
 import showChosenSkills             from '../middlewares/showChosenSkillsApi';
 import updateSpecStep2              from '../middlewares/updateSpecStep2Api';
@@ -41,6 +42,7 @@ const enhancer = applyMiddleware(
     welcomeClient,
     getIndustires,
     getProjectTypes,
+    getExperienceLevels,
     updateSpecStep1,
     showChosenSkills,
     updateSpecStep2,

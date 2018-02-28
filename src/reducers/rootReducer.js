@@ -10,6 +10,7 @@ import UserId from './getUserIdByTokenConfirmationReducer';
 import confirmPassword from './confirmPassword';
 import industries from './industriesReducer.js';
 import projectTypes from './projectTypesReducer';
+import experienceLevels from './experienceLevelsReducer';
 import educations from './educationsReducer';
 import experiences from './workExperienceReducer';
 import chosenSkills from './showChosenSkillsReducer';
@@ -30,6 +31,7 @@ export default combineReducers({
     educations,
     experiences,
     projectTypes,
+    experienceLevels,
     chosenSkills,
     clientData,
     specialistData,
