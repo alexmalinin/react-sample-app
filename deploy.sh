@@ -1,7 +1,7 @@
 #This script is for remote deploying react appications. It makes new build with "npm run build" and copying files over SSH.
 #It should be placed at project root
 
-user_to="deploy"
+user_to="dev"
 host="85.90.244.10"
 app_name="react-dv"
 path="~/www/$app_name"
