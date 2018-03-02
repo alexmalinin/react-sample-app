@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
 import SpecialistIndustryForm from '../forms/SpecialistIndustryForm';
-import { getIndustries, showSpecialistData, updateSpecStep1 } from '../../../actions/actions'
+import { getProjectTypes, getExperienceLevels, getIndustries, showSpecialistData, updateSpecStep1 } from '../../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
@@ -20,12 +20,14 @@ class SpecialistIndustry extends Component {
 
     componentWillMount() {
         this.props.getIndustries();
+        this.props.getProjectTypes();
+        this.props.getExperienceLevels();
         this.props.showSpecialistData();
     }
 
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
-        const { industries, specialistData } = this.props;
+        const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
         return (
             <Container indentBot indentTop className="relative">
@@ -43,7 +45,12 @@ class SpecialistIndustry extends Component {
                     <p>Something went wrong, please try again</p>
                 </S_Message>
                 <DvTitleSmall>Industry</DvTitleSmall>
-                <SpecialistIndustryForm industries={industries} specialistData={specialistData} onSubmit={this.submit}/>
+                <SpecialistIndustryForm
+                        industries={industries}
+                        projectTypes={projectTypes}
+                        experienceLevels={experienceLevels}
+                        specialistData={specialistData}
+                        onSubmit={this.submit} />
             </Container>
         )
     }
@@ -84,4 +91,5 @@ class SpecialistIndustry extends Component {
     };
 }
 
-export default connect(({ industries, specialistData }) => ({ industries, specialistData }), { updateSpecStep1, getIndustries, showSpecialistData })(SpecialistIndustry);
+export default connect(({ industries, projectTypes, experienceLevels, specialistData }) => ({ industries, projectTypes, experienceLevels, specialistData }),
+  { updateSpecStep1, getIndustries, getProjectTypes, getExperienceLevels, showSpecialistData })(SpecialistIndustry);

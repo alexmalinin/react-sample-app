@@ -44,7 +44,7 @@ class InfoForm extends Component {
 
                                 <div id="professional_experience_info" className='text-area-group'>
                                     <p>Write a paragraph or two about your professional experience /</p>
-                                    <Field name='professional_experience_info' component={RenderTextArea} validate={required}/>
+                                    <Field name='professional_experience_info' component={RenderTextArea} />
                                 </div>
 
                                 <div>
@@ -104,7 +104,6 @@ class InfoForm extends Component {
                                         component={RenderSelect}
                                         placeholder="You can select only one"
                                         options={projectTypes}
-                                        validate={[required]}
                                     />
                                 </div>
 

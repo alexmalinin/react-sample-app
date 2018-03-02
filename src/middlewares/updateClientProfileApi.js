@@ -18,7 +18,7 @@ export default store => next => action => {
                 "last_name": payload['last_name'],
                 "phone_code": payload['phone_code']['label'],
                 "phone_number": payload['phone_number'],
-                "email": payload['email'],
+                "email": payload['email']
             }
         }
     }).then(function (response) {

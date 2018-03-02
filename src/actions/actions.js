@@ -19,6 +19,7 @@ import {
     WORK_EXPERIENCE,
     SHOW_CHOSEN_SKILLS,
     GET_PROJECT_TYPES,
+    GET_EXPERIENCE_LEVELS,
     UPDATE_SPECIALIST_STEP_2,
     CLEAR_EDUCATION,
     CLEAR_WORK_EXPERIENCE,
@@ -254,6 +255,18 @@ export function getProjectTypes() {
     };
 
     return action;
+}
+
+// Get all experience levels
+
+export function getExperienceLevels() {
+
+  const action = {
+    type: GET_EXPERIENCE_LEVELS,
+    getExperienceLevels: `${PORT}/api/v1/experience_levels`,
+  };
+
+  return action;
 }
 
 // update data for specialists sign up step 2

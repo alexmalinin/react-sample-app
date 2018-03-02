@@ -37,7 +37,7 @@ export default styled.div`
     }
     
     .Select-multi-value-wrapper {
-        font-size: 24px;
+        font-size: 14px;
         padding-bottom: 20px;
         
         .Select-value {
@@ -82,7 +82,7 @@ export default styled.div`
         }
          
         .Select-multi-value-wrapper {
-            font-size: 18px;
+            font-size: 14px;
             padding-bottom: 15px;
             
             .Select-value {

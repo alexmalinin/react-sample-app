@@ -13,14 +13,12 @@ const RenderPhone = ({hasPerson, value}) =>
                 placeholder={value}
                 options={phoneCodes}
                 value={value}
-                validate={[required]}
             />
             <Field
                 name='phone_number'
                 component={RenderField}
                 type='number'
                 placeholder=''
-                validate={[required]}
             />
         </div>
 ;

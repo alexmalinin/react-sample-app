@@ -54,6 +54,7 @@ class SpecialistsProfile extends Component {
                         <Grid.Column mobile={16} tablet={12} computer={8}>
                             <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
                             <RenderProfileForm onSubmit={this.submit}/>
+                          {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -107,9 +108,11 @@ class SpecialistsProfile extends Component {
     };
 
     submit = values => {
-        console.log(values)
-        this.props.updateSpecialistProfile(values);
+        const { updateSpecialistProfile, educations, experiences } = this.props;
+        console.log(values);
+        updateSpecialistProfile(values, educations, experiences);
     };
 }
 
-export default connect(({specialistData, confirmPassword}) => ({specialistData, confirmPassword}), { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
+export default connect(({specialistData, confirmPassword,  educations, experiences}) => ({specialistData, confirmPassword,  educations, experiences}),
+  { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
