@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
-import { getIndustries } from '../../../actions/actions'
+import { getIndustries, updateSpecStep2, showSpecialistData } from '../../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import { Message } from 'semantic-ui-react';
 import { S_Message } from '../../../styleComponents/layout/S_Message';
 import { run } from '../../../helpers/scrollToElement';
+import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
 
 class SpecialistCompany extends Component {
 
@@ -40,7 +41,9 @@ class SpecialistCompany extends Component {
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
-        <DvTitleSmall>Company</DvTitleSmall>
+        <DvTitleSmall>My Company</DvTitleSmall>
+
+        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
 
       </Container>
     )
@@ -48,11 +51,12 @@ class SpecialistCompany extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
+    debugger
     if (nextProps.specialistData) {
-      if (nextProps.specialistData.successIndustryId) {
+      if (nextProps.specialistData.successUpdateId) {
         run(0)();
         this.showMessage('success')
-      } else if(nextProps.specialistData.errorIndustryId) {
+      } else if(nextProps.specialistData.errorUpdateId) {
         run(0)();
         this.showMessage()
       }
@@ -78,9 +82,10 @@ class SpecialistCompany extends Component {
   };
 
   submit = values => {
-    // this.props.updateSpecStep1(values);
+
+    this.props.updateSpecStep2(values);
   };
 }
 
-export default connect(({ industries }) => ({ industries }),
-  { getIndustries })(SpecialistCompany);
+export default connect(({ industries, company, specialistData }) => ({ industries, company, specialistData }),
+  { getIndustries, updateSpecStep2, showSpecialistData })(SpecialistCompany);

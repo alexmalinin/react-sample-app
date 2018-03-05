@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
+import { job_titles } from '../../../helpers/selects/job_titles';
 import {RenderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
@@ -37,10 +38,15 @@ class SkillsForm extends Component {
                                 ]
                             }
 
-                          <InputField
-                            name="job_title"
-                            placeholder="I am a /"
-                          />
+                          <div id="job_title" className='half-column'>
+                            <Field
+                              name="job_title"
+                              component={RenderSelect}
+                              placeholder="I Am a"
+                              options={job_titles}
+                            />
+                          </div>
+
 
                           <InputField
                             name="position"
