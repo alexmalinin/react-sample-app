@@ -44,7 +44,7 @@ class SpecialistIndustry extends Component {
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>
-                <DvTitleSmall>Industry</DvTitleSmall>
+                <DvTitleSmall>My Services</DvTitleSmall>
                 <SpecialistIndustryForm
                         industries={industries}
                         projectTypes={projectTypes}

@@ -3,80 +3,44 @@ import { SUCCESS } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
-    const { type, updateSpecStep2, payload, education, experience, ...rest } = action;
+    const { type, updateSpecStep2, payload, ...rest } = action;
     if (!updateSpecStep2) return next(action);
 
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    let image = payload["person"] ? payload["person"][0] : null;
-
-    if (image) {
-        let reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onload = () => {
-
-            axios({
-                method: 'put',
-                url: updateSpecStep2 + id,
-                data: {
-                    "specialist": {
-                        "avatar"                        : reader.result,
-                        "professional_experience_info"  : payload["professional_experience_info"],
-                        "hourly_rate"                   : payload["hourly_rate"],
-                        "daily_rate"                    : payload["daily_rate"],
-                        "available"                     : payload["availability"],
-                        "available_days"                : payload["days"],
-                        "hours_per_week"                : payload["hours_per_week"],
-                        "educations_attributes"         : education,
-                        "work_experiences_attributes"   : experience,
-                        "project_type_id"               : payload["project_type"]["value"]
-                    }
-
+    axios({
+        method: 'put',
+        url: updateSpecStep2 + id,
+        data: {
+            "specialist": {
+                "company_attributes"  : {
+                  "name"                : payload["name"],
+                  "company_address"     : payload["company_address"],
+                  "country"             : payload["country"],
+                  "city"                : payload["city"],
+                  "industry_area_id"    : payload["industry"]["value"],
+                  "number_of_employers" : payload["number_of_employers"]["value"],
+                  "segment"             : payload["segment"]["value"],
+                  "website"             : payload["website"]
                 },
-
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-
-            }).then(function (response) {
-                return next({ ...rest, type: type + SUCCESS, data: response.data });
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        }
-    } else {
-
-        axios({
-            method: 'put',
-            url: updateSpecStep2 + id,
-            data: {
-                "specialist": {
-                    "professional_experience_info"  : payload["professional_experience_info"],
-                    "hourly_rate"                   : payload["hourly_rate"],
-                    "daily_rate"                    : payload["daily_rate"],
-                    "available"                     : payload["availability"],
-                    "available_days"                : payload["days"],
-                    "hours_per_week"                : payload["hours_per_week"],
-                    "educations_attributes"         : education,
-                    "work_experiences_attributes"   : experience,
-                    "project_type_id"               : payload["project_type"]["value"]
-                }
-
-            },
-
-            headers: {
-                'Authorization': `Bearer ${token}`,
             }
 
-        }).then(function (response) {
-            return next({ ...rest, type: type + SUCCESS, data: response.data });
+        },
 
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+
+    }).then(function (response) {
+        let data = response.data;
+        data.successUpdateId = Math.random();
+        return next({ ...rest, type: type + SUCCESS, data: response.data });
+
+    })
+    .catch(function (error) {
+        let data = {};
+        data.errorUpdateId = Math.random();
+        console.log(error);
+    });
 };

@@ -15,13 +15,13 @@ export default store => next => action => {
     let spec_attr = payload.speciality_ids
         ? Object.keys(payload.speciality_ids).map(item => +item.match(/\d+/)[0])
         : null;
-  debugger
+
    axios({
         method: 'put',
         url: updateSpecStep1 + id,
         data: {
             "specialist": {
-                "job_title"           : payload["job_title"],
+                "job_title"           : payload["job_title"]["value"],
                 "position"            : payload["position"],
                 "contact_number"      : payload["contact_number"],
                 "project_interest"    : payload["project_interest"],

@@ -16,6 +16,8 @@ import {
     GET_INDUSTRIES,
     UPDATE_SPECIALIST_STEP_1,
     EDUCATION,
+    COMPANY,
+    BILLING,
     WORK_EXPERIENCE,
     SHOW_CHOSEN_SKILLS,
     GET_PROJECT_TYPES,
@@ -28,6 +30,8 @@ import {
     UPDATE_SPECIALIST_PROFILE,
     UPDATE_SPECIALIST_AVAILABILITY,
     UPDATE_SPECIALIST_INFO,
+    EDIT_BILLING_WITH_ID,
+    EDIT_COMPANY_WITH_ID,
     EDIT_EDUCATION_CARD_WITH_ID,
     EDIT_EDUCATION_CARD_WITHOUT_ID,
     EDIT_EXPERIENCE_CARD_WITH_ID,
@@ -197,6 +201,29 @@ export function welcomeClient(data) {
     return action;
 }
 
+// company action
+
+export function company(data) {
+  const action = {
+    type: COMPANY,
+    payload: data,
+  };
+
+  return action;
+}
+
+// billing action
+
+export function billing(data) {
+  const action = {
+    type: BILLING,
+    payload: data,
+  };
+
+  return action;
+}
+
+
 // education action
 
 export function education(data) {
@@ -293,12 +320,10 @@ export function showChosenSkills(){
 
 // update data for specialists sign up step 3
 
-export function updateSpecStep2(data, education, experience) {
+export function updateSpecStep2(data) {
     const action = {
         type: UPDATE_SPECIALIST_STEP_2,
         payload: data,
-        education,
-        experience,
         updateSpecStep2: `${PORT}/api/v1/specialists/`,
     };
 
@@ -329,10 +354,12 @@ export function showSpecialistData() {
 
 // update Specialist Data Profile
 
-export function updateSpecialistProfile(data) {
+export function updateSpecialistProfile(data, education, experience) {
     const action = {
         type: UPDATE_SPECIALIST_PROFILE,
         payload: data,
+        education,
+        experience,
         updateSpecialistProfile1: `${PORT}/api/v1/specialists/`,
         updateSpecialistProfile2: '/dashboard/profile'
     };
@@ -363,6 +390,30 @@ export function updateSpecialistInfo(data, education, experience) {
     };
 
     return action;
+}
+
+// edit company
+
+export function editCompany(data) {
+  const action = {
+    type: EDIT_COMPANY_WITH_ID,
+    payload: data,
+    editCompany: `${PORT}/api/v1/specialists/`
+  };
+
+  return action;
+}
+
+// edit billing
+
+export function editBillingWithId(data, id) {
+  const action = {
+    type: EDIT_BILLING_WITH_ID,
+    payload: data,
+    editBilliny: `${PORT}/api/v1/specialists/billings/`
+  };
+
+  return action;
 }
 
 // edit education data card
