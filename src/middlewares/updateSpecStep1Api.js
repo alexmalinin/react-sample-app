@@ -15,7 +15,7 @@ export default store => next => action => {
     let spec_attr = payload.speciality_ids
         ? Object.keys(payload.speciality_ids).map(item => +item.match(/\d+/)[0])
         : null;
-        
+
    axios({
         method: 'put',
         url: updateSpecStep1 + id,
@@ -27,9 +27,7 @@ export default store => next => action => {
                 "project_interest"    : payload["project_interest"],
                 "communication_type"  : payload["communication_type"],
                 "available"           : payload["availability"],
-                "available_days"      : payload["days"],
                 "hourly_rate"         : payload["hourly_rate"],
-                "hours_per_week"      : payload["hours_per_week"],
                 "project_type_id"     : payload["project_type"]["value"],
                 "experience_level_id" : payload["experience_level"]["value"],
                 "industry": {

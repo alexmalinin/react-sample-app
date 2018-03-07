@@ -11,7 +11,7 @@ class EdicationModal extends Component {
     render() {
 
         return(
-            <Modal trigger={<AddNewBtn onClick={this.handleClick} basic content='Add new'/>} closeIcon>
+            <Modal trigger={<AddNewBtn onClick={this.handleClick} basic content='Add education'/>} closeIcon>
                 <Modal.Header >Education</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>

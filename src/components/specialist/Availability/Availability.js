@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import AvailabilityTime from './AvailabilityTime';
-import AvailabilityDays from './AvailabilityDays';
-import AvailabilityHours from './AvailabilityHours';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import { DropdownAvailability, Days } from '../../../styleComponents/StyledDropdown';
 import StyledAvailabilityForm from '../../../styleComponents/StyledAvailabilityForm';
@@ -27,20 +25,6 @@ class Availability extends Component {
                         <AvailabilityTime/>
                     </SlideTogle>
                 </DropdownAvailability>
-
-                {/*<DropdownAvailability customPadd>*/}
-                    {/*<SlideTogle rerender={successId} height={0}>*/}
-                        {/*<p>Days available</p>*/}
-                        {/*<AvailabilityDays/>*/}
-                    {/*</SlideTogle>*/}
-                {/*</DropdownAvailability>*/}
-
-                {/*<DropdownAvailability customPadd>*/}
-                    {/*<SlideTogle rerender={successId} height={0}>*/}
-                        {/*<p>Hours per week</p>*/}
-                        {/*<AvailabilityHours/>*/}
-                    {/*</SlideTogle>*/}
-                {/*</DropdownAvailability>*/}
 
             </StyledAvailabilityForm>
         )

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form';
-import InfoForm from "./InfoForm";
 import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistWelcomeForm2 extends Component {
@@ -11,7 +10,7 @@ class SpecialistWelcomeForm2 extends Component {
 
         return (
             <form onSubmit={handleSubmit}>
-                <InfoForm signUp={true} {...this.props}/>
+                {/* <InfoForm signUp={true} {...this.props}/> */}
             </form>
         )
     }

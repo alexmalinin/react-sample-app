@@ -7,9 +7,7 @@ import AsideRight from "../renders/AsideRight";
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
-import SpecialistsAvailability from "./SpecialistsAvailability";
 import SpecialistIndustry from "./SpecialistIndustry";
-import SpecialistInfo from "./SpecialistInfo";
 import SpecialistsAbout from "./SpecialistsAbout";
 import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
@@ -41,14 +39,10 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistsProfile/>;
             case 'my_teams':
                 return <StyledClientTeam><SpecialistsMyTeams/></StyledClientTeam>;
-            case 'availability':
-                return <SpecialistsAvailability/>;
             case 'industry':
                 return <SpecialistIndustry/>;
             case 'company':
               return <SpecialistsCompany/>;
-            case 'info':
-                return <SpecialistInfo/>;
             case 'about':
                 return <SpecialistsAbout/>;
             case 'board':
