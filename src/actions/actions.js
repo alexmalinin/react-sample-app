@@ -39,7 +39,7 @@ import {
     DELETE_EXPERIENCE_CARD_WITH_ID,
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     UPDATE_CLIENT_PROFILE,
-    UPDATE_CLIENT_BUSINESS,
+    UPDATE_CLIENT_COMPANY,
     SAVE_CREATED_PROJECT,
     SUBMIT_CREATED_PROJECT,
 } from '../constans/constans'
@@ -491,13 +491,13 @@ export function updateClientProfile(data) {
     return action;
 }
 
-// update Client Data Business
+// update Client Data Company
 
-export function updateClientBusiness(data) {
+export function updateClientCompany(data) {
     const action = {
-        type: UPDATE_CLIENT_BUSINESS,
+        type: UPDATE_CLIENT_COMPANY,
         payload: data,
-        updateClientBusiness: `${PORT}/api/v1/customers/`,
+        updateClientCompany: `${PORT}/api/v1/customers/`,
     };
 
     return action;

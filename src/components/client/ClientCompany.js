@@ -8,15 +8,15 @@ import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import RenderProjectCard from './renders/RenderProjectCard';
-import ClientBusinessForm from './forms/ClientBusinessForm';
-import { showClientData, updateClientBusiness } from '../../actions/actions';
+import ClientCompanyForm from './forms/ClientCompanyForm';
+import { showClientData,  getIndustries, updateClientCompany } from '../../actions/actions';
 import {NewTeamBtn} from '../../styleComponents/layout/DvButton';
 import StyledClientTeam from '../../styleComponents/StyledClientTeam';
 import Navbar from "../layout/Navbar";
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
 
-class ClientBusiness extends Component {
+class ClientCompany extends Component {
 
     state = {
         renderMessage: false,
@@ -24,23 +24,17 @@ class ClientBusiness extends Component {
     };
 
     componentWillMount() {
-        // localStorage.removeItem('user_email');
-        // sessionStorage.removeItem('client_step');
-        this.props.showClientData();
+      // this.props.getIndustries();
+      this.props.showClientData();
     }
 
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
-        const {clientData} = this.props;
+        const { clientData, industries } = this.props;
 
         return (
             <div>
                 <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop="80">
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
 
                 <SubHeader/>
 
@@ -53,14 +47,8 @@ class ClientBusiness extends Component {
                         <Message.Header>Error!</Message.Header>
                         <p>Something went wrong, please try again</p>
                     </S_Message>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={8}>
-                                <DvTitleSmall fz='28' xsCenter>Business</DvTitleSmall>
-                                <ClientBusinessForm clientData={clientData} onSubmit={this.submit}/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                    <DvTitleSmall fz='28' xsCenter>My Company</DvTitleSmall>
+                    <ClientCompanyForm industries={industries} clientData={clientData} onSubmit={this.submit}/>
                 </Container>
             </div>
         )
@@ -69,10 +57,10 @@ class ClientBusiness extends Component {
     componentWillReceiveProps(nextProps) {
         let client = nextProps.clientData;
         console.log(nextProps)
-        if (client.successBusinessId) {
+        if (client.successCompanyId) {
             this.showMessage('success');
             run(0)();
-        } else if(client.successBusinessId) {
+        } else if(client.successCompanyId) {
             this.showMessage();
             run(0)();
         }
@@ -99,8 +87,8 @@ class ClientBusiness extends Component {
 
     submit = values => {
         console.log(values);
-        this.props.updateClientBusiness(values)
+        this.props.updateClientCompany(values)
     }
 }
 
-export default connect(({ clientData }) => ({clientData}), {showClientData, updateClientBusiness })(ClientBusiness);
+export default connect(({ industries, clientData }) => ({ industries, clientData }), {getIndustries, showClientData, updateClientCompany })(ClientCompany);

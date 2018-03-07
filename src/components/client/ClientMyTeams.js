@@ -13,11 +13,6 @@ class ClientProfile extends Component {
         return (
             <StyledClientTeam>
                 <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
                 <SubHeader/>
                 <Container indentTop indentBot relative>
                     <div className='gag'>

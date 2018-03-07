@@ -8,10 +8,11 @@ class SubHeader extends Component {
 
         return (
             <StyledSubHeader>
-                <NavLink className="button" to="/client/dashboard/profile">Profile</NavLink>
+                <NavLink className="button" to="/client/dashboard/profile">My Profile</NavLink>
+                <NavLink className="button" to="/client/dashboard/company">My Company</NavLink>
+                <NavLink className="button" to="/client/dashboard/billing">My Billing</NavLink>
                 <NavLink className="button" to="/client/dashboard/projects">Projects</NavLink>
                 <NavLink className="button" to="/client/dashboard/my_teams">My Teams</NavLink>
-                <NavLink className="button" to="/client/dashboard/business">Business</NavLink>
             </StyledSubHeader>
         )
     }

@@ -30,12 +30,11 @@ class RenderProfileForm  extends Component {
         const { handleSubmit, educations, experiences, submitting, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
         // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
-
         let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
         let experiencesChilds1 = specialistData ? specialistData["work_experiences"] : [];
 
-        let educationData  = [ ...educationsChilds1,  ...educations ];
-        let experienceData = [ ...experiencesChilds1, ...experiences];
+        let educationData  = specialistData ? [ ...educationsChilds1,  ...educations ] : null;
+        let experienceData = specialistData ? [ ...experiencesChilds1, ...experiences] : null;
 
         return (
             <form name='account' onSubmit={handleSubmit}>
@@ -52,7 +51,7 @@ class RenderProfileForm  extends Component {
                         />
                     </Grid.Row>
                     <Grid.Row>
-                        <Grid.Column mobile={16} tablet={16} computer={8}>
+                        <Grid.Column mobile={16} tablet={16} computer={ specialistData ? 8 : 16 }>
                             <InputField
                                 name="first_name"
                                 placeholder="First Name /"
@@ -75,29 +74,35 @@ class RenderProfileForm  extends Component {
 
                             <LocationField />
 
-                            <div id="professional_experience_info" className='text-area-group'>
-                            <p>Write a paragraph or two about your professional experience /</p>
-                            <Field name='professional_experience_info' component={RenderTextArea} />
+                            <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
+                              <p>Write a paragraph or two about your professional experience /</p>
+                              <Field name={specialistData ? 'professional_experience_info' : 'description'} component={RenderTextArea} />
                             </div>
+
                         </Grid.Column>
-                        <Grid.Column mobile={16} tablet={8} computer={4}>
-                            <div>
-                                <RenderCards
+                          {
+                            specialistData ?
+                            <Grid.Column computer={8} >
+                              <Grid.Column mobile={16} tablet={8} computer={4}>
+                                <div>
+                                  <RenderCards
                                     educations={ educationData }
-                                />
+                                  />
 
-                                <EdicationModal/>
-                            </div>
-                        </Grid.Column>
-                        <Grid.Column mobile={16} tablet={8} computer={4}>
-                            <div>
-                                <RenderCards
+                                  <EdicationModal/>
+                                </div>
+                              </Grid.Column>
+                              <Grid.Column mobile={16} tablet={8} computer={4}>
+                                <div>
+                                  <RenderCards
                                     experiences={ experienceData }
-                                />
+                                  />
 
-                                <WorkExperienceModal/>
-                            </div>
-                        </Grid.Column>
+                                  <WorkExperienceModal/>
+                                </div>
+                              </Grid.Column>
+                            </Grid.Column> : null
+                          }
                     </Grid.Row>
 
                     <Grid.Row centered>
@@ -139,7 +144,7 @@ class RenderProfileForm  extends Component {
 
     fillFields = data => {
         let { first_name, last_name, email, address, phone_code, phone_number,
-          professional_experience_info, clearPassword, avatar} = data;
+          professional_experience_info, description, clearPassword, avatar} = data;
 
         // console.log('country', address.country);
         // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));
@@ -148,8 +153,9 @@ class RenderProfileForm  extends Component {
         this.props.dispatch(change('RenderProfileForm', 'email',        email));
         this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
         this.props.dispatch(change('RenderProfileForm', 'phone_number', phone_number));
-        this.props.dispatch(change('RenderProfileForm', 'country',     address ? address.country : null));
-        this.props.dispatch(change('RenderProfileForm', 'city',        address ? address.city : null));
+        this.props.dispatch(change('RenderProfileForm', 'country',      address ? address.country : null));
+        this.props.dispatch(change('RenderProfileForm', 'city',         address ? address.city : null));
+        this.props.dispatch(change('RenderProfileForm', 'description',  description));
         this.props.dispatch(change('RenderProfileForm', 'professional_experience_info',  professional_experience_info));
     }
 };
