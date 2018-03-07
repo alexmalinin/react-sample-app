@@ -28,7 +28,7 @@ class RenderProfileForm  extends Component {
     render() {
 
         const { handleSubmit, educations, experiences, submitting, clientData, specialistData } = this.props;
-        let { avatar } = specialistData || false;
+        let { avatar } = specialistData || clientData || false;
         // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
 
         let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
