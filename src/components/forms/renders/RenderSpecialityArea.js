@@ -7,7 +7,7 @@ class RenderSpecialityArea extends Component {
 
     render() {
         const { industry, speciality } = this.props;
-        console.log('speciality', speciality);
+        // console.log('speciality', speciality);
         window.industry = industry;
         window.speciality = speciality;
         let industry_id = industry ? industry.value : null;
@@ -17,12 +17,12 @@ class RenderSpecialityArea extends Component {
                 <p>Select your speciality within that area /</p>
 
                 <div>
-                    {speciality ? speciality[0]
-                        ? speciality[0][industry_id] ?
-                            speciality[0][industry_id].map(item =>
+                    {speciality ? speciality[industry_id - 1]
+                        ? speciality[industry_id - 1][industry_id] ?
+                            speciality[industry_id - 1][industry_id].map(item =>
                             <Field
                                 key = {item.value}
-                                name={`speciality_ids.${'_' + item.value}`}
+                                name={`speciality_ids._${item.value}`}
                                 type="checkbox"
                                 component={RenderStyledCheckbox}
                                 label={item.label}
