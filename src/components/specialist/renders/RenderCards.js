@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {renderField} from '../../forms/renders/RenderField';
-import RenderEducationCard from './RenderEducationCard'
-import RenderWorkCard from './RenderWorkCard'
+import RenderEducationCard from './RenderEducationCard';
+import RenderWorkCard from './RenderWorkCard';
 
 class RenderCards extends Component {
 
@@ -43,4 +43,4 @@ class RenderCards extends Component {
 }
 
 
-export default RenderCards
+export default RenderCards;

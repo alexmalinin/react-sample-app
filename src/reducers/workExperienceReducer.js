@@ -1,7 +1,7 @@
 import {
     WORK_EXPERIENCE,
     CLEAR_WORK_EXPERIENCE,
-    UPDATE_SPECIALIST_INFO,
+    UPDATE_SPECIALIST_PROFILE,
     EDIT_EXPERIENCE_CARD_WITHOUT_ID,
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     SUCCESS
@@ -15,7 +15,7 @@ export default (state = [], action) => {
             return [...state, payload];
         case CLEAR_WORK_EXPERIENCE:
             return [];
-        case UPDATE_SPECIALIST_INFO + SUCCESS:
+        case UPDATE_SPECIALIST_PROFILE + SUCCESS:
             return [];
         case EDIT_EXPERIENCE_CARD_WITHOUT_ID:
             console.log('state', state);

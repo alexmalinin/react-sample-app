@@ -33,6 +33,7 @@ class SpecialistsProfile extends Component {
 
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
+        const { educations, experiences } = this.props;
 
         return (
             <Container indentTop indentBot className="relative">
@@ -51,9 +52,9 @@ class SpecialistsProfile extends Component {
                 </S_Message>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column mobile={16} tablet={12} computer={8}>
+                        <Grid.Column mobile={16} tablet={12} computer={16}>
                             <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
-                            <RenderProfileForm onSubmit={this.submit}/>
+                            <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences}/>
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
                     </Grid.Row>

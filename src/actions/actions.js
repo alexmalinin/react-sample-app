@@ -28,8 +28,6 @@ import {
     SHOW_CLIENT_DATA,
     SHOW_SPECIALIST_DATA,
     UPDATE_SPECIALIST_PROFILE,
-    UPDATE_SPECIALIST_AVAILABILITY,
-    UPDATE_SPECIALIST_INFO,
     EDIT_BILLING_WITH_ID,
     EDIT_COMPANY_WITH_ID,
     EDIT_EDUCATION_CARD_WITH_ID,
@@ -362,31 +360,6 @@ export function updateSpecialistProfile(data, education, experience) {
         experience,
         updateSpecialistProfile1: `${PORT}/api/v1/specialists/`,
         updateSpecialistProfile2: '/dashboard/profile'
-    };
-
-    return action;
-}
-
-// update Specialist Data Availability
-
-export function updateSpecialistAvailability(data) {
-    const action = {
-        type: UPDATE_SPECIALIST_AVAILABILITY,
-        payload: data,
-        updateSpecialistAvailability1: `${PORT}/api/v1/specialists/`,
-        updateSpecialistAvailability2: '/dashboard/availability'
-    };
-
-    return action;
-}
-
-export function updateSpecialistInfo(data, education, experience) {
-    const action = {
-        type: UPDATE_SPECIALIST_INFO,
-        payload: data,
-        education,
-        experience,
-        updateSpecialistInfo: `${PORT}/api/v1/specialists/`,
     };
 
     return action;

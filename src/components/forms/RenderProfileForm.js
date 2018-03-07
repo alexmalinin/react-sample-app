@@ -12,6 +12,12 @@ import RenderImage from '../forms/renders/RenderImage';
 import LocationField from '../forms/renders/LocationField';
 import RenderTextArea from '../forms/renders/RenderTextArea';
 
+import RenderCards from '../specialist/renders/RenderCards';
+import EdicationModal from '../modals/EdicationModal';
+import WorkExperienceModal from '../modals/WorkExperienceModal';
+
+import { Grid, Tab } from 'semantic-ui-react';
+
 window.change = change;
 
 // let renderErrorSpec   = true;
@@ -25,56 +31,85 @@ class RenderProfileForm  extends Component {
         let { avatar } = specialistData || false;
         // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
 
-        // let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
-        // let experiencesChilds1 = specialistData ? specialistData["work_experiences"] : [];
-        //
-        // let educationData  = [ ...educationsChilds1,  ...educations ];
-        // let experienceData = [ ...experiencesChilds1, ...experiences];
+        let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
+        let experiencesChilds1 = specialistData ? specialistData["work_experiences"] : [];
+
+        let educationData  = [ ...educationsChilds1,  ...educations ];
+        let experienceData = [ ...experiencesChilds1, ...experiences];
 
         return (
             <form name='account' onSubmit={handleSubmit}>
 
-                { !avatar && <p>Upload your photo /</p>}
-                <Field
-                  name='person'
-                  component={RenderImage}
-                  type='file'
-                  avatar={avatar}
-                  placeholder='Choose your photo /'
-                />
+                <Grid>
+                    <Grid.Row>
+                        { !avatar && <p>Upload your photo /</p>}
+                        <Field
+                            name='person'
+                            component={RenderImage}
+                            type='file'
+                            avatar={avatar}
+                            placeholder='Choose your photo /'
+                        />
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={16} computer={8}>
+                            <InputField
+                                name="first_name"
+                                placeholder="First Name /"
+                            />
 
-                <InputField
-                    name="first_name"
-                    placeholder="First Name /"
-                />
+                            <InputField
+                                name="last_name"
+                                placeholder="Last Name /"
+                            />
 
-                <InputField
-                    name="last_name"
-                    placeholder="Last Name /"
-                />
+                            <StyledPhoneField>
+                                <span>Phone /</span>
+                                <RenderPhone/>
+                            </StyledPhoneField>
 
-                <StyledPhoneField>
-                    <span>Phone /</span>
-                    <RenderPhone/>
-                </StyledPhoneField>
+                            <EmailField
+                                name="email"
+                                placeholder="Email /"
+                            />
 
-                <EmailField
-                    name="email"
-                    placeholder="Email /"
-                />
+                            <LocationField />
 
-                <LocationField />
+                            <div id="professional_experience_info" className='text-area-group'>
+                            <p>Write a paragraph or two about your professional experience /</p>
+                            <Field name='professional_experience_info' component={RenderTextArea} />
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column mobile={16} tablet={8} computer={4}>
+                            <div>
+                                <RenderCards
+                                    educations={ educationData }
+                                />
 
-                <div id="professional_experience_info" className='text-area-group'>
-                  <p>Write a paragraph or two about your professional experience /</p>
-                  <Field name='professional_experience_info' component={RenderTextArea} />
-                </div>
+                                <EdicationModal/>
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column mobile={16} tablet={8} computer={4}>
+                            <div>
+                                <RenderCards
+                                    experiences={ experienceData }
+                                />
 
-                <DvButton type="submit"
-                            disabled={submitting}
-                            content='SAVE & UPDATE'
-                            primary
-                  />
+                                <WorkExperienceModal/>
+                            </div>
+                        </Grid.Column>
+                    </Grid.Row>
+
+                    <Grid.Row centered>
+                        <Grid.Column computer={8}>
+                            <DvButton type="submit"
+                                    disabled={submitting}
+                                    content='SAVE & UPDATE'
+                                    primary
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </form>
         )
     }

@@ -9,7 +9,7 @@ class WorkExperienceModal extends Component {
     render() {
 
         return(
-            <Modal trigger={<AddNewBtn onClick={this.handleClick} basic content='Add new'/>} closeIcon>
+            <Modal trigger={<AddNewBtn onClick={this.handleClick} basic content='Add work experience'/>} closeIcon>
                 <Modal.Header>Work Experience</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>

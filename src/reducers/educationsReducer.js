@@ -2,7 +2,6 @@ import { isEqual } from 'lodash';
 import {
     EDUCATION,
     CLEAR_EDUCATION,
-    UPDATE_SPECIALIST_INFO,
     EDIT_EDUCATION_CARD_WITHOUT_ID,
     DELETE_EDUCATION_CARD_WITHOUT_ID,
     SUCCESS
@@ -15,8 +14,6 @@ export default (state = [], action) => {
         case EDUCATION:
             return [...state, payload];
         case CLEAR_EDUCATION:
-            return [];
-        case UPDATE_SPECIALIST_INFO + SUCCESS:
             return [];
         case EDIT_EDUCATION_CARD_WITHOUT_ID:
             console.log('state', state);
