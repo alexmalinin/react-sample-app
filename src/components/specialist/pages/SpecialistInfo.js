@@ -43,7 +43,13 @@ class SpecialistInfo extends Component {
                     <p>Something went wrong, please try again</p>
                 </S_Message>
                 <DvTitleSmall>Info</DvTitleSmall>
-                <SpecialistInfoForm educations={educations} experiences={experiences} projectTypes={projectTypes} specialistData={specialistData} onSubmit={this.submit}/>
+                <SpecialistInfoForm 
+                    educations={educations} 
+                    experiences={experiences} 
+                    projectTypes={projectTypes} 
+                    specialistData={specialistData} 
+                    onSubmit={this.submit}
+                />
             </Container>
         )
     }

@@ -29,8 +29,7 @@ class SpecialistIndustryForm extends Component {
     fillFields = data => {
         let { job_title, position, contact_number, project_interest,
           skills, specialities, industry_title, communication_type, available, hourly_rate,
-          project_type, experience_level } = data;
-
+          project_type, experience_level_id } = data;
         let renderSkills = [];
         skills ? skills.forEach( item => {
             renderSkills.push({"label": item['name'], "value": item['id']})
@@ -46,15 +45,11 @@ class SpecialistIndustryForm extends Component {
           this.props.dispatch(change('SpecialistIndustryForm', 'project_type',   renderProjectTypes));
         }
 
-        if (experience_level) {
-          let renderExperienceLevels = {"label": experience_level["name"], "value": experience_level["id"]};
-          this.props.dispatch(change('SpecialistIndustryForm', 'experience_level',   renderExperienceLevels));
-        }
-
         this.props.dispatch(change('SpecialistIndustryForm', 'job_title',            job_title));
         this.props.dispatch(change('SpecialistIndustryForm', 'position',             position));
         this.props.dispatch(change('SpecialistIndustryForm', 'contact_number',       contact_number));
         this.props.dispatch(change('SpecialistIndustryForm', 'project_interest',     project_interest));
+        this.props.dispatch(change('SpecialistIndustryForm', 'experience_level',     experience_level_id));
         this.props.dispatch(change('SpecialistIndustryForm', 'industry_title',       industry_title));
         this.props.dispatch(change('SpecialistIndustryForm', 'skills_attributes',    renderSkills ));
         this.props.dispatch(change('SpecialistIndustryForm', 'communication_type',   communication_type));

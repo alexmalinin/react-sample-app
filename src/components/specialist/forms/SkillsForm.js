@@ -20,7 +20,7 @@ class SkillsForm extends Component {
 
     render() {
         const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText } = this.props;
-
+        
         return (
             <Grid>
                 <Grid.Row>
