@@ -4,6 +4,7 @@ import {
     SHOW_SPECIALIST_DATA,
     UPDATE_SPECIALIST_PROFILE,
     UPDATE_SPECIALIST_STEP_1, // like UPDATE_SPECIALIST_INDUSTRY
+    UPDATE_SPECIALIST_STEP_2, // like UPDATE_SPECIALIST_INDUSTRY
     EDIT_EDUCATION_CARD_WITH_ID,
     DELETE_EDUCATION_CARD_WITH_ID,
     DELETE_EXPERIENCE_CARD_WITH_ID,
@@ -12,6 +13,7 @@ import {
 
 export default (state = null, action) => {
     const { type, data } = action;
+
     switch (type) {
         case SHOW_SPECIALIST_DATA + SUCCESS:
             return data;
@@ -33,5 +35,11 @@ export default (state = null, action) => {
             return data;
         default:
             return state;
+        case UPDATE_SPECIALIST_STEP_2 + SUCCESS: // like UPDATE_SPECIALIST_INDUSTRY
+            console.log('upd succ',data);
+            return data;
+        case UPDATE_SPECIALIST_STEP_2 + FAIL: // like UPDATE_SPECIALIST_INDUSTRY
+            console.log('upd err',data);
+            return data;
     }
 };

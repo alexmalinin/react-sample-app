@@ -7,8 +7,9 @@ import CompanyForm from "./CompanyForm";
 let renderError = true;
 
 class SpecialistCompanyForm extends Component {
-
+  
   render() {
+    console.log('lf handle', this.props);
 
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -18,22 +19,25 @@ class SpecialistCompanyForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.specialistData) {
+    console.log('next props', nextProps);
+    if (nextProps.specialistData && nextProps.specialistData.company) {
       if (renderError) {
-        this.fillFields(nextProps.specialistData);
-        renderError = false
+        this.fillFields(nextProps.specialistData.company);
+        renderError = false;
       }
     }
   }
 
   fillFields = data => {
     let { name, company_address, website, number_of_employers, country, city, segment} = data;
+    console.log('filling', data);
 
-    this.props.dispatch(change('SpecialistCompanyForm', 'name',                   name));
-    this.props.dispatch(change('SpecialistCompanyForm', 'company_address',        company_address));
-
+    for(var key in data) {
+      this.props.dispatch(change('SpecialistCompanyForm', key, data[key]));  
+    }
+    // this.props.dispatch(change('SpecialistCompanyForm', 'name',                   name));
+    // this.props.dispatch(change('SpecialistCompanyForm', 'company_address',        company_address));
   }
-
 
 }
 
@@ -44,9 +48,10 @@ SpecialistCompanyForm = reduxForm({
 })(SpecialistCompanyForm);
 
 const selector = formValueSelector('SpecialistCompanyForm');
-SpecialistCompanyForm = connect(state => {
-  const { specialistData } = state;
-  return {specialistData}
-})(SpecialistCompanyForm);
 
-export default SpecialistCompanyForm;
+export default connect(
+  state => {
+    const { specialistData } = state;
+    return { specialistData }
+  }
+)(SpecialistCompanyForm);
