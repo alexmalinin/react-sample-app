@@ -5,7 +5,8 @@ export default styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 40px;
-    border: 1px solid #ccc;
+    border: none;
+    border-bottom: 2px solid #ccc;
     
     .phone-wrapper {
       margin: 0;
@@ -19,10 +20,9 @@ export default styled.div`
       div:first-child {
         flex: 0 0 25%;
         margin-bottom: 0;
-    
+        margin-right: 2px;
         border-radius: 0;
-        border-top: none;
-        border-bottom: none;
+        border: none;
         
       }
     

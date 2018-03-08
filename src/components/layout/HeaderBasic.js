@@ -15,14 +15,13 @@ class Header extends Component {
             <StyledHeaderBasic className='header-basic'>
                 <ContainerLarge>
                     <a href='/'>
-                        <span>Digital</span>
-                        <img src='/images/logo_basic.png'/>
-                        <span>Village</span>
+                        <span>Digital Village</span>
+                        {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     <div>
-                        <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
+                        {/* <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
                         <span> | </span>
-                        <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink>
+                        <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink> */}
                     </div>
                 </ContainerLarge>
             </StyledHeaderBasic>

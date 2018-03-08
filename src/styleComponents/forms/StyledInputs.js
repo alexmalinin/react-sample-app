@@ -15,7 +15,7 @@ export default styled.div`
             ::-moz-placeholder          {color: #000}
             :-ms-input-placeholder      {color: #000}
             
-            border: 2px solid #ccc;
+            border: 5px solid #000;
             border-radius: 0;
         }
     }
@@ -51,7 +51,8 @@ export default styled.div`
     @media(max-width: 1920px) {
          .ui.input {
                 input {
-                    border: 1px solid #ccc;
+                    border: 0;
+                    border-bottom: 2px solid #ccc;
                 }
             }
         }
