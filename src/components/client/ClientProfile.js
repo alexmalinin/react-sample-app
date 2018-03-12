@@ -31,11 +31,6 @@ class ClientProfile extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <ContainerLarge>
-                    <DvTitle mTop="80">
-                        Welcome to The Village!
-                    </DvTitle>
-                </ContainerLarge>
 
                 <SubHeader/>
 

@@ -9,18 +9,18 @@ import { DvButton } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
 import LocationField from '../../forms/renders/LocationField'
 import RenderTextArea from '../../forms/renders/RenderTextArea';
-import BusinessForm from "./BusinessForm";
+import CompanyForm from "./CompanyForm";
 
 let renderError = true;
 
-class ClientBusinessForm extends Component {
+class ClientCompanyForm extends Component {
 
     render() {
-        const { handleSubmit, submitting, clientData } = this.props;
+        const { handleSubmit, submitting, clientData, industries } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
-                <BusinessForm clientData={clientData} submitting={submitting}/>
+                <CompanyForm industries={industries} clientData={clientData} submitting={submitting}/>
             </form>
         )
     }
@@ -39,21 +39,25 @@ class ClientBusinessForm extends Component {
     }
 
     fillFields = data => {
-        let { address, industry, description, we_are } = data;
+        let { company } = data;
 
-        this.props.dispatch(change('ClientBusinessForm', 'city',  address["city"]));
-        this.props.dispatch(change('ClientBusinessForm', 'country',  address["country"]));
-        this.props.dispatch(change('ClientBusinessForm', 'industry', industry));
-        this.props.dispatch(change('ClientBusinessForm', 'description',   description));
-        this.props.dispatch(change('ClientBusinessForm', 'we_are',  {value: we_are, label: we_are}));
+        console.log('filling', company);
+
+        for(let key in company) {
+          this.props.dispatch(change('ClientCompanyForm', key, company[key]));
+        }
+
     }
 }
 
-ClientBusinessForm = reduxForm({
-    form: 'ClientBusinessForm',
+ClientCompanyForm = reduxForm({
+    form: 'ClientCompanyForm',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
-})(ClientBusinessForm);
+})(ClientCompanyForm);
 
-
-export default connect()(ClientBusinessForm);
+export default connect(
+  state => {
+    const { clientData } = state;
+    return { clientData }
+  })(ClientCompanyForm);

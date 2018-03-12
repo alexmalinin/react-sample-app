@@ -27,7 +27,7 @@ import editExperience               from '../middlewares/experience/editExperien
 import deleteEducation              from '../middlewares/education/deleteEducationApi';
 import deleteExperience             from '../middlewares/experience/deleteExperienceApi';
 import updateClientProfile          from '../middlewares/updateClientProfileApi';
-import updateClientBusiness         from '../middlewares/updateClientBusinessApi';
+import updateClientCompany          from '../middlewares/updateClientCompanyApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -56,7 +56,7 @@ const enhancer = applyMiddleware(
     deleteEducation,
     deleteExperience,
     updateClientProfile,
-    updateClientBusiness,
+    updateClientCompany,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

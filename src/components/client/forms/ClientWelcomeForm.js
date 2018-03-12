@@ -8,7 +8,7 @@ import { DvButton } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
 import LocationField from '../../forms/renders/LocationField'
 import RenderTextArea from '../../forms/renders/RenderTextArea';
-import BusinessForm from "./BusinessForm";
+import CompanyForm from "./CompanyForm";
 
 class ClientWelcomeForm extends Component {
 
@@ -17,7 +17,7 @@ class ClientWelcomeForm extends Component {
 
         return (
             <form onSubmit={handleSubmit}>
-                <BusinessForm submitting={submitting}/>
+                <CompanyForm submitting={submitting}/>
             </form>
         )
     }
