@@ -41,35 +41,35 @@ class RenderProfileForm  extends Component {
 
                 <Grid>
                     <Grid.Row>
-                        { !avatar && <p>Upload your photo /</p>}
+                        { !avatar && <p>Upload your photo</p>}
                         <Field
                             name='person'
                             component={RenderImage}
                             type='file'
                             avatar={avatar}
-                            placeholder='Choose your photo /'
+                            placeholder='Choose your photo'
                         />
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={16} computer={ specialistData ? 8 : 16 }>
                             <InputField
                                 name="first_name"
-                                placeholder="First Name /"
+                                placeholder="First Name"
                             />
 
                             <InputField
                                 name="last_name"
-                                placeholder="Last Name /"
+                                placeholder="Last Name"
                             />
 
                             <StyledPhoneField>
-                                <span>Phone /</span>
+                                <span>Phone</span>
                                 <RenderPhone/>
                             </StyledPhoneField>
 
                             <EmailField
                                 name="email"
-                                placeholder="Email /"
+                                placeholder="Email"
                             />
 
                             <LocationField />

@@ -24,11 +24,11 @@ class SpecialistsDashboard extends Component {
         return (
             <div>
                 <HeaderBasic/>
-                <SubHeader/>
+                {/* <SubHeader/> */}
                 <S_MainContainer>
-                    <AsideLeft/>
+                    {/* <AsideLeft/> */}
                         {this.renderPage(page)}
-                    <AsideRight/>
+                    {/* <AsideRight/> */}
                 </S_MainContainer>
             </div>
         )

@@ -5,7 +5,7 @@ export default styled.header`
     &.header-basic {
     
         & > div {
-            min-height: 173px;
+            min-height: 87px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -14,8 +14,8 @@ export default styled.header`
         a {
             color: #666;
             font-family: 'Proxima Nova', sans-serif;
-            font-size: 22px;
-            font-weight: 400;
+            font-size: 12px;
+            font-weight: bold;
             line-height: 27px;
             text-transform: uppercase;
             letter-spacing: 3.22px;
@@ -30,11 +30,11 @@ export default styled.header`
 
 
         & > div {
-            min-height: 173px;
+            min-height: 87px;
         } 
         
         a {
-            font-size: 22px;
+            font-size: 12px;
             
             img {
                 width: 60px;
