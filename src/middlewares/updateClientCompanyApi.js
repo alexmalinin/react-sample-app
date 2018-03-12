@@ -1,10 +1,12 @@
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 import { SUCCESS, FAIL } from '../constans/constans';
+import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
     const { type, updateClientCompany, payload, ...rest } = action;
     if (!updateClientCompany) return next(action);
+
+    console.log('pay', payload);
 
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
@@ -25,8 +27,8 @@ export default store => next => action => {
                 "tell_about"          : payload['tell_about'],
                 "segment"             : payload['segment']['value'],
                 "number_of_employers" : payload["number_of_employers"]["value"],
-                "user_id"             : id
-                // "industry_area_id"    : payload["industry"]["value"],
+                "user_id"             : id,
+                "industry_area_id"    : payload["industry"]["value"],
               }
             }
         },

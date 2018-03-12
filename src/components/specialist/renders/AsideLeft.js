@@ -9,7 +9,7 @@ class Aside extends Component {
 
     render() {
         const {isOpen} = this.state;
-        console.log('render');
+        // console.log('render');
 
         return (
             <S_Aside open={isOpen} orientation="left" onClick={this.handleClick}>

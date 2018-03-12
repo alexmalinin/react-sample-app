@@ -68,14 +68,14 @@ class CompanyForm extends Component {
                       validate={[required]}
                     />
 
-                    {/*<div id="industry" className='half-column'>*/}
-                      {/*<Field*/}
-                        {/*name="industry"*/}
-                        {/*component={RenderSelect}*/}
-                        {/*placeholder="Industry"*/}
-                        {/*options={clientCategories}*/}
-                      {/*/>*/}
-                    {/*</div>*/}
+                    <div id="industry" className='half-column'>
+                      <Field
+                        name="industry"
+                        component={RenderSelect}
+                        placeholder="Industry"
+                        options={industries.industry}
+                      />
+                    </div>
 
                     <div id="number_of_employers" className='half-column'>
                       <Field

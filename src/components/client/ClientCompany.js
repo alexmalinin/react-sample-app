@@ -24,14 +24,14 @@ class ClientCompany extends Component {
     };
 
     componentWillMount() {
-      // this.props.getIndustries();
+      this.props.getIndustries();
       this.props.showClientData();
     }
 
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
         const { clientData, industries } = this.props;
-
+        console.log('s', industries);
         return (
             <div>
                 <HeaderBasic/>
@@ -56,11 +56,11 @@ class ClientCompany extends Component {
 
     componentWillReceiveProps(nextProps) {
         let client = nextProps.clientData;
-        console.log(nextProps)
-        if (client.successCompanyId) {
+        console.log('next props', nextProps)
+        if (client && client.successCompanyId) {
             this.showMessage('success');
             run(0)();
-        } else if(client.successCompanyId) {
+        } else if(client && client.successCompanyId) {
             this.showMessage();
             run(0)();
         }
@@ -86,9 +86,12 @@ class ClientCompany extends Component {
     };
 
     submit = values => {
-        console.log(values);
+        console.log('values', values);
         this.props.updateClientCompany(values)
     }
 }
 
-export default connect(({ industries, clientData }) => ({ industries, clientData }), {getIndustries, showClientData, updateClientCompany })(ClientCompany);
+export default connect(
+    ({ industries, clientData }) => ({ industries, clientData }), 
+    {getIndustries, showClientData, updateClientCompany }
+)(ClientCompany);

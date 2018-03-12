@@ -7,7 +7,7 @@ import RenderSelect from '../../forms/renders/RenderSelect';
 import { DvButton } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
-import {DvTitle} from '../../../styleComponents/layout/DvTitles';
+import { DvTitle } from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import { employeers } from '../../../helpers/selects/employeers';
 import { segments } from '../../../helpers/selects/segments';
@@ -61,13 +61,14 @@ class CompanyForm extends Component {
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={8}>
-
+          <StyledWelcomeForm>
             <div id="segment" className='half-column'>
               <Field
                 name="segment"
                 component={RenderSelect}
-                placeholder="Number of employers"
+                placeholder="Segment"
                 options={segments}
+                validate={[required]}
               />
             </div>
 
@@ -77,6 +78,7 @@ class CompanyForm extends Component {
                 component={RenderSelect}
                 placeholder="Industry"
                 options={industries["industry"]}
+                validate={[required]}
               />
             </div>
 
@@ -86,10 +88,11 @@ class CompanyForm extends Component {
                 component={RenderSelect}
                 placeholder="Number of employers"
                 options={employeers}
+                validate={[required]}
               />
             </div>
 
-
+            </StyledWelcomeForm>
           </Grid.Column>
         </Grid.Row>
 
@@ -98,7 +101,7 @@ class CompanyForm extends Component {
             <DvButton
               type="submit"
               disabled={submitting}
-              content='SAVE & CONTINUE'
+              content='SAVE &amp; CONTINUE'
               primary
             />
           </Grid.Column>

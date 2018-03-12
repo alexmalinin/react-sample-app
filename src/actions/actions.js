@@ -319,6 +319,7 @@ export function showChosenSkills(){
 // update data for specialists sign up step 3
 
 export function updateSpecStep2(data) {
+    console.log('action ', data)
     const action = {
         type: UPDATE_SPECIALIST_STEP_2,
         payload: data,
