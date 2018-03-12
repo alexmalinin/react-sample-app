@@ -61,7 +61,7 @@ class CompanyForm extends Component {
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={8}>
-
+          <StyledWelcomeForm>
             <div id="segment" className='half-column'>
               <Field
                 name="segment"
@@ -92,7 +92,7 @@ class CompanyForm extends Component {
               />
             </div>
 
-
+            </StyledWelcomeForm>
           </Grid.Column>
         </Grid.Row>
 

@@ -19,6 +19,7 @@ class SpecialistCompany extends Component {
   };
 
   componentWillMount() {
+    this.props.showSpecialistData();
     this.props.getIndustries();
     this.props.showSpecialistData();
   }
