@@ -4,8 +4,19 @@ export default styled.div`
  
     position: relative;
     margin-bottom: 30px;
-    
-    
+    position: relative;
+
+    label {
+        position: absolute;
+        top: -18px;
+        left: 8px;
+        z-index: 2;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #666;
+        font-weight: bold;
+    }
+
     .ui.input {
         width: 100%;
         
@@ -14,19 +25,18 @@ export default styled.div`
             :-moz-placeholder           {color: #000}
             ::-moz-placeholder          {color: #000}
             :-ms-input-placeholder      {color: #000}
-            
-            border: 5px solid #000;
             border-radius: 0;
         }
+        
     }
-    
+
     @media (min-width: 1921px) {
         
        margin-bottom: 40px;
         
        .ui.input {
            font-size: 28px;
-       } 
+        } 
        
        .Select-control {
            height: 74px;
@@ -35,9 +45,10 @@ export default styled.div`
        .Select-placeholder {
            padding: 0 25px;
            line-height: 74px;
-           font-size: 28px;
-       }
+           font-size: 28px;   
+        }
         
+
        .Select-value {
            font-size: 28px;
            padding-left: 25px !important; //overwrite theme
@@ -51,8 +62,13 @@ export default styled.div`
     @media(max-width: 1920px) {
          .ui.input {
                 input {
+                    padding-top: 6px;
                     border: 0;
-                    border-bottom: 2px solid #ccc;
+                    border-bottom: 2px solid #f2f2f2;
+                    font-size: 16px;
+                    color: #666;
+                    letter-spacing: 1.5px;
+                    padding-left: 7px;
                 }
             }
         }

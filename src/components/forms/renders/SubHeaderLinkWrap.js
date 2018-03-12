@@ -11,7 +11,7 @@ class SubHeaderLinkWrap extends Component {
     render () {
         return (
             <NavLink className='button' to={this.props.url}>
-                <SubHeaderLink myClass={this.props.myClass} number={this.props.content}/>
+                <SubHeaderLink className={this.props.className} number={this.props.content}/>
                 {this.props.children}
             </NavLink>
         )

@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components';
 export default styled.div`
 
     display: flex;
+    position: relative;
     align-items: center;
     margin-bottom: 40px;
     border: none;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #f2f2f2;
     
     .phone-wrapper {
       margin: 0;
@@ -16,14 +17,28 @@ export default styled.div`
       .Select-placeholder {
           color: #959595;
         }
-    
+        
+      .Select-arrow-zone {
+        display: none;
+      }
+
+      .Select-value-label {
+        color: #666 !important;
+        letter-spacing: 1.5px !important;
+        font-size: 16px !important;
+        
+      }
+
+      .Select-control .Select-value {
+        padding-left: 7px !important;
+      }  
+
       div:first-child {
         flex: 0 0 25%;
         margin-bottom: 0;
         margin-right: 2px;
         border-radius: 0;
         border: none;
-        
       }
     
       div:last-child {
@@ -39,8 +54,16 @@ export default styled.div`
     }
 
     & > span {
-        text-align: center;
-        flex: 0 0 20%;
+      flex: 0 0 20%;
+      position: absolute;
+      top: -18px;
+      left: 8px;
+      text-align: center;
+      z-index: 2;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: bold;
+      font-size: 12px;
     }  
     
     @media (min-width: 1921px) {

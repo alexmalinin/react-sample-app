@@ -54,7 +54,7 @@ class SpecialistsProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
+                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                             <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences}/>
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>

@@ -5,7 +5,7 @@ export default styled.span`
     color: #db4538;
     position: absolute;
     top: -20px;
-    left: 0px;
+    right: 0px;
     font-size: 14px;
     font-weight: 300;
     

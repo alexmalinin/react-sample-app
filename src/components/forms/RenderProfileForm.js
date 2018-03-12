@@ -41,6 +41,89 @@ class RenderProfileForm  extends Component {
 
                 <Grid>
                     <Grid.Row>
+                        <Grid.Column computer={3}>
+                            <Field
+                                name='person'
+                                component={RenderImage}
+                                type='file'
+                                avatar={avatar}
+                                placeholder='Choose your photo'
+                            />
+                        </Grid.Column>
+                        <Grid.Column computer={10}> 
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name="first_name"
+                                            label="First Name"
+                                        />
+                                        
+                                        <InputField
+                                            name="city"
+                                            label="City"
+                                        />
+                                        <StyledPhoneField>
+                                            <span>Phone</span>
+                                            <RenderPhone />
+                                        </StyledPhoneField>                                        
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name="last_name"
+                                            label="Last Name"
+                                        />
+                                        <InputField
+                                            name="country"
+                                            label="Country"
+                                        />
+                                        <EmailField
+                                            name="email"
+                                            label="Email"
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={16}>
+                                        <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
+                                            <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
+                                                    labelTextarea={'Write a paragraph or two about your professional experience '} 
+                                                    component={RenderTextArea} 
+                                            />
+                                        </div>
+                                    </Grid.Column>
+                                </Grid.Row>                                
+                            </Grid>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <div>
+                                            <RenderCards
+                                                experiences={ experienceData }
+                                            />
+                                            <WorkExperienceModal/>
+                                        </div>                                        
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <div>
+                                            <RenderCards
+                                                educations={ educationData }
+                                            />
+
+                                            <EdicationModal/>
+                                        </div>
+                                    </Grid.Column>
+                                </Grid.Row>                                
+                            </Grid>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+
+
+                {/* <Grid>
+                    <Grid.Row>
                         { !avatar && <p>Upload your photo</p>}
                         <Field
                             name='person'
@@ -114,7 +197,7 @@ class RenderProfileForm  extends Component {
                             />
                         </Grid.Column>
                     </Grid.Row>
-                </Grid>
+                </Grid> */}
             </form>
         )
     }

@@ -10,7 +10,7 @@ class SubHeaderLink extends Component {
 
     render () {
         return (
-            <StyledSubHeaderLink className={this.props.myClass}>
+            <StyledSubHeaderLink className={this.props.className}>
                 {this.props.number}
             </StyledSubHeaderLink>
         )

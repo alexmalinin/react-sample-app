@@ -18,6 +18,7 @@ export default styled.div`
     justify-content: space-between;
     padding: 37px 30px 15px;
     box-shadow: 0px 0px 16px 0px #ccc;
+    margin-bottom: 80px;
     
     & > span {
       padding: 10px;

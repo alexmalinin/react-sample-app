@@ -30,16 +30,16 @@ class SubHeader extends Component {
                     </SubHeaderLinkWrap>                 
                 </div>
                 <div>
-                    <SubHeaderLinkWrap url='#' myClass='rightLink arrow'>
+                    <SubHeaderLinkWrap url='#' className='rightLink arrow'>
                         <span></span>
                         Complete Later
                     </SubHeaderLinkWrap>
 
-                    <SubHeaderLinkWrap content='3/9' url='#' myClass='rightLink'>
+                    <SubHeaderLinkWrap content='3/9' url='#' className='rightLink'>
                         Profile
                     </SubHeaderLinkWrap> 
 
-                    <SubHeaderLinkWrap content='5%' url='#' myClass='rightLink'>
+                    <SubHeaderLinkWrap content='5%' url='#' className='rightLink'>
                         Progress
                     </SubHeaderLinkWrap>   
                 </div>
