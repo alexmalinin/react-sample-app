@@ -14,16 +14,27 @@ export default store => next => action => {
         url: updateClientCompany + id,
         data: {
             "customer": {
-                "name"            : payload['name'],
-                "company_address" : payload['company_address'],
-                "website"         : payload['website'],
-                "country"         : payload['country'],
-                "city"            : payload['city'],
-                "tell_about"      : payload['tell_about'],
-                "registered_name" : payload['registered_name'],
-                "segment"         : payload['segment']['value']
+              "company_attributes" : {
+                "name"                : payload['name'],
+                "registered_name"     : payload['registered_name'],
+                "company_address"     : payload['company_address'],
+                "website"             : payload['website'],
+                "country"             : payload['country'],
+                "city"                : payload['city'],
+                "abn_acn"             : payload['abn_acn'],
+                "tell_about"          : payload['tell_about'],
+                "segment"             : payload['segment']['value'],
+                "number_of_employers" : payload["number_of_employers"]["value"],
+                "user_id"             : id
+                // "industry_area_id"    : payload["industry"]["value"],
+              }
             }
+        },
+
+        headers: {
+          'Authorization': `Bearer ${token}`,
         }
+
     }).then(function (response) {
         console.log(response);
         let data = response.data;

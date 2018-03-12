@@ -24,7 +24,6 @@ class CompanyForm extends Component {
                       placeholder="Company Name /"
                     />
 
-
                     <InputField
                       name="company_address"
                       placeholder="Company Address /"
@@ -69,14 +68,14 @@ class CompanyForm extends Component {
                       validate={[required]}
                     />
 
-                    <div id="industry" className='half-column'>
-                      <Field
-                        name="industry"
-                        component={RenderSelect}
-                        placeholder="Industry"
-                        options={clientCategories}
-                      />
-                    </div>
+                    {/*<div id="industry" className='half-column'>*/}
+                      {/*<Field*/}
+                        {/*name="industry"*/}
+                        {/*component={RenderSelect}*/}
+                        {/*placeholder="Industry"*/}
+                        {/*options={clientCategories}*/}
+                      {/*/>*/}
+                    {/*</div>*/}
 
                     <div id="number_of_employers" className='half-column'>
                       <Field

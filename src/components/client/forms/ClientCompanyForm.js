@@ -16,11 +16,11 @@ let renderError = true;
 class ClientCompanyForm extends Component {
 
     render() {
-        const { handleSubmit, submitting, clientData } = this.props;
+        const { handleSubmit, submitting, clientData, industries } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
-                <CompanyForm clientData={clientData} submitting={submitting}/>
+                <CompanyForm industries={industries} clientData={clientData} submitting={submitting}/>
             </form>
         )
     }
@@ -39,14 +39,14 @@ class ClientCompanyForm extends Component {
     }
 
     fillFields = data => {
-        let { name, company_address, website, segment, country, city } = data;
+        let { company } = data;
 
-        this.props.dispatch(change('ClientCompanyForm', 'name',              name));
-        this.props.dispatch(change('ClientCompanyForm', 'company_address',   company_address));
-        this.props.dispatch(change('ClientCompanyForm', 'website',           website));
-        this.props.dispatch(change('ClientCompanyForm', 'country',           country));
-        this.props.dispatch(change('ClientCompanyForm', 'city',              city));
-        this.props.dispatch(change('ClientCompanyForm', 'segment',           segment));
+        console.log('filling', company);
+
+        for(let key in company) {
+          this.props.dispatch(change('ClientCompanyForm', key, company[key]));
+        }
+
     }
 }
 
@@ -56,5 +56,8 @@ ClientCompanyForm = reduxForm({
     forceUnregisterOnUnmount: true,
 })(ClientCompanyForm);
 
-
-export default connect()(ClientCompanyForm);
+export default connect(
+  state => {
+    const { clientData } = state;
+    return { clientData }
+  })(ClientCompanyForm);
