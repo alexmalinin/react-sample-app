@@ -9,7 +9,6 @@ let renderError = true;
 class SpecialistCompanyForm extends Component {
   
   render() {
-    console.log('lf handle', this.props);
 
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -19,7 +18,6 @@ class SpecialistCompanyForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('next props', nextProps);
     if (nextProps.specialistData && nextProps.specialistData.company) {
       if (renderError) {
         this.fillFields(nextProps.specialistData.company);
@@ -30,11 +28,11 @@ class SpecialistCompanyForm extends Component {
 
   fillFields = data => {
     let { name, company_address, website, number_of_employers, country, city, segment} = data;
-    console.log('filling', data);
 
     for(var key in data) {
-      this.props.dispatch(change('SpecialistCompanyForm', key, data[key]));  
+      this.props.dispatch(change('SpecialistCompanyForm', key, data[key]));
     }
+    this.props.dispatch(change('SpecialistCompanyForm', 'industry', data.industry_area_id));
     // this.props.dispatch(change('SpecialistCompanyForm', 'name',                   name));
     // this.props.dispatch(change('SpecialistCompanyForm', 'company_address',        company_address));
   }

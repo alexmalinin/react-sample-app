@@ -36,10 +36,8 @@ export default (state = null, action) => {
         default:
             return state;
         case UPDATE_SPECIALIST_STEP_2 + SUCCESS: // like UPDATE_SPECIALIST_INDUSTRY
-            console.log('upd succ',data);
             return data;
         case UPDATE_SPECIALIST_STEP_2 + FAIL: // like UPDATE_SPECIALIST_INDUSTRY
-            console.log('upd err',data);
             return data;
     }
 };

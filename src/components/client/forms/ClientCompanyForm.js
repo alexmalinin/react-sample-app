@@ -41,11 +41,10 @@ class ClientCompanyForm extends Component {
     fillFields = data => {
         let { company } = data;
 
-        console.log('filling', company);
-
         for(let key in company) {
           this.props.dispatch(change('ClientCompanyForm', key, company[key]));
         }
+        this.props.dispatch(change('ClientCompanyForm', 'industry', company.industry_area_id));
 
     }
 }

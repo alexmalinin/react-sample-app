@@ -2,6 +2,7 @@ import { SHOW_CLIENT_DATA, UPDATE_CLIENT_PROFILE, UPDATE_CLIENT_COMPANY, SUCCESS
 
 export default (state = null, action) => {
     const { type, data } = action;
+
     switch (type) {
         case SHOW_CLIENT_DATA + SUCCESS:
             return data;

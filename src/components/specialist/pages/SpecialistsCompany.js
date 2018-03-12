@@ -19,9 +19,10 @@ class SpecialistCompany extends Component {
   };
 
   componentWillMount() {
-    this.props.showSpecialistData();
     this.props.getIndustries();
+    console.log('getInd()');
     this.props.showSpecialistData();
+    console.log('showSpec', this.props.specialistData);
   }
 
   render() {
@@ -52,8 +53,7 @@ class SpecialistCompany extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('will recieve', nextProps);
-    // debugger
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
