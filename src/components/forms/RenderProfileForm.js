@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {Field, reduxForm, change} from 'redux-form';
 import {required} from '../../helpers/validate';
-import { DvButton } from '../../styleComponents/layout/DvButton'
+import { SaveBtn, DvButton } from '../../styleComponents/layout/DvButton'
 import InputField from './renders/InputField';
 import {RenderField} from './renders/RenderField';
 import EmailField from './renders/EmailField';
@@ -119,8 +119,8 @@ class RenderProfileForm  extends Component {
                                 </Grid.Row>                                
                             </Grid>
                         </Grid.Column>
-                        <Grid.Column computer={1}>
-                            <DvButton type="submit"
+                        <Grid.Column computer={2}>
+                            <SaveBtn type="submit"
                                 disabled={submitting}
                                 content='SAVE & UPDATE'
                                 primary

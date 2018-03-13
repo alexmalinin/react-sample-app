@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
 
 export const DvButton = styled(Button)`  
  
     &.ui.button {
+        
         ${props => props.indentTop ? `margin-top: 60px` : ``};
         border-radius: 0;
         width: 100%;
@@ -11,17 +12,15 @@ export const DvButton = styled(Button)`
         font-family: Roboto;
         text-align: center;
         color: #fff;
-        
+    
         &.verify-btn {
             padding: 40px;
         }
-        
+    
         &.width200 {
-          width: 200%;
+            width: 200%;
         }
     }
-    
-    
     
     @media (max-width: 1920px) {
         &.ui.button {
@@ -226,3 +225,37 @@ export const AddNewBtn = styled(Button)`
         }
     }
 `;
+
+
+export const SaveBtn = styled(Button)`
+
+    &.ui.basic.button {
+        border-radius: 50% !important;
+        width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #666;
+        border: 1px solid #666; 
+        position: absolute;
+        bottom: 0;
+        right: 15px;
+        font-family: Roboto;
+        text-align: center;
+        color: #fff;
+        
+        span {
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: red;
+        }
+
+        &.verify-btn {
+            padding: 40px;
+        }
+        
+        &.width200 {
+          width: 200%;
+        }
+    }
+`

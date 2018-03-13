@@ -40,13 +40,10 @@ class RenderImage extends Component {
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (avatar && avatar.url && !imagePreviewUrl) {
-            console.log('step 1');
             $imagePreview = (<img src={PORT + avatar.url}/>);
         } else if (imagePreviewUrl) {
-            console.log('step 2');
             $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
-            console.log('step 3');
             $imagePreview = (<div className='preloader'><img src='../../images/uploadImg.png' alt=''/></div>);
         }
         return (

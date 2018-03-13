@@ -58,9 +58,14 @@ class SpecialistsProfile extends Component {
                             <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences}/>
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
-                        <Grid.Column mobile={16} tablet={12} computer={8}>
-                            <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
-                            <RenderResetPasswordForm user="specialist"/>
+                        <Grid.Column mobile={16} tablet={12} computer={16}>
+                            <Grid>
+                                <Grid.Column computer={3} />
+                                <Grid.Column computer={11}>
+                                    <DvTitleSmall fz='18' mTop='60' xsCenter>Change Password</DvTitleSmall>
+                                    <RenderResetPasswordForm user="specialist"/>
+                                </Grid.Column>
+                            </Grid>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
