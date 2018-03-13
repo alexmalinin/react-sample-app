@@ -17,6 +17,7 @@ import getExperienceLevels          from '../middlewares/getExperienceLevelsApi'
 import updateSpecStep1              from '../middlewares/updateSpecStep1Api';
 import showChosenSkills             from '../middlewares/showChosenSkillsApi';
 import updateSpecStep2              from '../middlewares/updateSpecStep2Api';
+import updateSpecialistBillings     from '../middlewares/updateSpecialistBillingApi';
 import showClientData               from '../middlewares/showClientDataApi';
 import showSpecialistData           from '../middlewares/showSpecialistDataApi';
 import updateSpecialistProfile      from '../middlewares/updateSpecialistProfileApi';
@@ -28,6 +29,7 @@ import deleteEducation              from '../middlewares/education/deleteEducati
 import deleteExperience             from '../middlewares/experience/deleteExperienceApi';
 import updateClientProfile          from '../middlewares/updateClientProfileApi';
 import updateClientCompany          from '../middlewares/updateClientCompanyApi';
+import updateClientBilling          from '../middlewares/updateClientBillingApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -46,6 +48,7 @@ const enhancer = applyMiddleware(
     updateSpecStep1,
     showChosenSkills,
     updateSpecStep2,
+    updateSpecialistBillings,
     showClientData,
     showSpecialistData,
     updateSpecialistProfile,
@@ -57,6 +60,7 @@ const enhancer = applyMiddleware(
     deleteExperience,
     updateClientProfile,
     updateClientCompany,
+    updateClientBilling,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

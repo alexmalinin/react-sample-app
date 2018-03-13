@@ -19,6 +19,7 @@ import SpecialistsWelcome2 from './specialist/pages/SpecialistWelcome2';
 import ClientWelcome from './client/ClientWelcome';
 import ClientProfile from './client/ClientProfile';
 import ClientProjects from './client/ClientProjects';
+import ClientBilling from './client/ClientBilling';
 import ClientMyTeams from './client/ClientMyTeams';
 import ClientCompany from './client/ClientCompany';
 import SpecialistDashboard from './specialist/pages/SpecialistsDashboard';
@@ -98,6 +99,7 @@ class App extends Component {
                                     }
                                     <Route path='/client/dashboard/profile' component={ClientProfile}/>
                                     <Route path='/client/dashboard/projects' component={ClientProjects}/>
+                                    <Route path='/client/dashboard/billing' component={ClientBilling}/>
                                     <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
                                     <Route path='/client/dashboard/company' component={ClientCompany}/>
                                     <Route path='*' component={NotFound}/>

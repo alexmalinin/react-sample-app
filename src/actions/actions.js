@@ -23,6 +23,7 @@ import {
     GET_PROJECT_TYPES,
     GET_EXPERIENCE_LEVELS,
     UPDATE_SPECIALIST_STEP_2,
+    UPDATE_SPECIALIST_BILLINGS,
     CLEAR_EDUCATION,
     CLEAR_WORK_EXPERIENCE,
     SHOW_CLIENT_DATA,
@@ -40,6 +41,7 @@ import {
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     UPDATE_CLIENT_PROFILE,
     UPDATE_CLIENT_COMPANY,
+    UPDATE_CLIENT_BILLING,
     SAVE_CREATED_PROJECT,
     SUBMIT_CREATED_PROJECT,
 } from '../constans/constans'
@@ -329,6 +331,19 @@ export function updateSpecStep2(data) {
     return action;
 }
 
+// update specialist billings
+
+export function updateSpecialistBillings(data) {
+    console.log('action ', data)
+    const action = {
+        type: UPDATE_SPECIALIST_BILLINGS,
+        payload: data,
+        updateSpecialistBillings: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
 // Show client Data Profile
 
 export function showClientData() {
@@ -499,6 +514,18 @@ export function updateClientCompany(data) {
         type: UPDATE_CLIENT_COMPANY,
         payload: data,
         updateClientCompany: `${PORT}/api/v1/customers/`,
+    };
+
+    return action;
+}
+
+// update Client Billing
+
+export function updateClientBilling(data) {
+    const action = {
+        type: UPDATE_CLIENT_BILLING,
+        payload: data,
+        updateClientBilling: `${PORT}/api/v1/customers/`,
     };
 
     return action;
