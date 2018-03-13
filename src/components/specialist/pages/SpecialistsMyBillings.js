@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
-import { getIndustries, updateSpecStep2, showSpecialistData } from '../../../actions/actions'
+import { getIndustries, updateSpecialistBillings, showSpecialistData } from '../../../actions/actions'
 import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
 import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import { Message } from 'semantic-ui-react';
 import { S_Message } from '../../../styleComponents/layout/S_Message';
 import { run } from '../../../helpers/scrollToElement';
-import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
+import SpecialistBillingForm from '../forms/SpecialistBillingForm';
 
-class SpecialistCompany extends Component {
+class SpecialistsMyBillings extends Component {
 
   state = {
     renderMessage: false,
@@ -19,13 +19,11 @@ class SpecialistCompany extends Component {
   };
 
   componentWillMount() {
-    this.props.getIndustries();
     this.props.showSpecialistData();
   }
 
   render() {
     const { renderMessage, renderErrorMessage } = this.state;
-    const { industries } = this.props;
 
     return (
       <Container indentBot indentTop className="relative">
@@ -42,9 +40,9 @@ class SpecialistCompany extends Component {
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
-        <DvTitleSmall>My Company</DvTitleSmall>
+        <DvTitleSmall>My Billings</DvTitleSmall>
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
+        <SpecialistBillingForm onSubmit={this.submit}/>
 
       </Container>
     )
@@ -83,9 +81,9 @@ class SpecialistCompany extends Component {
 
   submit = values => {
 
-    this.props.updateSpecStep2(values);
+    this.props.updateSpecialistBillings(values);
   };
 }
 
 export default connect(({ industries, company, specialistData }) => ({ industries, company, specialistData }),
-  { getIndustries, updateSpecStep2, showSpecialistData })(SpecialistCompany);
+  { getIndustries, updateSpecialistBillings, showSpecialistData })(SpecialistsMyBillings);

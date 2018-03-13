@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router'
+import { Route, Redirect } from 'react-router';
 
 class Dashboard extends Component {
 
@@ -11,4 +11,4 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard
+export default Dashboard;
