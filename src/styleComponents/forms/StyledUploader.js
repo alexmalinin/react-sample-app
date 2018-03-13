@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
     
+    position: relative;
     display: flex;
     align-items: center;
     
@@ -14,48 +15,82 @@ export default styled.div`
         margin-right: 40px;
         
         & img {
-            max-height: 279px;
-            max-width: 279px;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
         }
     }
     
     .preloader {
-        border: 2px solid #ccc;
         padding: 40px 39px 0px 36px;
         
         img {
-            width: 204px;
+            width: 120px;
         }    
     }
     
     .ui.button {
-        font-size: 24px;
-        padding: 16px 55px;
+        width: 35px;
+        height: 35px;
+        /* padding: 16px 55px; */
     }
     
     @media (max-width: 1920px) {
     
         .imgPreview {
+
+            margin-left: 30px;
      
             & img {
-                max-height: 212px;
-                max-width: 212px;
+                height: 120px;
+                width: 120px;
+                border-radius: 50%;
             }
         }
         
         .preloader {
-            border: 1px solid #ccc;
-            padding: 30px 30px 0px 30px;
+            padding: 0;
             
             img {
-                width: 150px;
+                width: 120px;
             }    
         }
         
        .ui.button {
-            font-size: 18px;
-            padding: 10px 35px;
+            padding: 0 !important;
+            position: relative;
+            background-color: transparent !important;
+            position: absolute;
+            top: 33px;
+            left: 62px;
         } 
+        .ui.button::before {
+            content: '';
+            width: 35px;
+            height: 5px;
+            top: 24px;
+            left: 9px;
+            background-color: #00ffc0;
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .ui.button::after {
+            content: '';
+            width: 5px;
+            height: 35px;
+            top: 9px;
+            left: 24px;
+            background-color: #00ffc0;
+            position: absolute;
+            opacity: 0;
+        }
+
+        .ui.button:hover.ui.button::after,
+        .ui.button:hover.ui.button::before {
+                opacity: 1;
+            }
+        }
     }
     
     @media (max-width: 499px) {

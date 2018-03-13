@@ -19,8 +19,3 @@ class SubHeaderLinkWrap extends Component {
 }
 
 export default SubHeaderLinkWrap;
-
-// <SubHeaderLinkWrap content='1' url='/specialists/dashboard/profile' process={}>
-// My Profile
-// </SubHeaderLinkWrap>
-// {/*  */}

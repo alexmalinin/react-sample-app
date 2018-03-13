@@ -168,7 +168,8 @@ export const NewTeamBtn = styled.div`
 export const AddNewBtn = styled(Button)`
 
     &.ui.basic.button {
-        border: 1px solid #ccc;
+        border: 2px solid #f2f2f2;
+        width: 100%;
         border-radius: 0;
         box-shadow: none;
         position: relative;
@@ -179,7 +180,7 @@ export const AddNewBtn = styled(Button)`
         &:before {
             content: '';
             position: absolute;
-            height: 1px;
+            height: 2px;
             width: 21px;
             background: #1991fa;
             left: 10px;
@@ -190,7 +191,7 @@ export const AddNewBtn = styled(Button)`
             content: '';
             position: absolute;
             height: 20px;
-            width: 1px;
+            width: 2px;
             background: #1991fa;
             left: 20px;
             top: 25%;

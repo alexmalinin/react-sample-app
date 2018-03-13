@@ -42,6 +42,7 @@ class RenderProfileForm  extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column computer={3}>
+                            { !avatar && <p>Upload your photo</p>}
                             <Field
                                 name='person'
                                 component={RenderImage}
@@ -50,7 +51,7 @@ class RenderProfileForm  extends Component {
                                 placeholder='Choose your photo'
                             />
                         </Grid.Column>
-                        <Grid.Column computer={10}> 
+                        <Grid.Column computer={11}> 
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column computer={8}>
@@ -117,6 +118,13 @@ class RenderProfileForm  extends Component {
                                     </Grid.Column>
                                 </Grid.Row>                                
                             </Grid>
+                        </Grid.Column>
+                        <Grid.Column computer={1}>
+                            <DvButton type="submit"
+                                disabled={submitting}
+                                content='SAVE & UPDATE'
+                                primary
+                            />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -188,15 +196,7 @@ class RenderProfileForm  extends Component {
                           }
                     </Grid.Row>
 
-                    <Grid.Row centered>
-                        <Grid.Column computer={8}>
-                            <DvButton type="submit"
-                                    disabled={submitting}
-                                    content='SAVE & UPDATE'
-                                    primary
-                            />
-                        </Grid.Column>
-                    </Grid.Row>
+                    
                 </Grid> */}
             </form>
         )
