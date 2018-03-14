@@ -1,4 +1,4 @@
-import { SHOW_CLIENT_DATA, UPDATE_CLIENT_PROFILE, UPDATE_CLIENT_COMPANY, SUCCESS, FAIL } from '../constans/constans';
+import { SHOW_CLIENT_DATA, UPDATE_CLIENT_PROFILE, UPDATE_CLIENT_COMPANY, SUCCESS, FAIL, UPDATE_CLIENT_BILLINGS } from '../constans/constans';
 
 export default (state = null, action) => {
     const { type, data } = action;
@@ -13,6 +13,10 @@ export default (state = null, action) => {
         case UPDATE_CLIENT_COMPANY + SUCCESS:
             return data;
         case UPDATE_CLIENT_COMPANY + FAIL:
+            return data;
+        case UPDATE_CLIENT_BILLINGS + SUCCESS:
+            return data;
+        case UPDATE_CLIENT_BILLINGS + FAIL:
             return data;
         default:
             return state;

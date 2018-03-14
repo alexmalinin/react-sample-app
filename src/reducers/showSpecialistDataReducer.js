@@ -8,6 +8,7 @@ import {
     EDIT_EDUCATION_CARD_WITH_ID,
     DELETE_EDUCATION_CARD_WITH_ID,
     DELETE_EXPERIENCE_CARD_WITH_ID,
+    UPDATE_SPECIALIST_BILLINGS,
     EDIT_EXPERIENCE_CARD_WITH_ID
 } from '../constans/constans';
 
@@ -32,6 +33,10 @@ export default (state = null, action) => {
         case DELETE_EDUCATION_CARD_WITH_ID + SUCCESS:
             return data;
         case DELETE_EXPERIENCE_CARD_WITH_ID + SUCCESS:
+            return data;
+        case UPDATE_SPECIALIST_BILLINGS + SUCCESS:
+            return data;
+        case UPDATE_SPECIALIST_BILLINGS + FAIL:
             return data;
         default:
             return state;

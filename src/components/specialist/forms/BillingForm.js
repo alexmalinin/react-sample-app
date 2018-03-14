@@ -26,12 +26,12 @@ class BillingForm extends Component {
 
   handleChange(event) {
     this.setState({
-      tab: event.target.value ,
+      tab: event.target.value,
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    if( nextProps.specialistData ) {
+    if( nextProps.specialistData && this.state.fetch) {
       if( nextProps.specialistData.specialist_billing ) {
         if( nextProps.specialistData.specialist_billing.billing_type ) {
           this.setState({

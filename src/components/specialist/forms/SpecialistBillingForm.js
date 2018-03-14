@@ -18,7 +18,6 @@ class SpecialistBillingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('will ', nextProps)
     if (nextProps.specialistData && nextProps.specialistData.specialist_billing) {
       if (renderError) {
         this.fillFields(nextProps.specialistData.specialist_billing);

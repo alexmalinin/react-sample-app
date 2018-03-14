@@ -41,7 +41,7 @@ import {
     DELETE_EXPERIENCE_CARD_WITHOUT_ID,
     UPDATE_CLIENT_PROFILE,
     UPDATE_CLIENT_COMPANY,
-    UPDATE_CLIENT_BILLING,
+    UPDATE_CLIENT_BILLINGS,
     SAVE_CREATED_PROJECT,
     SUBMIT_CREATED_PROJECT,
 } from '../constans/constans'
@@ -321,7 +321,6 @@ export function showChosenSkills(){
 // update data for specialists sign up step 3
 
 export function updateSpecStep2(data) {
-    console.log('action ', data)
     const action = {
         type: UPDATE_SPECIALIST_STEP_2,
         payload: data,
@@ -334,7 +333,6 @@ export function updateSpecStep2(data) {
 // update specialist billings
 
 export function updateSpecialistBillings(data) {
-    console.log('action ', data)
     const action = {
         type: UPDATE_SPECIALIST_BILLINGS,
         payload: data,
@@ -523,7 +521,7 @@ export function updateClientCompany(data) {
 
 export function updateClientBilling(data) {
     const action = {
-        type: UPDATE_CLIENT_BILLING,
+        type: UPDATE_CLIENT_BILLINGS,
         payload: data,
         updateClientBilling: `${PORT}/api/v1/customers/`,
     };

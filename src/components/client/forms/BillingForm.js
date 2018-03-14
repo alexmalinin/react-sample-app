@@ -31,7 +31,6 @@ class BillingForm extends Component {
         if( nextProps.clientData && this.state.fetch ) {
             if( nextProps.clientData.customer_billing ) {
                 if ( nextProps.clientData.customer_billing.billing_type ) {
-                    console.log('s');
                     this.setState({
                         tab: nextProps.clientData.customer_billing.billing_type,
                         fetch: false,
@@ -111,7 +110,6 @@ class BillingForm extends Component {
                         name="billing_type"
                         placeholder="Paypal"
                         value={0}
-                        // checked={true}
                         onChange={this.handleChange}
                         checked={this.state.tab == 0}
 
