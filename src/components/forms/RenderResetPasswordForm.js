@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { required } from "../../helpers/validate";
 import {Field, reduxForm} from 'redux-form';
-import { DvButton } from '../../styleComponents/layout/DvButton'
+import { DvButton, SaveBtn } from '../../styleComponents/layout/DvButton'
 import {RenderField} from './renders/RenderField';
 import { changePassword } from "../../actions/actions";
+import { Grid } from 'semantic-ui-react';
 
 class RenderResetPasswordForm  extends Component {
 
@@ -13,28 +14,38 @@ class RenderResetPasswordForm  extends Component {
 
         return (
             <form name='reset_password' onSubmit={handleSubmit(this.resetPassword)}>
-                <Field
-                    component={RenderField}
-                    name='password'
-                    placeholder='Password /'
-                    type='password'
-                    validate={[required]}
-
-                />
-                <Field
-                    component={RenderField}
-                    name='password_confirmation'
-                    placeholder='Confirm password /'
-                    type='password'
-                    validate={[required]}
-                />
-
-                <DvButton type="submit"
-                          disabled={submitting}
-                          content='SAVE & UPDATE'
-                          primary
-                />
-            </form>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column computer={3}>
+                        </Grid.Column>
+                        <Grid.Column computer={10}>
+                            <Field
+                                component={RenderField}
+                                name='password'
+                                label='Password'
+                                type='password'
+                                validate={[required]}
+                            />
+                            <Field
+                                component={RenderField}
+                                name='password_confirmation'
+                                label='Confirm password'
+                                type='password'
+                                validate={[required]}
+                            />
+                        </Grid.Column>
+                        <Grid.Column computer={2}>
+                            <SaveBtn type="submit"
+                                    disabled={submitting}
+                                    content=''
+                                    primary
+                            >
+                            <span>SAVE & UPDATE</span>
+                            </SaveBtn>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </form>  
         )
     }
 

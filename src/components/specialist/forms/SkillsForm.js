@@ -41,8 +41,9 @@ class SkillsForm extends Component {
                           <div id="job_title" className='half-column'>
                             <Field
                               name="job_title"
+                              label="I Am a"
+                              placeholder="Select"
                               component={RenderSelect}
-                              placeholder="I Am a"
                               options={job_titles}
                             />
                           </div>
@@ -50,12 +51,12 @@ class SkillsForm extends Component {
 
                           <InputField
                             name="position"
-                            placeholder="Position /"
+                            label="Position"
                           />
 
                           <InputField
                             name='industry_title'
-                            placeholder='What is your industry title? /'
+                            label='What is your industry title?'
                           />
 
                           {/*doesn't save value*/}
@@ -63,7 +64,8 @@ class SkillsForm extends Component {
                             <Field
                               name="experience_level"
                               component={RenderSelect}
-                              placeholder="Experience Level"
+                              placeholder="Select"
+                              label="Experience Level"
                               options={experienceLevels}
                               validate={[required]}
                             />
@@ -73,7 +75,8 @@ class SkillsForm extends Component {
                             <Field
                                 name='industry'
                                 component={RenderSelect}
-                                placeholder='Select your area within the digital industry /'
+                                placeholder="Select"
+                                label='Select your area within the digital industry'
                                 options={industries["industry"]}
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
@@ -87,14 +90,15 @@ class SkillsForm extends Component {
 
                       <InputField
                         name="contact_number"
-                        placeholder="Best Contact Number /"
+                        label="Best Contact Number"
                       />
 
                       <div id="project_type" className='half-column'>
                         <Field
                           name="project_type"
                           component={RenderSelect}
-                          placeholder="Project Interest"
+                          placeholder="Select"
+                          label="Project Interest"
                           options={projectTypes}
                           validate={[required]}
                         />
@@ -108,7 +112,7 @@ class SkillsForm extends Component {
                               name="hourly_rate"
                               component={RenderField}
                               type="number"
-                              placeholder="Hourly Rate /"
+                              label="Hourly Rate"
                             />
                           </div>
 

@@ -9,7 +9,7 @@ export default styled.div`
     background: -webkit-linear-gradient(left, #00a2ee 0%,#38ffbf 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */
-    margin-top: 21px;
+    margin-top: 0;
     text-align: center;
     z-index: 2;
     position: relative;
@@ -44,26 +44,22 @@ export default styled.div`
     }
     .arrow::after {
         transform: rotate(45deg);
-        top: 18px;
+        top: 22px;
+        right: 40px;
     }
     span {
         display: block;
         position: absolute;
-        top: 21px;
-        right: 44px;
+        top: 25px;
+        right: 41px;
         width: 36px;
         height: 1px;
         background-color: #fff;
     }
     .arrow::before {
         transform: rotate(-45deg);
-        top: 24px;
-    }
-
-    .completeLaterLink > div {
-        border: none;
-        width: 53px;
-        background: url('../../images/completeLater.png') no-repeat;
+        top: 28px;
+        right: 40px;
     }
 
     .completeLaterLink:hover {
@@ -78,12 +74,11 @@ export default styled.div`
         position: relative;
         color: #fff;
         opacity: 0.7;
-        font-family: Roboto, sans-serif;
-        font-size: 10px;
+        font-family: 'Brix', sans-serif;
+        font-size: 12px;
         font-weight: bold;
         line-height: 27px;
         text-transform: uppercase;
-        letter-spacing: 0.8px;
         text-decoration: none;
     
         & + a {

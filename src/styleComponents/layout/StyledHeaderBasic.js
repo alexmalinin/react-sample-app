@@ -13,8 +13,8 @@ export default styled.header`
         
         a {
             color: #666;
-            font-family: 'Proxima Nova', sans-serif;
-            font-size: 12px;
+            font-family: 'Brix', sans-serif;
+            font-size: 14px;
             font-weight: bold;
             line-height: 27px;
             text-transform: uppercase;
@@ -34,7 +34,7 @@ export default styled.header`
         } 
         
         a {
-            font-size: 12px;
+            font-size: 14px;
             
             img {
                 width: 60px;

@@ -9,9 +9,8 @@ export const DvButton = styled(Button)`
         border-radius: 0;
         width: 100%;
         font-size: 24px;
-        font-family: Roboto;
+        font-family: 'Brix';
         text-align: center;
-        color: #fff;
     
         &.verify-btn {
             padding: 40px;
@@ -56,6 +55,7 @@ export const NewTeamBtn = styled.div`
     max-width: 1260px;
     margin-top: 100px;
     text-align: center;
+    font-family: 'Brix';
     
     a {
         display: inline-block;
@@ -174,7 +174,12 @@ export const AddNewBtn = styled(Button)`
         position: relative;
         padding-left: 50px;
         margin-top: 20px;
-        color: #000 !important; // overwrite semantic theme
+        font-family: 'Brix';
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 5;
+        color: #666 !important; // overwrite semantic theme
         
         &:before {
             content: '';
@@ -182,18 +187,18 @@ export const AddNewBtn = styled(Button)`
             height: 2px;
             width: 21px;
             background: #1991fa;
-            left: 10px;
-            top: 50%;
+            left: 11px;
+            top: 48%;
         }
         
         &:after {
             content: '';
             position: absolute;
-            height: 20px;
+            height: 21px;
             width: 2px;
             background: #1991fa;
             left: 20px;
-            top: 25%;
+            top: 16%;
         }
     }
     
@@ -229,33 +234,73 @@ export const AddNewBtn = styled(Button)`
 
 export const SaveBtn = styled(Button)`
 
-    &.ui.basic.button {
-        border-radius: 50% !important;
-        width: 60px;
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
         height: 60px;
         background-color: #fff;
-        color: #666;
-        border: 1px solid #666; 
+        color: #ccc;
+        border: 1px solid #ccc; 
         position: absolute;
-        bottom: 0;
-        right: 15px;
-        font-family: Roboto;
+        bottom: -26px;
+        right: 20px;
+        font-family: 'Brix';
         text-align: center;
         color: #fff;
+        z-index: 5;
         
         span {
+            min-width: 90px;
             text-transform: uppercase;
             font-size: 12px;
             position: absolute;
-            color: red;
+            color: #ccc;
+            bottom: -22px;
+            right: -16px;
+            font-weight: 0;
         }
 
-        &.verify-btn {
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            left: 22px;
+            width: 15px;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            top: 24px;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            top: 34px;
+            transform: rotate(-45deg);
+        }
+
+        /* &.verify-btn {
             padding: 40px;
         }
         
         &.width200 {
           width: 200%;
+        } */
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: #666;
+        border: 1px solid #666;
+        background-color: #fff !important;
+
+        span {
+            color: #666;
+        }
+        &::before, 
+        &::after {
+            background-color: #666;
         }
     }
 `

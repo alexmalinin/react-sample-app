@@ -51,7 +51,7 @@ class RenderProfileForm  extends Component {
                                 placeholder='Choose your photo'
                             />
                         </Grid.Column>
-                        <Grid.Column computer={11}> 
+                        <Grid.Column computer={10}> 
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column computer={8}>
@@ -115,16 +115,18 @@ class RenderProfileForm  extends Component {
 
                                             <EdicationModal/>
                                         </div>
-                                    </Grid.Column>
-                                </Grid.Row>                                
+                                    </Grid.Column>  
+                                </Grid.Row>                              
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={2}>
                             <SaveBtn type="submit"
-                                disabled={submitting}
-                                content='SAVE & UPDATE'
-                                primary
-                            />
+                                    disabled={submitting}
+                                    content=''
+                                    primary
+                                >
+                                <span>next step</span>
+                            </SaveBtn>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

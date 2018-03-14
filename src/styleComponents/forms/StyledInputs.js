@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.div`
- 
+    
+    border-radius: 0 !important;
     position: relative;
     margin-bottom: 30px;
     position: relative;
@@ -10,7 +11,6 @@ export default styled.div`
         position: absolute;
         top: -18px;
         left: 8px;
-        z-index: 2;
         font-size: 12px;
         text-transform: uppercase;
         color: #666;
@@ -18,34 +18,30 @@ export default styled.div`
     }
 
     .ui.input {
-        width: 100%;
-        
-        input {
-            ::-webkit-input-placeholder {color: #000}
-            :-moz-placeholder           {color: #000}
-            ::-moz-placeholder          {color: #000}
-            :-ms-input-placeholder      {color: #000}
-            border-radius: 0;
-        }
-        
+        width: 100%;        
+    }
+
+    .Select-placeholder {
+        color: #ccc;
+        text-transform: uppercase;
     }
 
     @media (min-width: 1921px) {
         
-       margin-bottom: 40px;
+        margin-bottom: 40px;
         
-       .ui.input {
+        .ui.input {
            font-size: 28px;
         } 
        
-       .Select-control {
+        .Select-control {
            height: 74px;
         }
         
-       .Select-placeholder {
+        .Select-placeholder {
            padding: 0 25px;
            line-height: 74px;
-           font-size: 28px;   
+           font-size: 28px;
         }
         
 

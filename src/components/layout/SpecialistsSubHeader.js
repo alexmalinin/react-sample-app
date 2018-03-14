@@ -25,7 +25,7 @@ class SubHeader extends Component {
                         My Company
                     </SubHeaderLinkWrap> 
 
-                    <SubHeaderLinkWrap content='4' url='#'>
+                    <SubHeaderLinkWrap content='4' url='/specialists/dashboard/billings'>
                         My Billings
                     </SubHeaderLinkWrap>                 
                 </div>
