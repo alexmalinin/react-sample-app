@@ -51,7 +51,7 @@ class SpecialistCompany extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.log('das',nextProps);
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
@@ -87,5 +87,7 @@ class SpecialistCompany extends Component {
   };
 }
 
-export default connect(({ industries, company, specialistData }) => ({ industries, company, specialistData }),
-  { getIndustries, updateSpecStep2, showSpecialistData })(SpecialistCompany);
+export default connect(
+  ({ industries, company, specialistData }) => ({ industries, company, specialistData }),
+  { getIndustries, updateSpecStep2, showSpecialistData }
+)(SpecialistCompany);

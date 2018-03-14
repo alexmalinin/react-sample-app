@@ -19,6 +19,7 @@ class SpecialistsMyBillings extends Component {
   };
 
   componentWillMount() {
+    console.log('show');
     this.props.showSpecialistData();
   }
 
@@ -42,14 +43,14 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         <DvTitleSmall>My Billings</DvTitleSmall>
 
-        <SpecialistBillingForm onSubmit={this.submit}/>
+        <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
 
       </Container>
     )
   }
 
   componentWillReceiveProps(nextProps) {
-
+    console.log('will', this.props);
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
@@ -80,10 +81,12 @@ class SpecialistsMyBillings extends Component {
   };
 
   submit = values => {
-
+    console.log("gg");
     this.props.updateSpecialistBillings(values);
   };
 }
 
-export default connect(({ industries, company, specialistData }) => ({ industries, company, specialistData }),
-  { getIndustries, updateSpecialistBillings, showSpecialistData })(SpecialistsMyBillings);
+export default connect(
+  ({ specialistData }) => ({ specialistData }),
+  { updateSpecialistBillings, showSpecialistData }
+)(SpecialistsMyBillings);

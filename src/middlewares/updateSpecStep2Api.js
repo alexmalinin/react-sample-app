@@ -9,7 +9,6 @@ export default store => next => action => {
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
 
-    console.log('pay',action);
     axios({
         method: 'put',
         url: updateSpecStep2 + id,
