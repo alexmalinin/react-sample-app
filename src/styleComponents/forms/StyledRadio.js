@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export default styled.div`
 
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    color: #666;
+
     .ui.radio.checkbox {
       position: relative;
       
@@ -28,12 +32,12 @@ export default styled.div`
           content: '';
           position: absolute;
           border-radius: 50%;
-          width: 9px;
-          height: 9px;
-          background-color: #1991fa;
-          top: 3px;
-          left: -17px;
-          box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+          width: 15px;
+          height: 15px;
+          background-color: #ccc;
+          top: 0px;
+          left: -20px;
+          /* box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2); */
         }
       }
     }
@@ -47,7 +51,7 @@ export default styled.div`
       display: block;
       width: 15px;
       height: 15px;
-      border: 1px solid #000;
+      border: 1px solid #ccc;
     }
     
     @media(min-width: 1921px) {       

@@ -6,7 +6,7 @@ import { job_titles } from '../../../helpers/selects/job_titles';
 import {RenderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
-import { DvButton } from '../../../styleComponents/layout/DvButton';
+import { DvButton, SaveBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import {DvTitle} from '../../../styleComponents/layout/DvTitles';
@@ -15,16 +15,30 @@ import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
 import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 import Communication from '../Communication/Communication';
 import Availability from '../Availability/Availability';
+import RenderImage from '../../forms/renders/RenderImage';
 
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText } = this.props;
+        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData } = this.props;
+        let { avatar } = specialistData || clientData || false;
+
+        console.log("dsd",this.props);
         
         return (
             <Grid>
                 <Grid.Row>
-                    <Grid.Column mobile={16} computer={8}>
+                    <Grid.Column computer={3}>
+                    { !avatar && <p>Upload your photo</p>}
+                            <Field
+                                name='person'
+                                component={RenderImage}
+                                type='file'
+                                avatar={avatar}
+                                placeholder='Choose your photo'
+                            />
+                    </Grid.Column>
+                    <Grid.Column mobile={16} computer={5}>
                         <StyledWelcomeForm>
                             { welcomeText && [
                                 <DvTitle mTop='80' xs key="1">
@@ -81,12 +95,14 @@ class SkillsForm extends Component {
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 
-                          <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
+                          {
+                            industry && <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
+                          }
                           <RenderSkillsArea/>
                         </StyledWelcomeForm>
                     </Grid.Column>
 
-                    <Grid.Column mobile={16} computer={8}>
+                    <Grid.Column mobile={16} computer={5}>
 
                       <InputField
                         name="contact_number"
@@ -124,18 +140,27 @@ class SkillsForm extends Component {
                       <Communication />
 
                     </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column>
-                        <DvButton
+                    <Grid.Column computer={3}>
+                      <SaveBtn type="submit"
+                              disabled={submitting}
+                              content=''
+                              primary
+                      >
+                        <span>next step</span>
+                      </SaveBtn>
+                        
+                        {/* <DvButton
                             type="submit"
                             disabled={submitting}
                             content='SAVE & CONTINUE'
                             primary
-                        />
+                        /> */}
                     </Grid.Column>
                 </Grid.Row>
+
+                {/* <Grid.Row>
+                    
+                </Grid.Row> */}
             </Grid>
         )
     }

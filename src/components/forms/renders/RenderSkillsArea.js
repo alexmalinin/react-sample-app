@@ -8,7 +8,7 @@ class RenderSkillsArea extends Component {
     render() {
         return (
             <StyledSkillsArea>
-                <span>Enter your skills here /</span>
+                <span>Enter your skills here</span>
                 <Field
                     name="skills_attributes"
                     component={RenderMultiSelect}

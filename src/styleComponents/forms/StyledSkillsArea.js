@@ -5,11 +5,13 @@ export default styled.div`
     & > span {
         display: inline-block;
         width: 100%;
-        padding: 17px;
-        font-size: 28px;
+        padding-left: 10px;
+        font-size: 12px;
         line-height: 1;
-        border: 1px solid #ccc;
         border-bottom: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #666;
     }
     
     .Select {
@@ -31,9 +33,25 @@ export default styled.div`
         margin-left: 15px;
     }
     
+    .Select-value {
+        display: none !important;
+    }
+    .Select-input {
+        margin: 0;
+        padding: 0;
+    }
+        
+    .Select-input > input {
+
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        color: #666;
+    }
+
     .Select-control {
-        min-height: 275px;
         border-radius: 0;
+        border: none;
+        border-bottom: 2px solid #f2f2f2;
     }
     
     .Select-multi-value-wrapper {
@@ -67,18 +85,30 @@ export default styled.div`
         box-shadow: none;
         border-color: #ccc;
     }
+
+    .skillsField {
+        display: flex;
+    }
+
+    .skillItem {
+        margin-right: 20px; 
+        padding: 3px 7px;
+        color: #666;
+        border: 1px solid #666;
+        border-radius: 25px;
+    }
     
     @media (max-width: 1920px) {
         & > span {
-            font-size: 14px;
+            font-size: 12px;
         }
         
         .Select {
-            margin-bottom: 50px;
+            margin-bottom: 20px;
         }
         
         .Select-control {
-            min-height: 200px;
+            min-height: 20px;
         }
          
         .Select-multi-value-wrapper {

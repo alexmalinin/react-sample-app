@@ -5,12 +5,11 @@ export default styled.div`
     border-radius: 0 !important;
     position: relative;
     margin-bottom: 30px;
-    position: relative;
 
     label {
         position: absolute;
         top: -18px;
-        left: 8px;
+        left: 10px;
         font-size: 12px;
         text-transform: uppercase;
         color: #666;
@@ -18,13 +17,31 @@ export default styled.div`
     }
 
     .ui.input {
-        width: 100%;        
+        width: 100%;
+
+        input {
+            border: none;
+            padding-top: 6px;
+            border-bottom: 2px solid #f2f2f2;
+            font-size: 16px;
+            color: #666;
+            letter-spacing: 1.5px;
+            padding-left: 10px;
+            border-radius: 0;
+        }    
     }
 
-    .Select-placeholder {
-        color: #ccc;
-        text-transform: uppercase;
+    .Select-placeholder,
+    .Select-value {
+        color: #ccc !important;
+        padding-left: 10px;
+        letter-spacing: 1.5px;
+        font-size: 16px;
     }
+
+    .Select-value-label {
+        color: #ccc !important;
+    }    
 
     @media (min-width: 1921px) {
         
@@ -55,18 +72,10 @@ export default styled.div`
        }
     }
     
-    @media(max-width: 1920px) {
+    /* @media(max-width: 1920px) {
          .ui.input {
-                input {
-                    padding-top: 6px;
-                    border: 0;
-                    border-bottom: 2px solid #f2f2f2;
-                    font-size: 16px;
-                    color: #666;
-                    letter-spacing: 1.5px;
-                    padding-left: 7px;
-                }
+                
             }
         }
-    }
+    } */
 `;

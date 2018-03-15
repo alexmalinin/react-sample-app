@@ -57,33 +57,29 @@ export default styled.div`
         }
         
        .ui.button {
-            padding: 0 !important;
+            padding: 60px !important;
+            border-radius: 50%;
             position: relative;
             background-color: transparent !important;
             position: absolute;
-            top: 33px;
-            left: 62px;
+            top: 0px;
+            left: 30px;
         } 
+        .ui.button::after,
         .ui.button::before {
             content: '';
             width: 35px;
             height: 5px;
-            top: 24px;
-            left: 9px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: #00ffc0;
             position: absolute;
             opacity: 0;
         }
-        
-        .ui.button::after {
-            content: '';
-            width: 5px;
+        .ui.button::after{
             height: 35px;
-            top: 9px;
-            left: 24px;
-            background-color: #00ffc0;
-            position: absolute;
-            opacity: 0;
+            width: 5px;
         }
 
         .ui.button:hover.ui.button::after,
