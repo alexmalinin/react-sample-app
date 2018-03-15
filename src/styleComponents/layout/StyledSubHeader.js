@@ -1,15 +1,21 @@
 import styled from 'styled-components';
-
 export default styled.div`
-
     width: 100%;
     height: 131px;
-    background: #00a2ee; /* Old browsers */
-    background: -moz-linear-gradient(left, #00a2ee 0%, #38ffbf 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(left, #00a2ee 0%,#38ffbf 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */
-    margin-top: 0;
+
+    ${props => (props.profile 
+        ?  `background: #2d68ee; /* Old browsers */
+            background: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #2d68ee 0%,#7439e3 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #2d68ee 0%,#7439e3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d68ee', endColorstr='#7439e3',GradientType=1 ); /* IE6-9 */`
+        :  `background: #00a2ee; /* Old browsers */
+            background: -moz-linear-gradient(left, #00a2ee 0%, #38ffbf 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #00a2ee 0%,#38ffbf 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */`)
+    };
+    margin-top: 21px;
     text-align: center;
     z-index: 2;
     position: relative;
@@ -18,7 +24,7 @@ export default styled.div`
     justify-content: space-between;
     padding: 37px 30px 15px;
     box-shadow: 0px 0px 16px 0px #ccc;
-    margin-bottom: 80px;
+    ${props => props.profile ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
     
     & > span {
       padding: 10px;
@@ -26,7 +32,10 @@ export default styled.div`
     
     div {
         display: flex;
-        
+    }
+
+    .profileLink{
+        font-size: 8px;
     }
 
     .rightLink {

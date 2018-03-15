@@ -92,5 +92,7 @@ class SpecialistIndustry extends Component {
     };
 }
 
-export default connect(({ industries, projectTypes, experienceLevels, specialistData }) => ({ industries, projectTypes, experienceLevels, specialistData }),
-  { updateSpecStep1, getIndustries, getProjectTypes, getExperienceLevels, showSpecialistData })(SpecialistIndustry);
+export default connect(
+    ({ industries, projectTypes, experienceLevels, specialistData }) => ({ industries, projectTypes, experienceLevels, specialistData }),
+    { updateSpecStep1, getIndustries, getProjectTypes, getExperienceLevels, showSpecialistData }
+)(SpecialistIndustry);
