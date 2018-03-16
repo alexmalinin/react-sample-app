@@ -27,6 +27,17 @@ class SpecialistsAbout extends Component {
 
     renderText = (value) => value ? value : `Select`;
 
+    hoursPerWeek = (availability) => {
+        switch(availability) {
+            case "Full Time": 
+                return "(40HRS/WK)"
+            case "Part Time":
+                return "(20HRS/WK)"
+            case "Not available":
+                return ""
+        }
+    }
+
     render() {
         const {specialistData, experienceLevels} = this.props;
 
@@ -35,31 +46,6 @@ class SpecialistsAbout extends Component {
         let work_experience = specialistData ? specialistData["work_experiences"] : [];
         let {avatar} = specialistData || false;
         // let industryArea = specialistData ? specialistData[];
-
-        const panes = [
-            {
-                menuItem: 'Work History',
-                render: () => <Tab.Pane attached={false}>
-                                {work_experience.length
-                                    ? work_experience.map(
-                                        (work, index) =>
-                                            <RenderTabCard key={index} context='work' work={work}/> )
-                                    : <RenderTabCard context='work'/>
-                                }
-                                </Tab.Pane>
-            },
-            {
-                menuItem: 'Education',
-                render: () => <Tab.Pane attached={false}>
-                                { educations_experience.length
-                                    ? educations_experience.map(
-                                        (education, index) =>
-                                            <RenderTabCard key={index} context='education' education={education}/>)
-                                    : <RenderTabCard context='education'/>
-                                }
-                              </Tab.Pane>
-            },
-        ];
 
         console.log(this.props);
 
@@ -86,9 +72,9 @@ class SpecialistsAbout extends Component {
                                             {specialistData ? specialistData["first_name"] : null} &nbsp;
                                             {specialistData ? specialistData["last_name"] : null}
                                         </h3>
-                                        <p>{specialistData ? specialistData["industry_title"] : null}</p>
-                                        <p>{specialistData ? specialistData["email"] : null}</p>
-                                        <p>{specialistData ? specialistData["phone_number"] : null}</p>
+                                        <span>{specialistData ? specialistData["industry_title"] : null}</span>
+                                        <span>{specialistData ? specialistData["email"] : null}</span>
+                                        <span>{specialistData ? specialistData["phone_number"] : null}</span>
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
@@ -99,13 +85,18 @@ class SpecialistsAbout extends Component {
                                     <h3>{specialistData ? specialistData["job_title"] : null}</h3>
                                 </Grid.Column>
                                 <Grid.Column computer={8} verticalAlign='middle' >
-                                    <p>${specialistData ? specialistData["hourly_rate"] : null}/hr</p>
-                                    <p>{specialistData ? specialistData["available"] : null} (40HRS/WK)</p>
-                                    <p>
-                                        <img src="../../../public/images/location.png" alt=""/>
+                                    <span>${specialistData ? specialistData["hourly_rate"] : null}/hr</span>
+                                    <br/>
+                                    <span>
+                                        {specialistData ? specialistData["available"] : null}&nbsp;
+                                        {specialistData ? this.hoursPerWeek(specialistData["available"]) : null}
+                                    </span>
+                                    <br/>
+                                    <span>
+                                        <img src="../../../../images/location.png" alt="marker"/>
                                         {specialistData ? specialistData["address"]["city"] : null}, &nbsp;
                                         {specialistData ? specialistData["address"]["country"] : null}
-                                    </p>
+                                    </span>
                                 </Grid.Column>
                                 <Grid.Column computer={4}>
                                     <span>Industry area</span>
@@ -117,7 +108,7 @@ class SpecialistsAbout extends Component {
                                     </h3>
                                     <span>Experience level</span>
                                     <h3>
-                                        {experienceLevels && specialistData 
+                                        {experienceLevels && specialistData
                                             ? this.renderText(experienceLevels[specialistData.experience_level_id - 1]["label"]) 
                                             : null
                                         }
@@ -130,7 +121,8 @@ class SpecialistsAbout extends Component {
                                     <h3 className='niche'>
                                         {specialistData 
                                             ? specialistData["specialities"].map((item, key) => <span key={key}>{item.name}</span>) 
-                                            : null}
+                                            : null
+                                        }
                                     </h3>
                                 </Grid.Column>
                             </Grid.Row>
@@ -152,42 +144,43 @@ class SpecialistsAbout extends Component {
 
                             <SectionHeader content='Work / Proffesional experience'/>
                             <Grid.Row>
-
+                                <Grid.Column computer={8}>
+                                    {work_experience.length
+                                        ? work_experience.map(
+                                            (work, index) =>
+                                                <div key={index} className="card">
+                                                    <p>{work.started_at} - {work.finished_at}</p>
+                                                    <h3>{work.position}</h3>
+                                                    <p>{work.name}</p>
+                                                </div>
+                                            )
+                                        : "No work experience"
+                                    }
+                                </Grid.Column>
+                                <Grid.Column computer={8}>
+                                    <p className="prof-exp">
+                                        {specialistData ? specialistData["professional_experience_info"] : null}
+                                    </p>
+                                </Grid.Column>
                             </Grid.Row>
 
                             <SectionHeader content='Education'/>
-                            <Grid.Row>
-
+                            <Grid.Row className="educations" >
+                                <Grid.Column computer={16}>
+                                    {educations_experience.length
+                                        ? educations_experience.map(
+                                            (educations, index) =>
+                                                <div key={index} className="card">
+                                                    <p>{educations.started_at} - {educations.finished_at}</p>
+                                                    <h3>{educations.degree}</h3>
+                                                    <p>{educations.name}</p>
+                                                </div>
+                                            )
+                                        : "No work experience"
+                                    }
+                                </Grid.Column>
                             </Grid.Row>
                         </Grid>
-
-                        {/* <div className='skills'>
-                            <h4>
-                                All skills /
-                            </h4>
-
-                            <div className='flex-wrapper'>
-
-                                { allSkills && allSkills.map(item =>
-                                    <StyledCheckbox key={item.name}>
-                                        <div>{item.name}</div>
-                                    </StyledCheckbox>
-                                ) }
-
-                            </div>
-
-                            <p>
-                                {specialistData ? specialistData["professional_experience_info"] : null}
-                            </p>
-                        </div>
-                        { (work_experience ||
-                        educations_experience) ?
-                        <StyledTabs menu={{text: true}} panes={panes} onClick={this.activeTab}/>
-                            : null
-                        } */}
-
-                        <SubscribeForm onSubmit={this.submit}/>
-
                     </StyledProfile>
                 </Container>
             </ContainerLarge>
@@ -225,14 +218,6 @@ function SectionHeader({ content }) {
     );
 }
 
-// function SectionHeader({ content }) {
-//     return (
-//         <div className='section-header'>
-//             <span>{content}</span>
-//             <Dots />
-//         </div>
-//     );
-// }
 
 function Dots() {
     return (

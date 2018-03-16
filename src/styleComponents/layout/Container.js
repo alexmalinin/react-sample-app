@@ -43,7 +43,6 @@ export const Container = styled.div`
     ${props => props.relative ? `position: relative` : ``};
     
     @media (max-width: 1920px) {
-        /* max-width: 1230px; */
         max-width: 1280px;
 
         /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */

@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export default styled.div`
+
+    color: #666666;
+
     .section-header{
         border-bottom: 2px solid #00ffc0;
         display: flex;
@@ -29,6 +32,14 @@ export default styled.div`
         }
     }
 
+    .ui.grid>.row {
+        padding-top: 36px;
+
+        &:nth-of-type(2n){
+            min-height: 180px;
+        }
+    }
+
     h3{
         margin-top: 5px;
         font-size: 22px;
@@ -36,14 +47,19 @@ export default styled.div`
     }
     h3 span{
         display: inline-block;
-        padding: 0px 6px;
+        padding: 0 8px;
+        margin: 0 10px 5px 0;
+
         border: 1px solid #cbcbcb;
-        border-radius: 16px;
+        border-radius: 10px;
+
         font-size: 14px;
         white-space: pre-line;
+        text-transform: none;
+        line-height: 18px;
     }
 
-    p{
+    span{
         font-size: 12px;
         line-height: 13px;
         letter-spacing: 0.9px;
@@ -98,50 +114,21 @@ export default styled.div`
                 margin-bottom: 5px;
             }
         }
+    }
 
-    /* .main-info {
-        margin-bottom: 90px;
-        text-align: center;
-        font-size: 36px;
-        
-        h2 {
-            font-size: 60px;
-            display: inline-block;
+    .services{
+        span{
+            img{
+                height: 20px;
+                width: auto;
+                transform: translate(-2px, 4px);
+            }
         }
-        
-        .profile-image {
-            border-radius: 50%;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 300px;
-            height: 300px;
-            border: 4px solid #1991fa;
-            
-            .image-wrapper {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                border-radius: 50%;
-                border: 9px solid #fff;
-                max-width: 291px;
-                max-height: 291px;
-            }
-            
-            img {
-                width: 100%;
-                object-fit: cover;
-            }
-        } */
     }
     
     .skills {
         max-width: 1170px;
         font-size: 28px;
-        margin: 0 auto 90px;
         
         h4 {
             font-size: 28px;
@@ -156,17 +143,44 @@ export default styled.div`
 
             &>div{
                 display: inline-block;
+                
+                &>div{
+                    padding: 0 8px;
+
+                    line-height: 18px;
+
+                    border: 2px solid #cbcbcb;
+                    border-radius: 12px;
+                    font-size: 14px;
+                }
             }
         }
-        
+
         p {
             text-align: center;
         }
     }
+
+    .prof-exp{
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .card{
+        margin-bottom: 20px;
+
+        &>*{
+            margin: 0;
+        }
+    }
+
+    .ui.grid>.row.educations{
+        padding-bottom: 80px;
+    }
     
     @media (max-width: 1920px) {
     
-        .main-info {
+        /* .main-info {
             font-size: 28px;
         
             h2 {
@@ -176,22 +190,23 @@ export default styled.div`
             p {
                 font-size: 34px;
             }
-        }
+        } */
         
         .skills {
             font-size: 18px;
+            max-width: 1400px;
         
-            h4 {
+            /* h4 {
                 font-size: 22px;
-            }
+            } */
             
-            .flex-wrapper {
+            /* .flex-wrapper {
                 justify-content: space-around;
-            }
+            } */
         }
     }
     
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
     
         .main-info {
             font-size: 18px;
@@ -255,5 +270,5 @@ export default styled.div`
                 margin-top: 15px;
             }
         }
-    }
+    } */
 `;
