@@ -6,9 +6,10 @@ export const DvButton = styled(Button)`
     &.ui.button {
         
         ${props => props.indentTop ? `margin-top: 60px` : ``};
-        border-radius: 0;
-        width: 100%;
-        font-size: 24px;
+        width: ${props => props.smallBtn ? `50%` : `100%` };
+        border-radius: ${props => props.smallBtn ? `5px` : `0` };
+        margin-left: ${props => props.smallBtn ? `25%` : `0` };
+        font-size: ${props => props.smallBtn ? `18px` : `24px` };
         font-family: 'Brix';
         text-align: center;
     
@@ -263,20 +264,22 @@ export const SaveBtn = styled(Button)`
         &::before,
         &::after {
             content: '';
-            position: absolute;
-            left: 22px;
-            width: 15px;
+            position: absolute; 
             height: 1px;
             background-color: #ccc;
         }
 
         &::before {
-            top: 24px;
+            width: ${props => props.updateBtn ? `10px` : `15px` };
+            top: ${props => props.updateBtn ? `33px` : `24px` };
+            left: ${props => props.updateBtn ? `20px` : `22px` };
             transform: rotate(45deg);
         }
 
         &::after {
-            top: 34px;
+            width: ${props => props.updateBtn ? `20px` : `15px` };
+            top: ${props => props.updateBtn ? `30px` : `34px` };
+            left: ${props => props.updateBtn ? `25px` : `22px` };
             transform: rotate(-45deg);
         }
 

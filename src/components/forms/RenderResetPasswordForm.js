@@ -39,6 +39,7 @@ class RenderResetPasswordForm  extends Component {
                                     disabled={submitting}
                                     content=''
                                     primary
+                                    updateBtn
                             >
                             <span>SAVE & UPDATE</span>
                             </SaveBtn>

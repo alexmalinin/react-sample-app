@@ -27,24 +27,32 @@ class WorkExperienceForm extends Component {
                                     label='Title/Position/Role'
                                     validate={[required]}
                                 />
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='started_at'
+                                            label='From'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='finished_at'
+                                            label='To'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
                             <InputField
-                                    name='started_at'
-                                    label='From'
-                                    validate={[required]}
-                                />
-                            <InputField
-                                    name='finished_at'
-                                    label='To'
-                                    validate={[required]}
-                                />
-                        </Grid.Column>
-                        <Grid.Column mobile={16} computer={8}>
-                                <InputField
                                     name='name'
                                     label='Company/Project'
                                     validate={[required]}
                                 />
-                                <LocationField/>
+                        </Grid.Column>
+                        <Grid.Column mobile={16} computer={8}>
+                            <LocationField/>
                         </Grid.Column>
                     </Grid.Row>
 
@@ -69,6 +77,7 @@ class WorkExperienceForm extends Component {
                                 content='SAVE & CONTINUE'
                                 primary
                                 xsIndent
+                                smallBtn
                             />
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -77,6 +86,7 @@ class WorkExperienceForm extends Component {
                                 content='CLOSE'
                                 disabled={submitting}
                                 primary
+                                smallBtn
                             />
                         </Grid.Column>
                     </Grid.Row>

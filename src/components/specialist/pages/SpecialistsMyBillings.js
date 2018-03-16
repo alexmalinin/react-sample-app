@@ -30,9 +30,9 @@ class SpecialistsMyBillings extends Component {
       <Container indentBot indentTop className="relative">
         <SubHeader />
         {/*<ContainerLarge>*/}
-        <DvTitle mTop='80'>
+        {/* <DvTitle mTop='80'>
           Welcome to The Village!
-        </DvTitle>
+        </DvTitle> */}
         {/*</ContainerLarge>*/}
         <S_Message positive data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
@@ -42,7 +42,7 @@ class SpecialistsMyBillings extends Component {
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
-        <DvTitleSmall>My Billings</DvTitleSmall>
+        {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
         <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
 
