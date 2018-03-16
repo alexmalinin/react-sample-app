@@ -10,17 +10,17 @@ const InputField = props => {
 
 
     return (
-        <StyledInputs>
-            <label htmlFor={name}>{label}</label>
+        <div>
             <Field
                 name={name}
                 type='text'
                 placeholder={placeholder}
+                label={label}
                 component={RenderField}
                 disabled={disabled}
                 validate={validate ? [required, minLength2] : []}
             />
-        </StyledInputs>
+        </div>
     )
 };
 

@@ -6,9 +6,6 @@ export default class RenderSelect extends Component {
 
     render() {
 
-        console.log('my props', this.props.input.value);
-        this.props.input.value[0] ? console.log('response', this.props.input.value[0].label) : console.log('error')
-
         let {
             meta: { touched, error, warning },
             input,
@@ -24,11 +21,14 @@ export default class RenderSelect extends Component {
                     multi={true}
                     {...rest}
                 />
-                <div className='skillsField'>
+                {/* <div className='skillsField'>
                     {this.props.input.value ? this.props.input.value.map((item, key) => {
-                        return <div className="skillItem" key={key}>{item.value}</div>
+                        return <div className="skillItem" key={key}>
+                                    {item.value}
+                                    <button onClick={console.log(this.props, 'myprops')}>x</button>
+                                </div>
                     }) : null}
-                </div>
+                </div> */}
                 {touched &&
                 ((error &&
                     <span>

@@ -4,13 +4,13 @@ import StyledInputs from '../../../styleComponents/forms/StyledInputs'
 import StyledError from '../../../styleComponents/forms/StyledError'
 
 export const RenderField = ({
-                         input,
-                         placeholder,
-                            name,
-                            label,
-                         type,
-                            disabled,
-                         meta: { touched, error, warning }
+                        input,
+                        placeholder,
+                        name,
+                        label,
+                        type,
+                        disabled,
+                        meta: { touched, error, warning }
                      }) =>
     <StyledInputs>
             <label htmlFor={name}>{label}</label>

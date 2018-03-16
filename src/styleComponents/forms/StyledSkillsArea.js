@@ -33,9 +33,9 @@ export default styled.div`
         margin-left: 15px;
     }
     
-    .Select-value {
+    /* .Select-value {
         display: none !important;
-    }
+    } */
     .Select-input {
         margin: 0;
         padding: 0;
@@ -46,29 +46,50 @@ export default styled.div`
         font-size: 16px;
         letter-spacing: 1.5px;
         color: #666;
+        position: absolute;
+        top: -15px;
+        left: 0;
     }
 
     .Select-control {
         border-radius: 0;
         border: none;
-        border-bottom: 2px solid #f2f2f2;
+    }
+
+    .is-focused .Select-multi-value-wrapper {
+        border-top-color: #ccc;
     }
     
     .Select-multi-value-wrapper {
         font-size: 14px;
         padding-bottom: 20px;
+        margin-top: 40px;
+        width: 100%;
+        border-top: 2px solid #f2f2f2;
         
         .Select-value {
+            position: relative;
             display: inline-block;
+            color: #666;
+            font-size: 14px;
+            letter-spacing: 1.2px;
             background: #fff;
-            border: 2px solid #1991fa;
-            padding: 8px 20px 8px 15px;
+            border: 1px solid #ccc;
+            padding: 0 25px 0 5px;
             border-radius: 25px;
             margin-left: 30px;
             margin-top: 20px;   
             
             .Select-value-icon {
+                position: absolute;
+                top: 0;
+                right: 0;
                 padding: 0 10px 0 0;
+                color: #ccc;
+            }
+
+            .Select-value-icon:hover {
+                 color: #666;
             }
         }
     }
@@ -83,15 +104,17 @@ export default styled.div`
     
     .is-focused:not(.is-open) > .Select-control {
         box-shadow: none;
-        border-color: #ccc;
+        border-color: #1991fa;
     }
 
     .skillsField {
         display: flex;
+        flex-wrap: wrap;
     }
 
-    .skillItem {
-        margin-right: 20px; 
+    .Select-value.Select-create-option-placeholder .skillItem {
+        margin-right: 20px;
+        margin-bottom: 10px;
         padding: 3px 7px;
         color: #666;
         border: 1px solid #666;
@@ -116,9 +139,8 @@ export default styled.div`
             padding-bottom: 15px;
             
             .Select-value {
-                padding: 4px 15px 4px 10px;
-                margin-left: 20px;
-                margin-top: 15px;   
+                /* padding: 4px 15px 4px 10px; */
+                margin: 10px 8px 0 3px;   
                 
                 .Select-value-icon {
                     padding: 0 5px 0 0;

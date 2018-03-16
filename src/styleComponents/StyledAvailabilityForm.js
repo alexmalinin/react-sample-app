@@ -1,13 +1,17 @@
 import styled from 'styled-components'
 
 export default styled.div`
+    
+    margin-bottom: 18px;
 
     .checkbox-group {
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 25px;
     }
 
-    & > p {
+    & > label {
         margin-bottom: 10px;
         text-transform: uppercase;
         font-size: 12px;

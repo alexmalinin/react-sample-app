@@ -23,8 +23,6 @@ class SkillsForm extends Component {
         const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
 
-        console.log("dsd",this.props);
-        
         return (
             <Grid>
                 <Grid.Row>
@@ -143,7 +141,7 @@ class SkillsForm extends Component {
                     <Grid.Column computer={3}>
                       <SaveBtn type="submit"
                               disabled={submitting}
-                              content=''
+                              content='321'
                               primary
                       >
                         <span>next step</span>

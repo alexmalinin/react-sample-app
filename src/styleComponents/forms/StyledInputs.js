@@ -4,11 +4,12 @@ export default styled.div`
     
     border-radius: 0 !important;
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding-top: 20px;
 
     label {
         position: absolute;
-        top: -18px;
+        top: 0;
         left: 10px;
         font-size: 12px;
         text-transform: uppercase;
@@ -21,7 +22,6 @@ export default styled.div`
 
         input {
             border: none;
-            padding-top: 6px;
             border-bottom: 2px solid #f2f2f2;
             font-size: 16px;
             color: #666;
@@ -29,6 +29,10 @@ export default styled.div`
             padding-left: 10px;
             border-radius: 0;
         }    
+    }
+
+    .Select-input {
+        height: 41px;
     }
 
     .Select-placeholder,

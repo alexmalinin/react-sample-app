@@ -20,12 +20,12 @@ class Communication extends Component {
     return (
       <StyledAvailabilityForm>
 
-        <DropdownAvailability customPadd>
-          <SlideTogle rerender={successId} height={0}>
-            <p>Preferred method of communication</p>
+        {/* <DropdownAvailability customPadd>
+          <SlideTogle rerender={successId} height={0}> */}
+            <label>Preferred method of communication</label>
             <CommunicationType/>
-          </SlideTogle>
-        </DropdownAvailability>
+          {/* </SlideTogle>
+        </DropdownAvailability> */}
 
       </StyledAvailabilityForm>
     )

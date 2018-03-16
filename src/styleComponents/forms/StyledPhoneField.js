@@ -6,6 +6,7 @@ export default styled.div`
     position: relative;
     align-items: center;
     margin-bottom: 40px;
+    margin-top: 20px;
     border: none;
     border-bottom: 2px solid #f2f2f2;
     
@@ -56,7 +57,7 @@ export default styled.div`
     & > span {
       flex: 0 0 20%;
       position: absolute;
-      top: -18px;
+      top: 0;
       left: 8px;
       text-align: center;
       z-index: 2;

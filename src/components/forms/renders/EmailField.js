@@ -3,23 +3,21 @@ import { Field } from 'redux-form';
 import { required, email } from '../../../helpers/validate';
 import {RenderField} from './RenderField';
 
-import StyledInputs from '../../../styleComponents/forms/StyledInputs';
-
 const EmailField = props => {
     const { name, placeholder, disabled, label } = props;
 
     return (
-        <StyledInputs>
-            <label htmlFor={name}>{label}</label>
+        <div>
             <Field
                 name={name}
                 type="email"
                 placeholder={placeholder}
+                label={label}
                 component={RenderField}
                 validate={[required, email]}
                 disabled={disabled}
             />
-        </StyledInputs>
+        </div>
     )
 };
 

@@ -14,7 +14,7 @@ export default styled.div`
     
     & > div {
         display: block;
-        margin-left: 30px;
+        margin-left: 0;
         color: #666;
     }
     

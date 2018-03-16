@@ -119,7 +119,7 @@ class RenderProfileForm  extends Component {
                                 </Grid.Row>                              
                             </Grid>
                         </Grid.Column>
-                        <Grid.Column computer={2}>
+                        <Grid.Column computer={3}>
                             <SaveBtn type="submit"
                                     disabled={submitting}
                                     content=''

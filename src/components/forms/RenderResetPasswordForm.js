@@ -34,7 +34,7 @@ class RenderResetPasswordForm  extends Component {
                                 validate={[required]}
                             />
                         </Grid.Column>
-                        <Grid.Column computer={2}>
+                        <Grid.Column computer={3}>
                             <SaveBtn type="submit"
                                     disabled={submitting}
                                     content=''

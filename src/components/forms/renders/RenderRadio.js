@@ -15,10 +15,9 @@ class RenderRadio extends Component {
                 <label>
                     <input className='ownInput'
                            type='radio'
+                           name={name}
                            {...input}
                            checked={checked}
-                           name={name}
-
                     />
                     <span className={`ownRadio`}>{label}</span>
                 </label>
