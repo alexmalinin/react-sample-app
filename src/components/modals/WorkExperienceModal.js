@@ -13,9 +13,9 @@ class WorkExperienceModal extends Component {
                 <Modal.Header>Work Experience</Modal.Header>
                 <Modal.Content>
                     <Modal.Description>
-                        <Header>/ Tell us about previous companies
+                        <Header>Tell us about previous companies
                             you’ve worked at, projects you’ve worked on or things
-                            you’ve built /
+                            you’ve built
                         </Header>
                         <WorkExperienceForm onSubmit={this.submit}/>
                     </Modal.Description>

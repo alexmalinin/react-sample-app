@@ -8,11 +8,11 @@ const LocationField = () => {
             <span id="country"/>
             <InputField
                 name="country"
-                placeholder="Country"
+                label="Country"
             />
             <InputField
                 name="city"
-                placeholder="City"
+                label="City"
             />
         </div>
     )

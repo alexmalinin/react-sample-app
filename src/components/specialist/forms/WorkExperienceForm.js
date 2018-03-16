@@ -22,40 +22,38 @@ class WorkExperienceForm extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} computer={8}>
-                            <StyledWelcomeForm>
-                                <br/>
-                                <br/>
+                            <InputField
+                                    name='position'
+                                    label='Title/Position/Role'
+                                    validate={[required]}
+                                />
+                            <InputField
+                                    name='started_at'
+                                    label='From'
+                                    validate={[required]}
+                                />
+                            <InputField
+                                    name='finished_at'
+                                    label='To'
+                                    validate={[required]}
+                                />
+                        </Grid.Column>
+                        <Grid.Column mobile={16} computer={8}>
                                 <InputField
                                     name='name'
-                                    placeholder='Company/Project /'
+                                    label='Company/Project'
                                     validate={[required]}
                                 />
                                 <LocationField/>
-                                <InputField
-                                    name='position'
-                                    placeholder='Title/Position/Role /'
-                                    validate={[required]}
-                                />
-                                <InputField
-                                    name='started_at'
-                                    placeholder='From /'
-                                    validate={[required]}
-                                />
-                                <InputField
-                                    name='finished_at'
-                                    placeholder='To /'
-                                    validate={[required]}
-                                />
-                            </StyledWelcomeForm>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
                         <Grid.Column>
                             <StyledLabelArea>
-                                Description
                                 <Field
                                     name="description"
+                                    label="Description"
                                     component={RenderTextArea}
                                     // validate={[required]}
                                 />

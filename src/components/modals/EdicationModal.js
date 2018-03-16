@@ -15,7 +15,7 @@ class EdicationModal extends Component {
                 <Modal.Header >Education</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>
-                        <Header>/ List any formal education here /</Header>
+                        <Header>List any formal education here</Header>
                         <EducationForm onSubmit={this.submit}/>
                     </Modal.Description>
                 </Modal.Content>

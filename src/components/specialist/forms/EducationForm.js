@@ -20,44 +20,44 @@ class EducationForm extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} computer={8}>
-                            <StyledWelcomeForm>
-                                <br/>
-                                <br/>
-                                <InputField
+                            {/* <StyledWelcomeForm> */}
+                            <InputField
                                     name='name'
-                                    placeholder='School /'
+                                    label='School'
                                     validate={[required]}
                                 />
-                                <InputField
+                            <InputField
                                     name='specialisation'
-                                    placeholder='Area of study /'
+                                    label='Area of study'
                                     validate={[required]}
                                 />
-                                <InputField
+                            <InputField
                                     name='degree'
-                                    placeholder='Degree /'
+                                    label='Degree'
                                     validate={[required]}
                                 />
-                                <InputField
+                            {/* </StyledWelcomeForm> */}
+                        </Grid.Column>
+                        <Grid.Column mobile={16} computer={8}>
+                            <InputField
                                     name='started_at'
-                                    placeholder='From /'
+                                    label='From'
                                     validate={[required]}
                                 />
-                                <InputField
+                            <InputField
                                     name='finished_at'
-                                    placeholder='To /'
+                                    label='To'
                                     validate={[required]}
                                 />
-                            </StyledWelcomeForm>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
                         <Grid.Column>
                             <StyledLabelArea>
-                                Description
                                 <Field
                                     name='description'
+                                    label='Description'
                                     component={RenderTextArea}
                                     // validate={[required]}
                                 />
