@@ -33,11 +33,10 @@ class ClientBilling extends Component {
 
         return (
             <div>
-                <HeaderBasic/>
-
-                <SubHeader/>
-
                 <Container indentTop indentBot className="relative">
+
+                    <SubHeader/>
+
                     <S_Message positive profile data-show={renderMessage}>
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
@@ -46,7 +45,7 @@ class ClientBilling extends Component {
                         <Message.Header>Error!</Message.Header>
                         <p>Something went wrong, please try again</p>
                     </S_Message>
-                    <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall>
+                    {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
                     <ClientBillingForm clientData={clientData} onSubmit={this.submit}/>
                 </Container>
             </div>

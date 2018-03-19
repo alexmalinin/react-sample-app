@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 export default styled.div`
-    width: 100%;
     height: 131px;
 
-    ${props => (props.profile 
+    ${props => (props.profile || props.account
         ?  `background: #2d68ee; /* Old browsers */
             background: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(left, #2d68ee 0%,#7439e3 100%); /* Chrome10-25,Safari5.1-6 */
@@ -15,21 +14,21 @@ export default styled.div`
             background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */`)
     };
-    margin-top: 21px;
+    margin-top: 20px;
     text-align: center;
     z-index: 2;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 37px 30px 15px;
+    padding: 25px 30px 15px;
     box-shadow: 0px 0px 16px 0px #ccc;
-    ${props => props.profile ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
+    ${props => props.profile || props.account ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
     
     & > span {
       padding: 10px;
     }
-    
+
     div {
         display: flex;
     }
@@ -40,6 +39,12 @@ export default styled.div`
 
     .rightLink {
         font-size: 15px;
+    }
+
+    .accountSub {
+        font-size: 10px;
+        width: 64px;
+        height: 64px;
     }
 
     .arrow::after,

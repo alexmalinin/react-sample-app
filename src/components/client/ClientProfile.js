@@ -30,11 +30,10 @@ class ClientProfile extends Component {
 
         return (
             <div>
-                <HeaderBasic/>
-
-                <SubHeader/>
-
                 <Container indentTop indentBot className="relative">
+
+                    <SubHeader/>
+
                     <S_Message positive profile data-show={renderMessage}>
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>

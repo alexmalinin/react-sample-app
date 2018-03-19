@@ -11,7 +11,7 @@ const RenderPhone = ({hasPerson, value}, props) => {
                 <Field
                     name='phone_code'
                     component={RenderSelect}
-                    placeholder={value}
+                    placeholder=''
                     options={phoneCodes}
                     value={value}
                 />

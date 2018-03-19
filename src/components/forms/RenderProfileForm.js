@@ -42,7 +42,7 @@ class RenderProfileForm  extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column computer={3}>
-                            { !avatar && <p>Upload your photo</p>}
+                            {/* { !avatar && <p>Upload your photo</p>} */}
                             <Field
                                 name='person'
                                 component={RenderImage}
@@ -90,7 +90,7 @@ class RenderProfileForm  extends Component {
                                     <Grid.Column computer={16}>
                                         <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
                                             <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
-                                                    labelTextarea={'Write a paragraph or two about your professional experience '} 
+                                                    label={'Write a paragraph or two about your professional experience '} 
                                                     component={RenderTextArea} 
                                             />
                                         </div>
@@ -108,13 +108,14 @@ class RenderProfileForm  extends Component {
                                         </div>                                        
                                     </Grid.Column>
                                     <Grid.Column computer={8}>
+                                    { this.props.specialistModal ? 
                                         <div>
                                             <RenderCards
                                                 educations={ educationData }
                                             />
-
-                                            <EdicationModal/>
-                                        </div>
+                                            <EdicationModal />
+                                        </div> : null }
+                                        
                                     </Grid.Column>  
                                 </Grid.Row>                              
                             </Grid>

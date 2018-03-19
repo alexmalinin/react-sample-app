@@ -4,12 +4,13 @@ import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
-import { DvButton } from '../../../styleComponents/layout/DvButton'
+import { SaveBtn } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
 import { Grid } from 'semantic-ui-react';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import { employeers } from '../../../helpers/selects/employeers';
 import InputRadio from '../../forms/renders/InputRadio';
+import RenderImage from '../../forms/renders/RenderImage';
 
 class BillingForm extends Component {
     constructor(props) {
@@ -41,32 +42,33 @@ class BillingForm extends Component {
     }
     
     render() {
-    const { submitting, clientData } = this.props;
+    const { submitting, clientData, specialistData } = this.props;
     const { tab } = this.state;
+    let { avatar } = specialistData || clientData || false;
 
     const tabs = [
         { billingTab: "paypal", render: () => 
-            <Grid.Column mobile={16} computer={8}>
+            <Grid.Column mobile={16} computer={16}>
                 <InputField 
                     name="account_number"
-                    placeholder="Account number"
+                    label="Account number"
                 />
                 <InputField 
                     name="password"
-                    placeholder="Password"
+                    label="Password"
                 />
             </Grid.Column>
         },
         { billingTab: "credit_card", render: () => 
-            <Grid.Column mobile={16} computer={8}>
+            <Grid.Column mobile={16} computer={16}>
 
                 <InputField 
                     name="card_name"
-                    placeholder="Card name"
+                    label="Card name"
                 />
                 <InputField 
                     name="card_number"
-                    placeholder="Card number"
+                    label="Card number"
                 />
 
                 <Grid>
@@ -75,7 +77,7 @@ class BillingForm extends Component {
 
                             <InputField 
                                 name="expiry_date"
-                                placeholder="Expiry date"
+                                label="Expiry date"
                             />
 
                         </Grid.Column>
@@ -83,7 +85,7 @@ class BillingForm extends Component {
 
                             <InputField 
                                 name="cvv"
-                                placeholder="CVV"
+                                label="CVV"
                             />
 
                         </Grid.Column>
@@ -92,10 +94,10 @@ class BillingForm extends Component {
             </Grid.Column>
         },
         { billingTab: "accounts", render: () => 
-            <Grid.Column mobile={16} computer={8}>
+            <Grid.Column mobile={16} computer={16}>
                 <InputField 
                     name="account_details"
-                    placeholder="Account details"
+                    label="Account details"
                 />
             </Grid.Column>
         },
@@ -103,63 +105,65 @@ class BillingForm extends Component {
 
     return (
         <Grid>
-            <Grid.Row textAlign="center">
-                <Grid.Column mobile={16} computer={3}>
-
-                    <InputRadio 
-                        name="billing_type"
-                        placeholder="Paypal"
-                        value={0}
-                        onChange={this.handleChange}
-                        checked={this.state.tab == 0}
-
-                    />
-
-                </Grid.Column>
-                <Grid.Column mobile={16} computer={3}>
-
-                    <InputRadio 
-                        name="billing_type"
-                        value={1}
-                        placeholder="Credit card"
-                        onChange={this.handleChange}
-                        checked={this.state.tab == 1}
-                        
-                    />
-
-                </Grid.Column>
-                <Grid.Column mobile={16} computer={3}>
-
-                    <InputRadio 
-                        name="billing_type"
-                        value={2}
-                        placeholder="Accounts"
-                        onChange={this.handleChange}
-                        checked={this.state.tab == 2}
-
-                    />
-
-                </Grid.Column>
-            </Grid.Row>
-
             <Grid.Row>
-                {tabs[tab].render()}
-            </Grid.Row>
+                <Grid.Column mobile={16} computer={10}>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column computer={2}>
 
-            <Grid.Row>
-                <Grid.Column computer={8}>
-                <DvButton
-                    type="submit"
-                    disabled={submitting}
-                    content='SAVE &amp; CONTINUE'
-                    primary
+                            </Grid.Column>
+                            <Grid.Column computer={4}>
+                                <InputRadio 
+                                    name="billing_type"
+                                    placeholder="Paypal"
+                                    value={0}
+                                    // checked={true}
+                                    onChange={this.handleChange}
+                                    checked={this.state.tab == 0}
 
-                />
+                                /> 
+                            </Grid.Column>
+                            <Grid.Column computer={4}>
+                                <InputRadio 
+                                    name="billing_type"
+                                    value={1}
+                                    placeholder="Credit card"
+                                    onChange={this.handleChange}
+                                    checked={this.state.tab == 1}
+                                    
+                                />      
+                            </Grid.Column>
+                            <Grid.Column computer={4}>
+
+                                <InputRadio 
+                                    name="billing_type"
+                                    value={2}
+                                    placeholder="Accounts"
+                                    onChange={this.handleChange}
+                                    checked={this.state.tab == 2}
+
+                                />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            {tabs[tab].render()}
+                        </Grid.Row>
+                    </Grid>
+                </Grid.Column>
+                <Grid.Column mobile={16} computer={3}>
+                    <SaveBtn
+                        type="submit"
+                        disabled={submitting}
+                        content='SAVE'
+                        primary
+                        >
+                    <span>save</span>
+                    </SaveBtn>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
-    )
-}
+        )
+    }
 }
 
 export default BillingForm;

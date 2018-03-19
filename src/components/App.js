@@ -16,6 +16,7 @@ import ConfirmReset from './ResetPassword/ConfirmReset';
 import ConfirmEmail from './ConfirmEmail';
 import SpecialistsWelcome1 from './specialist/pages/SpecialistWelcome1';
 import SpecialistsWelcome2 from './specialist/pages/SpecialistWelcome2';
+import ClientDashboard from './client/ClientDashboard';
 import ClientWelcome from './client/ClientWelcome';
 import ClientProfile from './client/ClientProfile';
 import ClientProjects from './client/ClientProjects';
@@ -93,6 +94,8 @@ class App extends Component {
 
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
                                     
+                                    <Route path='/client/dashboard/:page' component={ ClientDashboard } />
+
                                     {
                                         /*( render_step1 || render_client_step ) &&*/
                                         < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
