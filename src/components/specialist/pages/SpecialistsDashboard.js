@@ -24,7 +24,10 @@ class SpecialistsDashboard extends Component {
         const {match:{params}} = this.props;
         console.log(this.props);
         let page = params['page'];
-        let sidebarCondition = page === 'about' || page === 'board' || page === 'test';
+        let sidebarCondition = page === 'about' || page === 'board' || page === 'test'
+          || page === 'statement'
+          || page === 'year_to_date'
+          || page === 'account';
 
         return (
             <div>
