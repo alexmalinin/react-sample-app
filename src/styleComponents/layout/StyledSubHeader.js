@@ -14,7 +14,7 @@ export default styled.div`
             background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */`)
     };
-    margin-top: 20px;
+    /* margin-top: 20px; */
     text-align: center;
     z-index: 2;
     position: relative;

@@ -41,11 +41,10 @@ class SpecialistsAbout extends Component {
     render() {
         const {specialistData, experienceLevels} = this.props;
 
-        let allSkills = specialistData ? specialistData["skills"] : null;
+        let allSkills = specialistData ? specialistData["skills"] : [];
         let educations_experience = specialistData ? specialistData["educations"] : [];
         let work_experience = specialistData ? specialistData["work_experiences"] : [];
         let {avatar} = specialistData || false;
-        // let industryArea = specialistData ? specialistData[];
 
         console.log(this.props);
 
@@ -61,7 +60,7 @@ class SpecialistsAbout extends Component {
                                 <Grid.Column computer={8} textAlign='right'>
                                     <div className='profile-image'>
                                         <div className="image-wrapper">
-                                            <img src={avatar ? PORT + avatar.url : '/images/undefUser.png'} alt='avatar'/>
+                                            <img src={avatar && avatar.url ? PORT + avatar.url : '/images/undefUser.png'} alt='avatar'/>
                                             {/* <img src='/images/undefUser.png' alt='avatar'/> */}
                                         </div>
                                     </div>
@@ -69,12 +68,12 @@ class SpecialistsAbout extends Component {
                                 <Grid.Column computer='8' textAlign='left'>
                                     <div className="profile-info">
                                         <h3>
-                                            {specialistData ? specialistData["first_name"] : null} &nbsp;
-                                            {specialistData ? specialistData["last_name"] : null}
+                                            {specialistData ? specialistData["first_name"] || 'No name' : null} &nbsp;
+                                            {specialistData ? specialistData["last_name"] || 'No last name' : null}
                                         </h3>
-                                        <span>{specialistData ? specialistData["industry_title"] : null}</span>
-                                        <span>{specialistData ? specialistData["email"] : null}</span>
-                                        <span>{specialistData ? specialistData["phone_number"] : null}</span>
+                                        <span>{specialistData ? specialistData["industry_title"] || 'No title' : null}</span>
+                                        <span>{specialistData ? specialistData["email"] || 'No email' : null}</span>
+                                        <span>{specialistData ? (specialistData["phone_code"] + ' ' + specialistData["phone_number"]) || 'No phone number' : null}</span>
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
@@ -82,34 +81,46 @@ class SpecialistsAbout extends Component {
                             <SectionHeader content='Services'/>
                             <Grid.Row className='services'>
                                 <Grid.Column computer={16}>
-                                    <h3>{specialistData ? specialistData["job_title"] : null}</h3>
+                                    <h3>{specialistData ? specialistData["job_title"] || 'No job title' : null}</h3>
                                 </Grid.Column>
                                 <Grid.Column computer={8} verticalAlign='middle' >
-                                    <span>${specialistData ? specialistData["hourly_rate"] : null}/hr</span>
+                                    <span>${specialistData ? specialistData["hourly_rate"] || '0' : null}/hr</span>
                                     <br/>
                                     <span>
-                                        {specialistData ? specialistData["available"] : null}&nbsp;
+                                        {specialistData ? specialistData["available"] || 'Availability' : null}&nbsp;
                                         {specialistData ? this.hoursPerWeek(specialistData["available"]) : null}
                                     </span>
                                     <br/>
                                     <span>
                                         <img src="../../../../images/location.png" alt="marker"/>
-                                        {specialistData ? specialistData["address"]["city"] : null}, &nbsp;
-                                        {specialistData ? specialistData["address"]["country"] : null}
+                                        {specialistData 
+                                            ? specialistData["address"] 
+                                                ? specialistData["address"]["city"]
+                                                : 'No city'
+                                            : null}, &nbsp;
+                                        {specialistData 
+                                            ? specialistData["address"] 
+                                                ? specialistData["address"]["country"]
+                                                : 'No country'
+                                            : null}
                                     </span>
                                 </Grid.Column>
                                 <Grid.Column computer={4}>
                                     <span>Industry area</span>
                                     <h3>
                                         {specialistData 
-                                            ? this.renderText(specialistData["specialities"][0]["industry_area"]["name"]) 
+                                            ? specialistData["specialities"][0] 
+                                                ? specialistData["specialities"][0]["industry_area"]["name"]
+                                                : 'No industry'
                                             : null
                                         }
                                     </h3>
                                     <span>Experience level</span>
                                     <h3>
                                         {experienceLevels && specialistData
-                                            ? this.renderText(experienceLevels[specialistData.experience_level_id - 1]["label"]) 
+                                            ? experienceLevels[specialistData.experience_level_id - 1] 
+                                                ? experienceLevels[specialistData.experience_level_id - 1]["label"]
+                                                : 'No  exp lvl'
                                             : null
                                         }
                                     </h3>
@@ -132,11 +143,13 @@ class SpecialistsAbout extends Component {
                                 <Grid.Column computer={16}>
                                     <div className='flex-wrapper'>
 
-                                        { allSkills && allSkills.map(item =>
-                                            <StyledCheckbox key={item.name}>
-                                                <div>{item.name}</div>
-                                            </StyledCheckbox>
-                                        ) }
+                                        { allSkills === []
+                                            ? allSkills.map(item =>
+                                                <StyledCheckbox key={item.name}>
+                                                    <div>{item.name}</div>
+                                                </StyledCheckbox>)
+                                            : 'No skills'
+                                        }
 
                                     </div>
                                 </Grid.Column>
@@ -159,7 +172,12 @@ class SpecialistsAbout extends Component {
                                 </Grid.Column>
                                 <Grid.Column computer={8}>
                                     <p className="prof-exp">
-                                        {specialistData ? specialistData["professional_experience_info"] : null}
+                                        {specialistData 
+                                            ? specialistData["professional_experience_info"] 
+                                                ?specialistData["professional_experience_info"] 
+                                                : 'No prof experience'
+                                            :null
+                                        }
                                     </p>
                                 </Grid.Column>
                             </Grid.Row>
@@ -176,7 +194,7 @@ class SpecialistsAbout extends Component {
                                                     <p>{educations.name}</p>
                                                 </div>
                                             )
-                                        : "No work experience"
+                                        : "No educations"
                                     }
                                 </Grid.Column>
                             </Grid.Row>

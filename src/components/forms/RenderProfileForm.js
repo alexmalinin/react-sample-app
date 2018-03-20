@@ -58,11 +58,13 @@ class RenderProfileForm  extends Component {
                                         <InputField
                                             name="first_name"
                                             label="First Name"
+                                            validate={[required]}
                                         />
                                         
                                         <InputField
                                             name="city"
                                             label="City"
+                                            validate={[required]}
                                         />
                                         <StyledPhoneField>
                                             <span>Phone</span>
@@ -73,14 +75,17 @@ class RenderProfileForm  extends Component {
                                         <InputField
                                             name="last_name"
                                             label="Last Name"
+                                            validate={[required]}
                                         />
                                         <InputField
                                             name="country"
                                             label="Country"
+                                            validate={[required]}
                                         />
                                         <EmailField
                                             name="email"
                                             label="Email"
+                                            validate={[required]}
                                         />
                                     </Grid.Column>
                                 </Grid.Row>

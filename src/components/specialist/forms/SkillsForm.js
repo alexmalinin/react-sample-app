@@ -57,6 +57,7 @@ class SkillsForm extends Component {
                               placeholder="Select"
                               component={RenderSelect}
                               options={job_titles}
+                              validate={[required]}
                             />
                           </div>
 
@@ -69,6 +70,7 @@ class SkillsForm extends Component {
                           <InputField
                             name='industry_title'
                             label='What is your industry title?'
+                            validate={[required]}
                           />
 
                           {/*doesn't save value*/}
@@ -90,6 +92,7 @@ class SkillsForm extends Component {
                                 placeholder="Select"
                                 label='Select your area within the digital industry'
                                 options={industries["industry"]}
+                                validate={[required]}
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 

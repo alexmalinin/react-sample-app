@@ -20,7 +20,7 @@ export const ContainerLarge = styled.div`
         padding: 0;
     }
     
-    @media screen and (min-width: 1921px) {
+    @media screen and (max-width: 1920px) {
         max-width: 1910px;
         padding: 0;
     }
@@ -41,7 +41,7 @@ export const Container = styled.div`
     box-shadow: 0px 0px 16px 0px #ccc;
     
     /* ${props => props.indentBot ? `margin-bottom: 250px` : ``}; */
-    /* ${props => props.indentTop ? `margin-top: 100px` : ``}; */
+    ${props => props.indentTop ? `margin-top: 100px` : ``};
     ${props => props.relative ? `position: relative` : ``};
     
     @media (max-width: 1920px) {

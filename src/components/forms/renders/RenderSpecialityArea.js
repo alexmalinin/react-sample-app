@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
+import { required } from '../../../helpers/validate';
 import RenderCircleCheckbox from '../renders/RenderCircleCheckbox';
 import StyledSpecialityArea from '../../../styleComponents/forms/StyledSpecialityArea'
 

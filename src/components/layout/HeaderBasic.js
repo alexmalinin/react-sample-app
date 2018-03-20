@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom'
 import StyledHeaderBasic from '../../styleComponents/layout/StyledHeaderBasic';
 import { ContainerLarge }from '../../styleComponents/layout/Container';
+import { showSpecialistData } from '../../actions/actions';
+import { Dropdown } from 'semantic-ui-react';
 
 class Header extends Component {
 
@@ -9,10 +12,12 @@ class Header extends Component {
         activeItem: 'home',
     };
 
-    
+    componentWillMount() {
+        this.props.showSpecialistData();
+    }
 
     render() {
-        console.log(this.props, 789);
+        let { specialistData, page } = this.props;
         
         return (
             <StyledHeaderBasic className='header-basic'>
@@ -21,13 +26,37 @@ class Header extends Component {
                         <span>Digital Village</span>
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
-                    <div>
+                    {page && <div>
                         <NavLink className='button square' to='#'></NavLink>
                         <NavLink className='button settings' to='#'></NavLink>
                         <NavLink className='button avatar' to='#'></NavLink>
-                        <NavLink className='button' to='/specialists/dashboard/profile'>Matt Client</NavLink>
-                        <NavLink onClick={this.logOut} className='button logOut' to='/sign_up'></NavLink>
-                    </div>
+                        {/* {specialistData 
+                            ? (specialistData.first_name && specialistData.last_name) && 
+                                <NavLink className='button' to='/specialists/dashboard/profile'>
+                                    {specialistData.first_name + ' ' + specialistData.last_name}
+                                </NavLink>
+                            : null
+                        } */}
+                        <NavLink className='button' to='/specialists/dashboard/profile'>
+                            {specialistData ? (specialistData.first_name || '') + ' ' + (specialistData.last_name || '') : null}
+                        </NavLink>
+                        <Dropdown text='' icon='none' className='log-out'>
+                            <Dropdown.Menu>
+                                <Dropdown.Item>
+                                    <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <NavLink to='#'>Projects</NavLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <NavLink to='#'>Teams</NavLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>}
                 </ContainerLarge>
             </StyledHeaderBasic>
         )
@@ -39,4 +68,7 @@ class Header extends Component {
     }
 }
 
-export default Header
+export default connect(
+    ({ specialistData }) => ({ specialistData }),
+    { showSpecialistData }
+)(Header);
