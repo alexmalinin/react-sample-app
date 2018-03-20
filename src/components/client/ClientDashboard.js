@@ -35,7 +35,7 @@ class ClientDashboard extends Component {
             case 'billing':
               return <ClientBilling/>;
             default:
-                return <ClientProfile/>
+              return <ClientProfile/>
         }
     };
 }

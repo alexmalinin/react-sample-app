@@ -107,3 +107,5 @@ export let days =[
         ],
     }
 ];
+
+export const team = ['Nicole Kidman', 'Joe Bloke', 'John Citizen', 'Jason Bourne'];

@@ -15,8 +15,8 @@ import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from './SpecialistsMyBillings';
 import SpecialistAccount from './SpecialistAccount';
 import SpecialistYTD from './SpecialistYTD';
-import { projects, days } from '../../../helpers/sidebarDbEmulate';
 import SpecialistStatement from './SpecialistStatement';
+import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 
 class SpecialistsDashboard extends Component {
 
@@ -27,7 +27,8 @@ class SpecialistsDashboard extends Component {
         let sidebarCondition = page === 'about' || page === 'board' || page === 'test'
           || page === 'statement'
           || page === 'year_to_date'
-          || page === 'account';
+          || page === 'account'
+          || page === 'teams';
 
         return (
             <div>
@@ -45,8 +46,8 @@ class SpecialistsDashboard extends Component {
         switch (page) {
             case 'profile':
                 return <SpecialistsProfile/>;
-            case 'my_teams':
-                return <StyledClientTeam><SpecialistsMyTeams/></StyledClientTeam>;
+            case 'teams':
+                return <SpecialistsMyTeams team={team}/>;
             case 'industry':
                 return <SpecialistIndustry/>;
             case 'company':

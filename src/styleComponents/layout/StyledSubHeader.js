@@ -49,6 +49,26 @@ export default styled.div`
         height: 74px;
     }
 
+    .teamSubLink {
+        margin-top: 10px;
+        width: 60px;
+        height: 60px;
+        font-size: 12px;
+    }
+
+    .addLink::before,
+    .addLink::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 1px;
+        background-color: #fff;
+    }
+
+    .addLink::after {
+        transform: rotate(90deg);
+    }   
+
     .arrow::after,
     .arrow::before {        
         content: '';
