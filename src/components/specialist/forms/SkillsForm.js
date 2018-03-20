@@ -6,7 +6,7 @@ import { job_titles } from '../../../helpers/selects/job_titles';
 import {RenderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
-import { DvButton } from '../../../styleComponents/layout/DvButton';
+import { DvButton, SaveBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import {DvTitle} from '../../../styleComponents/layout/DvTitles';
@@ -15,16 +15,28 @@ import RenderSpecialityArea from '../../forms/renders/RenderSpecialityArea'
 import RenderSkillsArea from '../../forms/renders/RenderSkillsArea'
 import Communication from '../Communication/Communication';
 import Availability from '../Availability/Availability';
+import RenderImage from '../../forms/renders/RenderImage';
 
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText } = this.props;
-        
+        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData } = this.props;
+        let { avatar } = specialistData || clientData || false;
+
         return (
             <Grid>
                 <Grid.Row>
-                    <Grid.Column mobile={16} computer={8}>
+                    <Grid.Column computer={3}>
+                    { !avatar && <p>Upload your photo</p>}
+                            <Field
+                                name='person'
+                                component={RenderImage}
+                                type='file'
+                                avatar={avatar}
+                                placeholder='Choose your photo'
+                            />
+                    </Grid.Column>
+                    <Grid.Column mobile={16} computer={5}>
                         <StyledWelcomeForm>
                             { welcomeText && [
                                 <DvTitle mTop='80' xs key="1">
@@ -41,8 +53,9 @@ class SkillsForm extends Component {
                           <div id="job_title" className='half-column'>
                             <Field
                               name="job_title"
+                              label="I Am a"
+                              placeholder="Select"
                               component={RenderSelect}
-                              placeholder="I Am a"
                               options={job_titles}
                             />
                           </div>
@@ -50,12 +63,12 @@ class SkillsForm extends Component {
 
                           <InputField
                             name="position"
-                            placeholder="Position /"
+                            label="Position"
                           />
 
                           <InputField
                             name='industry_title'
-                            placeholder='What is your industry title? /'
+                            label='What is your industry title?'
                           />
 
                           {/*doesn't save value*/}
@@ -63,7 +76,8 @@ class SkillsForm extends Component {
                             <Field
                               name="experience_level"
                               component={RenderSelect}
-                              placeholder="Experience Level"
+                              placeholder="Select"
+                              label="Experience Level"
                               options={experienceLevels}
                               validate={[required]}
                             />
@@ -73,28 +87,32 @@ class SkillsForm extends Component {
                             <Field
                                 name='industry'
                                 component={RenderSelect}
-                                placeholder='Select your area within the digital industry /'
+                                placeholder="Select"
+                                label='Select your area within the digital industry'
                                 options={industries["industry"]}
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 
-                          <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
+                          {
+                            industry && <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
+                          }
                           <RenderSkillsArea/>
                         </StyledWelcomeForm>
                     </Grid.Column>
 
-                    <Grid.Column mobile={16} computer={8}>
+                    <Grid.Column mobile={16} computer={5}>
 
                       <InputField
                         name="contact_number"
-                        placeholder="Best Contact Number /"
+                        label="Best Contact Number"
                       />
 
                       <div id="project_type" className='half-column'>
                         <Field
                           name="project_type"
                           component={RenderSelect}
-                          placeholder="Project Interest"
+                          placeholder="Select"
+                          label="Project Interest"
                           options={projectTypes}
                           validate={[required]}
                         />
@@ -108,7 +126,7 @@ class SkillsForm extends Component {
                               name="hourly_rate"
                               component={RenderField}
                               type="number"
-                              placeholder="Hourly Rate /"
+                              label="Hourly Rate"
                             />
                           </div>
 
@@ -120,18 +138,27 @@ class SkillsForm extends Component {
                       <Communication />
 
                     </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column>
-                        <DvButton
+                    <Grid.Column computer={3}>
+                      <SaveBtn type="submit"
+                              disabled={submitting}
+                              content='321'
+                              primary
+                      >
+                        <span>next step</span>
+                      </SaveBtn>
+                        
+                        {/* <DvButton
                             type="submit"
                             disabled={submitting}
                             content='SAVE & CONTINUE'
                             primary
-                        />
+                        /> */}
                     </Grid.Column>
                 </Grid.Row>
+
+                {/* <Grid.Row>
+                    
+                </Grid.Row> */}
             </Grid>
         )
     }

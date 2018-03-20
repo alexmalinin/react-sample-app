@@ -7,7 +7,7 @@ export const S_Message = styled(Message)`
         top: -80px;
         margin-top: 0;
         right: 22px;
-        z-index: 1;
+        z-index: 5;
         transition: top 0.5s ease-in-out;
         ${props => props['data-show'] ? `top: 20px` : ``};
     }

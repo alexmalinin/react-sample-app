@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Brix' !important;
 }
 
 @-webkit-keyframes rotating {
@@ -121,5 +121,29 @@ body {
 @font-face {
     font-family: "Roboto";
     src: url(./fonts/roboto/Roboto-Black.ttf);
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: "Brix";
+    src: url(./fonts/Brix/Brix-Sans-Regular.otf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Brix";
+    src: url(./fonts/Brix/Brix-Sans-Light.otf);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Brix";
+    src: url(./fonts/Brix/Brix-Sans-Bold.otf);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Brix";
+    src: url(./fonts/Brix/Brix-Sans-Black.otf);
     font-weight: 900;
 }

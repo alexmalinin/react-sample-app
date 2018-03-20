@@ -14,7 +14,7 @@ export default styled.header`
         .top-header {
             padding-top: 27px;
             height: 100px;
-            background-color: #1d7bff;
+            background-color: #fff;
             
             & > div {
                 display: flex;
@@ -33,7 +33,7 @@ export default styled.header`
     }
     
     &.header-basic {
-        height: 137px;
+        height: 173px;
         
         .top-header {
             display: inline-block;

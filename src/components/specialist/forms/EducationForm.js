@@ -20,44 +20,52 @@ class EducationForm extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} computer={8}>
-                            <StyledWelcomeForm>
-                                <br/>
-                                <br/>
-                                <InputField
+                            {/* <StyledWelcomeForm> */}
+                            <InputField
                                     name='name'
-                                    placeholder='School /'
+                                    label='School'
                                     validate={[required]}
                                 />
-                                <InputField
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='started_at'
+                                            label='From'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='finished_at'
+                                            label='To'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                            {/* </StyledWelcomeForm> */}
+                        </Grid.Column>
+                        <Grid.Column mobile={16} computer={8}>
+                            <InputField
                                     name='specialisation'
-                                    placeholder='Area of study /'
+                                    label='Area of study'
                                     validate={[required]}
                                 />
-                                <InputField
+                            <InputField
                                     name='degree'
-                                    placeholder='Degree /'
+                                    label='Degree'
                                     validate={[required]}
                                 />
-                                <InputField
-                                    name='started_at'
-                                    placeholder='From /'
-                                    validate={[required]}
-                                />
-                                <InputField
-                                    name='finished_at'
-                                    placeholder='To /'
-                                    validate={[required]}
-                                />
-                            </StyledWelcomeForm>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
                         <Grid.Column>
                             <StyledLabelArea>
-                                Description
                                 <Field
                                     name='description'
+                                    label='Description'
                                     component={RenderTextArea}
                                     // validate={[required]}
                                 />
@@ -73,6 +81,7 @@ class EducationForm extends Component {
                                 content='SAVE & CONTINUE'
                                 primary
                                 xsIndent
+                                smallBtn
                             />
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -81,6 +90,7 @@ class EducationForm extends Component {
                                 content='CLOSE'
                                 disabled={submitting}
                                 primary
+                                smallBtn
                             />
                         </Grid.Column>
                     </Grid.Row>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {Field, reduxForm, change} from 'redux-form';
 import {required} from '../../helpers/validate';
-import { DvButton } from '../../styleComponents/layout/DvButton'
+import { SaveBtn, DvButton } from '../../styleComponents/layout/DvButton'
 import InputField from './renders/InputField';
 import {RenderField} from './renders/RenderField';
 import EmailField from './renders/EmailField';
@@ -41,77 +41,94 @@ class RenderProfileForm  extends Component {
 
                 <Grid>
                     <Grid.Row>
-                        { !avatar && <p>Upload your photo /</p>}
-                        <Field
-                            name='person'
-                            component={RenderImage}
-                            type='file'
-                            avatar={avatar}
-                            placeholder='Choose your photo /'
-                        />
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column mobile={16} tablet={16} computer={ specialistData ? 8 : 16 }>
-                            <InputField
-                                name="first_name"
-                                placeholder="First Name /"
+                        <Grid.Column computer={3}>
+                            {/* { !avatar && <p>Upload your photo</p>} */}
+                            <Field
+                                name='person'
+                                component={RenderImage}
+                                type='file'
+                                avatar={avatar}
+                                placeholder='Choose your photo'
                             />
-
-                            <InputField
-                                name="last_name"
-                                placeholder="Last Name /"
-                            />
-
-                            <StyledPhoneField>
-                                <span>Phone /</span>
-                                <RenderPhone/>
-                            </StyledPhoneField>
-
-                            <EmailField
-                                name="email"
-                                placeholder="Email /"
-                            />
-
-                            <LocationField />
-
-                            <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
-                              <p>Write a paragraph or two about your professional experience /</p>
-                              <Field name={specialistData ? 'professional_experience_info' : 'description'} component={RenderTextArea} />
-                            </div>
-
                         </Grid.Column>
-                          {
-                            specialistData ?
-                            <Grid.Column computer={8} >
-                              <Grid.Column mobile={16} tablet={8} computer={4}>
-                                <div>
-                                  <RenderCards
-                                    educations={ educationData }
-                                  />
-
-                                  <EdicationModal/>
-                                </div>
-                              </Grid.Column>
-                              <Grid.Column mobile={16} tablet={8} computer={4}>
-                                <div>
-                                  <RenderCards
-                                    experiences={ experienceData }
-                                  />
-
-                                  <WorkExperienceModal/>
-                                </div>
-                              </Grid.Column>
-                            </Grid.Column> : null
-                          }
-                    </Grid.Row>
-
-                    <Grid.Row centered>
-                        <Grid.Column computer={8}>
-                            <DvButton type="submit"
+                        <Grid.Column computer={10}> 
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name="first_name"
+                                            label="First Name"
+                                        />
+                                        
+                                        <InputField
+                                            name="city"
+                                            label="City"
+                                        />
+                                        <StyledPhoneField>
+                                            <span>Phone</span>
+                                            <RenderPhone />
+                                        </StyledPhoneField>                                        
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name="last_name"
+                                            label="Last Name"
+                                        />
+                                        <InputField
+                                            name="country"
+                                            label="Country"
+                                        />
+                                        <EmailField
+                                            name="email"
+                                            label="Email"
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={16}>
+                                        <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
+                                            <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
+                                                    label={'Write a paragraph or two about your professional experience '} 
+                                                    component={RenderTextArea} 
+                                            />
+                                        </div>
+                                    </Grid.Column>
+                                </Grid.Row>                                
+                            </Grid>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                      { this.props.specialistModal ?
+                                        <div>
+                                          <RenderCards
+                                            experiences={ experienceData }
+                                          />
+                                          <WorkExperienceModal />
+                                        </div> : null }
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                    { this.props.specialistModal ? 
+                                        <div>
+                                            <RenderCards
+                                                educations={ educationData }
+                                            />
+                                            <EdicationModal />
+                                        </div> : null }
+                                        
+                                    </Grid.Column>  
+                                </Grid.Row>                              
+                            </Grid>
+                        </Grid.Column>
+                        <Grid.Column computer={3}>
+                            <SaveBtn type="submit"
                                     disabled={submitting}
-                                    content='SAVE & UPDATE'
+                                    content=''
                                     primary
-                            />
+                                >
+                                <span>next step</span>
+                            </SaveBtn>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

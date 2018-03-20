@@ -4,99 +4,130 @@ import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
-import { DvButton } from '../../../styleComponents/layout/DvButton'
+import { SaveBtn } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
 import { Grid } from 'semantic-ui-react';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import { employeers } from '../../../helpers/selects/employeers';
+import RenderImage from '../../forms/renders/RenderImage';
 
 class CompanyForm extends Component {
 
     render() {
-        const { submitting, industries } = this.props;
+        const { submitting, industries, clientData, specialistData } = this.props;
+        let { avatar } = specialistData || clientData || false;
 
         return (
               <Grid>
                 <Grid.Row>
-                  <Grid.Column mobile={16} computer={8}>
-                    <InputField
-                      name="name"
-                      placeholder="Company Name /"
-                    />
-
-                    <InputField
-                      name="company_address"
-                      placeholder="Company Address /"
-                    />
-
-                    <InputField
-                      name="website"
-                      placeholder="Website /"
-                    />
-
-                    <InputField
-                      name="country"
-                      placeholder="Country /"
-                    />
-
-                    <InputField
-                      name="city"
-                      placeholder="City /"
-                    />
-
-                    <span>Tell us about your business /</span>
-                    <Field name="tell_about" component={RenderTextArea}/>
-
+                  <Grid.Column computer={3}>
+                    {/* { !avatar && <p>Upload your photo</p>} */}
+                      <Field
+                        name='person'
+                        component={RenderImage}
+                        type='file'
+                        avatar={avatar}
+                        placeholder='Choose your photo'
+                      />
                   </Grid.Column>
-                  <Grid.Column mobile={16} computer={8}>
+                  <Grid.Column computer={10}> 
+                    <Grid>
+                      <Grid.Row>
+                        <Grid.Column computer={8}>
+                          <InputField
+                            name="name"
+                            label="Company Name"
+                          />
 
-                    <InputField
-                      name="registered_name"
-                      placeholder="Company Registered Name /"
-                    />
+                          <InputField
+                            name="company_address"
+                            label="Company Address"
+                          />
 
-                    <InputField
-                      name="abn_acn"
-                      placeholder="ABN / ACN"
-                    />
+                          <InputField
+                            name="website"
+                            label="Website"
+                          />
 
-                    <Field
-                      name="segment"
-                      component={RenderSelect}
-                      options={clientCategories}
-                      placeholder="Segment /"
-                      validate={[required]}
-                    />
+                          <InputField
+                            name="country"
+                            label="Country"
+                          />
 
-                    <div id="industry" className='half-column'>
-                      <Field
-                        name="industry"
-                        component={RenderSelect}
-                        placeholder="Industry"
-                        options={industries.industry}
-                      />
-                    </div>
+                          <InputField
+                            name="city"
+                            label="City"
+                          />
 
-                    <div id="number_of_employers" className='half-column'>
-                      <Field
-                        name="number_of_employers"
-                        component={RenderSelect}
-                        placeholder="Number of employers"
-                        options={employeers}
-                      />
-                    </div>
+                          <Field name="tell_about" component={RenderTextArea} label="Tell us about your business"/>
+                        </Grid.Column>
 
+                        <Grid.Column computer={8}>
+                          <InputField
+                            name="registered_name"
+                            label="Company Registered Name"
+                          />
+
+                          <InputField
+                            name="abn_acn"
+                            label="ABN / ACN"
+                          />
+
+                          <Field
+                            name="segment"
+                            component={RenderSelect}
+                            options={clientCategories}
+                            label="Segment"
+                            placeholder="Select"
+                            validate={[required]}
+                          />
+
+                          <div id="industry" className='half-column'>
+                            <Field
+                              name="industry"
+                              component={RenderSelect}
+                              label="Industry"
+                              placeholder="Select"
+                              options={industries.industry}
+                            />
+                          </div>
+
+                          <div id="number_of_employers" className='half-column'>
+                            <Field
+                              name="number_of_employers"
+                              component={RenderSelect}
+                              label="Number of employers"
+                              placeholder="Select"
+                              options={employeers}
+                            />
+                          </div>
+                        </Grid.Column>  
+                      </Grid.Row>
+                    </Grid>
+
+                  {/* </Grid.Column>
+                  <Grid.Column mobile={16} computer={8}> */}
+                     
+                  </Grid.Column>
+                  <Grid.Column computer={3}>
+                    <SaveBtn type="submit"
+                              disabled={submitting}
+                              content=''
+                              primary
+                              >
+                      <span>next step</span>
+                    </SaveBtn>
                   </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row>
+                {/* <Grid.Row>
                   <DvButton
                     type="submit"
                     disabled={submitting}
                     content='SAVE & CONTINUE'
                     primary
                   />
-                </Grid.Row>
+                </Grid.Row> */}
               </Grid>
 
         )

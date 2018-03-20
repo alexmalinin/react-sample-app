@@ -8,14 +8,14 @@ export const DvTitleBig = styled.h1`
     `};
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    font-family: "Proxima Nova";
+    font-family: "Brix";
     ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 324px`};
     font-weight: 700;
     line-height: 300px;
     
     &:first-child {
         ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-        font-family: "Proxima Nova";
+        font-family: "Brix";
         ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 324px`};
         font-weight: 700;
         line-height: 300px; 
@@ -85,7 +85,7 @@ export const DvTitleBig = styled.h1`
 
 export const DvTitle = styled.h1`
 
-    font-family: 'Roboto';
+    font-family: 'Brix';
     font-weight: 300;    
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
@@ -93,7 +93,7 @@ export const DvTitle = styled.h1`
     ${props => props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`};
     
     &:first-child {
-        font-family: 'Roboto';
+        font-family: 'Brix';
         font-weight: 300;
         
         ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
@@ -121,7 +121,7 @@ export const DvTitle = styled.h1`
 
 export const DvTitleMedium = styled.h2`
     
-    font-family: 'Proxima Nova';
+    font-family: 'Brix';
     font-size: 260px;
     line-height: 0.8;
     
@@ -159,9 +159,12 @@ export const DvTitleMedium = styled.h2`
 
 export const DvTitleSmall = styled.h2`
      
-    font-size: 48px;
+    font-size: 18px;
     margin-bottom: 90px;
-    font-weight: 300;  
+    font-weight: 400;  
+    text-transform: uppercase;
+    color: #666;
+    margin-left: 5px
     
     ${props => props.indentNull && css`
         margin: 0;
@@ -176,7 +179,7 @@ export const DvTitleSmall = styled.h2`
     ${props => props.mTop ? `margin-top: ${props.mTop}px !important` : `margin-top: 0px`};
         
     @media (max-width: 1920px) {
-        font-size: 34px;
+        font-size: 18px;
         margin-bottom: 40px;
     }
     

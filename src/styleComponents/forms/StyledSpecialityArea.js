@@ -2,21 +2,25 @@ import styled from 'styled-components'
 
 export default styled.div`
     
-    margin-bottom: 80px;
+    margin-bottom: 15px;
     
     p {
-        font-size: 28px;
+        font-size: 12px !important;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #666;
+        padding-left: 10px;
     }
     
     & > div {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
+        display: block;
+        margin-left: 0;
+        color: #666;
     }
     
     @media (max-width: 1920px) {
     
-        margin-bottom: 40px;
+        margin-bottom: 15px;
         
         p {
             font-size: 14px;

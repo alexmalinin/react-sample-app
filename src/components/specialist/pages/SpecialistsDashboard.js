@@ -2,8 +2,8 @@ import React, {Component, Fragment} from 'react';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
-import AsideLeft from "../renders/AsideLeft";
-import AsideRight from "../renders/AsideRight";
+import SideBarLeft from '../renders/SideBarLeft';
+import SideBarRight from '../renders/SideBarRight';
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
@@ -13,25 +13,26 @@ import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from './SpecialistsMyBillings';
+import SpecialistAccount from './SpecialistAccount';
+import { projects, days } from '../../../helpers/sidebarDbEmulate';
 
 class SpecialistsDashboard extends Component {
-
 
     render() {
         const {match:{params}} = this.props;
         let page = params['page'];
+        let sidebarCondition = page === 'about' || page === 'board' || page === 'test';
 
         return (
             <div>
                 <HeaderBasic/>
-                <SubHeader/>
                 <S_MainContainer>
-                    <AsideLeft/>
+                    {sidebarCondition && <SideBarLeft projects={projects}/>}
                         {this.renderPage(page)}
-                    <AsideRight/>
+                    {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
                 </S_MainContainer>
             </div>
-        )
+        );
     }
 
     renderPage = (page) => {
@@ -52,8 +53,10 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistsBoard/>;
             case 'test':
                 return <SpecialistsTest/>;
+            case 'account': 
+                return <SpecialistAccount/>;
             default:
-                return <SpecialistsProfile/>
+                return <SpecialistsAbout/>
         }
     };
 }

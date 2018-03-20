@@ -22,40 +22,46 @@ class WorkExperienceForm extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} computer={8}>
-                            <StyledWelcomeForm>
-                                <br/>
-                                <br/>
-                                <InputField
-                                    name='name'
-                                    placeholder='Company/Project /'
-                                    validate={[required]}
-                                />
-                                <LocationField/>
-                                <InputField
+                            <InputField
                                     name='position'
-                                    placeholder='Title/Position/Role /'
+                                    label='Title/Position/Role'
                                     validate={[required]}
                                 />
-                                <InputField
-                                    name='started_at'
-                                    placeholder='From /'
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='started_at'
+                                            label='From'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                    <Grid.Column computer={8}>
+                                        <InputField
+                                            name='finished_at'
+                                            label='To'
+                                            validate={[required]}
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                            <InputField
+                                    name='name'
+                                    label='Company/Project'
                                     validate={[required]}
                                 />
-                                <InputField
-                                    name='finished_at'
-                                    placeholder='To /'
-                                    validate={[required]}
-                                />
-                            </StyledWelcomeForm>
+                        </Grid.Column>
+                        <Grid.Column mobile={16} computer={8}>
+                            <LocationField/>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
                         <Grid.Column>
                             <StyledLabelArea>
-                                Description
                                 <Field
                                     name="description"
+                                    label="Description"
                                     component={RenderTextArea}
                                     // validate={[required]}
                                 />
@@ -71,6 +77,7 @@ class WorkExperienceForm extends Component {
                                 content='SAVE & CONTINUE'
                                 primary
                                 xsIndent
+                                smallBtn
                             />
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -79,6 +86,7 @@ class WorkExperienceForm extends Component {
                                 content='CLOSE'
                                 disabled={submitting}
                                 primary
+                                smallBtn
                             />
                         </Grid.Column>
                     </Grid.Row>

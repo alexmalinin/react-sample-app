@@ -31,10 +31,11 @@ class SpecialistIndustry extends Component {
 
         return (
             <Container indentBot indentTop className="relative">
+                <SubHeader />
                 {/*<ContainerLarge>*/}
-                <DvTitle mTop='80'>
+                {/* <DvTitle mTop='80'>
                     Welcome to The Village!
-                </DvTitle>
+                </DvTitle> */}
                 {/*</ContainerLarge>*/}
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
@@ -44,7 +45,7 @@ class SpecialistIndustry extends Component {
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>
-                <DvTitleSmall>My Services</DvTitleSmall>
+                {/* <DvTitleSmall>My Services</DvTitleSmall> */}
                 <SpecialistIndustryForm
                         industries={industries}
                         projectTypes={projectTypes}
@@ -91,5 +92,7 @@ class SpecialistIndustry extends Component {
     };
 }
 
-export default connect(({ industries, projectTypes, experienceLevels, specialistData }) => ({ industries, projectTypes, experienceLevels, specialistData }),
-  { updateSpecStep1, getIndustries, getProjectTypes, getExperienceLevels, showSpecialistData })(SpecialistIndustry);
+export default connect(
+    ({ industries, projectTypes, experienceLevels, specialistData }) => ({ industries, projectTypes, experienceLevels, specialistData }),
+    { updateSpecStep1, getIndustries, getProjectTypes, getExperienceLevels, showSpecialistData }
+)(SpecialistIndustry);

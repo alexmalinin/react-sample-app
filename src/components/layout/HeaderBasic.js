@@ -9,20 +9,24 @@ class Header extends Component {
         activeItem: 'home',
     };
 
-    render() {
+    
 
+    render() {
+        console.log(this.props, 789);
+        
         return (
             <StyledHeaderBasic className='header-basic'>
                 <ContainerLarge>
                     <a href='/'>
-                        <span>Digital</span>
-                        <img src='/images/logo_basic.png'/>
-                        <span>Village</span>
+                        <span>Digital Village</span>
+                        {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     <div>
-                        <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
-                        <span> | </span>
-                        <NavLink onClick={this.logOut} className='button' to='/sign_up'>Log Out</NavLink>
+                        <NavLink className='button square' to='#'></NavLink>
+                        <NavLink className='button settings' to='#'></NavLink>
+                        <NavLink className='button avatar' to='#'></NavLink>
+                        <NavLink className='button' to='/specialists/dashboard/profile'>Matt Client</NavLink>
+                        <NavLink onClick={this.logOut} className='button logOut' to='/sign_up'></NavLink>
                     </div>
                 </ContainerLarge>
             </StyledHeaderBasic>

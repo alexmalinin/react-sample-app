@@ -1,21 +1,34 @@
 import styled from 'styled-components'
 
 export default styled.div`
+    
+    margin-bottom: 18px;
 
-    & > p {
-        font-size: 28px;
-        margin-bottom: 40px;
+    .checkbox-group {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+
+    & > label {
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        color: #666;
+        padding-left: 10px;
     }
     
-    .Select {
+    /* .Select {
         width: 50%;
-    }
+    } */
     
     @media (max-width: 1920px) {
-         & > p {
+         /* & > p {
             font-size: 16px;
             margin-bottom: 30px;
-        }
+        } */
     }
     
     @media (max-width: 991px) {

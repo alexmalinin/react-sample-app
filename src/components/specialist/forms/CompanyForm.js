@@ -4,23 +4,37 @@ import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import {RenderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
-import { DvButton } from '../../../styleComponents/layout/DvButton';
+import { SaveBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';
 import StyledWelcomeForm from '../../../styleComponents/StyledWelcomeForm';
 import { employeers } from '../../../helpers/selects/employeers';
 import { segments } from '../../../helpers/selects/segments';
+import RenderImage from '../../forms/renders/RenderImage';
 
 class CompanyForm extends Component {
 
   render() {
-    const { submitting, industries, welcomeText } = this.props;
+    const { submitting, industries, welcomeText, clientData, specialistData } = this.props;
+    let { avatar } = specialistData || clientData || false;
 
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column mobile={16} computer={8}>
+          <Grid.Column mobile={16} computer={3}>
+            <Grid.Column computer={3}>
+              { !avatar && <p>Upload your photo</p>}
+                <Field
+                  name='person'
+                  component={RenderImage}
+                  type='file'
+                  avatar={avatar}
+                  placeholder='Choose your photo'
+                />
+            </Grid.Column>
+          </Grid.Column>
+          <Grid.Column mobile={16} computer={5}>
             <StyledWelcomeForm>
               { welcomeText && [
                 <DvTitle mTop='80' xs key="1">
@@ -35,38 +49,39 @@ class CompanyForm extends Component {
 
               <InputField
                 name="name"
-                placeholder="Company Name /"
+                label="Company Name"
               />
 
               <InputField
                 name="company_address"
-                placeholder="Company Address /"
+                label="Company Address"
               />
 
               <InputField
                 name="website"
-                placeholder="Website /"
+                label="Website"
               />
 
               <InputField
                 name="country"
-                placeholder="Country /"
+                label="Country"
               />
 
               <InputField
                 name="city"
-                placeholder="City /"
+                label="City"
               />
             </StyledWelcomeForm>
           </Grid.Column>
 
-          <Grid.Column mobile={16} computer={8}>
+          <Grid.Column mobile={16} computer={5}>
           <StyledWelcomeForm>
             <div id="segment" className='half-column'>
               <Field
                 name="segment"
                 component={RenderSelect}
-                placeholder="Segment"
+                label="Segment"
+                placeholder="Select"
                 options={segments}
                 validate={[required]}
               />
@@ -76,7 +91,8 @@ class CompanyForm extends Component {
               <Field
                 name="industry"
                 component={RenderSelect}
-                placeholder="Industry"
+                label="Industry"
+                placeholder="Select"
                 options={industries["industry"]}
                 validate={[required]}
               />
@@ -86,7 +102,8 @@ class CompanyForm extends Component {
               <Field
                 name="number_of_employers"
                 component={RenderSelect}
-                placeholder="Number of employers"
+                label="Number of employers"
+                placeholder="Select"
                 options={employeers}
                 validate={[required]}
               />
@@ -94,16 +111,14 @@ class CompanyForm extends Component {
 
             </StyledWelcomeForm>
           </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row>
-          <Grid.Column>
-            <DvButton
-              type="submit"
-              disabled={submitting}
-              content='SAVE &amp; CONTINUE'
-              primary
-            />
+          <Grid.Column computer={3}>
+            <SaveBtn type="submit"
+                    disabled={submitting}
+                    content='321'
+                    primary
+                >
+              <span>next step</span>
+            </SaveBtn>
           </Grid.Column>
         </Grid.Row>
       </Grid>

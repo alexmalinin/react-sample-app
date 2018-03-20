@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import RenderStyledCheckbox from '../renders/RenderStyledCheckbox';
+import RenderCircleCheckbox from '../renders/RenderCircleCheckbox';
 import StyledSpecialityArea from '../../../styleComponents/forms/StyledSpecialityArea'
 
 class RenderSpecialityArea extends Component {
@@ -14,7 +14,7 @@ class RenderSpecialityArea extends Component {
 
         return (
             <StyledSpecialityArea>
-                <p>Select your speciality within that area /</p>
+                <p>Select your speciality within that area</p>
 
                 <div>
                     {speciality ? speciality[industry_id - 1]
@@ -24,7 +24,7 @@ class RenderSpecialityArea extends Component {
                                 key = {item.value}
                                 name={`speciality_ids._${item.value}`}
                                 type="checkbox"
-                                component={RenderStyledCheckbox}
+                                component={RenderCircleCheckbox}
                                 label={item.label}
                             />)
                         : null : null : null

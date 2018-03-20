@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
-import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader'
+import { NavLink } from 'react-router-dom';
+
+import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+
+import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
+
 
 class SubHeader extends Component {
 
@@ -8,21 +12,37 @@ class SubHeader extends Component {
 
         return (
             <StyledSubHeader>
-                <NavLink className='button' to='/specialists/dashboard/profile'>My Profile</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/industry'>My Services</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/company'>My Company</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/billings'>My Billings</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/my_teams'>My Teams</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/about'>About</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/board'>Board</NavLink>
-                <span>|</span>
-                <NavLink className='button' to='/specialists/dashboard/test'>Test</NavLink>
+                <div>
+                    <SubHeaderLinkWrap content='1' url='/specialists/dashboard/profile'>
+                        My Profile
+                    </SubHeaderLinkWrap>
+
+                    <SubHeaderLinkWrap content='2' url='/specialists/dashboard/industry'>
+                        My Services
+                    </SubHeaderLinkWrap>
+
+                    <SubHeaderLinkWrap content='3' url='/specialists/dashboard/company'>
+                        My Company
+                    </SubHeaderLinkWrap> 
+
+                    <SubHeaderLinkWrap content='4' url='/specialists/dashboard/billings'>
+                        My Billings
+                    </SubHeaderLinkWrap>                 
+                </div>
+                <div>
+                    <SubHeaderLinkWrap url='#' className='rightLink arrow'>
+                        <span></span>
+                        Complete Later
+                    </SubHeaderLinkWrap>
+
+                    <SubHeaderLinkWrap content='3/9' url='#' className='rightLink'>
+                        Profile
+                    </SubHeaderLinkWrap> 
+
+                    <SubHeaderLinkWrap content='5%' url='#' className='rightLink'>
+                        Progress
+                    </SubHeaderLinkWrap>   
+                </div>
             </StyledSubHeader>
         )
     }

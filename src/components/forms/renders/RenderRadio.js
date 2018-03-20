@@ -9,15 +9,16 @@ class RenderRadio extends Component {
 
     render() {
         const {input, label, name, checked, onChange} = this.props;
+        console.log(this.props);
 
         return (
             <StyledRadio>
                 <label>
                     <input className='ownInput'
                            type='radio'
+                           name={name}
                            {...input}
                            checked={checked}
-                           name={name}
 
                     />
                     <span className={`ownRadio`}>{label}</span>
@@ -27,4 +28,6 @@ class RenderRadio extends Component {
     }
 }
 
-export default connect(({form}) => ({form}))(RenderRadio)
+export default connect(
+    ({form}) => ({form})
+)(RenderRadio)

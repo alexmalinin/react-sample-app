@@ -37,10 +37,11 @@ class SpecialistsProfile extends Component {
 
         return (
             <Container indentTop indentBot className="relative">
+                <SubHeader />
                 {/*<ContainerLarge>*/}
-                <DvTitle mTop='80'>
+                {/* <DvTitle mTop='80'>
                     Welcome to The Village!
-                </DvTitle>
+                </DvTitle> */}
                 {/*</ContainerLarge>*/}
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
@@ -53,15 +54,25 @@ class SpecialistsProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
-                            <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences}/>
+                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
+                            <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences} specialistModal/>
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column mobile={16} tablet={12} computer={8}>
-                            <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
-                            <RenderResetPasswordForm user="specialist"/>
+                        <Grid.Column mobile={16} tablet={12} computer={16}>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column computer={3}>
+                                    </Grid.Column>
+                                    <Grid.Column computer={13}>
+                                        <DvTitleSmall fz='18' mTop='60' xsCenter>Change Password</DvTitleSmall>
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column computer={16}>
+                                        <RenderResetPasswordForm user="specialist"/>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

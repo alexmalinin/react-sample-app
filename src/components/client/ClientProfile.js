@@ -30,11 +30,10 @@ class ClientProfile extends Component {
 
         return (
             <div>
-                <HeaderBasic/>
-
-                <SubHeader/>
-
                 <Container indentTop indentBot className="relative">
+
+                    <SubHeader/>
+
                     <S_Message positive profile data-show={renderMessage}>
                         <Message.Header>Success!</Message.Header>
                         <p>Form updated</p>
@@ -45,14 +44,22 @@ class ClientProfile extends Component {
                     </S_Message>
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={8}>
-                                <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall>
+                            <Grid.Column mobile={16} tablet={12} computer={16}>
+                                {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                                 <RenderProfileForm onSubmit={this.submit}/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={8}>
-                                <DvTitleSmall fz='28' mTop='60' xsCenter>Change Password</DvTitleSmall>
+                            <Grid.Column mobile={16} tablet={12} computer={16}>
+                                <Grid>
+                                    <Grid.Row>
+                                        <Grid.Column mobile={16} tablet={12} computer={3}>
+                                        </Grid.Column>
+                                        <Grid.Column mobile={16} tablet={12} computer={10}>
+                                            <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                                 <RenderResetPasswordForm user="customer"/>
                             </Grid.Column>
                         </Grid.Row>

@@ -2,26 +2,87 @@ import styled from 'styled-components'
 
 export default styled.div`
 
-    margin-top: 40px;
+    color: #666666;
 
-    .main-info {
-        margin-bottom: 90px;
-        text-align: center;
-        font-size: 36px;
-        
-        h2 {
-            font-size: 60px;
+    .section-header{
+        border-bottom: 2px solid #00ffc0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 14px;
+        padding-bottom: 2px;
+
+        &:first-of-type{
+            border-bottom: none;
         }
-        
+
+        .title{
+            text-transform: uppercase;
+        }
+
+        .dots{
+            cursor: pointer;
+            span{
+                display: inline-block;
+                height: 3px;
+                width: 3px;
+                border-radius: 50%;
+                background-color: gray;
+            }
+        }
+    }
+
+    .ui.grid>.row {
+        padding-top: 36px;
+
+        &:nth-of-type(2n){
+            min-height: 180px;
+        }
+    }
+
+    h3{
+        margin-top: 5px;
+        font-size: 22px;
+        font-weight: lighter;
+    }
+    h3 span{
+        display: inline-block;
+        padding: 0 8px;
+        margin: 0 10px 5px 0;
+
+        border: 1px solid #cbcbcb;
+        border-radius: 10px;
+
+        font-size: 14px;
+        white-space: pre-line;
+        text-transform: none;
+        line-height: 18px;
+    }
+
+    span{
+        font-size: 12px;
+        line-height: 13px;
+        letter-spacing: 0.9px;
+        font-weight: bold;
+        font-style: italic;
+        text-transform: uppercase;
+    }
+
+    .main-info{
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+        text-align: center;
+
         .profile-image {
             border-radius: 50%;
-            margin: 0 auto 60px;
-            display: flex;
+            display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 300px;
-            height: 300px;
-            border: 4px solid #1991fa;
+            width: 120px;
+            height: 120px;
+            border: 4px solid #e5e5e5;
+            align-self: flex-end;
             
             .image-wrapper {
                 width: 100%;
@@ -31,30 +92,36 @@ export default styled.div`
                 justify-content: center;
                 overflow: hidden;
                 border-radius: 50%;
-                border: 9px solid #fff;
+                border: 0px solid #fff;
                 max-width: 291px;
                 max-height: 291px;
             }
             
             img {
                 height: 100%;
+                width: 100%;
+                object-fit: cover;
             }
         }
-        
-        .flex-between {
+
+        .profile-info{
             display: flex;
-            justify-content: space-between;
-            max-width: 650px;
-            margin: 0 auto;
-            
-            span {
-                display: flex;
-                align-items: center;
-                font-weight: 300;
-                
-                img {
-                    margin-right: 15px;
-                }
+            flex-flow: column nowrap;
+            justify-content: center;
+            height: 100%;
+
+            &>* {
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .services{
+        span{
+            img{
+                height: 20px;
+                width: auto;
+                transform: translate(-2px, 4px);
             }
         }
     }
@@ -62,7 +129,6 @@ export default styled.div`
     .skills {
         max-width: 1170px;
         font-size: 28px;
-        margin: 0 auto 90px;
         
         h4 {
             font-size: 28px;
@@ -72,19 +138,49 @@ export default styled.div`
         
         .flex-wrapper {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: flex-start;
             margin-bottom: 90px;
+
+            &>div{
+                display: inline-block;
+                
+                &>div{
+                    padding: 0 8px;
+
+                    line-height: 18px;
+
+                    border: 2px solid #cbcbcb;
+                    border-radius: 12px;
+                    font-size: 14px;
+                }
+            }
         }
-        
+
         p {
             text-align: center;
         }
     }
+
+    .prof-exp{
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .card{
+        margin-bottom: 20px;
+
+        &>*{
+            margin: 0;
+        }
+    }
+
+    .ui.grid>.row.educations{
+        padding-bottom: 80px;
+    }
     
     @media (max-width: 1920px) {
     
-        .main-info {
+        /* .main-info {
             font-size: 28px;
         
             h2 {
@@ -94,22 +190,23 @@ export default styled.div`
             p {
                 font-size: 34px;
             }
-        }
+        } */
         
         .skills {
             font-size: 18px;
+            max-width: 1400px;
         
-            h4 {
+            /* h4 {
                 font-size: 22px;
-            }
+            } */
             
-            .flex-wrapper {
+            /* .flex-wrapper {
                 justify-content: space-around;
-            }
+            } */
         }
     }
     
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
     
         .main-info {
             font-size: 18px;
@@ -173,5 +270,5 @@ export default styled.div`
                 margin-top: 15px;
             }
         }
-    }
+    } */
 `;

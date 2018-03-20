@@ -14,17 +14,17 @@ class SubscribeForm extends Component {
 
         return (
             <StyledSubscribeForm>
-                <h3>
+                {/* <h3>
                     Keep in touch
                 </h3>
 
                 <p>
                     Join the Village lorem ipsum dolor sit <br/>
                     amet, consectetur adipisicing elit, sed do
-                </p>
+                </p> */}
 
                 <form onSubmit={handleSubmit}>
-                    <Field
+                    {/* <Field
                         name='industry-select'
                         component={RenderSelect}
                         placeholder='I am a.../'
@@ -34,7 +34,7 @@ class SubscribeForm extends Component {
                     <EmailField
                         name='email'
                         placeholder='Email /'
-                    />
+                    /> */}
                     <DvButton
                         type='submit'
                         disabled={submitting}

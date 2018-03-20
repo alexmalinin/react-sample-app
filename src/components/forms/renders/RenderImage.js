@@ -26,10 +26,10 @@ class RenderImage extends Component {
     }
 
     render() {
-        const { avatar } = this.props;
         console.log('---avatar', this.props.avatar);
 
-        let {
+        const {
+            avatar,
             input,
             placeholder,
             name,
@@ -39,19 +39,21 @@ class RenderImage extends Component {
 
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
-        if (avatar && !imagePreviewUrl) {
+        if (avatar && avatar.url && !imagePreviewUrl) {
             $imagePreview = (<img src={PORT + avatar.url}/>);
         } else if (imagePreviewUrl) {
             $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
-            $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
+            $imagePreview = (<div className='preloader'><img src='../../images/uploadImg.png' alt=''/></div>);
         }
         return (
             <StyledUploader>
                 <div className='imgPreview'>
                     {$imagePreview}
                 </div>
-                <Button primary onClick={this.handleTrigger}>Upload</Button>
+                <Button primary onClick={this.handleTrigger}>
+                {/* Upload */}
+                </Button>
                 <input
                     ref={this.triggerRef}
                     name={name}
@@ -74,3 +76,12 @@ class RenderImage extends Component {
 }
 
 export default RenderImage;
+
+
+// if (avatar && !imagePreviewUrl) {
+//     $imagePreview = (<img src={PORT + avatar.url}/>);
+// } else if (imagePreviewUrl) {
+//     $imagePreview = (<img src={imagePreviewUrl}/>);
+// } else {
+//     $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
+// }

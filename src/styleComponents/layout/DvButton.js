@@ -1,27 +1,26 @@
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
 
 export const DvButton = styled(Button)`  
  
     &.ui.button {
-        ${props => props.indentTop ? `margin-top: 60px` : ``};
-        border-radius: 0;
-        width: 100%;
-        font-size: 24px;
-        font-family: Roboto;
-        text-align: center;
-        color: #fff;
         
+        ${props => props.indentTop ? `margin-top: 60px` : ``};
+        width: ${props => props.smallBtn ? `50%` : `100%` };
+        border-radius: ${props => props.smallBtn ? `5px` : `0` };
+        margin-left: ${props => props.smallBtn ? `25%` : `0` };
+        font-size: ${props => props.smallBtn ? `18px` : `24px` };
+        font-family: 'Brix';
+        text-align: center;
+    
         &.verify-btn {
             padding: 40px;
         }
-        
+    
         &.width200 {
-          width: 200%;
+            width: 200%;
         }
     }
-    
-    
     
     @media (max-width: 1920px) {
         &.ui.button {
@@ -57,6 +56,7 @@ export const NewTeamBtn = styled.div`
     max-width: 1260px;
     margin-top: 100px;
     text-align: center;
+    font-family: 'Brix';
     
     a {
         display: inline-block;
@@ -168,32 +168,38 @@ export const NewTeamBtn = styled.div`
 export const AddNewBtn = styled(Button)`
 
     &.ui.basic.button {
-        border: 1px solid #ccc;
+        border: 2px solid #f2f2f2;
+        width: 100%;
         border-radius: 0;
         box-shadow: none;
         position: relative;
         padding-left: 50px;
         margin-top: 20px;
-        color: #000 !important; // overwrite semantic theme
+        font-family: 'Brix';
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        z-index: 5;
+        color: #666 !important; // overwrite semantic theme
         
         &:before {
             content: '';
             position: absolute;
-            height: 1px;
+            height: 2px;
             width: 21px;
             background: #1991fa;
-            left: 10px;
-            top: 50%;
+            left: 11px;
+            top: 48%;
         }
         
         &:after {
             content: '';
             position: absolute;
-            height: 20px;
-            width: 1px;
+            height: 21px;
+            width: 2px;
             background: #1991fa;
             left: 20px;
-            top: 25%;
+            top: 16%;
         }
     }
     
@@ -225,3 +231,79 @@ export const AddNewBtn = styled(Button)`
         }
     }
 `;
+
+
+export const SaveBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #ccc; 
+        position: absolute;
+        bottom: -26px;
+        right: 20px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+        
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: #ccc;
+            bottom: -22px;
+            right: -16px;
+            font-weight: 0;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute; 
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            width: ${props => props.updateBtn ? `10px` : `15px` };
+            top: ${props => props.updateBtn ? `33px` : `24px` };
+            left: ${props => props.updateBtn ? `20px` : `22px` };
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            width: ${props => props.updateBtn ? `20px` : `15px` };
+            top: ${props => props.updateBtn ? `30px` : `34px` };
+            left: ${props => props.updateBtn ? `25px` : `22px` };
+            transform: rotate(-45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+        
+        &.width200 {
+          width: 200%;
+        } */
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: #666;
+        border: 1px solid #666;
+        background-color: #fff !important;
+
+        span {
+            color: #666;
+        }
+        &::before, 
+        &::after {
+            background-color: #666;
+        }
+    }
+`

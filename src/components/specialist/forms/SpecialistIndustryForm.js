@@ -57,7 +57,11 @@ class SpecialistIndustryForm extends Component {
         this.props.dispatch(change('SpecialistIndustryForm', 'availability',         available));
 
         if (specialities[0]) {
-          this.props.dispatch(change('SpecialistIndustryForm', 'industry', { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }));
+          this.props.dispatch(change(
+              'SpecialistIndustryForm', 
+              'industry', 
+              { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }
+            ));
         }
         Object.keys(renderSpecialities).length > 0
             ? this.props.dispatch(change('SpecialistIndustryForm', 'speciality_ids', renderSpecialities ))
