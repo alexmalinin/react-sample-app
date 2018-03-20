@@ -29,12 +29,12 @@ class RenderProfileForm  extends Component {
 
         const { handleSubmit, educations, experiences, submitting, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
-        // let renderPlaceholder = clientData ? clientData.phone_code : specialistData ? specialistData.phone_code : null;
+
         let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
         let experiencesChilds1 = specialistData ? specialistData["work_experiences"] : [];
 
-        let educationData  = specialistData ? [ ...educationsChilds1,  ...educations ] : null;
-        let experienceData = specialistData ? [ ...experiencesChilds1, ...experiences] : null;
+        let educationData  = educations ? [ ...educationsChilds1,  ...educations ] : null;
+        let experienceData = experiences ? [ ...experiencesChilds1, ...experiences] : null;
 
         return (
             <form name='account' onSubmit={handleSubmit}>

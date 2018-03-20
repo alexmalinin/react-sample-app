@@ -10,9 +10,11 @@ export const RenderField = ({
                         label,
                         type,
                         disabled,
-                        meta: { touched, error, warning }
+                        ...rest,
+                        meta: { touched, error, warning },
+                        
                      }) =>
-    <StyledInputs>
+    <StyledInputs {...rest}>
             <label htmlFor={name}>{label}</label>
             <Input error={Boolean(touched && error)} {...input} name={name} disabled={disabled} placeholder={placeholder} type={type} />
             {touched &&

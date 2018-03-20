@@ -10,11 +10,11 @@ export default styled.div`
     label {
         position: absolute;
         top: 0;
-        left: 10px;
-        font-size: 12px;
+        left: ${props => props.accountInput? `0` : `10px`};
+        font-size:  ${props => props.accountInput? `10px` : `12px`};
         text-transform: uppercase;
-        color: #666;
-        font-weight: bold;
+        color:  ${props => props.accountInput? `#999` : `#666`};
+        font-weight:  ${props => props.accountInput? `normal` : `bold`};
     }
 
     .ui.input {
@@ -37,8 +37,9 @@ export default styled.div`
 
     .Select-placeholder,
     .Select-value {
-        color: #ccc !important;
-        padding-left: 10px;
+        color: ${props => props.accountInput? `#666` : `#ccc !important`};
+        padding-left:  ${props => props.accountInput? `0px` : `10px`};
+        text-transform: none;
         letter-spacing: 1.5px;
         font-size: 16px;
     }

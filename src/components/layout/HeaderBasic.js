@@ -21,7 +21,7 @@ class Header extends Component {
         
         return (
             <StyledHeaderBasic className='header-basic'>
-                <ContainerLarge>
+                <ContainerLarge containerHeader>
                     <a href='/'>
                         <span>Digital Village</span>
                         {/* <img src='/images/logo_basic.png'/> */}
@@ -43,16 +43,19 @@ class Header extends Component {
                         <Dropdown text='' icon='none' className='log-out'>
                             <Dropdown.Menu>
                                 <Dropdown.Item>
-                                    <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
+                                  <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <NavLink to='#'>Projects</NavLink>
+                                  <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <NavLink to='#'>Teams</NavLink>
+                                  <NavLink to='#'>Projects</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                                  <NavLink to='#'>Teams</NavLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                  <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

@@ -4,16 +4,17 @@ import { Grid, Tab } from 'semantic-ui-react';
 
 import { Container } from '../../../styleComponents/layout/Container';
 import SpecialistAccountSubHeader from '../../layout/SpecialistAccountSubHeader';
-import StyledAccountPage from '../../../styleComponents/StyledAccountPage';
+import StyledAccountPages from '../../../styleComponents/StyledAccountPages';
 
 class SpecialistAccount extends Component {
     render() {
         return (
-            <StyledAccountPage>
+            <StyledAccountPages>
                 <SpecialistAccountSubHeader />
                 <Container>
                     <Grid>
                         <SectionHeader content='completed tasks'/>
+
                         <Grid.Row className="sectionTitle">
                             <Grid.Column computer={10}>
                                 tasks
@@ -25,6 +26,7 @@ class SpecialistAccount extends Component {
                                 due date
                             </Grid.Column>
                         </Grid.Row>
+
                         <Grid.Row className="sectionContent">
                             <Grid.Column computer={10}>
                                 projectXYZ
@@ -36,6 +38,7 @@ class SpecialistAccount extends Component {
                                 01/01/18
                             </Grid.Column>
                         </Grid.Row>
+
                         <Grid.Row className="sectionContent">
                             <Grid.Column computer={10}>
                                 projectABC
@@ -47,6 +50,7 @@ class SpecialistAccount extends Component {
                                 01/01/18
                             </Grid.Column>
                         </Grid.Row>
+
                         <Grid.Row className="sectionSummury">
                             <Grid.Column computer={10} textAlign='right'>
                                 Total
@@ -57,6 +61,7 @@ class SpecialistAccount extends Component {
                         </Grid.Row>
 
                         <SectionHeader content='Bonus Incentives'/>
+
                         <Grid.Row className="sectionTitle">
                             <Grid.Column computer={10}>
                                 incentives
@@ -68,6 +73,7 @@ class SpecialistAccount extends Component {
                                 due date
                             </Grid.Column>
                         </Grid.Row>
+
                         <Grid.Row className="sectionContent">
                             <Grid.Column computer={10}>
                                 Bonus
@@ -79,6 +85,7 @@ class SpecialistAccount extends Component {
                                 01/01/18
                             </Grid.Column>
                         </Grid.Row>
+
                         <Grid.Row className="sectionSummury">
                             <Grid.Column computer={10} textAlign='right'>
                                 Total
@@ -100,6 +107,7 @@ class SpecialistAccount extends Component {
                                 due date
                             </Grid.Column>
                         </Grid.Row>
+                        
                         <Grid.Row className="sectionContent">
                             <Grid.Column computer={10}>
                                 ProjectXYZ
@@ -111,6 +119,7 @@ class SpecialistAccount extends Component {
                                 01/06/18
                             </Grid.Column>
                         </Grid.Row>
+                        
                         <Grid.Row className="sectionSummury">
                             <Grid.Column computer={10} textAlign='right'>
                                 Total
@@ -121,7 +130,7 @@ class SpecialistAccount extends Component {
                         </Grid.Row>
                     </Grid>
                 </Container>
-            </StyledAccountPage>
+            </StyledAccountPages>
         )
     }
 }
