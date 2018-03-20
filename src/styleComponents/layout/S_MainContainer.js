@@ -4,6 +4,7 @@ export const S_MainContainer = styled.div`
 
     max-width: 1920px;
     margin: 0 auto;
+    padding-top: 87px;
     display: flex;
     
     ${props => props.indentBot ? `margin-bottom: 250px` : ``};

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export default styled.header`
 
     &.header-basic {
+        position: fixed;
+        z-index: 1000;
+        width: 100%;
+        background-color: #fff;
     
         div {
             min-width: 20%;
@@ -13,6 +17,7 @@ export default styled.header`
         & > div {
             min-height: 87px;
             align-items: center;
+            background-color: #fff;
         }
         
         a {

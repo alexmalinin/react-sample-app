@@ -52,7 +52,7 @@ class SpecialistsAbout extends Component {
         return (
             <ContainerLarge>
                 <AboutSubHeader />
-                <Container indentBot>                    
+                <Container indentBot>
                     <StyledProfile>
                         <Grid padded={14}>
 
