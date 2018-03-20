@@ -9,6 +9,6 @@ export const S_Message = styled(Message)`
         right: 22px;
         z-index: 5;
         transition: top 0.5s ease-in-out;
-        ${props => props['data-show'] ? `top: 20px` : ``};
+        ${props => props['data-show'] ? `top: 95px` : ``};
     }
 `;

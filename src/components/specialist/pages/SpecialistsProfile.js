@@ -126,5 +126,7 @@ class SpecialistsProfile extends Component {
     };
 }
 
-export default connect(({specialistData, confirmPassword,  educations, experiences}) => ({specialistData, confirmPassword,  educations, experiences}),
-  { showSpecialistData, updateSpecialistProfile } )(SpecialistsProfile);
+export default connect(
+    ({specialistData, confirmPassword,  educations, experiences}) => ({specialistData, confirmPassword,  educations, experiences}),
+    { showSpecialistData, updateSpecialistProfile }
+)(SpecialistsProfile);

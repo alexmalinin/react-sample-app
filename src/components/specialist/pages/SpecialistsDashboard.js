@@ -20,12 +20,13 @@ class SpecialistsDashboard extends Component {
 
     render() {
         const {match:{params}} = this.props;
+        console.log(this.props);
         let page = params['page'];
         let sidebarCondition = page === 'about' || page === 'board' || page === 'test';
 
         return (
             <div>
-                <HeaderBasic/>
+                <HeaderBasic page={sidebarCondition} />
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={projects}/>}
                         {this.renderPage(page)}

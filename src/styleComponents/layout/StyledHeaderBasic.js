@@ -7,11 +7,17 @@ export default styled.header`
         z-index: 1000;
         width: 100%;
         background-color: #fff;
+        padding-left: 40px;
+        padding-right: 40px;
     
         div {
             min-width: 20%;
             display: flex;
             justify-content: space-between;
+
+            .log-out{
+                min-width: auto;
+            }
         }
  
         & > div {
@@ -32,45 +38,55 @@ export default styled.header`
         }
     }
 
-    & .square, 
-    & .settings,
-    & .avatar {
+    .square, 
+    .settings,
+    .avatar {
         width: 22px;
         height: 21px;
         display: flex;
         background: url('../../images/header-icon-square.png');
     }
 
-    & .settings {
+    .settings {
         background: url('../../images/header-icon-settings.png');
     }
 
-    & .avatar {
+    .avatar {
         background: url('../../images/uploadImg.png');
         background-size: cover;
-    }    
-
-    & .logOut {
-        display: block;
-        width: 22px;
     }
 
-    & .logOut::before,
-    & .logOut::after {
-        content: '';
-        width: 11px;
-        height: 2px;
-        transform: rotate(45deg);
-        position: absolute;
-        top: 15px;
-        right: 0;
-        background-color: #ccc;
+    .ui.dropdown .menu{
+        top: 150%;
+        left: auto;
+        right: -20%;
+        user-select: none;
     }
 
-    & .logOut::after {
-        transform: rotate(-45deg);
-        top: 8px;
-        right: 0;
+    .log-out {
+        position: relative;
+
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            top: calc(50% - 7px);
+            right: 0;
+
+            transform: rotate(45deg);
+            transform-origin: 50% 50%;
+            border-left: 2px solid #ccc;
+            border-bottom: 2px solid #ccc;
+            transition: .2s ease-in-out;
+        }
+
+        &.active{
+            &::after{
+                transform: rotate(-45deg);
+            }
+        }
     }
     
     @media (max-width: 1920px) {
