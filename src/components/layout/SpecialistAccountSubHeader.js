@@ -13,11 +13,11 @@ class AboutSubHeader extends Component {
         return (
             <StyledSubHeader account>
                 <div>
-                    <SubHeaderLinkWrap content='Account' url='#' className="accountSub"/>
+                    <SubHeaderLinkWrap content='Account' url='/specialists/dashboard/account' className="accountSub"/>
 
-                    <SubHeaderLinkWrap content='YTD' url='#' className="accountSub"/>
+                    <SubHeaderLinkWrap content='YTD' url='/specialists/dashboard/year_to_date' className="accountSub"/>
 
-                    <SubHeaderLinkWrap content='statements' url='#' className="accountSub"/> 
+                    <SubHeaderLinkWrap content='statements' url='/specialists/dashboard/statement' className="accountSub"/> 
                 </div>
             </StyledSubHeader>
         )

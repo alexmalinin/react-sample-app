@@ -21,7 +21,7 @@ class Header extends Component {
         
         return (
             <StyledHeaderBasic className='header-basic'>
-                <ContainerLarge>
+                <ContainerLarge containerHeader>
                     <a href='/'>
                         <span>Digital Village</span>
                         {/* <img src='/images/logo_basic.png'/> */}

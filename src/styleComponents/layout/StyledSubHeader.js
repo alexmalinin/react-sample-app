@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 export default styled.div`
     height: 131px;
+    max-width: 1280px;
+    margin: 0 auto;
 
     ${props => (props.profile || props.account
         ?  `background: #2d68ee; /* Old browsers */
@@ -43,8 +45,8 @@ export default styled.div`
 
     .accountSub {
         font-size: 10px;
-        width: 64px;
-        height: 64px;
+        width: 74px;
+        height: 74px;
     }
 
     .arrow::after,

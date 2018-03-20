@@ -6,6 +6,7 @@ export const S_MainContainer = styled.div`
     margin: 0 auto;
     padding-top: 87px;
     display: flex;
+    justify-content: center;
     
     ${props => props.indentBot ? `margin-bottom: 250px` : ``};
     ${props => props.indentTop ? `margin-top: 100px` : ``};

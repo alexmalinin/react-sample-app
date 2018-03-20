@@ -4,6 +4,8 @@ export default styled.div`
     color: #666;
     font-size: 16px;
     letter-spacing: 1.2px;
+    width: 100%;
+    /* max-width: 1280px; */
 
     .grid {
         margin: 0 !important;
@@ -27,9 +29,8 @@ export default styled.div`
         color: #999;
     }
 
-    .sectionContent {
-        line-height: 15px;
-        
+    .sectionColumn {
+        padding: 0 !important;
     }
 
     .sectionSummury {
@@ -38,4 +39,33 @@ export default styled.div`
         font-weight: bold;
         border-top: 1px solid #f2f2f2;
     }
+
+    .statementLinks {
+        display: flex !important;
+        justify-content: space-between;
+    }
+
+    .statementLinks.bottom {
+        padding-top: 25px;
+    }
+
+    .statementLink {
+        width: 70px;
+        height: 70px;
+        border: 1px solid #ccc;
+        text-transform: uppercase;
+        color: #ccc;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .statementLink:hover {
+        color: #666;
+        border: 1px solid #666;
+    }
+
+    
 `

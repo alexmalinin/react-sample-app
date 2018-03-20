@@ -14,7 +14,9 @@ import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from './SpecialistsMyBillings';
 import SpecialistAccount from './SpecialistAccount';
+import SpecialistYTD from './SpecialistYTD';
 import { projects, days } from '../../../helpers/sidebarDbEmulate';
+import SpecialistStatement from './SpecialistStatement';
 
 class SpecialistsDashboard extends Component {
 
@@ -56,6 +58,10 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistsTest/>;
             case 'account': 
                 return <SpecialistAccount/>;
+            case 'year_to_date': 
+                return <SpecialistYTD/>;
+            case 'statement': 
+                return <SpecialistStatement/>;
             default:
                 return <SpecialistsAbout/>
         }

@@ -16,7 +16,7 @@ export default class RenderSelect extends Component {
         let { value, onChange } = input;
 
         return (
-            <StyledInputs>
+            <StyledInputs {...rest}>
                 <label>{label}</label>
                 <StyledSelect
                     error={touched && error}
@@ -33,7 +33,7 @@ export default class RenderSelect extends Component {
                 <span>
                 {warning}
                 </span>))}
-            </StyledInputs>
+        </StyledInputs>
         )
     }
 }
