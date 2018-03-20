@@ -100,12 +100,13 @@ class RenderProfileForm  extends Component {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column computer={8}>
+                                      { this.props.specialistModal ?
                                         <div>
-                                            <RenderCards
-                                                experiences={ experienceData }
-                                            />
-                                            <WorkExperienceModal/>
-                                        </div>                                        
+                                          <RenderCards
+                                            experiences={ experienceData }
+                                          />
+                                          <WorkExperienceModal />
+                                        </div> : null }
                                     </Grid.Column>
                                     <Grid.Column computer={8}>
                                     { this.props.specialistModal ? 
