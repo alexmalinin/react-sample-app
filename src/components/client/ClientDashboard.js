@@ -36,7 +36,7 @@ class ClientDashboard extends Component {
             case 'projects':
               return <ClientProjects/>;
             default:
-                return <ClientProfile/>
+              return <ClientProfile/>
         }
     };
 }
