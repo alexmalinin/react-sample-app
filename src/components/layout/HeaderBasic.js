@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import StyledHeaderBasic from '../../styleComponents/layout/StyledHeaderBasic';
 import { ContainerLarge }from '../../styleComponents/layout/Container';
 import { showSpecialistData } from '../../actions/actions';
@@ -47,9 +47,6 @@ class Header extends Component {
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                   <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <NavLink to='#'>Projects</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
                                   <NavLink to='#'>Teams</NavLink>

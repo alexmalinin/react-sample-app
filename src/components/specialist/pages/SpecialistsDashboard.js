@@ -9,7 +9,6 @@ import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
 import SpecialistIndustry from "./SpecialistIndustry";
 import SpecialistsAbout from "./SpecialistsAbout";
-import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from './SpecialistsMyBillings';
@@ -17,6 +16,7 @@ import SpecialistAccount from './SpecialistAccount';
 import SpecialistYTD from './SpecialistYTD';
 import SpecialistStatement from './SpecialistStatement';
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
+import ProjectsBoard from '../../ProjectsBoard';
 
 class SpecialistsDashboard extends Component {
 
@@ -24,7 +24,10 @@ class SpecialistsDashboard extends Component {
         const {match:{params}} = this.props;
         console.log(this.props);
         let page = params['page'];
-        let sidebarCondition = page === 'about' || page === 'board' || page === 'test'
+        let sidebarCondition = 
+             page === 'about' 
+          || page === 'board' 
+          || page === 'test'
           || page === 'statement'
           || page === 'year_to_date'
           || page === 'account'
@@ -57,7 +60,7 @@ class SpecialistsDashboard extends Component {
             case 'about':
                 return <SpecialistsAbout/>;
             case 'board':
-                return <SpecialistsBoard/>;
+                return <ProjectsBoard/>;
             case 'test':
                 return <SpecialistsTest/>;
             case 'account': 

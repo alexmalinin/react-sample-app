@@ -11,7 +11,7 @@ class ProjectSubHeader extends Component {
   render() {
 
     return (
-      <StyledSubHeader project>
+      <StyledSubHeader profile>
         <div>
         </div>
         <div>

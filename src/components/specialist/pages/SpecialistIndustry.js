@@ -30,7 +30,7 @@ class SpecialistIndustry extends Component {
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
         return (
-            <Container indentBot indentTop className="relative">
+            <Container indentBot className="relative">
                 <SubHeader />
                 {/*<ContainerLarge>*/}
                 {/* <DvTitle mTop='80'>

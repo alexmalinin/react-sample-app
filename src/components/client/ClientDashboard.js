@@ -3,9 +3,13 @@ import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { Container } from '../../styleComponents/layout/Container';
-import ClientProfile  from './ClientProfile';
-import ClientCompany  from './ClientCompany';
-import ClientBilling  from './ClientBilling';
+import ClientProfile from './ClientProfile';
+import ClientCompany from './ClientCompany';
+import ClientBilling from './ClientBilling';
+import ProjectsBoard from '../ProjectsBoard';
+import SideBarLeft from './renders/SideBarLeft';
+import SideBarRight from './renders/SideBarRight';
+import { projects, days } from '../../helpers/sidebarDbEmulate';
 import ClientProjects from './ClientProjects';
 
 class ClientDashboard extends Component {
@@ -16,11 +20,16 @@ class ClientDashboard extends Component {
 
         const {match:{params}} = this.props;
         let page = params['page'];
+        let sidebarCondition = page === 'projects' || page === 'board';
 
         return (
             <div>
                 <HeaderBasic props={this.props}/>
-                {this.renderPage(page)}
+                <S_MainContainer>
+                    {sidebarCondition && <SideBarLeft projects={projects}/>}
+                        {this.renderPage(page)}
+                    {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
+                </S_MainContainer>
             </div>
         )
     }
@@ -35,6 +44,8 @@ class ClientDashboard extends Component {
               return <ClientBilling/>;
             case 'projects':
               return <ClientProjects/>;
+            case 'board':
+              return <ProjectsBoard/>;
             default:
               return <ClientProfile/>
         }

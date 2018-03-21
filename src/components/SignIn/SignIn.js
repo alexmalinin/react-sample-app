@@ -73,7 +73,7 @@ class SignUp extends Component {
                                         </div>
                                     </div>
                                 </Tabs>
-                                { confirm &&  this.loginRedirect()}
+                                { confirm && this.loginRedirect()}
                                 <StyledFormHint>
                                     <span>Don't have an account? <Link to='/sign_up'>Sign up</Link></span>
                                 </StyledFormHint>
@@ -94,13 +94,12 @@ class SignUp extends Component {
         if (isLogIn && status !== "logged") {
             return (
               <Redirect to={`/${user}/dashboard/profile`} />
-              // <Redirect to={`/${user}/dashboard/welcome-to-the-village${user === "specialists" ? "-1" : ''}`}/>
             )
         }
 
         if (status === "logged") {
             return (
-                <Redirect to={`/${user}/dashboard/profile`} />
+                <Redirect to={`/${user}/dashboard/about`} />
             )
          }
     };
@@ -117,4 +116,7 @@ class SignUp extends Component {
     }
 }
 
-export default connect((({changeUserType, signInReducer}) => ({changeUserType, signInReducer})), {signIn, userType })(SignUp);
+export default connect(
+    ({changeUserType, signInReducer}) => ({changeUserType, signInReducer}),
+    {signIn, userType }
+)(SignUp);
