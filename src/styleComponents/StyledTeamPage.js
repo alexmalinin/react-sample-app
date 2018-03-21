@@ -20,4 +20,48 @@ export default styled.div`
         padding-top: 14px;
         padding-bottom: 2px;
     }
+
+    .buttonAdd {
+        margin-top: 15px;
+        width: 23px;
+        height: 23px;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        position: relative;
+    }
+
+   
+    .buttonAdd::before,
+    .buttonAdd::after {
+        content: '';
+        width: 15px;
+        height: 1px;
+        top: 10px;
+        left: 3px;
+        position: absolute;
+        background-color: #ccc;
+    }
+
+    .buttonAdd::after {
+        transform: rotate(90deg);
+    }
+
+    .buttonAdd:hover {
+        border: 1px solid #666;
+    }
+
+    .team {
+        width: 100%;
+        font-size: 12px;
+        display: flex;
+        margin-top: 15px;
+
+        img {
+            width: 23px;
+            height: 23px;
+            margin-right: 20px;
+        }
+    }
+
 `

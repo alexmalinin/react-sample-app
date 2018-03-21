@@ -10,13 +10,26 @@ import RenderProjectCard from '../../client/renders/RenderProjectCard';
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 import SpecialistTeamSubHeader from '../../layout/SpecialistTeamSubHeader';
 import StyledTeamPage from '../../../styleComponents/StyledTeamPage';
+import { NavLink } from 'react-router-dom';
 
 class SpecialistsMyTeams extends Component {
+    setTeamUser() {
+        return (
+            <div>
+                { this.props.team.map((item, index) => {
+                    return ( 
+                        <div className='team' key={index}>
+                            <img src='../../images/uploadImg.png' />
+                            <p> {item} </p>
+                        </div> )
+                    }) 
+                }
+                <NavLink to='#' class='buttonAdd'></NavLink>
+            </div>
+        )
+    }
 
     render() {
-
-        const {team} = this.props;
-        console.log(team, ';l;lm;l')
 
         return (
             <ContainerLarge>
@@ -28,16 +41,19 @@ class SpecialistsMyTeams extends Component {
                             <Grid.Row>
                                 <Grid.Column computer={3}>
                                     #General
-                                    
+                                    {this.setTeamUser()}
                                 </Grid.Column>
                                 <Grid.Column computer={3}>
                                     #Finance
+                                    {this.setTeamUser()}
                                 </Grid.Column>   
                                 <Grid.Column computer={3}>
                                     #Marketing
+                                    {this.setTeamUser()}
                                 </Grid.Column>   
                                 <Grid.Column computer={3}>
                                     Add Chanel
+                                    <NavLink to='#' class='buttonAdd'></NavLink>
                                 </Grid.Column>   
                                 <Grid.Column computer={3}>
                                     
