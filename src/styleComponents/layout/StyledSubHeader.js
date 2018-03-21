@@ -48,12 +48,29 @@ export default styled.div`
         width: 74px;
         height: 74px;
     }
+    
+    .close::after,
+    .close::before {     
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 1px;
+      background-color: #fff;
+    }
+    .close::after {
+      transform: rotate(45deg);
+      top: 24px;
+    }
+    .close::before {
+      transform: rotate(135deg);
+      top: 24px;
+    }
 
     .arrow::after,
     .arrow::before {        
         content: '';
         position: absolute;
-        right: 42px;
+        right: 40px;
         width: 8px;
         height: 1px;
         background-color: #fff;
