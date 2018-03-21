@@ -3,9 +3,10 @@ import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/SpecialistsSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
 import { Container } from '../../styleComponents/layout/Container';
-import ClientProfile from './ClientProfile';
-import ClientCompany from './ClientCompany';
-import ClientBilling from './ClientBilling';
+import ClientProfile  from './ClientProfile';
+import ClientCompany  from './ClientCompany';
+import ClientBilling  from './ClientBilling';
+import ClientProjects from './ClientProjects';
 
 class ClientDashboard extends Component {
 
@@ -19,9 +20,7 @@ class ClientDashboard extends Component {
         return (
             <div>
                 <HeaderBasic props={this.props}/>
-                {/* <AsideLeft/> */}
                 {this.renderPage(page)}
-                {/* <AsideRight/> */}
             </div>
         )
     }
@@ -34,6 +33,8 @@ class ClientDashboard extends Component {
               return <ClientCompany/>;
             case 'billing':
               return <ClientBilling/>;
+            case 'projects':
+              return <ClientProjects/>;
             default:
                 return <ClientProfile/>
         }
