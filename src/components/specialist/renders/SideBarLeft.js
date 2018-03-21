@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { StyledBar } from '../../../styleComponents/layout/SideBar';
 import { Accordion } from 'semantic-ui-react';
 
@@ -14,8 +15,11 @@ export default class SideBarLeft extends Component {
                         Projects
                     </Accordion.Title>
                     <Accordion.Content>
+
+                        <NavLink className='projectLink' to='board'>ABC</NavLink>
+                        <NavLink className='projectLink' to='board'>XYZ</NavLink>
                         
-                        <Accordion>
+                        {/* <Accordion>
                             <Accordion.Title index={0}>
                                 ABC
                             </Accordion.Title>
@@ -36,7 +40,8 @@ export default class SideBarLeft extends Component {
                                     <li><a href="#">XYZ content 3</a></li>
                                 </ul>
                             </Accordion.Content>
-                        </Accordion>
+                        </Accordion> */}
+
                         {/* <Accordion>
                             {projects.map((project, index) => 
                                 <div>

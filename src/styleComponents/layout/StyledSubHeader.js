@@ -4,6 +4,7 @@ export default styled.div`
     height: 131px;
     max-width: 1280px;
     margin: 0 auto;
+    margin-top: 20px;
 
     ${props => (props.profile || props.account
         ?  `background: #2d68ee; /* Old browsers */
@@ -48,6 +49,20 @@ export default styled.div`
         font-size: 10px;
         width: 74px;
         height: 74px;
+    }
+
+    .addButt{
+        &::after,
+        &::before{
+            content: '';
+            height: 20px;
+            width: 1px;
+            background: #fff;
+            position: absolute;
+        }
+        &::after{
+            transform: rotate(90deg);
+        }
     }
     
     .close::after,

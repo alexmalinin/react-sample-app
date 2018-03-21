@@ -15,11 +15,8 @@ import SpecialistsMyBillings from './SpecialistsMyBillings';
 import SpecialistAccount from './SpecialistAccount';
 import SpecialistYTD from './SpecialistYTD';
 import SpecialistStatement from './SpecialistStatement';
-<<<<<<< e32ce54129c6540684de7c2698a8b31020a21e1e
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
-=======
 import ProjectsBoard from '../../ProjectsBoard';
->>>>>>> [feature] kanban project page
 
 class SpecialistsDashboard extends Component {
 
@@ -27,7 +24,10 @@ class SpecialistsDashboard extends Component {
         const {match:{params}} = this.props;
         console.log(this.props);
         let page = params['page'];
-        let sidebarCondition = page === 'about' || page === 'board' || page === 'test'
+        let sidebarCondition = 
+             page === 'about' 
+          || page === 'board' 
+          || page === 'test'
           || page === 'statement'
           || page === 'year_to_date'
           || page === 'account'

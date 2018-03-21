@@ -10,6 +10,7 @@ import ProjectsBoard from '../ProjectsBoard';
 import SideBarLeft from './renders/SideBarLeft';
 import SideBarRight from './renders/SideBarRight';
 import { projects, days } from '../../helpers/sidebarDbEmulate';
+import ClientProjects from './ClientProjects';
 
 class ClientDashboard extends Component {
 
@@ -19,7 +20,7 @@ class ClientDashboard extends Component {
 
         const {match:{params}} = this.props;
         let page = params['page'];
-        let sidebarCondition = page === 'projects';
+        let sidebarCondition = page === 'projects' || page === 'board';
 
         return (
             <div>
@@ -43,7 +44,7 @@ class ClientDashboard extends Component {
               return <ClientBilling/>;
             case 'projects':
               return <ClientProjects/>;
-            case 'projects/ABC':
+            case 'board':
               return <ProjectsBoard/>;
             default:
               return <ClientProfile/>

@@ -20,6 +20,23 @@ export const StyledBar = styled.aside`
         left: 0;
         overflow-y: auto;
 
+        .projectLink{
+            display: inline-block;
+            width: 100%;
+            user-select: none;
+            padding: 5px 0 5px 40px;
+            font-size: 16px;
+            color: #b3b3b3;
+            text-transform: uppercase;
+            transition: .2s;
+
+            &:hover{
+                font-weight: bold;
+                color: #7f7f7f;
+                background-color: #00ffc0;
+            }
+        }
+
         &>.ui.accordion{
             width: 100%;
             user-select: none;

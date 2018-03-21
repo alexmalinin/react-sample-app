@@ -12,7 +12,7 @@ import { showSpecialistData } from '../actions/actions';
 import { PORT } from "../constans/constans";
 import { Progress } from 'semantic-ui-react';
 import { S_Board } from "../styleComponents/S_Board";
-import ProjectSubHeader from './layout/ProjectSubHeader';
+import BoardSubHeader from './layout/BoardSubHeader';
 
 class ProjectsBoard extends Component {
     // constructor(props){
@@ -37,7 +37,7 @@ class ProjectsBoard extends Component {
 
         return (
             <ContainerLarge indentBot>
-                    <ProjectSubHeader />
+                    <BoardSubHeader />
                     {/* <DvTitle mTop='80'>
                         Welcome to The Village!
                     </DvTitle>
