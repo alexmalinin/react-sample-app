@@ -36,7 +36,7 @@ class SpecialistsProfile extends Component {
         const { educations, experiences } = this.props;
 
         return (
-            <Container indentTop indentBot className="relative">
+            <Container indentBot className="relative">
                 <SubHeader />
                 {/*<ContainerLarge>*/}
                 {/* <DvTitle mTop='80'>

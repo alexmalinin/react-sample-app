@@ -106,6 +106,16 @@ class BillingForm extends Component {
     return (
         <Grid>
             <Grid.Row>
+                <Grid.Column computer={3}>
+                    {/* { !avatar && <p>Upload your photo</p>} */}
+                      <Field
+                        name='person'
+                        component={RenderImage}
+                        type='file'
+                        avatar={avatar}
+                        placeholder='Choose your photo'
+                      />
+                  </Grid.Column>
                 <Grid.Column mobile={16} computer={10}>
                     <Grid>
                         <Grid.Row>

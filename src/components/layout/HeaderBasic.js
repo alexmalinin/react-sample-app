@@ -49,9 +49,6 @@ class Header extends Component {
                                   <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                  <NavLink to='#'>Projects</NavLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
                                   <NavLink to='#'>Teams</NavLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>

@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const ContainerLarge = styled.div`
     
     margin: 0 auto;
-    max-width: 1280px;
+    max-width: ${ props => props.containerHeader ? `94%` : `1280px` };
     width: 100%;
-
 
     & > .ui.grid {
        margin: 0;

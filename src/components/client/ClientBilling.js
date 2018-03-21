@@ -32,8 +32,8 @@ class ClientBilling extends Component {
         const { renderErrorMessage, renderMessage } = this.state;
 
         return (
-            <div>
-                <Container indentTop indentBot className="relative">
+            <ContainerLarge>
+                <Container indentBot className="relative">
 
                     <SubHeader/>
 
@@ -48,7 +48,7 @@ class ClientBilling extends Component {
                     {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
                     <ClientBillingForm clientData={clientData} onSubmit={this.submit}/>
                 </Container>
-            </div>
+            </ContainerLarge>
         )
     }
 

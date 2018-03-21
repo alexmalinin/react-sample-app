@@ -27,7 +27,7 @@ class SpecialistsMyBillings extends Component {
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
-      <Container indentBot indentTop className="relative">
+      <Container indentBot className="relative">
         <SubHeader />
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>

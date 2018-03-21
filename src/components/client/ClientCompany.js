@@ -33,8 +33,8 @@ class ClientCompany extends Component {
         const { clientData, industries } = this.props;
         console.log('s', industries);
         return (
-            <div>
-                <Container indentTop indentBot className="relative">
+            <ContainerLarge>
+                <Container indentBot className="relative">
 
                     <SubHeader/>
 
@@ -49,7 +49,7 @@ class ClientCompany extends Component {
                     {/* <DvTitleSmall fz='28' xsCenter>My Company</DvTitleSmall> */}
                     <ClientCompanyForm industries={industries} clientData={clientData} onSubmit={this.submit}/>
                 </Container>
-            </div>
+            </ContainerLarge>
         )
     }
 

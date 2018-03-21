@@ -9,14 +9,17 @@ import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
 import SpecialistIndustry from "./SpecialistIndustry";
 import SpecialistsAbout from "./SpecialistsAbout";
-import SpecialistsBoard from "./SpecialistsBoard";
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
 import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from './SpecialistsMyBillings';
 import SpecialistAccount from './SpecialistAccount';
 import SpecialistYTD from './SpecialistYTD';
 import SpecialistStatement from './SpecialistStatement';
+<<<<<<< e32ce54129c6540684de7c2698a8b31020a21e1e
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
+=======
+import ProjectsBoard from '../../ProjectsBoard';
+>>>>>>> [feature] kanban project page
 
 class SpecialistsDashboard extends Component {
 
@@ -57,7 +60,7 @@ class SpecialistsDashboard extends Component {
             case 'about':
                 return <SpecialistsAbout/>;
             case 'board':
-                return <SpecialistsBoard/>;
+                return <ProjectsBoard/>;
             case 'test':
                 return <SpecialistsTest/>;
             case 'account': 

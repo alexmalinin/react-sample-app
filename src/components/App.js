@@ -34,6 +34,7 @@ import Sidebar from '../components/layout/Sidebar';
 import NavigationLinks from './layout/NavigationLinks';
 import AccountLinks from './layout/AccountLinks';
 import StyledSidebar from '../styleComponents/layout/StyledSidebar';
+import ProjectsBoard from './ProjectsBoard';
 
 class App extends Component {
 
@@ -78,36 +79,18 @@ class App extends Component {
                                     <Route path='/confirm_email' component={ ConfirmEmail }/>
                                     <Route path='/reset_password' component={ ConfirmReset }/>
 
-                                    { /*( render_step1 || render_this_step1 ) &&*/
-                                        <Route
-                                            path='/specialists/dashboard/welcome-to-the-village-1/'
-                                            component={SpecialistsWelcome1}
-                                        />
-                                    }
-
-                                    { /*( render_step2 || render_this_step2 ) &&*/
-                                        <Route
-                                            path='/specialists/dashboard/welcome-to-the-village-2'
-                                            component={SpecialistsWelcome2}
-                                        />
-                                    }
-
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
                                     
                                     <Route path='/client/dashboard/:page' component={ ClientDashboard } />
-
-                                    {
-                                        /*( render_step1 || render_client_step ) &&*/
-                                        < Route path='/client/dashboard/welcome-to-the-village/' component={ClientWelcome}/>
-                                    }
+                                    
                                     <Route path='/client/dashboard/profile' component={ClientProfile}/>
-                                    <Route path='/client/dashboard/projects' component={ClientProjects}/>
+                                    <Route path='/client/dashboard/projects' component={ProjectsBoard}/>
                                     <Route path='/client/dashboard/billing' component={ClientBilling}/>
                                     <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
                                     <Route path='/client/dashboard/company' component={ClientCompany}/>
                                     <Route path='*' component={NotFound}/>
                                 </Switch>
-                                <Footer/>
+                                {/* <Footer/> */}
                             </FlexDirection>
                         {/*</Sidebar.Pusher>*/}
                     {/*</Sidebar.Pushable>*/}

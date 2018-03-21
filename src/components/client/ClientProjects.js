@@ -14,6 +14,7 @@ import ClientProjectForm from "./forms/ClientProjectForm";
 
 class ClientProjects extends Component {
 
+<<<<<<< e32ce54129c6540684de7c2698a8b31020a21e1e
   state = {
     renderMessage: false,
     renderErrorMessage: false,
@@ -54,6 +55,39 @@ class ClientProjects extends Component {
     } else if(client.errorProfileId) {
       this.showMessage();
       run(0)();
+=======
+    render() {
+
+        return (
+            <StyledClientTeam>
+                <HeaderBasic/>
+
+                <SubHeader/>
+
+                <Container indentTop  relative xsNoPadding>
+                    <div className='gag'>
+                        <h4>
+                            Thank you for showing your<br/> interest, our Teams platform <br/>will be coming soon.
+                        </h4>
+                    </div>
+                    <DvTitleSmall fz='28' indentNull xsCenter>My Projects</DvTitleSmall>
+
+                    <div className='flex-wrapper'>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                        <RenderProjectCard/>
+                    </div>
+                </Container>
+
+                <Container indentBot>
+                    <NewTeamBtn>
+                        <NavLink to='/post_project'/>
+                        <span>Create a new team</span>
+                    </NewTeamBtn>
+                </Container>
+            </StyledClientTeam>
+        )
+>>>>>>> [feature] kanban project page
     }
   }
 
@@ -76,4 +110,8 @@ class ClientProjects extends Component {
   };
 }
 
+<<<<<<< e32ce54129c6540684de7c2698a8b31020a21e1e
 export default connect(({clientData}) => ({clientData}), {showClientData, updateClientProfile })(ClientProjects);
+=======
+export default ClientProjects;
+>>>>>>> [feature] kanban project page

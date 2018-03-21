@@ -29,8 +29,8 @@ class ClientProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
 
         return (
-            <div>
-                <Container indentTop indentBot className="relative">
+            <ContainerLarge>
+                <Container indentBot className="relative">
 
                     <SubHeader/>
 
@@ -65,7 +65,7 @@ class ClientProfile extends Component {
                         </Grid.Row>
                     </Grid>
                 </Container>
-            </div>
+            </ContainerLarge>
         )
     }
 
