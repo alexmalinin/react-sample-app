@@ -33,7 +33,7 @@ export const Container = styled.div`
     min-height: 75vh;
     /* max-width: 1590px; */
     margin: 0 auto;
-    padding: 0px 20px 80px 20px;
+    padding: ${ props => props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px` } ;
     margin-bottom: 50px;
 
     max-width: 1280px;
@@ -57,6 +57,6 @@ export const Container = styled.div`
     }
     
     @media (min-width: 768px) {
-        padding: 20px 20px 80px 20px;;
+        /* padding: 20px 20px 80px 20px;; */
     }
 `;
