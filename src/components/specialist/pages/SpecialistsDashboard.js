@@ -15,6 +15,7 @@ import SpecialistsMyBillings from './SpecialistsMyBillings';
 import SpecialistAccount from './SpecialistAccount';
 import SpecialistYTD from './SpecialistYTD';
 import SpecialistStatement from './SpecialistStatement';
+import TheVillage from '../../TheVillage';
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 import ProjectsBoard from '../../ProjectsBoard';
 
@@ -69,8 +70,12 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistYTD/>;
             case 'statement': 
                 return <SpecialistStatement/>;
+            case 'the_village':
+                return <TheVillage/>;
+            case 'root':
+                return <Dashboard/>;
             default:
-                return <SpecialistsAbout/>
+                return <SpecialistsAbout/>; 
         }
     };
 }

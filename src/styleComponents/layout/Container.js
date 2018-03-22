@@ -39,7 +39,7 @@ export const Container = styled.div`
     max-width: 1280px;
     margin-top: 0;
     background-color: #fff;
-    box-shadow: 0px 0px 16px 0px #ccc;
+    box-shadow: ${props => props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc` };
     
     /* ${props => props.indentBot ? `margin-bottom: 250px` : ``}; */
     ${props => props.indentTop ? `margin-top: 100px` : ``};
