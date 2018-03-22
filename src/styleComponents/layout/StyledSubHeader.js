@@ -27,7 +27,7 @@ export default styled.div`
     justify-content: space-between;
     padding: 25px 30px 15px;
     box-shadow: 0px 0px 16px 0px #ccc;
-    ${props => props.profile || props.account ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
+    ${props => (props.profile || props.account || props.projects) ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
     
     & > span {
       padding: 10px;
@@ -100,35 +100,33 @@ export default styled.div`
 
     .addLink::after {
         transform: rotate(90deg);
-    }   
+    }
 
     .arrow::after,
     .arrow::before {        
         content: '';
         position: absolute;
-        right: 40px;
+        top: 25px;
+        right: 45%;
         width: 8px;
         height: 1px;
         background-color: #fff;
-    }
-    .arrow::after {
         transform: rotate(45deg);
-        top: 22px;
-        right: 40px;
+        transform-origin: 100% 50%;
     }
+
+    .arrow::before {
+        transform: rotate(-45deg);
+    }
+
     span {
         display: block;
         position: absolute;
         top: 25px;
-        right: 41px;
-        width: 36px;
+        right: 45%;
+        width: 42px;
         height: 1px;
         background-color: #fff;
-    }
-    .arrow::before {
-        transform: rotate(-45deg);
-        top: 28px;
-        right: 40px;
     }
 
     .completeLaterLink:hover {

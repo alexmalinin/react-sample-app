@@ -18,6 +18,7 @@ export default class SideBarLeft extends Component {
 
                         <NavLink className='projectLink' to='board'>ABC</NavLink>
                         <NavLink className='projectLink' to='board'>XYZ</NavLink>
+                        <NavLink className='addProject' to='projects'><span></span> Add project</NavLink>
                         
                         {/* <Accordion>
                             <Accordion.Title index={0}>

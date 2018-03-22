@@ -20,6 +20,7 @@ export const StyledBar = styled.aside`
         left: 0;
         overflow-y: auto;
 
+        .addProject,
         .projectLink{
             display: inline-block;
             width: 100%;
@@ -30,10 +31,53 @@ export const StyledBar = styled.aside`
             text-transform: uppercase;
             transition: .2s;
 
+            span{
+                display: inline-block;
+                position: relative;
+                margin-bottom: -1px;
+                height: 12px;
+                width: 12px;
+                border: 1px solid #b3b3b3;
+                border-radius: 50%;
+                text-align: center;
+
+                &::before,
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: calc(50% - 3px);
+                    height: 6px;
+                    width: 1px;
+                    background-color: #b3b3b3;
+                }
+
+                &::after{
+                    transform: rotate(90deg);
+                }
+            }
+
             &:hover{
                 font-weight: bold;
                 color: #7f7f7f;
                 background-color: #00ffc0;
+
+                span{
+                    border-color: #7f7f7f;
+
+                    &::before,
+                    &::after{
+                        background-color: #7f7f7f;
+                    }
+                }
+            }
+        }
+
+        .addProject{
+            font-size: 12px;
+
+            &:hover{
+                background-color: #f7f7f7;
+                font-weight: normal;
             }
         }
 

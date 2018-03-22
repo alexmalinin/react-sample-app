@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
+import StyledModuleLink from '../../styleComponents/StyledModuleLink';
 
 
 class ProjectSubHeader extends Component {
@@ -11,9 +12,21 @@ class ProjectSubHeader extends Component {
   render() {
 
     return (
-      <StyledSubHeader profile>
-        <div>
-        </div>
+      <StyledSubHeader projects>
+        {this.props.module
+          ? <div>
+            <StyledModuleLink className="moduleBreadcrumb">
+              <NavLink to="#">New module</NavLink>
+            </StyledModuleLink>
+            <StyledModuleLink className="moduleBreadcrumb">
+              <NavLink to="board">Project XYZ</NavLink>
+            </StyledModuleLink>
+            <StyledModuleLink className="moduleBreadcrumb">
+              <NavLink to="#">Root module</NavLink>
+            </StyledModuleLink>
+          </div>
+          : <div></div>
+        }
         <div>
           <SubHeaderLinkWrap url='#' className='rightLink arrow'>
             <span></span>

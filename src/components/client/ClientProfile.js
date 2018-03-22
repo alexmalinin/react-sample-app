@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { Grid } from 'semantic-ui-react'

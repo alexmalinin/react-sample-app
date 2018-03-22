@@ -6,7 +6,7 @@ import Divider from 'semantic-ui-react';
 import StyledInputs from '../../../styleComponents/forms/StyledInputs';
 
 const InputField = props => {
-    const { name, placeholder, disabled, validate, label, ...rest } = props;
+    const { name, placeholder, disabled, validate, label, padded, ...rest} = props;
 
 
     return (
@@ -19,6 +19,7 @@ const InputField = props => {
                 component={RenderField}
                 disabled={disabled}
                 {...rest}
+                padded={padded}
                 validate={validate ? [required, minLength2] : []}
             />
         </div>
