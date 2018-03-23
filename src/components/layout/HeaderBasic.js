@@ -35,16 +35,10 @@ class Header extends Component {
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     {page && <div className='right-links' >
-                        <NavLink className='button square' to='#'></NavLink>
-                        <NavLink className='button settings' to='#'></NavLink>
-                        <NavLink className='button avatar' to='#'></NavLink>
-                        {/* {specialistData 
-                            ? (specialistData.first_name && specialistData.last_name) && 
-                                <NavLink className='button' to='/specialists/dashboard/profile'>
-                                    {specialistData.first_name + ' ' + specialistData.last_name}
-                                </NavLink>
-                            : null
-                        } */}
+                        <NavLink className='button square' to='#'>&nbsp;</NavLink>
+                        <NavLink className='button settings' to='#'>&nbsp;</NavLink>
+                        <NavLink className='button avatar' to='#'>&nbsp;</NavLink>
+
                         <NavLink className='button' to='/specialists/dashboard/profile'>
                             {userType === 'specialist' && specialistData ? (specialistData.first_name || '') + ' ' + (specialistData.last_name || '') : null}
                             {userType === 'client' && clientData ? (clientData.first_name || '') + ' ' + (clientData.last_name || '') : null}
@@ -53,12 +47,10 @@ class Header extends Component {
                         {userType === 'specialist' && <div className="log-dropdown">
                             <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
                             <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
-                            <NavLink to='#'>Teams</NavLink>
+                            <NavLink to='/specialists/dashboard/teams'>Teams</NavLink>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                         </div>}
                         {userType === 'client' && <div className="log-dropdown">
-                            <NavLink to='billing'>Account Billings</NavLink>
-                            <NavLink to='#'>Teams</NavLink>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                         </div>}
                     </div>}
