@@ -35,6 +35,9 @@ import NavigationLinks from './layout/NavigationLinks';
 import AccountLinks from './layout/AccountLinks';
 import StyledSidebar from '../styleComponents/layout/StyledSidebar';
 import ProjectsBoard from './ProjectsBoard';
+import Dashboard from './Dashboard';
+import TheVillage from './TheVillage';
+
 
 class App extends Component {
 

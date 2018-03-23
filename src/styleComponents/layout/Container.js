@@ -33,13 +33,13 @@ export const Container = styled.div`
     min-height: 75vh;
     /* max-width: 1590px; */
     margin: 0 auto;
-    padding: 0px 20px 80px 20px;
+    padding: ${ props => props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px` } ;
     margin-bottom: 50px;
 
     max-width: 1280px;
     margin-top: 0;
     background-color: #fff;
-    box-shadow: 0px 0px 16px 0px #ccc;
+    box-shadow: ${props => props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc` };
     
     /* ${props => props.indentBot ? `margin-bottom: 250px` : ``}; */
     ${props => props.indentTop ? `margin-top: 100px` : ``};
@@ -57,6 +57,6 @@ export const Container = styled.div`
     }
     
     @media (min-width: 768px) {
-        padding: 20px 20px 80px 20px;;
+        /* padding: 20px 20px 80px 20px;; */
     }
 `;

@@ -2,42 +2,49 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import HeaderBasic from '../components/layout/HeaderBasic';
 import { S_MainContainer } from '../styleComponents/layout/S_MainContainer';
-import { ContainerLarge, Container } from '../styleComponents/layout/Container';
+import { Container, ContainerLarge } from '../styleComponents/layout/Container';
 import SideBarLeft from '../components/specialist/renders/SideBarLeft';
 import SideBarRight from '../components/specialist/renders/SideBarRight';
 import { projects, days, team } from '../helpers/sidebarDbEmulate';
 import RenderDashboard from './layout/RenderDashboard';
 import StyledDashBoard from '../styleComponents/StyledDashBoard';
 import DashboardSubHeader from './layout/DashboardSubHeader';
+import RenderVillage from './layout/RenderVillage';
 
-class Dashboard extends Component {
+class TheVillage extends Component {
 
     render() {
 
-        let data = [
+        console.log('village')
+
+        const data = [
             {   
-                title: 'add task',
-                content: ''
+                title: 'jobs',
+                content: '$2m'
             },
             {   
-                title: 'add module',
-                content: ''
+                title: 'modules',
+                content: '3.5K'
             },
             {
-                title: 'add project',
-                content: ''
+                title: 'tasks',
+                content: '1m'
+            },
+            {
+                title: 'specialists',
+                content: '3k'
             }
-        ]
+        ];
 
         return (
-            <ContainerLarge>
-                    <DashboardSubHeader dashboard data={data}/>
+            <ContainerLarge indentTop>
+                    <DashboardSubHeader theVillage data={data}/>
                     <Container dashboardContainer>
-                        <RenderDashboard/>
+                        <RenderVillage />
                     </Container>
             </ContainerLarge>
         )
     }
 }
 
-export default Dashboard;
+export default TheVillage;

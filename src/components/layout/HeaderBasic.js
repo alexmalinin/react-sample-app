@@ -45,12 +45,14 @@ class Header extends Component {
                         </NavLink>
                         <a tabIndex='1' className='log-out'>&nbsp;</a>
                         {userType === 'specialist' && <div className="log-dropdown">
+                            <NavLink to='/specialists/dashboard/root'>Dashboard</NavLink>
                             <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
                             <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
                             <NavLink to='/specialists/dashboard/teams'>Teams</NavLink>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                         </div>}
                         {userType === 'client' && <div className="log-dropdown">
+                            <NavLink to='/client/dashboard/root'>Dashboard</NavLink>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                         </div>}
                     </div>}
