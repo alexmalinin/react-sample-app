@@ -17,27 +17,24 @@ class Dashboard extends Component {
         let data = [
             {   
                 title: 'add task',
-                content: '+'
+                content: ''
             },
             {   
                 title: 'add module',
-                content: '+'
+                content: ''
             },
             {
                 title: 'add project',
-                content: '+'
+                content: ''
             }
         ]
 
         return (
             <ContainerLarge>
-                <StyledDashBoard>
                     <DashboardSubHeader dashboard data={data}/>
                     <Container dashboardContainer>
-                        dashboard
                         <RenderDashboard/>
                     </Container>
-                </StyledDashBoard>
             </ContainerLarge>
         )
     }

@@ -17,7 +17,7 @@ class DashboardSubHeader extends Component {
                 <SubHeaderLinkWrap 
                     content={item.content} 
                     url='#' 
-                    className="dashboard addLikSmall" 
+                    className='dashboard addLikSmall' 
                     key={index}> {item.title} </SubHeaderLinkWrap>
             )
         })
@@ -28,9 +28,9 @@ class DashboardSubHeader extends Component {
         return (
             <StyledSubHeader dashboardSubHeader>
                 <div>
-                    <SubHeaderLinkWrap content='Dashboard' url='/specialists/dashboard/root' className="dashboard active"/>
+                    <SubHeaderLinkWrap content='Dashboard' url='root' className="dashboard active"/>
 
-                    <SubHeaderLinkWrap content='The village' url='/specialists/dashboard/the_village' className="dashboard"/>
+                    <SubHeaderLinkWrap content='The village' url='the_village' className="dashboard"/>
 
                     { this.props.theVillage ? 
                         <SubHeaderLinkWrap theVillage content='filter' url='#' className="filterVillage dashboard"/> : null                    
@@ -39,10 +39,16 @@ class DashboardSubHeader extends Component {
                         <SubHeaderLinkWrap theVillage content='' url='#' className="arrowVillage dashboard"/> : null                    
                     }
                 </div>
-
-                <div>
-                    {this.renderLinks()}
-                </div>
+                    
+                { this.props.dashboard ? 
+                    <div className='plusLink'>
+                        {this.renderLinks()}
+                    </div> :
+                    <div>
+                        {this.renderLinks()}
+                    </div>
+                }
+                
 
             </StyledSubHeader>
         )

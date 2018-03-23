@@ -3,7 +3,7 @@ import RenderCard from './RenderCard';
 import cards from '../../helpers/cardsData';
 import StyledDashBoard from '../../styleComponents/StyledDashBoard';
 
-class RenderDashboard extends Component {
+class RenderVillage extends Component {
 
     renderCards (type) {
         const data = cards;
@@ -25,21 +25,19 @@ class RenderDashboard extends Component {
     render() {
 
         return (
-            <StyledDashBoard>
-                <div className='tasksDue'>
-                     {this.renderCards('tasks_due')}
-                </div>
-                <div className='projects'>
-                    {this.renderCards('projects')}
-                </div>
-                <div className='tasks'>
-                    {this.renderCards('tasks')}
+            <StyledDashBoard village>
+                <div>
+                    <div>{cards.map((card, index) => {
+                    return (
+                        <RenderCard key={index} data={card} village/>
+                    )
+                })}</div>
                 </div>
             </StyledDashBoard>
         )
     }
 }
 
-export default RenderDashboard;
+export default RenderVillage;
 
 

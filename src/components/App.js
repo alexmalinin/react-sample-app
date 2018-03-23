@@ -34,12 +34,10 @@ import Sidebar from '../components/layout/Sidebar';
 import NavigationLinks from './layout/NavigationLinks';
 import AccountLinks from './layout/AccountLinks';
 import StyledSidebar from '../styleComponents/layout/StyledSidebar';
-<<<<<<< bb18ee4d142781993045e7a9f3db1e820349eaa3
 import ProjectsBoard from './ProjectsBoard';
-=======
 import Dashboard from './Dashboard';
 import TheVillage from './TheVillage';
->>>>>>> [feature] implement dashboard subheader
+
 
 class App extends Component {
 

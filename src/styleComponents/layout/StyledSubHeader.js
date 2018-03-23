@@ -137,6 +137,33 @@ export default styled.div`
         }
     }
 
+    .plusLink {
+        a {
+            position: relative;
+        }
+
+        a::before,
+        a::after {
+            content: '';
+            position: absolute;
+            background-color: #fff;
+            top: 28px;
+            left: 26px;
+            width: 20px;
+            height: 1px;
+        }
+
+        a::before {
+            transform: rotate(90deg);
+
+        }
+
+        a:first-of-type::before,
+        a:first-of-type::after {
+            left: 18px;
+        }
+    }
+
     .filterVillage,
     .arrowVillage {
         border: none !important;

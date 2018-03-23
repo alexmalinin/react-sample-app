@@ -9,6 +9,7 @@ import { projects, days, team } from '../helpers/sidebarDbEmulate';
 import RenderDashboard from './layout/RenderDashboard';
 import StyledDashBoard from '../styleComponents/StyledDashBoard';
 import DashboardSubHeader from './layout/DashboardSubHeader';
+import RenderVillage from './layout/RenderVillage';
 
 class TheVillage extends Component {
 
@@ -33,17 +34,14 @@ class TheVillage extends Component {
                 title: 'specialists',
                 content: '3k'
             }
-        ]
+        ];
 
         return (
-            <ContainerLarge>
-                <StyledDashBoard>
+            <ContainerLarge indentTop>
                     <DashboardSubHeader theVillage data={data}/>
                     <Container dashboardContainer>
-                        village
-                        <RenderDashboard/>
+                        <RenderVillage />
                     </Container>
-                </StyledDashBoard>
             </ContainerLarge>
         )
     }

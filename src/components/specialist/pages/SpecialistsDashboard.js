@@ -18,6 +18,7 @@ import SpecialistStatement from './SpecialistStatement';
 import TheVillage from '../../TheVillage';
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 import ProjectsBoard from '../../ProjectsBoard';
+import Dashboard from '../../Dashboard';
 
 class SpecialistsDashboard extends Component {
 
@@ -32,7 +33,9 @@ class SpecialistsDashboard extends Component {
           || page === 'statement'
           || page === 'year_to_date'
           || page === 'account'
-          || page === 'teams';
+          || page === 'teams'
+          || page === 'the_village'
+          || page === 'root';
 
         return (
             <div>

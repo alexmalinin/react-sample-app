@@ -5,20 +5,21 @@ const cards = [
         subtitle: 'progress',
         progress: [
             {
-                content: '58%',
+                count: '58%',
                 description: 'projectABC',
             },
             {
-                content: '12%',
+                count: '12%',
                 description: 'projectDEF',
             },
             {
-                content: '5%',
+                count: '5%',
                 description: 'project JKL',
             },
         ],
-        subtitleColor: 'green',
-        background: 'grey',
+        backgroundImg: '/images/dashboard-img.png',
+        subtitleColor: '#00ffc0',
+        titleColor: '#f2f2f2',
         size: {
             col: 2,
             row: 2
@@ -26,7 +27,7 @@ const cards = [
     },
     {
         type: 'projects',
-        title: 'lorem ipsum',
+        title: 'Project ABC',
         subtitle: 'dolor sit amet',
         content: [
             {
@@ -38,30 +39,31 @@ const cards = [
                 description: 'overdue',
             },
             {
-                date: 12/12/18
+                description: '12/12/18'
             }
         ],
         progress: [
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'modules',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'tasks',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'project progress',
             },
         ],
         team: [
             'user',
             'user',
-            'user'
+            'user',
+            'user',
+            'user',
         ],
-        subtitleColor: 'violet',
-        background: 'grey',
+        subtitleColor: '#8a2be0',
         size: {
             col: 2,
             row: 2
@@ -70,44 +72,80 @@ const cards = [
     {
         type: 'tasks_due',
         title: 'Tasks Due',
+        subtitle: 'today',
         progress: [
             {
-                content: 12,
+                count: 12,
                 description: 'all tasks',
             },
             {
-                content: 1,
+                count: 1,
                 description: 'your tasks',
             },
         ],
-        background: 'grey',
-        subtitleColor: 'blue',
+        subtitleColor: '#0093f6',
 
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
     },
     {
         type: 'tasks_due',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
+        days: [
+                {
+                    day: 'Today', 
+                    data: ['sample task 1', 'sample task 2', 'sample task 3']
+                },
+                {
+                    day: 'Tomorrow', 
+                    data: ['sample task 1', 'sample task 2654', 'sample task 1233']
+                },
+                {
+                    day: 'Current', 
+                    data: ['sample task 1', 'sample task 278989', 'sample task 87993']
+                },
+            ],
         
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#0093f6',
+        size: {
+            col: 1,
+            row: 4
+        }
+    },
+    {
+        type: 'tasks',
+        title: 'lorem ipsum',
+        subtitle: 'dolor sit amet',
+        progress: [
+            {
+                count: '2/3',
+                description: 'modules',
+            },
+            {
+                count: '2/3',
+                description: 'tasks',
+            },
+            {
+                count: '2/3',
+                description: 'project progress',
+            },
+        ],
+        subtitleColor: '#0093f6',
+        size: {
+            col: 1,
+            row: 1
+        }
+    },
+    {
+        type: 'other',
+        title: 'lorem ipsum',
+        subtitle: 'dolor sit amet',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
+        backgroundImg: '/images/dashboardImg2.png',
         size: {
             col: 2,
             row: 2
@@ -117,40 +155,30 @@ const cards = [
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
         progress: [
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'modules',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'tasks',
             },
-            {
-                content: 2/3,
-                description: 'project progress',
-            },
         ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
+        size: {
+            col: 1,
+            row: 1
+        }
+    },
+    {
+        type: 'other',
+        title: 'lorem ipsum',
+        subtitle: 'dolor sit amet',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
+        backgroundImg: '/images/dashboardImg3.png',
         size: {
             col: 2,
             row: 2
@@ -160,304 +188,101 @@ const cards = [
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
         progress: [
             {
-                content: 2/3,
-                description: 'modules',
-            },
-            {
-                content: 2/3,
+                count: '2/3',
                 description: 'tasks',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'project progress',
             },
         ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
     },
     {
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
         progress: [
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'modules',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'tasks',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'project progress',
             },
         ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
     },
     {
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
         progress: [
             {
-                content: 2/3,
-                description: 'modules',
-            },
-            {
-                content: 2/3,
-                description: 'tasks',
-            },
-            {
-                content: 2/3,
+                count: '2/3',
                 description: 'project progress',
             },
         ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
     },
     {
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
-        progress: [
-            {
-                content: 2/3,
-                description: 'modules',
-            },
-            {
-                content: 2/3,
-                description: 'tasks',
-            },
-            {
-                content: 2/3,
-                description: 'project progress',
-            },
-        ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#ccc',
+        background: '#f2f2f2',
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
     },
     {
         type: 'tasks',
         title: 'lorem ipsum',
         subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
         progress: [
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'modules',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'tasks',
             },
             {
-                content: 2/3,
+                count: '2/3',
                 description: 'project progress',
             },
         ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
+        subtitleColor: '#fff',
+        background: '#00ffc0',
         size: {
-            col: 2,
-            row: 2
+            col: 1,
+            row: 1
         }
-    },
-    {
-        type: 'tasks',
-        title: 'lorem ipsum',
-        subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
-        progress: [
-            {
-                content: 2/3,
-                description: 'modules',
-            },
-            {
-                content: 2/3,
-                description: 'tasks',
-            },
-            {
-                content: 2/3,
-                description: 'project progress',
-            },
-        ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
-        size: {
-            col: 2,
-            row: 2
-        }
-    },
-    {
-        type: 'tasks',
-        title: 'lorem ipsum',
-        subtitle: 'dolor sit amet',
-        content: [
-            {
-                count: 5,
-                description: 'of this week',
-            },
-            {
-                count: 2,
-                description: 'overdue',
-            },
-            {
-                date: 12/12/18
-            }
-        ],
-        progress: [
-            {
-                content: 2/3,
-                description: 'modules',
-            },
-            {
-                content: 2/3,
-                description: 'tasks',
-            },
-            {
-                content: 2/3,
-                description: 'project progress',
-            },
-        ],
-        team: [
-            'user',
-            'user',
-            'user'
-        ],
-        subtitleColor: 'green',
-        background: 'white',
-        size: {
-            col: 2,
-            row: 2
-        }
-    },
-    
+    },    
 ];
 
 export default cards;
