@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
 import { getIndustries, updateSpecialistBillings, showSpecialistData } from '../../../actions/actions'
@@ -16,10 +17,10 @@ class SpecialistsMyBillings extends Component {
   state = {
     renderMessage: false,
     renderErrorMessage: false,
+    nextStep: false,
   };
 
   componentWillMount() {
-    console.log('show');
     this.props.showSpecialistData();
   }
 
@@ -45,13 +46,13 @@ class SpecialistsMyBillings extends Component {
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
         <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
+        {this.state.nextStep && <Redirect to="about"/>}
 
       </Container>
     )
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('will', this.props);
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
@@ -68,8 +69,9 @@ class SpecialistsMyBillings extends Component {
         return this.setState({
           renderMessage: false,
           renderErrorMessage: false,
+          nextStep: true,
         })
-      }, 2000
+      }, 1500
     );
 
     status === 'success'
@@ -82,7 +84,6 @@ class SpecialistsMyBillings extends Component {
   };
 
   submit = values => {
-    console.log("gg");
     this.props.updateSpecialistBillings(values);
   };
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
@@ -21,6 +22,7 @@ class SpecialistsProfile extends Component {
     state = {
         renderMessage: false,
         renderErrorMessage: false,
+        nextStep: false,
     };
 
     componentWillMount() {
@@ -56,6 +58,7 @@ class SpecialistsProfile extends Component {
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                             <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences} specialistModal/>
+                            {this.state.nextStep && <Redirect to="industry"/>}
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
@@ -107,12 +110,13 @@ class SpecialistsProfile extends Component {
                     renderMessage: false,
                     renderErrorMessage: false,
                 })
-            }, 2000
+            }, 1500
         );
 
         status === 'success'
             ? this.setState({
                 renderMessage: true,
+                nextStep: true,
             })
             : this.setState({
                 renderErrorMessage: true,

@@ -25,7 +25,7 @@ class ClientDashboard extends Component {
 
         return (
             <div>
-                <HeaderBasic props={this.props} page={sidebarCondition}/>
+                <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={projects}/>}
                         {this.renderPage(page)}

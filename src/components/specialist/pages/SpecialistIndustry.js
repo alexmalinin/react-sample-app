@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
 import SpecialistIndustryForm from '../forms/SpecialistIndustryForm';
@@ -16,6 +17,7 @@ class SpecialistIndustry extends Component {
     state = {
         renderMessage: false,
         renderErrorMessage: false,
+        nextStep: false,
     };
 
     componentWillMount() {
@@ -52,6 +54,7 @@ class SpecialistIndustry extends Component {
                         experienceLevels={experienceLevels}
                         specialistData={specialistData}
                         onSubmit={this.submit} />
+                        {this.state.nextStep && <Redirect to="company"/>}
             </Container>
         )
     }
@@ -75,12 +78,13 @@ class SpecialistIndustry extends Component {
                     renderMessage: false,
                     renderErrorMessage: false,
                 })
-            }, 2000
+            }, 1500
         );
 
         status === 'success'
             ? this.setState({
                 renderMessage: true,
+                nextStep: true
             })
             : this.setState({
                 renderErrorMessage: true,

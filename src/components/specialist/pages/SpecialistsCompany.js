@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
 import { getIndustries, updateSpecStep2, showSpecialistData } from '../../../actions/actions'
@@ -46,6 +47,7 @@ class SpecialistCompany extends Component {
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
         <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
+        {this.state.nextStep && <Redirect to="billings"/>}
 
       </Container>
     )
@@ -70,12 +72,13 @@ class SpecialistCompany extends Component {
           renderMessage: false,
           renderErrorMessage: false,
         })
-      }, 2000
+      }, 1500
     );
 
     status === 'success'
       ? this.setState({
       renderMessage: true,
+      nextStep: true,
     })
       : this.setState({
       renderErrorMessage: true,
