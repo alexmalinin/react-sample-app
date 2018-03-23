@@ -10,7 +10,7 @@ import { S_Message } from '../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
 import Navbar from "../layout/Navbar";
-import ClientProjectForm from "./forms/ClientProjectForm";
+import ClientModuleForm from './forms/ClientModuleForm';
 
 class ClientProjects extends Component {
 
@@ -25,7 +25,7 @@ class ClientProjects extends Component {
 
     return (
         <ContainerLarge>
-          <SubHeader/>
+          <SubHeader module/>
           <Container indentBot>
             <S_Message positive profile data-show={renderMessage}>
               <Message.Header>Success!</Message.Header>
@@ -36,7 +36,7 @@ class ClientProjects extends Component {
               <p>Something went wrong, please try again</p>
             </S_Message>
 
-            <ClientProjectForm />
+            <ClientModuleForm/>
           </Container>
         </ContainerLarge>
     );

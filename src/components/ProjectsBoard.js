@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { Tab } from 'semantic-ui-react'
 import { Container, ContainerLarge } from '../styleComponents/layout/Container';
@@ -13,6 +14,7 @@ import { PORT } from "../constans/constans";
 import { Progress } from 'semantic-ui-react';
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from './layout/BoardSubHeader';
+import { run } from '../helpers/scrollToElement';
 
 class ProjectsBoard extends Component {
     // constructor(props){
@@ -38,11 +40,7 @@ class ProjectsBoard extends Component {
         return (
             <ContainerLarge indentBot>
                     <BoardSubHeader />
-                    {/* <DvTitle mTop='80'>
-                        Welcome to The Village!
-                    </DvTitle>
-                    <DvTitleSmall>Board</DvTitleSmall>
-                    <Progress percent={44} progress active color='blue'/> */}
+                    
                     <S_Board>
                         <h3>Backlog</h3>
                         <h3>In Progress</h3>
@@ -101,10 +99,10 @@ class ProjectsBoard extends Component {
                         <div className="dragContainer">
                             <h3>&nbsp;</h3>
                             <div className="module">
-                                <div className="addButt">
+                                <NavLink to="module" onClick={run(0)()} className="addButt">
                                     <span className="plus">+</span>
                                     <span className="add">Add module</span>
-                                </div>
+                                </NavLink>
                             </div>
                         </div>
                     </S_Board>

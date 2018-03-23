@@ -11,12 +11,13 @@ export default class RenderSelect extends Component {
             meta: { touched, error, warning },
             input,
             label,
+            small,
             ...rest
         } = this.props;
         let { value, onChange } = input;
 
         return (
-            <StyledInputs {...rest}>
+            <StyledInputs {...rest} small={small}>
                 <label>{label}</label>
                 <StyledSelect
                     error={touched && error}

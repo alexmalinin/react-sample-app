@@ -11,6 +11,7 @@ import SideBarLeft from './renders/SideBarLeft';
 import SideBarRight from './renders/SideBarRight';
 import { projects, days } from '../../helpers/sidebarDbEmulate';
 import ClientProjects from './ClientProjects';
+import ClientModule from './ClientModule';
 
 class ClientDashboard extends Component {
 
@@ -20,11 +21,11 @@ class ClientDashboard extends Component {
 
         const {match:{params}} = this.props;
         let page = params['page'];
-        let sidebarCondition = page === 'projects' || page === 'board';
+        let sidebarCondition = page === 'projects' || page === 'board' || page === 'module';
 
         return (
             <div>
-                <HeaderBasic props={this.props}/>
+                <HeaderBasic props={this.props} page={sidebarCondition}/>
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={projects}/>}
                         {this.renderPage(page)}
@@ -44,6 +45,8 @@ class ClientDashboard extends Component {
               return <ClientBilling/>;
             case 'projects':
               return <ClientProjects/>;
+            case 'module':
+              return <ClientModule/>;
             case 'board':
               return <ProjectsBoard/>;
             default:

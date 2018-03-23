@@ -12,11 +12,14 @@ const RenderTextArea = ({
                                 id,
                                 text,
                                 label,
-                                meta: { touched, error, warning }
+                                meta: { touched, error, warning },
+                                className,
+                                large,
+                                padded
                             }) =>
-    <StyledTextArea>
+    <StyledTextArea className={className} large={large} padded={padded}>
         <p>{label}</p>
-        <textarea {...input} name={name} placeholder={placeholder} id={id}/>
+        <textarea {...input} name={name} placeholder={placeholder} id={id} />
         {touched &&
         ((error &&
             <StyledError>

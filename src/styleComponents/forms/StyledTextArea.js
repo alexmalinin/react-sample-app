@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const StyledTextArea = styled.div`
 
+    ${props => props.padded ? `padding: 0 20px` : ``};
+
     p {
         font-size: 12px;
         text-transform: uppercase;
@@ -30,6 +32,28 @@ export const StyledTextArea = styled.div`
             border: 2px solid #f2f2f2;
             min-height: 160px;
             margin-bottom: 0;
+        }
+    }
+
+    &.area{
+        p{
+            margin-top: 20px;
+        }
+
+        textarea{
+            padding: 8px;
+            margin-bottom: 15px;
+            border: none;
+            min-height: 72px;
+            height: ${props => props.large ? `108px` : `72px`};
+            overflow: hidden;
+            line-height: 36px;
+            resize: none;  
+            background-image: -moz-linear-gradient(top , transparent, transparent 34px,#f2f2f2 2px);
+            background-image: -webkit-linear-gradient(top , transparent, transparent 34px,#f2f2f2 2px);
+
+            -webkit-background-size:  100% 50px;
+            background-size: 100% 36px;
         }
     }
 `;

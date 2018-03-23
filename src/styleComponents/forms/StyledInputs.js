@@ -4,13 +4,16 @@ export default styled.div`
     
     border-radius: 0 !important;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: ${props => props.small ? `7px` : `20px`};
     padding-top: 20px;
+
+    ${props => props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``};
+    ${props => props.small ? `display: inline-block; margin: 20px 40px 0 20px;` : ``}
 
     label {
         position: absolute;
         top: 0;
-        left: ${props => props.accountInput? `0` : `10px`};
+        left: ${props => props.accountInput? `0` : props.padded ? `30px` : `10px`};
         font-size:  ${props => props.accountInput? `10px` : `12px`};
         text-transform: uppercase;
         color:  ${props => props.accountInput? `#999` : `#666`};
@@ -19,7 +22,6 @@ export default styled.div`
 
     .ui.input {
         width: 100%;
-
         input {
             border: none;
             border-bottom: 2px solid #f2f2f2;
@@ -33,6 +35,7 @@ export default styled.div`
 
     .Select-input {
         height: 41px;
+        ${props => props.small ? `width: 200px;` : ``}
     }
 
     .Select-placeholder,
@@ -46,7 +49,7 @@ export default styled.div`
 
     .Select-value-label {
         color: #ccc !important;
-    }    
+    }
 
     @media (min-width: 1921px) {
         

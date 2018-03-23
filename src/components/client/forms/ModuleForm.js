@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, change } from 'redux-form';
+import { NavLink } from 'react-router-dom';
 import { required } from '../../../helpers/validate';
 import {renderField} from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { SaveBtn } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
-import { Grid } from 'semantic-ui-react';
+import GridColumn, { Grid } from 'semantic-ui-react';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import { employeers } from '../../../helpers/selects/employeers';
 import RenderFile from '../../forms/renders/RenderFile';
+import StyledModuleLink from '../../../styleComponents/StyledModuleLink';
 
-class ProjectForm extends Component {
+class ModuleForm extends Component {
 
   render() {
     const { submitting, clientData} = this.props;
@@ -19,18 +21,26 @@ class ProjectForm extends Component {
     return (
       <Grid padded>
         <Grid.Row>
+          <Grid.Column computer={16}>
+
+            <StyledModuleLink className="moduleNumber">
+                <NavLink to="board">Module number </NavLink>
+            </StyledModuleLink>
+
+          </Grid.Column>
           <Grid.Column computer={8}>
-            <InputField
-              name="name"
-              label="Project name"
-              padded
-            />
 
             <Field name="description" component={RenderTextArea} label="Brief / Description *" className="area" padded/>
-          </Grid.Column>
-          <Grid.Column computer={8} verticalAlign='bottom' >
 
-            <Field 
+          </Grid.Column>
+          <Grid.Column computer={8}>
+
+            <Grid>
+              <Grid.Column computer={6}>
+                <Field name="status" component={RenderSelect} label="status" small/>
+              </Grid.Column>
+              <Grid.Column computer={10}>
+              <Field 
               name="file" 
               type="file"
               component={RenderFile} 
@@ -38,6 +48,12 @@ class ProjectForm extends Component {
               className="area"
               padded
             />
+              </Grid.Column>
+            </Grid>
+
+            
+
+            
 
           </Grid.Column>
         {/* </Grid.Row>
@@ -81,4 +97,4 @@ class ProjectForm extends Component {
   }
 }
 
-export default ProjectForm;
+export default ModuleForm;
