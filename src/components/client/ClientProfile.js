@@ -18,6 +18,7 @@ class ClientProfile extends Component {
     state = {
         renderMessage: false,
         renderErrorMessage: false,
+        nextStep: false,
     };
 
     componentWillMount() {
@@ -48,6 +49,7 @@ class ClientProfile extends Component {
                             <Grid.Column mobile={16} tablet={12} computer={16}>
                                 {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                                 <RenderProfileForm onSubmit={this.submit}/>
+                                {this.state.nextStep && <Redirect to="company"/>}
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -92,26 +94,25 @@ class ClientProfile extends Component {
     }
 
     showMessage = status => {
-        setTimeout( () => {
-                return this.setState({
+        setTimeout( () => this.setState({
                     renderMessage: false,
                     renderErrorMessage: false,
-                })
-            }, 2000
+                }), 1500
         );
 
         status === 'success'
             ? this.setState({
                 renderMessage: true,
+                nextStep: true,
             })
             : this.setState({
                 renderErrorMessage: true,
-            })
-    };
+            });
+    }
 
     submit = values => {
         this.props.updateClientProfile(values);
-    };
+    }
 
 }
 

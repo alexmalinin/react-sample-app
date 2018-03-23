@@ -82,12 +82,7 @@ class App extends Component {
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
                                     
                                     <Route path='/client/dashboard/:page' component={ ClientDashboard } />
-                                    
-                                    <Route path='/client/dashboard/profile' component={ClientProfile}/>
-                                    <Route path='/client/dashboard/projects' component={ProjectsBoard}/>
-                                    <Route path='/client/dashboard/billing' component={ClientBilling}/>
-                                    <Route path='/client/dashboard/my_teams' component={ClientMyTeams}/>
-                                    <Route path='/client/dashboard/company' component={ClientCompany}/>
+
                                     <Route path='*' component={NotFound}/>
                                 </Switch>
                                 {/* <Footer/> */}

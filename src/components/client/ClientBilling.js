@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import { NavLink } from 'react-router-dom'
 import SubHeader from '../layout/ClientSubHeader';
@@ -21,6 +22,7 @@ class ClientBilling extends Component {
     state = {
         renderMessage: false,
         renderErrorMessage: false,
+        nextStep: false,
     };
 
     componentWillMount() {
@@ -47,6 +49,7 @@ class ClientBilling extends Component {
                     </S_Message>
                     {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
                     <ClientBillingForm clientData={clientData} onSubmit={this.submit}/>
+                    {this.state.nextStep && <Redirect to="board"/>}
                 </Container>
             </ContainerLarge>
         )
@@ -64,13 +67,11 @@ class ClientBilling extends Component {
     }
 
     showMessage = status => {
-        console.log('status');
-        setTimeout( () => {
-                return this.setState({
+        setTimeout( () => this.setState({
                     renderMessage: false,
                     renderErrorMessage: false,
-                })
-            }, 2000
+                    nextStep: true,
+                }), 1500
         );
 
         status === 'success'

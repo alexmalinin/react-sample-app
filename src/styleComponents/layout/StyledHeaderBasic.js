@@ -10,13 +10,19 @@ export default styled.header`
         padding-left: 40px;
         padding-right: 40px;
     
-        div {
+        &>div {
             min-width: 20%;
             display: flex;
             justify-content: space-between;
 
-            .log-out{
+            .right-links{
+                display: flex;
                 min-width: auto;
+
+                a{
+                    margin-right: 15px;
+                    margin-left: 15px;
+                }
             }
         }
  
@@ -64,7 +70,9 @@ export default styled.header`
     }
 
     .log-out {
-        position: relative;
+        /* position: relative; */
+        width: 30px;
+        outline: none;
 
         &::after {
             content: '';
@@ -82,10 +90,37 @@ export default styled.header`
             transition: .2s ease-in-out;
         }
 
-        &.active{
+        &:focus{
             &::after{
                 transform: rotate(-45deg);
             }
+
+            &~.log-dropdown{
+                display: flex;
+            }
+        }
+    }
+
+    .log-dropdown{
+        display: none;
+        flex-flow: column nowrap;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        padding: 10px;
+
+        background-color: #fff;
+        box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+
+        a{
+            flex: 40px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        &:hover{
+            display: flex;
         }
     }
     

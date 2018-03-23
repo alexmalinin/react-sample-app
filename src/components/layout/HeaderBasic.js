@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import StyledHeaderBasic from '../../styleComponents/layout/StyledHeaderBasic';
 import { ContainerLarge }from '../../styleComponents/layout/Container';
-import { showSpecialistData } from '../../actions/actions';
+import { showSpecialistData, showClientData } from '../../actions/actions';
 import { Dropdown } from 'semantic-ui-react';
 
 class Header extends Component {
@@ -13,12 +13,20 @@ class Header extends Component {
     };
 
     componentWillMount() {
-        this.props.showSpecialistData();
+
+
+        if(this.props.userType === 'specialist'){
+            this.props.showSpecialistData();
+        }
+
+        if(this.props.userType === 'client'){
+            this.props.showClientData();
+        }
     }
 
     render() {
-        let { specialistData, page } = this.props;
-        
+        let { specialistData, clientData, page, userType } = this.props;
+
         return (
             <StyledHeaderBasic className='header-basic'>
                 <ContainerLarge containerHeader>
@@ -26,7 +34,7 @@ class Header extends Component {
                         <span>Digital Village</span>
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
-                    {page && <div>
+                    {page && <div className='right-links' >
                         <NavLink className='button square' to='#'></NavLink>
                         <NavLink className='button settings' to='#'></NavLink>
                         <NavLink className='button avatar' to='#'></NavLink>
@@ -38,24 +46,21 @@ class Header extends Component {
                             : null
                         } */}
                         <NavLink className='button' to='/specialists/dashboard/profile'>
-                            {specialistData ? (specialistData.first_name || '') + ' ' + (specialistData.last_name || '') : null}
+                            {userType === 'specialist' && specialistData ? (specialistData.first_name || '') + ' ' + (specialistData.last_name || '') : null}
+                            {userType === 'client' && clientData ? (clientData.first_name || '') + ' ' + (clientData.last_name || '') : null}
                         </NavLink>
-                        <Dropdown text='' icon='none' className='log-out'>
-                            <Dropdown.Menu>
-                                <Dropdown.Item>
-                                  <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <NavLink to='#'>Teams</NavLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <a tabIndex='1' className='log-out'>&nbsp;</a>
+                        {userType === 'specialist' && <div className="log-dropdown">
+                            <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
+                            <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
+                            <NavLink to='#'>Teams</NavLink>
+                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                        </div>}
+                        {userType === 'client' && <div className="log-dropdown">
+                            <NavLink to='billing'>Account Billings</NavLink>
+                            <NavLink to='#'>Teams</NavLink>
+                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                        </div>}
                     </div>}
                 </ContainerLarge>
             </StyledHeaderBasic>
@@ -69,6 +74,6 @@ class Header extends Component {
 }
 
 export default connect(
-    ({ specialistData }) => ({ specialistData }),
-    { showSpecialistData }
+    ({ specialistData, clientData }) => ({ specialistData, clientData }),
+    { showSpecialistData, showClientData }
 )(Header);
