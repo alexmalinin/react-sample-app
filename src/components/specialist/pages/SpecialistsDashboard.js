@@ -35,7 +35,7 @@ class SpecialistsDashboard extends Component {
 
         return (
             <div>
-                <HeaderBasic page={sidebarCondition} />
+                <HeaderBasic page={sidebarCondition} userType="specialist"/>
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={projects}/>}
                         {this.renderPage(page)}
