@@ -33,13 +33,16 @@ class SpecialistsProfile extends Component {
         this.props.showSpecialistData();
     }
 
+
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
         const { educations, experiences } = this.props;
 
+        console.log(this.state.percents, "percents");
+
         return (
             <Container indentBot className="relative">
-                <SubHeader />
+                <SubHeader/>
                 {/*<ContainerLarge>*/}
                 {/* <DvTitle mTop='80'>
                     Welcome to The Village!
@@ -57,7 +60,12 @@ class SpecialistsProfile extends Component {
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
-                            <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences} specialistModal/>
+                            <RenderProfileForm 
+                                collectPercent={this.collectPercent}
+                                onSubmit={this.submit} 
+                                educations={educations} 
+                                experiences={experiences} 
+                                specialistModal/>
                             {this.state.nextStep && <Redirect to="industry"/>}
                           {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>

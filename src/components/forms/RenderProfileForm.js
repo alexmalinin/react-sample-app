@@ -4,7 +4,7 @@ import {Field, reduxForm, change} from 'redux-form';
 import {required} from '../../helpers/validate';
 import { SaveBtn, DvButton } from '../../styleComponents/layout/DvButton'
 import InputField from './renders/InputField';
-import {RenderField} from './renders/RenderField';
+import RenderField from './renders/RenderField';
 import EmailField from './renders/EmailField';
 import StyledPhoneField from '../../styleComponents/forms/StyledPhoneField';
 import RenderPhone from './renders/RenderPhone';
@@ -23,9 +23,59 @@ window.change = change;
 // let renderErrorSpec   = true;
 // let renderErrorClient = true;
 
-class RenderProfileForm  extends Component {
+class RenderProfileForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            allFields: 7,
+            filedFields: 0,
+            fetch: true,
+
+        }
+
+        this.fields = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone_code: '',
+            phone_number: '',
+            country: '',
+            city: '',
+            description: '',
+            professional_experience_info: '',
+        };
+
+        this.handleFormField = this.handleFormField.bind(this);
+    }
+
+    handleFormField(e) {
+        let data = e.target.value;
+        this.fields[e.target.name] = data;
+
+        let arr = []
+
+        for (let key in this.fields) {
+            if (this.fields[key] !== '') {
+                arr.push(this.fields[key]) 
+            }   
+        }
+        let countFields = arr.length;
+
+        this.setState({
+            filedFields: countFields,
+        })
+
+        let percents = Math.round((countFields / this.state.allFields) * 100);
+        this.setState({
+            percents
+        });
+
+    }
 
     render() {
+
+        console.log('ololo', this.state)
 
         const { handleSubmit, educations, experiences, submitting, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
@@ -50,6 +100,9 @@ class RenderProfileForm  extends Component {
                                 avatar={avatar}
                                 placeholder='Choose your photo'
                             />
+
+
+                            PERCENTS = {this.state.percents}
                         </Grid.Column>
                         <Grid.Column computer={10}> 
                             <Grid>
@@ -59,16 +112,20 @@ class RenderProfileForm  extends Component {
                                             name="first_name"
                                             label="First Name"
                                             validate={[required]}
+                                            handleFormField={this.handleFormField}
                                         />
                                         
                                         <InputField
                                             name="city"
                                             label="City"
                                             validate={[required]}
+                                            handleFormField={this.handleFormField}
                                         />
                                         <StyledPhoneField>
                                             <span>Phone</span>
-                                            <RenderPhone />
+                                            <RenderPhone 
+                                                handleFormField={this.handleFormField}
+                                            />
                                         </StyledPhoneField>                                        
                                     </Grid.Column>
                                     <Grid.Column computer={8}>
@@ -76,16 +133,19 @@ class RenderProfileForm  extends Component {
                                             name="last_name"
                                             label="Last Name"
                                             validate={[required]}
+                                            handleFormField={this.handleFormField}
                                         />
                                         <InputField
                                             name="country"
                                             label="Country"
                                             validate={[required]}
+                                            handleFormField={this.handleFormField}
                                         />
                                         <EmailField
                                             name="email"
                                             label="Email"
                                             validate={[required]}
+                                            handleFormField={this.handleFormField}
                                         />
                                     </Grid.Column>
                                 </Grid.Row>
@@ -96,7 +156,8 @@ class RenderProfileForm  extends Component {
                                         <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
                                             <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
                                                     label={'Write a paragraph or two about your professional experience '} 
-                                                    component={RenderTextArea} 
+                                                    component={RenderTextArea}
+                                                    handleFormField={this.handleFormField} 
                                             />
                                         </div>
                                     </Grid.Column>
@@ -150,14 +211,20 @@ class RenderProfileForm  extends Component {
     }
 
     componentWillUpdate(nextProps) {
-        if (nextProps.clientData) {
+        if (nextProps.clientData && this.state.fetch) {
             // if (renderErrorSpec) {
                 this.fillFields(nextProps.clientData);
+                this.setState({
+                    fetch: false
+                });
                 // renderErrorSpec = false;
             // }
-        } else if (nextProps.specialistData) {
+        } else if (nextProps.specialistData && this.state.fetch) {
             // if (renderErrorClient) {
                 this.fillFields(nextProps.specialistData);
+                this.setState({
+                    fetch: false
+                });
                 // renderErrorClient = false;
             // }
         }
@@ -168,10 +235,11 @@ class RenderProfileForm  extends Component {
         let { first_name, last_name, email, address, phone_code, phone_number,
           professional_experience_info, description, clearPassword, avatar} = data;
 
+        console.log(data, 'myData');
         // console.log('country', address.country);
         // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
-        this.props.dispatch(change('RenderProfileForm', "last_name" ,   last_name));
+        this.props.dispatch(change('RenderProfileForm', 'last_name' ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));
         this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
         this.props.dispatch(change('RenderProfileForm', 'phone_number', phone_number));
@@ -186,4 +254,6 @@ RenderProfileForm = reduxForm({
     form: 'RenderProfileForm'
 })(RenderProfileForm);
 
-export default connect( ({clientData, specialistData}) => ({clientData, specialistData}))(RenderProfileForm);
+export default connect( 
+    ({clientData, specialistData, percents }) => ({clientData, specialistData, percents})
+)(RenderProfileForm);

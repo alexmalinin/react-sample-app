@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import { job_titles } from '../../../helpers/selects/job_titles';
-import {RenderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
 import { DvButton, SaveBtn } from '../../../styleComponents/layout/DvButton';

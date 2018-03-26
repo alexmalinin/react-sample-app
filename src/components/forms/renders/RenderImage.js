@@ -6,6 +6,7 @@ import { PORT } from "../../../constans/constans";
 class RenderImage extends Component {
 
     state = { file: '', imagePreviewUrl: '' };
+    
 
     _handleImageChange(e) {
         e.preventDefault();
@@ -27,7 +28,7 @@ class RenderImage extends Component {
 
     render() {
         console.log('---avatar', this.props.avatar);
-
+        
         const {
             avatar,
             input,

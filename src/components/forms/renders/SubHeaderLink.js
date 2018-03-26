@@ -13,6 +13,7 @@ class SubHeaderLink extends Component {
         return (
             <StyledSubHeaderLink className={this.props.className}>
                 {this.props.number}
+                {/* <span></span> */}
             </StyledSubHeaderLink>
         )
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change, formValueSelector } from 'redux-form';
 import RenderSelect from '../../forms/renders/RenderSelect';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';

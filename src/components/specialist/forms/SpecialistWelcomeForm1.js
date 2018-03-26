@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { reduxForm, change } from 'redux-form';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import SkillsForm from "./SkillsForm";
 import { formValueSelector } from 'redux-form';
 import { run } from '../../../helpers/scrollToElement';

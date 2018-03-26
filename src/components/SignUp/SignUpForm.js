@@ -22,7 +22,7 @@ class SignUpForm extends Component  {
 
                 <EmailField
                     name='email'
-                    placeholder='Your email /'
+                    placeholder='Your email'
                 />
 
                 {person === 'Client' && this.props.children}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { renderField } from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderCheckbox from '../../forms/renders/RenderCheckbox';
 import {testCheckboxes} from '../../../helpers/selects/testCheckboxes';
 import { DropDownCircle } from '../../../styleComponents/StyledDropdown';

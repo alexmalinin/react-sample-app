@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { renderField } from '../forms/renders/RenderField';
+import RenderField from '../forms/renders/RenderField';
 import WebDevelopment from './forms/WebDevelopment';
 import WebDesign from './forms/WebDesign';
 import ApplicationDesign from './forms/ApplicationDesign';

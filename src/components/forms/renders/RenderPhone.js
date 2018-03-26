@@ -1,11 +1,11 @@
 import React from 'react';
 import RenderSelect from './RenderSelect';
 import { Field } from 'redux-form';
-import { RenderField } from './RenderField';
+import RenderField from './RenderField';
 import { required } from '../../../helpers/validate';
 import { phoneCodes } from '../../../helpers/selects/phoneCodes'
 
-const RenderPhone = ({hasPerson, value}, props) => {
+const RenderPhone = ({hasPerson, value, handleFormField}) => {
         return (
             <div className='phone-wrapper'>
                 <Field
@@ -20,6 +20,7 @@ const RenderPhone = ({hasPerson, value}, props) => {
                     component={RenderField}
                     type='number'
                     placeholder=''
+                    handleFormField={handleFormField}
                 />
             </div>            
         )
