@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field, change } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { required, minLength8 } from '../../helpers/validate';
-import { RenderField } from '../forms/renders/RenderField';
+import RenderField from '../forms/renders/RenderField';
 import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import EmailField from '../forms/renders/EmailField';

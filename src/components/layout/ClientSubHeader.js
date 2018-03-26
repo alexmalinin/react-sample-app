@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+import ProgressBars from '../layout/ProgressBar';
 
 class SubHeader extends Component {
 
@@ -9,17 +10,20 @@ class SubHeader extends Component {
 
         return (
             <StyledSubHeader>
-                 <div>
+                 <div className='progressBarsLink'>
                     <SubHeaderLinkWrap content='1' url='/client/dashboard/profile'>
                         My Profile
+                        <ProgressBars percents={this.props.percents.profilePercent}/>
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='2' url='/client/dashboard/company'>
                         My Company
+                        <ProgressBars percents={this.props.percents.companyPercent}/>
                     </SubHeaderLinkWrap> 
 
                     <SubHeaderLinkWrap content='3' url='/client/dashboard/billing'>
                         My Billings
+                        <ProgressBars percents={this.props.percents.billingPercent}/>
                     </SubHeaderLinkWrap>                 
                 </div>
                 <div>

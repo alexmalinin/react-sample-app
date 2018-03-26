@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import SubHeaderLink from './SubHeaderLink'
+import SubHeaderLink from './SubHeaderLink';
+import ProgressBars from '../../layout/ProgressBar';
 
 class SubHeaderLinkWrap extends Component {
     constructor (props) {

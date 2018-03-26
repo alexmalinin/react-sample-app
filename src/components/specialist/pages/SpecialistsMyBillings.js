@@ -14,11 +14,64 @@ import SpecialistBillingForm from '../forms/SpecialistBillingForm';
 
 class SpecialistsMyBillings extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-    nextStep: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
+    };
+
+    this.billing_type;
+
+    this.direct_payment = {
+      bank_account_details: null, 
+      swift_code: null
+    }
+
+    this.company_payment = {
+      manager: null,
+      company_name: null,
+    }
+
+    this.handleFormField = this.handleFormField.bind(this);
+    this.swichTab = this.swichTab.bind(this)
+  }
+
+  handleFormField(e) {
+    let data = e.target.value;
+
+    if(this.billing_type === '0') {
+      this.direct_payment[e.target.name] = data;
+      this.props.calculatePagePercent('billingPercent', this.direct_payment);
+    }
+
+    if(this.billing_type === '1') {
+      this.company_payment[e.target.name] = data;
+      this.props.calculatePagePercent('billingPercent', this.company_payment);
+    }
+  }
+
+  swichTab(tab) {
+    this.billing_type = tab
+  }
+
+  setData() {
+    if(this.props.specialistData) {
+      if(this.props.specialistData.specialist_billing) {
+        const { bank_account_details, swift_code, manager, company_name } = this.props.specialistData.specialist_billing
+        this.direct_payment = {
+            bank_account_details, 
+            swift_code,
+        }
+        this.company_payment = {
+            manager,
+            company_name,
+        }
+      }
+    }
+  }
 
   componentWillMount() {
     this.props.showSpecialistData();
@@ -28,8 +81,7 @@ class SpecialistsMyBillings extends Component {
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -45,14 +97,21 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
-        <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
+        <SpecialistBillingForm swichTab={this.swichTab} data={this.props.specialistData} onSubmit={this.submit} handleFormField={this.handleFormField}/>
         {this.state.nextStep && <Redirect to="about"/>}
 
-      </Container>
+      </div>
     )
   }
 
   componentWillReceiveProps(nextProps) {
+
+    if (this.props.specialistData) {
+      if (this.props.specialistData.first_name) {
+        this.setData()
+      }
+    }
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();

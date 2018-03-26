@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { DvButton } from '../../../styleComponents/layout/DvButton'

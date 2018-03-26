@@ -14,10 +14,54 @@ import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
 
 class SpecialistCompany extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
+    };
+
+    this.data = {
+      city: null, 
+      company_address: null, 
+      country: null, 
+      industry_area_id: null, 
+      name: null, 
+      number_of_employers: null, 
+      segment: null, 
+      website: null,
+    }
+
+    this.handleFormField = this.handleFormField.bind(this);
+  }
+
+  handleFormField(e) {
+    let data = e.target.value;
+    this.data[e.target.name] = data;
+
+    this.props.calculatePagePercent('companyPercent', this.data);
+  }
+
+  setData() {
+    if(this.props.specialistData) {
+      if(this.props.specialistData.company) {
+        const { city, company_address, country, industry_area_id, name, number_of_employers, segment, website } = this.props.specialistData.company
+        
+        this.data = {
+            city, 
+            company_address, 
+            country, 
+            industry_area_id, 
+            name, 
+            number_of_employers, 
+            segment, 
+            website
+        }
+      }
+    }
+  }
 
   componentWillMount() {
     this.props.getIndustries();
@@ -29,8 +73,7 @@ class SpecialistCompany extends Component {
     const { industries } = this.props;
 
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -46,15 +89,21 @@ class SpecialistCompany extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
+        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} handleFormField={this.handleFormField} />
         {this.state.nextStep && <Redirect to="billings"/>}
 
-      </Container>
+      </div>
     )
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('das',nextProps);
+
+    if (this.props.specialistData) {
+      if (this.props.specialistData.first_name) {
+        this.setData()
+      }
+    }
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();

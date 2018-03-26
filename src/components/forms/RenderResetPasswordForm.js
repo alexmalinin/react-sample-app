@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { required } from "../../helpers/validate";
 import {Field, reduxForm} from 'redux-form';
 import { DvButton, SaveBtn } from '../../styleComponents/layout/DvButton'
-import {RenderField} from './renders/RenderField';
+import RenderField from './renders/RenderField';
 import { changePassword } from "../../actions/actions";
 import { Grid } from 'semantic-ui-react';
 

@@ -17,13 +17,55 @@ import { run } from '../../../helpers/scrollToElement';
 import AsideLeft from "../renders/AsideLeft";
 import AsideRight from "../renders/AsideRight";
 
+const PERCENTS_NAME = 'propfilePercent'
+
 class SpecialistsProfile extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+        };
+
+        this.data = {
+            first_name: null,
+            last_name: null,
+            email: null,
+            city: null,
+            country: null,
+            phone_number: null,
+            professional_experience_info: null,
+        }
+
+        this.handleFormField = this.handleFormField.bind(this);
+    }
+
+    handleFormField(e) {
+        let data = e.target.value;
+        this.data[e.target.name] = data;
+        
+        this.props.calculatePagePercent('profilePercent', this.data);
+    }
+
+    setData() {
+        if(this.props.specialistData) {
+            if(this.props.specialistData.first_name) {
+                const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info } = this.props.specialistData;
+                this.data = {
+                    first_name,
+                    last_name,
+                    email,
+                    city,
+                    country,
+                    phone_number,
+                    professional_experience_info,
+                }
+            }
+        }
+    }
 
     componentWillMount() {
         run(0)(true);
@@ -33,18 +75,13 @@ class SpecialistsProfile extends Component {
         this.props.showSpecialistData();
     }
 
+
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
         const { educations, experiences } = this.props;
 
         return (
-            <Container indentBot className="relative">
-                <SubHeader />
-                {/*<ContainerLarge>*/}
-                {/* <DvTitle mTop='80'>
-                    Welcome to The Village!
-                </DvTitle> */}
-                {/*</ContainerLarge>*/}
+            <div>
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
@@ -56,10 +93,13 @@ class SpecialistsProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
-                            <RenderProfileForm onSubmit={this.submit} educations={educations} experiences={experiences} specialistModal/>
+                            <RenderProfileForm 
+                                handleFormField={this.handleFormField}
+                                onSubmit={this.submit} 
+                                educations={educations} 
+                                experiences={experiences} 
+                                specialistModal/>
                             {this.state.nextStep && <Redirect to="industry"/>}
-                          {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             <Grid>
@@ -79,13 +119,20 @@ class SpecialistsProfile extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </Container>
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
         let client = nextProps.specialistData;
         let password = nextProps.confirmPassword;
+
+        if (this.props.specialistData) {
+            if (this.props.specialistData.first_name) {
+                this.setData()
+            }
+        }
+            
 
         if (client.successProfileId) {
             this.showMessage('success');
@@ -125,7 +172,6 @@ class SpecialistsProfile extends Component {
 
     submit = values => {
         const { updateSpecialistProfile, educations, experiences } = this.props;
-        console.log(values);
         updateSpecialistProfile(values, educations, experiences);
     };
 }

@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import HeaderBasic from '../../layout/HeaderBasic';
 import SubHeader from '../../layout/SpecialistsSubHeader';
+import { connect } from 'react-redux';
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import SideBarLeft from '../renders/SideBarLeft';
 import SideBarRight from '../renders/SideBarRight';
@@ -19,12 +20,131 @@ import TheVillage from '../../TheVillage';
 import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 import ProjectsBoard from '../../ProjectsBoard';
 import Dashboard from '../../Dashboard';
+import { Container } from '../../../styleComponents/layout/Container';
+import { showSpecialistData, updateSpecialistProfile } from '../../../actions/actions';
 
 class SpecialistsDashboard extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            profilePercent: null,
+            industryPercent: null,
+            companyPercent: null,
+            billingPercent: null,
+        }
+        this.calculatePagePercent = this.calculatePagePercent.bind(this)
+    }
+
+    collectPropfileData() {
+        const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info, } = this.props.specialistData
+        const data = {
+            first_name,
+            last_name,
+            email,
+            city,
+            country,
+            phone_number,
+            professional_experience_info,
+        }
+        return data;
+    }
+
+    collectIndustryData() {
+        const { job_title, position, industry_title, experience_level_id, contact_number, hourly_rate, } = this.props.specialistData
+        const data = {
+            job_title,
+            position, 
+            industry_title, 
+            experience_level_id, 
+            contact_number,  
+            hourly_rate,   
+        }
+        return data;
+    }
+
+    collectCompanyData() {
+        if (this.props.specialistData.company) {
+            const { city, company_address, country, industry_area_id, number_of_employers, segment, website } = this.props.specialistData.company
+                const data = {
+                city, 
+                company_address, 
+                country, 
+                industry_area_id, 
+                number_of_employers, 
+                segment, 
+                website
+            }
+            return data;
+        }
+        
+    }
+
+    collectBillingData() {
+        if (this.props.specialistData.specialist_billing) {
+
+            const { billing_type, bank_account_details, swift_code, company_name, manager } = this.props.specialistData.specialist_billing
+            if (billing_type === 0) {
+                const data = {
+                    bank_account_details,                     
+                    swift_code
+                }
+                return data;
+            }
+
+            if (billing_type === 1) {
+                const data = {
+                    company_name,                     
+                    manager
+                }
+                return data;
+            }
+            
+        }
+        
+    }
+
+    calculatePagePercent(percentName, data) {
+        let arr = [];
+        let arr2 = [];
+        for (let key in data) {
+            if (data[key]) {
+                arr2.push(data[key]) 
+            }
+            arr.push(data[key])
+        }
+
+        const filedFields = arr2.length
+        const allFields = arr.length
+        
+        const percents = Math.round((filedFields / allFields) * 100);
+
+        this.setState({
+            [percentName]: percents,
+        })       
+    }
+
+    calculatePercents() {
+
+        if (this.props.specialistData) {
+            if (this.props.specialistData.first_name) {
+                const profileData = this.collectPropfileData()
+                const industryData = this.collectIndustryData()
+                const companyData = this.collectCompanyData()
+                const billingData = this.collectBillingData()
+
+                this.calculatePagePercent('profilePercent', profileData);
+                this.calculatePagePercent('industryPercent', industryData);
+                this.calculatePagePercent('companyPercent', companyData);
+                this.calculatePagePercent('billingPercent', billingData);
+            }
+        }
+    }
+
     render() {
+
+        console.log(this.props)
         const {match:{params}} = this.props;
-        console.log(this.props);
         let page = params['page'];
         let sidebarCondition = 
              page === 'about' 
@@ -38,11 +158,18 @@ class SpecialistsDashboard extends Component {
           || page === 'root';
 
         return (
+
             <div>
                 <HeaderBasic page={sidebarCondition} userType="specialist"/>
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={projects}/>}
-                        {this.renderPage(page)}
+                        {sidebarCondition 
+                            ? this.renderPage(page)
+                            : <Container>
+                                <SubHeader percents={this.state}/>
+                                {this.renderPage(page)}
+                              </Container>
+                        }
                     {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
                 </S_MainContainer>
             </div>
@@ -52,15 +179,15 @@ class SpecialistsDashboard extends Component {
     renderPage = (page) => {
         switch (page) {
             case 'profile':
-                return <SpecialistsProfile/>;
+                return <SpecialistsProfile calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
             case 'teams':
                 return <SpecialistsMyTeams team={team}/>;
             case 'industry':
-                return <SpecialistIndustry/>;
+                return <SpecialistIndustry calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
             case 'company':
-              return <SpecialistsCompany/>;
+              return <SpecialistsCompany calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
             case 'billings':
-              return <SpecialistsMyBillings/>;
+              return <SpecialistsMyBillings calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
             case 'about':
                 return <SpecialistsAbout/>;
             case 'board':
@@ -81,6 +208,18 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistsAbout/>; 
         }
     };
+
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps.specialistData) {
+            if (nextProps.specialistData.first_name) {
+                this.calculatePercents()   
+            }
+        }
+    }
 }
 
-export default SpecialistsDashboard;
+export default connect(
+    ({specialistData, confirmPassword,  educations, experiences}) => ({specialistData, confirmPassword,  educations, experiences}),
+    { showSpecialistData, updateSpecialistProfile }
+)(SpecialistsDashboard);

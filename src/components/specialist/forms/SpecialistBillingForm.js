@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change, formValueSelector } from 'redux-form';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import BillingForm from "./BillingForm";
 
 let renderError = true;
@@ -11,7 +11,7 @@ class SpecialistBillingForm extends Component {
   render() {
 
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit} handleFormField={this.props.handleFormField} swichTab={this.props.swichTab}>
         <BillingForm { ...this.props }/>
       </form>
     )

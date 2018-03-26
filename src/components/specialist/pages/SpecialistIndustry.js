@@ -14,11 +14,55 @@ import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistIndustry extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+        };
+
+        this.data = {
+            job_title: null,
+            position: null,
+            industry_title: null,
+            experience_level_id: null,
+            contact_number: null,
+            project_type_name: null,
+            hourly_rate: null,
+            available: null,
+        }
+
+        this.handleFormField = this.handleFormField.bind(this);
+    }
+
+    handleFormField(e) {
+        let data = e.target.value;
+        this.data[e.target.name] = data;
+
+        this.props.calculatePagePercent('industryPercent', this.data);
+    }
+
+    setData() {
+        if(this.props.specialistData) {
+            if(this.props.specialistData.first_name) {
+                const { job_title, position, industry_title, contact_number, hourly_rate, available, experience_level_id, } = this.props.specialistData;
+                const project_type_name = this.props.specialistData.project_type.name;
+
+                this.data = {
+                    job_title,
+                    position,
+                    industry_title,
+                    experience_level_id,
+                    contact_number,
+                    project_type_name,
+                    hourly_rate,
+                    available,
+                }
+            }
+        }
+    }
 
     componentWillMount() {
         this.props.getIndustries();
@@ -28,17 +72,12 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
+
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
         return (
-            <Container indentBot className="relative">
-                <SubHeader />
-                {/*<ContainerLarge>*/}
-                {/* <DvTitle mTop='80'>
-                    Welcome to The Village!
-                </DvTitle> */}
-                {/*</ContainerLarge>*/}
+            <div>
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
@@ -47,20 +86,26 @@ class SpecialistIndustry extends Component {
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>
-                {/* <DvTitleSmall>My Services</DvTitleSmall> */}
                 <SpecialistIndustryForm
+                        handleFormField={this.handleFormField}
                         industries={industries}
                         projectTypes={projectTypes}
                         experienceLevels={experienceLevels}
                         specialistData={specialistData}
                         onSubmit={this.submit} />
                         {this.state.nextStep && <Redirect to="company"/>}
-            </Container>
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+
+        if (this.props.specialistData) {
+            if (this.props.specialistData.first_name) {
+                this.setData()
+            }
+        }
+
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successIndustryId) {
                 run(0)();
