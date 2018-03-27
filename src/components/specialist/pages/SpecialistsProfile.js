@@ -17,6 +17,8 @@ import { run } from '../../../helpers/scrollToElement';
 import AsideLeft from "../renders/AsideLeft";
 import AsideRight from "../renders/AsideRight";
 
+const PERCENTS_NAME = 'propfilePercent'
+
 class SpecialistsProfile extends Component {
 
     constructor() {
@@ -65,7 +67,7 @@ class SpecialistsProfile extends Component {
     calculatePercent(data) {
         let arr = [];
         for (let key in data) {
-            if (data[key] !== '') {
+            if (data[key]) {
                 arr.push(data[key]) 
             }   
         }
@@ -92,7 +94,7 @@ class SpecialistsProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
         const { educations, experiences } = this.props;
 
-        this.props.setPercentIntoSubheader(this.state.percents);
+        this.props.setPercentIntoSubheader(PERCENTS_NAME, this.state.percents);
 
         return (
             // <Container indentBot className="relative">

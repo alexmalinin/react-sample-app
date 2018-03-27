@@ -35,10 +35,10 @@ class SpecialistsDashboard extends Component {
         this.setPercentIntoSubheader = this.setPercentIntoSubheader.bind(this);
     }
 
-    setPercentIntoSubheader(percents) {
+    setPercentIntoSubheader(percentName, percents) {
 
         this.setState({
-            propfilePercent: percents
+            [percentName]: percents,
         })
     }
 

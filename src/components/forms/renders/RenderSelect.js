@@ -6,6 +6,21 @@ import StyledSelect from '../../../styleComponents/forms/StyledSelect'
 
 export default class RenderSelect extends Component {
 
+    handleSelectChange = (e) => {
+        const { label, value } = e
+        const { input, handleFormField } = this.props
+        const { name, onChange } = input
+        onChange(e)
+        console.log(this.props)
+
+        handleFormField({
+            target: {
+                name,
+                value
+            }
+        })
+    }
+
     render() {
         let {
             meta: { touched, error, warning },
@@ -23,8 +38,7 @@ export default class RenderSelect extends Component {
                 <StyledSelect
                     error={touched && error}
                     value={ value }
-                    onChange={onChange}
-                    onBlur={handleFormField}
+                    onChange={this.handleSelectChange}
                     {...rest}
                 />
                 {touched &&

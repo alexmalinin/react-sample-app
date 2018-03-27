@@ -21,7 +21,7 @@ class SpecialistIndustry extends Component {
             renderMessage: false,
             renderErrorMessage: false,
             nextStep: false,
-            allFields: 6,
+            allFields: 12,
             filedFields: 0,
         };
 
