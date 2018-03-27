@@ -14,10 +14,63 @@ import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
 
 class SpecialistCompany extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+        renderMessage: false,
+        renderErrorMessage: false,
+        nextStep: false,
+        allFields: 7,
+        filedFields: 0,
+    };
+
+    this.data = {};
+
+    this.handleFormField = this.handleFormField.bind(this);
+  }
+
+  handleFormField(e) {
+    console.log('iv alive')
+    let data = e.target.value;
+    this.data[e.target.name] = data;
+    this.calculatePercent(this.data);
+  }
+
+  handleInit() {
+    if (this.props.specialistData) {
+      if(this.props.specialistData.first_name){
+        const {first_name, last_name, email, phone_number, address: {city, country}, professional_experience_info,} = this.props.specialistData;
+          this.data = {
+            first_name,
+            last_name,
+            email,
+            city,
+            country,
+            phone_number,
+            professional_experience_info,
+          }
+          this.calculatePercent(this.data);
+        }   
+      }        
+    }
+
+  calculatePercent(data) {
+    let arr = [];
+    for (let key in data) {
+      if (data[key] !== '') {
+          arr.push(data[key]) 
+      }   
+    }
+    let countFields = arr.length;
+    this.setState({
+        filedFields: countFields,
+    })
+    let percents = Math.round((countFields / this.state.allFields) * 100);
+    this.setState({
+        percents
+    });
+  } 
 
   componentWillMount() {
     this.props.getIndustries();
@@ -28,9 +81,11 @@ class SpecialistCompany extends Component {
     const { renderMessage, renderErrorMessage } = this.state;
     const { industries } = this.props;
 
+    console.log('qwerty', this.state.percents)
+
+
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -46,14 +101,19 @@ class SpecialistCompany extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
+        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} handleFormField={this.handleFormField} />
         {this.state.nextStep && <Redirect to="billings"/>}
 
-      </Container>
+      </div>
     )
   }
 
   componentWillReceiveProps(nextProps) {
+
+    if (this.props.specialistData) {
+      this.handleInit()
+      }
+
     console.log('das',nextProps);
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {

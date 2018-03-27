@@ -28,8 +28,7 @@ class SpecialistsMyBillings extends Component {
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -48,7 +47,7 @@ class SpecialistsMyBillings extends Component {
         <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
         {this.state.nextStep && <Redirect to="about"/>}
 
-      </Container>
+      </div>
     )
   }
 

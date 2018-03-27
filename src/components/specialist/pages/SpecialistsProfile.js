@@ -19,11 +19,65 @@ import AsideRight from "../renders/AsideRight";
 
 class SpecialistsProfile extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+            allFields: 7,
+            filedFields: 0,
+        };
+
+        this.data = {};
+
+        this.handleFormField = this.handleFormField.bind(this);
+    }
+
+    handleFormField(e) {
+        console.log('iv alive')
+        let data = e.target.value;
+        this.data[e.target.name] = data;
+        this.calculatePercent(this.data);
+    }
+
+    handleInit() {
+
+        if (this.props.specialistData) {
+            if(this.props.specialistData.first_name){
+                const {first_name, last_name, email, phone_number, address: {city, country}, professional_experience_info,} = this.props.specialistData;
+                this.data = {
+                    first_name,
+                    last_name,
+                    email,
+                    city,
+                    country,
+                    phone_number,
+                    professional_experience_info,
+                }
+                this.calculatePercent(this.data);
+            }   
+        }     
+        
+    }
+
+    calculatePercent(data) {
+        let arr = [];
+        for (let key in data) {
+            if (data[key] !== '') {
+                arr.push(data[key]) 
+            }   
+        }
+        let countFields = arr.length;
+        this.setState({
+            filedFields: countFields,
+        })
+        let percents = Math.round((countFields / this.state.allFields) * 100);
+        this.setState({
+            percents
+        });
+    }
 
     componentWillMount() {
         run(0)(true);
@@ -38,16 +92,12 @@ class SpecialistsProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
         const { educations, experiences } = this.props;
 
-        console.log(this.state.percents, "percents");
+        this.props.setPercentIntoSubheader(this.state.percents);
 
         return (
-            <Container indentBot className="relative">
-                <SubHeader/>
-                {/*<ContainerLarge>*/}
-                {/* <DvTitle mTop='80'>
-                    Welcome to The Village!
-                </DvTitle> */}
-                {/*</ContainerLarge>*/}
+            // <Container indentBot className="relative">
+            //     <SubHeader percents={this.state.percents}/>
+            <div>
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
@@ -59,15 +109,13 @@ class SpecialistsProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                             <RenderProfileForm 
-                                collectPercent={this.collectPercent}
+                                handleFormField={this.handleFormField}
                                 onSubmit={this.submit} 
                                 educations={educations} 
                                 experiences={experiences} 
                                 specialistModal/>
                             {this.state.nextStep && <Redirect to="industry"/>}
-                          {/*educations={educations} experiences={experiences} specialistData={specialistData} */}
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             <Grid>
@@ -87,13 +135,17 @@ class SpecialistsProfile extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            </Container>
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
         let client = nextProps.specialistData;
         let password = nextProps.confirmPassword;
+
+        if (client) {
+            this.handleInit()
+        }
 
         if (client.successProfileId) {
             this.showMessage('success');

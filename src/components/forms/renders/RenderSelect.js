@@ -12,6 +12,7 @@ export default class RenderSelect extends Component {
             input,
             label,
             small,
+            handleFormField,
             ...rest
         } = this.props;
         let { value, onChange } = input;
@@ -23,6 +24,7 @@ export default class RenderSelect extends Component {
                     error={touched && error}
                     value={ value }
                     onChange={onChange}
+                    onBlur={handleFormField}
                     {...rest}
                 />
                 {touched &&

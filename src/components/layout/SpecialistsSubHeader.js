@@ -14,11 +14,11 @@ class SubHeader extends Component {
             <StyledSubHeader>
                 <div>
                     <SubHeaderLinkWrap content='1' url='/specialists/dashboard/profile'>
-                        My Profile || {this.props.percents}
+                        My Profile || {this.props.percents.propfilePercent}
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='2' url='/specialists/dashboard/industry'>
-                        My Services
+                        My Services || {this.props.percents.industryPercent}
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='3' url='/specialists/dashboard/company'>

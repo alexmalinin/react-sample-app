@@ -14,11 +14,73 @@ import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistIndustry extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+            allFields: 6,
+            filedFields: 0,
+        };
+
+        this.data = {};
+        this.handleFormField = this.handleFormField.bind(this);
+    }
+
+    handleFormField(e) {
+
+        let data = e.target.value;
+        this.data[e.target.name] = data;
+        this.calculatePercent(this.data);
+        
+        console.log('1313', this.data,)
+    }
+
+    handleInit() {
+
+        if (this.props.specialistData) {
+            if(this.props.specialistData.job_title){
+
+                const job_title = this.props.specialistData.job_title;
+                const position = this.props.specialistData.position;
+                const industry_title = this.props.specialistData.industry_title;
+                const experience_level_id = this.props.specialistData.experience_level_id;
+                const contact_number = this.props.specialistData.contact_number;
+                const hourly_rate = this.props.specialistData.hourly_rate;
+                const posavailableition = this.props.specialistData.available;
+                
+                this.data = {
+                    job_title,
+                    position, 
+                    industry_title, 
+                    experience_level_id, 
+                    contact_number,  
+                    hourly_rate,    
+                    }
+                }
+            console.log('thisdata', this.data)
+            this.calculatePercent(this.data);
+        }   
+    }     
+
+    calculatePercent(data) {
+        let arr = [];
+        for (let key in data) {
+            if (data[key] !== '') {
+                arr.push(data[key]) 
+            }   
+        }
+        let countFields = arr.length;
+        this.setState({
+            filedFields: countFields,
+        })
+        let percents = Math.round((countFields / this.state.allFields) * 100);
+        this.setState({
+            percents
+        });
+    }
 
     componentWillMount() {
         this.props.getIndustries();
@@ -28,12 +90,13 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
+        console.log('iv alive', this.data, this.state.percents)
+
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
         return (
-            <Container indentBot className="relative">
-                <SubHeader />
+            <div>
                 {/*<ContainerLarge>*/}
                 {/* <DvTitle mTop='80'>
                     Welcome to The Village!
@@ -49,17 +112,23 @@ class SpecialistIndustry extends Component {
                 </S_Message>
                 {/* <DvTitleSmall>My Services</DvTitleSmall> */}
                 <SpecialistIndustryForm
+                        handleFormField={this.handleFormField}
                         industries={industries}
                         projectTypes={projectTypes}
                         experienceLevels={experienceLevels}
                         specialistData={specialistData}
                         onSubmit={this.submit} />
                         {this.state.nextStep && <Redirect to="company"/>}
-            </Container>
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
+
+        if (this.props.specialistData) {
+            this.handleInit()
+        }
+
         console.log(nextProps);
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successIndustryId) {
