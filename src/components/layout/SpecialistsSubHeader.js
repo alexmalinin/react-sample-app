@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
+ 
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+import MyProgressBar from '../layout/MyProgressBar';
+
 
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
-
 
 class SubHeader extends Component {
 
@@ -14,7 +15,9 @@ class SubHeader extends Component {
             <StyledSubHeader>
                 <div>
                     <SubHeaderLinkWrap content='1' url='/specialists/dashboard/profile'>
-                        My Profile || {this.props.percents.propfilePercent}
+                        My Profile || {this.props.percents.profilePercent}
+                        {/* <MyProgressBar/> */}
+                        
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='2' url='/specialists/dashboard/industry'>
@@ -22,11 +25,11 @@ class SubHeader extends Component {
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='3' url='/specialists/dashboard/company'>
-                        My Company
+                        My Company || {this.props.percents.companyPercent}
                     </SubHeaderLinkWrap> 
 
                     <SubHeaderLinkWrap content='4' url='/specialists/dashboard/billings'>
-                        My Billings
+                        My Billings || {this.props.percents.billingPercent}
                     </SubHeaderLinkWrap>                 
                 </div>
                 <div>

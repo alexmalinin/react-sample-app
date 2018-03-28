@@ -21,65 +21,47 @@ class SpecialistIndustry extends Component {
             renderMessage: false,
             renderErrorMessage: false,
             nextStep: false,
-            allFields: 12,
-            filedFields: 0,
         };
 
-        this.data = {};
+        this.data = {
+            job_title: null,
+            position: null,
+            industry_title: null,
+            experience_level_id: null,
+            contact_number: null,
+            project_type_name: null,
+            hourly_rate: null,
+            available: null,
+        }
+
         this.handleFormField = this.handleFormField.bind(this);
     }
 
     handleFormField(e) {
-
         let data = e.target.value;
         this.data[e.target.name] = data;
-        this.calculatePercent(this.data);
-        
-        console.log('1313', this.data,)
+
+        this.props.calculatePagePercent('industryPercent', this.data);
     }
 
-    handleInit() {
+    setData() {
+        if(this.props.specialistData) {
+            if(this.props.specialistData.first_name) {
+                const { job_title, position, industry_title, contact_number, hourly_rate, available, experience_level_id, } = this.props.specialistData;
+                const project_type_name = this.props.specialistData.project_type.name;
 
-        if (this.props.specialistData) {
-            if(this.props.specialistData.job_title){
-
-                const job_title = this.props.specialistData.job_title;
-                const position = this.props.specialistData.position;
-                const industry_title = this.props.specialistData.industry_title;
-                const experience_level_id = this.props.specialistData.experience_level_id;
-                const contact_number = this.props.specialistData.contact_number;
-                const hourly_rate = this.props.specialistData.hourly_rate;
-                const posavailableition = this.props.specialistData.available;
-                
                 this.data = {
                     job_title,
-                    position, 
-                    industry_title, 
-                    experience_level_id, 
-                    contact_number,  
-                    hourly_rate,    
-                    }
+                    position,
+                    industry_title,
+                    experience_level_id,
+                    contact_number,
+                    project_type_name,
+                    hourly_rate,
+                    available,
                 }
-            console.log('thisdata', this.data)
-            this.calculatePercent(this.data);
-        }   
-    }     
-
-    calculatePercent(data) {
-        let arr = [];
-        for (let key in data) {
-            if (data[key] !== '') {
-                arr.push(data[key]) 
-            }   
+            }
         }
-        let countFields = arr.length;
-        this.setState({
-            filedFields: countFields,
-        })
-        let percents = Math.round((countFields / this.state.allFields) * 100);
-        this.setState({
-            percents
-        });
     }
 
     componentWillMount() {
@@ -90,18 +72,12 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
-        console.log('iv alive', this.data, this.state.percents)
 
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
         return (
             <div>
-                {/*<ContainerLarge>*/}
-                {/* <DvTitle mTop='80'>
-                    Welcome to The Village!
-                </DvTitle> */}
-                {/*</ContainerLarge>*/}
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
@@ -110,7 +86,6 @@ class SpecialistIndustry extends Component {
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>
-                {/* <DvTitleSmall>My Services</DvTitleSmall> */}
                 <SpecialistIndustryForm
                         handleFormField={this.handleFormField}
                         industries={industries}
@@ -126,10 +101,11 @@ class SpecialistIndustry extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (this.props.specialistData) {
-            this.handleInit()
+            if (this.props.specialistData.first_name) {
+                this.setData()
+            }
         }
 
-        console.log(nextProps);
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successIndustryId) {
                 run(0)();

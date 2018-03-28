@@ -34,8 +34,6 @@ class RenderProfileForm extends Component {
 
     render() {
 
-        console.log('ololo', this.state)
-
         const { handleSubmit, educations, experiences, submitting, clientData, specialistData, handleFormField } = this.props;
         let { avatar } = specialistData || clientData || false;
 
@@ -192,7 +190,6 @@ class RenderProfileForm extends Component {
         let { first_name, last_name, email, address, phone_code, phone_number,
           professional_experience_info, description, clearPassword, avatar} = data;
 
-        console.log(data, 'myData');
         // console.log('country', address.country);
         // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));

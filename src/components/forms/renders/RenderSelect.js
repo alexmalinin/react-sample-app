@@ -11,7 +11,6 @@ export default class RenderSelect extends Component {
         const { input, handleFormField } = this.props
         const { name, onChange } = input
         onChange(e)
-        console.log(this.props)
 
         handleFormField({
             target: {

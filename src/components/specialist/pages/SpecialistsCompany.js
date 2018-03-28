@@ -18,59 +18,50 @@ class SpecialistCompany extends Component {
     super();
 
     this.state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-        allFields: 7,
-        filedFields: 0,
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
     };
 
-    this.data = {};
+    this.data = {
+      city: null, 
+      company_address: null, 
+      country: null, 
+      industry_area_id: null, 
+      name: null, 
+      number_of_employers: null, 
+      segment: null, 
+      website: null,
+    }
 
     this.handleFormField = this.handleFormField.bind(this);
   }
 
   handleFormField(e) {
-    console.log('iv alive')
     let data = e.target.value;
     this.data[e.target.name] = data;
-    this.calculatePercent(this.data);
+
+    this.props.calculatePagePercent('companyPercent', this.data);
   }
 
-  handleInit() {
-    if (this.props.specialistData) {
-      if(this.props.specialistData.first_name){
-        const {first_name, last_name, email, phone_number, address: {city, country}, professional_experience_info,} = this.props.specialistData;
-          this.data = {
-            first_name,
-            last_name,
-            email,
-            city,
-            country,
-            phone_number,
-            professional_experience_info,
-          }
-          this.calculatePercent(this.data);
-        }   
-      }        
+  setData() {
+    if(this.props.specialistData) {
+      if(this.props.specialistData.company) {
+        const { city, company_address, country, industry_area_id, name, number_of_employers, segment, website } = this.props.specialistData.company
+        
+        this.data = {
+            city, 
+            company_address, 
+            country, 
+            industry_area_id, 
+            name, 
+            number_of_employers, 
+            segment, 
+            website
+        }
+      }
     }
-
-  calculatePercent(data) {
-    let arr = [];
-    for (let key in data) {
-      if (data[key] !== '') {
-          arr.push(data[key]) 
-      }   
-    }
-    let countFields = arr.length;
-    this.setState({
-        filedFields: countFields,
-    })
-    let percents = Math.round((countFields / this.state.allFields) * 100);
-    this.setState({
-        percents
-    });
-  } 
+  }
 
   componentWillMount() {
     this.props.getIndustries();
@@ -80,9 +71,6 @@ class SpecialistCompany extends Component {
   render() {
     const { renderMessage, renderErrorMessage } = this.state;
     const { industries } = this.props;
-
-    console.log('qwerty', this.state.percents)
-
 
     return (
       <div>
@@ -111,10 +99,11 @@ class SpecialistCompany extends Component {
   componentWillReceiveProps(nextProps) {
 
     if (this.props.specialistData) {
-      this.handleInit()
+      if (this.props.specialistData.first_name) {
+        this.setData()
       }
+    }
 
-    console.log('das',nextProps);
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();

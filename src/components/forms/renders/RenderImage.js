@@ -27,7 +27,6 @@ class RenderImage extends Component {
     }
 
     render() {
-        console.log('---avatar', this.props.avatar);
         
         const {
             avatar,

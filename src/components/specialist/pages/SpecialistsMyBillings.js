@@ -14,11 +14,41 @@ import SpecialistBillingForm from '../forms/SpecialistBillingForm';
 
 class SpecialistsMyBillings extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-    nextStep: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
+    };
+
+    this.data = {
+      bank_account_details: null, 
+      swift_code: null
+    }
+
+    this.handleFormField = this.handleFormField.bind(this);
+  }
+
+  handleFormField(e) {
+    let data = e.target.value;
+    this.data[e.target.name] = data;
+
+    this.props.calculatePagePercent('billingPercent', this.data);
+  }
+
+  setData() {
+    if(this.props.specialistData) {
+      if(this.props.specialistData.specialist_billing) {
+        const { bank_account_details, swift_code } = this.props.specialistData.specialist_billing
+        this.data = {
+            bank_account_details, 
+            swift_code
+        }
+      }
+    }
+  }
 
   componentWillMount() {
     this.props.showSpecialistData();
@@ -44,7 +74,7 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
-        <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
+        <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit} handleFormField={this.handleFormField}/>
         {this.state.nextStep && <Redirect to="about"/>}
 
       </div>
@@ -52,6 +82,13 @@ class SpecialistsMyBillings extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+
+    if (this.props.specialistData) {
+      if (this.props.specialistData.first_name) {
+        this.setData()
+      }
+    }
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();

@@ -28,27 +28,32 @@ class SpecialistsProfile extends Component {
             renderMessage: false,
             renderErrorMessage: false,
             nextStep: false,
-            allFields: 7,
-            filedFields: 0,
         };
 
-        this.data = {};
+        this.data = {
+            first_name: null,
+            last_name: null,
+            email: null,
+            city: null,
+            country: null,
+            phone_number: null,
+            professional_experience_info: null,
+        }
 
         this.handleFormField = this.handleFormField.bind(this);
     }
 
     handleFormField(e) {
-        console.log('iv alive')
         let data = e.target.value;
         this.data[e.target.name] = data;
-        this.calculatePercent(this.data);
+        
+        this.props.calculatePagePercent('profilePercent', this.data);
     }
 
-    handleInit() {
-
-        if (this.props.specialistData) {
-            if(this.props.specialistData.first_name){
-                const {first_name, last_name, email, phone_number, address: {city, country}, professional_experience_info,} = this.props.specialistData;
+    setData() {
+        if(this.props.specialistData) {
+            if(this.props.specialistData.first_name) {
+                const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info } = this.props.specialistData;
                 this.data = {
                     first_name,
                     last_name,
@@ -58,27 +63,8 @@ class SpecialistsProfile extends Component {
                     phone_number,
                     professional_experience_info,
                 }
-                this.calculatePercent(this.data);
-            }   
-        }     
-        
-    }
-
-    calculatePercent(data) {
-        let arr = [];
-        for (let key in data) {
-            if (data[key]) {
-                arr.push(data[key]) 
-            }   
+            }
         }
-        let countFields = arr.length;
-        this.setState({
-            filedFields: countFields,
-        })
-        let percents = Math.round((countFields / this.state.allFields) * 100);
-        this.setState({
-            percents
-        });
     }
 
     componentWillMount() {
@@ -94,11 +80,7 @@ class SpecialistsProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
         const { educations, experiences } = this.props;
 
-        this.props.setPercentIntoSubheader(PERCENTS_NAME, this.state.percents);
-
         return (
-            // <Container indentBot className="relative">
-            //     <SubHeader percents={this.state.percents}/>
             <div>
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
@@ -145,9 +127,12 @@ class SpecialistsProfile extends Component {
         let client = nextProps.specialistData;
         let password = nextProps.confirmPassword;
 
-        if (client) {
-            this.handleInit()
+        if (this.props.specialistData) {
+            if (this.props.specialistData.first_name) {
+                this.setData()
+            }
         }
+            
 
         if (client.successProfileId) {
             this.showMessage('success');
@@ -187,7 +172,6 @@ class SpecialistsProfile extends Component {
 
     submit = values => {
         const { updateSpecialistProfile, educations, experiences } = this.props;
-        console.log(values);
         updateSpecialistProfile(values, educations, experiences);
     };
 }

@@ -11,7 +11,7 @@ class SpecialistBillingForm extends Component {
   render() {
 
     return (
-      <form onSubmit={this.props.handleSubmit}>
+      <form onSubmit={this.props.handleSubmit} handleFormField={this.props.handleFormField}>
         <BillingForm { ...this.props }/>
       </form>
     )

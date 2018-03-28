@@ -45,7 +45,7 @@ class BillingForm extends Component {
   }
 
   render() {
-    const { submitting, industries, welcomeText, clientData, specialistData } = this.props;
+    const { submitting, industries, welcomeText, clientData, specialistData, handleFormField } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
@@ -55,10 +55,12 @@ class BillingForm extends Component {
           <InputField 
             name="bank_account_details"
             label="Bank account details"
+            handleFormField={handleFormField}
           />
           <InputField 
             name="swift_code"
             label="Swift code"
+            handleFormField={handleFormField}
           />
         </Grid.Column>
       },
