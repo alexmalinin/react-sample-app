@@ -51,17 +51,6 @@ class SpecialistsDashboard extends Component {
     }
 
     collectIndustryData() {
-<<<<<<< HEAD
-        const { job_title, position, industry_title, experience_level_id, contact_number, hourly_rate, } = this.props.specialistData
-        const data = {
-            job_title,
-            position, 
-            industry_title, 
-            experience_level_id, 
-            contact_number,  
-            hourly_rate,   
-        }
-=======
         const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
         // const project_type_name = this.props.specialistData.project_type.name;
 
@@ -77,7 +66,6 @@ class SpecialistsDashboard extends Component {
 
 
         console.log(data, 'data')
->>>>>>> aaa1ec6adc3c7528297de48e35a2be90e0b754fe
         return data;
     }
 
@@ -100,14 +88,6 @@ class SpecialistsDashboard extends Component {
 
     collectBillingData() {
         if (this.props.specialistData.specialist_billing) {
-<<<<<<< HEAD
-            const { bank_account_details, swift_code } = this.props.specialistData.specialist_billing
-            const data = {
-                bank_account_details,                     
-                swift_code
-            }
-            return data;
-=======
 
             const { billing_type, bank_account_details, swift_code, company_name, manager } = this.props.specialistData.specialist_billing
             if (billing_type === 0) {
@@ -126,7 +106,6 @@ class SpecialistsDashboard extends Component {
                 return data;
             }
             
->>>>>>> aaa1ec6adc3c7528297de48e35a2be90e0b754fe
         }
         
     }

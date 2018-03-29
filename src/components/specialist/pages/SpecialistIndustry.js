@@ -46,13 +46,8 @@ class SpecialistIndustry extends Component {
 
     setData() {
         if(this.props.specialistData) {
-<<<<<<< HEAD
-            if(this.props.specialistData.first_name) {
-                const { job_title, position, industry_title, contact_number, hourly_rate, available, experience_level_id, } = this.props.specialistData;
-=======
             if(this.props.specialistData.project_type) {
                 const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
->>>>>>> aaa1ec6adc3c7528297de48e35a2be90e0b754fe
                 const project_type_name = this.props.specialistData.project_type.name;
 
                 this.data = {
@@ -61,14 +56,8 @@ class SpecialistIndustry extends Component {
                     industry_title,
                     experience_level_id,
                     contact_number,
-<<<<<<< HEAD
-                    project_type_name,
-                    hourly_rate,
-                    available,
-=======
                     // project_type_name,
                     hourly_rate,
->>>>>>> aaa1ec6adc3c7528297de48e35a2be90e0b754fe
                 }
             }
         }
