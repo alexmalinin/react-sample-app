@@ -32,6 +32,10 @@ export default styled.div`
         }
     }
 
+    .ui.grid{
+        padding: 14px;
+    }
+
     .ui.grid>.row {
         padding-top: 36px;
 

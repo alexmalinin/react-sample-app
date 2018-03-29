@@ -71,14 +71,14 @@ class SpecialistCompany extends Component {
         return this.setState({
           renderMessage: false,
           renderErrorMessage: false,
+          nextStep: true,
         })
-      }, 1500
+      }, 0
     );
 
     status === 'success'
       ? this.setState({
       renderMessage: true,
-      nextStep: true,
     })
       : this.setState({
       renderErrorMessage: true,

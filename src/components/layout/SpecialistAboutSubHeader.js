@@ -11,7 +11,7 @@ class AboutSubHeader extends Component {
     render() {
 
         return (
-            <StyledSubHeader profile>
+            <StyledSubHeader profile='true'>
                 <div>
                     <SubHeaderLinkWrap content='Profile' url='/specialists/dashboard/profile' className='profileLink'>
                         &nbsp;

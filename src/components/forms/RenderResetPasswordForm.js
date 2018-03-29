@@ -37,9 +37,9 @@ class RenderResetPasswordForm  extends Component {
                         <Grid.Column computer={3}>
                             <SaveBtn type="submit"
                                     disabled={submitting}
-                                    content=''
+                                    // content=''
                                     primary
-                                    updateBtn
+                                    updatebtn="true"
                             >
                             <span>SAVE & UPDATE</span>
                             </SaveBtn>

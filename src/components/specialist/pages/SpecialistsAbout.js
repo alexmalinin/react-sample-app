@@ -53,7 +53,7 @@ class SpecialistsAbout extends Component {
                 <AboutSubHeader />
                 <Container indentBot>
                     <StyledProfile>
-                        <Grid padded={14}>
+                        <Grid>
 
                             <SectionHeader />
                             <Grid.Row className='main-info'>
