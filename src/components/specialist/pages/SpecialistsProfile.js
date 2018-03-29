@@ -51,19 +51,16 @@ class SpecialistsProfile extends Component {
     }
 
     setData() {
-        if(this.props.specialistData) {
-            if(this.props.specialistData.first_name) {
-                const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info } = this.props.specialistData;
-                this.data = {
-                    first_name,
-                    last_name,
-                    email,
-                    city,
-                    country,
-                    phone_number,
-                    professional_experience_info,
-                }
-            }
+        const { first_name, last_name, email, address, phone_number, professional_experience_info, } = this.props.specialistData
+        const { city, country } = address ? address : {}
+        this.data = {
+            first_name,
+            last_name,
+            email,
+            city,
+            country,
+            phone_number,
+            professional_experience_info,
         }
     }
 
@@ -93,8 +90,8 @@ class SpecialistsProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            <RenderProfileForm 
-                                handleFormField={this.handleFormField}
+                            <RenderProfileForm
+                                onChange={this.change}
                                 onSubmit={this.submit} 
                                 educations={educations} 
                                 experiences={experiences} 
@@ -128,9 +125,7 @@ class SpecialistsProfile extends Component {
         let password = nextProps.confirmPassword;
 
         if (this.props.specialistData) {
-            if (this.props.specialistData.first_name) {
-                this.setData()
-            }
+            this.setData()
         }
             
 
@@ -169,6 +164,10 @@ class SpecialistsProfile extends Component {
                 renderErrorMessage: true,
             })
     };
+
+    change = values => {
+        this.props.calculatePagePercent('profilePercent', values);
+    }
 
     submit = values => {
         const { updateSpecialistProfile, educations, experiences } = this.props;

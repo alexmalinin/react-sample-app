@@ -34,7 +34,7 @@ class RenderProfileForm extends Component {
 
     render() {
 
-        const { handleSubmit, educations, experiences, submitting, clientData, specialistData, handleFormField } = this.props;
+        const { handleSubmit, educations, experiences, submitting, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
 
         let educationsChilds1  = specialistData ? specialistData["educations"]       : [];
@@ -67,19 +67,19 @@ class RenderProfileForm extends Component {
                                             name="first_name"
                                             label="First Name"
                                             validate={[required]}
-                                            handleFormField={handleFormField}
+                                            
                                         />
                                         
                                         <InputField
                                             name="city"
                                             label="City"
                                             validate={[required]}
-                                            handleFormField={handleFormField}
+                                            
                                         />
                                         <StyledPhoneField>
                                             <span>Phone</span>
                                             <RenderPhone 
-                                                handleFormField={handleFormField}
+                                                
                                             />
                                         </StyledPhoneField>                                        
                                     </Grid.Column>
@@ -88,19 +88,19 @@ class RenderProfileForm extends Component {
                                             name="last_name"
                                             label="Last Name"
                                             validate={[required]}
-                                            handleFormField={handleFormField}
+                                            
                                         />
                                         <InputField
                                             name="country"
                                             label="Country"
                                             validate={[required]}
-                                            handleFormField={handleFormField}
+                                            
                                         />
                                         <EmailField
                                             name="email"
                                             label="Email"
                                             validate={[required]}
-                                            handleFormField={handleFormField}
+                                            
                                         />
                                     </Grid.Column>
                                 </Grid.Row>
@@ -112,7 +112,7 @@ class RenderProfileForm extends Component {
                                             <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
                                                     label={'Write a paragraph or two about your professional experience '} 
                                                     component={RenderTextArea}
-                                                    handleFormField={handleFormField} 
+                                                     
                                             />
                                         </div>
                                     </Grid.Column>

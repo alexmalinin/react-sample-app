@@ -22,45 +22,6 @@ class SpecialistIndustry extends Component {
             renderErrorMessage: false,
             nextStep: false,
         };
-
-        this.data = {
-            job_title: null,
-            position: null,
-            industry_title: null,
-            experience_level_id: null,
-            contact_number: null,
-            // project_type_name: null,
-            hourly_rate: null,
-            available: null,
-        }
-
-        this.handleFormField = this.handleFormField.bind(this);
-    }
-
-    handleFormField(e) {
-        let data = e.target.value;
-        this.data[e.target.name] = data;
-
-        this.props.calculatePagePercent('industryPercent', this.data);
-    }
-
-    setData() {
-        if(this.props.specialistData) {
-            if(this.props.specialistData.project_type) {
-                const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
-                const project_type_name = this.props.specialistData.project_type.name;
-
-                this.data = {
-                    job_title,
-                    position,
-                    industry_title,
-                    experience_level_id,
-                    contact_number,
-                    // project_type_name,
-                    hourly_rate,
-                }
-            }
-        }
     }
 
     componentWillMount() {
@@ -86,11 +47,11 @@ class SpecialistIndustry extends Component {
                     <p>Something went wrong, please try again</p>
                 </S_Message>
                 <SpecialistIndustryForm
-                        handleFormField={this.handleFormField}
                         industries={industries}
                         projectTypes={projectTypes}
                         experienceLevels={experienceLevels}
                         specialistData={specialistData}
+                        onChange={this.change}
                         onSubmit={this.submit} />
                         {this.state.nextStep && <Redirect to="company"/>}
             </div>
@@ -98,12 +59,6 @@ class SpecialistIndustry extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
-        if (this.props.specialistData) {
-            if (this.props.specialistData.first_name) {
-                this.setData()
-            }
-        }
 
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successIndustryId) {
@@ -134,6 +89,10 @@ class SpecialistIndustry extends Component {
                 renderErrorMessage: true,
             })
     };
+
+    change = values => {
+        this.props.calculatePagePercent('industryPercent', values);
+    }
 
     submit = values => {
         this.props.updateSpecStep1(values);

@@ -22,45 +22,6 @@ class SpecialistCompany extends Component {
       renderErrorMessage: false,
       nextStep: false,
     };
-
-    this.data = {
-      city: null, 
-      company_address: null, 
-      country: null, 
-      industry_area_id: null, 
-      name: null, 
-      number_of_employers: null, 
-      segment: null, 
-      website: null,
-    }
-
-    this.handleFormField = this.handleFormField.bind(this);
-  }
-
-  handleFormField(e) {
-    let data = e.target.value;
-    this.data[e.target.name] = data;
-
-    this.props.calculatePagePercent('companyPercent', this.data);
-  }
-
-  setData() {
-    if(this.props.specialistData) {
-      if(this.props.specialistData.company) {
-        const { city, company_address, country, industry_area_id, name, number_of_employers, segment, website } = this.props.specialistData.company
-        
-        this.data = {
-            city, 
-            company_address, 
-            country, 
-            industry_area_id, 
-            name, 
-            number_of_employers, 
-            segment, 
-            website
-        }
-      }
-    }
   }
 
   componentWillMount() {
@@ -89,7 +50,7 @@ class SpecialistCompany extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} handleFormField={this.handleFormField} />
+        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} onChange={this.change} />
         {this.state.nextStep && <Redirect to="billings"/>}
 
       </div>
@@ -97,12 +58,6 @@ class SpecialistCompany extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    if (this.props.specialistData) {
-      if (this.props.specialistData.first_name) {
-        this.setData()
-      }
-    }
 
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
@@ -133,6 +88,11 @@ class SpecialistCompany extends Component {
       renderErrorMessage: true,
     })
   };
+
+
+  change = values => {
+    this.props.calculatePagePercent('companyPercent', values);
+  }
 
   submit = values => {
 

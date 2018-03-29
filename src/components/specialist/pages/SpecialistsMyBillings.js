@@ -21,60 +21,21 @@ class SpecialistsMyBillings extends Component {
       renderMessage: false,
       renderErrorMessage: false,
       nextStep: false,
-    };
-
-    this.billing_type;
-
-    this.direct_payment = {
-      bank_account_details: null, 
-      swift_code: null
-    }
-
-    this.company_payment = {
-      manager: null,
-      company_name: null,
-    }
-
-    this.handleFormField = this.handleFormField.bind(this);
-    this.swichTab = this.swichTab.bind(this)
-  }
-
-  handleFormField(e) {
-    let data = e.target.value;
-
-    if(this.billing_type === '0') {
-      this.direct_payment[e.target.name] = data;
-      this.props.calculatePagePercent('billingPercent', this.direct_payment);
-    }
-
-    if(this.billing_type === '1') {
-      this.company_payment[e.target.name] = data;
-      this.props.calculatePagePercent('billingPercent', this.company_payment);
-    }
-  }
-
-  swichTab(tab) {
-    this.billing_type = tab
-  }
-
-  setData() {
-    if(this.props.specialistData) {
-      if(this.props.specialistData.specialist_billing) {
-        const { bank_account_details, swift_code, manager, company_name } = this.props.specialistData.specialist_billing
-        this.direct_payment = {
-            bank_account_details, 
-            swift_code,
-        }
-        this.company_payment = {
-            manager,
-            company_name,
-        }
-      }
     }
   }
 
   componentWillMount() {
     this.props.showSpecialistData();
+  }
+
+  collectData(values) {
+    const { billing_type, company_name, manager, bank_account_details, swift_code } = values
+    console.log('qwe 456', billing_type)
+
+    if (billing_type == '1') {
+      return { company_name, manager }
+    }
+    return { bank_account_details, swift_code }
   }
 
   render() {
@@ -97,7 +58,7 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
-        <SpecialistBillingForm swichTab={this.swichTab} data={this.props.specialistData} onSubmit={this.submit} handleFormField={this.handleFormField}/>
+        <SpecialistBillingForm swichTab={this.swichTab} data={this.props.specialistData} onChange={this.change} onSubmit={this.submit}/>
         {this.state.nextStep && <Redirect to="about"/>}
 
       </div>
@@ -105,12 +66,6 @@ class SpecialistsMyBillings extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    if (this.props.specialistData) {
-      if (this.props.specialistData.first_name) {
-        this.setData()
-      }
-    }
 
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
@@ -141,6 +96,11 @@ class SpecialistsMyBillings extends Component {
       renderErrorMessage: true,
     })
   };
+
+  change = values => {
+    const data = this.collectData(values)
+    this.props.calculatePagePercent('billingPercent', data);
+  }
 
   submit = values => {
     this.props.updateSpecialistBillings(values);

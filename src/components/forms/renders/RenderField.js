@@ -13,7 +13,6 @@ class RenderField extends React.Component {
             label,
             type,
             disabled,
-            handleFormField,
             padded,
             data,
             meta: { touched, error, warning }} = this.props;
@@ -26,8 +25,7 @@ class RenderField extends React.Component {
                     name={input.name}
                     disabled={disabled} 
                     placeholder={placeholder} 
-                    type={type} 
-                    onBlur={handleFormField}
+                    type={type}
                     
                 />
                 {touched &&

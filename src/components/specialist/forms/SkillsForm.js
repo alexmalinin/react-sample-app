@@ -20,7 +20,7 @@ import RenderImage from '../../forms/renders/RenderImage';
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData, handleFormField } = this.props;
+        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData, } = this.props;
         let { avatar } = specialistData || clientData || false;
 
         return (
@@ -58,7 +58,7 @@ class SkillsForm extends Component {
                               component={RenderSelect}
                               options={job_titles}
                               validate={[required]}
-                              handleFormField={handleFormField}
+                              
                             />
                           </div>
 
@@ -66,7 +66,7 @@ class SkillsForm extends Component {
                           <InputField
                             name="position"
                             label="Position"
-                            handleFormField={handleFormField}
+                            
                           />
 
                           <InputField
@@ -74,7 +74,7 @@ class SkillsForm extends Component {
                             name='industry_title'
                             label='What is your industry title?'
                             validate={[required]}
-                            handleFormField={handleFormField}
+                            
                             
                           />
 
@@ -87,7 +87,7 @@ class SkillsForm extends Component {
                               label="Experience Level"
                               options={experienceLevels}
                               validate={[required]}
-                              handleFormField={handleFormField}
+                              
                             />
                           </div>
 
@@ -99,7 +99,7 @@ class SkillsForm extends Component {
                                 label='Select your area within the digital industry'
                                 options={industries["industry"]}
                                 validate={[required]}
-                                handleFormField={handleFormField}
+                                
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 
@@ -115,7 +115,7 @@ class SkillsForm extends Component {
                       <InputField
                         name="contact_number"
                         label="Best Contact Number"
-                        handleFormField={handleFormField}
+                        
                       />
 
                       <div id="project_type" className='half-column'>
@@ -126,7 +126,7 @@ class SkillsForm extends Component {
                           label="Project Interest"
                           options={projectTypes}
                           validate={[required]}
-                          handleFormField={handleFormField}
+                          
                         />
                       </div>
 
@@ -139,7 +139,7 @@ class SkillsForm extends Component {
                               component={RenderField}
                               type="number"
                               label="Hourly Rate"
-                              handleFormField={handleFormField}
+                              
                             />
                           </div>
 

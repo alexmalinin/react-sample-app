@@ -8,7 +8,7 @@ import StyledInputs from '../../../styleComponents/forms/StyledInputs';
 class InputField extends React.Component {
 
     render () {
-        const { name, placeholder, disabled, validate, label, padded, data, handleFormField, ...rest} = this.props;
+        const { name, placeholder, disabled, validate, label, padded, data, ...rest} = this.props;
 
         return (
             <div>
@@ -22,7 +22,6 @@ class InputField extends React.Component {
                     {...rest}
                     padded={padded}
                     validate={validate ? [required, minLength2] : []}
-                    handleFormField={handleFormField}
                     data={data}
                 />
             </div>

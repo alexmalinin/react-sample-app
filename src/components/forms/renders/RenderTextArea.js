@@ -16,11 +16,11 @@ const RenderTextArea = ({
                                 className,
                                 large,
                                 padded,
-                                handleFormField
+                                
                             }) =>
     <StyledTextArea className={className} large={large} padded={padded}>
         <p>{label}</p>
-        <textarea {...input} name={input.name} placeholder={placeholder} id={id} onBlur={handleFormField} />
+        <textarea {...input} name={input.name} placeholder={placeholder} id={id}  />
         {touched &&
         ((error &&
             <StyledError>

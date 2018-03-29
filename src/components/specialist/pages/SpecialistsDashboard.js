@@ -23,6 +23,13 @@ import Dashboard from '../../Dashboard';
 import { Container } from '../../../styleComponents/layout/Container';
 import { showSpecialistData, updateSpecialistProfile } from '../../../actions/actions';
 
+const mapPageNameToFieldsCount = {
+    'profilePercent': 7,
+    'industryPercent': 10,
+    'companyPercent': 8,
+    'billingPercent': 2,
+}
+
 class SpecialistsDashboard extends Component {
 
     constructor() {
@@ -37,7 +44,8 @@ class SpecialistsDashboard extends Component {
     }
 
     collectPropfileData() {
-        const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info, } = this.props.specialistData
+        const { first_name, last_name, email, address, phone_number } = this.props.specialistData
+        const { city, country } = address ? address : {}
         const data = {
             first_name,
             last_name,
@@ -45,85 +53,83 @@ class SpecialistsDashboard extends Component {
             city,
             country,
             phone_number,
-            professional_experience_info,
+            additionalField: 'additionalField'
         }
         return data;
     }
 
     collectIndustryData() {
-        const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
-        // const project_type_name = this.props.specialistData.project_type.name;
+        const { job_title, position, industry_title, communication_type, contact_number, hourly_rate, experience_level_id, project_type, available, skills: skills_attributes } = this.props.specialistData;
+        console.log('qwe 2', this.props.specialistData)
 
         const data = {
             job_title,
             position,
             industry_title,
+            industry: {},
             experience_level_id,
             contact_number,
-            // project_type_name,
+            project_type,
             hourly_rate,
+            available,
+            skills_attributes,
+            communication_type
         }
-
 
         console.log(data, 'data')
         return data;
     }
 
     collectCompanyData() {
-        if (this.props.specialistData.company) {
-            const { city, company_address, country, industry_area_id, number_of_employers, segment, website } = this.props.specialistData.company
-                const data = {
-                city, 
-                company_address, 
-                country, 
-                industry_area_id, 
-                number_of_employers, 
-                segment, 
-                website
-            }
-            return data;
+        const { company } = this.props.specialistData
+        const { name, city, company_address, country, industry_area_id, number_of_employers, segment, website } = company ? company : {}
+
+        const data = {
+            name,
+            city, 
+            company_address, 
+            country, 
+            industry_area_id, 
+            number_of_employers, 
+            segment, 
+            website
         }
-        
+        return data;
     }
 
     collectBillingData() {
-        if (this.props.specialistData.specialist_billing) {
+        const { specialist_billing } = this.props.specialistData
+        const { billing_type, bank_account_details, swift_code, company_name, manager } = specialist_billing ? specialist_billing : {}
+        console.log('qwe 123', specialist_billing)
 
-            const { billing_type, bank_account_details, swift_code, company_name, manager } = this.props.specialistData.specialist_billing
-            if (billing_type === 0) {
-                const data = {
-                    bank_account_details,                     
-                    swift_code
-                }
-                return data;
+        if (billing_type === 0) {
+            const data = {
+                bank_account_details,                     
+                swift_code
             }
-
-            if (billing_type === 1) {
-                const data = {
-                    company_name,                     
-                    manager
-                }
-                return data;
-            }
-            
+            return data;
         }
-        
+
+        if (billing_type === 1) {
+            const data = {
+                company_name,                     
+                manager
+            }
+            return data;
+        }
+
+        return {}
     }
 
     calculatePagePercent(percentName, data) {
-        let arr = [];
-        let arr2 = [];
-        for (let key in data) {
-            if (data[key]) {
-                arr2.push(data[key]) 
-            }
-            arr.push(data[key])
-        }
+        const fieldsCount = mapPageNameToFieldsCount[percentName]
 
-        const filedFields = arr2.length
-        const allFields = arr.length
+        const keys = Object.keys(data)
+        const filledFields = keys.filter(key => data[key]).length
         
-        const percents = Math.round((filedFields / allFields) * 100);
+        let percents = Math.round((filledFields / fieldsCount) * 100);
+        percents = percents > 100 ? 100 : percents
+        console.log('qwe', percentName, data, percents)
 
         this.setState({
             [percentName]: percents,
@@ -131,19 +137,16 @@ class SpecialistsDashboard extends Component {
     }
 
     calculatePercents() {
-
         if (this.props.specialistData) {
-            if (this.props.specialistData.first_name) {
-                const profileData = this.collectPropfileData()
-                const industryData = this.collectIndustryData()
-                const companyData = this.collectCompanyData()
-                const billingData = this.collectBillingData()
+            const profileData = this.collectPropfileData()
+            const industryData = this.collectIndustryData()
+            const companyData = this.collectCompanyData()
+            const billingData = this.collectBillingData()
 
-                this.calculatePagePercent('profilePercent', profileData);
-                this.calculatePagePercent('industryPercent', industryData);
-                this.calculatePagePercent('companyPercent', companyData);
-                this.calculatePagePercent('billingPercent', billingData);
-            }
+            this.calculatePagePercent('profilePercent', profileData);
+            this.calculatePagePercent('industryPercent', industryData);
+            this.calculatePagePercent('companyPercent', companyData);
+            this.calculatePagePercent('billingPercent', billingData);
         }
     }
 
@@ -219,7 +222,7 @@ class SpecialistsDashboard extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.specialistData) {
-            if (nextProps.specialistData.first_name) {
+            if (nextProps.specialistData.email) {
                 this.calculatePercents()   
             }
         }

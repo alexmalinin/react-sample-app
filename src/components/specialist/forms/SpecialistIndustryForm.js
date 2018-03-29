@@ -11,7 +11,7 @@ class SpecialistIndustryForm extends Component {
     render() {
 
         return (
-            <form onSubmit={this.props.handleSubmit} handleFormField={this.props.handleFormField}>
+            <form onSubmit={this.props.handleSubmit}>
                 <SkillsForm { ...this.props }/>
             </form>
         )
