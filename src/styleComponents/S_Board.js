@@ -16,18 +16,6 @@ export const S_Board = styled.div`
         flex: 0 0 30%;
     }
 
-    .hide {
-        opacity: 0;
-        height: 0;
-        margin-top: 0!important;
-        margin-bottom: 0!important;
-        -webkit-transition: all 0.1s ease-out;
-        -moz-transition: all 0.1s ease-out;
-        -ms-transition: all 0.1s ease-out;
-        -o-transition: all 0.1s ease-out;
-        transition: all 0.1s ease-out;
-    }
-
     h3 {
         text-transform  : uppercase;
         font-size: 14px;
@@ -60,12 +48,60 @@ export const S_Board = styled.div`
         }
     }
 
+    .kanban{
+        width: 100%;
+
+        display: flex;
+        justify-content: space-around;
+        background: none;
+        height: auto;
+
+        &>section{
+            flex: 0 0 31.5%;
+            background: none;
+            max-height: 100%;
+            height: 100%;
+            overflow: visible;
+
+            &>header{
+                text-transform  : uppercase;
+                font-size: 14px;
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+                z-index: 900;
+
+                border-width: 0px;
+                border-bottom-width: 3px;
+                border-style: solid;
+                -webkit-border-image: 
+                    -webkit-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+                -webkit-border-image: 
+                    -webkit-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+                -moz-border-image:
+                    -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+                -o-border-image:
+                    -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+                border-image:
+                    linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+            }
+
+            &>div{
+                width: 100%;
+                overflow: visible;
+
+                article{
+                    max-width: 100%;
+                    width: 100%;
+                    padding-top: 30px;
+                }
+            }
+        }
+    }
+
     .dragItem{
         position: relative;
         padding: 20px;
         box-shadow: 0px 0px 8px 0px #ccc;
-        margin-top: 30px;
-        margin-bottom: 30px;
 
         text-transform: uppercase;
 
@@ -84,12 +120,12 @@ export const S_Board = styled.div`
             margin-top: 0;
             margin-bottom: 10px;
 
-            font-size: 12px;
+            font-size: 13px;
             letter-spacing: 1.04px;
         }
 
         .platform{
-            font-size: 14px;
+            font-size: 13px;
 
             &.purple{
                 color: #8a2be0;
