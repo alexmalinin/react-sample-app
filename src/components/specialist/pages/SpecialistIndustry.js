@@ -29,7 +29,7 @@ class SpecialistIndustry extends Component {
             industry_title: null,
             experience_level_id: null,
             contact_number: null,
-            project_type_name: null,
+            // project_type_name: null,
             hourly_rate: null,
             available: null,
         }
@@ -46,8 +46,8 @@ class SpecialistIndustry extends Component {
 
     setData() {
         if(this.props.specialistData) {
-            if(this.props.specialistData.first_name) {
-                const { job_title, position, industry_title, contact_number, hourly_rate, available, experience_level_id, } = this.props.specialistData;
+            if(this.props.specialistData.project_type) {
+                const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
                 const project_type_name = this.props.specialistData.project_type.name;
 
                 this.data = {
@@ -56,9 +56,8 @@ class SpecialistIndustry extends Component {
                     industry_title,
                     experience_level_id,
                     contact_number,
-                    project_type_name,
+                    // project_type_name,
                     hourly_rate,
-                    available,
                 }
             }
         }

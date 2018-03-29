@@ -14,6 +14,7 @@ const RenderPhone = ({hasPerson, value, handleFormField}) => {
                     placeholder=''
                     options={phoneCodes}
                     value={value}
+                    handleFormField={handleFormField}
                 />
                 <Field
                     name='phone_number'

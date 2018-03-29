@@ -51,15 +51,21 @@ class SpecialistsDashboard extends Component {
     }
 
     collectIndustryData() {
-        const { job_title, position, industry_title, experience_level_id, contact_number, hourly_rate, } = this.props.specialistData
+        const { job_title, position, industry_title, contact_number, hourly_rate, experience_level_id, } = this.props.specialistData;
+        // const project_type_name = this.props.specialistData.project_type.name;
+
         const data = {
             job_title,
-            position, 
-            industry_title, 
-            experience_level_id, 
-            contact_number,  
-            hourly_rate,   
+            position,
+            industry_title,
+            experience_level_id,
+            contact_number,
+            // project_type_name,
+            hourly_rate,
         }
+
+
+        console.log(data, 'data')
         return data;
     }
 
@@ -143,7 +149,8 @@ class SpecialistsDashboard extends Component {
 
     render() {
 
-        console.log(this.props)
+        console.log(this.props, 'props')
+        console.log(this.state, 'state')
         const {match:{params}} = this.props;
         let page = params['page'];
         let sidebarCondition = 
