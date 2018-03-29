@@ -123,7 +123,7 @@ class CompanyForm extends Component {
           <Grid.Column computer={3}>
             <SaveBtn type="submit"
                     disabled={submitting}
-                    content='321'
+                    // content='321'
                     primary
                 >
               <span>next step</span>

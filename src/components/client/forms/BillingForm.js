@@ -26,6 +26,7 @@ class BillingForm extends Component {
         this.setState({
           tab: event.target.value 
         });
+        this.props.swichTab(event.target.value)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -42,7 +43,7 @@ class BillingForm extends Component {
     }
     
     render() {
-    const { submitting, clientData, specialistData } = this.props;
+    const { submitting, clientData, specialistData, handleFormField } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
@@ -52,10 +53,12 @@ class BillingForm extends Component {
                 <InputField 
                     name="account_number"
                     label="Account number"
+                    handleFormField={handleFormField}
                 />
                 <InputField 
                     name="password"
                     label="Password"
+                    handleFormField={handleFormField}
                 />
             </Grid.Column>
         },
@@ -65,10 +68,12 @@ class BillingForm extends Component {
                 <InputField 
                     name="card_name"
                     label="Card name"
+                    handleFormField={handleFormField}
                 />
                 <InputField 
                     name="card_number"
                     label="Card number"
+                    handleFormField={handleFormField}
                 />
 
                 <Grid>
@@ -78,14 +83,16 @@ class BillingForm extends Component {
                             <InputField 
                                 name="expiry_date"
                                 label="Expiry date"
+                                handleFormField={handleFormField}
                             />
 
                         </Grid.Column>
                         <Grid.Column computer={8}>
 
                             <InputField 
-                                name="cvv"
+                                name="ccv"
                                 label="CVV"
+                                handleFormField={handleFormField}
                             />
 
                         </Grid.Column>
@@ -98,6 +105,7 @@ class BillingForm extends Component {
                 <InputField 
                     name="account_details"
                     label="Account details"
+                    handleFormField={handleFormField}
                 />
             </Grid.Column>
         },

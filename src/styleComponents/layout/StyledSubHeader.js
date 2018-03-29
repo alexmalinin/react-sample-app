@@ -33,6 +33,13 @@ export default styled.div`
       padding: 10px;
     }
 
+    .progressBarsLink {
+        color: red;
+        a {
+            width: 75px;
+        }
+    }
+
     div {
         display: flex;
     }
@@ -249,6 +256,9 @@ export default styled.div`
                 border: 1px solid #fff;
             }
 
+            &.container {
+                border: none;
+            }
             /* &:after {
                 background: #fff;
                 width: 100%;
@@ -261,7 +271,16 @@ export default styled.div`
         }     */
     }
 
-    
+    .container {
+        border: none !important;
+        width: 52px;
+        height: 52px;
+        position: absolute;
+        top: -1px;
+        left: 12px;
+    }
+
+
     @media (max-width: 1920px) {
         height: 131px;
     }

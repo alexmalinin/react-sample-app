@@ -29,6 +29,7 @@ class BillingForm extends Component {
     this.setState({
       tab: event.target.value,
     });
+    this.props.swichTab(event.target.value);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,10 +70,12 @@ class BillingForm extends Component {
           <InputField 
             name="company_name"
             label="Company name"
+            handleFormField={handleFormField}
           />
           <InputField 
             name="manager"
             label="Manager"
+            handleFormField={handleFormField}
           />
         </Grid.Column>
       },

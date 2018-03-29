@@ -7,17 +7,19 @@ import StyledSelect from '../../../styleComponents/forms/StyledSelect'
 export default class RenderSelect extends Component {
 
     handleSelectChange = (e) => {
-        const { label, value } = e
-        const { input, handleFormField } = this.props
-        const { name, onChange } = input
-        onChange(e)
+        if (e) {
+            const { value } = e
+            const { input, handleFormField } = this.props
+            const { name, onChange } = input
+            onChange(e)
 
-        handleFormField({
-            target: {
-                name,
-                value
-            }
-        })
+            handleFormField({
+                target: {
+                    name,
+                    value
+                }
+            })
+        } 
     }
 
     render() {

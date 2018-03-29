@@ -16,11 +16,11 @@ let renderError = true;
 class ClientBillingForm extends Component {
 
     render() {
-        const { handleSubmit, submitting, clientData } = this.props;
+        const { handleSubmit, submitting, clientData, handleFormField, swichTab } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
-                <BillingForm clientData={clientData} submitting={submitting}/>
+                <BillingForm clientData={clientData} submitting={submitting} handleFormField={handleFormField} swichTab={swichTab}/>
             </form>
         )
     }
