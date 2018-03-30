@@ -80,8 +80,8 @@ class EducationForm extends Component {
                                 disabled={submitting}
                                 content='SAVE & CONTINUE'
                                 primary
-                                xsIndent
-                                smallBtn
+                                xsindent='true'
+                                smallbtn='true'
                             />
                         </Grid.Column>
                         <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -90,7 +90,7 @@ class EducationForm extends Component {
                                 content='CLOSE'
                                 disabled={submitting}
                                 primary
-                                smallBtn
+                                smallbtn='true'
                             />
                         </Grid.Column>
                     </Grid.Row>

@@ -19,7 +19,7 @@ class ModuleForm extends Component {
     const { submitting, clientData} = this.props;
 
     return (
-      <Grid padded>
+      <Grid>
         <Grid.Row>
           <Grid.Column computer={16}>
 

@@ -126,7 +126,7 @@ class BillingForm extends Component {
             <SaveBtn
               type="submit"
               disabled={submitting}
-              content='SAVE'
+              // content='SAVE'
               primary
             >
             <span>save</span>

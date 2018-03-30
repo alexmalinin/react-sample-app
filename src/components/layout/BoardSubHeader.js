@@ -11,7 +11,7 @@ class ProjectSubHeader extends Component {
   render() {
 
     return (
-      <StyledSubHeader profile>
+      <StyledSubHeader profile='true'>
         <div>
         <SubHeaderLinkWrap content='All' url='#' className='rightLink'>
             
