@@ -17,6 +17,12 @@ import Dashboard from '../Dashboard';
 import TheVillage from '../TheVillage';
 import { showClientData } from '../../actions/actions';
 
+const mapPageNameToFieldsCount = {
+  'profilePercent': 7,
+  'companyPercent': 11,
+  'billingPercent': null
+}
+
 class ClientDashboard extends Component {
 
   constructor() {
@@ -30,7 +36,8 @@ class ClientDashboard extends Component {
   }
 
   collectPropfileData() {
-    const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info, } = this.props.clientData
+    const { first_name, last_name, email, address, phone_number } = this.props.clientData
+    const { city, country } = address ? address : {}
     const data = {
         first_name,
         last_name,
@@ -38,98 +45,125 @@ class ClientDashboard extends Component {
         city,
         country,
         phone_number,
-        professional_experience_info,
+        additionalField: 'additionalField'
     }
     return data;
   }
 
   collectCompanyData() {
-    if (this.props.clientData.company) {
-      const { city, company_address, country, industry_area_id, number_of_employers, segment, website } = this.props.clientData.company
-        const data = {
+    const { company } = this.props.clientData;
+    const { name, city, abn_acn, tell_about, register_name, company_address, country, industry_area_id, number_of_employers, segment, website } = company ? company : {}
+
+    const data = {
+        abn_acn,
+        name,
+        company_address,
         city, 
-        company_address, 
         country, 
         industry_area_id, 
         number_of_employers, 
+        register_name,
         segment, 
-        website
-      }
-      return data;
-    }  
+        website,
+        tell_about,
+        ololo: {}
+    }
+    return data;
   }
 
   collectBillingData() {
+    const { customer_billing } = this.props.clientData;
+    const { billing_type, 
+            account_number, 
+            password, 
+            card_name, 
+            card_number, 
+            expiry_date, 
+            ccv, 
+            account_details } = customer_billing ? customer_billing : {}
 
-    if (this.props.clientData.customer_billing) {
-      const { billing_type, account_number, password, card_name, card_number, expiry_date, ccv, account_details} = this.props.clientData.customer_billing
-
-      if(billing_type === 0) {
-        const data = {
-          account_number,
-          password,
-        }
-        return data;
+    if(billing_type === 0) {
+      const data = {
+        account_number,
+        password,
       }
+      return data;
+    }
 
-      if(billing_type === 1) {
-        const data = {
-          card_name,
-          card_number,
-          expiry_date,
-          ccv,
-        }
-        return data;
+    if(billing_type === 1) {
+      const data = {
+        card_name,
+        card_number,
+        expiry_date,
+        ccv,
       }
+      return data;
+    }
 
-      if(billing_type === 2) {
-        const data = {
-          account_details
-        }
-        return data;
+    if(billing_type === 2) {
+      const data = {
+        account_details
       }
+      return data;
     }
   }
 
-  calculatePagePercent(percentName, data) {
-    let arr = [];
-    let arr2 = [];
-    for (let key in data) {
-      if (data[key]) {
-        arr2.push(data[key]) 
-      }
-      arr.push(data[key])
+  calculatePagePercent(percentName, data ) {
+
+    if (!data) {
+      return 0
     }
 
-    const filedFields = arr2.length
-    const allFields = arr.length
+    if (percentName === 'billingPercent') {
+
+      let fieldsCount = data.count;
+      let mydata = data.data;
+
+      if (!mydata) {
+        return 0
+      }
+
+      const keys = Object.keys(mydata)
+      const filledFields = keys.filter(key => mydata[key]).length
+      
+      let percents = Math.round((filledFields / fieldsCount) * 100);
+      percents = percents > 100 ? 100 : percents
+
+      this.setState({
+        [percentName]: percents,
+      })    
+      return
+    }
     
-    const percents = Math.round((filedFields / allFields) * 100);
+
+    let fieldsCount = mapPageNameToFieldsCount[percentName]
+
+    const keys = Object.keys(data)
+    const filledFields = keys.filter(key => data[key]).length
+    
+    let percents = Math.round((filledFields / fieldsCount) * 100);
+    percents = percents > 100 ? 100 : percents
+    console.log('qwe', percentName, data, percents)
 
     this.setState({
-        [percentName]: percents,
-    })       
+      [percentName]: percents,
+    })        
   }
 
   calculatePercents() {
 
     if (this.props.clientData) {
-      if (this.props.clientData.first_name) {
-        const profileData = this.collectPropfileData()
-        const companyData = this.collectCompanyData()
-        const billingData = this.collectBillingData()
+      const profileData = this.collectPropfileData()
+      const companyData = this.collectCompanyData()
+      const billingData = this.collectBillingData()
 
-        this.calculatePagePercent('profilePercent', profileData);
-        this.calculatePagePercent('companyPercent', companyData);
-        this.calculatePagePercent('billingPercent', billingData);
-
-      }
+      this.calculatePagePercent('profilePercent', profileData);
+      this.calculatePagePercent('companyPercent', companyData);
+      this.calculatePagePercent('billingPercent', billingData);
     }
   } 
 
   render() {
-
-    console.log(this.state, '123132');
 
     const {match:{params}} = this.props;
     let page = params['page'];
@@ -140,10 +174,13 @@ class ClientDashboard extends Component {
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
         <S_MainContainer>
           {sidebarCondition && <SideBarLeft projects={projects}/>}
-            <Container>  
-              <SubHeader percents={this.state}/>
-              {this.renderPage(page)}
-            </Container>
+            {sidebarCondition 
+              ? this.renderPage(page)
+                : <Container>
+                    <SubHeader percents={this.state}/>
+                    {this.renderPage(page)}
+                  </Container>
+            }
           {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
         </S_MainContainer>
       </div>
@@ -174,11 +211,14 @@ class ClientDashboard extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+
+    // debugger
+
     if (nextProps.clientData) {
-      if (nextProps.clientData.first_name) {
+      if (nextProps.clientData.email) {
           this.calculatePercents()   
       }
-  }
+    }
   }
 }
 

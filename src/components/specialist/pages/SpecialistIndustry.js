@@ -36,6 +36,8 @@ class SpecialistIndustry extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
+        console.log('industries', this.props.industries);
+
         return (
             <div>
                 <S_Message positive data-show={renderMessage}>
@@ -95,6 +97,7 @@ class SpecialistIndustry extends Component {
     }
 
     submit = values => {
+        console.log('values on submit',values);
         this.props.updateSpecStep1(values);
     };
 }

@@ -26,7 +26,6 @@ class BillingForm extends Component {
         this.setState({
           tab: event.target.value 
         });
-        this.props.swichTab(event.target.value)
     }
 
     componentWillReceiveProps(nextProps) {

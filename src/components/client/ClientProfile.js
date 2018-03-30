@@ -23,42 +23,6 @@ class ClientProfile extends Component {
             renderErrorMessage: false,
             nextStep: false,
         };
-
-        this.data = {
-            first_name: null,
-            last_name: null,
-            email: null,
-            city: null,
-            country: null,
-            phone_number: null,
-            professional_experience_info: null,
-        }
-
-        this.handleFormField = this.handleFormField.bind(this);
-    }
-
-    handleFormField(e) {
-        let data = e.target.value;
-        this.data[e.target.name] = data;
-        
-        this.props.calculatePagePercent('profilePercent', this.data);
-    }
-
-    setData() {
-        if(this.props.clientData) {
-            if(this.props.clientData.first_name) {
-                const { first_name, last_name, email, address: {city, country}, phone_number, professional_experience_info } = this.props.clientData;
-                this.data = {
-                    first_name,
-                    last_name,
-                    email,
-                    city,
-                    country,
-                    phone_number,
-                    professional_experience_info,
-                }
-            }
-        }
     }
 
     componentWillMount() {
@@ -84,7 +48,7 @@ class ClientProfile extends Component {
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
-                            <RenderProfileForm handleFormField={this.handleFormField} onSubmit={this.submit}/>
+                            <RenderProfileForm onChange={this.change} onSubmit={this.submit}/>
                             {this.state.nextStep && <Redirect to="company"/>}
                         </Grid.Column>
                     </Grid.Row>
@@ -110,12 +74,6 @@ class ClientProfile extends Component {
     componentWillReceiveProps(nextProps) {
         let client = nextProps.clientData;
         let password = nextProps.confirmPassword;
-
-        if (client) {
-            if (client.first_name) {
-                this.setData()
-            }
-        }
 
         if (client.successProfileId) {
             this.showMessage('success');
@@ -149,6 +107,10 @@ class ClientProfile extends Component {
             : this.setState({
                 renderErrorMessage: true,
             });
+    }
+
+    change = values => {
+        this.props.calculatePagePercent('profilePercent', values);
     }
 
     submit = values => {
