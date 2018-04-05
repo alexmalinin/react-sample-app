@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {RenderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import { SaveBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
@@ -45,7 +45,7 @@ class BillingForm extends Component {
   }
 
   render() {
-    const { submitting, industries, welcomeText, clientData, specialistData } = this.props;
+    const { submitting, industries, welcomeText, clientData, specialistData, } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
@@ -55,10 +55,12 @@ class BillingForm extends Component {
           <InputField 
             name="bank_account_details"
             label="Bank account details"
+            
           />
           <InputField 
             name="swift_code"
             label="Swift code"
+            
           />
         </Grid.Column>
       },
@@ -67,10 +69,12 @@ class BillingForm extends Component {
           <InputField 
             name="company_name"
             label="Company name"
+            
           />
           <InputField 
             name="manager"
             label="Manager"
+            
           />
         </Grid.Column>
       },

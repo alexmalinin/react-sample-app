@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import { required, email } from '../../../helpers/validate';
-import {RenderField} from './RenderField';
+import RenderField from './RenderField';
 
 const EmailField = props => {
-    const { name, placeholder, disabled, label } = props;
+    const { name, placeholder, disabled, label, data, } = props;
 
     return (
         <div>
@@ -16,6 +16,7 @@ const EmailField = props => {
                 component={RenderField}
                 validate={[required, email]}
                 disabled={disabled}
+                data={data}
             />
         </div>
     )

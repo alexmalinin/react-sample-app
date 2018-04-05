@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import { job_titles } from '../../../helpers/selects/job_titles';
-import {RenderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
 import { DvButton, SaveBtn } from '../../../styleComponents/layout/DvButton';
@@ -20,7 +20,7 @@ import RenderImage from '../../forms/renders/RenderImage';
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData } = this.props;
+        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData, } = this.props;
         let { avatar } = specialistData || clientData || false;
 
         return (
@@ -58,6 +58,7 @@ class SkillsForm extends Component {
                               component={RenderSelect}
                               options={job_titles}
                               validate={[required]}
+                              
                             />
                           </div>
 
@@ -65,12 +66,16 @@ class SkillsForm extends Component {
                           <InputField
                             name="position"
                             label="Position"
+                            
                           />
 
                           <InputField
+                            
                             name='industry_title'
                             label='What is your industry title?'
                             validate={[required]}
+                            
+                            
                           />
 
                           {/*doesn't save value*/}
@@ -82,6 +87,7 @@ class SkillsForm extends Component {
                               label="Experience Level"
                               options={experienceLevels}
                               validate={[required]}
+                              
                             />
                           </div>
 
@@ -93,6 +99,7 @@ class SkillsForm extends Component {
                                 label='Select your area within the digital industry'
                                 options={industries["industry"]}
                                 validate={[required]}
+                                
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 
@@ -108,6 +115,7 @@ class SkillsForm extends Component {
                       <InputField
                         name="contact_number"
                         label="Best Contact Number"
+                        
                       />
 
                       <div id="project_type" className='half-column'>
@@ -118,6 +126,7 @@ class SkillsForm extends Component {
                           label="Project Interest"
                           options={projectTypes}
                           validate={[required]}
+                          
                         />
                       </div>
 
@@ -130,6 +139,7 @@ class SkillsForm extends Component {
                               component={RenderField}
                               type="number"
                               label="Hourly Rate"
+                              
                             />
                           </div>
 

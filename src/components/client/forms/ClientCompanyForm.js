@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { DvButton } from '../../../styleComponents/layout/DvButton'
@@ -16,7 +16,7 @@ let renderError = true;
 class ClientCompanyForm extends Component {
 
     render() {
-        const { handleSubmit, submitting, clientData, industries } = this.props;
+        const { handleSubmit, submitting, clientData, industries, } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>

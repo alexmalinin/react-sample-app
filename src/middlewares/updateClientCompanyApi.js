@@ -10,7 +10,7 @@ export default store => next => action => {
 
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
-    debugger
+    
     axios({
         method: 'put',
         url: updateClientCompany + id,

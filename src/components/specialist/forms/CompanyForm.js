@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {RenderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import { SaveBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
@@ -14,9 +14,9 @@ import { segments } from '../../../helpers/selects/segments';
 import RenderImage from '../../forms/renders/RenderImage';
 
 class CompanyForm extends Component {
-
+ 
   render() {
-    const { submitting, industries, welcomeText, clientData, specialistData } = this.props;
+    const { submitting, industries, welcomeText, clientData, specialistData} = this.props;
     let { avatar } = specialistData || clientData || false;
 
     return (
@@ -50,26 +50,32 @@ class CompanyForm extends Component {
               <InputField
                 name="name"
                 label="Company Name"
+                
+
               />
 
               <InputField
                 name="company_address"
                 label="Company Address"
+                
               />
 
               <InputField
                 name="website"
                 label="Website"
+                
               />
 
               <InputField
                 name="country"
                 label="Country"
+                
               />
 
               <InputField
                 name="city"
                 label="City"
+                
               />
             </StyledWelcomeForm>
           </Grid.Column>
@@ -84,6 +90,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={segments}
                 validate={[required]}
+                
               />
             </div>
 
@@ -95,6 +102,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={industries["industry"]}
                 validate={[required]}
+                
               />
             </div>
 
@@ -106,6 +114,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={employeers}
                 validate={[required]}
+                
               />
             </div>
 

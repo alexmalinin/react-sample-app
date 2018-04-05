@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import { Field } from 'redux-form';
 import { Grid } from 'semantic-ui-react';
 import {trueFalse} from '../../../helpers/selects/trueFalse';

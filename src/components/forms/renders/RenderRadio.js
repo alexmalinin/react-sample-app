@@ -9,7 +9,6 @@ class RenderRadio extends Component {
 
     render() {
         const {input, label, name, checked, onChange} = this.props;
-        console.log(this.props);
 
         return (
             <StyledRadio>

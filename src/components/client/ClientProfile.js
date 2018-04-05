@@ -15,11 +15,15 @@ import { run } from '../../helpers/scrollToElement';
 
 class ClientProfile extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+        };
+    }
 
     componentWillMount() {
         localStorage.removeItem('user_email');
@@ -31,44 +35,39 @@ class ClientProfile extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
 
         return (
-            <ContainerLarge>
-                <Container indentBot className="relative">
-
-                    <SubHeader/>
-
-                    <S_Message positive profile data-show={renderMessage}>
-                        <Message.Header>Success!</Message.Header>
-                        <p>Form updated</p>
-                    </S_Message>
-                    <S_Message negative profile data-show={renderErrorMessage}>
-                        <Message.Header>Error!</Message.Header>
-                        <p>Something went wrong, please try again</p>
-                    </S_Message>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={16}>
-                                {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
-                                <RenderProfileForm onSubmit={this.submit}/>
-                                {this.state.nextStep && <Redirect to="company"/>}
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={12} computer={16}>
-                                <Grid>
-                                    <Grid.Row>
-                                        <Grid.Column mobile={16} tablet={12} computer={3}>
-                                        </Grid.Column>
-                                        <Grid.Column mobile={16} tablet={12} computer={10}>
-                                            <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                                <RenderResetPasswordForm user="customer"/>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Container>
-            </ContainerLarge>
+            <div>
+                <S_Message positive profile data-show={renderMessage}>
+                    <Message.Header>Success!</Message.Header>
+                    <p>Form updated</p>
+                </S_Message>
+                <S_Message negative profile data-show={renderErrorMessage}>
+                    <Message.Header>Error!</Message.Header>
+                    <p>Something went wrong, please try again</p>
+                </S_Message>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={12} computer={16}>
+                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
+                            <RenderProfileForm onChange={this.change} onSubmit={this.submit}/>
+                            {this.state.nextStep && <Redirect to="company"/>}
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={12} computer={16}>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column mobile={16} tablet={12} computer={3}>
+                                    </Grid.Column>
+                                    <Grid.Column mobile={16} tablet={12} computer={10}>
+                                        <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                            <RenderResetPasswordForm user="customer"/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </div>
         )
     }
 
@@ -108,6 +107,10 @@ class ClientProfile extends Component {
             : this.setState({
                 renderErrorMessage: true,
             });
+    }
+
+    change = values => {
+        this.props.calculatePagePercent('profilePercent', values);
     }
 
     submit = values => {

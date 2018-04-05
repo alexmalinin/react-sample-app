@@ -14,11 +14,15 @@ import { run } from '../../../helpers/scrollToElement';
 
 class SpecialistIndustry extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+        };
+    }
 
     componentWillMount() {
         this.props.getIndustries();
@@ -28,17 +32,14 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
+
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
+        console.log('industries', this.props.industries);
+
         return (
-            <Container indentBot className="relative">
-                <SubHeader />
-                {/*<ContainerLarge>*/}
-                {/* <DvTitle mTop='80'>
-                    Welcome to The Village!
-                </DvTitle> */}
-                {/*</ContainerLarge>*/}
+            <div>
                 <S_Message positive data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
@@ -47,20 +48,20 @@ class SpecialistIndustry extends Component {
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>
-                {/* <DvTitleSmall>My Services</DvTitleSmall> */}
                 <SpecialistIndustryForm
                         industries={industries}
                         projectTypes={projectTypes}
                         experienceLevels={experienceLevels}
                         specialistData={specialistData}
+                        onChange={this.change}
                         onSubmit={this.submit} />
                         {this.state.nextStep && <Redirect to="company"/>}
-            </Container>
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+
         if (nextProps.specialistData) {
             if (nextProps.specialistData.successIndustryId) {
                 run(0)();
@@ -91,7 +92,12 @@ class SpecialistIndustry extends Component {
             })
     };
 
+    change = values => {
+        this.props.calculatePagePercent('industryPercent', values);
+    }
+
     submit = values => {
+        console.log('values on submit',values);
         this.props.updateSpecStep1(values);
     };
 }

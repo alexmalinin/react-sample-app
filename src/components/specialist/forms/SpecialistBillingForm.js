@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Field, reduxForm, change, formValueSelector } from 'redux-form';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import BillingForm from "./BillingForm";
 
 let renderError = true;

@@ -3,28 +3,45 @@ import React from 'react';
 import StyledInputs from '../../../styleComponents/forms/StyledInputs'
 import StyledError from '../../../styleComponents/forms/StyledError'
 
-export const RenderField = ({
-                        input,
-                        placeholder,
-                        name,
-                        label,
-                        type,
-                        disabled,
-                        ...rest,
-                        padded,
-                        meta: { touched, error, warning },
-                        
-                     }) =>
-    <StyledInputs {...rest} padded={padded}>
-            <label htmlFor={name}>{label}</label>
-            <Input error={Boolean(touched && error)} {...input} name={name} disabled={disabled} placeholder={placeholder} type={type} />
-            {touched &&
-            ((error &&
-                <StyledError>
-            {error}
-          </StyledError>) ||
-                (warning &&
-                    <span>
-              {warning}
-            </span>))}
-    </StyledInputs>;
+class RenderField extends React.Component {
+
+    render() {
+
+        const { input,
+            placeholder,
+            name,
+            label,
+            type,
+            disabled,
+            padded,
+            data,
+            meta: { touched, error, warning }} = this.props;
+
+        return (
+            <StyledInputs padded={padded}>
+                <label htmlFor={name}>{label}</label>
+                <Input error={Boolean(touched && error)} 
+                    {...input} 
+                    name={input.name}
+                    disabled={disabled} 
+                    placeholder={placeholder} 
+                    type={type}
+                    
+                />
+                {touched &&
+                ((error &&
+                    <StyledError>
+                {error}
+            </StyledError>) ||
+                    (warning &&
+                        <span>
+                {warning}
+                </span>))}
+            </StyledInputs>
+        )
+    }
+    
+
+}
+
+export default RenderField;

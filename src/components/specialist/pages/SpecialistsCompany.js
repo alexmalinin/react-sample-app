@@ -14,10 +14,15 @@ import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
 
 class SpecialistCompany extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
+    };
+  }
 
   componentWillMount() {
     this.props.getIndustries();
@@ -29,8 +34,7 @@ class SpecialistCompany extends Component {
     const { industries } = this.props;
 
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -46,15 +50,15 @@ class SpecialistCompany extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} />
+        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} onChange={this.change} />
         {this.state.nextStep && <Redirect to="billings"/>}
 
-      </Container>
+      </div>
     )
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('das',nextProps);
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
@@ -84,6 +88,11 @@ class SpecialistCompany extends Component {
       renderErrorMessage: true,
     })
   };
+
+
+  change = values => {
+    this.props.calculatePagePercent('companyPercent', values);
+  }
 
   submit = values => {
 

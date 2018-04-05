@@ -19,11 +19,42 @@ import { run } from '../../helpers/scrollToElement';
 
 class ClientBilling extends Component {
 
-    state = {
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: false,
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            renderMessage: false,
+            renderErrorMessage: false,
+            nextStep: false,
+        };
+
+    }
+
+    collectData(values) {
+
+        const { billing_type, 
+                account_number, 
+                account_details, 
+                card_name, card_number, 
+                expiry_date, 
+                ccv, 
+                password } = values;
+
+        if (!billing_type || billing_type == '0') {
+            let obj = { data: {account_number, password,}, count: 2, }
+            return obj 
+        }
+
+        if (billing_type == '1') {
+            let obj = {data: { card_name, card_number, expiry_date, ccv, }, count: 4, }
+            return obj
+        }
+        if (billing_type == '2') {
+            let obj = {data: {account_details,}, count: 1, }
+            return obj
+        }
+        
+    }
 
     componentWillMount() {
       this.props.showClientData();
@@ -34,29 +65,25 @@ class ClientBilling extends Component {
         const { renderErrorMessage, renderMessage } = this.state;
 
         return (
-            <ContainerLarge>
-                <Container indentBot className="relative">
-
-                    <SubHeader/>
-
-                    <S_Message positive profile data-show={renderMessage}>
-                        <Message.Header>Success!</Message.Header>
-                        <p>Form updated</p>
-                    </S_Message>
-                    <S_Message negative profile data-show={renderErrorMessage}>
-                        <Message.Header>Error!</Message.Header>
-                        <p>Something went wrong, please try again</p>
-                    </S_Message>
-                    {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
-                    <ClientBillingForm clientData={clientData} onSubmit={this.submit}/>
-                    {this.state.nextStep && <Redirect to="board"/>}
-                </Container>
-            </ContainerLarge>
+            <div>
+                <S_Message positive profile data-show={renderMessage}>
+                    <Message.Header>Success!</Message.Header>
+                    <p>Form updated</p>
+                </S_Message>
+                <S_Message negative profile data-show={renderErrorMessage}>
+                    <Message.Header>Error!</Message.Header>
+                    <p>Something went wrong, please try again</p>
+                </S_Message>
+                {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
+                <ClientBillingForm onChange={this.change} clientData={clientData} onSubmit={this.submit}/>
+                {this.state.nextStep && <Redirect to="board"/>}
+            </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
         let client = nextProps.clientData;
+
         if (client && client.successBillingId) {
             this.showMessage('success');
             run(0)();
@@ -83,8 +110,13 @@ class ClientBilling extends Component {
             })
     };
 
+    change = values => {
+
+        const data = this.collectData(values)
+        this.props.calculatePagePercent('billingPercent', data);
+      }
+
     submit = values => {
-        console.log('values', values);
         this.props.updateClientBilling(values)
     }
 }

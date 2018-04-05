@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
-import {renderField} from '../../forms/renders/RenderField';
+import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { SaveBtn } from '../../../styleComponents/layout/DvButton'
@@ -14,7 +14,7 @@ import RenderImage from '../../forms/renders/RenderImage';
 class CompanyForm extends Component {
 
     render() {
-        const { submitting, industries, clientData, specialistData } = this.props;
+        const { submitting, industries, clientData, specialistData, handleFormField } = this.props;
         let { avatar } = specialistData || clientData || false;
 
         return (
@@ -37,26 +37,31 @@ class CompanyForm extends Component {
                           <InputField
                             name="name"
                             label="Company Name"
+                            handleFormField={handleFormField}
                           />
 
                           <InputField
                             name="company_address"
                             label="Company Address"
+                            handleFormField={handleFormField}
                           />
 
                           <InputField
                             name="website"
                             label="Website"
+                            handleFormField={handleFormField}
                           />
 
                           <InputField
                             name="country"
                             label="Country"
+                            handleFormField={handleFormField}
                           />
 
                           <InputField
                             name="city"
                             label="City"
+                            handleFormField={handleFormField}
                           />
 
                           <Field name="tell_about" component={RenderTextArea} label="Tell us about your business"/>
@@ -66,11 +71,13 @@ class CompanyForm extends Component {
                           <InputField
                             name="registered_name"
                             label="Company Registered Name"
+                            handleFormField={handleFormField}
                           />
 
                           <InputField
                             name="abn_acn"
                             label="ABN / ACN"
+                            handleFormField={handleFormField}
                           />
 
                           <Field
@@ -80,6 +87,7 @@ class CompanyForm extends Component {
                             label="Segment"
                             placeholder="Select"
                             validate={[required]}
+                            handleFormField={handleFormField}
                           />
 
                           <div id="industry" className='half-column'>
@@ -89,6 +97,7 @@ class CompanyForm extends Component {
                               label="Industry"
                               placeholder="Select"
                               options={industries.industry}
+                              handleFormField={handleFormField}
                             />
                           </div>
 
@@ -99,6 +108,7 @@ class CompanyForm extends Component {
                               label="Number of employers"
                               placeholder="Select"
                               options={employeers}
+                              handleFormField={handleFormField}
                             />
                           </div>
                         </Grid.Column>  

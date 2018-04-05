@@ -14,22 +14,35 @@ import SpecialistBillingForm from '../forms/SpecialistBillingForm';
 
 class SpecialistsMyBillings extends Component {
 
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false,
-    nextStep: false,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false,
+    }
+  }
 
   componentWillMount() {
     this.props.showSpecialistData();
+  }
+
+  collectData(values) {
+    const { billing_type, company_name, manager, bank_account_details, swift_code } = values
+    console.log('qwe 456', billing_type)
+
+    if (billing_type == '1') {
+      return { company_name, manager }
+    }
+    return { bank_account_details, swift_code }
   }
 
   render() {
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
-      <Container indentBot className="relative">
-        <SubHeader />
+      <div>
         {/*<ContainerLarge>*/}
         {/* <DvTitle mTop='80'>
           Welcome to The Village!
@@ -45,14 +58,15 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
-        <SpecialistBillingForm data={this.props.specialistData} onSubmit={this.submit}/>
+        <SpecialistBillingForm swichTab={this.swichTab} data={this.props.specialistData} onChange={this.change} onSubmit={this.submit}/>
         {this.state.nextStep && <Redirect to="about"/>}
 
-      </Container>
+      </div>
     )
   }
 
   componentWillReceiveProps(nextProps) {
+
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
@@ -82,6 +96,11 @@ class SpecialistsMyBillings extends Component {
       renderErrorMessage: true,
     })
   };
+
+  change = values => {
+    const data = this.collectData(values)
+    this.props.calculatePagePercent('billingPercent', data);
+  }
 
   submit = values => {
     this.props.updateSpecialistBillings(values);
