@@ -71,9 +71,16 @@ export default styled.div`
             transform: rotate(90deg);
         }
     }
+
+    .saveBtn{
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
     
     .close::after,
-    .close::before {     
+    .close::before {
       content: '';
       position: absolute;
       width: 18px;
@@ -134,6 +141,7 @@ export default styled.div`
         width: 42px;
         height: 1px;
         background-color: #fff;
+        opacity: .7;
     }
 
     .completeLaterLink:hover {
@@ -223,7 +231,7 @@ export default styled.div`
         border: 1px solid #fff;
     }
 
-    a {
+    a, button {
         position: relative;
         color: #fff;
         opacity: 0.7;

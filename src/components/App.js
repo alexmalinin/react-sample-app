@@ -83,8 +83,9 @@ class App extends Component {
                                     <Route path='/reset_password' component={ ConfirmReset }/>
 
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
-                                    
+
                                     <Route path='/client/dashboard/:page' component={ ClientDashboard } />
+                                    <Route path='/client/project/:projectId' component={ ClientDashboard } />
 
                                     <Route path='*' component={NotFound}/>
                                 </Switch>

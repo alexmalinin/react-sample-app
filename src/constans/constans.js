@@ -32,6 +32,7 @@ export const CLEAR_EDUCATION                   = 'CLEAR_EDUCATION';
 export const CLEAR_WORK_EXPERIENCE             = 'CLEAR_WORK_EXPERIENCE';
 export const SHOW_CLIENT_DATA                  = 'SHOW_CLIENT_DATA';
 export const SHOW_SPECIALIST_DATA              = 'SHOW_SPECIALIST_DATA';
+export const SHOW_ALL_PROJECTS                 = 'SHOW_ALL_PROJECTS';
 export const UPDATE_SPECIALIST_PROFILE         = 'UPDATE_SPECIALIST_PROFILE';
 export const EDIT_COMPANY_WITH_ID              = 'EDIT_COMPANY_WITH_ID';
 export const EDIT_BILLING_WITH_ID              = 'EDIT_BILLING_WITH_ID';

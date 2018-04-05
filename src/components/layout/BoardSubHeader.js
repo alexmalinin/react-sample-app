@@ -28,7 +28,7 @@ class ProjectSubHeader extends Component {
           <SubHeaderLinkWrap content='4' url='#' className='rightLink'>
             
           </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='' url='module' className='rightLink addButt'>
+          <SubHeaderLinkWrap content='' url='/client/dashboard/module' className='rightLink addButt'>
             Add module
           </SubHeaderLinkWrap>
         </div>

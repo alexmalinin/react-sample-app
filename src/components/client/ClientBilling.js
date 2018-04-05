@@ -95,10 +95,10 @@ class ClientBilling extends Component {
 
     showMessage = status => {
         setTimeout( () => this.setState({
-                    renderMessage: false,
-                    renderErrorMessage: false,
-                    nextStep: true,
-                }), 1500
+                renderMessage: false,
+                renderErrorMessage: false,
+                nextStep: true,
+            }), 1500
         );
 
         status === 'success'

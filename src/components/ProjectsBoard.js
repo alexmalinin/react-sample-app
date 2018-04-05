@@ -19,6 +19,10 @@ import { run } from '../helpers/scrollToElement';
 import projects from '../helpers/projects'
 
 class ProjectsBoard extends Component {
+    componentWillMount() {
+        this.props.updateProjectList();
+    }
+
     render() {
 
         return (
@@ -26,6 +30,7 @@ class ProjectsBoard extends Component {
                     <BoardSubHeader />
                     
                     <S_Board>
+                        {this.props.project}
                         <Board data={projects} className="kanban" draggable customCardLayout>
                             <CustomCard />
                         </Board>

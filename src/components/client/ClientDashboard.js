@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
+import { showAllProjects } from '../../actions/actions'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
@@ -24,6 +25,13 @@ const mapPageNameToFieldsCount = {
 }
 
 class ClientDashboard extends Component {
+  componentWillMount() {
+    this.props.showAllProjects();
+  }
+
+  updateProjectList = () => {
+    this.props.showAllProjects();
+  }
 
   constructor() {
     super();
@@ -164,25 +172,29 @@ class ClientDashboard extends Component {
   } 
 
   render() {
-
-    const {match:{params}} = this.props;
-    let page = params['page'];
-    let sidebarCondition = page === 'projects' || page === 'board' || page === 'module' || page === 'root' || page === 'the_village';
+    const {match:{params}, allProjects} = this.props;
+    let page = params['page'] || (params['projectId'] ? 'board' : null);
+    let sidebarCondition = 
+            page === 'projects' 
+        || page === 'board' 
+        || page === 'module' 
+        || page === 'root' 
+        || page === 'the_village';
 
     return (
       <div>
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
-        <S_MainContainer>
-          {sidebarCondition && <SideBarLeft projects={projects}/>}
-            {sidebarCondition 
-              ? this.renderPage(page)
-                : <Container>
-                    <SubHeader percents={this.state}/>
-                    {this.renderPage(page)}
-                  </Container>
-            }
-          {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
-        </S_MainContainer>
+          <S_MainContainer>
+            {sidebarCondition && <SideBarLeft projects={allProjects}/>}
+              {sidebarCondition 
+                ? this.renderPage(page)
+                  : <Container>
+                      <SubHeader percents={this.state}/>
+                      {this.renderPage(page)}
+                    </Container>
+              }
+            {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
+          </S_MainContainer>
       </div>
     )
   }
@@ -196,11 +208,11 @@ class ClientDashboard extends Component {
       case 'billing':
         return <ClientBilling calculatePagePercent={this.calculatePagePercent}/>;
       case 'projects':
-        return <ClientProjects/>;
+        return <ClientProjects updateProjectList={this.updateProjectList}/>;
       case 'module':
         return <ClientModule/>;
       case 'board':
-        return <ProjectsBoard/>;
+        return <ProjectsBoard project={this.props.match.params['projectId']} updateProjectList={this.updateProjectList}/>;
       case 'the_village':
         return <TheVillage/>;
       case 'root':
@@ -208,12 +220,9 @@ class ClientDashboard extends Component {
       default:
         return <ClientProfile/>
     }
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
-
-    // debugger
-
     if (nextProps.clientData) {
       if (nextProps.clientData.email) {
           this.calculatePercents()   
@@ -222,4 +231,7 @@ class ClientDashboard extends Component {
   }
 }
 
-export default connect(({clientData}) => ({clientData}), {showClientData})(ClientDashboard);
+export default connect(
+  ({allProjects}) => ({allProjects}),
+  { showAllProjects }
+)(ClientDashboard);

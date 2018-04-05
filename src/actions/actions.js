@@ -44,6 +44,7 @@ import {
     UPDATE_CLIENT_BILLINGS,
     SAVE_CREATED_PROJECT,
     SUBMIT_CREATED_PROJECT,
+    SHOW_ALL_PROJECTS,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -535,7 +536,7 @@ export function saveCreatedProgect(data) {
     const action = {
         type: SAVE_CREATED_PROJECT,
         payload: data,
-        saveCreatedProgect: `${PORT}/api/v1/customers/projects`
+        saveCreatedProgect: `${PORT}/api/v1/projects`
     };
 
     return action;
@@ -545,7 +546,16 @@ export function submitCreatedProgect(data) {
     const action = {
         type: SUBMIT_CREATED_PROJECT,
         payload: data,
-        submitCreatedProgect: `${PORT}/api/v1/customers/projects`
+        submitCreatedProgect: `${PORT}/api/v1/projects`
+    };
+
+    return action;
+}
+
+export function showAllProjects() {
+    const action = {
+        type: SHOW_ALL_PROJECTS,
+        showAllProjects: `${PORT}/api/v1/projects?customer_id=`,
     };
 
     return action;

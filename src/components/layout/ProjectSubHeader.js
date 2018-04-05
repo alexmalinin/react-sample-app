@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
 import { NavLink } from 'react-router-dom';
 
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import StyledModuleLink from '../../styleComponents/StyledModuleLink';
+import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
 
 
 class ProjectSubHeader extends Component {
 
   render() {
+    let form = this.props.module ? 'ClientModuleForm' : 'ClientProjectForm';
 
     return (
       <StyledSubHeader projects>
@@ -28,12 +32,14 @@ class ProjectSubHeader extends Component {
           : <div></div>
         }
         <div>
-          <SubHeaderLinkWrap url='#' className='rightLink arrow'>
-            <span></span>
+          <button onClick={() => this.props.dispatch(submit(form))} className='saveBtn'>
+            <StyledSubHeaderLink className='rightLink arrow'>
+              <span></span>
+            </StyledSubHeaderLink>
             Save
-          </SubHeaderLinkWrap>
+          </button>
 
-          <SubHeaderLinkWrap url='#' className='rightLink close'>
+          <SubHeaderLinkWrap url='/client/dashboard/root' className='rightLink close'>
             Cancel
           </SubHeaderLinkWrap>
         </div>
@@ -42,4 +48,4 @@ class ProjectSubHeader extends Component {
   }
 }
 
-export default ProjectSubHeader;
+export default connect()(ProjectSubHeader);
