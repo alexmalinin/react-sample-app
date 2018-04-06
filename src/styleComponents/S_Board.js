@@ -39,6 +39,7 @@ export const S_Board = styled.div`
     
     .dragContainer {
         flex: 0 0 31.5%;
+        margin-bottom: 20px;
 
         &:last-of-type{
             .module::before{
@@ -226,14 +227,14 @@ export const S_Board = styled.div`
             max-width: 80%;
             color: #666;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
         }
 
         p{
             color: #666;
             font-weight: 600;
-            font-size: 11px;
+            font-size: 14px;
         }
 
         .subline{

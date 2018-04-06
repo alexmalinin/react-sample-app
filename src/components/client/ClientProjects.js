@@ -19,7 +19,6 @@ class ClientProjects extends Component {
     renderMessage: false,
     renderErrorMessage: false,
     saved: false,
-    activeProject: ''
   };
 
   render() {
@@ -47,21 +46,11 @@ class ClientProjects extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
     let createProject = nextProps.createProject;
-
-    if (client.successProfileId) {
-      this.showMessage('success');
-      run(0)();
-    } else if(client.errorProfileId) {
-      this.showMessage();
-      run(0)();
-    }
 
     if(createProject) {
       if(createProject.id) {
         this.setState({
-          activeProject: createProject.id,
           saved: true,
         });
       }
@@ -88,12 +77,11 @@ class ClientProjects extends Component {
 
   submit = values => {
     this.props.saveCreatedProgect(values);
-    this.props.updateProjectList();
   }
 
 }
 
 export default connect(
-  ({clientData, createProject}) => ({clientData, createProject}),
+  ({createProject}) => ({createProject}),
   {showClientData, saveCreatedProgect}
 )(ClientProjects);

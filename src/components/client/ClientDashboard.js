@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
-import { showAllProjects } from '../../actions/actions'
+import { showClientData, showAllProjects, showProjectWithId, showAllEpics } from '../../actions/actions'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
@@ -16,7 +16,6 @@ import ClientProjects from './ClientProjects';
 import ClientModule from './ClientModule';
 import Dashboard from '../Dashboard';
 import TheVillage from '../TheVillage';
-import { showClientData } from '../../actions/actions';
 
 const mapPageNameToFieldsCount = {
   'profilePercent': 7,
@@ -25,14 +24,6 @@ const mapPageNameToFieldsCount = {
 }
 
 class ClientDashboard extends Component {
-  componentWillMount() {
-    this.props.showAllProjects();
-  }
-
-  updateProjectList = () => {
-    this.props.showAllProjects();
-  }
-
   constructor() {
     super();
     this.state = {
@@ -41,6 +32,16 @@ class ClientDashboard extends Component {
         billingPercent: null,
     }
     this.calculatePagePercent = this.calculatePagePercent.bind(this)
+  }
+
+  componentWillMount() {
+    this.props.showAllProjects();
+
+    let projectId = this.props.match.params["projectId"];
+
+    if(projectId && !this.props.projectWithId){
+      this.props.showProjectWithId(projectId);
+    }
   }
 
   collectPropfileData() {
@@ -173,9 +174,20 @@ class ClientDashboard extends Component {
 
   render() {
     const {match:{params}, allProjects} = this.props;
-    let page = params['page'] || (params['projectId'] ? 'board' : null);
+    let page;
+
+    if(params['page']){
+      page = params['page'];
+    }
+    else if (params['projectId']){
+      page = 'board';
+    }
+    else if (params['epicProj']){
+      page = 'module';
+    }
+
     let sidebarCondition = 
-            page === 'projects' 
+           page === 'projects' 
         || page === 'board' 
         || page === 'module' 
         || page === 'root' 
@@ -210,9 +222,14 @@ class ClientDashboard extends Component {
       case 'projects':
         return <ClientProjects updateProjectList={this.updateProjectList}/>;
       case 'module':
-        return <ClientModule/>;
+        return <ClientModule projectId={this.props.match.params['epicProj']}/>;
       case 'board':
-        return <ProjectsBoard project={this.props.match.params['projectId']} updateProjectList={this.updateProjectList}/>;
+        return <ProjectsBoard 
+            updateProjectList={this.updateProjectList} 
+            project={this.props.projectWithId}
+            projectId={this.props.match.params['projectId']}
+            allEpics={this.props.allEpics}
+          />;
       case 'the_village':
         return <TheVillage/>;
       case 'root':
@@ -228,10 +245,22 @@ class ClientDashboard extends Component {
           this.calculatePercents()   
       }
     }
+
+    let projectId = nextProps.match.params["projectId"];
+
+    if(projectId && nextProps.projectWithId){
+      if(nextProps.projectWithId.id != projectId){
+        nextProps.showProjectWithId(projectId);
+        nextProps.showAllEpics(projectId);
+      }
+    }
+    else if(projectId) {
+      nextProps.showProjectWithId(projectId);
+    }
   }
 }
 
 export default connect(
-  ({allProjects}) => ({allProjects}),
-  { showAllProjects }
+  ({allProjects, projectWithId, allEpics}) => ({allProjects, projectWithId, allEpics}),
+  { showAllProjects, showProjectWithId, showAllEpics }
 )(ClientDashboard);

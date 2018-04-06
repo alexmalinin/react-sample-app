@@ -4,9 +4,6 @@ import { StyledBar } from '../../../styleComponents/layout/SideBar';
 import { Accordion } from 'semantic-ui-react';
 
 export default class SideBarLeft extends Component {
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-    }
 
     render() {
         let { projects } = this.props;

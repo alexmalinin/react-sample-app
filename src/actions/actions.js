@@ -45,6 +45,10 @@ import {
     SAVE_CREATED_PROJECT,
     SUBMIT_CREATED_PROJECT,
     SHOW_ALL_PROJECTS,
+    SHOW_PROJECT_WITH_ID,
+    CREATE_PROJECT_EPIC,
+    SHOW_ALL_EPICS,
+    DELETE_PROJECT_EPIC,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -530,7 +534,7 @@ export function updateClientBilling(data) {
     return action;
 }
 
-// Post a Project
+// post a Project
 
 export function saveCreatedProgect(data) {
     const action = {
@@ -542,6 +546,8 @@ export function saveCreatedProgect(data) {
     return action;
 }
 
+// submit a Project
+
 export function submitCreatedProgect(data) {
     const action = {
         type: SUBMIT_CREATED_PROJECT,
@@ -552,10 +558,60 @@ export function submitCreatedProgect(data) {
     return action;
 }
 
+// get array of all projects (include unsubmitted)
+
 export function showAllProjects() {
     const action = {
         type: SHOW_ALL_PROJECTS,
         showAllProjects: `${PORT}/api/v1/projects?customer_id=`,
+    };
+
+    return action;
+}
+
+// get project by id
+
+export function showProjectWithId(id) {
+    const action = {
+        type: SHOW_PROJECT_WITH_ID,
+        id,
+        showProjectWithId: `${PORT}/api/v1/projects/`,
+    };
+
+    return action;
+}
+
+// post project Epic
+
+export function createProjectEpic(data, project) {
+    const action = {
+        type: CREATE_PROJECT_EPIC,
+        payload: data,
+        project,
+        createProjectEpic: `${PORT}/api/v1/projects/`,
+    };
+
+    return action;
+}
+
+// delete Epic by project and id
+
+export function deleteProjectEpic(project, id) {
+    const action = {
+        type: DELETE_PROJECT_EPIC,
+        showAllEpics: `${PORT}/api/v1/projects/${project}/epics/${id}`,
+    };
+
+    return action;
+}
+
+
+// get array of all projects (include unsubmitted)
+
+export function showAllEpics(project) {
+    const action = {
+        type: SHOW_ALL_EPICS,
+        showAllEpics: `${PORT}/api/v1/epics?project_id=${project}`,
     };
 
     return action;

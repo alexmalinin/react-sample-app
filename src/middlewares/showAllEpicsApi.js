@@ -3,16 +3,16 @@ import jwtDecode from 'jwt-decode';
 import { SUCCESS } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, showAllProjects, ...rest } = action;
-    if (!showAllProjects) return next(action);
+    const { type, showAllEpics, project, ...rest } = action;
+    if (!showAllEpics) return next(action);
 
     let token = localStorage.getItem('jwt_token');
-    let { id } = jwtDecode(token);
 
     axios({
         method: 'get',
-        url: showAllProjects + id
-    }).then(function (response) {
+        url: showAllEpics
+    })
+    .then(function (response) {
         let data = response.data;
         data.successId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });

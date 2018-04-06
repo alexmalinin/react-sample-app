@@ -18,6 +18,9 @@ import clientData       from './showClientDataReducer';
 import specialistData   from './showSpecialistDataReducer';
 import createProject    from './createProjectReducer';
 import allProjects      from './showAllProjectsReducer';
+import projectWithId    from './showProjectWithIdReducer';
+import createEpic       from './createProjectEpicReducer';
+import allEpics         from './showAllEpicsReducer';
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
 
@@ -40,5 +43,8 @@ export default combineReducers({
     form: reduxFormReducer,
     createProject,
     allProjects,
+    projectWithId,
+    createEpic,
+    allEpics,
     // contactRequest,
 });

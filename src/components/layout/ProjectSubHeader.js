@@ -13,7 +13,8 @@ import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
 class ProjectSubHeader extends Component {
 
   render() {
-    let form = this.props.module ? 'ClientModuleForm' : 'ClientProjectForm';
+    let { projectId, module, projectWithId } = this.props;
+    let form = module ? 'ClientModuleForm' : 'ClientProjectForm';
 
     return (
       <StyledSubHeader projects>
@@ -23,7 +24,7 @@ class ProjectSubHeader extends Component {
               <NavLink to="#">New module</NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to="board">Project XYZ</NavLink>
+              <NavLink to={`/client/project/${projectId}`}>Project {projectWithId ? projectWithId.name : ''}</NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
               <NavLink to="#">Root module</NavLink>
@@ -39,7 +40,7 @@ class ProjectSubHeader extends Component {
             Save
           </button>
 
-          <SubHeaderLinkWrap url='/client/dashboard/root' className='rightLink close'>
+          <SubHeaderLinkWrap url={`/client/project/${projectId}`} className='rightLink close'>
             Cancel
           </SubHeaderLinkWrap>
         </div>
@@ -48,4 +49,6 @@ class ProjectSubHeader extends Component {
   }
 }
 
-export default connect()(ProjectSubHeader);
+export default connect(
+  ({projectWithId}) => ({projectWithId})
+)(ProjectSubHeader);

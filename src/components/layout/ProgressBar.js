@@ -34,7 +34,7 @@ class ProgressBars extends Component {
 
     render () {
         return (
-            <div class="container" ref={this.setContainer}></div>
+            <div className="container" ref={this.setContainer}></div>
         )
     }
 }
