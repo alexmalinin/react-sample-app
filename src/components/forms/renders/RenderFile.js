@@ -6,28 +6,35 @@ import { PORT } from "../../../constans/constans";
 class RenderImage extends Component {
 
     state = {
-        files: [] 
+        files: [],
     };
+
+    fileHub = [];
 
     _handleFileAttach(e) {
         e.preventDefault();
 
-        let reader = new FileReader();
+        
         let files = e.target.files;
+        console.log("files", files);
 
-        this.props.input.onChange(e);
+        
 
-        // reader.onloadend = () => {
-        //     this.setState({
-        //         files: [...this.state.files, files[0]]
-        //     });
-        // };
+        for(let i = 0; i < files.length; i++) {
+            let reader = new FileReader();
 
-        // reader.readAsDataURL(files);
+            reader.onloadend = () => {
+                this.fileHub = [...this.fileHub, reader.result];
+                this.setState({
+                    files: [...this.state.files, files[i]]
+                });
+                this.shadowfileInput.value = this.fileHub.join('||');
+                this.props.input.onChange(this.shadowfileInput.value);
+                // sample for API console.log('end', this.shadowfileInput.value.split('||'));
+            };
 
-        this.setState({
-            files: [...this.state.files, files[0]]
-        });
+            reader.readAsDataURL(files[i]);
+        }
     }
 
     returnFileName(name) {
@@ -47,8 +54,6 @@ class RenderImage extends Component {
     }
 
     render() {
-        console.log(this.state.files);
-
         const {
             input,
             placeholder,
@@ -62,6 +67,7 @@ class RenderImage extends Component {
         return (
             <StyledUploader fileLoader padded={padded}>
                 <p>{label}</p>
+                <span></span>
                 {this.state.files.map((file, key) => 
                     <div className='filePreview' key={key}>
                         <img src="/images/uploadFile.png" alt="file"/>
@@ -82,11 +88,21 @@ class RenderImage extends Component {
                 </button>
                 <input
                     ref={this.triggerRef}
+                    name={name + '2'}
+                    disabled={disabled}
+                    placeholder={placeholder}
+                    type='file'
+                    multiple
+                    onChange={(e) => this._handleFileAttach(e)}/>
+                
+                <input
+                    ref={(input) => this.shadowfileInput = input}
                     name={name}
                     disabled={disabled}
                     placeholder={placeholder}
-                    type={type}
-                    onChange={(e) => this._handleFileAttach(e)}/>
+                    type='text'
+                    />
+                
             </StyledUploader>
         )
     }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import HeaderBasic from '../layout/HeaderBasic';
 import { NavLink } from 'react-router-dom'
 import SubHeader from '../layout/ProjectSubHeader';
 import { Grid } from 'semantic-ui-react'
 import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { showClientData, updateClientProfile } from '../../actions/actions';
+import { createProjectEpic, showProjectWithId, showAllEpics } from '../../actions/actions';
 import { S_Message } from '../../styleComponents/layout/S_Message';
 import { Message } from 'semantic-ui-react';
 import { run } from '../../helpers/scrollToElement';
@@ -17,15 +18,21 @@ class ClientProjects extends Component {
   state = {
     renderMessage: false,
     renderErrorMessage: false,
+    saved: false,
   };
 
-  render() {
+  componentWillMount() {
+    const { projectId } = this.props;
+    this.props.showProjectWithId(projectId);
+  }
 
+  render() {
+    const { projectId, projectWithId } = this.props;
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
         <ContainerLarge>
-          <SubHeader module/>
+          <SubHeader module projectId={projectId} project={projectWithId}/>
           <Container indentBot>
             <S_Message positive profile data-show={renderMessage}>
               <Message.Header>Success!</Message.Header>
@@ -36,22 +43,11 @@ class ClientProjects extends Component {
               <p>Something went wrong, please try again</p>
             </S_Message>
 
-            <ClientModuleForm/>
+            <ClientModuleForm onSubmit={this.submit} />
+            {this.state.saved ? <Redirect to={`/client/project/${projectId}`}/> : null }
           </Container>
         </ContainerLarge>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client.successProfileId) {
-      this.showMessage('success');
-      run(0)();
-    } else if(client.errorProfileId) {
-      this.showMessage();
-      run(0)();
-    }
   }
 
   showMessage = status => {
@@ -71,6 +67,24 @@ class ClientProjects extends Component {
       renderErrorMessage: true,
     })
   };
+
+  submit = values => {
+    const { projectId, allEpics } = this.props;
+    this.props.createProjectEpic(values, projectId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.createEpic){
+      if(nextProps.createEpic.successEpicId){
+        this.setState({
+          saved: true
+        })
+      }
+    }
+  }
 }
 
-export default connect(({clientData}) => ({clientData}), {showClientData, updateClientProfile })(ClientProjects);
+export default connect(
+  ({projectWithId, createEpic}) => ({projectWithId, createEpic}),
+  {createProjectEpic, showProjectWithId}
+)(ClientProjects);

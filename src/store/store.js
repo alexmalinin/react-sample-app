@@ -30,6 +30,12 @@ import deleteExperience             from '../middlewares/experience/deleteExperi
 import updateClientProfile          from '../middlewares/updateClientProfileApi';
 import updateClientCompany          from '../middlewares/updateClientCompanyApi';
 import updateClientBilling          from '../middlewares/updateClientBillingApi';
+import saveCreatedProject           from '../middlewares/createProjectApi';
+import showAllProjects              from '../middlewares/showAllProjectsApi';
+import showProjectWithId            from '../middlewares/showProjectWithIdApi';
+import createProjectEpic            from '../middlewares/createProjectEpicApi';
+import deleteProjectEpic            from '../middlewares/deleteProjectEpicApi';
+import showAllEpics                 from '../middlewares/showAllEpicsApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -61,6 +67,12 @@ const enhancer = applyMiddleware(
     updateClientProfile,
     updateClientCompany,
     updateClientBilling,
+    saveCreatedProject,
+    showAllProjects,
+    showProjectWithId,
+    createProjectEpic,
+    deleteProjectEpic,
+    showAllEpics,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

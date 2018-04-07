@@ -37,8 +37,6 @@ class ClientModuleForm extends Component {
 
   fillFields = data => {
     let { project } = data;
-    console.log(data);
-
   }
 }
 

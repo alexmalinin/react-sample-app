@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
 import { NavLink } from 'react-router-dom';
 
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import StyledModuleLink from '../../styleComponents/StyledModuleLink';
+import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
 
 
 class ProjectSubHeader extends Component {
 
   render() {
+    let { projectId, module, projectWithId } = this.props;
+    let form = module ? 'ClientModuleForm' : 'ClientProjectForm';
 
     return (
       <StyledSubHeader projects>
@@ -19,7 +24,7 @@ class ProjectSubHeader extends Component {
               <NavLink to="#">New module</NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to="board">Project XYZ</NavLink>
+              <NavLink to={`/client/project/${projectId}`}>Project {projectWithId ? projectWithId.name : ''}</NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
               <NavLink to="#">Root module</NavLink>
@@ -28,12 +33,14 @@ class ProjectSubHeader extends Component {
           : <div></div>
         }
         <div>
-          <SubHeaderLinkWrap url='#' className='rightLink arrow'>
-            <span></span>
+          <button onClick={() => this.props.dispatch(submit(form))} className='saveBtn'>
+            <StyledSubHeaderLink className='rightLink arrow'>
+              <span></span>
+            </StyledSubHeaderLink>
             Save
-          </SubHeaderLinkWrap>
+          </button>
 
-          <SubHeaderLinkWrap url='#' className='rightLink close'>
+          <SubHeaderLinkWrap url={`/client/project/${projectId}`} className='rightLink close'>
             Cancel
           </SubHeaderLinkWrap>
         </div>
@@ -42,4 +49,6 @@ class ProjectSubHeader extends Component {
   }
 }
 
-export default ProjectSubHeader;
+export default connect(
+  ({projectWithId}) => ({projectWithId})
+)(ProjectSubHeader);

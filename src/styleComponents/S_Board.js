@@ -20,7 +20,7 @@ export const S_Board = styled.div`
         text-transform  : uppercase;
         font-size: 14px;
         padding-bottom: 15px;
-        flex: 0 0 31.5%;
+        /* flex: 0 0 31.5%; */
 
         border-width: 0px;
         border-bottom-width: 3px;
@@ -39,6 +39,7 @@ export const S_Board = styled.div`
     
     .dragContainer {
         flex: 0 0 31.5%;
+        margin-bottom: 20px;
 
         &:last-of-type{
             .module::before{
@@ -52,7 +53,7 @@ export const S_Board = styled.div`
         width: 100%;
 
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         background: none;
         height: auto;
 
@@ -62,6 +63,8 @@ export const S_Board = styled.div`
             max-height: 100%;
             height: 100%;
             overflow: visible;
+            margin: 0;
+            padding: 0;
 
             &>header{
                 text-transform  : uppercase;
@@ -224,14 +227,14 @@ export const S_Board = styled.div`
             max-width: 80%;
             color: #666;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
         }
 
         p{
             color: #666;
             font-weight: 600;
-            font-size: 11px;
+            font-size: 14px;
         }
 
         .subline{

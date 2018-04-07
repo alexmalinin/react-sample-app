@@ -9,26 +9,21 @@ import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 class ProjectSubHeader extends Component {
 
   render() {
+    const { epics } = this.props;
+    // console.log('epics', epics);
 
     return (
       <StyledSubHeader profile='true'>
         <div>
-        <SubHeaderLinkWrap content='All' url='#' className='rightLink'>
+          <SubHeaderLinkWrap content='All' url='#' className='rightLink'>
             
           </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='1' url='#' className='rightLink'>
+          {epics && epics.map((epic, key) =>
+            <SubHeaderLinkWrap key={key} content={key + 1} url='#' className='rightLink'>
             
-          </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='2' url='#' className='rightLink'>
-            
-          </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='3' url='#' className='rightLink'>
-            
-          </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='4' url='#' className='rightLink'>
-            
-          </SubHeaderLinkWrap>
-          <SubHeaderLinkWrap content='' url='module' className='rightLink addButt'>
+            </SubHeaderLinkWrap>
+          )}
+          <SubHeaderLinkWrap content='' url={`/client/project/${this.props.project}/module`} className='rightLink addButt'>
             Add module
           </SubHeaderLinkWrap>
         </div>

@@ -14,7 +14,7 @@ import RenderFile from '../../forms/renders/RenderFile';
 class ProjectForm extends Component {
 
   render() {
-    const { submitting, clientData} = this.props;
+    const { submitting, clientData } = this.props;
 
     return (
       <Grid>
@@ -23,6 +23,7 @@ class ProjectForm extends Component {
             <InputField
               name="name"
               label="Project name"
+              validate={[required]}
               padded
             />
 
@@ -32,7 +33,7 @@ class ProjectForm extends Component {
 
             <Field 
               name="file" 
-              type="file"
+              type="text"
               component={RenderFile} 
               label="Attach files"
               className="area"
@@ -45,7 +46,7 @@ class ProjectForm extends Component {
         <Grid.Row> */}
           <Grid.Column computer={8}>
 
-            <Field name="user_story" component={RenderTextArea} label="User Story *" className="area" large padded/>
+            <Field name="user_story" component={RenderTextArea} label="User Story *" className="area" large padded validate={[required]}/>
 
           </Grid.Column>
           <Grid.Column computer={8}>

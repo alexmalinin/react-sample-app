@@ -24,7 +24,7 @@ class ModuleForm extends Component {
           <Grid.Column computer={16}>
 
             <StyledModuleLink className="moduleNumber">
-                <NavLink to="board">Module number </NavLink>
+                <NavLink to="#">Module number </NavLink>
             </StyledModuleLink>
 
           </Grid.Column>

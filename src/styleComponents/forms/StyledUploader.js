@@ -9,7 +9,9 @@ export default styled.div`
     align-items: center;
     margin-bottom: 20px;
 
-    &::after{
+    &::after,
+    &::before, 
+    span{
         content: '';
         display: inline-block;
         width: 100px;
