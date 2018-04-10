@@ -51,7 +51,8 @@ export const UPDATE_CLIENT_BILLINGS            = 'UPDATE_CLIENT_BILLINGS';
 export const SAVE_CREATED_PROJECT              = 'SAVE_CREATED_PROJECT';
 export const SUBMIT_CREATED_PROJECT            = 'SUBMIT_CREATED_PROJECT';
 export const CREATE_PROJECT_EPIC               = 'CREATE_PROJECT_EPIC';
-export const DELETE_PROJECT_EPIC                       = 'DELETE_PROJECT_EPIC';
+export const UPDATE_PROJECT_EPIC               = 'UPDATE_PROJECT_EPIC';
+export const DELETE_PROJECT_EPIC               = 'DELETE_PROJECT_EPIC';
 export const SHOW_ALL_EPICS                    = 'SHOW_ALL_EPICS';
 
 export const SUCCESS                           = '_SUCCESS';

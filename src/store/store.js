@@ -34,6 +34,7 @@ import saveCreatedProject           from '../middlewares/createProjectApi';
 import showAllProjects              from '../middlewares/showAllProjectsApi';
 import showProjectWithId            from '../middlewares/showProjectWithIdApi';
 import createProjectEpic            from '../middlewares/createProjectEpicApi';
+import updateProjectEpic            from '../middlewares/editProjectEpicApi';
 import deleteProjectEpic            from '../middlewares/deleteProjectEpicApi';
 import showAllEpics                 from '../middlewares/showAllEpicsApi';
 
@@ -71,6 +72,7 @@ const enhancer = applyMiddleware(
     showAllProjects,
     showProjectWithId,
     createProjectEpic,
+    updateProjectEpic,
     deleteProjectEpic,
     showAllEpics,
 );

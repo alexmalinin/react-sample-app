@@ -13,7 +13,7 @@ export const S_Board = styled.div`
     &::after{
         content: '';
         height: 0;
-        flex: 0 0 30%;
+        flex: 0 0 31.5%;
     }
 
     h3 {
@@ -42,9 +42,8 @@ export const S_Board = styled.div`
         margin-bottom: 20px;
 
         &:last-of-type{
-            .module::before{
-                display: none;
-                
+            .module{
+                min-height: auto;                                
             }
         }
     }
@@ -162,7 +161,7 @@ export const S_Board = styled.div`
 
                 text-align: center;
                 font-size: 24px;
-                line-height: 24px;
+                line-height: 29px;
                 color: #ddd;
 
                 &:last-of-type{
@@ -207,20 +206,70 @@ export const S_Board = styled.div`
     }
 
     .module{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;
         position: relative;
+        min-height: 250px;
         margin-top: 30px;
         padding: 30px;
         background-color: #f2f2f2;
 
-        &::before{
-            content: '...';
+        .dropdown{
             position: absolute;
             top: 5px;
             right: 20px;
-            font-size: 20px;
-            color: #7f7f7f;
-            user-select: none;
-            cursor: pointer;
+            font-size: 24px;
+
+            button{
+                padding: 0;
+                border: none;
+                background: none;
+                outline: none;
+                cursor: pointer;
+            }
+
+            .menu{
+                display: none;
+                position: absolute;
+                top: 30px;
+                right: 0;
+                min-width: 70px;
+                background: #fff;
+                border: 1px solid rgba(34,36,38,.15);
+                border-radius: 5px;
+
+                .item {
+                    padding-left: 10px;
+                    width: 100%;
+                    line-height: 28px;
+                    font-size: 14px;
+                    /* font-weight: 600; */
+                    color: rgba(0,0,0,.43);
+                    text-transform: uppercase;
+                    cursor: pointer;
+
+                    &:hover{
+                        background: rgba(0,0,0,.05);
+                        font-weight: 600;
+                        color: #666;
+                    }
+                }
+
+                &:hover{
+                    display: block;
+                }
+            }
+
+            .trigger{
+                color: #666;
+                outline: none;
+                cursor: pointer;
+
+                &:focus+.menu{
+                    display: block;
+                }
+            }
         }
 
         h4{

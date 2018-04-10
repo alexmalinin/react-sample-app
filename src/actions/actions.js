@@ -49,6 +49,7 @@ import {
     CREATE_PROJECT_EPIC,
     SHOW_ALL_EPICS,
     DELETE_PROJECT_EPIC,
+    UPDATE_PROJECT_EPIC,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -594,17 +595,28 @@ export function createProjectEpic(data, project) {
     return action;
 }
 
-// delete Epic by project and id
+// update project Epic
 
-export function deleteProjectEpic(project, id) {
+export function updateProjectEpic(data, project) {
     const action = {
-        type: DELETE_PROJECT_EPIC,
-        showAllEpics: `${PORT}/api/v1/projects/${project}/epics/${id}`,
+        type: UPDATE_PROJECT_EPIC,
+        payload: data,
+        updateProjectEpic: `${PORT}/api/v1/projects/${data.project_id}/epics/${data.id}`,
     };
 
     return action;
 }
 
+// delete Epic by project and id
+
+export function deleteProjectEpic(project, id) {
+    const action = {
+        type: DELETE_PROJECT_EPIC,
+        deleteProjectEpic: `${PORT}/api/v1/projects/${project}/epics/${id}`,
+    };
+
+    return action;
+}
 
 // get array of all projects (include unsubmitted)
 

@@ -34,7 +34,7 @@ class Header extends Component {
                         <span>Digital Village</span>
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
-                    {page && <div className='right-links' >
+                    {page && <div className='right-links'>
                         <NavLink className='button square' to='#'>&nbsp;</NavLink>
                         <NavLink className='button settings' to='#'>&nbsp;</NavLink>
                         <NavLink className='button avatar' to='#'>&nbsp;</NavLink>

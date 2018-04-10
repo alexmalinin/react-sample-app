@@ -23,7 +23,7 @@ class ClientProjects extends Component {
 
   componentWillMount() {
     const { projectId } = this.props;
-    this.props.showProjectWithId(projectId);
+    run(0)();
   }
 
   render() {
@@ -32,16 +32,16 @@ class ClientProjects extends Component {
 
     return (
         <ContainerLarge>
-          <SubHeader module projectId={projectId} project={projectWithId}/>
+          <SubHeader module projectId={projectId}/>
           <Container indentBot>
-            <S_Message positive profile data-show={renderMessage}>
+            {/* <S_Message positive profile data-show={renderMessage}>
               <Message.Header>Success!</Message.Header>
               <p>Form updated</p>
             </S_Message>
             <S_Message negative profile data-show={renderErrorMessage}>
               <Message.Header>Error!</Message.Header>
               <p>Something went wrong, please try again</p>
-            </S_Message>
+            </S_Message> */}
 
             <ClientModuleForm onSubmit={this.submit} />
             {this.state.saved ? <Redirect to={`/client/project/${projectId}`}/> : null }
