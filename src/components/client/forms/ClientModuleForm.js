@@ -13,30 +13,13 @@ let renderError = true;
 class ClientModuleForm extends Component {
 
   render() {
-    const { handleSubmit, submitting, clientData } = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        <ModuleForm clientData={clientData} submitting={submitting}/>
+        <ModuleForm submitting={submitting}/>
       </form>
     )
-  }
-
-  componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client) {
-      if(client.successId) {
-        if (renderError) {
-          this.fillFields(client);
-          renderError = false;
-        }
-      }
-    }
-  }
-
-  fillFields = data => {
-    let { project } = data;
   }
 }
 

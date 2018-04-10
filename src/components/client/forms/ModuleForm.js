@@ -16,7 +16,6 @@ import StyledModuleLink from '../../../styleComponents/StyledModuleLink';
 class ModuleForm extends Component {
 
   render() {
-    const { submitting, clientData} = this.props;
 
     return (
       <Grid>
@@ -30,7 +29,13 @@ class ModuleForm extends Component {
           </Grid.Column>
           <Grid.Column computer={8}>
 
-            <Field name="description" component={RenderTextArea} label="Brief / Description *" className="area" padded/>
+            <Field 
+              name="description" 
+              component={RenderTextArea} 
+              label="Brief / Description *" 
+              className="area" 
+              validate={[required]}
+              padded/>
 
           </Grid.Column>
           <Grid.Column computer={8}>
@@ -41,20 +46,15 @@ class ModuleForm extends Component {
               </Grid.Column>
               <Grid.Column computer={10}>
               <Field 
-              name="file" 
-              type="file"
-              component={RenderFile} 
-              label="Attach files"
-              className="area"
-              padded
-            />
+                name="file" 
+                type="file"
+                component={RenderFile} 
+                label="Attach files"
+                className="area"
+                padded
+              />
               </Grid.Column>
             </Grid>
-
-            
-
-            
-
           </Grid.Column>
         {/* </Grid.Row>
 

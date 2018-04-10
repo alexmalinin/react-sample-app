@@ -171,6 +171,8 @@ export const StyledBar = styled.aside`
                 .item{
                     display: inline-block;
                     width: 50%;
+                    font-size: 14px;
+                    color: #b3b3b3;
 
                     border: none;
                     border-bottom: 2px solid #f2f2f2;
@@ -182,6 +184,7 @@ export const StyledBar = styled.aside`
                     }
 
                     &.active{
+                        color: #666;
                         border-radius: 0px !important;
                         border-bottom: 4px solid #00ffc0;
                     }

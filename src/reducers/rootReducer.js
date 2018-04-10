@@ -21,6 +21,8 @@ import allProjects      from './showAllProjectsReducer';
 import projectWithId    from './showProjectWithIdReducer';
 import createEpic       from './createProjectEpicReducer';
 import allEpics         from './showAllEpicsReducer';
+import deleteEpic       from './deleteEpicReducer';
+
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
 
@@ -46,5 +48,6 @@ export default combineReducers({
     projectWithId,
     createEpic,
     allEpics,
+    deleteEpic,
     // contactRequest,
 });
