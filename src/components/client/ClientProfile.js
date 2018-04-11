@@ -47,22 +47,12 @@ class ClientProfile extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            {/* <DvTitleSmall fz='28' xsCenter>Profile</DvTitleSmall> */}
                             <RenderProfileForm onChange={this.change} onSubmit={this.submit}/>
                             {this.state.nextStep && <Redirect to="company"/>}
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column mobile={16} tablet={12} computer={16}>
-                            <Grid>
-                                <Grid.Row>
-                                    <Grid.Column mobile={16} tablet={12} computer={3}>
-                                    </Grid.Column>
-                                    <Grid.Column mobile={16} tablet={12} computer={10}>
-                                        <DvTitleSmall fz='28' xsCenter>Change Password</DvTitleSmall>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
                             <RenderResetPasswordForm user="customer"/>
                         </Grid.Column>
                     </Grid.Row>

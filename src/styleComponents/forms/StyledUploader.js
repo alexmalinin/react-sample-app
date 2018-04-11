@@ -45,6 +45,7 @@ export default styled.div`
     }
     
     .ui.button {
+        ${props => props.disabled ? "display: none;" : ''}
         width: 35px;
         height: 35px;
         /* padding: 16px 55px; */

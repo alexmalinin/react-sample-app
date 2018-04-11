@@ -37,7 +37,7 @@ class ClientCompany extends Component {
     render() {
         const { renderMessage, renderErrorMessage } = this.state;
         const { clientData, industries } = this.props;
-        console.log('s', industries);
+
         return (
             <div>
                 <S_Message positive profile data-show={renderMessage}>

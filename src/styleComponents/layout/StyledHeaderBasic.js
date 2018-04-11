@@ -62,11 +62,74 @@ export default styled.header`
         background-size: cover;
     }
 
-    .ui.dropdown .menu{
-        top: 150%;
-        left: auto;
-        right: -20%;
-        user-select: none;
+    .ui.dropdown {
+        .text{
+            padding-right: 40px;
+
+            text-transform: uppercase;
+            color: #4d4d4d;
+            font-family: "Brix";
+            font-weight: 500;
+            line-height: 23px;
+            user-select: none;
+        }
+
+        .drop-icon{
+            position: absolute;
+            right: 20px;
+            top: 10px;
+
+            &::before,
+            &::after,
+            span{
+                content: '';
+                position: absolute;
+                display: inline-block;
+                height: 2px;
+                width: 14px;
+                background: #d0d0d0;
+                transform-origin: 0 1px;
+                transition: .4s ease-in-out;
+            }
+
+            span{
+                transform: rotate(45deg);
+            }
+
+            &::before{
+                transform: rotate(-45deg);
+            }
+
+            &::after{
+                transform: rotate(-45deg);
+                left: 10px;
+                top: 10px;
+                width: 0px;
+            }
+        }
+
+        &.active{
+            .drop-icon{
+                &::before{
+                    width: 0px;
+                }
+                &::after{
+                    width: 14px;
+                }
+            }
+        }
+
+        .menu{
+            top: 40px;
+            left: auto;
+            right: -5px;
+            user-select: none;
+            min-width: 200px;
+            
+            .item a{
+                letter-spacing: 2px;
+            }
+        }
     }
 
     .log-out {
@@ -98,29 +161,6 @@ export default styled.header`
             &~.log-dropdown{
                 display: flex;
             }
-        }
-    }
-
-    .log-dropdown{
-        display: none;
-        flex-flow: column nowrap;
-        position: absolute;
-        top: 100%;
-        right: 20px;
-        padding: 10px;
-
-        background-color: #fff;
-        box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
-
-        a{
-            flex: 40px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        &:hover{
-            display: flex;
         }
     }
     

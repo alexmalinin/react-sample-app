@@ -30,6 +30,7 @@ class CompanyForm extends Component {
                   component={RenderImage}
                   type='file'
                   avatar={avatar}
+                  disabled
                   placeholder='Choose your photo'
                 />
             </Grid.Column>

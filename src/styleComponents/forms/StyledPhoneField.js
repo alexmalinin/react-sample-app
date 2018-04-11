@@ -63,7 +63,7 @@ export default styled.div`
       z-index: 2;
       text-transform: uppercase;
       color: #666;
-      font-weight: bold;
+      font-weight: 600;
       font-size: 12px;
     }  
     

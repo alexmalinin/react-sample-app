@@ -47,7 +47,7 @@ class RenderImage extends Component {
             $imagePreview = (<div className='preloader'><img src='../../images/uploadImg.png' alt=''/></div>);
         }
         return (
-            <StyledUploader>
+            <StyledUploader disabled={disabled}>
                 <div className='imgPreview'>
                     {$imagePreview}
                 </div>

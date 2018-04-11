@@ -84,7 +84,9 @@ class EducationForm extends Component {
                         <Field name="rules" component={RenderTextArea} label="Business Rules" className="area" padded/>
 
                     </Grid.Column>
-                    <Grid.Column computer={8}>
+                    <Grid.Column computer={3}>
+                    </Grid.Column>
+                    <Grid.Column computer={10}>
 
                         <DvButton
                             type='submit'
@@ -95,15 +97,6 @@ class EducationForm extends Component {
                             smallbtn='true'
                         />
 
-                    </Grid.Column>
-                    <Grid.Column computer={8}>
-                        <DvButton
-                            onClick={ this.closeModal }
-                            content='CLOSE'
-                            disabled={submitting}
-                            primary
-                            smallbtn='true'
-                        />
                     </Grid.Column>
                     </Grid.Row>
                 </Grid>

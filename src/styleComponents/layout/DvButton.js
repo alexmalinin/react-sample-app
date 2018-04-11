@@ -6,10 +6,10 @@ export const DvButton = styled(Button)`
     &.ui.button {
         
         ${props => props.indentTop ? `margin-top: 60px` : ``};
-        width: ${props => props.smallbtn ? `50%` : `100%` };
-        border-radius: ${props => props.smallbtn ? `5px` : `0` };
-        margin-left: ${props => props.smallbtn ? `25%` : `0` };
-        font-size: ${props => props.smallbtn ? `18px` : `24px` };
+        width: ${props => props.smallbtn ? `50%` : props.midbtn ? '80%' : `100%` };
+        border-radius: ${props => props.smallbtn ? `5px` : props.midbtn ? '5px' : `0` };
+        margin-left: ${props => props.smallbtn ? `25%` : props.midbtn ? '10%' : `0` };
+        font-size: ${props => props.smallbtn ? `18px` : props.midbtn ? '18px' : `24px` };
         font-family: 'Brix';
         text-align: center;
     

@@ -14,10 +14,11 @@ export default styled.div`
         position: absolute;
         top: 0;
         left: ${props => props.accountInput? `0` : props.padded ? `30px` : `10px`};
+        font-family: 'Brix';
         font-size:  ${props => props.accountInput? `10px` : `12px`};
         text-transform: uppercase;
         color:  ${props => props.accountInput? `#999` : `#666`};
-        font-weight:  ${props => props.accountInput? `normal` : `bold`};
+        font-weight:  ${props => props.accountInput? `normal` : `600`};
     }
 
     .ui.input {

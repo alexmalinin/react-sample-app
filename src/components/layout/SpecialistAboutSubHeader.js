@@ -20,7 +20,7 @@ class AboutSubHeader extends Component {
                 <div>
                     <SubHeaderLinkWrap url='#' className='rightLink arrow'>
                         <span></span>
-                        Complete Later
+                        Save
                     </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='3/9' url='#' className='rightLink'>

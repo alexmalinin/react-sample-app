@@ -112,7 +112,7 @@ class RenderProfileForm extends Component {
                                             <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
                                                     label={'Write a paragraph or two about your professional experience '} 
                                                     component={RenderTextArea}
-                                                     
+                                                    className="area"
                                             />
                                         </div>
                                     </Grid.Column>
@@ -190,7 +190,6 @@ class RenderProfileForm extends Component {
         let { first_name, last_name, email, address, phone_code, phone_number,
           professional_experience_info, description, clearPassword, avatar} = data;
 
-        // console.log('country', address.country);
         // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', 'last_name' ,   last_name));

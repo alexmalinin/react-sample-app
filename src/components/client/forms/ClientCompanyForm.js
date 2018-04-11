@@ -40,7 +40,6 @@ class ClientCompanyForm extends Component {
 
     fillFields = data => {
         let { company } = data;
-        console.log(data);
 
         if(company) {
             for(let key in company) {

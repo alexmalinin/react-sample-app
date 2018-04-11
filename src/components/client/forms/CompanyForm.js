@@ -64,7 +64,7 @@ class CompanyForm extends Component {
                             handleFormField={handleFormField}
                           />
 
-                          <Field name="tell_about" component={RenderTextArea} label="Tell us about your business"/>
+                          <Field name="tell_about" component={RenderTextArea} label="Tell us about your business" className="area"/>
                         </Grid.Column>
 
                         <Grid.Column computer={8}>
