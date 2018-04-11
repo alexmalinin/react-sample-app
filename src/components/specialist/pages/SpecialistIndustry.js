@@ -36,7 +36,6 @@ class SpecialistIndustry extends Component {
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
-        console.log('industries', this.props.industries);
 
         return (
             <div>
@@ -55,7 +54,7 @@ class SpecialistIndustry extends Component {
                         specialistData={specialistData}
                         onChange={this.change}
                         onSubmit={this.submit} />
-                        {this.state.nextStep && <Redirect to="company"/>}
+                {this.state.nextStep && <Redirect to="company"/>}
             </div>
         )
     }

@@ -41,7 +41,7 @@ function Activity({days}) {
     return (
         <div>
             {days.map((day, index) =>
-                <div className="activity-tab-item">
+                <div className="activity-tab-item" key={index}>
                     <h4>{day.day}</h4>
                     {day.activity.map((value, index) =>
                         <div className="activity-item" key={index}>

@@ -21,7 +21,7 @@ import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 import ProjectsBoard from '../../ProjectsBoard';
 import Dashboard from '../../Dashboard';
 import { Container } from '../../../styleComponents/layout/Container';
-import { showSpecialistData, updateSpecialistProfile } from '../../../actions/actions';
+import { showSpecialistData, updateSpecialistProfile, showAllProjects } from '../../../actions/actions';
 
 const mapPageNameToFieldsCount = {
     'profilePercent': 7,
@@ -43,6 +43,10 @@ class SpecialistsDashboard extends Component {
         this.calculatePagePercent = this.calculatePagePercent.bind(this)
     }
 
+    componentWillMount() {
+        this.props.showAllProjects();
+    }
+
     collectPropfileData() {
         const { first_name, last_name, email, address, phone_number } = this.props.specialistData
         const { city, country } = address ? address : {}
@@ -60,7 +64,6 @@ class SpecialistsDashboard extends Component {
 
     collectIndustryData() {
         const { job_title, position, industry_title, communication_type, contact_number, hourly_rate, experience_level_id, project_type, available, skills: skills_attributes } = this.props.specialistData;
-        console.log('qwe 2', this.props.specialistData)
 
         const data = {
             job_title,
@@ -76,7 +79,6 @@ class SpecialistsDashboard extends Component {
             communication_type
         }
 
-        console.log(data, 'data')
         return data;
     }
 
@@ -100,7 +102,6 @@ class SpecialistsDashboard extends Component {
     collectBillingData() {
         const { specialist_billing } = this.props.specialistData
         const { billing_type, bank_account_details, swift_code, company_name, manager } = specialist_billing ? specialist_billing : {}
-        console.log('qwe 123', specialist_billing)
 
         if (billing_type === 0) {
             const data = {
@@ -128,8 +129,7 @@ class SpecialistsDashboard extends Component {
         const filledFields = keys.filter(key => data[key]).length
         
         let percents = Math.round((filledFields / fieldsCount) * 100);
-        percents = percents > 100 ? 100 : percents
-        console.log('qwe', percentName, data, percents)
+        percents = percents > 100 ? 100 : percents;
 
         this.setState({
             [percentName]: percents,
@@ -151,10 +151,7 @@ class SpecialistsDashboard extends Component {
     }
 
     render() {
-
-        console.log(this.props, 'props')
-        console.log(this.state, 'state')
-        const {match:{params}} = this.props;
+        const {match:{params}, allProjects} = this.props;
         let page = params['page'];
         let sidebarCondition = 
              page === 'about' 
@@ -167,12 +164,14 @@ class SpecialistsDashboard extends Component {
           || page === 'the_village'
           || page === 'root';
 
+          console.log('spec',this.props)
+
         return (
 
             <div>
                 <HeaderBasic page={sidebarCondition} userType="specialist"/>
                 <S_MainContainer>
-                    {sidebarCondition && <SideBarLeft projects={projects}/>}
+                    {sidebarCondition && <SideBarLeft projects={allProjects}/>}
                         {sidebarCondition 
                             ? this.renderPage(page)
                             : <Container>
@@ -230,6 +229,6 @@ class SpecialistsDashboard extends Component {
 }
 
 export default connect(
-    ({specialistData, confirmPassword,  educations, experiences}) => ({specialistData, confirmPassword,  educations, experiences}),
-    { showSpecialistData, updateSpecialistProfile }
+    ({specialistData, confirmPassword,  educations, experiences, allProjects}) => ({specialistData, confirmPassword,  educations, experiences, allProjects}),
+    { showSpecialistData, updateSpecialistProfile, showAllProjects }
 )(SpecialistsDashboard);

@@ -177,6 +177,8 @@ export const DvTitleSmall = styled.h2`
     `};
     
     ${props => props.mTop ? `margin-top: ${props.mTop}px !important` : `margin-top: 0px`};
+
+    ${props => props.asButton ? `cursor: pointer;` : ``}
         
     @media (max-width: 1920px) {
         font-size: 18px;

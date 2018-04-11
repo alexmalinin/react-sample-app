@@ -13,19 +13,70 @@ class Header extends Component {
     };
 
     componentWillMount() {
+        const { showSpecialistData, showClientData, userType } = this.props;
 
-
-        if(this.props.userType === 'specialist'){
-            this.props.showSpecialistData();
+        if(userType === 'client') {
+            showClientData()
+        } else if (userType === 'specialist') {
+            showSpecialistData()
         }
+    }
 
-        if(this.props.userType === 'client'){
-            this.props.showClientData();
+    renderDropdown = () => {
+        const { userType, clientData, specialistData } = this.props;
+
+        if(userType === 'client' && clientData) {
+            return (
+                <Dropdown 
+                    text={clientData.first_name + ' ' + clientData.last_name} 
+                    basic 
+                    closeOnChange={false} 
+                    item={true} 
+                    icon={<div className="drop-icon"><span></span></div>}
+                    onChange={()=>{}}>
+                    <Dropdown.Menu> 
+                        <Dropdown.Item>
+                            <NavLink to='/client/dashboard/root'>Dashboard</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            );
+        } else if (userType === 'specialist' && specialistData) {
+            return (
+                <Dropdown 
+                    text={specialistData.first_name + ' ' + specialistData.last_name} 
+                    basic 
+                    className="log-dropdown"
+                    icon={<div className="drop-icon"><span></span></div>}
+                    onChange={()=>{}}>
+                    <Dropdown.Menu>
+                        <Dropdown.Item>
+                            <NavLink to='/specialists/dashboard/root'>Dashboard</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <NavLink to='/specialists/dashboard/teams'>Teams</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
+                        </Dropdown.Item>
+                    </Dropdown.Menu>      
+                </Dropdown>
+            );
         }
     }
 
     render() {
-        let { specialistData, clientData, page, userType } = this.props;
+        const { specialistData, clientData, page, userType } = this.props;
+        const profileLink = userType ==='client' ? 'client' : 'specialists';
 
         return (
             <StyledHeaderBasic className='header-basic'>
@@ -37,24 +88,8 @@ class Header extends Component {
                     {page && <div className='right-links'>
                         <NavLink className='button square' to='#'>&nbsp;</NavLink>
                         <NavLink className='button settings' to='#'>&nbsp;</NavLink>
-                        <NavLink className='button avatar' to='#'>&nbsp;</NavLink>
-
-                        <NavLink className='button' to='/specialists/dashboard/profile'>
-                            {userType === 'specialist' && specialistData ? (specialistData.first_name || '') + ' ' + (specialistData.last_name || '') : null}
-                            {userType === 'client' && clientData ? (clientData.first_name || '') + ' ' + (clientData.last_name || '') : null}
-                        </NavLink>
-                        <a tabIndex='1' className='log-out'>&nbsp;</a>
-                        {userType === 'specialist' && <div className="log-dropdown">
-                            <NavLink to='/specialists/dashboard/root'>Dashboard</NavLink>
-                            <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
-                            <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
-                            <NavLink to='/specialists/dashboard/teams'>Teams</NavLink>
-                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
-                        </div>}
-                        {userType === 'client' && <div className="log-dropdown">
-                            <NavLink to='/client/dashboard/root'>Dashboard</NavLink>
-                            <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
-                        </div>}
+                        <NavLink className='button avatar' to={`/${profileLink}/dashboard/profile`}>&nbsp;</NavLink>
+                        {this.renderDropdown()}
                     </div>}
                 </ContainerLarge>
             </StyledHeaderBasic>

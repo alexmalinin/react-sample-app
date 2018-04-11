@@ -8,7 +8,7 @@ export const StyledTextArea = styled.div`
         font-size: 12px;
         text-transform: uppercase;
         color: #666;
-        font-weight: bold;
+        font-weight: 600;
         word-spacing: 1.5px;
         padding-left: 7px;
     }
@@ -48,7 +48,7 @@ export const StyledTextArea = styled.div`
             height: ${props => props.large ? `108px` : `72px`};
             overflow: hidden;
             line-height: 36px;
-            resize: none;  
+            resize: none;
             background-image: -moz-linear-gradient(top , transparent, transparent 34px,#f2f2f2 2px);
             background-image: -webkit-linear-gradient(top , transparent, transparent 34px,#f2f2f2 2px);
 

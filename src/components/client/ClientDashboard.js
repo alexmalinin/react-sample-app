@@ -152,7 +152,6 @@ class ClientDashboard extends Component {
     
     let percents = Math.round((filledFields / fieldsCount) * 100);
     percents = percents > 100 ? 100 : percents
-    console.log('qwe', percentName, data, percents)
 
     this.setState({
       [percentName]: percents,

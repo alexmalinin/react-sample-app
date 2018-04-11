@@ -14,7 +14,6 @@ class ClientProjectForm extends Component {
 
   render() {
     const { handleSubmit, submitting, clientData } = this.props;
-    // console.log(this.props, 'assa');
 
     return (
       <form onSubmit={handleSubmit}>
@@ -38,8 +37,6 @@ class ClientProjectForm extends Component {
 
   fillFields = data => {
     let { project } = data;
-    // console.log(data);
-
   }
 }
 

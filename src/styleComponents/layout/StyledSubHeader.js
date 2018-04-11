@@ -14,10 +14,10 @@ export default styled.div`
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d68ee', endColorstr='#7439e3',GradientType=1 ); /* IE6-9 */
             margin-top: 20px;`
         :  `background: #00a2ee; /* Old browsers */
-            background: -moz-linear-gradient(left, #00a2ee 0%, #38ffbf 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(left, #00a2ee 0%,#38ffbf 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to right, #00a2ee 0%,#38ffbf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#38ffbf',GradientType=1 ); /* IE6-9 */`)
+            background: -moz-linear-gradient(left, #00a2ee 0%, #00e1ce 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, #00a2ee 0%,#00e1ce 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, #00a2ee 0%,#00e1ce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#00e1ce',GradientType=1 ); /* IE6-9 */`)
     };
     text-align: center;
     z-index: 2;
@@ -45,7 +45,9 @@ export default styled.div`
     }
 
     .profileLink{
-        font-size: 8px;
+        font-size: 11px;
+        height: 60px;
+        width: 60px;
     }
 
     .rightLink {
@@ -120,9 +122,9 @@ export default styled.div`
     .arrow::before {        
         content: '';
         position: absolute;
-        top: 25px;
+        top: 27px;
         right: 45%;
-        width: 8px;
+        width: 10px;
         height: 1px;
         background-color: #fff;
         transform: rotate(45deg);
@@ -136,7 +138,7 @@ export default styled.div`
     span {
         display: block;
         position: absolute;
-        top: 25px;
+        top: 27px;
         right: 45%;
         width: 42px;
         height: 1px;
@@ -236,8 +238,8 @@ export default styled.div`
         color: #fff;
         opacity: 0.7;
         font-family: 'Brix', sans-serif;
-        font-size: 12px;
-        font-weight: bold;
+        font-size: 11px;
+        font-weight: 600;
         line-height: 27px;
         text-transform: uppercase;
         text-decoration: none;
@@ -281,11 +283,11 @@ export default styled.div`
 
     .container {
         border: none !important;
-        width: 52px;
-        height: 52px;
+        width: 57px;
+        height: 57px;
         position: absolute;
         top: -1px;
-        left: 12px;
+        left: 9px;
     }
 
 
