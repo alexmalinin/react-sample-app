@@ -54,6 +54,7 @@ import {
     SHOW_PROJECT_EPIC,
     SHOW_EPIC_TASKS,
     UPDATE_EPIC_TASK,
+    SHOW_ALL_SPECIALISTS,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -369,6 +370,17 @@ export function showSpecialistData() {
     const action = {
         type: SHOW_SPECIALIST_DATA,
         showSpecialistData: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+// Show all specialists
+
+export function showAllSpecialists() {
+    const action = {
+        type: SHOW_ALL_SPECIALISTS,
+        showAllSpecialists: `${PORT}/api/v1/specialists`,
     };
 
     return action;

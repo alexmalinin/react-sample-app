@@ -40,7 +40,8 @@ import showAllEpics                 from '../middlewares/showAllEpicsApi';
 import showProjectEpic              from '../middlewares/showEpicWithIdApi';
 import createEpicTask               from '../middlewares/createTaskApi';
 import showEpicTasks                from '../middlewares/showEpicTasksApi';
-import updateEpicTask                   from '../middlewares/updateEpicTaskApi';
+import updateEpicTask               from '../middlewares/updateEpicTaskApi';
+import showAllSpecialists           from '../middlewares/showAllSpecialistsApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -62,6 +63,7 @@ const enhancer = applyMiddleware(
     updateSpecialistBillings,
     showClientData,
     showSpecialistData,
+    showAllSpecialists,
     updateSpecialistProfile,
     editEducation,
     editCompany,
@@ -82,7 +84,7 @@ const enhancer = applyMiddleware(
     showProjectEpic,
     createEpicTask,
     showEpicTasks,
-    updateEpicTask
+    updateEpicTask,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

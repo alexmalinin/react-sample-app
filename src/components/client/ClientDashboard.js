@@ -219,12 +219,11 @@ class ClientDashboard extends Component {
       case 'billing':
         return <ClientBilling calculatePagePercent={this.calculatePagePercent}/>;
       case 'projects':
-        return <ClientProjects updateProjectList={this.updateProjectList}/>;
+        return <ClientProjects />;
       case 'module':
         return <ClientModule projectId={this.props.match.params['projectId']}/>;
       case 'board':
         return <ProjectsBoard 
-            updateProjectList={this.updateProjectList} 
             project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}
             allEpics={this.props.allEpics}

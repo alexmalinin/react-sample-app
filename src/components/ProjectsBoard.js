@@ -25,6 +25,7 @@ import Board from 'react-trello';
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from './layout/BoardSubHeader';
 import Module from './layout/ModuleCard';
+import KanbanBoard from './layout/KanbanBoard';
 import CustomCard from './layout/CustomTaskCard';
 import { run } from '../helpers/scrollToElement';
 import projects from '../helpers/projects';
@@ -32,10 +33,6 @@ import projects from '../helpers/projects';
 class ProjectsBoard extends Component {
     state = {
         fetchEpicTasks: true,
-        backlogTasks: [],
-        progressTasks: [],
-        completedTasks: [],
-        showBoard: false,
     }
 
     componentWillMount() {
@@ -44,7 +41,10 @@ class ProjectsBoard extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        const epicId = (nextProps.allEpics && nextProps.currentEpic !== 'all') && nextProps.allEpics[nextProps.currentEpic - 1].id;
+        let epicId;
+        if(nextProps.allEpics && nextProps.currentEpic !== 'all'){
+            epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
+        }
 
         if(nextProps.project && nextProps.projectId){
             if(nextProps.project.id != nextProps.projectId){
@@ -67,7 +67,7 @@ class ProjectsBoard extends Component {
             else nextProps.showAllEpics(nextProps.projectId);
         }
 
-        if(nextProps.allEpics && nextProps.currentEpic != 'all'){
+        if(epicId){
             if(this.props.epicTasks){
                 if(this.props.currentEpic != nextProps.currentEpic){
                     nextProps.showEpicTasks(epicId);
@@ -85,49 +85,6 @@ class ProjectsBoard extends Component {
             } else nextProps.showEpicTasks(epicId);
         }
 
-        if(nextProps.epicTasks && nextProps.currentEpic !== 'all'){
-            if(this.props.epicTasks !== nextProps.epicTasks){
-                console.log('mapping', this.props.epicTasks, nextProps.epicTasks)
-                let backlog = [], progress = [], completed = [];
-                nextProps.epicTasks.map((task) => {
-                    if(task.state === 'backlog'){
-                        backlog.push({
-                            id: `${task.id}`,
-                            title: task.name,
-                            description: 'Platform - Dashboard', 
-                            DDTW: `${task.id}`
-                        })
-                    };
-                    if(task.state === 'in_progress'){
-                        progress.push({
-                            id: `${task.id}`,
-                            title: task.name,
-                            description: 'Platform - Dashboard',
-                        })
-                    };
-                    if(task.state === 'done'){
-                        completed.push({
-                            id: `${task.id}`,
-                            title: task.name,
-                            description: 'Platform - Dashboard', 
-                            DDTW: task.id
-                        })
-                    }
-                });
-                this.setState({
-                    backlogTasks: backlog,
-                    progressTasks: progress,
-                    completedTasks: completed,
-                    showBoard: true,
-                })
-            }
-        } else {
-            let backlog = [], progress = [], completed = [];
-            this.setState({
-                showBoard: false,
-            })
-        }
-
         if(nextProps.updateTask && epicId){
             if(this.props.updateTask){
                 if(this.props.updateTask != nextProps.updateTask){
@@ -137,15 +94,11 @@ class ProjectsBoard extends Component {
         }
     }
 
-    handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-        const epicId = this.props.allEpics[this.props.currentEpic - 1].id;
-        this.props.updateEpicTask({state: +targetLaneId}, epicId, cardId);
-    }
-
     render() {
         let { 
             projectId, 
-            allEpics, showAllEpics, 
+            allEpics, 
+            showAllEpics, 
             updateProjectEpic, 
             createEpicTask,
             createTask,
@@ -154,12 +107,7 @@ class ProjectsBoard extends Component {
             epicTasks,
         } = this.props;
 
-        const {
-            backlogTasks,
-            progressTasks,
-            completedTasks,
-            showBoard,
-        } = this.state;
+        const epicId = allEpics && currentEpic !== 'all' ? allEpics[currentEpic - 1].id : null;
 
         return (
             <ContainerLarge indentBot>
@@ -168,42 +116,13 @@ class ProjectsBoard extends Component {
                         epics={allEpics} 
                         createEpicTask={createEpicTask} 
                         currentEpic={currentEpic}
-                        completedTasksCount={completedTasks.length}
-                        allTasksCount={backlogTasks.length + progressTasks.length + completedTasks.length}/>
-                    
+                        epicId={epicId}
+                        epicTasks={epicTasks}/>
                     <S_Board>
-                        <Transition
-                            animation="fade"
-                            duration={400}
-                            visible={showBoard && (backlogTasks.length !== 0 || progressTasks.length !== 0 || completedTasks.length !== 0)}
-                            >
-                            <div>
-                                <Board 
-                                    data={{lanes: [
-                                        {
-                                            id: '0',
-                                            title: 'Backlog',
-                                            cards: this.state.backlogTasks
-                                        },
-                                        {
-                                            id: '1',
-                                            title: 'In progress',
-                                            cards: this.state.progressTasks
-                                        },
-                                        {
-                                            id: '2',
-                                            title: 'Complete',
-                                            cards: this.state.completedTasks
-                                        },
-                                    ]}}
-                                    className="kanban"
-                                    draggable
-                                    customCardLayout
-                                    handleDragEnd={this.handleDragEnd}>
-                                    <CustomCard />
-                                </Board>
-                            </div>
-                        </Transition>
+                        <KanbanBoard
+                            currentEpic={currentEpic}
+                            epicId={epicId}/>
+
                         <div className="moduleWrapper">
                             {allEpics && allEpics.map((epic, key) => 
                                 <Module 

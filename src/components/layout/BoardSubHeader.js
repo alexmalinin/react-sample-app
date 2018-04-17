@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import AddTaskModal from '../modals/AddTaskModal';
@@ -11,39 +12,36 @@ import { Transition } from 'semantic-ui-react';
 class ProjectSubHeader extends Component {
 
   render() {
-    const { epics, currentEpic, createEpicTask, completedTasksCount, allTasksCount } = this.props;
+    const { epics, currentEpic, createEpicTask, epicTasks, epicId } = this.props;
 
-    const currentEpicId = epics && currentEpic != 'all' && epics[currentEpic - 1]["id"];
-    const percents = completedTasksCount / allTasksCount * 100;
+    const allTasksCount = epicTasks && epicTasks.length;
+    let completedTasksCount = 0;
+    epicTasks && epicTasks.forEach(task =>
+      task.state === 'done' && completedTasksCount++
+    );
+    const percents = Math.round(completedTasksCount / allTasksCount * 100);
 
     return (
       <StyledSubHeader profile='true'>
         <div>
-          <SubHeaderLinkWrap content='All' url={`/client/project/${this.props.project}/module/all`} className='rightLink'>
+          <SubHeaderLinkWrap content='All' url={`/client/project/${this.props.project}/module/all`} className='allModules'>
             
           </SubHeaderLinkWrap>
-          {epics && epics.map((epic, key) =>
-            <SubHeaderLinkWrap key={key} content={key + 1} url={`/client/project/${this.props.project}/module/${key + 1}`} className='rightLink'>
-              
-            </SubHeaderLinkWrap>
-          )}
-          <SubHeaderLinkWrap content='' url={`/client/project/${this.props.project}/module`} className='rightLink addButt'>
+          {epics && epics.map((epic, key) =>{
+            let subheaderCompletedTasks = 0;
+            epic.tasks.forEach(task =>
+              task.state === 'done' && subheaderCompletedTasks++
+            );
+            return (
+              <SubHeaderLinkWrap key={key} content={key + 1} url={`/client/project/${this.props.project}/module/${key + 1}`} className='module'>
+                <ProgressBars percents={subheaderCompletedTasks / epic.tasks.length * 100}/>
+              </SubHeaderLinkWrap>
+            )
+          })}
+          <SubHeaderLinkWrap content='' url={`/client/project/${this.props.project}/module`} className='addButt'>
             Add module
           </SubHeaderLinkWrap>
         </div>
-        {/* {currentEpic != 'all' &&
-          <div className="boardProgressBars">
-            <AddTaskModal epic={currentEpic} createEpicTask={createEpicTask} currentEpicId={currentEpicId}/>
-            <SubHeaderLinkWrap content='15/20' url='#' className='rightLink'>
-              Tasks
-              <ProgressBars percents={10}/>
-            </SubHeaderLinkWrap>
-            <SubHeaderLinkWrap content='75%' url='#' className='rightLink'>
-              Module progress
-              <ProgressBars percents={10}/>
-            </SubHeaderLinkWrap>
-          </div>
-        } */}
         <Transition
           animation="fade"
           duration={400}
@@ -51,10 +49,10 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
           >
           <div className="boardProgressBars">
-            <AddTaskModal epic={currentEpic} createEpicTask={createEpicTask} currentEpicId={currentEpicId}/>
+            <AddTaskModal epic={currentEpic} createEpicTask={createEpicTask} currentEpicId={epicId}/>
             <SubHeaderLinkWrap content={`${completedTasksCount}/${allTasksCount}`} url='#' className='rightLink'>
               Tasks
-              <ProgressBars percents={percents}/>
+              {/* <ProgressBars percents={percents}/> */}
             </SubHeaderLinkWrap>
             <SubHeaderLinkWrap content={`${percents}%`} url='#' className='rightLink'>
               Module progress
@@ -67,4 +65,7 @@ class ProjectSubHeader extends Component {
   }
 }
 
-export default ProjectSubHeader;
+export default connect(
+  ({updateTask}) => ({updateTask}),
+  {}
+)(ProjectSubHeader);

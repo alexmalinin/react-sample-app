@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import FlexDirection from '../styleComponents/FlexDirection';
 import Home from './Home';
 import NotFound from './NotFound';
@@ -52,7 +52,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Sidebar/>
+                    {/* <Sidebar/> */}
                     {/*<Sidebar.Pushable as={ Segment }>*/}
                         {/*<StyledSidebar as={ Menu } animation='push' width='thin' direction='right' visible={ sidebar }*/}
                                  {/*icon='labeled' vertical inverted>*/}

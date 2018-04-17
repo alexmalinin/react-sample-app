@@ -41,6 +41,9 @@ export default styled.div`
     }
 
     .boardProgressBars{
+        a{
+            opacity: 1;
+        }
         .container{
             left: 50%;
             transform: translateX(-50%);
@@ -52,6 +55,13 @@ export default styled.div`
 
     div {
         display: flex;
+        font-size: 15px;
+        &.allModules{
+            font-weight: 200;
+        }
+        &.module{
+            font-size: 24px;
+        }
     }
 
     .profileLink{
@@ -301,7 +311,8 @@ export default styled.div`
         height: 57px;
         position: absolute;
         top: -1px;
-        left: 9px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
 

@@ -6,7 +6,7 @@ export const S_Board = styled.div`
     margin: 0 auto;
     margin-top: 80px;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     user-select: none;
 
@@ -49,6 +49,10 @@ export const S_Board = styled.div`
         justify-content: space-between;
         background: none;
         height: auto;
+
+        &.visible{
+            display: flex !important;
+        }
 
         &>section{
             flex: 0 0 31.5%;
@@ -98,6 +102,7 @@ export const S_Board = styled.div`
         display: flex;
         flex-flow: row wrap;
         justify-content:space-between;
+        width: 100%;
 
         &::after{
             content: '';
@@ -174,6 +179,9 @@ export const S_Board = styled.div`
                     border-color: #ddd;
                     cursor: pointer;
                 }
+            }
+            .addPersonDropdown{
+                position: absolute;
             }
         }
 
