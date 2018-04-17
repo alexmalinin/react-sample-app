@@ -10,12 +10,6 @@ export const S_Board = styled.div`
     justify-content: space-between;
     user-select: none;
 
-    &::after{
-        content: '';
-        height: 0;
-        flex: 0 0 31.5%;
-    }
-
     h3 {
         text-transform  : uppercase;
         font-size: 14px;
@@ -55,6 +49,10 @@ export const S_Board = styled.div`
         justify-content: space-between;
         background: none;
         height: auto;
+
+        &.visible{
+            display: flex !important;
+        }
 
         &>section{
             flex: 0 0 31.5%;
@@ -97,6 +95,19 @@ export const S_Board = styled.div`
                     padding-top: 30px;
                 }
             }
+        }
+    }
+
+    .moduleWrapper{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content:space-between;
+        width: 100%;
+
+        &::after{
+            content: '';
+            height: 0;
+            flex: 0 0 31.5%;
         }
     }
 
@@ -168,6 +179,9 @@ export const S_Board = styled.div`
                     border-color: #ddd;
                     cursor: pointer;
                 }
+            }
+            .addPersonDropdown{
+                position: absolute;
             }
         }
 

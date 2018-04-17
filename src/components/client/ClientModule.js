@@ -44,7 +44,7 @@ class ClientProjects extends Component {
             </S_Message> */}
 
             <ClientModuleForm onSubmit={this.submit} />
-            {this.state.saved ? <Redirect to={`/client/project/${projectId}`}/> : null }
+            {this.state.saved ? <Redirect to={`/client/project/${projectId}/module/all`}/> : null }
           </Container>
         </ContainerLarge>
     );
@@ -69,7 +69,7 @@ class ClientProjects extends Component {
   };
 
   submit = values => {
-    const { projectId, allEpics } = this.props;
+    const { projectId } = this.props;
     this.props.createProjectEpic(values, projectId);
   }
 

@@ -178,10 +178,10 @@ class ClientDashboard extends Component {
     if(params['page']){
       page = params['page'];
     }
-    else if (params['projectId']){
+    else if (params['projectId'] && params["moduleId"]){
       page = 'board';
     }
-    else if (params['epicProj']){
+    else if (params['projectId']){
       page = 'module';
     }
 
@@ -219,15 +219,15 @@ class ClientDashboard extends Component {
       case 'billing':
         return <ClientBilling calculatePagePercent={this.calculatePagePercent}/>;
       case 'projects':
-        return <ClientProjects updateProjectList={this.updateProjectList}/>;
+        return <ClientProjects />;
       case 'module':
-        return <ClientModule projectId={this.props.match.params['epicProj']}/>;
+        return <ClientModule projectId={this.props.match.params['projectId']}/>;
       case 'board':
         return <ProjectsBoard 
-            updateProjectList={this.updateProjectList} 
             project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}
             allEpics={this.props.allEpics}
+            currentEpic={this.props.match.params['moduleId'] || 'all'}
           />;
       case 'the_village':
         return <TheVillage/>;

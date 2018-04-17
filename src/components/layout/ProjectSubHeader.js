@@ -40,7 +40,7 @@ class ProjectSubHeader extends Component {
             Save
           </button>
 
-          <SubHeaderLinkWrap url={`/client/project/${projectId}`} className='rightLink close'>
+          <SubHeaderLinkWrap url={`/client/project/${projectId}/module/all`} className='rightLink close'>
             Cancel
           </SubHeaderLinkWrap>
         </div>

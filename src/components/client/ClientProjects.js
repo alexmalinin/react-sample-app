@@ -39,7 +39,7 @@ class ClientProjects extends Component {
             </S_Message>
 
             <ClientProjectForm onSubmit={this.submit}/>
-            {this.state.saved ? <Redirect to={`/client/project/${this.props.createProject.id}`}/> : null }
+            {this.state.saved ? <Redirect to={`/client/project/${this.props.createProject.id}/module/all`}/> : null }
           </Container>
         </ContainerLarge>
     );

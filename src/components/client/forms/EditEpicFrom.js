@@ -14,7 +14,7 @@ import RenderFile from '../../forms/renders/RenderFile';
 
 let renderError = true;
 
-class EducationForm extends Component {
+class EditEpicForm extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -140,4 +140,4 @@ export default reduxForm({
     form: 'EditEpicForm',
     destroyOnUnmount: true,
     forceUnregisterOnUnmount: true,
-})(EducationForm);
+})(EditEpicForm);

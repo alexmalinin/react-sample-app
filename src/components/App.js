@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import FlexDirection from '../styleComponents/FlexDirection';
 import Home from './Home';
 import NotFound from './NotFound';
@@ -52,7 +52,7 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Sidebar/>
+                    {/* <Sidebar/> */}
                     {/*<Sidebar.Pushable as={ Segment }>*/}
                         {/*<StyledSidebar as={ Menu } animation='push' width='thin' direction='right' visible={ sidebar }*/}
                                  {/*icon='labeled' vertical inverted>*/}
@@ -85,9 +85,9 @@ class App extends Component {
                                     <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
 
                                     <Route path='/client/dashboard/:page' component={ ClientDashboard } />
-                                    <Route path='/client/project/:epicProj/module' component={ ClientDashboard } />
-                                    <Route path='/client/project/:projectId' component={ ClientDashboard } />
-                                    
+                                    <Route path='/client/project/:projectId/module/:moduleId' component={ ClientDashboard } />
+                                    <Route exact path='/client/project/:projectId/module' component={ ClientDashboard } />
+                                    {/* <Route path='/client/project/:projectId' component={ ClientDashboard } /> */}                                 
 
                                     <Route path='*' component={NotFound}/>
                                 </Switch>

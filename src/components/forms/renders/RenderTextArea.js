@@ -8,7 +8,6 @@ class RenderTextArea extends Component {
         const {large, className} = this.props;
         const textarea = event.target;
         const minHeight = large ? 108 : 72;
-        console.log(textarea.scrollHeight)
 
         if(className === 'area'){
             setTimeout(() => {

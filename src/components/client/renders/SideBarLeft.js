@@ -16,7 +16,7 @@ export default class SideBarLeft extends Component {
                     </Accordion.Title>
                     <Accordion.Content>
                         {this.props.projects && this.props.projects.map((project) => 
-                            <NavLink className='projectLink' to={`/client/project/${project.id}`} key={project.id}>
+                            <NavLink className='projectLink' to={`/client/project/${project.id}/module/all`} key={project.id}>
                                 {project.name}
                             </NavLink>
                         )}

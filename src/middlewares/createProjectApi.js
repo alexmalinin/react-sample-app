@@ -38,7 +38,6 @@ export default store => next => action => {
         }
 
     }).then(function (response) {
-        console.log('resp', response);
         let data = response.data;
         data.successProjectId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });
