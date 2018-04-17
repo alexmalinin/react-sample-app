@@ -6,15 +6,9 @@ export const S_Board = styled.div`
     margin: 0 auto;
     margin-top: 80px;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     justify-content: space-between;
     user-select: none;
-
-    &::after{
-        content: '';
-        height: 0;
-        flex: 0 0 31.5%;
-    }
 
     h3 {
         text-transform  : uppercase;
@@ -97,6 +91,18 @@ export const S_Board = styled.div`
                     padding-top: 30px;
                 }
             }
+        }
+    }
+
+    .moduleWrapper{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content:space-between;
+
+        &::after{
+            content: '';
+            height: 0;
+            flex: 0 0 31.5%;
         }
     }
 

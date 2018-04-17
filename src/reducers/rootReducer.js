@@ -22,6 +22,10 @@ import projectWithId    from './showProjectWithIdReducer';
 import createEpic       from './createProjectEpicReducer';
 import allEpics         from './showAllEpicsReducer';
 import deleteEpic       from './deleteEpicReducer';
+import createTask       from './createTaskReducer';
+import showEpic         from './showProjectEpicReducer';
+import epicTasks        from './showTasksReducer';
+import updateTask       from './updateEpicTaksReducer';
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -49,5 +53,9 @@ export default combineReducers({
     createEpic,
     allEpics,
     deleteEpic,
+    createTask,
+    showEpic,
+    epicTasks,
+    updateTask,
     // contactRequest,
 });

@@ -306,4 +306,78 @@ export const SaveBtn = styled(Button)`
             background-color: #666;
         }
     }
+`;
+
+export const SubmitBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #ccc; 
+        position: relative;
+        margin-bottom: 10px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+        
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: #ccc;
+            bottom: -22px;
+            right: -16px;
+            font-weight: 0;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute; 
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            width: 15px;
+            top: 37px;
+            left: 14px;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            width: 27px;
+            top: 33px;
+            left: 23px;
+            transform: rotate(-45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+        
+        &.width200 {
+          width: 200%;
+        } */
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: #666;
+        border: 1px solid #666;
+        background-color: #fff !important;
+
+        span {
+            color: #666;
+        }
+        &::before, 
+        &::after {
+            background-color: #666;
+        }
+    }
 `

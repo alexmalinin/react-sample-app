@@ -40,6 +40,16 @@ export default styled.div`
         }
     }
 
+    .boardProgressBars{
+        .container{
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &.visible{
+            display: flex !important;
+        }
+    }
+
     div {
         display: flex;
     }
@@ -48,6 +58,10 @@ export default styled.div`
         font-size: 11px;
         height: 60px;
         width: 60px;
+    }
+
+    .button{
+        cursor: pointer;
     }
 
     .rightLink {

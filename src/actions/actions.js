@@ -50,6 +50,10 @@ import {
     SHOW_ALL_EPICS,
     DELETE_PROJECT_EPIC,
     UPDATE_PROJECT_EPIC,
+    CREATE_EPIC_TASK,
+    SHOW_PROJECT_EPIC,
+    SHOW_EPIC_TASKS,
+    UPDATE_EPIC_TASK,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -624,6 +628,53 @@ export function showAllEpics(project) {
     const action = {
         type: SHOW_ALL_EPICS,
         showAllEpics: `${PORT}/api/v1/epics?project_id=${project}`,
+    };
+
+    return action;
+}
+
+// show epic with id
+
+export function showProjectEpic(project, epic) {
+    const action = {
+        type: SHOW_PROJECT_EPIC,
+        showProjectEpic: `${PORT}/api/v1/projects/${project}/epics/${epic}`,
+    };
+
+    return action;
+}
+
+// create task by project and epic
+
+export function createEpicTask(data, epic) {
+    const action = {
+        type: CREATE_EPIC_TASK,
+        payload: data,
+        epic,
+        createEpicTask: `${PORT}/api/v1/epics/${epic}/tasks`,
+    };
+
+    return action;
+}
+
+// update task by epic
+
+export function updateEpicTask(data, epic, task) {
+    const action = {
+        type: UPDATE_EPIC_TASK,
+        payload: data,
+        updateEpicTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}`,
+    };
+
+    return action;
+}
+
+// show all tasks by epic
+
+export function showEpicTasks(epic) {
+    const action = {
+        type: SHOW_EPIC_TASKS,
+        showEpicTasks: `${PORT}/api/v1/epics/${epic}/tasks`,
     };
 
     return action;

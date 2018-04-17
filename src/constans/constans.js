@@ -54,6 +54,10 @@ export const CREATE_PROJECT_EPIC               = 'CREATE_PROJECT_EPIC';
 export const UPDATE_PROJECT_EPIC               = 'UPDATE_PROJECT_EPIC';
 export const DELETE_PROJECT_EPIC               = 'DELETE_PROJECT_EPIC';
 export const SHOW_ALL_EPICS                    = 'SHOW_ALL_EPICS';
+export const SHOW_PROJECT_EPIC                 = 'SHOW_PROJECT_EPIC';
+export const CREATE_EPIC_TASK                  = 'CREATE_EPIC_TASK';
+export const UPDATE_EPIC_TASK                  = 'UPDATE_EPIC_TASK';
+export const SHOW_EPIC_TASKS                   = 'SHOW_EPIC_TASKS';
 
 export const SUCCESS                           = '_SUCCESS';
 export const FAIL                              = '_FAIL';

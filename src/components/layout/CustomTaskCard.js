@@ -14,7 +14,7 @@ const CustomCard = props => {
                 <span className="person"></span>
                 <span className="addPerson">+</span>
             </div>
-            <span className="ddtw">DDTW-{props.DDTW}</span>
+            <span className="ddtw">DDTW-{props.id}</span>
         </div>
     );
 }
