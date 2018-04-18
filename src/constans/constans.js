@@ -59,6 +59,8 @@ export const SHOW_PROJECT_EPIC                 = 'SHOW_PROJECT_EPIC';
 export const CREATE_EPIC_TASK                  = 'CREATE_EPIC_TASK';
 export const UPDATE_EPIC_TASK                  = 'UPDATE_EPIC_TASK';
 export const SHOW_EPIC_TASKS                   = 'SHOW_EPIC_TASKS';
+export const ASSIGN_SPECIALIST_TO_TASK         = 'ASSIGN_SPECIALIST_TO_TASK';
+export const REMOVE_SPECIALIST_FROM_TASK       = 'REMOVE_SPECIALIST_FROM_TASK';
 
 export const SUCCESS                           = '_SUCCESS';
 export const FAIL                              = '_FAIL';

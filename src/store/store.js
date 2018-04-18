@@ -42,6 +42,8 @@ import createEpicTask               from '../middlewares/createTaskApi';
 import showEpicTasks                from '../middlewares/showEpicTasksApi';
 import updateEpicTask               from '../middlewares/updateEpicTaskApi';
 import showAllSpecialists           from '../middlewares/showAllSpecialistsApi';
+import assignSpecialistToTask       from '../middlewares/assignSpecialistToTaskApi';
+import removeSpecialistFromTask     from '../middlewares/removeSpecialistFromTaskApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -85,6 +87,8 @@ const enhancer = applyMiddleware(
     createEpicTask,
     showEpicTasks,
     updateEpicTask,
+    assignSpecialistToTask,
+    removeSpecialistFromTask,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

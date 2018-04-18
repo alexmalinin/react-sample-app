@@ -4,7 +4,7 @@ import Board from 'react-trello';
 import CustomCard from './CustomTaskCard';
 import { Transition } from 'semantic-ui-react';
 
-import { updateEpicTask } from '../../actions/actions';
+import { updateEpicTask, assignSpecialistToTask, removeSpecialistFromTask } from '../../actions/actions';
 
 class KanbanBoard extends Component {
     constructor(props){
@@ -20,6 +20,16 @@ class KanbanBoard extends Component {
     handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
         this.props.updateEpicTask({state: +targetLaneId}, this.props.epicId, cardId);
     }
+    
+    assignSpecialist = (task, specialist) => {
+        const { assignSpecialistToTask, epicId } = this.props;
+        assignSpecialistToTask(epicId, +task, specialist);
+    }
+
+    removeSpecialist = (task, specialist) => {
+        const { removeSpecialistFromTask, epicId } = this.props;
+        removeSpecialistFromTask(epicId, +task, specialist);
+    }
 
     componentWillReceiveProps(nextProps){
         if(this.props.currentEpic !== nextProps.currentEpic){
@@ -29,31 +39,40 @@ class KanbanBoard extends Component {
         }
 
         if(nextProps.epicTasks && nextProps.currentEpic !== 'all'){
-            if(this.props.epicTasks !== nextProps.epicTasks){
+            if(this.props.epicTasks !== nextProps.epicTasks || nextProps.allSpecialists){
                 let backlog = [], progress = [], completed = [];
                 nextProps.epicTasks.map((task) => {
                     if(task.state === 'backlog'){
                         backlog.push({
                             id: `${task.id}`,
+                            assignSpecialist: this.assignSpecialist,
+                            removeSpecialist: this.removeSpecialist,
                             title: task.name,
                             description: 'Platform - Dashboard',
                             specialists: task.specialists,
+                            specialistList: nextProps.allSpecialists
                         })
                     };
                     if(task.state === 'in_progress'){
                         progress.push({
                             id: `${task.id}`,
+                            assignSpecialist: this.assignSpecialist,
+                            removeSpecialist: this.removeSpecialist,
                             title: task.name,
                             description: 'Platform - Dashboard',
                             specialists: task.specialists,
+                            specialistList: nextProps.allSpecialists
                         })
                     };
                     if(task.state === 'done'){
                         completed.push({
                             id: `${task.id}`,
+                            assignSpecialist: this.assignSpecialist,
+                            removeSpecialist: this.removeSpecialist,
                             title: task.name,
                             description: 'Platform - Dashboard', 
                             specialists: task.specialists,
+                            specialistList: nextProps.allSpecialists
                         })
                     }
                 });
@@ -73,7 +92,7 @@ class KanbanBoard extends Component {
     }
 
     render() {
-        const { currentEpic } = this.props;
+        const { currentEpic, allSpecialists } = this.props;
         const { backlogTasks, progressTasks, completedTasks, showBoard } = this.state;
 
         return(
@@ -113,6 +132,6 @@ class KanbanBoard extends Component {
 }
 
 export default connect(
-    ({epicTasks}) => ({epicTasks}),
-    {updateEpicTask}
+    ({epicTasks, allSpecialists}) => ({epicTasks, allSpecialists}),
+    {updateEpicTask, assignSpecialistToTask, removeSpecialistFromTask}
 )(KanbanBoard);

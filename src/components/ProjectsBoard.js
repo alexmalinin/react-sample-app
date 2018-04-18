@@ -18,6 +18,7 @@ import {
     showProjectEpic,
     showEpicTasks,
     updateEpicTask,
+    showAllSpecialists,
 } from '../actions/actions';
 import { PORT } from "../constans/constans";
 import { Progress } from 'semantic-ui-react';
@@ -38,6 +39,7 @@ class ProjectsBoard extends Component {
     componentWillMount() {
         this.props.showAllProjects();
         this.props.showAllEpics(this.props.projectId);
+        this.props.showAllSpecialists();
     }
 
     componentWillReceiveProps(nextProps){
@@ -85,6 +87,22 @@ class ProjectsBoard extends Component {
             } else nextProps.showEpicTasks(epicId);
         }
 
+        if(nextProps.assignSpecialist){
+            if(this.props.assignSpecialist){
+                if(this.props.assignSpecialist != nextProps.assignSpecialist){
+                    nextProps.showEpicTasks(epicId);
+                }
+            } else nextProps.showEpicTasks(epicId);
+        }
+
+        if(nextProps.removeSpecialist){
+            if(this.props.removeSpecialist){
+                if(this.props.removeSpecialist != nextProps.removeSpecialist){
+                    nextProps.showEpicTasks(epicId);
+                }
+            } else nextProps.showEpicTasks(epicId);
+        }
+
         if(nextProps.updateTask && epicId){
             if(this.props.updateTask){
                 if(this.props.updateTask != nextProps.updateTask){
@@ -105,6 +123,7 @@ class ProjectsBoard extends Component {
             currentEpic,
             showProjectEpic,
             epicTasks,
+            allSpecialists,
         } = this.props;
 
         const epicId = allEpics && currentEpic !== 'all' ? allEpics[currentEpic - 1].id : null;
@@ -150,6 +169,6 @@ class ProjectsBoard extends Component {
 }
 
 export default connect(
-    ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask}) => ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask}),
-    {showAllProjects, showAllEpics, deleteProjectEpic, updateProjectEpic, createEpicTask, showEpicTasks, updateEpicTask}
+    ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist}) => ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist}),
+    {showAllProjects, showAllEpics, deleteProjectEpic, updateProjectEpic, createEpicTask, showEpicTasks, updateEpicTask, showAllSpecialists}
 )(ProjectsBoard);
