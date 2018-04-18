@@ -180,8 +180,18 @@ export const S_Board = styled.div`
                     cursor: pointer;
                 }
             }
-            .addPersonDropdown{
+            .ui.dropdown{
                 position: absolute;
+                display: none;
+                bottom: 10px;
+                left: 10px;
+                width: 75%;
+                font-size: 16px;
+                text-align: left;
+                text-transform: none;
+                &.visible{
+                    display: block;
+                }
             }
         }
 
