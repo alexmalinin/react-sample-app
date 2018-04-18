@@ -56,6 +56,7 @@ import {
     UPDATE_EPIC_TASK,
     SHOW_ALL_SPECIALISTS,
     ASSIGN_SPECIALIST_TO_TASK,
+    REMOVE_SPECIALIST_FROM_TASK,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -698,6 +699,15 @@ export function assignSpecialistToTask(epic, task, data) {
         type: ASSIGN_SPECIALIST_TO_TASK,
         payload: data,
         assignSpecialistToTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}/assign`,
+    };
+
+    return action;
+}
+
+export function removeSpecialistFromTask(epic, task, data) {
+    const action = {
+        type: REMOVE_SPECIALIST_FROM_TASK,
+        removeSpecialistFromTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}/remove/${data}`,
     };
 
     return action;

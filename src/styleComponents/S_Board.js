@@ -49,6 +49,7 @@ export const S_Board = styled.div`
         justify-content: space-between;
         background: none;
         height: auto;
+        overflow-y: visible;
 
         &.visible{
             display: flex !important;
@@ -113,7 +114,7 @@ export const S_Board = styled.div`
 
     .dragItem{
         position: relative;
-        padding: 20px;
+        padding: 20px 20px 15px 20px;
         box-shadow: 0px 0px 8px 0px #ccc;
 
         text-transform: uppercase;
@@ -156,19 +157,83 @@ export const S_Board = styled.div`
 
         .persons{
             display: flex;
+            flex-flow: row wrap;
             align-items: center;
+            max-width: 80%;
 
             .person{
-                background: url('/images/uploadImg.png') no-repeat center center;
-                background-size: contain;
+                cursor: pointer;
+                outline: none;
+                font-size: 18px;
+                text-transform: none;
+                position: relative;
+
+                img{
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                .delete{
+                    display: none;
+                    flex-flow: column nowrap;
+                    position: absolute;
+                    z-index: 1;
+                    top: calc(100% + 5px);
+                    left: 0;
+                    min-width: 250px;
+                    background: #fff;
+                    border-radius: 3px;
+                    border: 1px solid #cce2ff;
+                    white-space: nowrap;
+                    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+
+                    .row{
+                        display: flex;
+                        flex-flow: row nowrap;
+                        align-items: center;
+                        padding: 10px;
+
+                        img{
+                            width: 60px;
+                            height: 60px;
+                        }
+
+                        p{
+                            color: #666;
+                            padding: 10px;
+                        }
+                    }
+
+                    button{
+                        display: flex;
+                        padding: 5px 10px;
+                        background: none;
+                        border: none;
+                        cursor: pointer;
+
+                        &:hover{
+                            background: linear-gradient(to right, #2d68ee 0%, #7439e3 100%);
+                            color: #fff;
+                        }
+                    }
+                }
+
+                &:focus{
+                    .delete{
+                        display: flex;
+                    }
+                }
             }
 
-            & > *{
+            & > span, a{
                 height: 30px;
                 width: 30px;
                 border: 1px solid #ccc;
                 border-radius: 50%;
                 margin-right: 10px;
+                margin-bottom: 5px;
 
                 text-align: center;
                 font-size: 24px;
@@ -191,6 +256,62 @@ export const S_Board = styled.div`
                 text-transform: none;
                 &.visible{
                     display: block;
+                }
+                .ui.avatar.image{
+                    width: 2em;
+                    object-fit: cover;
+                }
+            }
+            .dropdown{
+                position: absolute;
+                display: none;
+                bottom: 10px;
+                left: 10px;
+                padding: 5px;
+                width: 70%;
+
+                &.visible{
+                    display: block;
+                }
+                
+                .ui.input{
+                    width: 100%;
+
+                    input{
+                        display: inline-block;
+                        position: relative;
+                        height: 100%;
+                        width: 100%;
+                        z-index: 1;
+                    }
+                }
+
+                .dropdown-list{
+                    position: absolute;
+                    width: calc(100% - 10px);
+                    background: #fff;
+                    border-radius: 3px;
+                    border: 1px solid #cce2ff;
+                    div{
+                        display: flex;
+                        align-items: center;
+                        padding: 5px;
+                        cursor: pointer;
+
+                        &:hover{
+                            background: #f1f1f1;
+                        }
+
+                        text-transform: none;
+
+                        img{
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
         }

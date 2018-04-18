@@ -28,6 +28,7 @@ import showEpic         from './showProjectEpicReducer';
 import epicTasks        from './showTasksReducer';
 import updateTask       from './updateEpicTaksReducer';
 import assignSpecialist from './assignSpecialistToTaskReducer';
+import removeSpecialist from './removeSpecialistFromTaskReducer';
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -48,6 +49,7 @@ export default combineReducers({
     chosenSkills,
     clientData,
     specialistData,
+    allSpecialists,
     form: reduxFormReducer,
     createProject,
     allProjects,
@@ -60,5 +62,6 @@ export default combineReducers({
     epicTasks,
     updateTask,
     assignSpecialist,
+    removeSpecialist,
     // contactRequest,
 });
