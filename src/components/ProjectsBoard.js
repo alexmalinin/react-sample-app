@@ -107,8 +107,12 @@ class ProjectsBoard extends Component {
             if(this.props.updateTask){
                 if(this.props.updateTask != nextProps.updateTask){
                     nextProps.showEpicTasks(epicId);
+                    nextProps.showAllEpics(nextProps.projectId);
                 }
-            } else nextProps.showEpicTasks(epicId);
+            } else {
+                nextProps.showEpicTasks(epicId);
+                nextProps.showAllEpics(nextProps.projectId);
+            }
         }
     }
 

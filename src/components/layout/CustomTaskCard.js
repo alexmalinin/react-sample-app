@@ -6,14 +6,18 @@ import { PORT } from '../../constans/constans';
 class CustomCard extends React.Component {
     state = {
         options: [],
+        assignedIds: [],
         showDropdown: false,
     }
 
     // Search dropdown
 
     openDropdown = () => {
+        let assignedIds = [];
+        this.props.specialists.forEach(spec => assignedIds.push(spec.id));
         this.setState({
             options: this.props.specialistList,
+            assignedIds,
             showDropdown: true,
         });
         setTimeout(() => {
@@ -21,16 +25,23 @@ class CustomCard extends React.Component {
         }, 10);
     }
 
-    closeDropdown = () => {
+    closeDropdown = (e) => {
         this.setState({
             showDropdown: false,
         });
-        this.searchInput.value = '';
+        if(e){
+            e.target.value = '';
+        }
     }
 
     assignSpeciaist = (event, data) => {
-        const { assignSpecialist, id} = this.props;
-        assignSpecialist(id, event.target.getAttribute('data'));
+        const { assignSpecialist, removeSpecialist, id} = this.props;
+        let specId = event.target.getAttribute('data');
+
+        if(this.state.assignedIds.indexOf(+specId) >= 0){
+            removeSpecialist(id, specId);
+        } else assignSpecialist(id, specId);
+
         this.closeDropdown();
     }
 
@@ -39,6 +50,8 @@ class CustomCard extends React.Component {
     removeSpeciaist = (event, data) => {
         const { removeSpecialist, id} = this.props;
         removeSpecialist(id, event.target.getAttribute('data'));
+
+        event.target.parentNode.parentNode.blur();
     }
 
     handleSearch = (e, data) => {
@@ -46,7 +59,7 @@ class CustomCard extends React.Component {
             let result = [];
             this.state.options.forEach((spec) => {
                 let name = spec.first_name + ' ' + spec.last_name;
-                if(name.toLocaleLowerCase().indexOf(data.value.toLocaleLowerCase()) >= 0){
+                if( name.toLocaleLowerCase().indexOf(data.value.toLocaleLowerCase()) >= 0){
                     result.push(spec);
                 }
             })
@@ -60,7 +73,7 @@ class CustomCard extends React.Component {
 
     render() {
         const { title, description, id, specialists } = this.props;
-        const { showDropdown } = this.state;
+        const { showDropdown, assignedIds } = this.state;
 
         return (
             <div className="dragItem" style={{backgroundColor: '#fff'}}>
@@ -94,7 +107,11 @@ class CustomCard extends React.Component {
                             onChange={this.handleSearch}/>
                         <div className="dropdown-list">
                             {this.state.options.map((specialist, key) => 
-                                <div key={key} data={specialist.id} onClick={this.assignSpeciaist}>
+                                <div 
+                                    key={key} 
+                                    data={specialist.id} 
+                                    onClick={this.assignSpeciaist}
+                                    className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
                                     <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt=""/>
                                     {specialist.first_name + ' ' + specialist.last_name}
                                 </div>
