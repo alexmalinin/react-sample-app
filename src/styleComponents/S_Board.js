@@ -63,6 +63,7 @@ export const S_Board = styled.div`
             overflow: visible;
             margin: 0;
             padding: 0;
+            padding-bottom: 120px;
 
             &>header{
                 text-transform  : uppercase;
@@ -288,15 +289,20 @@ export const S_Board = styled.div`
 
                 .dropdown-list{
                     position: absolute;
+                    display: flex;
+                    flex-flow: column nowrap;
                     width: calc(100% - 10px);
                     background: #fff;
                     border-radius: 3px;
                     border: 1px solid #cce2ff;
+                    z-index: 2;
                     div{
                         display: flex;
+                        position: relative;
                         align-items: center;
                         padding: 5px;
                         cursor: pointer;
+                        order: 1;
 
                         &:hover{
                             background: #f1f1f1;
@@ -310,6 +316,27 @@ export const S_Board = styled.div`
                             border-radius: 50%;
                             object-fit: cover;
                             margin-right: 10px;
+                        }
+
+                        &.assigned{
+                            order: 0;
+                            
+                            &::before,
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                right: 15px;
+                                width: 4px;
+                                height: 1px;
+                                background: #666;
+                                transform: rotate(45deg);
+                                transform-origin: 100% 50%;
+                            }
+                            &::before{
+                                width: 8px;
+                                transform: rotate(135deg);
+                            }
                         }
                     }
                 }

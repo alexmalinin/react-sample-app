@@ -19,7 +19,7 @@ class ProjectSubHeader extends Component {
     epicTasks && epicTasks.forEach(task =>
       task.state === 'done' && completedTasksCount++
     );
-    const percents = Math.round(completedTasksCount / allTasksCount * 100);
+    const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     return (
       <StyledSubHeader profile='true'>
