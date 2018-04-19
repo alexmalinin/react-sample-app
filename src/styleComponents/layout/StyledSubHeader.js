@@ -122,11 +122,24 @@ export default styled.div`
       top: 24px;
     }
 
-    .teamSubLink {
-        margin-top: 10px;
-        width: 60px;
-        height: 60px;
-        font-size: 12px;
+    .teamSubHeader {
+        a{
+            &:first-of-type{
+                opacity: 1;
+            }
+
+            div{
+                margin-top: 10px;
+                width: 60px;
+                height: 60px;
+                font-size: 12px;
+                opacity: 1;
+
+                &.teamLink{
+                    border: 3px solid #fff;
+                }
+            }
+        }
     }
 
     .addLink::before,

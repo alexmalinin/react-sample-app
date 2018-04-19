@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import { connect }  from 'react-redux'
 import { Header, Modal } from 'semantic-ui-react';
-import { AddNewBtn } from '../../styleComponents/layout/DvButton'
 import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
-import NewTaskForm from '../client/forms/NewTaskForm';
+import AddTeamForm from '../forms/AddTeamForm';
 
-class AddTaskModal extends Component {
+class AddTeamModal extends Component {
 
     render() {
         const { number} = this.props;
 
         return(
-            <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} closeIcon>
-                <Modal.Header >Task creation</Modal.Header>
+            <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add team</a>} closeIcon>
+                {/* <Modal.Header >New Team</Modal.Header> */}
                 <Modal.Content >
                     <Modal.Description>
-                        <Header>New Task</Header>
-                        <NewTaskForm onSubmit={this.submit}/>
+                        <Header>Create new team</Header>
+                        <AddTeamForm/>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
@@ -31,4 +29,4 @@ class AddTaskModal extends Component {
     };
 }
 
-export default AddTaskModal;
+export default AddTeamModal;

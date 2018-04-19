@@ -4,6 +4,8 @@ export default styled.div`
     color: #666;
     font-size: 16px;
     letter-spacing: 1.2px;
+    font-weight: 500;
+    color: #999;
 
     .grid {
         margin: 0 !important;
@@ -17,8 +19,10 @@ export default styled.div`
         display: flex;
         justify-content: space-between;
         width: 100%;
-        padding-top: 14px;
-        padding-bottom: 2px;
+
+        .title{
+            margin-top: 28px;
+        }
     }
 
     .buttonAdd {

@@ -100,6 +100,17 @@ export const S_Board = styled.div`
         }
     }
 
+    .noTasks{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-top: 80px;
+        padding-bottom: 160px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 28px;
+    }
+
     .moduleWrapper{
         display: flex;
         flex-flow: row wrap;
