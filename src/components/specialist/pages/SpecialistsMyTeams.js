@@ -8,7 +8,7 @@ import { Container, ContainerLarge } from '../../../styleComponents/layout/Conta
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import RenderProjectCard from '../../client/renders/RenderProjectCard';
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
-import SpecialistTeamSubHeader from '../../layout/SpecialistTeamSubHeader';
+// import SpecialistTeamSubHeader from '../../layout/SpecialistTeamSubHeader';
 import StyledTeamPage from '../../../styleComponents/StyledTeamPage';
 import { NavLink } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ class SpecialistsMyTeams extends Component {
         return (
             <ContainerLarge>
                 <StyledTeamPage>
-                    <SpecialistTeamSubHeader />
+                    {/* <SpecialistTeamSubHeader /> */}
                     <Container>
                         <Grid>
                             <SectionHeader content='core team'/>

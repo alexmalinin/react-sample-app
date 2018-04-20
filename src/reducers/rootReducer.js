@@ -29,6 +29,10 @@ import epicTasks        from './showTasksReducer';
 import updateTask       from './updateEpicTaksReducer';
 import assignSpecialist from './assignSpecialistToTaskReducer';
 import removeSpecialist from './removeSpecialistFromTaskReducer';
+import allTeams         from './showAllTeamsReducer';
+import createChannel    from './createChannelReducer';
+import allChannels      from './showChannelsReducer';
+import addMember        from './addMemberToChannelReducer';
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -63,5 +67,9 @@ export default combineReducers({
     updateTask,
     assignSpecialist,
     removeSpecialist,
+    allTeams,
+    createChannel,
+    allChannels,
+    addMember,
     // contactRequest,
 });

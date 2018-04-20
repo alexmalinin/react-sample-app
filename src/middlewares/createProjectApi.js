@@ -29,7 +29,10 @@ export default store => next => action => {
                 "business_rules": payload["rules"],
                 "deliverables": payload["criteria"],
                 "further_notes": payload["solution"],
-                "attached_files_attributes": files
+                "attached_files_attributes": files,
+                "team_attributes": {
+                    "name": payload["name"],
+                }
             }
         },
 

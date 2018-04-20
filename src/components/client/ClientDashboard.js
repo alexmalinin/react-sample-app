@@ -14,6 +14,7 @@ import SideBarRight from './renders/SideBarRight';
 import { projects, days } from '../../helpers/sidebarDbEmulate';
 import ClientProjects from './ClientProjects';
 import ClientModule from './ClientModule';
+import Teams from '../Teams';
 import Dashboard from '../Dashboard';
 import TheVillage from '../TheVillage';
 
@@ -186,10 +187,11 @@ class ClientDashboard extends Component {
     }
 
     let sidebarCondition = 
-           page === 'projects' 
-        || page === 'board' 
-        || page === 'module' 
-        || page === 'root' 
+           page === 'projects'
+        || page === 'board'
+        || page === 'teams'
+        || page === 'module'
+        || page === 'root'
         || page === 'the_village';
 
     return (
@@ -229,6 +231,8 @@ class ClientDashboard extends Component {
             allEpics={this.props.allEpics}
             currentEpic={this.props.match.params['moduleId'] || 'all'}
           />;
+      case 'teams':
+        return <Teams/>;    
       case 'the_village':
         return <TheVillage/>;
       case 'root':

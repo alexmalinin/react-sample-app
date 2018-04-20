@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { Header, Modal } from 'semantic-ui-react';
 import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
 import AddTeamForm from '../forms/AddTeamForm';
 
 class AddTeamModal extends Component {
+    componentWillMount(){
+        // console.log('modal loaded')
+    }
 
     render() {
-        const { number} = this.props;
+        // console.log(this.props)
 
         return(
-            <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add team</a>} closeIcon>
+            <Modal size="tiny" trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add team</a>} closeIcon>
                 {/* <Modal.Header >New Team</Modal.Header> */}
                 <Modal.Content >
                     <Modal.Description>
                         <Header>Create new team</Header>
-                        <AddTeamForm/>
+                        <AddTeamForm projects={null}/>
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
@@ -29,4 +33,7 @@ class AddTeamModal extends Component {
     };
 }
 
-export default AddTeamModal;
+export default connect(
+    ({allprojects}) => ({allprojects}),
+    {}
+)(AddTeamModal);

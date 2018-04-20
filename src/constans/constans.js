@@ -61,6 +61,10 @@ export const UPDATE_EPIC_TASK                  = 'UPDATE_EPIC_TASK';
 export const SHOW_EPIC_TASKS                   = 'SHOW_EPIC_TASKS';
 export const ASSIGN_SPECIALIST_TO_TASK         = 'ASSIGN_SPECIALIST_TO_TASK';
 export const REMOVE_SPECIALIST_FROM_TASK       = 'REMOVE_SPECIALIST_FROM_TASK';
+export const SHOW_ALL_TEAMS                    = 'SHOW_ALL_TEAMS';
+export const CREATE_CHANNEL                    = 'CREATE_CHANNEL';
+export const SHOW_CHANNELS                     = 'SHOW_CHANNELS';
+export const ADD_MEMBER_TO_CHANNEL             = 'ADD_MEMBER_TO_CHANNEL';
 
 export const SUCCESS                           = '_SUCCESS';
 export const FAIL                              = '_FAIL';

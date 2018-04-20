@@ -39,6 +39,9 @@ class Header extends Component {
                             <NavLink to='/client/dashboard/root'>Dashboard</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
+                            <NavLink to='/client/dashboard/teams'>Teams</NavLink>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
                         </Dropdown.Item>
                     </Dropdown.Menu>

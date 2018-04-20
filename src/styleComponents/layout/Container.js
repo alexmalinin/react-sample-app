@@ -30,7 +30,7 @@ export const ContainerLarge = styled.div`
 export const Container = styled.div`
     
     width: 100%;
-    min-height: 75vh;
+    /* min-height: 75vh; */
     /* max-width: 1590px; */
     margin: 0 auto;
     padding: ${ props => props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px` } ;

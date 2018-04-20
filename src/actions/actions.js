@@ -57,6 +57,10 @@ import {
     SHOW_ALL_SPECIALISTS,
     ASSIGN_SPECIALIST_TO_TASK,
     REMOVE_SPECIALIST_FROM_TASK,
+    SHOW_ALL_TEAMS,
+    CREATE_CHANNEL,
+    SHOW_CHANNELS,
+    ADD_MEMBER_TO_CHANNEL,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -708,6 +712,52 @@ export function removeSpecialistFromTask(epic, task, data) {
     const action = {
         type: REMOVE_SPECIALIST_FROM_TASK,
         removeSpecialistFromTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}/remove/${data}`,
+    };
+
+    return action;
+}
+
+// Show all Teams
+
+export function showAllTeams() {
+    const action = {
+        type: SHOW_ALL_TEAMS,
+        showAllTeams: `${PORT}/api/v1/teams`,
+    };
+
+    return action;
+}
+
+// Create team channel
+
+export function createChannel(team, data) {
+    const action = {
+        type: CREATE_CHANNEL,
+        payload: data,
+        createChannel: `${PORT}/api/v1/teams/${team}/channels`,
+    };
+
+    return action;
+}
+
+// Show all chanels of team
+
+export function showChannels(team) {
+    const action = {
+        type: SHOW_CHANNELS,
+        showChannels: `${PORT}/api/v1/teams/${team}/channels`,
+    };
+
+    return action;
+}
+
+// Add member to team channel
+
+export function addMemberToChannel(team, channel, data) {
+    const action = {
+        type: ADD_MEMBER_TO_CHANNEL,
+        payload: data,
+        addMemberToChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}/assign`,
     };
 
     return action;

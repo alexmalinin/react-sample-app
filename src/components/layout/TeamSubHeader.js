@@ -7,14 +7,16 @@ import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import AddTeamModal from '../modals/AddTeamModal';
 
 
-class AboutSubHeader extends Component {
+class TeamSubHeader extends Component {
 
     render() {
 
         return (
             <StyledSubHeader account>
                 <div className="teamSubHeader">
-                    <SubHeaderLinkWrap content='Teams' url='#' className="teamLink"/>
+                    <SubHeaderLinkWrap content='Teams' url='#' className="teamLink">
+                        &nbsp;
+                    </SubHeaderLinkWrap>
 
                     <AddTeamModal />
                 </div>              
@@ -23,4 +25,4 @@ class AboutSubHeader extends Component {
     }
 }
 
-export default AboutSubHeader;
+export default TeamSubHeader;
