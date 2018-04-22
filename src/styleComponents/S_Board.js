@@ -95,9 +95,21 @@ export const S_Board = styled.div`
                     max-width: 100%;
                     width: 100%;
                     padding-top: 30px;
+                    border: none;
                 }
             }
         }
+    }
+
+    .noTasks{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-top: 80px;
+        padding-bottom: 160px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 28px;
     }
 
     .moduleWrapper{
@@ -117,6 +129,7 @@ export const S_Board = styled.div`
         position: relative;
         padding: 20px 20px 15px 20px;
         box-shadow: 0px 0px 8px 0px #ccc;
+        border-radius: 2px;
 
         text-transform: uppercase;
 
@@ -161,181 +174,256 @@ export const S_Board = styled.div`
             flex-flow: row wrap;
             align-items: center;
             max-width: 80%;
+            font-family: 'Brix';
 
-            .person{
-                cursor: pointer;
-                outline: none;
-                font-size: 18px;
-                text-transform: none;
+            & > .person,
+                .addPerson{
                 position: relative;
-
-                img{
-                    height: 100%;
-                    width: 100%;
-                    object-fit: cover;
-                    border-radius: 50%;
-                }
-
-                .delete{
-                    display: none;
-                    flex-flow: column nowrap;
-                    position: absolute;
-                    z-index: 1;
-                    top: calc(100% + 5px);
-                    left: 0;
-                    min-width: 250px;
-                    background: #fff;
-                    border-radius: 3px;
-                    border: 1px solid #cce2ff;
-                    white-space: nowrap;
-                    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
-
-                    .row{
-                        display: flex;
-                        flex-flow: row nowrap;
-                        align-items: center;
-                        padding: 10px;
-
-                        img{
-                            width: 60px;
-                            height: 60px;
-                        }
-
-                        p{
-                            color: #666;
-                            padding: 10px;
-                        }
-                    }
-
-                    button{
-                        display: flex;
-                        padding: 5px 10px;
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-
-                        &:hover{
-                            background: linear-gradient(to right, #2d68ee 0%, #7439e3 100%);
-                            color: #fff;
-                        }
-                    }
-                }
-
-                &:focus{
-                    .delete{
-                        display: flex;
-                    }
-                }
-            }
-
-            & > span, a{
                 height: 30px;
                 width: 30px;
                 border: 1px solid #ccc;
                 border-radius: 50%;
-                margin-right: 10px;
+                margin-right: 7px;
                 margin-bottom: 5px;
 
-                text-align: center;
                 font-size: 24px;
-                line-height: 29px;
+                line-height: 24px;
                 color: #ddd;
+                cursor: pointer;
 
-                &:last-of-type{
-                    border-color: #ddd;
+                a{
+                    text-align: center;
+                }
+
+                .dropdownTitle{
+                    color: #5366e5;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    font-weight: 600;
+                    letter-spacing: 1.3px;
+                }
+
+                .close{
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    height: 10px;
+                    width: 10px;
                     cursor: pointer;
+
+                    &::before,
+                    &::after{
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 8px;
+                        height: 1px;
+                        background: #bbb;
+                        transform: rotate(45deg);
+                    }
+                    &::after{
+                        transform: rotate(-45deg);
+                    }
                 }
             }
-            .ui.dropdown{
-                position: absolute;
-                display: none;
-                bottom: 10px;
-                left: 10px;
-                width: 75%;
-                font-size: 16px;
-                text-align: left;
-                text-transform: none;
-                &.visible{
-                    display: block;
-                }
-                .ui.avatar.image{
-                    width: 2em;
-                    object-fit: cover;
-                }
-            }
-            .dropdown{
-                position: absolute;
-                display: none;
-                bottom: 10px;
-                left: 10px;
-                padding: 5px;
-                width: 70%;
 
-                &.visible{
-                    display: block;
-                }
-                
-                .ui.input{
-                    width: 100%;
+            .person{
+                a{
+                    outline: none;
+                    font-size: 18px;
+                    text-transform: none;
 
-                    input{
-                        display: inline-block;
-                        position: relative;
+                    &:hover{
+                        opacity: .8;
+                    }
+
+                    img{
                         height: 100%;
                         width: 100%;
-                        z-index: 1;
+                        object-fit: cover;
+                        border-radius: 50%;
                     }
                 }
 
-                .dropdown-list{
+                .delete{
                     position: absolute;
-                    display: flex;
+                    z-index: 1;
+
+                    display: none;
                     flex-flow: column nowrap;
-                    width: calc(100% - 10px);
+
+                    top: calc(100% + 5px);
+                    left: 0;
+                    min-width: 220px;
+                    padding: 10px 15px 15px 15px;
+
                     background: #fff;
-                    border-radius: 3px;
-                    border: 1px solid #cce2ff;
-                    z-index: 2;
-                    div{
+                    border-radius: 5px;
+                    font-family: 'Brix';
+                    white-space: nowrap;
+                    text-align: left;
+                    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+                    cursor: default;
+
+                    &.show{
                         display: flex;
-                        position: relative;
-                        align-items: center;
-                        padding: 5px;
-                        cursor: pointer;
-                        order: 1;
+                    }
 
-                        &:hover{
-                            background: #f1f1f1;
-                        }
+                    p{
+                        margin-bottom: 5px;
+                        
+                    }
 
-                        text-transform: none;
+                    .row{
+                        display: flex;
+                        flex-flow: row nowrap;
+                        align-items: flex-start;
 
                         img{
-                            width: 30px;
-                            height: 30px;
-                            border-radius: 50%;
+                            width: 50px;
+                            height: 50px;
                             object-fit: cover;
-                            margin-right: 10px;
+                            border-radius: 50%;
                         }
 
-                        &.assigned{
-                            order: 0;
-                            
-                            &::before,
-                            &::after{
-                                content: '';
-                                position: absolute;
-                                top: 50%;
-                                right: 15px;
-                                width: 4px;
-                                height: 1px;
-                                background: #666;
-                                transform: rotate(45deg);
-                                transform-origin: 100% 50%;
+                        div{
+                            display: flex;
+                            flex-flow: column nowrap;
+                            justify-content: space-between;
+                            padding: 0 8px;
+
+                            p{
+                                color: #666;
+                                font-weight: 500;
+                                font-size: 16px;
+                                text-transform: none;
                             }
-                            &::before{
-                                width: 8px;
-                                transform: rotate(135deg);
+
+                            button{
+                                padding: 3px 7px;
+
+                                color: #fff;
+                                font-size: 12px;
+                                font-weight: 500;
+                                border: none;
+                                border-radius: 2px;
+                                background: #e8433e;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .addPerson{
+                position: relative;
+                a{
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: inherit;
+                    color: inherit;
+                }
+
+                .dropdown{
+                    position: absolute;
+                    z-index: 2;
+                    display: none;
+
+                    top: calc(100% + 5px);
+                    left: 10px;
+                    min-width: 230px;
+
+                    border-radius: 3px;
+                    background: #fff;
+                    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+
+                    &.visible{
+                        display: block;
+                    }
+
+                    .dropdownTitle{
+                        padding: 10px 15px 0 15px;
+                        margin-bottom: 0;
+                    }
+                    
+                    .ui.input{
+                        width: 100%;
+                        padding: 10px 15px;
+
+                        input{
+                            display: inline-block;
+                            position: relative;
+                            height: 100%;
+                            width: 100%;
+                            z-index: 1;
+                            font-size: 12px;
+
+                            &::placeholder{
+                                color: #a1a1a1;
+                            }
+
+                            &:focus{
+                                border-color: #dbdbdb;
+                            }
+                        }
+                    }
+
+                    .dropdown-list{
+                        z-index: 2;
+                        display: flex;
+                        flex-flow: column nowrap;
+                        width: 100%;
+
+                        background: #fff;
+                        div{
+                            position: relative;
+                            display: flex;
+                            order: 1;
+                            align-items: center;
+                            padding: 5px 15px;
+
+                            font-family: 'Brix';
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #666;
+                            cursor: pointer;
+
+                            &:hover{
+                                background: #f7f7f7;
+                            }
+
+                            text-transform: none;
+
+                            img{
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 50%;
+                                object-fit: cover;
+                                margin-right: 10px;
+                            }
+
+                            &.assigned{
+                                order: 0;
+                                
+                                &::before,
+                                &::after{
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 25px;
+                                    width: 6px;
+                                    height: 2px;
+                                    background: #38ffbf;
+                                    transform: rotate(45deg);
+                                    transform-origin: 100% 50%;
+                                    border-radius: 2px;
+                                }
+                                &::before{
+                                    width: 13px;
+                                    transform: rotate(133deg);
+                                }
                             }
                         }
                     }

@@ -7,7 +7,8 @@ class RenderField extends React.Component {
 
     render() {
 
-        const { input,
+        const { 
+            input,
             placeholder,
             name,
             label,
@@ -15,7 +16,8 @@ class RenderField extends React.Component {
             disabled,
             padded,
             data,
-            meta: { touched, error, warning }} = this.props;
+            meta: { touched, error, warning }
+        } = this.props;
 
         return (
             <StyledInputs padded={padded}>

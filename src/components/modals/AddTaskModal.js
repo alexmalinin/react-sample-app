@@ -12,10 +12,10 @@ class AddTaskModal extends Component {
 
         return(
             <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} closeIcon>
-                <Modal.Header >Module {number}</Modal.Header>
+                <Modal.Header >Task creation</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>
-                        <Header>Update module {number} information</Header>
+                        <Header>New Task</Header>
                         <NewTaskForm onSubmit={this.submit}/>
                     </Modal.Description>
                 </Modal.Content>

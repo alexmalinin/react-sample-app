@@ -283,8 +283,12 @@ export const StyledBar = styled.aside`
             }
         }
     }
-
+    
     @media screen and (max-width: 1790px){
+        width: 190px;
+    }
+
+    @media screen and (max-width: 1290px){
         display: none;
     }
 `;

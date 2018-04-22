@@ -92,7 +92,7 @@ class KanbanBoard extends Component {
     }
 
     render() {
-        const { currentEpic, allSpecialists } = this.props;
+        const { currentEpic, allSpecialists, epicId } = this.props;
         const { backlogTasks, progressTasks, completedTasks, showBoard } = this.state;
 
         return(
@@ -125,7 +125,9 @@ class KanbanBoard extends Component {
                         handleDragEnd={this.handleDragEnd}>
                     <CustomCard />
                 </Board>
-                : <p>No tasks for now</p>}
+                : <div className="noTasks">
+                    No tasks for now
+                </div>}
             </Transition>
         )
     }

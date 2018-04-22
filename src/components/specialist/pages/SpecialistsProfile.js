@@ -98,21 +98,10 @@ class SpecialistsProfile extends Component {
                                 specialistModal/>
                             {this.state.nextStep && <Redirect to="industry"/>}
                         </Grid.Column>
-                        <Grid.Column mobile={16} tablet={12} computer={16}>
-                            <Grid>
-                                <Grid.Row>
-                                    <Grid.Column computer={3}>
-                                    </Grid.Column>
-                                    <Grid.Column computer={13}>
-                                        <DvTitleSmall fz='18' mTop='60' xsCenter>Change Password</DvTitleSmall>
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row>
-                                    <Grid.Column computer={16}>
-                                        <RenderResetPasswordForm user="specialist"/>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column computer={16}>
+                            <RenderResetPasswordForm user="specialist"/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

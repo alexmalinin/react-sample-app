@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, Transition, Input } from 'semantic-ui-react';
 import { PORT } from '../../constans/constans';
 
-class CustomCard extends React.Component {
+class CustomCard extends Component {
     state = {
         options: [],
         assignedIds: [],
@@ -47,13 +47,6 @@ class CustomCard extends React.Component {
 
     // remove button dropdown
 
-    removeSpeciaist = (event, data) => {
-        const { removeSpecialist, id} = this.props;
-        removeSpecialist(id, event.target.getAttribute('data'));
-
-        event.target.parentNode.parentNode.blur();
-    }
-
     handleSearch = (e, data) => {
         if(data.value != ''){
             let result = [];
@@ -72,7 +65,7 @@ class CustomCard extends React.Component {
     }
 
     render() {
-        const { title, description, id, specialists } = this.props;
+        const { title, description, id, specialists, removeSpecialist } = this.props;
         const { showDropdown, assignedIds } = this.state;
 
         return (
@@ -84,44 +77,93 @@ class CustomCard extends React.Component {
                 </div>
                 <div className="persons">
                     {specialists.map((specialist, key)=>
-                        <a tabIndex="1" key={key} className="person">
-                            <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar" onClickCapture={(e)=>{e.target.parentNode.focus()}}/>
-                            <div className="delete" data={specialist.id} onClick={this.removeSpecialist}>
-                                <div className="row">
-                                    <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
-                                    <p>{specialist.first_name + ' ' +specialist.last_name}</p>
-                                </div>
-                                <button data={specialist.id} onClick={this.removeSpeciaist} className="remove">Remove from card</button>
-                            </div>
-                        </a>
+                        <PersonTile specialist={specialist} key={key} removeSpecialist={removeSpecialist} taskId={id}/>
                     )}
-                    <a tabIndex="1" className="addPerson" onClick={this.openDropdown} onBlur={this.closeDropdown}>+</a>
-                    <div className={`dropdown${showDropdown ? ` visible` : ``}`}>
-                        <Input
-                            type="text"
-                            placeholder="Search specialist"
-                            name="searchSpec"
-                            ref={input => this.searchInput = input}
-                            onClick={(e)=>e.target.focus()}
-                            onBlur={this.closeDropdown}
-                            onChange={this.handleSearch}/>
-                        <div className="dropdown-list">
-                            {this.state.options.map((specialist, key) => 
-                                <div 
-                                    key={key} 
-                                    data={specialist.id} 
-                                    onClick={this.assignSpeciaist}
-                                    className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
-                                    <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt=""/>
-                                    {specialist.first_name + ' ' + specialist.last_name}
-                                </div>
-                            )}
+                    <div className="addPerson">
+                        <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>+</a>
+                        <div className={`dropdown${showDropdown ? ` visible` : ``}`}>
+                            <div className="close" onClick={this.closeDropdown}></div>
+                            <p className="dropdownTitle">Members</p>
+                            <Input
+                                type="text"
+                                placeholder="Search members"
+                                name="searchSpec"
+                                ref={input => this.searchInput = input}
+                                onClick={(e)=>e.target.focus()}
+                                onBlur={this.closeDropdown}
+                                onChange={this.handleSearch}/>
+                            <div className="dropdown-list">
+                                {this.state.options.map((specialist, key) => 
+                                    <div 
+                                        key={key} 
+                                        data={specialist.id} 
+                                        onClick={this.assignSpeciaist}
+                                        className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
+                                        <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt=""/>
+                                        {specialist.first_name + ' ' + specialist.last_name}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <span className="ddtw">DDTW-{id}</span>
             </div>
         );
+    }
+}
+
+class PersonTile extends Component {
+    state = {
+        showDropdown: false
+    }
+
+    openDropdown = () => {
+        this.setState({
+            showDropdown: true
+        })
+    }
+
+    closeDropdown = () => {
+        this.setState({
+            showDropdown: false
+        })
+    }
+
+    removeSpecialist = (event, data) => {
+        const { removeSpecialist, taskId, specialist} = this.props;
+        removeSpecialist(taskId, specialist.id);
+        setTimeout(() => {
+            this.setState({
+                showDropdown: false
+            })
+        }, 100);
+    }
+
+    render() {
+        const { specialist, key } = this.props;
+
+        return(
+            <div key={key} className="person">
+                <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown} key={key}>
+                    <img 
+                        src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'}
+                        onClick={(e)=>e.target.parentNode.focus()}
+                        alt="avatar"/>
+                </a>
+                <div className={`delete${this.state.showDropdown ? ' show' : ''}`}>
+                    <div className="close" onClick={this.closeDropdown}></div>
+                    <p className="dropdownTitle">Profile</p>
+                    <div className="row">
+                        <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
+                        <div>
+                            <p>{specialist.first_name + ' ' +specialist.last_name}</p>
+                            <button data={specialist.id} onClick={this.removeSpecialist} className="remove">Remove from card</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
 

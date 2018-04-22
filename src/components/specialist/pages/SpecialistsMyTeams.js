@@ -8,7 +8,7 @@ import { Container, ContainerLarge } from '../../../styleComponents/layout/Conta
 import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
 import RenderProjectCard from '../../client/renders/RenderProjectCard';
 import StyledClientTeam from '../../../styleComponents/StyledClientTeam';
-import SpecialistTeamSubHeader from '../../layout/SpecialistTeamSubHeader';
+// import SpecialistTeamSubHeader from '../../layout/SpecialistTeamSubHeader';
 import StyledTeamPage from '../../../styleComponents/StyledTeamPage';
 import { NavLink } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ class SpecialistsMyTeams extends Component {
                         </div> )
                     }) 
                 }
-                <NavLink to='#' class='buttonAdd'></NavLink>
+                <NavLink to='#' className='buttonAdd'></NavLink>
             </div>
         )
     }
@@ -34,7 +34,7 @@ class SpecialistsMyTeams extends Component {
         return (
             <ContainerLarge>
                 <StyledTeamPage>
-                    <SpecialistTeamSubHeader />
+                    {/* <SpecialistTeamSubHeader /> */}
                     <Container>
                         <Grid>
                             <SectionHeader content='core team'/>
@@ -53,7 +53,7 @@ class SpecialistsMyTeams extends Component {
                                 </Grid.Column>   
                                 <Grid.Column computer={3}>
                                     Add Chanel
-                                    <NavLink to='#' class='buttonAdd'></NavLink>
+                                    <NavLink to='#' className='buttonAdd'></NavLink>
                                 </Grid.Column>   
                                 <Grid.Column computer={3}>
                                     
@@ -71,7 +71,7 @@ function SectionHeader({ content }) {
     return (
         <Grid.Row className='section-header' >
             <Grid.Column computer={6} textAlign='left' floated='left'>
-                <span className='title'>{content}</span>
+                <p className='title'>{content}</p>
             </Grid.Column>
             <Grid.Column computer={2} textAlign='right' floated='right'>
             </Grid.Column>

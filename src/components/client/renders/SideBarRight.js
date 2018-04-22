@@ -2,6 +2,29 @@ import React, { Component } from 'react';
 import { StyledBar } from '../../../styleComponents/layout/SideBar';
 import { Accordion, Tab } from 'semantic-ui-react';
 
+class SideBarRight extends Component {
+
+    render() {
+        let { projects, days } = this.props;
+
+        const panes = [
+            {
+                menuItem: 'TEAMS',
+                render: () => <Tab.Pane><Teams projects={projects}/></Tab.Pane>
+            },
+            {
+                menuItem: 'ACTIVITY',
+                render: () => <Tab.Pane><Activity days={days}/></Tab.Pane>
+            }
+        ];
+
+        return(
+            <StyledBar className="right" >
+                <Tab panes={panes} />
+            </StyledBar>
+        );
+    }
+}
 
 function Teams({projects}) {
 
@@ -62,26 +85,4 @@ function Activity({days}) {
     );
 }
 
-export default class SideBarRight extends Component {
-
-    render() {
-        let { projects, days } = this.props;
-
-        const panes = [
-            {
-                menuItem: 'TEAMS',
-                render: () => <Tab.Pane><Teams projects={projects}/></Tab.Pane>
-            },
-            {
-                menuItem: 'ACTIVITY',
-                render: () => <Tab.Pane><Activity days={days}/></Tab.Pane>
-            }
-        ];
-
-        return(
-            <StyledBar className="right" >
-                <Tab panes={panes} />
-            </StyledBar>
-        );
-    }
-}
+export default SideBarRight;

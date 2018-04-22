@@ -44,6 +44,10 @@ import updateEpicTask               from '../middlewares/updateEpicTaskApi';
 import showAllSpecialists           from '../middlewares/showAllSpecialistsApi';
 import assignSpecialistToTask       from '../middlewares/assignSpecialistToTaskApi';
 import removeSpecialistFromTask     from '../middlewares/removeSpecialistFromTaskApi';
+import showAllTeams                 from '../middlewares/showAllTeamsApi';
+import createChannel                from '../middlewares/createChannelApi';
+import showChannels                 from '../middlewares/showChannelsApi';
+import addMemberToChannel           from '../middlewares/addMemberToChannelApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -89,6 +93,10 @@ const enhancer = applyMiddleware(
     updateEpicTask,
     assignSpecialistToTask,
     removeSpecialistFromTask,
+    showAllTeams,
+    createChannel,
+    showChannels,
+    addMemberToChannel,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'
