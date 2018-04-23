@@ -2,39 +2,46 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import HeaderIntro from '../layout/HeaderIntro';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
+import StyledFormHeader from '../../styleComponents/StyledFormHeader';
 import {DvTitle} from '../../styleComponents/layout/DvTitles';
 import DvForm from '../../styleComponents/Tabs';
 import confirm from '../../decorators/confirm';
 import VerificationForm from './VerificationForm';
-import { Container } from '../../styleComponents/layout/Container';
+import { Container, IntroContainer } from '../../styleComponents/layout/Container';
 import { verifyPassword, getUserId, userType, deleteConfirmationToken} from '../../actions/actions';
 
 class Verification extends Component {
 
-    componentWillMount() {
-        let { match } = this.props;
-        this.token = match.params.token;
-        this.user = match.params.user;
-        this.props.getUserId(this.user, this.token);
-    }
+  componentWillMount() {
+      let { match } = this.props;
+      this.token = match.params.token;
+      this.user = match.params.user;
+      this.props.getUserId(this.user, this.token);
+  }
 
-    render() {
-        const { confirm, confirmAccount, confirmPassword } = this.props;
-        return (
-            <main>
-                <HeaderIntro/>
-                <Container>
-                    <DvTitle mTop='126'>
-                        Account Verification
-                    </DvTitle>
-                    <DvForm widthAuto>
-                        <VerificationForm onSubmit={this.submit}/>
-                    </DvForm>
-                    { confirmPassword && this.getUserRedirect() }
-                </Container>
-            </main>
-        )
-    }
+  render() {
+      const { confirm, confirmAccount, confirmPassword } = this.props;
+      return (
+          <main>
+            <HeaderIntro/>
+            <S_MainContainer>
+              <IntroContainer>
+                <StyledFormHeader borderBottom>
+                  <div className="form-title">Create you password</div>
+                  <div className="form-subtitle">Account Verified</div>
+                </StyledFormHeader>
+
+                <DvForm widthAuto>
+                    <VerificationForm onSubmit={this.submit} />
+                </DvForm>
+
+                  { confirmPassword && this.getUserRedirect() }
+              </IntroContainer>
+            </S_MainContainer>
+        </main>
+      )
+  }
 
     componentDidMount() {
         let tab = this.user === 'customer' ? 'Client' : 'Specialist';

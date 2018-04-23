@@ -5,3 +5,13 @@ export const colors = {
     purple: '#8f1ae5',
     blue: '#1991fa',
 };
+
+export const primaryColors = {
+  darkGrey: '#666666',
+  grey: '#999999',
+  lightGrey: '#cccccc'
+}
+
+export const secondaryColors = {
+    green: '#38ffbf'
+}

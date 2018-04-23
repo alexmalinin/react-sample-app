@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
-export const DvButton = styled(Button)`  
- 
+export const DvButton = styled(Button)`
+
     &.ui.button {
-        
+
         ${props => props.indentTop ? `margin-top: 60px` : ``};
         width: ${props => props.smallbtn ? `50%` : props.midbtn ? '80%' : `100%` };
         border-radius: ${props => props.smallbtn ? `5px` : props.midbtn ? '5px' : `0` };
@@ -12,16 +12,16 @@ export const DvButton = styled(Button)`
         font-size: ${props => props.smallbtn ? `18px` : props.midbtn ? '18px' : `24px` };
         font-family: 'Brix';
         text-align: center;
-    
+
         &.verify-btn {
             padding: 40px;
         }
-    
+
         &.width200 {
             width: 200%;
         }
     }
-    
+
     @media (max-width: 1920px) {
         &.ui.button {
             &.verify-btn {
@@ -30,19 +30,19 @@ export const DvButton = styled(Button)`
             }
         }
     }
-    
+
     @media (max-width: 991px) {
         &.ui.button {
             &.verify-btn {
                 font-size: 18px;
             }
-            
+
             &.width200 {
                 width: 100%;
             }
         }
     }
-    
+
     @media (max-width: 767px) {
         &.ui.button {
             font-size: 18px;
@@ -57,7 +57,7 @@ export const NewTeamBtn = styled.div`
     margin-top: 100px;
     text-align: center;
     font-family: 'Brix';
-    
+
     a {
         display: inline-block;
         width: 120px;
@@ -67,7 +67,7 @@ export const NewTeamBtn = styled.div`
         border: 2px solid #808080;
         position: relative;
         margin-bottom: 50px;
-        
+
         &:before {
             content: '';
             position: absolute;
@@ -77,7 +77,7 @@ export const NewTeamBtn = styled.div`
             top: 9px;
             transition: all .2s ease-in-out
         }
-        
+
         &:after {
             content: '';
             position: absolute;
@@ -88,7 +88,7 @@ export const NewTeamBtn = styled.div`
             top: 49%;
             transition: all .2s ease-in-out
         }
-        
+
         &:active {
             &:before {
                 content: '';
@@ -98,7 +98,7 @@ export const NewTeamBtn = styled.div`
                 background: #808080;
                 top: 31px;
             }
-        
+
             &:after {
                 content: '';
                 position: absolute;
@@ -109,37 +109,37 @@ export const NewTeamBtn = styled.div`
             }
         }
     }
-    
+
     span {
         display: block;
         font-size: 28px;
         font-weight: bold;
         color: #000;
     }
-    
+
     @media (max-width: 1920px) {
-    
+
         max-width: 1275px;
         margin-top: 50px;
-        
+
         a {
             width: 80px;
             height: 80px;
             border: 1px solid #808080;
             margin-bottom: 30px;
-            
+
             &:before {
                 height: 60px;
                 width: 1px;
                 top: 9px;
             }
-            
+
             &:after {
                 width: 60px;
                 height: 1px;
                 left: 9px;
             }
-            
+
             &:active {
                 &:before {
                     content: '';
@@ -147,7 +147,7 @@ export const NewTeamBtn = styled.div`
                     width: 1px;
                     top: 22px;
                 }
-            
+
                 &:after {
                     width: 35px;
                     height: 1px;
@@ -155,13 +155,13 @@ export const NewTeamBtn = styled.div`
                 }
             }
         }
-        
+
         span {
             display: block;
             font-size: 18px;
             font-weight: bold;
             color: #000;
-        }   
+        }
     }
 `;
 
@@ -181,7 +181,7 @@ export const AddNewBtn = styled(Button)`
         font-weight: bold;
         z-index: 5;
         color: #666 !important; // overwrite semantic theme
-        
+
         &:before {
             content: '';
             position: absolute;
@@ -191,7 +191,7 @@ export const AddNewBtn = styled(Button)`
             left: 11px;
             top: 48%;
         }
-        
+
         &:after {
             content: '';
             position: absolute;
@@ -202,13 +202,13 @@ export const AddNewBtn = styled(Button)`
             top: 16%;
         }
     }
-    
+
     @media (min-width: 1921px) {
         &.ui.basic.button {
             border: 2px solid #ccc;
             padding-left: 100px;
             font-size: 28px;
-            
+
             &:before {
                 content: '';
                 position: absolute;
@@ -218,7 +218,7 @@ export const AddNewBtn = styled(Button)`
                 left: 20px;
                 top: 50%;
             }
-            
+
             &:after {
                 content: '';
                 position: absolute;
@@ -241,7 +241,7 @@ export const SaveBtn = styled(Button)`
         height: 60px;
         background-color: #fff;
         color: #ccc;
-        border: 1px solid #ccc; 
+        border: 1px solid #ccc;
         position: absolute;
         bottom: -26px;
         right: 20px;
@@ -249,7 +249,7 @@ export const SaveBtn = styled(Button)`
         text-align: center;
         color: #fff;
         z-index: 5;
-        
+
         span {
             min-width: 90px;
             text-transform: uppercase;
@@ -264,7 +264,7 @@ export const SaveBtn = styled(Button)`
         &::before,
         &::after {
             content: '';
-            position: absolute; 
+            position: absolute;
             height: 1px;
             background-color: #ccc;
         }
@@ -286,7 +286,7 @@ export const SaveBtn = styled(Button)`
         /* &.verify-btn {
             padding: 40px;
         }
-        
+
         &.width200 {
           width: 200%;
         } */
@@ -301,7 +301,7 @@ export const SaveBtn = styled(Button)`
         span {
             color: #666;
         }
-        &::before, 
+        &::before,
         &::after {
             background-color: #666;
         }
@@ -316,14 +316,14 @@ export const SubmitBtn = styled(Button)`
         height: 60px;
         background-color: #fff;
         color: #ccc;
-        border: 1px solid #ccc; 
+        border: 1px solid #ccc;
         position: relative;
         margin-bottom: 10px;
         font-family: 'Brix';
         text-align: center;
         color: #fff;
         z-index: 5;
-        
+
         span {
             min-width: 90px;
             text-transform: uppercase;
@@ -338,7 +338,7 @@ export const SubmitBtn = styled(Button)`
         &::before,
         &::after {
             content: '';
-            position: absolute; 
+            position: absolute;
             height: 1px;
             background-color: #ccc;
         }
@@ -360,7 +360,7 @@ export const SubmitBtn = styled(Button)`
         /* &.verify-btn {
             padding: 40px;
         }
-        
+
         &.width200 {
           width: 200%;
         } */
@@ -375,7 +375,7 @@ export const SubmitBtn = styled(Button)`
         span {
             color: #666;
         }
-        &::before, 
+        &::before,
         &::after {
             background-color: #666;
         }

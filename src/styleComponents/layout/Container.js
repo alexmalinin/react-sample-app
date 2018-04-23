@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerLarge = styled.div`
-    
+
     margin: 0 auto;
     max-width: ${ props => props.containerHeader ? `94%` : `1280px` };
     width: 100%;
@@ -9,18 +9,18 @@ export const ContainerLarge = styled.div`
     & > .ui.grid {
        margin: 0;
     }
-    
+
     ${props => props.indentBot ? `margin-bottom: 250px` : ``};
     /* ${props => props.indentTop ? `margin-top: 100px` : ``};
      */
     @media (min-width: 320px) {
         ${props => props.xsNoPadding ? `padding: 0` : ``};
     }
-    
+
     @media screen and (min-width: 768px) {
         padding: 0;
     }
-    
+
     @media screen and (max-width: 1920px) {
         max-width: 1910px;
         padding: 0;
@@ -28,7 +28,7 @@ export const ContainerLarge = styled.div`
 `;
 
 export const Container = styled.div`
-    
+
     width: 100%;
     /* min-height: 75vh; */
     /* max-width: 1590px; */
@@ -40,23 +40,65 @@ export const Container = styled.div`
     margin-top: 0;
     background-color: #fff;
     box-shadow: ${props => props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc` };
-    
+
     /* ${props => props.indentBot ? `margin-bottom: 250px` : ``}; */
     ${props => props.indentTop ? `margin-top: 100px` : ``};
     ${props => props.relative ? `position: relative` : ``};
-    
+
     @media (max-width: 1920px) {
         max-width: 1280px;
 
         /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
     }
-    
+
     @media (max-width: 991px) {
         max-width: 100%;
         /* ${props => props.indentBot ? `margin-bottom: 100px` : ``}; */
     }
-    
+
     @media (min-width: 768px) {
         /* padding: 20px 20px 80px 20px;; */
     }
+`;
+
+export const IntroContainer = styled.div`
+
+  position: relative;
+  font-family: 'Brix',sans-serif;
+  margin: 0 auto;
+  width: 100%;
+  margin-bottom: 50px;
+
+  & .confirm-msg {
+    font-family: Brix;
+    margin-top: 40px;
+
+    & > p {
+      color: #666;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+
+    & > div {
+      font-family: Brix;
+      border-bottom: 2px solid #f2f2f2;
+      font-size: 1.2rem;
+      letter-spacing: 1.5px;
+      color: #666;
+      padding-bottom: 10px;
+    }
+  }
+
+  @media (max-width: 1920px) {
+      max-width: 600px;
+
+      /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
+  }
+
+
+  @media (max-width: 600px) {
+      width: 100%;
+      padding: 0 10%; 
+      margin 40px auto 0;
+  }
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import RenderField from '../forms/renders/RenderField';
 import StyledVerificationForm from '../../styleComponents/StyledVerificationForm';
+import { SaveBtn } from '../../styleComponents/layout/DvButton'
 import { DvButton } from '../../styleComponents/layout/DvButton';
 
 const validate = values => {
@@ -32,25 +33,26 @@ const VerificationForm = props => {
         <StyledVerificationForm onSubmit={handleSubmit}>
             <Field
                 component={RenderField}
-                name='password'
-                placeholder='Password /'
-                type='password'
-
+                name="password"
+                label="password"
+                type="password"
+                checkedClass="checked"
             />
             <Field
                 component={RenderField}
-                name='password_confirmation'
-                placeholder='Confirm password /'
-                type='password'
+                name="password_confirmation"
+                label="Confirm password"
+                type="password"
+                checkedClass="checked"
             />
-            <DvButton indentTop className='verify-btn width200'
-                /*onClick={confirmAccount}*/
-                      onClick={this.postRequest}
-                      primary
-                      type='submit'
-                      disabled={submitting}
-                      content='SAVE & CONTINUE'
-            />
+            <SaveBtn type="submit"
+                disabled={submitting}
+                onClick={this.postRequest}
+                // content=''
+                primary
+                >
+                <span>Continue</span>
+            </SaveBtn>
         </StyledVerificationForm>
     )
 };

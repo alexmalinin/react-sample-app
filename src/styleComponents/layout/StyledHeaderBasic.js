@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { secondaryColors } from '../constants/colors';
 
 export default styled.header`
 
@@ -9,7 +10,7 @@ export default styled.header`
         background-color: #fff;
         padding-left: 40px;
         padding-right: 40px;
-    
+
         &>div {
             min-width: 20%;
             display: flex;
@@ -25,13 +26,13 @@ export default styled.header`
                 }
             }
         }
- 
+
         & > div {
             min-height: 87px;
             align-items: center;
             background-color: #fff;
         }
-        
+
         a {
             color: #666;
             font-family: 'Brix', sans-serif;
@@ -42,9 +43,17 @@ export default styled.header`
             letter-spacing: 3.22px;
             position: relative;
         }
+
+        a.button {
+          font-size: 12px;
+
+          &.active {
+            border-bottom: 2px solid ${secondaryColors.green};
+          }
+        }
     }
 
-    .square, 
+    .square,
     .settings,
     .avatar {
         width: 22px;
@@ -125,7 +134,7 @@ export default styled.header`
             right: -5px;
             user-select: none;
             min-width: 200px;
-            
+
             .item a{
                 letter-spacing: 2px;
             }
@@ -163,7 +172,7 @@ export default styled.header`
             }
         }
     }
-    
+
     @media (max-width: 1920px) {
        &.header-basic {
         -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25);
@@ -173,11 +182,11 @@ export default styled.header`
 
         & > div {
             min-height: 87px;
-        } 
-        
+        }
+
         a {
             font-size: 14px;
-            
+
             img {
                 width: 60px;
             }
