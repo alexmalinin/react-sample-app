@@ -3,15 +3,12 @@ import { SUCCESS, FAIL } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
-    const { type, createTeamChannel, payload, ...rest } = action;
-    if (!createTeamChannel) return next(action);
-
-    // let token = localStorage.getItem('jwt_token');
-    // let { id } = jwtDecode(token);
+    const { type, updateTeamChannel, payload, ...rest } = action;
+    if (!updateTeamChannel) return next(action);
 
     axios({
-        method: 'post',
-        url: createTeamChannel,
+        method: 'put',
+        url: updateTeamChannel,
         data: {
             "name": payload["name"]
         },

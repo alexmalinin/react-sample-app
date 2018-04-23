@@ -61,6 +61,8 @@ import {
     CREATE_CHANNEL,
     SHOW_CHANNELS,
     ADD_MEMBER_TO_CHANNEL,
+    REMOVE_MEMBER_FROM_CHANNEL,
+    UPDATE_CHANNEL,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -730,11 +732,23 @@ export function showAllTeams() {
 
 // Create team channel
 
-export function createChannel(team, data) {
+export function createTeamChannel(team, data) {
     const action = {
         type: CREATE_CHANNEL,
         payload: data,
-        createChannel: `${PORT}/api/v1/teams/${team}/channels`,
+        createTeamChannel: `${PORT}/api/v1/teams/${team}/channels`,
+    };
+
+    return action;
+}
+
+//Update team channel
+
+export function updateTeamChannel(team, channel, data) {
+    const action = {
+        type: UPDATE_CHANNEL,
+        payload: data,
+        updateTeamChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}`,
     };
 
     return action;
@@ -753,11 +767,22 @@ export function showChannels(team) {
 
 // Add member to team channel
 
-export function addMemberToChannel(team, channel, data) {
+export function addToChannel(team, channel, data) {
     const action = {
         type: ADD_MEMBER_TO_CHANNEL,
         payload: data,
-        addMemberToChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}/assign`,
+        addToChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}/assign`,
+    };
+
+    return action;
+}
+
+// Remove member from channel
+
+export function removeFromChannel(team, channel, id) {
+    const action = {
+        type: REMOVE_MEMBER_FROM_CHANNEL,
+        removeFromChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}/remove/${id}`,
     };
 
     return action;

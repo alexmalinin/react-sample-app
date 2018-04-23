@@ -17,19 +17,8 @@ class Teams extends Component {
         this.props.showAllTeams();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.createChannel){
-            if(this.props.createChannel){
-                if(this.props.createChannel !== nextProps.createChannel){
-                    nextProps.showAllTeams();
-                }
-            } else nextProps.showAllTeams();
-        }
-    }
-
     render() {
         const { allTeams, createChannel } = this.props;
-        console.log(this.props)
 
         return (
             <ContainerLarge>
@@ -52,6 +41,6 @@ class Teams extends Component {
 }
 
 export default connect(
-    ({allTeams, createChannel}) => ({allTeams, createChannel}),
+    ({allTeams}) => ({allTeams}),
     {showAllTeams}
 )(Teams);

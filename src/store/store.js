@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 
 import reducer                      from '../reducers/rootReducer';
+
 import contactRequest               from '../middlewares/contactRequestApi';
 import signUp                       from '../middlewares/signUpApi';
 import getUserIdByTokenConfirmation from '../middlewares/getUserIdByTokenConfirmationApi';
@@ -45,9 +46,11 @@ import showAllSpecialists           from '../middlewares/showAllSpecialistsApi';
 import assignSpecialistToTask       from '../middlewares/assignSpecialistToTaskApi';
 import removeSpecialistFromTask     from '../middlewares/removeSpecialistFromTaskApi';
 import showAllTeams                 from '../middlewares/showAllTeamsApi';
-import createChannel                from '../middlewares/createChannelApi';
+import createTeamChannel            from '../middlewares/createChannelApi';
+import updateTeamChannel            from '../middlewares/updateChannelApi';
 import showChannels                 from '../middlewares/showChannelsApi';
-import addMemberToChannel           from '../middlewares/addMemberToChannelApi';
+import addToChannel                 from '../middlewares/addMemberToChannelApi';
+import removeFromChannel            from '../middlewares/removeMemberFromChannelApi';
 
 const enhancer = applyMiddleware(
     contactRequest,
@@ -94,9 +97,11 @@ const enhancer = applyMiddleware(
     assignSpecialistToTask,
     removeSpecialistFromTask,
     showAllTeams,
-    createChannel,
+    createTeamChannel,
+    updateTeamChannel,
     showChannels,
-    addMemberToChannel,
+    addToChannel,
+    removeFromChannel,
 );
 
 let reduxDevTools = process.env.NODE_ENV === 'development'

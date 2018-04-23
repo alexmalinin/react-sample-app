@@ -33,6 +33,8 @@ import allTeams         from './showAllTeamsReducer';
 import createChannel    from './createChannelReducer';
 import allChannels      from './showChannelsReducer';
 import addMember        from './addMemberToChannelReducer';
+import removeMember     from './removeMemberFromChannelReducer';
+import updateChannel    from './updateChannelReducer';
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -69,7 +71,9 @@ export default combineReducers({
     removeSpecialist,
     allTeams,
     createChannel,
+    updateChannel,
     allChannels,
     addMember,
+    removeMember,
     // contactRequest,
 });

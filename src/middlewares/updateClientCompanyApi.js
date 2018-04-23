@@ -6,8 +6,6 @@ export default store => next => action => {
     const { type, updateClientCompany, payload, ...rest } = action;
     if (!updateClientCompany) return next(action);
 
-    console.log('pay', payload);
-
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
     

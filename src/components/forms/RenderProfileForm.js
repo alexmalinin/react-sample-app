@@ -143,9 +143,9 @@ class RenderProfileForm extends Component {
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={3}>
-                            <SaveBtn type="submit"
+                            <SaveBtn 
+                                    type="submit"
                                     disabled={submitting}
-                                    // content=''
                                     primary
                                 >
                                 <span>next step</span>
