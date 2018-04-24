@@ -16,38 +16,87 @@ export default store => next => action => {
         }
     }) : [];
 
-    axios({
+    window.payload = payload;
+    let logo = payload["logo"] ? payload["logo"][0] : null;
+
+    if (logo) {
+      let reader = new FileReader();
+      reader.readAsDataURL(logo);
+
+      reader.onload = () => {
+        axios({
+          method: 'post',
+          url: saveCreatedProgect,
+          data: {
+            "project": {
+              "name": payload["name"],
+              "customer_id": id,
+              "description": payload["description"],
+              "user_story": payload["user_story"],
+              "business_requirements": payload["requirements"],
+              "business_rules": payload["rules"],
+              "deliverables": payload["criteria"],
+              "further_notes": payload["solution"],
+              "logo"         : reader.result,
+              "attached_files_attributes": files,
+              "team_attributes": {
+                "name": payload["name"],
+              }
+            }
+          },
+
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+
+        }).then(function (response) {
+          let data = response.data;
+          data.successProjectId = Math.random();
+          return next({ ...rest, type: type + SUCCESS, data: data });
+        })
+          .catch(function () {
+            let data = {};
+            data.successProjectId = Math.random();
+            return next({ ...rest, type: type + FAIL, data: data });
+          });
+      }
+
+    } else {
+      axios({
         method: 'post',
         url: saveCreatedProgect,
         data: {
-            "project": {
-                "name": payload["name"],
-                "customer_id": id,
-                "description": payload["description"],
-                "user_story": payload["user_story"],
-                "business_requirements": payload["requirements"],
-                "business_rules": payload["rules"],
-                "deliverables": payload["criteria"],
-                "further_notes": payload["solution"],
-                "attached_files_attributes": files,
-                "team_attributes": {
-                    "name": payload["name"],
-                }
+          "project": {
+            "name": payload["name"],
+            "customer_id": id,
+            "description": payload["description"],
+            "user_story": payload["user_story"],
+            "business_requirements": payload["requirements"],
+            "business_rules": payload["rules"],
+            "deliverables": payload["criteria"],
+            "further_notes": payload["solution"],
+            "attached_files_attributes": files,
+            "team_attributes": {
+              "name": payload["name"],
             }
+          }
         },
 
         headers: {
           'Authorization': `Bearer ${token}`,
         }
 
-    }).then(function (response) {
+      }).then(function (response) {
         let data = response.data;
         data.successProjectId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });
-    })
-    .catch(function () {
-        let data = {};
-        data.successProjectId = Math.random();
-        return next({ ...rest, type: type + FAIL, data: data });
-    });
+      })
+        .catch(function () {
+          let data = {};
+          data.successProjectId = Math.random();
+          return next({ ...rest, type: type + FAIL, data: data });
+        });
+    }
+
+
 };

@@ -3,11 +3,11 @@ import jwtDecode from 'jwt-decode';
 import { SUCCESS, FAIL } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, updateClientProfile1, updateClientProfile2, payload, ...rest } = action;
-    if (!updateClientProfile2) return next(action);
+  const { type, updateClientProfile1, updateClientProfile2, payload, ...rest } = action;
+  if (!updateClientProfile2) return next(action);
 
-    let token = localStorage.getItem('jwt_token');
-    let { id } = jwtDecode(token);
+  let token = localStorage.getItem('jwt_token');
+  let { id } = jwtDecode(token);
 
   window.payload = payload;
   let image = payload["person"] ? payload["person"][0] : null;

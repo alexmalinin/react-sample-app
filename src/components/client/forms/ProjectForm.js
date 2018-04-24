@@ -6,6 +6,7 @@ import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
 import { SaveBtn } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
+import RenderImage from '../../forms/renders/RenderImage';
 import { Grid } from 'semantic-ui-react';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
 import { employeers } from '../../../helpers/selects/employeers';
@@ -15,6 +16,8 @@ class ProjectForm extends Component {
 
   render() {
     const { submitting, clientData } = this.props;
+
+    let { logo } = clientData || false;
 
     return (
       <Grid>
@@ -30,6 +33,14 @@ class ProjectForm extends Component {
             <Field name="description" component={RenderTextArea} label="Brief / Description *" className="area" padded/>
           </Grid.Column>
           <Grid.Column computer={8} verticalAlign='bottom' >
+
+            <Field
+              name='logo'
+              component={RenderImage}
+              type='file'
+              logo={logo}
+              placeholder='Choose project logo'
+            />
 
             <Field 
               name="file" 
