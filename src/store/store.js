@@ -47,6 +47,7 @@ import assignSpecialistToTask       from '../middlewares/assignSpecialistToTaskA
 import removeSpecialistFromTask     from '../middlewares/removeSpecialistFromTaskApi';
 import showAllTeams                 from '../middlewares/showAllTeamsApi';
 import createTeamChannel            from '../middlewares/createChannelApi';
+import deleteTeamChannel            from '../middlewares/deleteChannelApi';
 import updateTeamChannel            from '../middlewares/updateChannelApi';
 import showChannels                 from '../middlewares/showChannelsApi';
 import addToChannel                 from '../middlewares/addMemberToChannelApi';
@@ -98,6 +99,7 @@ const enhancer = applyMiddleware(
     removeSpecialistFromTask,
     showAllTeams,
     createTeamChannel,
+    deleteTeamChannel,
     updateTeamChannel,
     showChannels,
     addToChannel,

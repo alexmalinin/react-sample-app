@@ -35,6 +35,10 @@ class Team extends Component{
                         channels: nextProps.allChannels,
                     })
                 }
+            } else if (nextProps.deleteChannel && nextProps.deleteChannel.team_id === nextProps.team.id){
+                this.setState({
+                    channels: []
+                })
             }
         }
 
@@ -70,12 +74,19 @@ class Team extends Component{
                 }
             } else nextProps.showChannels(nextProps.team.id);
         }
+
+        if(nextProps.deleteChannel){
+            if(this.props.deleteChannel){
+                if(this.props.deleteChannel !== nextProps.deleteChannel && nextProps.deleteChannel.team_id === nextProps.team.id){
+                    nextProps.showChannels(nextProps.team.id);
+                }
+            } else nextProps.showChannels(nextProps.team.id);
+        }
     }
 
     render() {
         const { team, allSpecialists } = this.props;
         const { channels } = this.state;
-        console.log(channels)
 
         return(
             <Grid>
@@ -115,6 +126,6 @@ class Team extends Component{
 }
 
 export default connect(
-    ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel}) => ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel}),
+    ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel}) => ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel}),
     {showAllSpecialists, createTeamChannel, showChannels}
 )(Team);

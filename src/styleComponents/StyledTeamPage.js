@@ -196,12 +196,70 @@ export default styled.div`
                         display: block;
                     }
                 }
+                .deleteConfirmation{
+                    display: none;
+                    position: absolute;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 5px;
+
+                    &::before{
+                        content: 'Delete channel?';
+                        width: 100%;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        text-align: center;
+                        font-size: 14px;
+                        opacity: 0;
+                        animation: fadeUp .2s forwards;
+                        z-index: -1;
+                    }
+
+                    @keyframes fadeUp{
+                        from{
+                            opacity: 0;
+                            bottom: 0;
+                        }
+                        to{
+                            opacity: 1;
+                            bottom: 100%;
+                        }
+                    }
+
+                    button{
+                        border: none;
+                        width: 50%;
+                        height: 100%;
+                        color: #fff;
+                        /* text-shadow: 0 0 12px rgba(0,0,0,0.3); */
+                        outline: none;
+                        cursor: pointer;
+
+                        &:first-of-type{
+                            border-bottom-left-radius: 5px;
+                            border-top-left-radius: 5px;
+                            background: #00e6ac;
+                        }
+                        &:last-of-type{
+                            border-bottom-right-radius: 5px;
+                            border-top-right-radius: 5px;
+                            background: #ff8080;
+                        }
+                    }
+                    
+                    &.show{
+                        display: block;
+                    }
+                }
             }
         }
 
         .addChannel{
             display: inline-block;
-            margin-top: 5px;
             .ui.input{
                 input{
                     width: 150px;
@@ -320,8 +378,7 @@ export default styled.div`
 
             .addPerson{
                 position: relative;
-                margin-right: 7px;
-                margin-bottom: 5px;
+                margin: 5px 7px 5px 0;
 
                 color: #ddd;
                 cursor: pointer;

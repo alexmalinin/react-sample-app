@@ -63,6 +63,7 @@ import {
     ADD_MEMBER_TO_CHANNEL,
     REMOVE_MEMBER_FROM_CHANNEL,
     UPDATE_CHANNEL,
+    DELETE_CHANNEL,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -737,6 +738,17 @@ export function createTeamChannel(team, data) {
         type: CREATE_CHANNEL,
         payload: data,
         createTeamChannel: `${PORT}/api/v1/teams/${team}/channels`,
+    };
+
+    return action;
+}
+
+// Delete team channel
+
+export function deleteTeamChannel(team, channel) {
+    const action = {
+        type: DELETE_CHANNEL,
+        deleteTeamChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}`,
     };
 
     return action;

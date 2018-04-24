@@ -4,13 +4,14 @@ import { Form, Input } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 import { PORT } from '../../constans/constans';
-import { addToChannel, removeFromChannel, updateTeamChannel } from '../../actions/actions';
+import { addToChannel, removeFromChannel, updateTeamChannel, deleteTeamChannel } from '../../actions/actions';
 
 class Channel extends Component{
     state = {
         options: [],
         assignedIds: [],
         showDropdown: false,
+        showDeleteConfirmation: false,
         name: this.props.channel.name,
         editFocused: false,
     }
@@ -58,6 +59,12 @@ class Channel extends Component{
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            name: nextProps.channel.name
+        })
+    }
+
     addMember = (e) => {
         const { channel, addToChannel, removeFromChannel} = this.props;
         
@@ -72,6 +79,24 @@ class Channel extends Component{
         })
     }
 
+    deleteChannel = () => {
+        const { deleteTeamChannel, channel } = this.props;
+        deleteTeamChannel(channel.team_id, channel.id);
+    }
+
+    openDeleteConfirmation = () => {
+        this.setState({
+            showDeleteConfirmation: true,
+        })
+    }
+
+    hideDeleteConfirmation = () => {
+        this.setState({
+            showDeleteConfirmation: false,
+            name: this.props.channel.name
+        })
+    }
+
     render() {
         const { channel, specialists, removeFromChannel, teamId } = this.props;
         const { showDropdown, assignedIds } = this.state;
@@ -79,7 +104,7 @@ class Channel extends Component{
         return(
             <div className="channel">
                 <div className="title">
-                    <Form className={`editChannel${this.state.showEditForm ? ' show':''}`} onSubmit={this.submit}>
+                    <Form className="editChannel" onSubmit={this.submit}>
                         <Input 
                             type="text"
                             placeholder="Channel name"
@@ -91,7 +116,11 @@ class Channel extends Component{
                             onBlur={this.closeEditForm}
                             onChange={this.handleEdit}/>
                     </Form>
-                    <button className="delete">
+                    <div className={`deleteConfirmation${this.state.showDeleteConfirmation ? ' show' : ''}`}>
+                        <button onClick={this.deleteChannel}>Yes</button>
+                        <button onClick={this.hideDeleteConfirmation}>No</button>
+                    </div>
+                    <button onClick={this.openDeleteConfirmation} className="delete">
                         <img src="/images/trashcan.png" alt="delete"/>
                     </button>
                     {/* <div className="deleteConfirm">
@@ -108,7 +137,7 @@ class Channel extends Component{
                     )}
                     <div className="addPerson">
                         <a tabIndex="1" onClick={this.openDropdown}><span>+</span>Add member</a>
-                        <div className={`dropdown${showDropdown ? ` visible` : ``}`}>
+                        <div className={`dropdown${showDropdown ? ' visible': ''}`}>
                             <div className="close" onClick={this.closeDropdown}></div>
                             <p className="dropdownTitle">Members</p>
                             <Input
@@ -143,9 +172,19 @@ class Channel extends Component{
         const data = {
             name: this.state.name
         }
-        updateTeamChannel(channel.team_id, channel.id, data);
+        if(!!this.state.name){
+            updateTeamChannel(channel.team_id, channel.id, data);
+        } else this.openDeleteConfirmation();
     };
 }
+
+export default connect(
+    ({}) => ({}),
+    {addToChannel, removeFromChannel, updateTeamChannel, deleteTeamChannel}
+)(Channel);
+
+
+//need to make this independent component in Layout, same as kanban board member component
 
 class Member extends Component {
     state = {
@@ -199,8 +238,3 @@ class Member extends Component {
         )
     }
 }
-
-export default connect(
-    ({}) => ({}),
-    {addToChannel, removeFromChannel, updateTeamChannel}
-)(Channel);
