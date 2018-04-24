@@ -21,23 +21,6 @@ class ClientProjectForm extends Component {
       </form>
     )
   }
-
-  componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client) {
-      if(client.successId) {
-        if (renderError) {
-          this.fillFields(client);
-          renderError = false;
-        }
-      }
-    }
-  }
-
-  fillFields = data => {
-    let { project } = data;
-  }
 }
 
 ClientProjectForm = reduxForm({

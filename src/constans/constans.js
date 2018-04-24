@@ -63,8 +63,11 @@ export const ASSIGN_SPECIALIST_TO_TASK         = 'ASSIGN_SPECIALIST_TO_TASK';
 export const REMOVE_SPECIALIST_FROM_TASK       = 'REMOVE_SPECIALIST_FROM_TASK';
 export const SHOW_ALL_TEAMS                    = 'SHOW_ALL_TEAMS';
 export const CREATE_CHANNEL                    = 'CREATE_CHANNEL';
+export const DELETE_CHANNEL                    = 'DELETE_CHANNEL';
+export const UPDATE_CHANNEL                    = 'UPDATE_CHANNEL';
 export const SHOW_CHANNELS                     = 'SHOW_CHANNELS';
 export const ADD_MEMBER_TO_CHANNEL             = 'ADD_MEMBER_TO_CHANNEL';
+export const REMOVE_MEMBER_FROM_CHANNEL        = 'REMOVE_MEMBER_FROM_CHANNEL';
 
 export const SUCCESS                           = '_SUCCESS';
 export const FAIL                              = '_FAIL';
