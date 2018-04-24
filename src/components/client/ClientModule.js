@@ -34,15 +34,6 @@ class ClientProjects extends Component {
         <ContainerLarge>
           <SubHeader module projectId={projectId}/>
           <Container indentBot>
-            {/* <S_Message positive profile data-show={renderMessage}>
-              <Message.Header>Success!</Message.Header>
-              <p>Form updated</p>
-            </S_Message>
-            <S_Message negative profile data-show={renderErrorMessage}>
-              <Message.Header>Error!</Message.Header>
-              <p>Something went wrong, please try again</p>
-            </S_Message> */}
-
             <ClientModuleForm onSubmit={this.submit} />
             {this.state.saved ? <Redirect to={`/client/project/${projectId}/module/all`}/> : null }
           </Container>

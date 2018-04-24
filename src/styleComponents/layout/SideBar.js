@@ -19,143 +19,57 @@ export const StyledBar = styled.aside`
     &.left{
         left: 0;
         overflow-y: auto;
+        display: flex;
+        flex-flow: column nowrap;
 
-        .addProject,
-        .projectLink{
-            display: inline-block;
-            width: 100%;
-            user-select: none;
-            padding: 5px 0 5px 40px;
-            font-size: 16px;
-            color: #b3b3b3;
+        .title{
+            padding: 10px 0;
+            text-align: center;
             text-transform: uppercase;
-            transition: .2s;
+            border-bottom: 1px solid #f2f2f2;
 
-            span{
-                display: inline-block;
-                position: relative;
-                margin-bottom: -1px;
-                height: 12px;
-                width: 12px;
-                border: 1px solid #b3b3b3;
+            h4{
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+
+        .projects{
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            width: 80px;
+            background: #f2f2f2;
+
+            .projectLink{
                 border-radius: 50%;
-                text-align: center;
+                border: 1px solid #ccc;
+                margin: 5px 0;
+                overflow: hidden;
+                height: 60px;
+                width: 60px;
 
-                &::before,
-                &::after{
-                    content: '';
-                    position: absolute;
-                    top: calc(50% - 3px);
-                    height: 6px;
-                    width: 1px;
-                    background-color: #b3b3b3;
+                img{
+                    height: 100%;
+                    width: 100%;
                 }
-
-                &::after{
-                    transform: rotate(90deg);
-                }
-            }
-
-            &:hover{
-                font-weight: bold;
-                color: #7f7f7f;
-                background-color: #00ffc0;
-
-                span{
-                    border-color: #7f7f7f;
-
-                    &::before,
-                    &::after{
-                        background-color: #7f7f7f;
-                    }
-                }
-            }
-        }
-
-        .addProject{
-            font-size: 12px;
-
-            &:hover{
-                background-color: #f7f7f7;
-                font-weight: normal;
-            }
-        }
-
-        &>.ui.accordion{
-            width: 100%;
-            user-select: none;
-            margin-top: 0;
-
-            &>.title{
-                /* 'Projects' title */
-                position: relative;
-                margin: 10px 20px 0 20px;
-                color: #b3b3b3;
-                text-transform: uppercase;
-                &::after{
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    right: 0;
-
-                    height: 10px;
-                    width: 10px;
-                    transform: translateY(-50%) rotate(45deg);
-
-                    border-bottom: 2px solid #cbcbcb;
-                    border-left: 2px solid #cbcbcb;
-
-                    opacity: 0;
-                    transition: .2s;
-                }
-
-                &:hover::after{
-                    opacity: 1;
-                }
-
-                &.active::after{
-                    transform: translateY(-50%) rotate(-45deg);
-                    opacity: 1;
+                .projectUnLogo{
+                    display: inline-block;
+                    height: 60px;
+                    width: 60px;
+                    font-size: 48px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    line-height: 56px;
+                    letter-spacing: 1px;
+                    text-align: center;
+                    background: linear-gradient(to bottom right, #2d68ee 0%,#7439e3 100%);
+                    color: #fff;
                 }
             }
 
-            &>.content{
-                padding: 0 0 0 20px;
-
-                .ui.accordion{
-                    .title{
-                        /* each project title */
-                        padding-left: 20px;
-                        color: #b3b3b3;
-                        text-transform: uppercase;
-                        transition: .2s;
-
-                        &:hover,
-                        &.active{
-                            background-color: #00ffc0;
-                            font-weight: bold;
-                            color: #7f7f7f;
-                        }
-                    }
-                    
-                    .content{
-                        padding: 0 0 0 20px;
-
-                        ul{
-                            margin-left: 10px;
-
-                            a{
-                                display: inline-block;
-                                width: 100%;
-                                color: #b3b3b3;
-
-                                &:hover{
-                                    color: #a3a3a3;
-                                }
-                            }
-                        }
-                    }
-                }
+            .projectName{
+                position: absolute;
             }
         }
     }

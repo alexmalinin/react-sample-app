@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, change } from 'redux-form';
+import { Field, reduxForm, change, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { required } from '../../../helpers/validate';
 import RenderField from '../../forms/renders/RenderField';
@@ -11,6 +11,13 @@ import ModuleForm from './ModuleForm';
 let renderError = true;
 
 class ClientModuleForm extends Component {
+  componentWillMount() {
+    this.clearFileds();
+  }
+
+  clearFileds = () => {
+    this.props.dispatch(reset('ClientModuleForm'));
+  }
 
   render() {
     const { handleSubmit, submitting } = this.props;

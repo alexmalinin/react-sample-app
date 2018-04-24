@@ -215,16 +215,22 @@ class ClientDashboard extends Component {
   renderPage = (page) => {
     switch (page) {
       case 'profile':
+        document.title = 'Profile | Digital Village';
         return <ClientProfile calculatePagePercent={this.calculatePagePercent}/>;
       case 'company':
+        document.title = 'Company | Digital Village';
         return <ClientCompany calculatePagePercent={this.calculatePagePercent}/>;
       case 'billing':
+        document.title = 'Billing | Digital Village';
         return <ClientBilling calculatePagePercent={this.calculatePagePercent}/>;
       case 'projects':
+        document.title = 'Add Project | Digital Village';
         return <ClientProjects />;
       case 'module':
+        document.title = 'Add Module | Digital Village';
         return <ClientModule projectId={this.props.match.params['projectId']}/>;
       case 'board':
+        document.title = 'Board | Digital Village';
         return <ProjectsBoard 
             project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}
@@ -232,12 +238,16 @@ class ClientDashboard extends Component {
             currentEpic={this.props.match.params['moduleId'] || 'all'}
           />;
       case 'teams':
+        document.title = 'Teams | Digital Village';
         return <Teams/>;    
       case 'the_village':
+        document.title = 'The Village | Digital Village';
         return <TheVillage/>;
       case 'root':
+        document.title = 'Dashboard | Digital Village';
         return <Dashboard/>;
       default:
+        document.title = 'Digital Village';
         return <ClientProfile/>
     }
   }
