@@ -235,6 +235,7 @@ class ClientDashboard extends Component {
             projectId={this.props.match.params['projectId']}
             allEpics={this.props.allEpics}
             currentEpic={this.props.match.params['moduleId'] || 'all'}
+            history={this.props.history}
           />;
       case 'teams':
         document.title = 'Teams | Digital Village';

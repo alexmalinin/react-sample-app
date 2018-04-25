@@ -35,6 +35,7 @@ class RenderImage extends Component {
             name,
             type,
             disabled,
+            projectLogo,
         } = this.props;
 
         let { imagePreviewUrl } = this.state;
@@ -47,7 +48,7 @@ class RenderImage extends Component {
             $imagePreview = (<div className='preloader'><img src='../../images/uploadImg.png' alt=''/></div>);
         }
         return (
-            <StyledUploader disabled={disabled}>
+            <StyledUploader projectLogo={projectLogo} disabled={disabled}>
                 <div className='imgPreview'>
                     {$imagePreview}
                 </div>

@@ -111,88 +111,87 @@ export const StyledBar = styled.aside`
                             }
                         }
                     }
+                }
+                .projectLink,
+                .addProject{
+                    position: relative;
+                    margin: 5px 0;
+                    width: 80px;
+                    text-align: center;
 
-                    .projectLink,
+                    img,
+                    .projectNoLogo,
                     .addProject{
-                        position: relative;
-                        margin: 5px 0;
-                        width: 80px;
+                        height: 60px;
+                        width: 60px;
+                        border-radius: 50%;
+                        border: 3px solid #ccc;
+                    }
+                    img{
+                        object-fit: contain;
+                    }
+                    .projectNoLogo{
+                        display: inline-block;
+                        font-size: 40px;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        line-height: 52px;
+                        letter-spacing: -1px;
                         text-align: center;
+                        background: linear-gradient(to top left, #00a2ee 0%,#00e1ce 100%);
+                        color: #fff;
+                    }
+                    .projectName{
+                        position: absolute;
+                        display: inline-flex;
+                        align-items: center;
+                        top: 0;
+                        left: 100%;
+                        height: 100%;
+                        width: 140px;
+                        max-width: 140px;
+                        padding-left: 15px;
+                        text-align: left;
+                        text-transform: uppercase;
+                        color: #666;
+                        font-weight: 900;
+                        letter-spacing: 1px;
+                        transition: .4s;
+                    }
+                    .addProject{
+                        display: inline-block;
 
-                        img,
-                        .projectNoLogo,
-                        .addProject{
-                            height: 60px;
-                            width: 60px;
-                            border-radius: 50%;
-                            border: 3px solid #ccc;
-                        }
-                        img{
-                            object-fit: contain;
-                        }
-                        .projectNoLogo{
-                            display: inline-block;
-                            font-size: 40px;
-                            font-weight: 600;
-                            text-transform: uppercase;
-                            line-height: 52px;
-                            letter-spacing: -1px;
-                            text-align: center;
-                            background: linear-gradient(to top left, #00a2ee 0%,#00e1ce 100%);
-                            color: #fff;
-                        }
-                        .projectName{
+                        &::before,
+                        &::after{
+                            content: '';
                             position: absolute;
-                            display: inline-flex;
-                            align-items: center;
-                            top: 0;
-                            left: 100%;
-                            height: 100%;
-                            width: 140px;
-                            max-width: 140px;
-                            padding-left: 15px;
-                            text-align: left;
-                            text-transform: uppercase;
-                            color: #666;
-                            font-weight: 900;
-                            letter-spacing: 1px;
-                            transition: .4s;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            height: 26px;
+                            width: 2px;
+                            background: #ccc;
                         }
-                        .addProject{
-                            display: inline-block;
-
-                            &::before,
-                            &::after{
-                                content: '';
-                                position: absolute;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                                height: 26px;
-                                width: 2px;
-                                background: #ccc;
-                            }
-                            &::after{
-                                height: 2px;
-                                width: 26px;
-                            }
+                        &::after{
+                            height: 2px;
+                            width: 26px;
                         }
+                    }
 
-                        &.active{
-                            &>img,.projectNoLogo{
-                                border: 3px solid #4f5bf0;
-                            }
-                            &::after{
-                                content: '';
-                                position: absolute;
-                                top: 50%;
-                                transform: translateY(-50%);
-                                right: 2px;
-                                height: 5px;
-                                width: 5px;
-                                border-radius: 50%;
-                                background: #4f5bf0;
-                            }
+                    &.active{
+                        &>img,.projectNoLogo{
+                            border: 3px solid #4f5bf0;
+                        }
+                        &::after{
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            right: 2px;
+                            height: 5px;
+                            width: 5px;
+                            border-radius: 50%;
+                            background: #4f5bf0;
                         }
                     }
                 }
