@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
+import { IntroContainer } from '../../styleComponents/layout/Container';
+import Loader from '../layout/Loader';
 import StyledSignUpForm from '../../styleComponents/StyledSignUpForm'
 import DvGrid from '../../styleComponents/layout/DvGrid';
+import StyledFormHeader from '../../styleComponents/StyledFormHeader';
 import Tabs from '../../styleComponents/Tabs';
 import { DvTitleBig } from '../../styleComponents/layout/DvTitles';
 import SignInForm from './SignInForm';
@@ -49,38 +53,32 @@ class SignUp extends Component {
         return (
             <div>
                 <HeaderIntro/>
-                <DvGrid>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column mobile={16} tablet={7} computer={8}>
-                                <DvTitleBig mTop='100' fz='' flex='justify'>
-                                    sign
-                                    <br/>
-                                    in/
-                                </DvTitleBig>
-                            </Grid.Column>
-                            <Grid.Column mobile={16} tablet={9} computer={8} className="perspective">
-                                <Tabs mTop='180' action='' className="relative">
-                                    <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
-                                        menu={{ text: true }}
-                                        panes={panes}
-                                        activeIndex={activeIndex}
-                                        onTabChange={this.handleTabChange}
-                                    />
-                                    <div className={Loading ? 'loading frame-load frame': 'frame loading frame-loading'}>
-                                        <div>
-                                            <img src='/images/preloader.gif'/>
-                                        </div>
-                                    </div>
-                                </Tabs>
-                                { confirm && this.loginRedirect()}
-                                <StyledFormHint>
-                                    <span>Don't have an account? <Link to='/sign_up'>Sign up</Link></span>
-                                </StyledFormHint>
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </DvGrid>
+                <S_MainContainer>
+                  <Loader loading={Loading} />
+                  <IntroContainer>
+                    <DvGrid>
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column className="perspective">
+                                    <StyledFormHeader borderBottom>
+                                      <div className="form-title">Sign in</div>
+                                      <div className="form-subtitle">Welcome back!</div>
+                                    </StyledFormHeader>
+                                    <Tabs mTop='180' widthAuto action='' className="relative">
+                                        <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
+                                            menu={{ text: true }}
+                                            panes={panes}
+                                            activeIndex={activeIndex}
+                                            onTabChange={this.handleTabChange}
+                                        />
+                                    </Tabs>
+                                    { confirm && this.loginRedirect()}
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </DvGrid>
+                  </IntroContainer>
+                </S_MainContainer>
             </div>
         )
     }

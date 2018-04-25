@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Route, Redirect } from 'react-router';
 import { Grid, Tab } from 'semantic-ui-react';
 import HeaderIntro from '../layout/HeaderIntro';
+import Loader from '../layout/Loader';
+import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
+import { IntroContainer } from '../../styleComponents/layout/Container';
 import DvGrid from '../../styleComponents/layout/DvGrid';
+import StyledFormHeader from '../../styleComponents/StyledFormHeader';
 import {DvTitleBig} from '../../styleComponents/layout/DvTitles';
 import StyledSignUpForm from '../../styleComponents/StyledSignUpForm';
 import Tabs from '../../styleComponents/Tabs';
@@ -54,40 +58,33 @@ class SignUp extends Component {
 
         return (
             <div>
-                <HeaderIntro/>
-                <DvGrid>
-                    <Grid>
+              <HeaderIntro/>
+                <S_MainContainer>
+                <Loader loading={Loading} />
+                <IntroContainer>
+                  <DvGrid>
+                      <Grid>
                         <Grid.Row>
-                            <Grid.Column mobile={16} tablet={7} computer={8}>
-                                <DvTitleBig mTop='100' fz='' flex='justify'>
-                                    sign
-                                    <br/>
-                                    up/
-                                </DvTitleBig>
-                            </Grid.Column>
-
-                            <Grid.Column mobile={16} tablet={9} computer={8} className="perspective">
-                                <Tabs mTop='180' action='' className="relative">
-                                    <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
-                                        menu={{ text: true }}
-                                        panes={panes}
-                                        activeIndex={activeIndex}
-                                        onTabChange={this.handleTabChange}
-                                    />
-                                    <div className={Loading ? 'loading frame-load frame': 'frame loading frame-loading'}>
-                                        <div>
-                                            <img src='/images/preloader.gif'/>
-                                        </div>
-                                    </div>
-                                    { confirm && <Redirect to='/confirm_email'/> }
-                                </Tabs>
-                                <StyledFormHint>
-                                    <span>Already have an account? <Link to='/sign_in'>Log in</Link></span>
-                                </StyledFormHint>
-                            </Grid.Column>
+                          <Grid.Column className="perspective">
+                              <StyledFormHeader>
+                                <div className="form-title">Create an account</div>
+                                <div className="form-subtitle">Enter your email and start using Digital Village</div>
+                              </StyledFormHeader>
+                              <Tabs mTop='180' widthAuto action=''>
+                                  <Tab className={Loading ? "loading content-loading" : 'loading content-load'}
+                                      menu={{ text: true }}
+                                      panes={panes}
+                                      activeIndex={activeIndex}
+                                      onTabChange={this.handleTabChange}
+                                  />
+                                  { confirm && <Redirect to='/confirm_email'/> }
+                              </Tabs>
+                          </Grid.Column>
                         </Grid.Row>
-                    </Grid>
-                </DvGrid>
+                      </Grid>
+                  </DvGrid>
+                </IntroContainer>
+                </S_MainContainer>
             </div>
         )
     }

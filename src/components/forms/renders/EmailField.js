@@ -4,12 +4,13 @@ import { required, email } from '../../../helpers/validate';
 import RenderField from './RenderField';
 
 const EmailField = props => {
-    const { name, placeholder, disabled, label, data, } = props;
+    const { name, placeholder, disabled, label, data, checkedClass } = props;
 
     return (
         <div>
             <Field
                 name={name}
+                checkedClass={checkedClass}
                 type="email"
                 placeholder={placeholder}
                 label={label}

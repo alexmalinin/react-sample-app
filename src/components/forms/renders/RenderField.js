@@ -6,8 +6,7 @@ import StyledError from '../../../styleComponents/forms/StyledError'
 class RenderField extends React.Component {
 
     render() {
-
-        const { 
+        const {
             input,
             placeholder,
             name,
@@ -16,19 +15,22 @@ class RenderField extends React.Component {
             disabled,
             padded,
             data,
-            meta: { touched, error, warning }
+            meta: { touched, error, warning },
+            checkedClass
         } = this.props;
+
+        const className = !error ? checkedClass : '';
 
         return (
             <StyledInputs padded={padded}>
                 <label htmlFor={name}>{label}</label>
-                <Input error={Boolean(touched && error)} 
-                    {...input} 
+                <Input error={Boolean(touched && error)}
+                    {...input}
                     name={input.name}
-                    disabled={disabled} 
-                    placeholder={placeholder} 
+                    className={className}
+                    disabled={disabled}
+                    placeholder={placeholder}
                     type={type}
-                    
                 />
                 {touched &&
                 ((error &&
@@ -42,7 +44,7 @@ class RenderField extends React.Component {
             </StyledInputs>
         )
     }
-    
+
 
 }
 

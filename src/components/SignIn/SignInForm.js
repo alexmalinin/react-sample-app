@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { required, minLength8 } from '../../helpers/validate';
 import RenderField from '../forms/renders/RenderField';
 import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
+import { SaveBtn } from '../../styleComponents/layout/DvButton'
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import EmailField from '../forms/renders/EmailField';
 import { Message } from 'semantic-ui-react';
@@ -38,25 +39,34 @@ class SignInForm extends Component {
                 </Message> }
                 <EmailField
                     name="email"
-                    placeholder="Email /"
+                    label="Your email"
+                    checkedClass="checked"
                 />
                 <Field
                     component={ RenderField }
+                    checkedClass="checked"
                     name="password"
-                    placeholder="Password /"
+                    label="Password"
                     type="password"
                     validate={[required, minLength8]}
                 />
                 <StyledFormHint>
-                    <Link onClick={this.handleReset(user)} to="/forgot_password">I've forgotten password</Link>
+                    <Link onClick={this.handleReset(user)} to="/forgot_password">Forgot password?</Link>
                 </StyledFormHint>
 
-                <DvButtonForm
+                { /*<DvButtonForm
                     type="submit"
                     disabled={submitting}
                     content='Login'
                     primary
-                />
+                /> */ }
+                <SaveBtn type="submit"
+                        disabled={submitting}
+                        // content=''
+                        primary
+                    >
+                    <span>Sign In</span>
+                </SaveBtn>
             </form>
         )
     };

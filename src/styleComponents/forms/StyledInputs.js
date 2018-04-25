@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { secondaryColors } from '../constants/colors';
 
 export default styled.div`
-    
+
     border-radius: 0 !important;
     position: relative;
     margin-bottom: ${props => props.small ? `7px` : `20px`};
@@ -9,6 +10,29 @@ export default styled.div`
 
     ${props => props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``};
     ${props => props.small ? `display: inline-block; margin: 20px 40px 0 20px;` : ``}
+
+    & > div.checkedd:after {
+      content: '';
+      position: absolute;
+      right: 15px;
+      top: calc(50% - 5px);
+      width: 18px;
+      height: 18px;
+      background: url('../../images/tick.png');
+      background-size: cover;
+    }
+
+    & > div.checked:after {
+      content: '';
+      position: absolute;
+      right: 15px;
+      top: calc(50% - 15px);
+      border-right: 2px solid ${secondaryColors.green};
+      border-bottom: 2px solid ${secondaryColors.green};
+      height: 20px;
+      width: 12px;
+      transform: rotate(45deg);
+    }
 
     label {
         position: absolute;
@@ -31,7 +55,8 @@ export default styled.div`
             letter-spacing: 1.5px;
             padding-left: 10px;
             border-radius: 0;
-        }    
+        }
+
     }
 
     .Select-input {
@@ -53,37 +78,37 @@ export default styled.div`
     }
 
     @media (min-width: 1921px) {
-        
+
         margin-bottom: 40px;
-        
+
         .ui.input {
            font-size: 28px;
-        } 
-       
+        }
+
         .Select-control {
            height: 74px;
         }
-        
+
         .Select-placeholder {
            padding: 0 25px;
            line-height: 74px;
            font-size: 28px;
         }
-        
+
 
        .Select-value {
            font-size: 28px;
            padding-left: 25px !important; //overwrite theme
-           
+
            span {
                line-height: 74px;
            }
        }
     }
-    
+
     /* @media(max-width: 1920px) {
          .ui.input {
-                
+
             }
         }
     } */

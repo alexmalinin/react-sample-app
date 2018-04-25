@@ -3,7 +3,9 @@ import { reduxForm, Field, change, stopSubmit } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { required, minLength8 } from '../../helpers/validate';
 import RenderField from '../forms/renders/RenderField';
-import DvButtonForm from '../../styleComponents/layout/DvButtonForm'
+import StyledVerificationForm from '../../styleComponents/StyledVerificationForm';
+import DvButtonForm from '../../styleComponents/layout/DvButtonForm';
+import { SaveBtn } from '../../styleComponents/layout/DvButton';
 import StyledFormHint from '../../styleComponents/forms/StyledFormHint';
 import EmailField from '../forms/renders/EmailField';
 
@@ -20,19 +22,27 @@ class ForgotPasswordForm extends Component {
         const { handleSubmit, submitting } = this.props;
 
         return (
-            <form onSubmit={handleSubmit}>
-                <EmailField
-                    name='email'
-                    placeholder='Email /'
-                />
+          <StyledVerificationForm onSubmit={handleSubmit}>
+            <EmailField
+                name='email'
+                label="Your Email"
+                checkedClass="checked"
+            />
 
-                <DvButtonForm passwordForm
-                    type='submit'
-                    disabled={submitting}
-                    content='Submit'
-                    primary
-                />
-            </form>
+            <SaveBtn type="submit"
+              disabled={submitting}
+              primary
+            >
+            <span>Submit</span>
+            </SaveBtn>
+
+            { /* <DvButtonForm passwordForm
+                type='submit'
+                disabled={submitting}
+                content='Submit'
+                primary
+            /> */ }
+            </StyledVerificationForm>
         )
     };
 
