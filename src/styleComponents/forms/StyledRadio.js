@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
 
+    position: relative;
     font-size: 14px;
     letter-spacing: 1.2px;
     color: #666;
@@ -9,7 +10,7 @@ export default styled.div`
 
     .ui.radio.checkbox {
       position: relative;
-      
+
       &::before {
         content: '';
         position: absolute;
@@ -18,18 +19,18 @@ export default styled.div`
         height: 100%;
       }
     }
-    
+
     .ownRadio {
       position: relative;
       padding-left: 20px;
     }
-    
+
     .ownInput {
       opacity: 0;
       position: absolute;
-      
+
       &:checked + .ownRadio {
-        
+
         &::after {
           content: '';
           position: absolute;
@@ -43,7 +44,7 @@ export default styled.div`
         }
       }
     }
-    
+
     .ownRadio::before {
       top: 0;
       left: 0;
@@ -55,18 +56,18 @@ export default styled.div`
       height: 15px;
       border: 1px solid #ccc;
     }
-    
-    @media(min-width: 1921px) {       
+
+    @media(min-width: 1921px) {
         .ownRadio::before {
             height: 30px;
             width: 30px;
             left: -55px;
-            
+
         }
-        
+
         .ownInput:checked + .ownRadio::after {
             width: 20px;
-            height: 20px; 
+            height: 20px;
             top: 5px;
             left: -50px;
         }

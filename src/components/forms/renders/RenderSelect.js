@@ -20,7 +20,7 @@ export default class RenderSelect extends Component {
             <StyledInputs {...rest} small={small}>
                 <label>{label}</label>
                 <StyledSelect
-                    error={touched && error}
+                    error={Boolean(touched && error)}
                     value={ value }
                     onChange={onChange}
                     {...rest}

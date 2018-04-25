@@ -7,7 +7,7 @@ import CompanyForm from "./CompanyForm";
 let renderError = true;
 
 class SpecialistCompanyForm extends Component {
-  
+
   render() {
 
     return (

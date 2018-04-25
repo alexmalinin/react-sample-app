@@ -30,13 +30,14 @@ class CompanyForm extends Component {
                         placeholder='Choose your photo'
                       />
                   </Grid.Column>
-                  <Grid.Column computer={10}> 
+                  <Grid.Column computer={10}>
                     <Grid>
                       <Grid.Row>
                         <Grid.Column computer={8}>
                           <InputField
                             name="name"
                             label="Company Name"
+                            validate={[required]}
                             handleFormField={handleFormField}
                           />
 
@@ -97,6 +98,7 @@ class CompanyForm extends Component {
                               label="Industry"
                               placeholder="Select"
                               options={industries.industry}
+                              validate={[required]}
                               handleFormField={handleFormField}
                             />
                           </div>
@@ -108,16 +110,17 @@ class CompanyForm extends Component {
                               label="Number of employers"
                               placeholder="Select"
                               options={employeers}
+                              validate={[required]}
                               handleFormField={handleFormField}
                             />
                           </div>
-                        </Grid.Column>  
+                        </Grid.Column>
                       </Grid.Row>
                     </Grid>
 
                   {/* </Grid.Column>
                   <Grid.Column mobile={16} computer={8}> */}
-                     
+
                   </Grid.Column>
                   <Grid.Column computer={3}>
                     <SaveBtn type="submit"

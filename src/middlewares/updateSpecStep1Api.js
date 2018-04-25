@@ -31,8 +31,8 @@ export default store => next => action => {
                 "project_type_id"     : payload["project_type"]["value"],
                 "experience_level_id" : payload["experience_level"]["value"],
                 "industry": {
-                    "name"                      : payload["industry"]["label"],
                     "id"                        : payload["industry"]["value"],
+                    "name"                      : payload["industry"]["label"],
                 },
                 "industry_title"                : payload["industry_title"],
                 "specialist_skills_attributes"  : {
@@ -50,7 +50,6 @@ export default store => next => action => {
     }).then(function (response) {
         let data = response.data;
         data.successIndustryId = Math.random();
-        console.log(type)
         return next({ ...rest, type: type + SUCCESS, data: data });
 
     })

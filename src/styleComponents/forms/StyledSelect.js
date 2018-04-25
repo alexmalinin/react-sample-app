@@ -7,6 +7,10 @@ export default styled(Select)`
         border-bottom: 5px solid red;
     }
 
+    .Select-control .Select-value {
+      padding-right: 0!important;
+    }
+
     .Select-arrow {
         border-style: none;
         border-width: 0;
@@ -55,8 +59,8 @@ export default styled(Select)`
         & .Select-control {
             border-color: #e0b4b4;
             background-color: #fff6f6;
-        }  
-          
+        }
+
         & .Select-placeholder{
             color: #e7bdbc;
         }

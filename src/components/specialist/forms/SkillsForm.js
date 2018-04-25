@@ -20,7 +20,7 @@ import RenderImage from '../../forms/renders/RenderImage';
 class SkillsForm extends Component {
 
     render() {
-        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData, } = this.props;
+        const { submitting, industry, industries, projectTypes, experienceLevels, welcomeText, clientData, specialistData } = this.props;
         let { avatar } = specialistData || clientData || false;
 
         return (
@@ -59,7 +59,7 @@ class SkillsForm extends Component {
                               component={RenderSelect}
                               options={job_titles}
                               validate={[required]}
-                              
+
                             />
                           </div>
 
@@ -67,16 +67,16 @@ class SkillsForm extends Component {
                           <InputField
                             name="position"
                             label="Position"
-                            
+
                           />
 
                           <InputField
-                            
+
                             name='industry_title'
                             label='What is your industry title?'
                             validate={[required]}
-                            
-                            
+
+
                           />
 
                           {/*doesn't save value*/}
@@ -88,7 +88,7 @@ class SkillsForm extends Component {
                               label="Experience Level"
                               options={experienceLevels}
                               validate={[required]}
-                              
+
                             />
                           </div>
 
@@ -100,14 +100,19 @@ class SkillsForm extends Component {
                                 label='Select your area within the digital industry'
                                 options={industries["industry"]}
                                 validate={[required]}
-                                
+
                             />
                             <span id="industry_title"/> {/*for error scrolling*/}
 
                           {
-                            industry && <RenderSpecialityArea speciality={industries["speciality"]} industry={industry}/>
+                            industry &&
+                              <RenderSpecialityArea
+                                speciality={industries["speciality"]}
+                                industry={industry}
+                                specialities={specialistData.specialities}
+                              />
                           }
-                          <RenderSkillsArea/>
+                          <RenderSkillsArea />
                         </StyledWelcomeForm>
                     </Grid.Column>
 
@@ -116,7 +121,7 @@ class SkillsForm extends Component {
                       <InputField
                         name="contact_number"
                         label="Best Contact Number"
-                        
+
                       />
 
                       <div id="project_type" className='half-column'>
@@ -127,7 +132,7 @@ class SkillsForm extends Component {
                           label="Project Interest"
                           options={projectTypes}
                           validate={[required]}
-                          
+
                         />
                       </div>
 
@@ -140,7 +145,7 @@ class SkillsForm extends Component {
                               component={RenderField}
                               type="number"
                               label="Hourly Rate"
-                              
+
                             />
                           </div>
 
@@ -160,7 +165,7 @@ class SkillsForm extends Component {
                       >
                         <span>next step</span>
                       </SaveBtn>
-                        
+
                         {/* <DvButton
                             type="submit"
                             disabled={submitting}
@@ -171,7 +176,7 @@ class SkillsForm extends Component {
                 </Grid.Row>
 
                 {/* <Grid.Row>
-                    
+
                 </Grid.Row> */}
             </Grid>
         )

@@ -16,7 +16,7 @@ class Availability extends Component {
 
         let { submitting, submitBtn, specialistData } = this.props;
         let { successId } = specialistData || false;
-        
+
         return (
             <StyledAvailabilityForm>
                 <label>Availability</label>
@@ -53,4 +53,3 @@ class Availability extends Component {
 }
 
 export default Availability;
-

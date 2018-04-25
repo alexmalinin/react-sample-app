@@ -26,4 +26,3 @@ class  CommunicationType extends Component  {
 }
 
 export default CommunicationType;
-

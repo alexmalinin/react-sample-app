@@ -14,7 +14,7 @@ import { segments } from '../../../helpers/selects/segments';
 import RenderImage from '../../forms/renders/RenderImage';
 
 class CompanyForm extends Component {
- 
+
   render() {
     const { submitting, industries, welcomeText, clientData, specialistData} = this.props;
     let { avatar } = specialistData || clientData || false;
@@ -51,32 +51,31 @@ class CompanyForm extends Component {
               <InputField
                 name="name"
                 label="Company Name"
-                
-
+                validate={[required]}
               />
 
               <InputField
                 name="company_address"
                 label="Company Address"
-                
+
               />
 
               <InputField
                 name="website"
                 label="Website"
-                
+
               />
 
               <InputField
                 name="country"
                 label="Country"
-                
+
               />
 
               <InputField
                 name="city"
                 label="City"
-                
+
               />
             </StyledWelcomeForm>
           </Grid.Column>
@@ -91,7 +90,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={segments}
                 validate={[required]}
-                
+
               />
             </div>
 
@@ -103,7 +102,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={industries["industry"]}
                 validate={[required]}
-                
+
               />
             </div>
 
@@ -115,7 +114,7 @@ class CompanyForm extends Component {
                 placeholder="Select"
                 options={employeers}
                 validate={[required]}
-                
+
               />
             </div>
 

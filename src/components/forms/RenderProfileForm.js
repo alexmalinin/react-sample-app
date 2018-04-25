@@ -59,7 +59,7 @@ class RenderProfileForm extends Component {
                             />
 
                         </Grid.Column>
-                        <Grid.Column computer={10}> 
+                        <Grid.Column computer={10}>
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column computer={8}>
@@ -67,40 +67,40 @@ class RenderProfileForm extends Component {
                                             name="first_name"
                                             label="First Name"
                                             validate={[required]}
-                                            
+
                                         />
-                                        
+
                                         <InputField
                                             name="city"
                                             label="City"
                                             validate={[required]}
-                                            
+
                                         />
                                         <StyledPhoneField>
                                             <span>Phone</span>
-                                            <RenderPhone 
-                                                
+                                            <RenderPhone
+
                                             />
-                                        </StyledPhoneField>                                        
+                                        </StyledPhoneField>
                                     </Grid.Column>
                                     <Grid.Column computer={8}>
                                         <InputField
                                             name="last_name"
                                             label="Last Name"
                                             validate={[required]}
-                                            
+
                                         />
                                         <InputField
                                             name="country"
                                             label="Country"
                                             validate={[required]}
-                                            
+
                                         />
                                         <EmailField
                                             name="email"
                                             label="Email"
                                             validate={[required]}
-                                            
+
                                         />
                                     </Grid.Column>
                                 </Grid.Row>
@@ -109,14 +109,14 @@ class RenderProfileForm extends Component {
                                 <Grid.Row>
                                     <Grid.Column computer={16}>
                                         <div id={specialistData ? 'professional_experience_info' : 'description'} className='text-area-group'>
-                                            <Field  name={specialistData ? 'professional_experience_info' : 'description'} 
-                                                    label={'Write a paragraph or two about your professional experience '} 
+                                            <Field  name={specialistData ? 'professional_experience_info' : 'description'}
+                                                    label={'Write a paragraph or two about your professional experience '}
                                                     component={RenderTextArea}
                                                     className="area"
                                             />
                                         </div>
                                     </Grid.Column>
-                                </Grid.Row>                                
+                                </Grid.Row>
                             </Grid>
                             <Grid>
                                 <Grid.Row>
@@ -130,20 +130,20 @@ class RenderProfileForm extends Component {
                                         </div> : null }
                                     </Grid.Column>
                                     <Grid.Column computer={8}>
-                                    { this.props.specialistModal ? 
+                                    { this.props.specialistModal ?
                                         <div>
                                             <RenderCards
                                                 educations={ educationData }
                                             />
                                             <EdicationModal />
                                         </div> : null }
-                                        
-                                    </Grid.Column>  
-                                </Grid.Row>                              
+
+                                    </Grid.Column>
+                                </Grid.Row>
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={3}>
-                            <SaveBtn 
+                            <SaveBtn
                                     type="submit"
                                     disabled={submitting}
                                     primary
@@ -157,13 +157,13 @@ class RenderProfileForm extends Component {
         )
     }
 
-    shouldComponentUpdate(nextProps) {
-        if (nextProps.anyTouched) {
-            return false
-        } else {
-            return true
-        }
-    }
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.anyTouched) {
+    //         return false
+    //     } else {
+    //         return true
+    //     }
+    // }
 
     componentWillUpdate(nextProps) {
         if (nextProps.clientData && this.state.fetch) {
@@ -194,7 +194,7 @@ class RenderProfileForm extends Component {
         this.props.dispatch(change('RenderProfileForm', 'first_name',   first_name));
         this.props.dispatch(change('RenderProfileForm', 'last_name' ,   last_name));
         this.props.dispatch(change('RenderProfileForm', 'email',        email));
-        this.props.dispatch(change('RenderProfileForm', 'phone_code',   {'label':phone_code, 'name':phone_code}));
+        this.props.dispatch(change('RenderProfileForm', 'phone_code',   phone_code ? {'label':phone_code, 'name':phone_code} : null));
         this.props.dispatch(change('RenderProfileForm', 'phone_number', phone_number));
         this.props.dispatch(change('RenderProfileForm', 'country',      address ? address.country : null));
         this.props.dispatch(change('RenderProfileForm', 'city',         address ? address.city : null));
@@ -207,6 +207,6 @@ RenderProfileForm = reduxForm({
     form: 'RenderProfileForm'
 })(RenderProfileForm);
 
-export default connect( 
+export default connect(
     ({clientData, specialistData, percents }) => ({clientData, specialistData, percents})
 )(RenderProfileForm);

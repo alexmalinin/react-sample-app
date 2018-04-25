@@ -98,6 +98,9 @@ class SpecialistsMyBillings extends Component {
   };
 
   change = values => {
+    if (!values.hasOwnProperty('billing_type')) {
+      values.billing_type = 0;
+    }
     const data = this.collectData(values)
     this.props.calculatePagePercent('billingPercent', data);
   }

@@ -21,10 +21,10 @@ class BillingForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
     }
-    
+
     handleChange(event) {
         this.setState({
-          tab: event.target.value 
+          tab: event.target.value
         });
     }
 
@@ -40,73 +40,102 @@ class BillingForm extends Component {
             }
         }
     }
-    
+
     render() {
     const { submitting, clientData, specialistData, handleFormField } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
     const tabs = [
-        { billingTab: "paypal", render: () => 
-            <Grid.Column mobile={16} computer={16}>
-                <InputField 
-                    name="account_number"
-                    label="Account number"
-                    handleFormField={handleFormField}
-                />
-                <InputField 
-                    name="password"
-                    label="Password"
-                    handleFormField={handleFormField}
-                />
-            </Grid.Column>
+        { billingTab: "paypal", render: () => {
+            let disabled = (tab == 0) ? false : true
+
+            return (
+              <Grid.Column mobile={16} computer={16}>
+                  <InputField
+                      name="account_number"
+                      label="Account number"
+                      handleFormField={handleFormField}
+                      validate={[required]}
+                      disabled={disabled}
+                  />
+                  <InputField
+                      name="password"
+                      label="Password"
+                      handleFormField={handleFormField}
+                      validate={[required]}
+                      disabled={disabled}
+                  />
+              </Grid.Column>
+            )
+          }
         },
-        { billingTab: "credit_card", render: () => 
-            <Grid.Column mobile={16} computer={16}>
+        { billingTab: "credit_card", render: () => {
+            let disabled = (tab == 1) ? false : true
 
-                <InputField 
-                    name="card_name"
-                    label="Card name"
-                    handleFormField={handleFormField}
-                />
-                <InputField 
-                    name="card_number"
-                    label="Card number"
-                    handleFormField={handleFormField}
-                />
+            return (
+              <Grid.Column mobile={16} computer={16}>
 
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column computer={8}>
+                  <InputField
+                      name="card_name"
+                      label="Card name"
+                      handleFormField={handleFormField}
+                      validate={[required]}
+                      disabled={disabled}
+                  />
+                  <InputField
+                      name="card_number"
+                      label="Card number"
+                      handleFormField={handleFormField}
+                      validate={[required]}
+                      disabled={disabled}
+                  />
 
-                            <InputField 
-                                name="expiry_date"
-                                label="Expiry date"
-                                handleFormField={handleFormField}
-                            />
+                  <Grid>
+                      <Grid.Row>
+                          <Grid.Column computer={8}>
 
-                        </Grid.Column>
-                        <Grid.Column computer={8}>
+                              <InputField
+                                  name="expiry_date"
+                                  label="Expiry date"
+                                  handleFormField={handleFormField}
+                                  validate={[required]}
+                                  disabled={disabled}
+                              />
 
-                            <InputField 
-                                name="ccv"
-                                label="CVV"
-                                handleFormField={handleFormField}
-                            />
+                          </Grid.Column>
+                          <Grid.Column computer={8}>
 
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Grid.Column>
+                              <InputField
+                                  name="ccv"
+                                  label="CVV"
+                                  handleFormField={handleFormField}
+                                  validate={[required]}
+                                  disabled={disabled}
+                              />
+
+                          </Grid.Column>
+                      </Grid.Row>
+                  </Grid>
+              </Grid.Column>
+            )
+          }
         },
-        { billingTab: "accounts", render: () => 
-            <Grid.Column mobile={16} computer={16}>
-                <InputField 
-                    name="account_details"
-                    label="Account details"
-                    handleFormField={handleFormField}
-                />
-            </Grid.Column>
+        { billingTab: "accounts", render: () => {
+          let disabled = (tab == 2) ? false : true
+
+            return (
+              <Grid.Column mobile={16} computer={16}>
+                  <InputField
+                      name="account_details"
+                      label="Account details"
+                      handleFormField={handleFormField}
+                      validate={[required]}
+                      disabled={disabled}
+                  />
+              </Grid.Column>
+            )
+          }
         },
     ];
 
@@ -130,7 +159,7 @@ class BillingForm extends Component {
 
                             </Grid.Column>
                             <Grid.Column computer={4}>
-                                <InputRadio 
+                                <InputRadio
                                     name="billing_type"
                                     placeholder="Paypal"
                                     value={0}
@@ -138,21 +167,21 @@ class BillingForm extends Component {
                                     onChange={this.handleChange}
                                     checked={this.state.tab == 0}
 
-                                /> 
+                                />
                             </Grid.Column>
                             <Grid.Column computer={4}>
-                                <InputRadio 
+                                <InputRadio
                                     name="billing_type"
                                     value={1}
                                     placeholder="Credit card"
                                     onChange={this.handleChange}
                                     checked={this.state.tab == 1}
-                                    
-                                />      
+
+                                />
                             </Grid.Column>
                             <Grid.Column computer={4}>
 
-                                <InputRadio 
+                                <InputRadio
                                     name="billing_type"
                                     value={2}
                                     placeholder="Accounts"

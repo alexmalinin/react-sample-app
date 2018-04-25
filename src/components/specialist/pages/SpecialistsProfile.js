@@ -46,7 +46,7 @@ class SpecialistsProfile extends Component {
     handleFormField(e) {
         let data = e.target.value;
         this.data[e.target.name] = data;
-        
+
         this.props.calculatePagePercent('profilePercent', this.data);
     }
 
@@ -92,9 +92,9 @@ class SpecialistsProfile extends Component {
                         <Grid.Column mobile={16} tablet={12} computer={16}>
                             <RenderProfileForm
                                 onChange={this.change}
-                                onSubmit={this.submit} 
-                                educations={educations} 
-                                experiences={experiences} 
+                                onSubmit={this.submit}
+                                educations={educations}
+                                experiences={experiences}
                                 specialistModal/>
                             {this.state.nextStep && <Redirect to="industry"/>}
                         </Grid.Column>
@@ -116,7 +116,7 @@ class SpecialistsProfile extends Component {
         if (this.props.specialistData) {
             this.setData()
         }
-            
+
 
         if (client.successProfileId) {
             this.showMessage('success');

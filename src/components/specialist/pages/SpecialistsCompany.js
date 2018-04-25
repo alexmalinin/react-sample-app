@@ -95,7 +95,6 @@ class SpecialistCompany extends Component {
   }
 
   submit = values => {
-
     this.props.updateSpecStep2(values);
   };
 }

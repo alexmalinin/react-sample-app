@@ -5,7 +5,8 @@ import RenderField from './RenderField';
 import { required } from '../../../helpers/validate';
 import { phoneCodes } from '../../../helpers/selects/phoneCodes'
 
-const RenderPhone = ({hasPerson, value, }) => {
+const RenderPhone = ({hasPerson, value }) => {
+
         return (
             <div className='phone-wrapper'>
                 <Field
@@ -14,14 +15,16 @@ const RenderPhone = ({hasPerson, value, }) => {
                     placeholder=''
                     options={phoneCodes}
                     value={value}
+                    validate={[required]}
                 />
                 <Field
                     name='phone_number'
                     component={RenderField}
                     type='number'
                     placeholder=''
+                    validate={[required]}
                 />
-            </div>            
+            </div>
         )
     }
 ;

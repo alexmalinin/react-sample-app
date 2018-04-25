@@ -88,12 +88,12 @@ class SpecialistsDashboard extends Component {
 
         const data = {
             name,
-            city, 
-            company_address, 
-            country, 
-            industry_area_id, 
-            number_of_employers, 
-            segment, 
+            city,
+            company_address,
+            country,
+            industry_area_id,
+            number_of_employers,
+            segment,
             website
         }
         return data;
@@ -105,7 +105,7 @@ class SpecialistsDashboard extends Component {
 
         if (billing_type === 0) {
             const data = {
-                bank_account_details,                     
+                bank_account_details,
                 swift_code
             }
             return data;
@@ -113,7 +113,7 @@ class SpecialistsDashboard extends Component {
 
         if (billing_type === 1) {
             const data = {
-                company_name,                     
+                company_name,
                 manager
             }
             return data;
@@ -127,13 +127,13 @@ class SpecialistsDashboard extends Component {
 
         const keys = Object.keys(data)
         const filledFields = keys.filter(key => data[key]).length
-        
+
         let percents = Math.round((filledFields / fieldsCount) * 100);
         percents = percents > 100 ? 100 : percents;
 
         this.setState({
             [percentName]: percents,
-        })       
+        })
     }
 
     calculatePercents() {
@@ -153,9 +153,9 @@ class SpecialistsDashboard extends Component {
     render() {
         const {match:{params}, allProjects} = this.props;
         let page = params['page'];
-        let sidebarCondition = 
-             page === 'about' 
-          || page === 'board' 
+        let sidebarCondition =
+             page === 'about'
+          || page === 'board'
           || page === 'test'
           || page === 'statement'
           || page === 'year_to_date'
@@ -164,7 +164,7 @@ class SpecialistsDashboard extends Component {
           || page === 'the_village'
           || page === 'root';
 
-          console.log('spec',this.props)
+          // console.log('spec',this.props)
 
         return (
 
@@ -172,7 +172,7 @@ class SpecialistsDashboard extends Component {
                 <HeaderBasic page={sidebarCondition} userType="specialist"/>
                 <S_MainContainer>
                     {sidebarCondition && <SideBarLeft projects={allProjects}/>}
-                        {sidebarCondition 
+                        {sidebarCondition
                             ? this.renderPage(page)
                             : <Container>
                                 <SubHeader percents={this.state}/>
@@ -203,18 +203,18 @@ class SpecialistsDashboard extends Component {
                 return <ProjectsBoard/>;
             case 'test':
                 return <SpecialistsTest/>;
-            case 'account': 
+            case 'account':
                 return <SpecialistAccount/>;
-            case 'year_to_date': 
+            case 'year_to_date':
                 return <SpecialistYTD/>;
-            case 'statement': 
+            case 'statement':
                 return <SpecialistStatement/>;
             case 'the_village':
                 return <TheVillage/>;
             case 'root':
                 return <Dashboard/>;
             default:
-                return <SpecialistsAbout/>; 
+                return <SpecialistsAbout/>;
         }
     };
 
@@ -222,7 +222,7 @@ class SpecialistsDashboard extends Component {
 
         if (nextProps.specialistData) {
             if (nextProps.specialistData.email) {
-                this.calculatePercents()   
+                this.calculatePercents()
             }
         }
     }
