@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const StyledBar = styled.aside`
 
     position: fixed;
-    z-index: 10;
+    z-index: 999;
     display: flex;
     top: 87px;
 
-    width: 240px;
+    width: 100%;
+    max-width: 240px;
     height: calc(100vh - 87px);
 
     background-color: white;
@@ -15,61 +16,186 @@ export const StyledBar = styled.aside`
     -webkit-box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
     -moz-box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
     box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
+    transition: .4s ease-in-out;
 
     &.left{
         left: 0;
         overflow-y: auto;
         display: flex;
-        flex-flow: column nowrap;
+        overflow-x: hidden;
 
-        .title{
-            padding: 10px 0;
-            text-align: center;
-            text-transform: uppercase;
-            border-bottom: 1px solid #f2f2f2;
+        .innerWrapper{
+            display: grid;
+            grid-template-rows: 34px 1fr;
+            width: 100%;
 
-            h4{
-                font-size: 12px;
-                font-weight: 500;
+            .title{
+                z-index: 1;
+                padding: 10px 0;
+                text-align: center;
+                text-transform: uppercase;
+                color: #666;
+                border-bottom: 1px solid #f2f2f2;
+                /* box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15); */
+
+                h4{
+                    font-size: 12px;
+                    font-weight: 500;
+                }
             }
-        }
 
-        .projects{
-            display: flex;
-            flex-flow: column nowrap;
-            align-items: center;
-            width: 80px;
-            background: #f2f2f2;
+            .projects{
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: flex-start;
+                min-height: 100%;
+                height: 100%;
+                width: 80px;
+                background: #f2f2f2;
+                transition: .3s ease-in-out;
+                padding-top: 5px;
 
-            .projectLink{
-                border-radius: 50%;
-                border: 1px solid #ccc;
-                margin: 5px 0;
-                overflow: hidden;
-                height: 60px;
-                width: 60px;
-
-                img{
-                    height: 100%;
+                &.opened{
                     width: 100%;
+                    .projectName{
+                        opacity: 0;
+                        visibility: hidden;
+                    }
                 }
-                .projectUnLogo{
-                    display: inline-block;
-                    height: 60px;
-                    width: 60px;
-                    font-size: 48px;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    line-height: 56px;
-                    letter-spacing: 1px;
-                    text-align: center;
-                    background: linear-gradient(to bottom right, #2d68ee 0%,#7439e3 100%);
-                    color: #fff;
-                }
-            }
 
-            .projectName{
-                position: absolute;
+                .projectWrapper{
+                    position: relative;
+                    display: flex;
+                    height: 70px;
+                    width: 80px;
+                    .modules{
+                        position: absolute;
+                        top: 22px;
+                        left: calc(100% + 15px);
+                        display: flex;
+                        flex-flow: column nowrap;
+                        width: 130px;
+                        height: 100%;
+                        text-transform: uppercase;
+                        color: #666;
+                        font-weight: 500;
+                        letter-spacing: 1px;
+                        animation: fadeIn .2s .4s forwards;
+                        opacity: 0;
+
+                        a{
+                            display: block;
+                            color: inherit;
+                            margin: 3px 0;
+
+                            &.active{
+                                span{
+                                    position: relative;
+                                    &::before,
+                                    &::after{
+                                        content: '';
+                                        display: inline-block;
+                                        position: absolute;
+                                        top: 50%;
+                                        right: -8px;
+                                        height: 1px;
+                                        width: 8px;
+                                        background: #aaa;
+                                        transform: rotate(45deg);
+                                        transform-origin: 0 50%;
+                                    }
+                                    &::after{
+                                        transform: rotate(-45deg);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .projectLink,
+                    .addProject{
+                        position: relative;
+                        margin: 5px 0;
+                        width: 80px;
+                        text-align: center;
+
+                        img,
+                        .projectNoLogo,
+                        .addProject{
+                            height: 60px;
+                            width: 60px;
+                            border-radius: 50%;
+                            border: 3px solid #ccc;
+                        }
+                        img{
+                            object-fit: contain;
+                        }
+                        .projectNoLogo{
+                            display: inline-block;
+                            font-size: 40px;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            line-height: 52px;
+                            letter-spacing: -1px;
+                            text-align: center;
+                            background: linear-gradient(to top left, #00a2ee 0%,#00e1ce 100%);
+                            color: #fff;
+                        }
+                        .projectName{
+                            position: absolute;
+                            display: inline-flex;
+                            align-items: center;
+                            top: 0;
+                            left: 100%;
+                            height: 100%;
+                            width: 140px;
+                            max-width: 140px;
+                            padding-left: 15px;
+                            text-align: left;
+                            text-transform: uppercase;
+                            color: #666;
+                            font-weight: 900;
+                            letter-spacing: 1px;
+                            transition: .4s;
+                        }
+                        .addProject{
+                            display: inline-block;
+
+                            &::before,
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                height: 26px;
+                                width: 2px;
+                                background: #ccc;
+                            }
+                            &::after{
+                                height: 2px;
+                                width: 26px;
+                            }
+                        }
+
+                        &.active{
+                            &>img,.projectNoLogo{
+                                border: 3px solid #4f5bf0;
+                            }
+                            &::after{
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                right: 2px;
+                                height: 5px;
+                                width: 5px;
+                                border-radius: 50%;
+                                background: #4f5bf0;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -197,10 +323,48 @@ export const StyledBar = styled.aside`
             }
         }
     }
-    
-    @media screen and (max-width: 1790px){
-        width: 190px;
+
+    @keyframes fadeIn {
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
     }
+
+    @media screen and (max-width: 1820px){
+        &.right{
+            display: none;
+        }
+    }
+
+    @media (max-width: 1440px) {
+        &.left{
+            max-width: 80px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+
+            .projects{
+                .projectName{
+                    display: none;
+                }
+
+                .modules{
+                    display: none;
+                }
+            }
+
+            &:hover{
+                max-width: 240px;
+                overflow-y: auto;
+
+                .modules{
+                    display: flex;
+                }
+            }
+        }
+    }    
 
     @media screen and (max-width: 1290px){
         display: none;

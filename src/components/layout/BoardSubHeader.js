@@ -22,7 +22,7 @@ class ProjectSubHeader extends Component {
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     return (
-      <StyledSubHeader profile='true'>
+      <StyledSubHeader sidebarCondition profile='true'>
         <div>
           <SubHeaderLinkWrap content='All' url={`/client/project/${this.props.project}/module/all`} className='allModules'>
             

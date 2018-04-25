@@ -179,7 +179,7 @@ class ClientDashboard extends Component {
     if(params['page']){
       page = params['page'];
     }
-    else if (params['projectId'] && params["moduleId"]){
+    else if (params['projectId'] && params['moduleId']){
       page = 'board';
     }
     else if (params['projectId']){
@@ -197,12 +197,12 @@ class ClientDashboard extends Component {
     return (
       <div>
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
-          <S_MainContainer>
-            {sidebarCondition && <SideBarLeft projects={allProjects}/>}
+          <S_MainContainer sidebarCondition={sidebarCondition}>
+            {sidebarCondition && <SideBarLeft currentProject={params['projectId']} currentEpic={params['moduleId']} projects={allProjects}/>}
               {sidebarCondition 
                 ? this.renderPage(page)
-                  : <Container>
-                      <SubHeader percents={this.state}/>
+                  : <Container sidebarCondition={sidebarCondition}>
+                      <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
                       {this.renderPage(page)}
                     </Container>
               }
@@ -230,7 +230,6 @@ class ClientDashboard extends Component {
         document.title = 'Add Module | Digital Village';
         return <ClientModule projectId={this.props.match.params['projectId']}/>;
       case 'board':
-        document.title = 'Board | Digital Village';
         return <ProjectsBoard 
             project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}

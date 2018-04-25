@@ -45,7 +45,13 @@ class ProjectsBoard extends Component {
     componentWillReceiveProps(nextProps){
         let epicId;
         if(nextProps.allEpics && nextProps.currentEpic !== 'all'){
-            epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
+            if(+nextProps.currentEpic > nextProps.allEpics.length){
+                epicId = nextProps.allEpics[nextProps.allEpics.length - 1].id;
+            } else epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
+        }
+
+        if(nextProps.project){
+            document.title = `${nextProps.project.name} | Digital Village`;
         }
 
         if(nextProps.project && nextProps.projectId){

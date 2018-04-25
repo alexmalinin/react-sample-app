@@ -24,7 +24,7 @@ class Teams extends Component {
             <ContainerLarge>
                 <StyledTeamPage>
                     <TeamSubHeader />
-                    <Container>
+                    <Container sidebarCondition>
                         {allTeams && allTeams.length !== 0 
                             ? allTeams.map((team, key) => 
                                 <Team key={key} team={team}/>

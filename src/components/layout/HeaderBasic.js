@@ -53,6 +53,8 @@ class Header extends Component {
                     text={specialistData.first_name + ' ' + specialistData.last_name} 
                     basic 
                     className="log-dropdown"
+                    item
+                    closeOnChange={false}
                     icon={<div className="drop-icon"><span></span></div>}
                     onChange={()=>{}}>
                     <Dropdown.Menu>
@@ -89,7 +91,7 @@ class Header extends Component {
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     {page && <div className='right-links'>
-                        <NavLink className='button square' to='#'>&nbsp;</NavLink>
+                        <NavLink className='button square' to={`/${profileLink}/dashboard/root`}>&nbsp;</NavLink>
                         <NavLink className='button settings' to='#'>&nbsp;</NavLink>
                         <NavLink className='button avatar' to={`/${profileLink}/dashboard/profile`}>&nbsp;</NavLink>
                         {this.renderDropdown()}

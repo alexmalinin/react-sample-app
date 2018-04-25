@@ -143,11 +143,11 @@ class PersonTile extends Component {
     }
 
     render() {
-        const { specialist, key } = this.props;
+        const { specialist } = this.props;
 
         return(
-            <div key={key} className="person">
-                <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown} key={key}>
+            <div className="person">
+                <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>
                     <img 
                         src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'}
                         onClick={(e)=>e.target.parentNode.focus()}

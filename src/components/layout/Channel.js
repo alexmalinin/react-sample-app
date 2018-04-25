@@ -154,7 +154,7 @@ class Channel extends Component{
                                         onClick={this.addMember}
                                         className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
                                         <img 
-                                            data={specialist.id} 
+                                            data={specialist.id}
                                             src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="member"/>
                                         {specialist.first_name + ' ' + specialist.last_name}
                                     </div>
