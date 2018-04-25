@@ -28,7 +28,7 @@ class Verification extends Component {
             <S_MainContainer>
               <IntroContainer>
                 <StyledFormHeader borderBottom>
-                  <div className="form-title">Create you password</div>
+                  <div className="form-title">Create your password</div>
                   <div className="form-subtitle">Account Verified</div>
                 </StyledFormHeader>
 
