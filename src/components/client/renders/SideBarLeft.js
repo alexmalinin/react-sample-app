@@ -29,7 +29,7 @@ class SideBarLeft extends Component {
                                 {currentProject == project.id && <div className="modules">
                                     {allEpics && allEpics.length ? 
                                         allEpics.map((epic, key) => 
-                                            <NavLink key={key} to={`${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1} <span>&nbsp;</span></NavLink>
+                                            <NavLink key={key} to={`${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
                                         ):
                                         <p>No modules</p>
                                     }

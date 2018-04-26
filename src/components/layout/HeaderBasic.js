@@ -91,9 +91,9 @@ class Header extends Component {
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     {page && <div className='right-links'>
-                        <NavLink className='button square' to={`/${profileLink}/dashboard/root`}>&nbsp;</NavLink>
-                        <NavLink className='button settings' to='#'>&nbsp;</NavLink>
-                        <NavLink className='button avatar' to={`/${profileLink}/dashboard/profile`}>&nbsp;</NavLink>
+                        <NavLink activeClassName="current" className='button square' to={`/${profileLink}/dashboard/root`}>&nbsp;</NavLink>
+                        <NavLink activeClassName="current" className='button settings' to='#'>&nbsp;</NavLink>
+                        <NavLink activeClassName="current" className='button avatar' to={`/${profileLink}/dashboard/profile`}>&nbsp;</NavLink>
                         {this.renderDropdown()}
                     </div>}
                 </ContainerLarge>

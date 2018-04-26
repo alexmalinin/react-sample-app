@@ -30,6 +30,7 @@ import updateTask       from './updateEpicTaksReducer';
 import assignSpecialist from './assignSpecialistToTaskReducer';
 import removeSpecialist from './removeSpecialistFromTaskReducer';
 import allTeams         from './showAllTeamsReducer';
+import assignToTeam     from './assignSpecialistToTeamReducer';
 import createChannel    from './createChannelReducer';
 import deleteChannel    from './deleteChannelReducer';
 import allChannels      from './showChannelsReducer';
@@ -71,6 +72,7 @@ export default combineReducers({
     assignSpecialist,
     removeSpecialist,
     allTeams,
+    assignToTeam,
     createChannel,
     updateChannel,
     allChannels,

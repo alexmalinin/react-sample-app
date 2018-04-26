@@ -36,7 +36,7 @@ class SubHeader extends Component {
                     </SubHeaderItemWrap>
                 </div>
                 <div>
-                    <SubHeaderLinkWrap url='about' className='rightLink arrow'>
+                    <SubHeaderLinkWrap url='root' className='rightLink arrow'>
                         <span></span>
                         Complete Later
                     </SubHeaderLinkWrap>

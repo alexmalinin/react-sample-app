@@ -25,12 +25,15 @@ class DashboardSubHeader extends Component {
     render() {
 
         return (
-            <StyledSubHeader sidebarCondition dashboardSubHeader>
+            <StyledSubHeader projects sidebarCondition dashboardSubHeader>
                 <div>
-                    <SubHeaderLinkWrap content='Dashboard' url='root' className="dashboard active"/>
+                    <SubHeaderLinkWrap content='Dashboard' url='root' className="dashboard active">
+                        &nbsp;
+                    </SubHeaderLinkWrap>
 
-                    <SubHeaderLinkWrap content='The village' url='the_village' className="dashboard"/>
-
+                    <SubHeaderLinkWrap content='The village' url='the_village' className="dashboard">
+                        &nbsp;
+                    </SubHeaderLinkWrap>
                     { this.props.theVillage ? 
                         <SubHeaderLinkWrap theVillage content='filter' url='#' className="filterVillage dashboard"/> : null                    
                     }

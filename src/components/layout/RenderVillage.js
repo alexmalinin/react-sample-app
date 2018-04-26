@@ -29,7 +29,7 @@ class RenderVillage extends Component {
                 <div>
                     <div>{cards.map((card, index) => {
                     return (
-                        <RenderCard key={index} data={card} village/>
+                        <RenderCard key={index} data={card} type={card.type} village/>
                     )
                 })}</div>
                 </div>
