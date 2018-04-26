@@ -28,6 +28,7 @@ export default styled.div`
     padding: 25px 30px 15px;
     box-shadow: 0px 0px 16px 0px #ccc;
     ${props => (props.profile || props.account || props.projects) ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
+    transition: .4s ease-in-out;
     
     & > span {
       padding: 10px;
@@ -332,6 +333,12 @@ export default styled.div`
     @media (max-width: 1920px) {
         height: 131px;
     }
+
+    ${props => props.sidebarCondition && `
+        @media (max-width: 1820px) {
+            max-width: 100%;
+        }
+    `}
     
     @media (max-width: 991px) {
         

@@ -36,11 +36,11 @@ class ClientProfile extends Component {
 
         return (
             <div>
-                <S_Message positive profile data-show={renderMessage}>
+                <S_Message positive profile="true" data-show={renderMessage}>
                     <Message.Header>Success!</Message.Header>
                     <p>Form updated</p>
                 </S_Message>
-                <S_Message negative profile data-show={renderErrorMessage}>
+                <S_Message negative profile="true" data-show={renderErrorMessage}>
                     <Message.Header>Error!</Message.Header>
                     <p>Something went wrong, please try again</p>
                 </S_Message>

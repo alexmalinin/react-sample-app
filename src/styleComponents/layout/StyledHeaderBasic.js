@@ -175,9 +175,7 @@ export default styled.header`
 
     @media (max-width: 1920px) {
        &.header-basic {
-        -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25);
-        -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25);
-        box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15);
 
 
         & > div {

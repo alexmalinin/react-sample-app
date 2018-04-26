@@ -179,7 +179,7 @@ class ClientDashboard extends Component {
     if(params['page']){
       page = params['page'];
     }
-    else if (params['projectId'] && params["moduleId"]){
+    else if (params['projectId'] && params['moduleId']){
       page = 'board';
     }
     else if (params['projectId']){
@@ -197,12 +197,12 @@ class ClientDashboard extends Component {
     return (
       <div>
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
-          <S_MainContainer>
-            {sidebarCondition && <SideBarLeft projects={allProjects}/>}
+          <S_MainContainer sidebarCondition={sidebarCondition}>
+            {sidebarCondition && <SideBarLeft currentProject={params['projectId']} currentEpic={params['moduleId']} projects={allProjects}/>}
               {sidebarCondition 
                 ? this.renderPage(page)
-                  : <Container>
-                      <SubHeader percents={this.state}/>
+                  : <Container sidebarCondition={sidebarCondition}>
+                      <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
                       {this.renderPage(page)}
                     </Container>
               }
@@ -215,14 +215,19 @@ class ClientDashboard extends Component {
   renderPage = (page) => {
     switch (page) {
       case 'profile':
+        document.title = 'Profile | Digital Village';
         return <ClientProfile calculatePagePercent={this.calculatePagePercent}/>;
       case 'company':
+        document.title = 'Company | Digital Village';
         return <ClientCompany calculatePagePercent={this.calculatePagePercent}/>;
       case 'billing':
+        document.title = 'Billing | Digital Village';
         return <ClientBilling calculatePagePercent={this.calculatePagePercent}/>;
       case 'projects':
+        document.title = 'Add Project | Digital Village';
         return <ClientProjects />;
       case 'module':
+        document.title = 'Add Module | Digital Village';
         return <ClientModule projectId={this.props.match.params['projectId']}/>;
       case 'board':
         return <ProjectsBoard 
@@ -230,14 +235,19 @@ class ClientDashboard extends Component {
             projectId={this.props.match.params['projectId']}
             allEpics={this.props.allEpics}
             currentEpic={this.props.match.params['moduleId'] || 'all'}
+            history={this.props.history}
           />;
       case 'teams':
+        document.title = 'Teams | Digital Village';
         return <Teams/>;    
       case 'the_village':
+        document.title = 'The Village | Digital Village';
         return <TheVillage/>;
       case 'root':
+        document.title = 'Dashboard | Digital Village';
         return <Dashboard/>;
       default:
+        document.title = 'Digital Village';
         return <ClientProfile/>
     }
   }

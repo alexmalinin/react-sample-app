@@ -67,10 +67,11 @@ class Channel extends Component{
 
     addMember = (e) => {
         const { channel, addToChannel, removeFromChannel} = this.props;
+        const specId = e.target.getAttribute('data');
         
-        if(this.state.assignedIds.indexOf(+e.target.getAttribute('data')) < 0 ){
-            addToChannel(channel.team_id, channel.id, e.target.getAttribute("data"));
-        } else removeFromChannel(channel.team_id, channel.id, e.target.getAttribute("data"));;
+        if(this.state.assignedIds.indexOf(+specId) < 0 ){
+            addToChannel(channel.team_id, channel.id, specId);
+        } else removeFromChannel(channel.team_id, channel.id, specId);;
     }
 
     handleEdit = (e, {name, value}) => {
@@ -112,7 +113,6 @@ class Channel extends Component{
                             value={this.state.name}
                             ref={Input => this.editInput = Input}
                             onKeyUp={e => e.keyCode === 13 && e.target.blur()}
-                            onChange={this.handleChange}
                             onBlur={this.closeEditForm}
                             onChange={this.handleEdit}/>
                     </Form>
@@ -123,8 +123,6 @@ class Channel extends Component{
                     <button onClick={this.openDeleteConfirmation} className="delete">
                         <img src="/images/trashcan.png" alt="delete"/>
                     </button>
-                    {/* <div className="deleteConfirm">
-                    </div> */}
                 </div>
                 <div className="members">
                     {channel.specialists.map((person, key) => 
@@ -155,7 +153,9 @@ class Channel extends Component{
                                         data={specialist.id} 
                                         onClick={this.addMember}
                                         className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
-                                        <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="member"/>
+                                        <img 
+                                            data={specialist.id}
+                                            src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="member"/>
                                         {specialist.first_name + ' ' + specialist.last_name}
                                     </div>
                                 )}

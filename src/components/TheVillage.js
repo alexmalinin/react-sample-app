@@ -39,7 +39,7 @@ class TheVillage extends Component {
         return (
             <ContainerLarge indentTop>
                     <DashboardSubHeader theVillage data={data}/>
-                    <Container dashboardContainer>
+                    <Container sidebarCondition dashboardContainer>
                         <RenderVillage />
                     </Container>
             </ContainerLarge>

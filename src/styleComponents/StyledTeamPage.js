@@ -95,7 +95,7 @@ export default styled.div`
         display: flex;
         flex-flow: row wrap;
         align-items: flex-start;
-        padding: 18px 8px;
+        padding: 24px 8px;
 
         .channel{
             display: inline-block;

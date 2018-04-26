@@ -63,4 +63,16 @@ export const S_MainContainer = styled.div`
     @media (min-width: 768px) {
         padding: 0 20px;
     }*/}
+    ${props => props.sidebarCondition && `
+        @media (max-width: 1820px) {
+            max-width: 100%;
+            padding-left: 260px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: 1440px) {
+            padding-left: 100px;
+            padding-right: 20px;
+        }
+    `}
 `;

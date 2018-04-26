@@ -12,7 +12,7 @@ class TeamSubHeader extends Component {
     render() {
 
         return (
-            <StyledSubHeader account>
+            <StyledSubHeader sidebarCondition account>
                 <div className="teamSubHeader">
                     <SubHeaderLinkWrap content='Teams' url='#' className="teamLink">
                         &nbsp;

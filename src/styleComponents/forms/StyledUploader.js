@@ -32,7 +32,7 @@ export default styled.div`
         & img {
             width: 120px;
             height: 120px;
-            object-fit: cover;
+            object-fit: ${props => props.projectLogo ? 'contain' : 'cover'};
         }
     }
     

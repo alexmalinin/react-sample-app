@@ -11,8 +11,7 @@ export const ContainerLarge = styled.div`
     }
 
     ${props => props.indentBot ? `margin-bottom: 250px` : ``};
-    /* ${props => props.indentTop ? `margin-top: 100px` : ``};
-     */
+
     @media (min-width: 320px) {
         ${props => props.xsNoPadding ? `padding: 0` : ``};
     }
@@ -20,11 +19,24 @@ export const ContainerLarge = styled.div`
     @media screen and (min-width: 768px) {
         padding: 0;
     }
-
+    
     @media screen and (max-width: 1920px) {
         max-width: 1910px;
         padding: 0;
     }
+
+    ${props => props.sidebarCondition && `
+        @media (max-width: 1820px) {
+            max-width: 100%;
+            padding-left: 260px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: 1440px) {
+            padding-left: 100px;
+            padding-right: 20px;
+        }
+    `}
 `;
 
 export const Container = styled.div`
@@ -45,20 +57,23 @@ export const Container = styled.div`
     ${props => props.indentTop ? `margin-top: 100px` : ``};
     ${props => props.relative ? `position: relative` : ``};
 
+    transition: .4s ease-in-out;
+    
     @media (max-width: 1920px) {
         max-width: 1280px;
 
         /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
     }
+    
+    ${props => props.sidebarCondition && `
+        @media (max-width: 1820px) {
+            max-width: 100%;
+        }
 
-    @media (max-width: 991px) {
-        max-width: 100%;
-        /* ${props => props.indentBot ? `margin-bottom: 100px` : ``}; */
-    }
-
-    @media (min-width: 768px) {
-        /* padding: 20px 20px 80px 20px;; */
-    }
+        @media (max-width: 1440px) {
+            
+        }
+    `}
 `;
 
 export const IntroContainer = styled.div`

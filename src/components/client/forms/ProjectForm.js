@@ -37,6 +37,7 @@ class ProjectForm extends Component {
             <Field
               name='logo'
               component={RenderImage}
+              projectLogo
               type='file'
               logo={logo}
               placeholder='Choose project logo'

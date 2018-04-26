@@ -32,7 +32,7 @@ class Dashboard extends Component {
         return (
             <ContainerLarge>
                     <DashboardSubHeader dashboard data={data}/>
-                    <Container dashboardContainer>
+                    <Container sidebarCondition dashboardContainer>
                         <RenderDashboard/>
                     </Container>
             </ContainerLarge>

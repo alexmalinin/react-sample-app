@@ -9,8 +9,7 @@ import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 class DashboardSubHeader extends Component {
 
     renderLinks() {
-        const data = this.props.data;
-        console.log(data, 'data')
+        const { data } = this.props;
 
         return data.map((item, index) => {
             return (
@@ -26,7 +25,7 @@ class DashboardSubHeader extends Component {
     render() {
 
         return (
-            <StyledSubHeader dashboardSubHeader>
+            <StyledSubHeader sidebarCondition dashboardSubHeader>
                 <div>
                     <SubHeaderLinkWrap content='Dashboard' url='root' className="dashboard active"/>
 
