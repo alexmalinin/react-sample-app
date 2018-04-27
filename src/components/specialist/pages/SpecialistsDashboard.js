@@ -152,10 +152,24 @@ class SpecialistsDashboard extends Component {
 
     render() {
         const {match:{params}, allProjects} = this.props;
-        let page = params['page'];
-        let sidebarCondition =
-             page === 'about'
-          || page === 'board'
+        let page;
+
+        if(!params['page']){
+            page = 'root';
+        }
+        else if(params['page']){
+            page = params['page'];
+        }
+        else if (params['projectId'] && params['moduleId']){
+            page = 'board';
+        }
+        else if (params['projectId']){
+            page = 'module';
+        }
+
+        let sidebarCondition = 
+             page === 'about' 
+          || page === 'board' 
           || page === 'test'
           || page === 'statement'
           || page === 'year_to_date'
@@ -163,8 +177,6 @@ class SpecialistsDashboard extends Component {
           || page === 'teams'
           || page === 'the_village'
           || page === 'root';
-
-          // console.log('spec',this.props)
 
         return (
 
@@ -214,7 +226,7 @@ class SpecialistsDashboard extends Component {
             case 'root':
                 return <Dashboard/>;
             default:
-                return <SpecialistsAbout/>;
+                return <Dashboard/>; 
         }
     };
 

@@ -19,7 +19,7 @@ class SideBarLeft extends Component {
                     <div className={`projects${currentProject ? ' opened' : ''}`}>
                         {allProjects && allProjects.map((project, key) => 
                             <div className="projectWrapper" key={key}>
-                                <NavLink className={`projectLink${currentProject == project.id ? ' active': ''}`} to={`/client/project/${project.id}/module/all`} key={project.id}>
+                                <NavLink className={`projectLink${currentProject == project.id ? ' active': ''}`} to={`/project/${project.id}/module/all`} key={project.id}>
                                     {project.logo.url
                                         ? <img src={IMAGE_PORT + project.logo.url} alt={project.name}/>
                                         : <span className="projectNoLogo">{project.name[0]}</span>

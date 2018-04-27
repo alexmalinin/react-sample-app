@@ -176,7 +176,10 @@ class ClientDashboard extends Component {
     const {match:{params}, allProjects} = this.props;
     let page;
 
-    if(params['page']){
+    if(!params['page']){
+      page = 'root';
+    }
+    else if(params['page']){
       page = params['page'];
     }
     else if (params['projectId'] && params['moduleId']){
@@ -185,6 +188,8 @@ class ClientDashboard extends Component {
     else if (params['projectId']){
       page = 'module';
     }
+
+    console.log(this.props.match)
 
     let sidebarCondition = 
            page === 'projects'

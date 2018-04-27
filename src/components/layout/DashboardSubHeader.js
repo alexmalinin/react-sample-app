@@ -27,7 +27,7 @@ class DashboardSubHeader extends Component {
         return (
             <StyledSubHeader projects sidebarCondition dashboardSubHeader>
                 <div>
-                    <SubHeaderLinkWrap content='Dashboard' url='root' className="dashboard active">
+                    <SubHeaderLinkWrap content='Dashboard' url='/dashboard/' className="dashboard active">
                         &nbsp;
                     </SubHeaderLinkWrap>
 
