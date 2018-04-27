@@ -82,11 +82,11 @@ class App extends Component {
                                     <Route path='/confirm_email' component={ ConfirmEmail }/>
                                     <Route path='/reset_password' component={ ConfirmReset }/>
 
-                                    <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard } />
+                                    <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard }/>
 
-                                    <Route path='/client/dashboard/:page' component={ ClientDashboard } />
-                                    <Route path='/client/project/:projectId/module/:moduleId' component={ ClientDashboard } />
-                                    <Route exact path='/client/project/:projectId/module' component={ ClientDashboard } />
+                                    <Route path='/client/dashboard/:page' component={ ClientDashboard }/>
+                                    <Route path='/client/project/:projectId/module/:moduleId' component={ ClientDashboard }/>
+                                    <Route exact path='/client/project/:projectId/module' component={ ClientDashboard }/>
                                     {/* <Route path='/client/project/:projectId' component={ ClientDashboard } /> */}                                 
 
                                     <Route path='*' component={NotFound}/>

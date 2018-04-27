@@ -170,11 +170,11 @@ class SpecialistsDashboard extends Component {
 
             <div>
                 <HeaderBasic page={sidebarCondition} userType="specialist"/>
-                <S_MainContainer>
+                <S_MainContainer sidebarCondition={sidebarCondition}>
                     {sidebarCondition && <SideBarLeft projects={allProjects}/>}
                         {sidebarCondition
                             ? this.renderPage(page)
-                            : <Container>
+                            : <Container sidebarCondition={sidebarCondition}>
                                 <SubHeader percents={this.state}/>
                                 {this.renderPage(page)}
                               </Container>

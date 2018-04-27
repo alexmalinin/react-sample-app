@@ -1,11 +1,182 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { PORT } from '../../constans/constans';
-import StyledDashboardCard from '../../styleComponents/StyledDashboardCard'
+
 import ProgressBars from './ProgressBar';
+import {AssignDropdown, PersonTile} from './AssignDropdown';
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+import StyledDashboardCard from '../../styleComponents/StyledDashboardCard';
+
+import { showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam } from '../../actions/actions';
+import { PORT } from '../../constans/constans';
 
 class RenderCard extends Component {
+    state = {
+        
+    }
+
+    componentWillMount() {
+        const { showProjectTeam, type, data: {id} } = this.props;
+
+        if(type === 'project') {
+            showProjectTeam(id);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {type, data: {id}, projectTeam, assignToTeam} = nextProps;
+        
+        //TODO: type of cards as different components
+        if(type === 'project'){
+            if(projectTeam){
+                if(projectTeam[0].project_id === id){
+                    if(this.props.projectTeam){
+                        if(this.props.projectTeam !== projectTeam){
+                            this.setState({
+                                projectTeam: projectTeam[0],
+                            })
+                        }
+                    } else this.setState({
+                        projectTeam: projectTeam[0],
+                    })
+                }
+            }
+
+            if(nextProps.assignToTeam){
+                if(nextProps.assignToTeam.project_id === id){
+                    if(this.props.assignToTeam){
+                        if(this.props.assignToTeam !== nextProps.assignToTeam){
+                            nextProps.showProjectTeam(id);
+                        }
+                    } else nextProps.showProjectTeam(id);
+                }
+            }
+
+            if(nextProps.removeFromTeam){
+                if(nextProps.removeFromTeam.project_id === id){
+                    if(this.props.removeFromTeam){
+                        if(this.props.removeFromTeam !== nextProps.removeFromTeam){
+                            nextProps.showProjectTeam(id);
+                        }
+                    } else nextProps.showProjectTeam(id);
+                }
+            }
+        }
+    }
+
+    handleAssign = (type, specId) => {
+        const { assignSpecialistToTeam, removeSpecialistFromTeam, data: { id, team } } = this.props;
+
+        if(type === 'assign'){
+            assignSpecialistToTeam(id, team.id, specId);
+        } else removeSpecialistFromTeam(id, team.id, specId);
+    }
+
+    render () {
+        const {
+            type,
+            village,
+            allSpecialists,
+            data: {
+                name, epics, team, projects, logo, 
+                //from mockup
+                title, content, days, progress, subtitle,
+            }
+        } = this.props;
+
+        const { projectTeam } = this.state;
+
+        let size, subtitleColor;
+        
+        switch(type) {
+            case "project":
+                size = {
+                    col: 2,
+                    row: 2,
+                };
+                break;
+            default:
+                size = this.props.data.size;
+                break;
+        }
+
+        return (
+            <StyledDashboardCard
+                size={size}
+                type={type}
+                village={village}>
+
+                <div className="titleWrapper">
+                    {type === 'project' && (
+                        logo.url 
+                        ? <img src={PORT + logo.url} alt={name}/>
+                        : <span className="projectNoLogo">{name[0]}</span>
+                    )}
+                    <div>
+                        <p className='title'>{ title || name }</p>
+                        {type !== 'tasks' && type !=='tasks_due' && <p className='subTitle'>{subtitle ? subtitle : `Module ${ epics.length }`}</p>}
+                    </div>
+                </div>
+                { days &&
+                    <div className='days'>
+                    {days.map((item, index) => 
+                        <RenderDays days={item} key={index}/>
+                    )}
+                    </div>
+                }
+                
+                <div className='content'>
+                    {content && content.map((item, index) =>
+                        <div key={index}>
+                            <p>{item.count}</p>
+                            <p>{item.description}</p>
+                        </div>
+                    )}
+                    {type === 'overview' && projects.map((project, key) => 
+                        <div key={key}>
+                            <p>{project.name}</p>
+                            <progress value={(key + 1) * 20} max="100"/>
+                        </div>
+                    )}
+                </div>
+
+                <div className={`projectContainer ${type}`}>
+                    <div className='team'>
+                        {projectTeam && projectTeam.specialists && projectTeam.specialists.map((specialist, key) =>
+                                <PersonTile 
+                                    key={key}
+                                    specialist={specialist} 
+                                    handleRemove={this.handleAssign}
+                                    removeTitle="team"/>
+                            )
+                        }
+                        {projectTeam && 
+                            <AssignDropdown
+                                specialists={projectTeam.specialists} 
+                                allSpecialists={allSpecialists} 
+                                handleAssign={this.handleAssign}/>
+                        }
+                    </div>
+
+                    {type === "project" && <div></div>}
+                    {type === "project" && this.renderProjectProgress()}
+
+                    {progress &&
+                        <div className='progress'>
+                        {progress.map((item, key) =>
+                            <div className='progressItem' key={key}>
+                                <p className='progressCount'>{item.count}</p>
+                                <p className='progressDescription'>{item.description}</p>
+                            </div>
+                        )}
+                        </div>
+                    }
+                </div>
+
+            </StyledDashboardCard>
+        )
+    }
+
+    //TODO: type of cards as different components
 
     renderProjectProgress = () => {
         const { data: { id, epics } } = this.props;
@@ -37,104 +208,6 @@ class RenderCard extends Component {
             </div>
         )
     }
-
-    render () {
-        const {
-            type,
-            village,
-            data: {
-                name,
-                epics,
-                team,
-                projects,
-                logo,
-                //from mockup
-                title,
-                content,
-                days,
-                progress,
-                subtitle,
-            }
-        } = this.props;
-
-        let size, subtitleColor;
-        
-        switch(type) {
-            case "project":
-                size = {
-                    col: 2,
-                    row: 2,
-                };
-                break;
-            default:
-                size = this.props.data.size;
-                break;
-        }
-
-        return (
-            <StyledDashboardCard    
-                size={size}
-                type={type}
-                village={village}>
-
-                <div className="titleWrapper">
-                    {type === 'project' && <img src={PORT + logo.url} alt={name}/>}
-                    <div>
-                        <p className='title'>{ title || name }</p>
-                        {type !== 'tasks' && type !=='tasks_due' && <p className='subTitle'>{subtitle ? subtitle : `Module ${ epics.length }`}</p>}
-                    </div>
-                </div>
-                { days &&
-                    <div className='days'>
-                    {days.map((item, index) => 
-                        <RenderDays days={item} key={index}/>
-                    )}
-                    </div>
-                }
-                
-                <div className='content'>
-                    {content && content.map((item, index) =>
-                        <div key={index}>
-                            <p>{item.count}</p>
-                            <p>{item.description}</p>
-                        </div>
-                    )}
-                    {type === 'overview' && projects.map((project, key) => 
-                        <div key={key}>
-                            <p>{project.name}</p>
-                            <progress value={(key + 1) * 20} max="100"/>
-                        </div>
-                    )}
-                </div>
-
-                <div className={`projectContainer ${type}`}>
-                    <div className='team'>
-                        {team && team.specialists && team.specialists.map((specialist, key) =>
-                                <div className='person' key={key}>
-                                    
-                                </div>
-                            )
-                        }
-                    </div>
-
-                    {type === "project" && <div></div>}
-                    {type === "project" && this.renderProjectProgress()}
-
-                    {progress &&
-                        <div className='progress'>
-                        {progress.map((item, key) =>
-                            <div className='progressItem' key={key}>
-                                <p className='progressCount'>{item.count}</p>
-                                <p className='progressDescription'>{item.description}</p>
-                            </div>
-                        )}
-                        </div>
-                    }
-                </div>
-
-            </StyledDashboardCard>
-        )
-    }
 }
 
 const RenderDays = ({ days }) => {
@@ -159,6 +232,6 @@ const RenderDayTasks = ({ day }) => {
 }
 
 export default connect(
-    ({}) => ({}),
-    {}
+    ({projectTeam, allSpecialists, assignToTeam, removeFromTeam}) => ({projectTeam, allSpecialists, assignToTeam, removeFromTeam}),
+    {showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam}
 )(RenderCard);

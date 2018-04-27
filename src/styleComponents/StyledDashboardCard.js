@@ -39,11 +39,24 @@ export default styled.div`
         flex-flow: row nowrap;
         align-items: center;
 
-        img{
+        img,
+        .projectNoLogo{
             width: 80px;
             height: 80px;
             border-radius: 50%;
             margin-right: 10px;
+        }
+
+        .projectNoLogo{
+            display: inline-block;
+            font-size: 64px;
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 72px;
+            letter-spacing: -1px;
+            text-align: center;
+            background: linear-gradient(to top left, #00a2ee 0%,#00e1ce 100%);
+            color: #fff;
         }
 
         .title {
@@ -147,20 +160,36 @@ export default styled.div`
     .projectContainer {
         display: flex;
         justify-content: space-between;
-        ${props => props.type === 'projects' && `
-        position: absolute;
-        bottom: 10px;
-        display: flex;
-        justify-content: space-between;
-        width: 88%
-        `};
+        
+        &.project{
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            width: 88%;
+
+            .team{
+                flex: 40%;
+            }
+
+            .progress{
+                flex: 1 1 70%;
+                display: inline-flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding-bottom: 10px;
+            }
+        }
+
     }
 
     .team {
         display: flex;
+        flex-flow: row wrap;
         align-items: flex-end;
         margin-bottom: 5px;
         position: relative;
+        /* max-width: 160px; */
     }
 
     .person {

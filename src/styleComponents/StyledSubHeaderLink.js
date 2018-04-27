@@ -10,4 +10,5 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    transition: inherit;
 `;

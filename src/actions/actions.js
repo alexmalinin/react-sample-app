@@ -65,6 +65,8 @@ import {
     UPDATE_CHANNEL,
     DELETE_CHANNEL,
     ASSIGN_SPECIALIST_TO_TEAM,
+    SHOW_PROJECT_TEAM,
+    REMOVE_SPECIALIST_FROM_TEAM,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -732,6 +734,17 @@ export function showAllTeams() {
     return action;
 }
 
+// Show Project Team
+
+export function showProjectTeam(project) {
+    const action = {
+        type: SHOW_PROJECT_TEAM,
+        showProjectTeam: `${PORT}/api/v1/projects/${project}/teams`,
+    };
+
+    return action;
+}
+
 // Assign specialist to team
 
 export function assignSpecialistToTeam(project, team, data) {
@@ -739,6 +752,17 @@ export function assignSpecialistToTeam(project, team, data) {
         type: ASSIGN_SPECIALIST_TO_TEAM,
         payload: data,
         assignSpecialistToTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/assign`,
+    };
+
+    return action;
+}
+
+// Remove specialist from team
+
+export function removeSpecialistFromTeam(project, team, specialist) {
+    const action = {
+        type: REMOVE_SPECIALIST_FROM_TEAM,
+        removeSpecialistFromTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/remove/${specialist}`,
     };
 
     return action;

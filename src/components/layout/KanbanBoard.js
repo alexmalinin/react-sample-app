@@ -103,21 +103,9 @@ class KanbanBoard extends Component {
                     {backlogTasks.length !== 0 || progressTasks.length !== 0 || completedTasks.length !== 0
                     ?<Board 
                         data={{lanes: [
-                            {
-                                id: '0',
-                                title: 'Backlog',
-                                cards: backlogTasks
-                            },
-                            {
-                                id: '1',
-                                title: 'In progress',
-                                cards: progressTasks
-                            },
-                            {
-                                id: '2',
-                                title: 'Complete',
-                                cards: completedTasks
-                            },
+                            {id: '0', title: 'Backlog', cards: backlogTasks},
+                            {id: '1', title: 'In progress', cards: progressTasks},
+                            {id: '2', title: 'Complete', cards: completedTasks},
                         ]}}
                         className="kanban"
                         draggable

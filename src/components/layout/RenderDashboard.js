@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import RenderCard from './RenderCard';
-import cards from '../../helpers/cardsData';
 import StyledDashBoard from '../../styleComponents/StyledDashBoard';
 
+import { showAllSpecialists } from '../../actions/actions';
+import cards from '../../helpers/cardsData';
+
 class RenderDashboard extends Component {
+
+    componentWillMount() {
+        this.props.showAllSpecialists();
+    }
 
     renderCards (type) {
         const data = cards;
@@ -63,5 +70,5 @@ class RenderDashboard extends Component {
 
 export default connect(
     ({allProjects}) => ({allProjects}),
-    {}
+    {showAllSpecialists}
 )(RenderDashboard);
