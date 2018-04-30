@@ -99,7 +99,6 @@ class SignUp extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-       console.log(nextProps.signUpData);
         if (nextProps.signUpData) {
             if (nextProps.signUpData.id) {
                 this.setState({

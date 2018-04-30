@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
+
 import StyledHeaderBasic from '../../styleComponents/layout/StyledHeaderBasic';
 import { ContainerLarge }from '../../styleComponents/layout/Container';
+
 import { showSpecialistData, showClientData } from '../../actions/actions';
-import { Dropdown } from 'semantic-ui-react';
+import { CLIENT, SPECIALIST } from '../../constans/constans';
 
 class Header extends Component {
 
@@ -13,19 +16,19 @@ class Header extends Component {
     };
 
     componentWillMount() {
-        const { showSpecialistData, showClientData, userType } = this.props;
+        const { showSpecialistData, showClientData, changeUserType } = this.props;
 
-        if(userType === 'client') {
+        if(changeUserType === CLIENT) {
             showClientData()
-        } else if (userType === 'specialist') {
+        } else if (changeUserType === SPECIALIST) {
             showSpecialistData()
         }
     }
 
     renderDropdown = () => {
-        const { userType, clientData, specialistData } = this.props;
+        const { changeUserType, clientData, specialistData } = this.props;
 
-        if(userType === 'client' && clientData) {
+        if(changeUserType === CLIENT && clientData) {
             return (
                 <Dropdown 
                     text={clientData.first_name + ' ' + clientData.last_name} 
@@ -36,10 +39,10 @@ class Header extends Component {
                     onChange={()=>{}}>
                     <Dropdown.Menu> 
                         <Dropdown.Item>
-                            <NavLink to='/client/dashboard/root'>Dashboard</NavLink>
+                            <NavLink to='/dashboard/'>Dashboard</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <NavLink to='/client/dashboard/teams'>Teams</NavLink>
+                            <NavLink to='/dashboard/teams'>Teams</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
@@ -47,7 +50,7 @@ class Header extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
             );
-        } else if (userType === 'specialist' && specialistData) {
+        } else if (changeUserType === SPECIALIST && specialistData) {
             return (
                 <Dropdown 
                     text={specialistData.first_name + ' ' + specialistData.last_name} 
@@ -59,16 +62,16 @@ class Header extends Component {
                     onChange={()=>{}}>
                     <Dropdown.Menu>
                         <Dropdown.Item>
-                            <NavLink to='/specialists/dashboard/root'>Dashboard</NavLink>
+                            <NavLink to='/dashboard/'>Dashboard</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <NavLink to='/specialists/dashboard/about'>My profile</NavLink>
+                            <NavLink to='/dashboard/about'>My profile</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <NavLink to='/specialists/dashboard/account'>Account Billings</NavLink>
+                            <NavLink to='/dashboard/account'>Account Billings</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
-                            <NavLink to='/specialists/dashboard/teams'>Teams</NavLink>
+                            <NavLink to='/dashboard/teams'>Teams</NavLink>
                         </Dropdown.Item>
                         <Dropdown.Item>
                             <NavLink onClick={this.logOut} to='/sign_up'>Log out</NavLink>
@@ -80,8 +83,7 @@ class Header extends Component {
     }
 
     render() {
-        const { specialistData, clientData, page, userType } = this.props;
-        const profileLink = userType ==='client' ? 'client' : 'specialists';
+        const { specialistData, clientData, page } = this.props;
 
         return (
             <StyledHeaderBasic className='header-basic'>
@@ -91,9 +93,9 @@ class Header extends Component {
                         {/* <img src='/images/logo_basic.png'/> */}
                     </a>
                     {page && <div className='right-links'>
-                        <NavLink activeClassName="current" className='button square' to={`/${profileLink}/dashboard/root`}>&nbsp;</NavLink>
+                        <NavLink activeClassName="current" className='button square' to='/dashboard/'>&nbsp;</NavLink>
                         <NavLink activeClassName="current" className='button settings' to='#'>&nbsp;</NavLink>
-                        <NavLink activeClassName="current" className='button avatar' to={`/${profileLink}/dashboard/profile`}>&nbsp;</NavLink>
+                        <NavLink activeClassName="current" className='button avatar' to='/dashboard/profile'>&nbsp;</NavLink>
                         {this.renderDropdown()}
                     </div>}
                 </ContainerLarge>
@@ -108,6 +110,6 @@ class Header extends Component {
 }
 
 export default connect(
-    ({ specialistData, clientData }) => ({ specialistData, clientData }),
-    { showSpecialistData, showClientData }
+    ({changeUserType, specialistData, clientData}) => ({changeUserType, specialistData, clientData}),
+    {showSpecialistData, showClientData}
 )(Header);

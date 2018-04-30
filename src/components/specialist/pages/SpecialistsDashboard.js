@@ -44,6 +44,7 @@ class SpecialistsDashboard extends Component {
     }
 
     componentWillMount() {
+        // this.props.showSpecialistData();
         this.props.showAllProjects();
     }
 
@@ -168,20 +169,15 @@ class SpecialistsDashboard extends Component {
         }
 
         let sidebarCondition = 
-             page === 'about' 
-          || page === 'board' 
-          || page === 'test'
-          || page === 'statement'
-          || page === 'year_to_date'
-          || page === 'account'
-          || page === 'teams'
-          || page === 'the_village'
-          || page === 'root';
+             page !== 'profile' 
+          && page !== 'industry'
+          && page !== 'company'
+          && page !== 'billings';
 
         return (
 
             <div>
-                <HeaderBasic page={sidebarCondition} userType="specialist"/>
+                <HeaderBasic page={sidebarCondition}/>
                 <S_MainContainer sidebarCondition={sidebarCondition}>
                     {sidebarCondition && <SideBarLeft projects={allProjects}/>}
                         {sidebarCondition
@@ -223,8 +219,6 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistStatement/>;
             case 'the_village':
                 return <TheVillage/>;
-            case 'root':
-                return <Dashboard/>;
             default:
                 return <Dashboard/>; 
         }

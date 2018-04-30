@@ -166,7 +166,7 @@ class ProjectsBoard extends Component {
                             <div className="dragContainer">
                                 <h3>&nbsp;</h3>
                                 <div className="module">
-                                    <NavLink to={`/client/project/${projectId}/module`} className="addButt">
+                                    <NavLink to={`/dashboard/project/${projectId}/module/new`} className="addButt">
                                         <span className="plus">+</span>
                                         <span className="add">Add module</span>
                                     </NavLink>

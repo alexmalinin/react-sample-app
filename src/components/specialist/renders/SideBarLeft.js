@@ -4,12 +4,12 @@ import { NavLink } from 'react-router-dom';
 
 import { StyledBar } from '../../../styleComponents/layout/SideBar';
 
-import { PORT } from '../../../constans/constans';
+import { PORT, CLIENT } from '../../../constans/constans';
 
 class SideBarLeft extends Component {
 
     render() {
-        let { currentProject, currentEpic, allProjects, allEpics } = this.props;
+        let { changeUserType, currentProject, currentEpic, allProjects, allEpics } = this.props;
 
         return(
             <StyledBar className="left" >
@@ -37,7 +37,8 @@ class SideBarLeft extends Component {
                                 </div>}
                             </div>
                         )}
-                        <NavLink className='projectLink' to='/client/dashboard/projects'><span className='addProject'></span></NavLink>
+                        {changeUserType === CLIENT && 
+                            <NavLink className='projectLink' to='/dashboard/projects'><span className='addProject'></span></NavLink>}
                     </div>
                 </div>
             </StyledBar>
@@ -46,6 +47,6 @@ class SideBarLeft extends Component {
 }
 
 export default connect(
-    ({allProjects, allEpics}) => ({allProjects, allEpics}),
+    ({changeUserType, allProjects, allEpics}) => ({changeUserType, allProjects, allEpics}),
     {}
 )(SideBarLeft);

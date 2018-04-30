@@ -105,6 +105,7 @@ class SignUp extends Component {
         let { changeUserType } = this.props;
         let user = changeUserType === "Specialist" ? "specialist" : "customer";
         this.props.signIn(user, values)
+        localStorage.setItem('userType', changeUserType);
     };
 
     handleTabChange  = (ev, {activeIndex}) => {

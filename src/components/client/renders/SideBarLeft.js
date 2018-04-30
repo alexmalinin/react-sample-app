@@ -19,7 +19,10 @@ class SideBarLeft extends Component {
                     <div className={`projects${currentProject ? ' opened' : ''}`}>
                         {allProjects && allProjects.map((project, key) => 
                             <div className="projectWrapper" key={key}>
-                                <NavLink className={`projectLink${currentProject == project.id ? ' active': ''}`} to={`/project/${project.id}/module/all`} key={project.id}>
+                                <NavLink 
+                                    className={`projectLink${currentProject == project.id ? ' active': ''}`} 
+                                    to={`/dashboard/project/${project.id}`}
+                                    key={project.id}>
                                     {project.logo.url
                                         ? <img src={IMAGE_PORT + project.logo.url} alt={project.name}/>
                                         : <span className="projectNoLogo">{project.name[0]}</span>
@@ -29,14 +32,14 @@ class SideBarLeft extends Component {
                                 {currentProject == project.id && <div className="modules">
                                     {allEpics && allEpics.length ? 
                                         allEpics.map((epic, key) => 
-                                            <NavLink key={key} to={`${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
+                                            <NavLink key={key} to={`/dashboard/project/${project.id}/module/${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
                                         ):
                                         <p>No modules</p>
                                     }
                                 </div>}
                             </div>
                         )}
-                        <NavLink className='projectLink' to='/client/dashboard/projects'><span className='addProject'></span></NavLink>
+                        <NavLink className='projectLink' to='/dashboard/projects'><span className='addProject'></span></NavLink>
                     </div>
                 </div>
             </StyledBar>

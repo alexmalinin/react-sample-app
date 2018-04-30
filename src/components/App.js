@@ -79,6 +79,10 @@ class App extends Component {
                             <Route path='/reset_password' component={ ConfirmReset }/>
 
                             <Route exact path='/dashboard/' component={ Dashboard }/>
+
+                            <Route path='/dashboard/project/:projectNewModule/module/new' component={ Dashboard }/>
+                            <Route path='/dashboard/project/:projectId/module/:moduleId' component={ Dashboard }/>
+                            <Route path='/dashboard/project/:projectId' component={ Dashboard }/>
                             <Route path='/dashboard/:page' component={ Dashboard }/>
 
                             {/* <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard }/>
@@ -116,5 +120,5 @@ class App extends Component {
 }
 
 export default connect(
-    ({changeUserType}) => ({changeUserType})
+    ({changeUserType, signInReducer}) => ({changeUserType, signInReducer})
 )(App);

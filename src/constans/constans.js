@@ -8,6 +8,8 @@ export const IMAGE_PORT =
         ? process.env.REACT_APP_API_HOST
         : '';
 
+export const CLIENT                            = 'Client';
+export const SPECIALIST                        = 'Specialist';
 export const HIDE_FOOTER                       = 'HIDE_FOOTER';
 export const SIDEBAR                           = 'SIDEBAR';
 export const SIGN_UP_STEP_1                    = 'SIGN_UP_STEP_1';
