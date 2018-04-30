@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
-import { SaveBtn } from '../../../styleComponents/layout/DvButton';
+import { NextBtn, BackBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';
@@ -106,6 +107,14 @@ class BillingForm extends Component {
                   disabled
                   placeholder='Choose your photo'
                 />
+                <NavLink exact to="/specialists/dashboard/company">
+                  <BackBtn
+                    disabled={submitting}
+                    primary
+                  >
+                    <span>Back</span>
+                  </BackBtn>
+                </NavLink>
           </Grid.Column>
           <Grid.Column mobile={16} computer={10}>
             <Grid>
@@ -141,14 +150,14 @@ class BillingForm extends Component {
             </Grid>
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
-            <SaveBtn
+            <NextBtn
               type="submit"
               disabled={submitting}
               // content='SAVE'
               primary
             >
             <span>save</span>
-            </SaveBtn>
+            </NextBtn>
           </Grid.Column>
         </Grid.Row>
       </Grid>

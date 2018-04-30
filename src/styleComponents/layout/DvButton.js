@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
+import { primaryColors, secondaryColors } from '../constants/colors';
 
 export const DvButton = styled(Button)`
 
@@ -304,6 +305,150 @@ export const SaveBtn = styled(Button)`
         &::before,
         &::after {
             background-color: #666;
+        }
+    }
+`;
+
+export const BackBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #ccc;
+        position: absolute;
+        bottom: -26px;
+        left: 20px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: #ccc;
+            bottom: -22px;
+            right: -16px;
+            font-weight: 0;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            width: ${props => props.updatebtn ? `10px` : `15px` };
+            top: ${props => props.updatebtn ? `33px` : `24px` };
+            left: ${props => props.updatebtn ? `20px` : `21px` };
+            transform: rotate(-45deg);
+        }
+
+        &::after {
+            width: ${props => props.updatebtn ? `20px` : `15px` };
+            top: ${props => props.updatebtn ? `30px` : `34px` };
+            left: ${props => props.updatebtn ? `25px` : `21px` };
+            transform: rotate(45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+
+        &.width200 {
+          width: 200%;
+        } */
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: ${primaryColors.darkGrey};
+        border: 1px solid ${primaryColors.darkGrey};
+        background-color: #fff !important;
+
+        span {
+            color: ${primaryColors.darkGrey};
+        }
+        &::before,
+        &::after {
+            background-color: #666;
+        }
+    }
+`;
+
+export const NextBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 3px solid ${secondaryColors.green};
+        position: absolute;
+        bottom: -26px;
+        right: 20px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: ${primaryColors.grey};
+            bottom: -22px;
+            right: -16px;
+            font-weight: 0;
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: 3px;
+            background-color: ${secondaryColors.green};
+        }
+
+        &::before {
+            width: ${props => props.updatebtn ? `10px` : `15px` };
+            top: ${props => props.updatebtn ? `33px` : `22px` };
+            left: ${props => props.updatebtn ? `20px` : `21px` };
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            width: ${props => props.updatebtn ? `20px` : `15px` };
+            top: ${props => props.updatebtn ? `30px` : `32px` };
+            left: ${props => props.updatebtn ? `25px` : `21px` };
+            transform: rotate(-45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+
+        &.width200 {
+          width: 200%;
+        } */
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        background-color: transparent;
+
+        span {
+            color: ${primaryColors.darkGrey};
         }
     }
 `;

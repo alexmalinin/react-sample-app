@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
-import { SaveBtn } from '../../../styleComponents/layout/DvButton';
+import { NextBtn, BackBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import { DvTitle } from '../../../styleComponents/layout/DvTitles';
@@ -33,6 +34,14 @@ class CompanyForm extends Component {
                   disabled
                   placeholder='Choose your photo'
                 />
+                <NavLink exact to="/specialists/dashboard/industry">
+                  <BackBtn
+                    disabled={submitting}
+                    primary
+                  >
+                    <span>Back</span>
+                  </BackBtn>
+                </NavLink>
             </Grid.Column>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5}>
@@ -52,6 +61,7 @@ class CompanyForm extends Component {
                 name="name"
                 label="Company Name"
                 validate={[required]}
+                
               />
 
               <InputField
@@ -121,13 +131,13 @@ class CompanyForm extends Component {
             </StyledWelcomeForm>
           </Grid.Column>
           <Grid.Column computer={3}>
-            <SaveBtn type="submit"
-                    disabled={submitting}
-                    // content='321'
-                    primary
-                >
+            <NextBtn type="submit"
+              disabled={submitting}
+              // content='321'
+              primary
+            >
               <span>next step</span>
-            </SaveBtn>
+            </NextBtn>
           </Grid.Column>
         </Grid.Row>
       </Grid>

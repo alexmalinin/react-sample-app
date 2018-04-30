@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {Field, reduxForm, change} from 'redux-form';
 import {required} from '../../helpers/validate';
-import { SaveBtn, DvButton } from '../../styleComponents/layout/DvButton'
+import { NextBtn, DvButton } from '../../styleComponents/layout/DvButton'
 import InputField from './renders/InputField';
 import RenderField from './renders/RenderField';
 import EmailField from './renders/EmailField';
@@ -56,8 +56,8 @@ class RenderProfileForm extends Component {
                                 type='file'
                                 avatar={avatar}
                                 placeholder='Choose your photo'
-                            />
 
+                            />
                         </Grid.Column>
                         <Grid.Column computer={10}>
                             <Grid>
@@ -143,13 +143,13 @@ class RenderProfileForm extends Component {
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={3}>
-                            <SaveBtn
-                                    type="submit"
-                                    disabled={submitting}
-                                    primary
-                                >
+                            <NextBtn
+                              type="submit"
+                              disabled={submitting}
+                              primary
+                            >
                                 <span>next step</span>
-                            </SaveBtn>
+                            </NextBtn>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

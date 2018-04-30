@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { Field, reduxForm, change } from 'redux-form';
 import { required } from '../../../helpers/validate';
 import { job_titles } from '../../../helpers/selects/job_titles';
 import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {speciality} from '../../../helpers/selects/speciality';
-import { DvButton, SaveBtn } from '../../../styleComponents/layout/DvButton';
+import { DvButton, NextBtn, BackBtn } from '../../../styleComponents/layout/DvButton';
 import InputField from '../../forms/renders/InputField';
 import { Grid } from 'semantic-ui-react';
 import {DvTitle} from '../../../styleComponents/layout/DvTitles';
@@ -36,6 +37,14 @@ class SkillsForm extends Component {
                                 disabled
                                 placeholder='Choose your photo'
                             />
+                            <NavLink exact to="/specialists/dashboard/profile">
+                              <BackBtn
+                                disabled={submitting}
+                                primary
+                              >
+                                <span>Back</span>
+                              </BackBtn>
+                            </NavLink>
                     </Grid.Column>
                     <Grid.Column mobile={16} computer={5}>
                         <StyledWelcomeForm>
@@ -158,13 +167,13 @@ class SkillsForm extends Component {
 
                     </Grid.Column>
                     <Grid.Column computer={3}>
-                      <SaveBtn type="submit"
-                              disabled={submitting}
-                              // content='321'
-                              primary
+                      <NextBtn type="submit"
+                        disabled={submitting}
+                        // content='321'
+                        primary
                       >
                         <span>next step</span>
-                      </SaveBtn>
+                      </NextBtn>
 
                         {/* <DvButton
                             type="submit"
