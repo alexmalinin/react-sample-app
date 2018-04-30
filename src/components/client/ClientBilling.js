@@ -32,17 +32,17 @@ class ClientBilling extends Component {
 
     collectData(values) {
 
-        const { billing_type, 
-                account_number, 
-                account_details, 
-                card_name, card_number, 
-                expiry_date, 
-                ccv, 
+        const { billing_type,
+                account_number,
+                account_details,
+                card_name, card_number,
+                expiry_date,
+                ccv,
                 password } = values;
 
         if (!billing_type || billing_type == '0') {
             let obj = { data: {account_number, password,}, count: 2, }
-            return obj 
+            return obj
         }
 
         if (billing_type == '1') {
@@ -53,7 +53,7 @@ class ClientBilling extends Component {
             let obj = {data: {account_details,}, count: 1, }
             return obj
         }
-        
+
     }
 
     componentWillMount() {
@@ -111,7 +111,9 @@ class ClientBilling extends Component {
     };
 
     change = values => {
-
+        if (!values.hasOwnProperty('billing_type')) {
+          values.billing_type = 0;
+        }
         const data = this.collectData(values)
         this.props.calculatePagePercent('billingPercent', data);
       }
@@ -122,6 +124,6 @@ class ClientBilling extends Component {
 }
 
 export default connect(
-    ({ industries, clientData }) => ({ industries, clientData }), 
+    ({ industries, clientData }) => ({ industries, clientData }),
     { getIndustries, showClientData, updateClientBilling }
 )(ClientBilling);

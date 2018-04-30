@@ -12,7 +12,7 @@ class SpecialistIndustryForm extends Component {
 
         return (
             <form onSubmit={this.props.handleSubmit}>
-                <SkillsForm { ...this.props }/>
+                <SkillsForm { ...this.props } />
             </form>
         )
     }
@@ -58,8 +58,8 @@ class SpecialistIndustryForm extends Component {
 
         if (specialities[0]) {
           this.props.dispatch(change(
-              'SpecialistIndustryForm', 
-              'industry', 
+              'SpecialistIndustryForm',
+              'industry',
               { "label": specialities[0].industry_area['name'], "value": specialities[0].industry_area['id'] }
             ));
         }

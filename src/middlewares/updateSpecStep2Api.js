@@ -19,9 +19,9 @@ export default store => next => action => {
                   "company_address"     : payload["company_address"],
                   "country"             : payload["country"],
                   "city"                : payload["city"],
-                  "industry_area_id"    : payload["industry"]["value"],
-                  "number_of_employers" : payload["number_of_employers"]["value"],
-                  "segment"             : payload["segment"]["value"],
+                  "industry_area_id"    : payload["industry"]["value"] || payload["industry"],
+                  "number_of_employers" : payload["number_of_employers"]["value"] || payload["number_of_employers"],
+                  "segment"             : payload["segment"]["value"] || payload["segment"],
                   "website"             : payload["website"]
                 }
             }

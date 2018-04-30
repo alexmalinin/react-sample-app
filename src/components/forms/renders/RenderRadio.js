@@ -8,7 +8,12 @@ class RenderRadio extends Component {
     }
 
     render() {
-        const {input, label, name, checked, onChange} = this.props;
+        const { input, label, checked, name, onChange  } = this.props;
+
+        let radioChecked = null;
+        if (checked === undefined) {
+          input.hasOwnProperty('checked') ? radioChecked = input.checked : null;
+        }
 
         return (
             <StyledRadio>
@@ -17,8 +22,7 @@ class RenderRadio extends Component {
                            type='radio'
                            name={name}
                            {...input}
-                           checked={checked}
-
+                           checked={radioChecked === null ? checked : radioChecked}
                     />
                     <span className={`ownRadio`}>{label}</span>
                 </label>

@@ -32,7 +32,6 @@ class SpecialistIndustry extends Component {
     }
 
     render() {
-
         const { renderMessage, renderErrorMessage } = this.state;
         const { industries, projectTypes, experienceLevels, specialistData } = this.props;
 
@@ -96,7 +95,6 @@ class SpecialistIndustry extends Component {
     }
 
     submit = values => {
-        console.log('values on submit',values);
         this.props.updateSpecStep1(values);
     };
 }

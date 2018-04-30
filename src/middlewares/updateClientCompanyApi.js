@@ -8,7 +8,7 @@ export default store => next => action => {
 
     let token = localStorage.getItem('jwt_token');
     let { id } = jwtDecode(token);
-    
+
     axios({
         method: 'put',
         url: updateClientCompany + id,
@@ -36,7 +36,6 @@ export default store => next => action => {
         }
 
     }).then(function (response) {
-        console.log(response);
         let data = response.data;
         data.successCompanyId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });

@@ -6,12 +6,40 @@ import StyledSpecialityArea from '../../../styleComponents/forms/StyledSpecialit
 
 class RenderSpecialityArea extends Component {
 
+    state = {
+      specialities: [],
+      specialityError: false
+    }
+
+    componentWillMount() {
+      let isSpecialities = null
+      this.props.specialities.length > 0 ? isSpecialities = true : false
+      this.setState({ specialityError: isSpecialities })
+    }
+
+    handleSpecialityCheckbox = (index, data) => {
+      let isChecked = null;
+      let values = [];
+
+      values = this.state.specialities.slice()
+      values[index - 1] = data;
+
+      isChecked = values.some(item => {
+        return item.input.checked === true
+      })
+
+      this.setState({
+        specialities: values,
+        specialityError: isChecked
+      })
+    }
+
     render() {
         const { industry, speciality } = this.props;
-        // console.log('speciality', speciality);
-        window.industry = industry;
-        window.speciality = speciality;
         let industry_id = industry ? industry.value : null;
+
+        let validateProp = (!this.state.specialityError) ?
+           { validate: [required] } : null
 
         return (
             <StyledSpecialityArea>
@@ -27,6 +55,9 @@ class RenderSpecialityArea extends Component {
                                 type="checkbox"
                                 component={RenderCircleCheckbox}
                                 label={item.label}
+                                handleSpecialityCheckbox={this.handleSpecialityCheckbox}
+                                itemValue={item.value}
+                                {...validateProp}
                             />)
                         : null : null : null
                     }
