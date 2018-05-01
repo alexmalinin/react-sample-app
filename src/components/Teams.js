@@ -11,10 +11,13 @@ import { Container, ContainerLarge } from '../styleComponents/layout/Container'
 import TeamSubHeader from './layout/TeamSubHeader';
 import StyledTeamPage from '../styleComponents/StyledTeamPage';
 import Team from './layout/Team';
+import { CLIENT } from '../constans/constans';
 
 class Teams extends Component {
     componentWillMount() {
-        this.props.showAllTeams();
+        const { showAllTeams, changeUserType } = this.props;
+
+        changeUserType === CLIENT && showAllTeams();
     }
 
     render() {
@@ -41,6 +44,6 @@ class Teams extends Component {
 }
 
 export default connect(
-    ({}) => ({}),
+    ({changeUserType}) => ({changeUserType}),
     {showAllTeams}
 )(Teams);

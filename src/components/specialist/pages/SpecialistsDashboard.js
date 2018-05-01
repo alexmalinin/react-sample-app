@@ -27,7 +27,8 @@ import {
     showAllProjects, 
     showProjectWithId, 
     showAllEpics, 
-    showSpecialistProjects 
+    showSpecialistProjects,
+    showSpecialistTeams,
 } from '../../../actions/actions';
 import Teams from '../../Teams';
 
@@ -54,6 +55,7 @@ class SpecialistsDashboard extends Component {
     componentWillMount() {
         this.props.showAllProjects();
         this.props.showSpecialistProjects();
+        this.props.showSpecialistTeams();
     }
 
     collectPropfileData() {
@@ -216,7 +218,7 @@ class SpecialistsDashboard extends Component {
                     currentEpic={this.props.match.params['moduleId'] || 'all'}
                     history={this.props.history}/>;
             case 'teams':
-                return <Teams teams={this.props.allTeams}/>;
+                return <Teams teams={this.props.specialistTeams}/>;
             case 'test':
                 return <SpecialistsTest/>;
             case 'account':
@@ -255,6 +257,6 @@ class SpecialistsDashboard extends Component {
 }
 
 export default connect(
-    ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams}) => ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams}),
-    { showSpecialistData, updateSpecialistProfile, showAllProjects, showProjectWithId, showAllEpics, showSpecialistProjects }
+    ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams, specialistTeams}) => ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams, specialistTeams}),
+    { showSpecialistData, updateSpecialistProfile, showAllProjects, showProjectWithId, showAllEpics, showSpecialistProjects, showSpecialistTeams }
 )(SpecialistsDashboard);

@@ -187,22 +187,27 @@ class ClientDashboard extends Component {
     } else page = 'root';
 
     let sidebarCondition =
-             page !== 'profile'
-          && page !== 'company'
-          && page !== 'billings';
+         page !== 'profile'
+      && page !== 'company'
+      && page !== 'billing';
 
     return (
       <div>
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
           <S_MainContainer sidebarCondition={sidebarCondition}>
-            {sidebarCondition && <SideBarLeft currentProject={params['projectId']} currentEpic={params['moduleId']}/>}
-              {sidebarCondition
-                ? this.renderPage(page)
-                  : <Container sidebarCondition={sidebarCondition}>
-                      <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
-                      {this.renderPage(page)}
-                    </Container>
-              }
+            {sidebarCondition && 
+              <SideBarLeft 
+                currentProject={params['projectId'] || params["projectNewModule"]} 
+                currentEpic={params['moduleId']}
+              />
+            }
+            {sidebarCondition
+              ? this.renderPage(page)
+              : <Container sidebarCondition={sidebarCondition}>
+                  <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
+                  {this.renderPage(page)}
+                </Container>
+            }
             {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
           </S_MainContainer>
       </div>
@@ -234,7 +239,7 @@ class ClientDashboard extends Component {
           />;
       case 'teams':
         document.title = 'Teams | Digital Village';
-        return <Teams/>;    
+        return <Teams teams={this.props.allTeams}/>;    
       case 'the_village':
         document.title = 'The Village | Digital Village';
         return <TheVillage/>;
@@ -269,6 +274,6 @@ class ClientDashboard extends Component {
 }
 
 export default connect(
-  ({allProjects, projectWithId, allEpics}) => ({allProjects, projectWithId, allEpics}),
+  ({allProjects, projectWithId, allEpics, allTeams}) => ({allProjects, projectWithId, allEpics, allTeams}),
   { showAllProjects, showProjectWithId, showAllEpics, showEpicTasks }
 )(ClientDashboard);

@@ -52,8 +52,6 @@ class App extends Component {
                 break;
         }
 
-        console.log(changeUserType)
-
         return (
             <Router>
                 <div>
@@ -83,15 +81,7 @@ class App extends Component {
                             <Route path='/dashboard/project/:projectNewModule/module/new' component={ Dashboard }/>
                             <Route path='/dashboard/project/:projectId/module/:moduleId' component={ Dashboard }/>
                             <Route path='/dashboard/project/:projectId' component={ Dashboard }/>
-                            <Route path='/dashboard/:page' component={ Dashboard }/>
-
-                            {/* <Route path='/specialists/dashboard/:page' component={ SpecialistDashboard }/>
-
-                            <Route path='/client/dashboard/:page' component={ ClientDashboard }/>
-                            <Route path='/client/project/:projectId/module/:moduleId' component={ ClientDashboard }/>
-                            <Route exact path='/client/project/:projectId/module' component={ ClientDashboard }/> */}
-
-                            {/* <Route path='/client/project/:projectId' component={ ClientDashboard } /> */}                                 
+                            <Route path='/dashboard/:page' component={ Dashboard }/>                             
 
                             <Route path='*' component={NotFound}/>
                         </Switch>

@@ -13,7 +13,9 @@ class AddTaskModal extends Component {
         const { number } = this.props;
 
         return(
-            <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} closeIcon>
+            <Modal 
+                trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} 
+                closeIcon>
                 <Modal.Header>Task creation</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>

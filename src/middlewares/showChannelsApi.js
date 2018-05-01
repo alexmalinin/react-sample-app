@@ -3,7 +3,7 @@ import { SUCCESS, FAIL } from '../constans/constans';
 import jwtDecode from 'jwt-decode';
 
 export default store => next => action => {
-    const { type, showChannels, payload, ...rest } = action;
+    const { type, showChannels, team, ...rest } = action;
     if (!showChannels) return next(action);
 
     // let token = localStorage.getItem('jwt_token');
@@ -15,6 +15,7 @@ export default store => next => action => {
 
     }).then(function (response) {
         let data = response.data;
+        data.team = team;
         data.successProjectId = Math.random();
         return next({ ...rest, type: type + SUCCESS, data: data });
     })

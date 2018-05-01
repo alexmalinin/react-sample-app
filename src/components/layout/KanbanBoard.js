@@ -112,7 +112,7 @@ class KanbanBoard extends Component {
                         draggable={changeUserType === CLIENT}
                         customCardLayout
                         handleDragEnd={this.handleDragEnd}>
-                    <CustomCard />
+                    <CustomCard userType={changeUserType}/>
                 </Board>
                 : <div className="noTasks">
                     No tasks for now

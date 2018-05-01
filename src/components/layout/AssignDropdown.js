@@ -97,7 +97,9 @@ export class AssignDropdown extends Component{
                                 className={assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
                                 <img 
                                     data={specialist.id}
-                                    src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="member"/>
+                                    src={specialist.avatar.url 
+                                        ? PORT + specialist.avatar.url 
+                                        : '/images/uploadImg.png'} alt="member"/>
                                 {specialist.first_name + ' ' + specialist.last_name}
                             </div>
                         )}
@@ -139,21 +141,30 @@ export class PersonTile extends Component {
         return(
             <StyledPersonTile>
                 <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>
-                    <img 
-                        src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'}
+                    <img
                         onClick={(e)=>e.target.parentNode.focus()}
-                        alt="avatar"/>
+                        alt="avatar"
+                        src={specialist.avatar.url ?
+                            PORT + specialist.avatar.url 
+                            : '/images/uploadImg.png'}/>
                     {labeled && <p>{specialist.first_name} {specialist.last_name}</p>}
                 </a>
                 <div className={`delete${this.state.showDropdown ? ' show' : ''}`}>
                     <div className="close" onClick={this.closeDropdown}></div>
                     <p className="dropdownTitle">Profile</p>
                     <div className="info">
-                        <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
+                        <img src={specialist.avatar.url 
+                            ? PORT + specialist.avatar.url 
+                            : '/images/uploadImg.png'} alt="avatar"/>
                         <div>
                             <p>{specialist.first_name + ' ' +specialist.last_name}</p>
                             {userType === CLIENT && 
-                                <button data={specialist.id} onClick={this.removeSpecialist} className="remove">Remove from {removeTitle}</button>
+                                <button 
+                                    data={specialist.id} 
+                                    onClick={this.removeSpecialist} 
+                                    className="remove">
+                                    Remove from {removeTitle}
+                                </button>
                             }
                         </div>
                     </div>

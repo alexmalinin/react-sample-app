@@ -147,6 +147,7 @@ class RenderCard extends Component {
                                     key={key}
                                     specialist={specialist} 
                                     handleRemove={this.handleAssign}
+                                    userType={changeUserType}
                                     removeTitle="team"/>
                             )
                         }
@@ -154,6 +155,7 @@ class RenderCard extends Component {
                             <AssignDropdown
                                 specialists={projectTeam.specialists} 
                                 allSpecialists={allSpecialists} 
+                                userType={changeUserType}
                                 handleAssign={this.handleAssign}/>
                         }
                     </div>
@@ -191,7 +193,7 @@ class RenderCard extends Component {
         return (
             <div className='progress'>
                 {changeUserType === CLIENT
-                ? <SubHeaderLinkWrap className='progressItem addModule' url={`/client/project/${id}/module`}>
+                ? <SubHeaderLinkWrap className='progressItem addModule' url={`/dashboard/project/${id}/module/new`}>
                     <span className='progressDescription'>Add module</span>
                 </SubHeaderLinkWrap>
                 : <div>&nbsp;&nbsp;&nbsp;</div>}

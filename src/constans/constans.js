@@ -42,6 +42,7 @@ export const SHOW_SPECIALIST_DATA              = 'SHOW_SPECIALIST_DATA';
 export const SHOW_ALL_SPECIALISTS              = 'SHOW_ALL_SPECIALISTS';
 export const SHOW_ALL_PROJECTS                 = 'SHOW_ALL_PROJECTS';
 export const SHOW_SPECIALIST_PROJECTS          = 'SHOW_SPECIALIST_PROJECTS';
+export const SHOW_SPECIALIST_TEAMS             = 'SHOW_SPECIALIST_TEAMS';
 export const SHOW_PROJECT_WITH_ID              = 'SHOW_PROJECT_WITH_ID';
 export const UPDATE_SPECIALIST_PROFILE         = 'UPDATE_SPECIALIST_PROFILE';
 export const EDIT_COMPANY_WITH_ID              = 'EDIT_COMPANY_WITH_ID';

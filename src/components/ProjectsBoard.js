@@ -47,7 +47,7 @@ class ProjectsBoard extends Component {
         if(nextProps.allEpics && nextProps.currentEpic !== 'all' && nextProps.projectWithId){
             if(+nextProps.currentEpic > nextProps.allEpics.length){
                 epicId = nextProps.allEpics[nextProps.allEpics.length - 1].id;
-                nextProps.history.push(`/client/project/${nextProps.project.id}/module/all`)
+                nextProps.history.push(`/dashboard/project/${nextProps.projectWithId.id}/module/all`);
             } else epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
         }
 

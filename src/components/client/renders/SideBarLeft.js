@@ -30,11 +30,15 @@ class SideBarLeft extends Component {
                                     <p className="projectName">{project.name}</p>
                                 </NavLink>
                                 {currentProject == project.id && <div className="modules">
-                                    {allEpics && allEpics.length ? 
-                                        allEpics.map((epic, key) => 
-                                            <NavLink key={key} to={`/dashboard/project/${project.id}/module/${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
-                                        ):
-                                        <p>No modules</p>
+                                    {allEpics && allEpics.length 
+                                        ? allEpics.map((epic, key) => 
+                                            <NavLink 
+                                                lassName={currentEpic == key + 1 ? 'active': ''}
+                                                to={`/dashboard/project/${project.id}/module/${key + 1}`} 
+                                                key={key}>
+                                                Module {key + 1}
+                                            </NavLink>
+                                        ) : <p>No modules</p>
                                     }
                                 </div>}
                             </div>

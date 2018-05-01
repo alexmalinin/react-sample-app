@@ -18,7 +18,7 @@ class CustomCard extends Component {
     }
 
     render() {
-        const { title, description, id, specialists, removeSpecialist, specialistList } = this.props;
+        const { title, description, id, specialists, removeSpecialist, specialistList, userType } = this.props;
 
         return (
             <div className="dragItem" style={{backgroundColor: '#fff'}}>
@@ -29,12 +29,19 @@ class CustomCard extends Component {
                 </div>
                 <div className="persons">
                     {specialists.map((specialist, key)=>
-                        <PersonTile specialist={specialist} key={key} removeSpecialist={this.assignSpeciaist} taskId={id} removeTitle="task"/>
+                        <PersonTile 
+                            specialist={specialist} 
+                            key={key} 
+                            removeSpecialist={this.assignSpeciaist} 
+                            taskId={id} 
+                            removeTitle="task"
+                            userType={userType}/>
                     )}
                     <AssignDropdown  
                         specialists={specialists} 
                         allSpecialists={specialistList} 
-                        handleAssign={this.assignSpeciaist}/>
+                        handleAssign={this.assignSpeciaist}
+                        userType={userType}/>
                 </div>
                 <span className="ddtw">DDTW-{id}</span>
             </div>

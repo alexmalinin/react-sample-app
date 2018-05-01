@@ -20,6 +20,7 @@ import allSpecialists       from './showAllSpecialistsReducer';
 import createProject        from './createProjectReducer';
 import allProjects          from './showAllProjectsReducer';
 import specialistProjects   from './showSpecialistProjectsReducer';
+import specialistTeams      from './showSpecialistTeamsReducer';
 import projectWithId        from './showProjectWithIdReducer';
 import createEpic           from './createProjectEpicReducer';
 import allEpics             from './showAllEpicsReducer';
@@ -65,6 +66,7 @@ export default combineReducers({
     createProject,
     allProjects,
     specialistProjects,
+    specialistTeams,
     projectWithId,
     createEpic,
     allEpics,

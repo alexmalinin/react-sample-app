@@ -124,7 +124,7 @@ class CompanyForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/specialists/dashboard/industry">
+              <NavLink exact to="/dashboard/industry">
                 <BackBtn
                   disabled={submitting}
                   primary

@@ -30,15 +30,10 @@ class Team extends Component{
     componentWillReceiveProps(nextProps) {
         //map channels from back's index
         if(nextProps.allChannels){
-            if(nextProps.allChannels.length !== 0){
-                if(nextProps.allChannels[0].team_id === nextProps.team.id){
-                    this.setState({
-                        channels: nextProps.allChannels,
-                    })
-                }
-            } else if (nextProps.deleteChannel && nextProps.deleteChannel.team_id === nextProps.team.id){
+            if(nextProps.allChannels.team === nextProps.team.id){
+                console.log(nextProps.allChannels.team, nextProps.team.name)
                 this.setState({
-                    channels: []
+                    channels: nextProps.allChannels,
                 })
             }
         }

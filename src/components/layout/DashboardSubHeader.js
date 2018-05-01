@@ -7,18 +7,20 @@ import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 
 import { CLIENT } from '../../constans/constans';
 
-
 class DashboardSubHeader extends Component {
 
     renderLinks() {
         const { data, changeUserType } = this.props;
 
-        return changeUserType === CLIENT && data.map((item, index) =>
+        return changeUserType === CLIENT && 
+        data.map((item, index) =>
             <SubHeaderLinkWrap 
-                content={item.content} 
-                url='#' 
-                className='dashboard addLikSmall' 
-                key={index}> {item.title} </SubHeaderLinkWrap>
+                content={item.content}
+                url='#'
+                className='dashboard addLikSmall'
+                key={index}>
+                {item.title} 
+            </SubHeaderLinkWrap>
         )
     }
  

@@ -68,6 +68,7 @@ import {
     SHOW_PROJECT_TEAM,
     REMOVE_SPECIALIST_FROM_TEAM,
     SHOW_SPECIALIST_PROJECTS,
+    SHOW_SPECIALIST_TEAMS,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -599,12 +600,23 @@ export function showAllProjects() {
     return action;
 }
 
-// get array of all projects, specialist submitted on
+// get array of all projects, specialist assigned on
 
 export function showSpecialistProjects() {
     const action = {
         type: SHOW_SPECIALIST_PROJECTS,
         showSpecialistProjects: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+// get array of all teams, specialist assigned on
+
+export function showSpecialistTeams() {
+    const action = {
+        type: SHOW_SPECIALIST_TEAMS,
+        showSpecialistTeams: `${PORT}/api/v1/specialists/`,
     };
 
     return action;
@@ -820,6 +832,7 @@ export function updateTeamChannel(team, channel, data) {
 export function showChannels(team) {
     const action = {
         type: SHOW_CHANNELS,
+        team,
         showChannels: `${PORT}/api/v1/teams/${team}/channels`,
     };
 
