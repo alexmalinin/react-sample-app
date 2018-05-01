@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { StyledBar } from '../../../styleComponents/layout/SideBar';
-import { PORT } from '../../../constans/constans';
+import { IMAGE_PORT } from '../../../constans/constans';
 import { Accordion } from 'semantic-ui-react';
 
 class SideBarLeft extends Component {
@@ -21,7 +21,7 @@ class SideBarLeft extends Component {
                             <div className="projectWrapper" key={key}>
                                 <NavLink className={`projectLink${currentProject == project.id ? ' active': ''}`} to={`/client/project/${project.id}/module/all`} key={project.id}>
                                     {project.logo.url
-                                        ? <img src={PORT + project.logo.url} alt={project.name}/>
+                                        ? <img src={IMAGE_PORT + project.logo.url} alt={project.name}/>
                                         : <span className="projectNoLogo">{project.name[0]}</span>
                                     }
                                     <p className="projectName">{project.name}</p>

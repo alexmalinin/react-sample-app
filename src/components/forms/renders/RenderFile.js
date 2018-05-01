@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'semantic-ui-react';
 import StyledUploader from '../../../styleComponents/forms/StyledUploader';
-import { PORT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constans/constans";
 
 class RenderImage extends Component {
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, Transition, Input } from 'semantic-ui-react';
-import { PORT } from '../../constans/constans';
+import { IMAGE_PORT } from '../../constans/constans';
 
 class CustomCard extends Component {
     state = {
@@ -101,7 +101,7 @@ class CustomCard extends Component {
                                         className={this.state.assignedIds.indexOf(specialist.id) >=0 ? 'assigned': ''}>
                                         <img 
                                             data={specialist.id} 
-                                            src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt=""/>
+                                            src={specialist.avatar.url ?  IMAGE_PORT + specialist.avatar.url : '/images/uploadImg.png'} alt=""/>
                                         {specialist.first_name + ' ' + specialist.last_name}
                                     </div>
                                 )}
@@ -149,7 +149,7 @@ class PersonTile extends Component {
             <div className="person">
                 <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>
                     <img 
-                        src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'}
+                        src={specialist.avatar.url ? IMAGE_PORT + specialist.avatar.url : '/images/uploadImg.png'}
                         onClick={(e)=>e.target.parentNode.focus()}
                         alt="avatar"/>
                 </a>
@@ -157,7 +157,7 @@ class PersonTile extends Component {
                     <div className="close" onClick={this.closeDropdown}></div>
                     <p className="dropdownTitle">Profile</p>
                     <div className="row">
-                        <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
+                        <img src={specialist.avatar.url ? IMAGE_PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
                         <div>
                             <p>{specialist.first_name + ' ' +specialist.last_name}</p>
                             <button data={specialist.id} onClick={this.removeSpecialist} className="remove">Remove from card</button>

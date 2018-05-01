@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'semantic-ui-react';
 import StyledUploader from '../../../styleComponents/forms/StyledUploader';
-import { PORT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constans/constans";
 
 class RenderImage extends Component {
 
@@ -41,7 +41,7 @@ class RenderImage extends Component {
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (avatar && avatar.url && !imagePreviewUrl) {
-            $imagePreview = (<img src={PORT + avatar.url}/>);
+            $imagePreview = (<img src={IMAGE_PORT + avatar.url}/>);
         } else if (imagePreviewUrl) {
             $imagePreview = (<img src={imagePreviewUrl}/>);
         } else {
