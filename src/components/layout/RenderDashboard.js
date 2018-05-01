@@ -5,6 +5,7 @@ import RenderCard from './RenderCard';
 import StyledDashBoard from '../../styleComponents/StyledDashBoard';
 
 import { showAllSpecialists } from '../../actions/actions';
+import { CLIENT, SPECIALIST } from '../../constans/constans';
 import cards from '../../helpers/cardsData';
 
 class RenderDashboard extends Component {
@@ -31,10 +32,11 @@ class RenderDashboard extends Component {
     }
 
     render() {
-        const { allProjects } = this.props;
+        const { projects } = this.props;
+        console.log(projects)
 
         let overview;
-        if(allProjects){
+        if(projects){
             overview = {
                 name: 'Projects overview',
                 subtitle: 'Status',
@@ -42,7 +44,7 @@ class RenderDashboard extends Component {
                     col: 2,
                     row: 2,
                 },
-                projects: allProjects,
+                projects: projects,
             }
         }
 
@@ -52,10 +54,10 @@ class RenderDashboard extends Component {
                     {this.renderCards('tasks_due')}
                 </div>
                 <div className='projects'>
-                    {allProjects && 
+                    {projects && 
                     <div>
                         <RenderCard type="overview" data={overview}/>
-                        {allProjects.map((project, key) =>
+                        {projects.map((project, key) =>
                             <RenderCard type="project" key={key} data={project}/>
                         )}
                     </div>}
@@ -69,6 +71,6 @@ class RenderDashboard extends Component {
 }
 
 export default connect(
-    ({allProjects}) => ({allProjects}),
+    ({}) => ({}),
     {showAllSpecialists}
 )(RenderDashboard);

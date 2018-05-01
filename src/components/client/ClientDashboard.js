@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
-import { showClientData, showAllProjects, showProjectWithId, showAllEpics } from '../../actions/actions'
+import { showClientData, showAllProjects, showProjectWithId, showAllEpics, showEpicTasks } from '../../actions/actions'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
@@ -181,15 +181,13 @@ class ClientDashboard extends Component {
     }
     else if (params['projectId']){
       page = 'board';
-    } 
+    }
     else if (params['projectNewModule']){
       page = 'module';
-    }
+    } else page = 'root';
 
-    console.log('match', this.props.match, page)
-
-    let sidebarCondition = 
-             page !== 'profile' 
+    let sidebarCondition =
+             page !== 'profile'
           && page !== 'company'
           && page !== 'billings';
 
@@ -198,7 +196,7 @@ class ClientDashboard extends Component {
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
           <S_MainContainer sidebarCondition={sidebarCondition}>
             {sidebarCondition && <SideBarLeft currentProject={params['projectId']} currentEpic={params['moduleId']}/>}
-              {sidebarCondition 
+              {sidebarCondition
                 ? this.renderPage(page)
                   : <Container sidebarCondition={sidebarCondition}>
                       <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
@@ -230,9 +228,7 @@ class ClientDashboard extends Component {
         return <ClientModule projectId={this.props.match.params['projectNewModule']}/>;
       case 'board':
         return <ProjectsBoard 
-            project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}
-            allEpics={this.props.allEpics}
             currentEpic={this.props.match.params['moduleId'] || 'all'}
             history={this.props.history}
           />;
@@ -244,7 +240,7 @@ class ClientDashboard extends Component {
         return <TheVillage/>;
       case 'root':
         document.title = 'Dashboard | Digital Village';
-        return <Dashboard/>;
+        return <Dashboard projects={this.props.allProjects}/>;
       default:
         document.title = 'Digital Village';
         return <ClientProfile/>
@@ -259,14 +255,14 @@ class ClientDashboard extends Component {
     }
 
     let projectId = nextProps.match.params["projectId"];
+    let moduleId = nextProps.match.params["moduleId"];
 
     if(projectId && nextProps.projectWithId){
       if(nextProps.projectWithId.id != projectId){
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }
-    }
-    else if(projectId) {
+    } else if(projectId) {
       nextProps.showProjectWithId(projectId);
     }
   }
@@ -274,5 +270,5 @@ class ClientDashboard extends Component {
 
 export default connect(
   ({allProjects, projectWithId, allEpics}) => ({allProjects, projectWithId, allEpics}),
-  { showAllProjects, showProjectWithId, showAllEpics }
+  { showAllProjects, showProjectWithId, showAllEpics, showEpicTasks }
 )(ClientDashboard);

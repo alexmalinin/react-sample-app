@@ -9,7 +9,7 @@ import { PORT, CLIENT } from '../../../constans/constans';
 class SideBarLeft extends Component {
 
     render() {
-        let { changeUserType, currentProject, currentEpic, allProjects, allEpics } = this.props;
+        const { specialistProjects, currentProject, currentEpic, allEpics, projects } = this.props;
 
         return(
             <StyledBar className="left" >
@@ -18,10 +18,13 @@ class SideBarLeft extends Component {
                         <h4>Projects</h4>
                     </div>
                     <div className={`projects${currentProject ? ' opened' : ''}`}>
-                        {allProjects && allProjects.map((project, key) => 
+                        {specialistProjects && specialistProjects.map((project, key) => 
                             <div className="projectWrapper" key={key}>
-                                <NavLink className={`projectLink${currentProject == project.id ? ' active': ''}`} to={`/client/project/${project.id}/module/all`} key={project.id}>
-                                    {project.logo.url
+                                <NavLink 
+                                    className={`projectLink${currentProject == project.id ? ' active': ''}`} 
+                                    to={`/dashboard/project/${project.id}`}
+                                    key={project.id}>
+                                    {project.logo && project.logo.url
                                         ? <img src={PORT + project.logo.url} alt={project.name}/>
                                         : <span className="projectNoLogo">{project.name[0]}</span>
                                     }
@@ -30,15 +33,13 @@ class SideBarLeft extends Component {
                                 {currentProject == project.id && <div className="modules">
                                     {allEpics && allEpics.length ? 
                                         allEpics.map((epic, key) => 
-                                            <NavLink key={key} to={`${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
+                                            <NavLink key={key} to={`/dashboard/project/${project.id}/module/${key + 1}`} className={currentEpic == key + 1 ? 'active': ''}>Module {key + 1}</NavLink>
                                         ):
                                         <p>No modules</p>
                                     }
                                 </div>}
                             </div>
                         )}
-                        {changeUserType === CLIENT && 
-                            <NavLink className='projectLink' to='/dashboard/projects'><span className='addProject'></span></NavLink>}
                     </div>
                 </div>
             </StyledBar>
@@ -47,6 +48,6 @@ class SideBarLeft extends Component {
 }
 
 export default connect(
-    ({changeUserType, allProjects, allEpics}) => ({changeUserType, allProjects, allEpics}),
+    ({specialistProjects, allEpics}) => ({specialistProjects, allEpics}),
     {}
 )(SideBarLeft);

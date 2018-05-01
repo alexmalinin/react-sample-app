@@ -18,15 +18,15 @@ class Teams extends Component {
     }
 
     render() {
-        const { allTeams, createChannel } = this.props;
+        const { teams } = this.props;
 
         return (
             <ContainerLarge>
                 <StyledTeamPage>
                     <TeamSubHeader />
                     <Container sidebarCondition>
-                        {allTeams && allTeams.length !== 0 
-                            ? allTeams.map((team, key) => 
+                        {teams && teams.length !== 0 
+                            ? teams.map((team, key) => 
                                 <Team key={key} team={team}/>
                               )
                             : <div className="teamsPlaceholder">
@@ -41,6 +41,6 @@ class Teams extends Component {
 }
 
 export default connect(
-    ({allTeams}) => ({allTeams}),
+    ({}) => ({}),
     {showAllTeams}
 )(Teams);

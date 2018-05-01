@@ -67,6 +67,7 @@ import {
     ASSIGN_SPECIALIST_TO_TEAM,
     SHOW_PROJECT_TEAM,
     REMOVE_SPECIALIST_FROM_TEAM,
+    SHOW_SPECIALIST_PROJECTS,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -587,12 +588,23 @@ export function submitCreatedProgect(data) {
     return action;
 }
 
-// get array of all projects (include unsubmitted)
+// get array of all projects (include unsubmitted) by customer, created this project
 
 export function showAllProjects() {
     const action = {
         type: SHOW_ALL_PROJECTS,
         showAllProjects: `${PORT}/api/v1/projects?customer_id=`,
+    };
+
+    return action;
+}
+
+// get array of all projects, specialist submitted on
+
+export function showSpecialistProjects() {
+    const action = {
+        type: SHOW_SPECIALIST_PROJECTS,
+        showSpecialistProjects: `${PORT}/api/v1/specialists/`,
     };
 
     return action;

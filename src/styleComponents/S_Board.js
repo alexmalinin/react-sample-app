@@ -36,10 +36,8 @@ export const S_Board = styled.div`
         flex: 0 0 31.5%;
         margin-bottom: 20px;
 
-        &:last-of-type{
-            .module{
-                min-height: auto;                                
-            }
+        .addModule{
+            min-height: auto;
         }
     }
 
@@ -102,7 +100,8 @@ export const S_Board = styled.div`
         }
     }
 
-    .noTasks{
+    .noTasks,
+    .noModules{
         display: flex;
         justify-content: center;
         width: 100%;

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Grid, GridRow, Form, Input } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
-import { showAllSpecialists, createTeamChannel, showChannels } from '../../actions/actions';
+import { showAllSpecialists, createTeamChannel, showChannels, userType } from '../../actions/actions';
+import { CLIENT } from '../../constans/constans';
 
 import Channel from './Channel';
 import AddChannelForm from '../forms/AddChannelForm';
@@ -85,7 +86,7 @@ class Team extends Component{
     }
 
     render() {
-        const { team, allSpecialists } = this.props;
+        const { team, allSpecialists, changeUserType } = this.props;
         const { channels } = this.state;
 
         return(
@@ -101,6 +102,7 @@ class Team extends Component{
                     {channels.map((channel, key) => 
                         <Channel channel={channel} key={key} allSpecialists={allSpecialists} specialists={''}/>
                     )}
+                    {changeUserType === CLIENT &&
                     <Form className="addChannel" onSubmit={this.submit}>
                         <Input 
                             type="text"
@@ -109,7 +111,7 @@ class Team extends Component{
                             value={this.state.name}
                             onKeyUp={e => e.keyCode === 13 && e.target.blur()}
                             onChange={this.handleChange}/>
-                    </Form>
+                    </Form>}
                 </Grid.Row>
             </Grid>
         )
@@ -126,6 +128,6 @@ class Team extends Component{
 }
 
 export default connect(
-    ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel}) => ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel}),
+    ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel, changeUserType}) => ({allSpecialists, createChannel, allChannels, addMember, removeMember, updateChannel, deleteChannel, changeUserType}),
     {showAllSpecialists, createTeamChannel, showChannels}
 )(Team);

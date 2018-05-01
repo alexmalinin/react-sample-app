@@ -5,6 +5,7 @@ import CustomCard from './CustomTaskCard';
 import { Transition } from 'semantic-ui-react';
 
 import { updateEpicTask, assignSpecialistToTask, removeSpecialistFromTask } from '../../actions/actions';
+import { CLIENT } from '../../constans/constans'
 
 class KanbanBoard extends Component {
     constructor(props){
@@ -92,7 +93,7 @@ class KanbanBoard extends Component {
     }
 
     render() {
-        const { currentEpic, allSpecialists, epicId } = this.props;
+        const { currentEpic, allSpecialists, epicId, changeUserType } = this.props;
         const { backlogTasks, progressTasks, completedTasks, showBoard } = this.state;
 
         return(
@@ -108,7 +109,7 @@ class KanbanBoard extends Component {
                             {id: '2', title: 'Complete', cards: completedTasks},
                         ]}}
                         className="kanban"
-                        draggable
+                        draggable={changeUserType === CLIENT}
                         customCardLayout
                         handleDragEnd={this.handleDragEnd}>
                     <CustomCard />
@@ -122,6 +123,6 @@ class KanbanBoard extends Component {
 }
 
 export default connect(
-    ({epicTasks, allSpecialists}) => ({epicTasks, allSpecialists}),
+    ({epicTasks, allSpecialists, changeUserType}) => ({epicTasks, allSpecialists, changeUserType}),
     {updateEpicTask, assignSpecialistToTask, removeSpecialistFromTask}
 )(KanbanBoard);

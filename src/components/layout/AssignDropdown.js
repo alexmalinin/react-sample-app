@@ -3,7 +3,7 @@ import { Input } from "semantic-ui-react";
 
 import {StyledAssignDropdown, StyledPersonTile} from '../../styleComponents/layout/StyledAssignDropdown';
 
-import { PORT } from '../../constans/constans';
+import { PORT, CLIENT, SPECIALIST } from '../../constans/constans';
 
 export class AssignDropdown extends Component{
     state = {
@@ -70,10 +70,11 @@ export class AssignDropdown extends Component{
     }
 
     render() {
-        const { label } = this.props;
+        const { label, userType } = this.props;
         const { options, assignedIds, showDropdown } = this.state;
 
         return (
+            userType === CLIENT &&
             <StyledAssignDropdown>
                 <a tabIndex="1" onClick={this.openDropdown}><span className="plus">+</span>{label}</a>
                 <div className={`dropdown${showDropdown ? ' visible': ''}`}>
@@ -133,7 +134,7 @@ export class PersonTile extends Component {
     }
 
     render() {
-        const { specialist, labeled, removeTitle } = this.props;
+        const { specialist, labeled, removeTitle, userType } = this.props;
 
         return(
             <StyledPersonTile>
@@ -151,7 +152,9 @@ export class PersonTile extends Component {
                         <img src={specialist.avatar.url ?  PORT + specialist.avatar.url : '/images/uploadImg.png'} alt="avatar"/>
                         <div>
                             <p>{specialist.first_name + ' ' +specialist.last_name}</p>
-                            <button data={specialist.id} onClick={this.removeSpecialist} className="remove">Remove from {removeTitle}</button>
+                            {userType === CLIENT && 
+                                <button data={specialist.id} onClick={this.removeSpecialist} className="remove">Remove from {removeTitle}</button>
+                            }
                         </div>
                     </div>
                 </div>

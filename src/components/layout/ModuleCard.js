@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { deleteProjectEpic } from '../../actions/actions';
 import { Dropdown } from 'semantic-ui-react';
 import EditEpicModal from '../modals/EditEpicModal';
+import { CLIENT } from '../../constans/constans';
 
 class Module extends Component {
     constructor(props){
@@ -25,7 +26,7 @@ class Module extends Component {
     }
 
     render() {
-        const { epic, number, updateEpicList, updateProjectEpic } = this.props;
+        const { epic, number, updateEpicList, updateProjectEpic, changeUserType } = this.props;
 
         return(
             <div className="dragContainer">
@@ -53,6 +54,7 @@ class Module extends Component {
                             <span>4 weeks</span>
                         </div>
                     </div>
+                    {changeUserType === CLIENT && 
                     <div className="dropdown">
                         <a tabIndex="1" className="trigger">...</a>
                         <div className="menu">
@@ -65,7 +67,7 @@ class Module extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </div>
         );
@@ -73,6 +75,6 @@ class Module extends Component {
 }
 
 export default connect(
-    (state) => (state),
+    ({changeUserType}) => ({changeUserType}),
     { deleteProjectEpic }
 )(Module);

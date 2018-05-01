@@ -7,7 +7,7 @@ import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 import StyledDashboardCard from '../../styleComponents/StyledDashboardCard';
 
 import { showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam } from '../../actions/actions';
-import { PORT } from '../../constans/constans';
+import { PORT, CLIENT, SPECIALIST } from '../../constans/constans';
 
 class RenderCard extends Component {
     state = {
@@ -76,6 +76,7 @@ class RenderCard extends Component {
             type,
             village,
             allSpecialists,
+            changeUserType,
             data: {
                 name, epics, team, projects, logo, 
                 //from mockup
@@ -179,7 +180,7 @@ class RenderCard extends Component {
     //TODO: type of cards as different components
 
     renderProjectProgress = () => {
-        const { data: { id, epics } } = this.props;
+        const { data: { id, epics }, changeUserType } = this.props;
 
         let completedTasksCount = 0;
         epics && epics.forEach(epic =>
@@ -189,9 +190,11 @@ class RenderCard extends Component {
 
         return (
             <div className='progress'>
-                <SubHeaderLinkWrap className='progressItem addModule' url={`/client/project/${id}/module`}>
+                {changeUserType === CLIENT
+                ? <SubHeaderLinkWrap className='progressItem addModule' url={`/client/project/${id}/module`}>
                     <span className='progressDescription'>Add module</span>
                 </SubHeaderLinkWrap>
+                : <div>&nbsp;&nbsp;&nbsp;</div>}
                 <div className='progressItem'>
                     <p className='progressCount'>0/{epics.length}</p>
                     <p className='progressDescription'>Modules</p>
@@ -232,6 +235,6 @@ const RenderDayTasks = ({ day }) => {
 }
 
 export default connect(
-    ({projectTeam, allSpecialists, assignToTeam, removeFromTeam}) => ({projectTeam, allSpecialists, assignToTeam, removeFromTeam}),
+    ({projectTeam, allSpecialists, assignToTeam, removeFromTeam, changeUserType}) => ({projectTeam, allSpecialists, assignToTeam, removeFromTeam, changeUserType}),
     {showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam}
 )(RenderCard);

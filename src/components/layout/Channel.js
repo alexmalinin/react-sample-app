@@ -5,7 +5,7 @@ import { Form, Input } from 'semantic-ui-react';
 
 import {AssignDropdown, PersonTile} from './AssignDropdown';
 
-import { IMAGE_PORT } from '../../constans/constans';
+import { IMAGE_PORT, CLIENT, SPECIALIST } from '../../constans/constans';
 import { addToChannel, removeFromChannel, updateTeamChannel, deleteTeamChannel } from '../../actions/actions';
 
 class Channel extends Component{
@@ -56,7 +56,7 @@ class Channel extends Component{
     }
 
     render() {
-        const { channel, specialists, removeFromChannel, teamId, allSpecialists } = this.props;
+        const { channel, specialists, removeFromChannel, teamId, allSpecialists, changeUserType } = this.props;
         const { showDropdown, assignedIds } = this.state;
 
         return(
@@ -67,19 +67,22 @@ class Channel extends Component{
                             type="text"
                             placeholder="Channel name"
                             name="name"
+                            disabled={changeUserType === SPECIALIST}
                             value={this.state.name}
                             ref={Input => this.editInput = Input}
                             onKeyUp={e => e.keyCode === 13 && e.target.blur()}
                             onBlur={this.closeEditForm}
                             onChange={this.handleEdit}/>
                     </Form>
+                    {changeUserType === CLIENT &&
                     <div className={`deleteConfirmation${this.state.showDeleteConfirmation ? ' show' : ''}`}>
                         <button onClick={this.deleteChannel}>Yes</button>
                         <button onClick={this.hideDeleteConfirmation}>No</button>
-                    </div>
+                    </div>}
+                    {changeUserType === CLIENT &&
                     <button onClick={this.openDeleteConfirmation} className="delete">
                         <img src="/images/trashcan.png" alt="delete"/>
-                    </button>
+                    </button>}
                 </div>
                 <div className="members">
                     {channel.specialists.map((person, key) => 
@@ -88,13 +91,15 @@ class Channel extends Component{
                             specialist={person} 
                             handleRemove={this.handleAssign}
                             labeled
-                            removeTitle="channel"/>
+                            removeTitle="channel"
+                            userType={changeUserType}/>
                     )}
                     <AssignDropdown 
                         label="Add member" 
                         specialists={channel.specialists} 
                         allSpecialists={allSpecialists} 
-                        handleAssign={this.handleAssign}/>
+                        handleAssign={this.handleAssign}
+                        userType={changeUserType}/>
                 </div>
             </div>
         )
@@ -112,6 +117,6 @@ class Channel extends Component{
 }
 
 export default connect(
-    ({}) => ({}),
+    ({changeUserType}) => ({changeUserType}),
     {addToChannel, removeFromChannel, updateTeamChannel, deleteTeamChannel}
 )(Channel);

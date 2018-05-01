@@ -7,12 +7,13 @@ import AddTaskModal from '../modals/AddTaskModal';
 import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
 import ProgressBars from './ProgressBar';
 import { Transition } from 'semantic-ui-react';
+import { CLIENT } from '../../constans/constans';
 
 
 class ProjectSubHeader extends Component {
 
   render() {
-    const { epics, currentEpic, createEpicTask, epicTasks, epicId } = this.props;
+    const { epics, currentEpic, createEpicTask, epicTasks, epicId, changeUserType } = this.props;
 
     const allTasksCount = epicTasks && epicTasks.length;
     let completedTasksCount = 0;
@@ -38,9 +39,9 @@ class ProjectSubHeader extends Component {
               </SubHeaderLinkWrap>
             )
           })}
-          <SubHeaderLinkWrap content='' url={`/dashboard/project/${this.props.project}/module/new`} className='addButt'>
+          {changeUserType === CLIENT && <SubHeaderLinkWrap content='' url={`/dashboard/project/${this.props.project}/module/new`} className='addButt'>
             Add module
-          </SubHeaderLinkWrap>
+          </SubHeaderLinkWrap>}
         </div>
         <Transition
           animation="fade"
@@ -49,7 +50,7 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
           >
           <div className="boardProgressBars">
-            <AddTaskModal epic={currentEpic} createEpicTask={createEpicTask} currentEpicId={epicId}/>
+            {changeUserType === CLIENT && <AddTaskModal epic={currentEpic} createEpicTask={createEpicTask} currentEpicId={epicId}/>}
             <SubHeaderLinkWrap content={`${completedTasksCount}/${allTasksCount}`} url='#' className='rightLink'>
               Tasks
               {/* <ProgressBars percents={percents}/> */}
@@ -66,6 +67,6 @@ class ProjectSubHeader extends Component {
 }
 
 export default connect(
-  ({updateTask}) => ({updateTask}),
+  ({updateTask, changeUserType}) => ({updateTask, changeUserType}),
   {}
 )(ProjectSubHeader);

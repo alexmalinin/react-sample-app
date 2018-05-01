@@ -33,7 +33,7 @@ class Dashboard extends Component {
             <ContainerLarge>
                     <DashboardSubHeader dashboard data={data}/>
                     <Container sidebarCondition dashboardContainer>
-                        <RenderDashboard/>
+                        <RenderDashboard projects={this.props.projects}/>
                     </Container>
             </ContainerLarge>
         )

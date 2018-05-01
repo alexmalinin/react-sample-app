@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
-
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
+
+import { CLIENT } from '../../constans/constans';
 
 
 class DashboardSubHeader extends Component {
 
     renderLinks() {
-        const { data } = this.props;
+        const { data, changeUserType } = this.props;
 
-        return data.map((item, index) => {
-            return (
-                <SubHeaderLinkWrap 
-                    content={item.content} 
-                    url='#' 
-                    className='dashboard addLikSmall' 
-                    key={index}> {item.title} </SubHeaderLinkWrap>
-            )
-        })
+        return changeUserType === CLIENT && data.map((item, index) =>
+            <SubHeaderLinkWrap 
+                content={item.content} 
+                url='#' 
+                className='dashboard addLikSmall' 
+                key={index}> {item.title} </SubHeaderLinkWrap>
+        )
     }
  
     render() {
@@ -57,4 +57,7 @@ class DashboardSubHeader extends Component {
     }
 }
 
-export default DashboardSubHeader;
+export default connect(
+    ({changeUserType}) => ({changeUserType}),
+    null
+)(DashboardSubHeader);
