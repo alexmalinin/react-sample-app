@@ -320,7 +320,7 @@ export const BackBtn = styled(Button)`
         border: 1px solid #ccc;
         position: absolute;
         bottom: -26px;
-        left: 20px;
+        left: 25px;
         font-family: 'Brix';
         text-align: center;
         color: #fff;
@@ -333,8 +333,8 @@ export const BackBtn = styled(Button)`
             position: absolute;
             color: #ccc;
             bottom: -25px;
-            right: -16px;
-            font-weight: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
         }
 
         &::before,
@@ -366,13 +366,25 @@ export const BackBtn = styled(Button)`
         &.width200 {
           width: 200%;
         } */
+
+        @media (max-width: 1200px) {
+          &.ui.primary.button {
+            left: 15px;
+          }
+        }
+
+        @media (max-width: 992px) {
+          &.ui.primary.button {
+            bottom: auto;
+          }
+        }
     }
 
     &.ui.primary.button:hover,
     &.ui.primary.button:focus {
         color: ${primaryColors.darkGrey};
         border: 1px solid ${primaryColors.darkGrey};
-        background-color: #fff !important;
+        background-color: transparent;
 
         span {
             color: ${primaryColors.darkGrey};
@@ -392,10 +404,10 @@ export const NextBtn = styled(Button)`
         height: 60px;
         background-color: #fff;
         color: #ccc;
-        border: 3px solid ${secondaryColors.green};
+        border: 1px solid #ccc;
         position: absolute;
         bottom: -26px;
-        right: 20px;
+        right: 25px;
         font-family: 'Brix';
         text-align: center;
         color: #fff;
@@ -406,31 +418,31 @@ export const NextBtn = styled(Button)`
             text-transform: uppercase;
             font-size: 12px;
             position: absolute;
-            color: ${primaryColors.grey};
+            color: #ccc;
             bottom: -25px;
-            right: -16px;
-            font-weight: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
         }
 
         &::before,
         &::after {
             content: '';
             position: absolute;
-            height: 3px;
-            background-color: ${secondaryColors.green};
+            height: 1px;
+            background-color: #ccc;
         }
 
         &::before {
             width: ${props => props.updatebtn ? `10px` : `15px` };
-            top: ${props => props.updatebtn ? `33px` : `22px` };
-            left: ${props => props.updatebtn ? `20px` : `21px` };
+            top: ${props => props.updatebtn ? `33px` : `24px` };
+            left: ${props => props.updatebtn ? `20px` : `22px` };
             transform: rotate(45deg);
         }
 
         &::after {
             width: ${props => props.updatebtn ? `20px` : `15px` };
-            top: ${props => props.updatebtn ? `30px` : `32px` };
-            left: ${props => props.updatebtn ? `25px` : `21px` };
+            top: ${props => props.updatebtn ? `30px` : `34px` };
+            left: ${props => props.updatebtn ? `25px` : `22px` };
             transform: rotate(-45deg);
         }
 
@@ -443,12 +455,37 @@ export const NextBtn = styled(Button)`
         } */
     }
 
+    @media (max-width: 1200px) {
+      &.ui.primary.button {
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      &.ui.primary.button {
+        bottom: auto;
+      }
+    }
+
     &.ui.primary.button:hover,
     &.ui.primary.button:focus {
+        color: ${secondaryColors.green};
+        border: 1px solid ${secondaryColors.green};
+        box-shadow: 0 0 0 3px ${secondaryColors.green};
         background-color: transparent;
 
         span {
             color: ${primaryColors.darkGrey};
+        }
+        &::before,
+        &::after {
+            height: 3px;
+            background-color: ${secondaryColors.green};
+        }
+        &::before {
+        }
+        &::after {
+            top: 33px;
         }
     }
 `;

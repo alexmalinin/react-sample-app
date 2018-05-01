@@ -37,14 +37,6 @@ class SkillsForm extends Component {
                                 disabled
                                 placeholder='Choose your photo'
                             />
-                            <NavLink exact to="/specialists/dashboard/profile">
-                              <BackBtn
-                                disabled={submitting}
-                                primary
-                              >
-                                <span>Back</span>
-                              </BackBtn>
-                            </NavLink>
                     </Grid.Column>
                     <Grid.Column mobile={16} computer={5}>
                         <StyledWelcomeForm>
@@ -166,14 +158,24 @@ class SkillsForm extends Component {
                       <Communication />
 
                     </Grid.Column>
-                    <Grid.Column computer={3}>
-                      <NextBtn type="submit"
-                        disabled={submitting}
-                        // content='321'
-                        primary
-                      >
-                        <span>next step</span>
-                      </NextBtn>
+                    <Grid.Column mobile={16} computer={3}>
+                    <div className="navigation-wrap">
+                        <NavLink exact to="/specialists/dashboard/profile">
+                          <BackBtn
+                            disabled={submitting}
+                            primary
+                          >
+                            <span>Back</span>
+                          </BackBtn>
+                        </NavLink>
+                        <NextBtn type="submit"
+                          disabled={submitting}
+                          // content='321'
+                          primary
+                        >
+                          <span>next step</span>
+                        </NextBtn>
+                      </div>
 
                         {/* <DvButton
                             type="submit"

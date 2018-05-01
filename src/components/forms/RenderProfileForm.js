@@ -143,6 +143,7 @@ class RenderProfileForm extends Component {
                             </Grid>
                         </Grid.Column>
                         <Grid.Column computer={3}>
+                          <div className="navigation-wrap">
                             <NextBtn
                               type="submit"
                               disabled={submitting}
@@ -150,6 +151,7 @@ class RenderProfileForm extends Component {
                             >
                                 <span>next step</span>
                             </NextBtn>
+                          </div>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

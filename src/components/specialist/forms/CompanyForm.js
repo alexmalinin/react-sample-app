@@ -34,14 +34,6 @@ class CompanyForm extends Component {
                   disabled
                   placeholder='Choose your photo'
                 />
-                <NavLink exact to="/specialists/dashboard/industry">
-                  <BackBtn
-                    disabled={submitting}
-                    primary
-                  >
-                    <span>Back</span>
-                  </BackBtn>
-                </NavLink>
             </Grid.Column>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5}>
@@ -61,7 +53,7 @@ class CompanyForm extends Component {
                 name="name"
                 label="Company Name"
                 validate={[required]}
-                
+
               />
 
               <InputField
@@ -130,14 +122,24 @@ class CompanyForm extends Component {
 
             </StyledWelcomeForm>
           </Grid.Column>
-          <Grid.Column computer={3}>
-            <NextBtn type="submit"
-              disabled={submitting}
-              // content='321'
-              primary
-            >
-              <span>next step</span>
-            </NextBtn>
+          <Grid.Column mobile={16} computer={3}>
+            <div className="navigation-wrap">
+              <NavLink exact to="/specialists/dashboard/industry">
+                <BackBtn
+                  disabled={submitting}
+                  primary
+                >
+                  <span>Back</span>
+                </BackBtn>
+              </NavLink>
+              <NextBtn type="submit"
+                disabled={submitting}
+                // content='321'
+                primary
+              >
+                <span>next step</span>
+              </NextBtn>
+              </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>

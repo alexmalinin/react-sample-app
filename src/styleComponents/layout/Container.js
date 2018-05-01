@@ -19,7 +19,7 @@ export const ContainerLarge = styled.div`
     @media screen and (min-width: 768px) {
         padding: 0;
     }
-    
+
     @media screen and (max-width: 1920px) {
         max-width: 1910px;
         padding: 0;
@@ -58,22 +58,33 @@ export const Container = styled.div`
     ${props => props.relative ? `position: relative` : ``};
 
     transition: .4s ease-in-out;
-    
+
+    & .navigation-wrap {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     @media (max-width: 1920px) {
         max-width: 1280px;
 
         /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
     }
-    
+
     ${props => props.sidebarCondition && `
         @media (max-width: 1820px) {
             max-width: 100%;
         }
 
         @media (max-width: 1440px) {
-            
+
         }
     `}
+
+    @media (max-width: 992px) {
+      padding-bottom: 100px;
+    }
 `;
 
 export const IntroContainer = styled.div`
@@ -113,7 +124,7 @@ export const IntroContainer = styled.div`
 
   @media (max-width: 600px) {
       width: 100%;
-      padding: 0 10%; 
+      padding: 0 10%;
       margin 40px auto 0;
   }
 `;

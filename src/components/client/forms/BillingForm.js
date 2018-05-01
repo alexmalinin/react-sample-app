@@ -152,14 +152,6 @@ class BillingForm extends Component {
                         avatar={avatar}
                         placeholder='Choose your photo'
                       />
-                      <NavLink exact to="/client/dashboard/company">
-                        <BackBtn
-                          disabled={submitting}
-                          primary
-                        >
-                          <span>Back</span>
-                        </BackBtn>
-                      </NavLink>
                   </Grid.Column>
                 <Grid.Column mobile={16} computer={10}>
                     <Grid>
@@ -206,6 +198,15 @@ class BillingForm extends Component {
                     </Grid>
                 </Grid.Column>
                 <Grid.Column mobile={16} computer={3}>
+                  <div className="navigation-wrap">
+                    <NavLink exact to="/client/dashboard/company">
+                      <BackBtn
+                        disabled={submitting}
+                        primary
+                      >
+                        <span>Back</span>
+                      </BackBtn>
+                    </NavLink>
                     <NextBtn
                         type="submit"
                         disabled={submitting}
@@ -213,6 +214,7 @@ class BillingForm extends Component {
                         >
                     <span>save</span>
                     </NextBtn>
+                  </div>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

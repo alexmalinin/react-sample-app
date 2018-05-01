@@ -30,14 +30,6 @@ class CompanyForm extends Component {
                         avatar={avatar}
                         placeholder='Choose your photo'
                       />
-                      <NavLink exact to="/client/dashboard/profile">
-                        <BackBtn
-                          disabled={submitting}
-                          primary
-                        >
-                          <span>Back</span>
-                        </BackBtn>
-                      </NavLink>
                   </Grid.Column>
                   <Grid.Column computer={10}>
                     <Grid>
@@ -131,13 +123,23 @@ class CompanyForm extends Component {
                   <Grid.Column mobile={16} computer={8}> */}
 
                   </Grid.Column>
-                  <Grid.Column computer={3}>
+                  <Grid.Column mobile={16} computer={3}>
+                  <div className="navigation-wrap">
+                    <NavLink exact to="/client/dashboard/profile">
+                      <BackBtn
+                        disabled={submitting}
+                        primary
+                      >
+                        <span>Back</span>
+                      </BackBtn>
+                    </NavLink>
                     <NextBtn type="submit"
-                              disabled={submitting}
-                              primary
-                              >
+                      disabled={submitting}
+                      primary
+                      >
                       <span>next step</span>
                     </NextBtn>
+                  </div>
                   </Grid.Column>
                 </Grid.Row>
 

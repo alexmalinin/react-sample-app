@@ -107,14 +107,6 @@ class BillingForm extends Component {
                   disabled
                   placeholder='Choose your photo'
                 />
-                <NavLink exact to="/specialists/dashboard/company">
-                  <BackBtn
-                    disabled={submitting}
-                    primary
-                  >
-                    <span>Back</span>
-                  </BackBtn>
-                </NavLink>
           </Grid.Column>
           <Grid.Column mobile={16} computer={10}>
             <Grid>
@@ -150,14 +142,24 @@ class BillingForm extends Component {
             </Grid>
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
-            <NextBtn
-              type="submit"
-              disabled={submitting}
-              // content='SAVE'
-              primary
-            >
-            <span>save</span>
-            </NextBtn>
+            <div className="navigation-wrap">
+              <NavLink exact to="/specialists/dashboard/company">
+                <BackBtn
+                  disabled={submitting}
+                  primary
+                >
+                  <span>Back</span>
+                </BackBtn>
+              </NavLink>
+              <NextBtn
+                type="submit"
+                disabled={submitting}
+                // content='SAVE'
+                primary
+              >
+              <span>save</span>
+              </NextBtn>
+            </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
