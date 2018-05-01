@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+import SubHeaderItemWrap from '../forms/renders/SubHeaderItemWrap';
 import ProgressBars from '../layout/ProgressBar';
 
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
@@ -13,26 +14,26 @@ class SubHeader extends Component {
         return (
             <StyledSubHeader>
                 <div className='progressBarsLink'>
-                    <SubHeaderLinkWrap content='1' url='/specialists/dashboard/profile'>
+                    <SubHeaderItemWrap content="1" path="profile">
                         My Profile
                         <ProgressBars percents={this.props.percents.profilePercent}/>
 
-                    </SubHeaderLinkWrap>
+                    </SubHeaderItemWrap>
 
-                    <SubHeaderLinkWrap content='2' url='/specialists/dashboard/industry'>
+                    <SubHeaderItemWrap content="2" path="industry">
                         My Services
                         <ProgressBars percents={this.props.percents.industryPercent}/>
-                    </SubHeaderLinkWrap>
+                    </SubHeaderItemWrap>
 
-                    <SubHeaderLinkWrap content='3' url='/specialists/dashboard/company'>
+                    <SubHeaderItemWrap content="3" path="company">
                         My Company
                         <ProgressBars percents={this.props.percents.companyPercent}/>
-                    </SubHeaderLinkWrap>
+                    </SubHeaderItemWrap>
 
-                    <SubHeaderLinkWrap content='4' url='/specialists/dashboard/billings'>
+                    <SubHeaderItemWrap content="4" path="billings">
                         My Billings
                         <ProgressBars percents={this.props.percents.billingPercent}/>
-                    </SubHeaderLinkWrap>
+                    </SubHeaderItemWrap>
                 </div>
                 <div>
                     <SubHeaderLinkWrap url='about' className='rightLink arrow'>

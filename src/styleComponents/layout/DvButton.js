@@ -332,7 +332,7 @@ export const BackBtn = styled(Button)`
             font-size: 12px;
             position: absolute;
             color: #ccc;
-            bottom: -22px;
+            bottom: -25px;
             right: -16px;
             font-weight: 0;
         }
@@ -407,7 +407,7 @@ export const NextBtn = styled(Button)`
             font-size: 12px;
             position: absolute;
             color: ${primaryColors.grey};
-            bottom: -22px;
+            bottom: -25px;
             right: -16px;
             font-weight: 0;
         }

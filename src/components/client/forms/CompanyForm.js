@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, change } from 'redux-form';
+import { NavLink } from 'react-router-dom';
 import { required } from '../../../helpers/validate';
 import RenderField from '../../forms/renders/RenderField';
 import RenderSelect from '../../forms/renders/RenderSelect';
 import {clientCategories} from '../../../helpers/selects/clientCategories';
-import { SaveBtn } from '../../../styleComponents/layout/DvButton'
+import { NextBtn, BackBtn } from '../../../styleComponents/layout/DvButton'
 import InputField from '../../forms/renders/InputField'
 import { Grid } from 'semantic-ui-react';
 import RenderTextArea from '../../forms/renders/RenderTextArea';
@@ -29,6 +30,14 @@ class CompanyForm extends Component {
                         avatar={avatar}
                         placeholder='Choose your photo'
                       />
+                      <NavLink exact to="/client/dashboard/profile">
+                        <BackBtn
+                          disabled={submitting}
+                          primary
+                        >
+                          <span>Back</span>
+                        </BackBtn>
+                      </NavLink>
                   </Grid.Column>
                   <Grid.Column computer={10}>
                     <Grid>
@@ -123,12 +132,12 @@ class CompanyForm extends Component {
 
                   </Grid.Column>
                   <Grid.Column computer={3}>
-                    <SaveBtn type="submit"
+                    <NextBtn type="submit"
                               disabled={submitting}
                               primary
                               >
                       <span>next step</span>
-                    </SaveBtn>
+                    </NextBtn>
                   </Grid.Column>
                 </Grid.Row>
 

@@ -35,9 +35,11 @@ export default styled.div`
     }
 
     .progressBarsLink {
-        color: red;
-        a {
+        a, section {
             width: 75px;
+        }
+        section {
+          position: relative;
         }
     }
 
@@ -282,7 +284,7 @@ export default styled.div`
         text-transform: uppercase;
         text-decoration: none;
 
-        & + a {
+        & + a, & + section {
             margin-left: 12px;
         }
 
@@ -317,6 +319,35 @@ export default styled.div`
             background: #fff;
             width: 100%;
         }     */
+    }
+
+    section {
+        position: relative;
+        color: #fff;
+        opacity: 0.7;
+        font-family: 'Brix', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 27px;
+        text-transform: uppercase;
+        text-decoration: none;
+
+        & + section {
+            margin-left: 12px;
+        }
+
+        &.active {
+            color: #fff;
+            opacity: 1;
+
+            & > div {
+                border: 1px solid #fff;
+            }
+
+            &.container {
+                border: none;
+            }
+        }
     }
 
     .container {
