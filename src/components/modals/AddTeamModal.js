@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Header, Modal } from "semantic-ui-react";
+import { createCustomTeam } from "../../actions/actions";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import AddTeamForm from "../forms/AddTeamForm";
 

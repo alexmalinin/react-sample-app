@@ -1,17 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { StyledBar } from "../../../styleComponents/layout/SideBar";
 import { Accordion, Tab } from "semantic-ui-react";
 
 class SideBarRight extends Component {
   render() {
-    let { projects, days } = this.props;
+    let { projects, days, teams } = this.props;
 
     const panes = [
       {
         menuItem: "TEAMS",
         render: () => (
           <Tab.Pane>
-            <Teams projects={projects} />
+            <Teams teams={teams} />
           </Tab.Pane>
         )
       },
@@ -33,40 +33,53 @@ class SideBarRight extends Component {
   }
 }
 
-function Teams({ projects }) {
+function Teams({ teams }) {
   return (
     <div>
-      {projects.map((value, index) => (
-        <div className="team-tab-project" key={index}>
-          <h4>{value.name} Project</h4>
-          <h5>#{value.name} Project Team</h5>
-          <div className="persons team">
-            {value.team.map(team => (
-              <div className="person" key={team}>
-                <img src="/images/uploadImg.png" alt="" />
-              </div>
-            ))}
-            <div className="person">
-              <span>+</span>
+      {teams && teams.length !== 0
+        ? teams.map((team, index) => (
+            <div className="team-tab-project" key={team.id}>
+              <h4>{team.name}</h4>
+
+              {team.channels && team.channels.length !== 0
+                ? team.channels.map((channel, index) => (
+                    <Fragment key={index}>
+                      <h5>#{channel.name}</h5>
+
+                      <div className="persons team">
+                        {channel.specialist && channel.specialist.length !== 0
+                          ? channel.specialist.map((specialist, index) => (
+                              <div
+                                key={specialist}
+                                className="person"
+                                key={team}
+                              >
+                                <img src="/images/uploadImg.png" alt="" />
+                              </div>
+                            ))
+                          : ""}
+                        <div className="person">
+                          <span>+</span>
+                        </div>
+                      </div>
+                    </Fragment>
+                  ))
+                : ""}
+
+              {/* value.subteams.map((subteam, index) =>
+                        <div className="persons subteams" key={index}>
+                            <h5>#{value.name} Project {subteam.name}</h5>
+                            {subteam.team.map((team, index) =>
+                                <div className='person' key={index}>
+                                    <img src="/images/uploadImg.png" alt="person"/>
+                                </div>
+                            )}
+                            <div className="person"><span>+</span></div>
+                        </div>
+                    ) */}
             </div>
-          </div>
-          {value.subteams.map((subteam, index) => (
-            <div className="persons subteams" key={index}>
-              <h5>
-                #{value.name} Project {subteam.name}
-              </h5>
-              {subteam.team.map((team, index) => (
-                <div className="person" key={index}>
-                  <img src="/images/uploadImg.png" alt="person" />
-                </div>
-              ))}
-              <div className="person">
-                <span>+</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
+          ))
+        : ""}
     </div>
   );
 }

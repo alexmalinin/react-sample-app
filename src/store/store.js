@@ -48,6 +48,7 @@ import showAllSpecialists from "../middlewares/showAllSpecialistsApi";
 import assignSpecialistToTask from "../middlewares/assignSpecialistToTaskApi";
 import removeSpecialistFromTask from "../middlewares/removeSpecialistFromTaskApi";
 import showAllTeams from "../middlewares/showAllTeamsApi";
+import createCustomTeam from "../middlewares/createCustomTeamApi";
 import showProjectTeam from "../middlewares/showProjectTeam";
 import assignSpecialistToTeam from "../middlewares/assignSpecialistToTeamApi";
 import removeSpecialistFromTeam from "../middlewares/removeSpecialistFromTeamApi";
@@ -105,6 +106,7 @@ const enhancer = applyMiddleware(
   assignSpecialistToTask,
   removeSpecialistFromTask,
   showAllTeams,
+  createCustomTeam,
   showProjectTeam,
   assignSpecialistToTeam,
   removeSpecialistFromTeam,

@@ -301,10 +301,9 @@ class ClientDashboard extends Component {
     }
 
     let projectId = nextProps.match.params["projectId"];
-    let moduleId = nextProps.match.params["moduleId"];
 
     if (projectId && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id != projectId) {
+      if (nextProps.projectWithId.id !== projectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }

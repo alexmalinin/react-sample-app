@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Grid, GridRow, Divider } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
 import { showAllTeams } from "../actions/actions";
-import HeaderBasic from "./layout/HeaderBasic";
-import SubHeader from "./layout/SpecialistsSubHeader";
-import { DvTitle, DvTitleSmall } from "../styleComponents/layout/DvTitles";
-import { DvButton } from "../styleComponents/layout/DvButton";
 import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
@@ -18,6 +12,16 @@ class Teams extends Component {
     const { showAllTeams, changeUserType } = this.props;
 
     changeUserType === CLIENT && showAllTeams();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.createCustomTeam) {
+      if (this.props.createCustomTeam) {
+        if (this.props.createCustomTeam !== nextProps.createCustomTeam) {
+          nextProps.showAllTeams();
+        }
+      } else nextProps.showAllTeams();
+    }
   }
 
   render() {
@@ -42,6 +46,7 @@ class Teams extends Component {
   }
 }
 
-export default connect(({ changeUserType }) => ({ changeUserType }), {
-  showAllTeams
-})(Teams);
+export default connect(
+  ({ allTeams, createCustomTeam }) => ({ allTeams, createCustomTeam }),
+  { showAllTeams }
+)(Teams);

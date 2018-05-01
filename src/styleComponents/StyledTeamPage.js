@@ -46,7 +46,7 @@ export default styled.div`
         position: relative;
     }
 
-   
+
     .buttonAdd::before,
     .buttonAdd::after {
         content: '';
@@ -108,7 +108,7 @@ export default styled.div`
                 justify-content: space-between;
                 align-items: center;
                 height: 32px;
-                
+
                 min-width: 90%;
                 border-radius: 5px;
                 transition: .2s;
@@ -146,7 +146,7 @@ export default styled.div`
                     img{
                         height: 100%;
                         width: 100%;
-                        
+
                     }
                 }
 
@@ -250,7 +250,7 @@ export default styled.div`
                             background: #ff8080;
                         }
                     }
-                    
+
                     &.show{
                         display: block;
                     }
@@ -280,7 +280,7 @@ export default styled.div`
         }
 
         .person{
-            
+
         }
 
             .addPerson{
@@ -355,6 +355,8 @@ export default styled.div`
                     top: calc(100% + 5px);
                     left: 10px;
                     min-width: 230px;
+                    max-height: 300px;
+                    overflow-y: scroll;
 
                     border-radius: 3px;
                     background: #fff;
@@ -368,7 +370,7 @@ export default styled.div`
                         padding: 10px 15px 0 15px;
                         margin-bottom: 0;
                     }
-                    
+
                     .ui.input{
                         width: 100%;
                         padding: 10px 15px;
@@ -427,7 +429,7 @@ export default styled.div`
 
                             &.assigned{
                                 order: 0;
-                                
+
                                 &::before,
                                 &::after{
                                     content: '';
