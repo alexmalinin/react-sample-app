@@ -20,7 +20,7 @@ import {
     updateEpicTask,
     showAllSpecialists,
 } from '../actions/actions';
-import { PORT } from "../constans/constans";
+import { IMAGE_PORT } from "../constans/constans";
 import { Progress } from 'semantic-ui-react';
 import Board from 'react-trello';
 import { S_Board } from "../styleComponents/S_Board";

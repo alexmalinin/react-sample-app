@@ -3,6 +3,11 @@ export const PORT =
         ? process.env.REACT_APP_API_HOST
         : process.env.REACT_APP_API_PROD;
 
+export const IMAGE_PORT = 
+    process.env.NODE_ENV === 'development'
+        ? process.env.REACT_APP_API_HOST
+        : '';
+
 export const HIDE_FOOTER                       = 'HIDE_FOOTER';
 export const SIDEBAR                           = 'SIDEBAR';
 export const SIGN_UP_STEP_1                    = 'SIGN_UP_STEP_1';

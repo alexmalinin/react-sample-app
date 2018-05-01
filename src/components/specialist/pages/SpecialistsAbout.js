@@ -12,7 +12,7 @@ import StyledCheckbox from '../../../styleComponents/forms/StyledCheckbox';
 import StyledProfile from '../../../styleComponents/StyledProfile';
 import RenderTabCard from '../renders/RenderTabCard';
 import { showSpecialistData, getExperienceLevels } from '../../../actions/actions';
-import { PORT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constans/constans";
 import AboutSubHeader from '../../layout/SpecialistAboutSubHeader';
 
 class SpecialistsAbout extends Component {
@@ -60,7 +60,7 @@ class SpecialistsAbout extends Component {
                                 <Grid.Column computer={8} textAlign='right'>
                                     <div className='profile-image'>
                                         <div className="image-wrapper">
-                                            <img src={avatar && avatar.url ? PORT + avatar.url : '/images/undefUser.png'} alt='avatar'/>
+                                            <img src={avatar && avatar.url ? IMAGE_PORT + avatar.url : '/images/undefUser.png'} alt='avatar'/>
                                             {/* <img src='/images/undefUser.png' alt='avatar'/> */}
                                         </div>
                                     </div>
