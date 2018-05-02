@@ -3,7 +3,7 @@ import { Input } from "semantic-ui-react";
 
 import {StyledAssignDropdown, StyledPersonTile} from '../../styleComponents/layout/StyledAssignDropdown';
 
-import { PORT, CLIENT, SPECIALIST } from '../../constans/constans';
+import { IMAGE_PORT, CLIENT, SPECIALIST } from '../../constans/constans';
 
 export class AssignDropdown extends Component{
     state = {
@@ -98,7 +98,7 @@ export class AssignDropdown extends Component{
                                 <img 
                                     data={specialist.id}
                                     src={specialist.avatar.url 
-                                        ? PORT + specialist.avatar.url 
+                                        ? IMAGE_PORT + specialist.avatar.url 
                                         : '/images/uploadImg.png'} alt="member"/>
                                 {specialist.first_name + ' ' + specialist.last_name}
                             </div>
@@ -145,7 +145,7 @@ export class PersonTile extends Component {
                         onClick={(e)=>e.target.parentNode.focus()}
                         alt="avatar"
                         src={specialist.avatar.url ?
-                            PORT + specialist.avatar.url 
+                            IMAGE_PORT + specialist.avatar.url 
                             : '/images/uploadImg.png'}/>
                     {labeled && <p>{specialist.first_name} {specialist.last_name}</p>}
                 </a>
@@ -154,7 +154,7 @@ export class PersonTile extends Component {
                     <p className="dropdownTitle">Profile</p>
                     <div className="info">
                         <img src={specialist.avatar.url 
-                            ? PORT + specialist.avatar.url 
+                            ? IMAGE_PORT + specialist.avatar.url 
                             : '/images/uploadImg.png'} alt="avatar"/>
                         <div>
                             <p>{specialist.first_name + ' ' +specialist.last_name}</p>
