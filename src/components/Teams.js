@@ -24,7 +24,7 @@ class Teams extends Component {
     }
   }
 
-  render() {
+  renderToDashboard() {
     const { teams } = this.props;
 
     return (
@@ -44,9 +44,38 @@ class Teams extends Component {
       </ContainerLarge>
     );
   }
+
+  renderToRightSidebar() {
+    const { teams, createChannel } = this.props;
+
+    return (
+      <div className="team-tab-project">
+        {teams && teams.length !== 0 ? (
+          teams.map((team, key) => (
+            <Team key={key} team={team} renderToRightSidebar />
+          ))
+        ) : (
+          <div className="teamsPlaceholder">
+            <p>No teams for now</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  render() {
+    const { renderToRightSidebar } = this.props;
+
+    return renderToRightSidebar
+      ? this.renderToRightSidebar()
+      : this.renderToDashboard();
+  }
 }
 
 export default connect(
-  ({ allTeams, createCustomTeam }) => ({ allTeams, createCustomTeam }),
+  ({ changeUserType, createCustomTeam }) => ({
+    changeUserType,
+    createCustomTeam
+  }),
   { showAllTeams }
 )(Teams);

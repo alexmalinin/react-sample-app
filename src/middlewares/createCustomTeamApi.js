@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 export default store => next => action => {
     const { type, createCustomTeam, payload, ...rest } = action;
     if (!createCustomTeam) return next(action);
-    
+
     axios({
         method: 'post',
         url: createCustomTeam,

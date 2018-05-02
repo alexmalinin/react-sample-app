@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Form, Input } from "semantic-ui-react";
@@ -60,14 +60,14 @@ class Channel extends Component {
     });
   };
 
-  render() {
+  renderToDashboard() {
     const {
       channel,
+      allSpecialists,
       specialists,
       removeFromChannel,
-      teamId,
-      allSpecialists,
-      changeUserType
+      changeUserType,
+      teamId
     } = this.props;
     const { showDropdown, assignedIds } = this.state;
 
@@ -112,6 +112,38 @@ class Channel extends Component {
               labeled
               removeTitle="channel"
               userType={changeUserType}
+              renderToDashboard
+            />
+          ))}
+          <AssignDropdown
+            label="Add member"
+            specialists={channel.specialists}
+            allSpecialists={allSpecialists}
+            handleAssign={this.handleAssign}
+            userType={changeUserType}
+            renderToDashboard
+          />
+        </div>
+      </div>
+    );
+  }
+
+  renderToRightSidebar() {
+    const { channel, changeUserType, allSpecialists } = this.props;
+
+    return (
+      <Fragment>
+        <h5>#{channel.name}</h5>
+
+        <div className="persons team">
+          {channel.specialists.map((person, key) => (
+            <PersonTile
+              key={key}
+              specialist={person}
+              handleRemove={this.handleAssign}
+              labeled
+              removeTitle="channel"
+              userType={changeUserType}
             />
           ))}
           <AssignDropdown
@@ -122,8 +154,16 @@ class Channel extends Component {
             userType={changeUserType}
           />
         </div>
-      </div>
+      </Fragment>
     );
+  }
+
+  render() {
+    const { renderToRightSidebar } = this.props;
+
+    return renderToRightSidebar
+      ? this.renderToRightSidebar()
+      : this.renderToDashboard();
   }
 
   submit = () => {

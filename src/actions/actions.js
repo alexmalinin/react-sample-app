@@ -68,7 +68,8 @@ import {
   SHOW_PROJECT_TEAM,
   REMOVE_SPECIALIST_FROM_TEAM,
   SHOW_SPECIALIST_PROJECTS,
-  SHOW_SPECIALIST_TEAMS
+  SHOW_SPECIALIST_TEAMS,
+  CREATE_CUSTOM_TEAM
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -785,6 +786,18 @@ export function removeSpecialistFromTeam(project, team, specialist) {
   const action = {
     type: REMOVE_SPECIALIST_FROM_TEAM,
     removeSpecialistFromTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/remove/${specialist}`
+  };
+
+  return action;
+}
+
+// Create custom team
+
+export function createCustomTeam(data) {
+  const action = {
+    type: CREATE_CUSTOM_TEAM,
+    payload: data,
+    createCustomTeam: `${PORT}/api/v1/teams`
   };
 
   return action;

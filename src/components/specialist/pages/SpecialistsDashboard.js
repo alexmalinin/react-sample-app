@@ -4,7 +4,7 @@ import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
 import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import SideBarLeft from "../renders/SideBarLeft";
-import SideBarRight from "../renders/SideBarRight";
+import SideBarRight from "../../layout/SideBarRight";
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";

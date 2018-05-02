@@ -76,7 +76,7 @@ export class AssignDropdown extends Component {
   };
 
   render() {
-    const { label, userType } = this.props;
+    const { label, userType, renderToDashboard } = this.props;
     const { options, assignedIds, showDropdown } = this.state;
 
     return (
@@ -84,7 +84,7 @@ export class AssignDropdown extends Component {
         <StyledAssignDropdown>
           <a tabIndex="1" onClick={this.openDropdown}>
             <span className="plus">+</span>
-            {label}
+            {renderToDashboard && label}
           </a>
           <div className={`dropdown${showDropdown ? " visible" : ""}`}>
             <div className="close" onClick={this.closeDropdown} />
@@ -122,6 +122,7 @@ export class AssignDropdown extends Component {
               ))}
             </div>
           </div>
+          ))}
         </StyledAssignDropdown>
       )
     );
@@ -154,7 +155,13 @@ export class PersonTile extends Component {
   };
 
   render() {
-    const { specialist, labeled, removeTitle, userType } = this.props;
+    const {
+      specialist,
+      labeled,
+      removeTitle,
+      userType,
+      renderToDashboard
+    } = this.props;
 
     return (
       <StyledPersonTile>
@@ -168,11 +175,12 @@ export class PersonTile extends Component {
                 : "/images/uploadImg.png"
             }
           />
-          {labeled && (
-            <p>
-              {specialist.first_name} {specialist.last_name}
-            </p>
-          )}
+          {labeled &&
+            renderToDashboard && (
+              <p>
+                {specialist.first_name} {specialist.last_name}
+              </p>
+            )}
         </a>
         <div className={`delete${this.state.showDropdown ? " show" : ""}`}>
           <div className="close" onClick={this.closeDropdown} />
