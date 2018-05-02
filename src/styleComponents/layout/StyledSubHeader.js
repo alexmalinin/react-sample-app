@@ -29,15 +29,17 @@ export default styled.div`
     box-shadow: 0px 0px 16px 0px #ccc;
     ${props => (props.profile || props.account || props.projects) ? `margin-bottom: 40px;` : `margin-bottom: 80px;`};
     transition: .4s ease-in-out;
-    
+
     & > span {
       padding: 10px;
     }
 
     .progressBarsLink {
-        color: red;
-        a {
+        a, section {
             width: 75px;
+        }
+        section {
+          position: relative;
         }
     }
 
@@ -105,7 +107,7 @@ export default styled.div`
         outline: none;
         cursor: pointer;
     }
-    
+
     .close::after,
     .close::before {
       content: '';
@@ -157,7 +159,7 @@ export default styled.div`
     }
 
     .arrow::after,
-    .arrow::before {        
+    .arrow::before {
         content: '';
         position: absolute;
         top: 27px;
@@ -247,7 +249,7 @@ export default styled.div`
         width: 8px;
         height: 1px;
         transform: rotate(45deg);
-        background-color: #fff; 
+        background-color: #fff;
     }
 
     .arrowVillage::before {
@@ -281,11 +283,11 @@ export default styled.div`
         line-height: 27px;
         text-transform: uppercase;
         text-decoration: none;
-    
-        & + a {
+
+        & + a, & + section {
             margin-left: 12px;
         }
-        
+
         /* &:after {
             transition: all .4s ease;
             content: '';
@@ -295,11 +297,11 @@ export default styled.div`
             bottom: -3px;
             width: 0;
         } */
-        
+
         &:hover, &.active {
             color: #fff;
             opacity: 1;
-            
+
             & > div {
                 border: 1px solid #fff;
             }
@@ -312,11 +314,40 @@ export default styled.div`
                 width: 100%;
             }     */
         }
-        
+
         /* &.active:after {
             background: #fff;
             width: 100%;
         }     */
+    }
+
+    section {
+        position: relative;
+        color: #fff;
+        opacity: 0.7;
+        font-family: 'Brix', sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 27px;
+        text-transform: uppercase;
+        text-decoration: none;
+
+        & + section {
+            margin-left: 12px;
+        }
+
+        &.active {
+            color: #fff;
+            opacity: 1;
+
+            & > div {
+                border: 1px solid #fff;
+            }
+
+            &.container {
+                border: none;
+            }
+        }
     }
 
     .container {
@@ -339,31 +370,31 @@ export default styled.div`
             max-width: 100%;
         }
     `}
-    
+
     @media (max-width: 991px) {
-        
+
         a {
             font-size: 10px;
-/*             
+/*
             & + a {
                 margin-left: 30px;
             } */
-        } 
+        }
     }
-    
+
     @media (max-width: 640px) {
         flex-wrap: wrap;
         justify-content: space-between;
-        
+
         a {
           margin: 0 18px !important;
         }
     }
-    
+
     @media (max-width: 401px) {
         a {
             font-size: 10px;
-            
+
             & + a {
                 margin-left: 20px;
             }

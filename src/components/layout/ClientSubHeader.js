@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import StyledSubHeader from '../../styleComponents/layout/StyledSubHeader';
 import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
+import SubHeaderItemWrap from '../forms/renders/SubHeaderItemWrap';
 import ProgressBars from '../layout/ProgressBar';
 
 class SubHeader extends Component {
@@ -11,20 +12,20 @@ class SubHeader extends Component {
         return (
             <StyledSubHeader>
                  <div className='progressBarsLink'>
-                    <SubHeaderLinkWrap content='1' url='/client/dashboard/profile'>
+                    <SubHeaderItemWrap content="1" path="profile">
                         My Profile
                         <ProgressBars percents={this.props.percents.profilePercent}/>
-                    </SubHeaderLinkWrap>
+                    </SubHeaderItemWrap>
 
-                    <SubHeaderLinkWrap content='2' url='/client/dashboard/company'>
+                    <SubHeaderItemWrap content="2" path="company">
                         My Company
                         <ProgressBars percents={this.props.percents.companyPercent}/>
-                    </SubHeaderLinkWrap> 
+                    </SubHeaderItemWrap>
 
-                    <SubHeaderLinkWrap content='3' url='/client/dashboard/billing'>
+                    <SubHeaderItemWrap content="3" path="billing">
                         My Billings
                         <ProgressBars percents={this.props.percents.billingPercent}/>
-                    </SubHeaderLinkWrap>                 
+                    </SubHeaderItemWrap>
                 </div>
                 <div>
                     <SubHeaderLinkWrap url='root' className='rightLink arrow'>
@@ -34,11 +35,11 @@ class SubHeader extends Component {
 
                     <SubHeaderLinkWrap content='3/9' url='#' className='rightLink'>
                         Profile
-                    </SubHeaderLinkWrap> 
+                    </SubHeaderLinkWrap>
 
                     <SubHeaderLinkWrap content='5%' url='#' className='rightLink'>
                         Progress
-                    </SubHeaderLinkWrap>   
+                    </SubHeaderLinkWrap>
                 </div>
             </StyledSubHeader>
         )

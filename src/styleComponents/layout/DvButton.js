@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
+import { primaryColors, secondaryColors } from '../constants/colors';
 
 export const DvButton = styled(Button)`
 
@@ -304,6 +305,187 @@ export const SaveBtn = styled(Button)`
         &::before,
         &::after {
             background-color: #666;
+        }
+    }
+`;
+
+export const BackBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #ccc;
+        position: absolute;
+        bottom: -26px;
+        left: 25px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: #ccc;
+            bottom: -25px;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            width: ${props => props.updatebtn ? `10px` : `15px` };
+            top: ${props => props.updatebtn ? `33px` : `24px` };
+            left: ${props => props.updatebtn ? `20px` : `21px` };
+            transform: rotate(-45deg);
+        }
+
+        &::after {
+            width: ${props => props.updatebtn ? `20px` : `15px` };
+            top: ${props => props.updatebtn ? `30px` : `34px` };
+            left: ${props => props.updatebtn ? `25px` : `21px` };
+            transform: rotate(45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+
+        &.width200 {
+          width: 200%;
+        } */
+
+        @media (max-width: 1200px) {
+          &.ui.primary.button {
+            left: 15px;
+          }
+        }
+
+        @media (max-width: 992px) {
+          &.ui.primary.button {
+            bottom: auto;
+          }
+        }
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: ${primaryColors.darkGrey};
+        border: 1px solid ${primaryColors.darkGrey};
+        background-color: transparent;
+
+        span {
+            color: ${primaryColors.darkGrey};
+        }
+        &::before,
+        &::after {
+            background-color: #666;
+        }
+    }
+`;
+
+export const NextBtn = styled(Button)`
+
+    &.ui.primary.button {
+        border-radius: 50%;
+        min-width: 60px;
+        height: 60px;
+        background-color: #fff;
+        color: #ccc;
+        border: 1px solid #ccc;
+        position: absolute;
+        bottom: -26px;
+        right: 25px;
+        font-family: 'Brix';
+        text-align: center;
+        color: #fff;
+        z-index: 5;
+
+        span {
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 12px;
+            position: absolute;
+            color: #ccc;
+            bottom: -25px;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        &::before {
+            width: ${props => props.updatebtn ? `10px` : `15px` };
+            top: ${props => props.updatebtn ? `33px` : `24px` };
+            left: ${props => props.updatebtn ? `20px` : `22px` };
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            width: ${props => props.updatebtn ? `20px` : `15px` };
+            top: ${props => props.updatebtn ? `30px` : `34px` };
+            left: ${props => props.updatebtn ? `25px` : `22px` };
+            transform: rotate(-45deg);
+        }
+
+        /* &.verify-btn {
+            padding: 40px;
+        }
+
+        &.width200 {
+          width: 200%;
+        } */
+    }
+
+    @media (max-width: 1200px) {
+      &.ui.primary.button {
+        right: 15px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      &.ui.primary.button {
+        bottom: auto;
+      }
+    }
+
+    &.ui.primary.button:hover,
+    &.ui.primary.button:focus {
+        color: ${secondaryColors.green};
+        border: 1px solid ${secondaryColors.green};
+        box-shadow: 0 0 0 3px ${secondaryColors.green};
+        background-color: transparent;
+
+        span {
+            color: ${primaryColors.darkGrey};
+        }
+        &::before,
+        &::after {
+            height: 3px;
+            background-color: ${secondaryColors.green};
+        }
+        &::before {
+        }
+        &::after {
+            top: 33px;
         }
     }
 `;
