@@ -3,14 +3,12 @@ import jwtDecode from 'jwt-decode';
 import { SUCCESS } from '../constans/constans';
 
 export default store => next => action => {
-    const { type, showAllEpics, ...rest } = action;
-    if (!showAllEpics) return next(action);
-
-    let token = localStorage.getItem('jwt_token');
+    const { type, showProjectTeam, ...rest } = action;
+    if (!showProjectTeam) return next(action);
 
     axios({
         method: 'get',
-        url: showAllEpics
+        url: showProjectTeam,
     })
     .then(function (response) {
         let data = response.data;

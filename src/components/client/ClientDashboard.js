@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
-import { showClientData, showAllProjects, showProjectWithId, showAllEpics } from '../../actions/actions'
+import { showClientData, showAllProjects, showProjectWithId, showAllEpics, showEpicTasks } from '../../actions/actions'
 import HeaderBasic from '../layout/HeaderBasic';
 import SubHeader from '../layout/ClientSubHeader';
 import { S_MainContainer } from '../../styleComponents/layout/S_MainContainer';
@@ -175,37 +175,39 @@ class ClientDashboard extends Component {
   render() {
     const {match:{params}, allProjects} = this.props;
     let page;
-
+  
     if(params['page']){
       page = params['page'];
     }
-    else if (params['projectId'] && params['moduleId']){
+    else if (params['projectId']){
       page = 'board';
     }
-    else if (params['projectId']){
+    else if (params['projectNewModule']){
       page = 'module';
-    }
+    } else page = 'root';
 
-    let sidebarCondition = 
-           page === 'projects'
-        || page === 'board'
-        || page === 'teams'
-        || page === 'module'
-        || page === 'root'
-        || page === 'the_village';
+    let sidebarCondition =
+         page !== 'profile'
+      && page !== 'company'
+      && page !== 'billing';
 
     return (
       <div>
         <HeaderBasic props={this.props} page={sidebarCondition} userType='client'/>
           <S_MainContainer sidebarCondition={sidebarCondition}>
-            {sidebarCondition && <SideBarLeft currentProject={params['projectId']} currentEpic={params['moduleId']} projects={allProjects}/>}
-              {sidebarCondition 
-                ? this.renderPage(page)
-                  : <Container sidebarCondition={sidebarCondition}>
-                      <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
-                      {this.renderPage(page)}
-                    </Container>
-              }
+            {sidebarCondition && 
+              <SideBarLeft 
+                currentProject={params['projectId'] || params["projectNewModule"]} 
+                currentEpic={params['moduleId']}
+              />
+            }
+            {sidebarCondition
+              ? this.renderPage(page)
+              : <Container sidebarCondition={sidebarCondition}>
+                  <SubHeader percents={this.state} sidebarCondition={sidebarCondition}/>
+                  {this.renderPage(page)}
+                </Container>
+            }
             {sidebarCondition && <SideBarRight projects={projects} days={days}/>}
           </S_MainContainer>
       </div>
@@ -228,24 +230,22 @@ class ClientDashboard extends Component {
         return <ClientProjects />;
       case 'module':
         document.title = 'Add Module | Digital Village';
-        return <ClientModule projectId={this.props.match.params['projectId']}/>;
+        return <ClientModule projectId={this.props.match.params['projectNewModule']}/>;
       case 'board':
         return <ProjectsBoard 
-            project={this.props.projectWithId}
             projectId={this.props.match.params['projectId']}
-            allEpics={this.props.allEpics}
             currentEpic={this.props.match.params['moduleId'] || 'all'}
             history={this.props.history}
           />;
       case 'teams':
         document.title = 'Teams | Digital Village';
-        return <Teams/>;    
+        return <Teams teams={this.props.allTeams}/>;    
       case 'the_village':
         document.title = 'The Village | Digital Village';
         return <TheVillage/>;
       case 'root':
         document.title = 'Dashboard | Digital Village';
-        return <Dashboard/>;
+        return <Dashboard projects={this.props.allProjects}/>;
       default:
         document.title = 'Digital Village';
         return <ClientProfile/>
@@ -260,20 +260,20 @@ class ClientDashboard extends Component {
     }
 
     let projectId = nextProps.match.params["projectId"];
+    let moduleId = nextProps.match.params["moduleId"];
 
     if(projectId && nextProps.projectWithId){
       if(nextProps.projectWithId.id != projectId){
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }
-    }
-    else if(projectId) {
+    } else if(projectId) {
       nextProps.showProjectWithId(projectId);
     }
   }
 }
 
 export default connect(
-  ({allProjects, projectWithId, allEpics}) => ({allProjects, projectWithId, allEpics}),
-  { showAllProjects, showProjectWithId, showAllEpics }
+  ({allProjects, projectWithId, allEpics, allTeams}) => ({allProjects, projectWithId, allEpics, allTeams}),
+  { showAllProjects, showProjectWithId, showAllEpics, showEpicTasks }
 )(ClientDashboard);

@@ -143,7 +143,7 @@ class BillingForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/specialists/dashboard/company">
+              <NavLink exact to="/dashboard/company">
                 <BackBtn
                   disabled={submitting}
                   primary

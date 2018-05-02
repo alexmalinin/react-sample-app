@@ -11,22 +11,25 @@ import { Container, ContainerLarge } from '../styleComponents/layout/Container'
 import TeamSubHeader from './layout/TeamSubHeader';
 import StyledTeamPage from '../styleComponents/StyledTeamPage';
 import Team from './layout/Team';
+import { CLIENT } from '../constans/constans';
 
 class Teams extends Component {
     componentWillMount() {
-        this.props.showAllTeams();
+        const { showAllTeams, changeUserType } = this.props;
+
+        changeUserType === CLIENT && showAllTeams();
     }
 
     render() {
-        const { allTeams, createChannel } = this.props;
+        const { teams } = this.props;
 
         return (
             <ContainerLarge>
                 <StyledTeamPage>
                     <TeamSubHeader />
                     <Container sidebarCondition>
-                        {allTeams && allTeams.length !== 0 
-                            ? allTeams.map((team, key) => 
+                        {teams && teams.length !== 0 
+                            ? teams.map((team, key) => 
                                 <Team key={key} team={team}/>
                               )
                             : <div className="teamsPlaceholder">
@@ -41,6 +44,6 @@ class Teams extends Component {
 }
 
 export default connect(
-    ({allTeams}) => ({allTeams}),
+    ({changeUserType}) => ({changeUserType}),
     {showAllTeams}
 )(Teams);

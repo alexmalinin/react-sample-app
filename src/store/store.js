@@ -33,6 +33,8 @@ import updateClientCompany          from '../middlewares/updateClientCompanyApi'
 import updateClientBilling          from '../middlewares/updateClientBillingApi';
 import saveCreatedProject           from '../middlewares/createProjectApi';
 import showAllProjects              from '../middlewares/showAllProjectsApi';
+import showSpecialistProjects       from '../middlewares/showSpecialistProjectsApi';
+import showSpecialistTeams          from '../middlewares/showSpecialistTeamsApi';
 import showProjectWithId            from '../middlewares/showProjectWithIdApi';
 import createProjectEpic            from '../middlewares/createProjectEpicApi';
 import updateProjectEpic            from '../middlewares/editProjectEpicApi';
@@ -46,6 +48,9 @@ import showAllSpecialists           from '../middlewares/showAllSpecialistsApi';
 import assignSpecialistToTask       from '../middlewares/assignSpecialistToTaskApi';
 import removeSpecialistFromTask     from '../middlewares/removeSpecialistFromTaskApi';
 import showAllTeams                 from '../middlewares/showAllTeamsApi';
+import showProjectTeam              from '../middlewares/showProjectTeam';
+import assignSpecialistToTeam       from '../middlewares/assignSpecialistToTeamApi';
+import removeSpecialistFromTeam     from '../middlewares/removeSpecialistFromTeamApi';
 import createTeamChannel            from '../middlewares/createChannelApi';
 import deleteTeamChannel            from '../middlewares/deleteChannelApi';
 import updateTeamChannel            from '../middlewares/updateChannelApi';
@@ -86,6 +91,8 @@ const enhancer = applyMiddleware(
     updateClientBilling,
     saveCreatedProject,
     showAllProjects,
+    showSpecialistProjects,
+    showSpecialistTeams,
     showProjectWithId,
     createProjectEpic,
     updateProjectEpic,
@@ -98,6 +105,9 @@ const enhancer = applyMiddleware(
     assignSpecialistToTask,
     removeSpecialistFromTask,
     showAllTeams,
+    showProjectTeam,
+    assignSpecialistToTeam,
+    removeSpecialistFromTeam,
     createTeamChannel,
     deleteTeamChannel,
     updateTeamChannel,

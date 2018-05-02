@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import RenderCard from './RenderCard';
-import cards from '../../helpers/cardsData';
 import StyledDashBoard from '../../styleComponents/StyledDashBoard';
 
+import { showAllSpecialists } from '../../actions/actions';
+import { CLIENT, SPECIALIST } from '../../constans/constans';
+import cards from '../../helpers/cardsData';
+
 class RenderDashboard extends Component {
+
+    componentWillMount() {
+        this.props.showAllSpecialists();
+    }
 
     renderCards (type) {
         const data = cards;
@@ -14,7 +23,7 @@ class RenderDashboard extends Component {
             <div>
                 {dueCards.map((card, index) => {
                         return (
-                            <RenderCard key={index} data={card}/>
+                            <RenderCard key={index} type={type} data={card}/>
                         )
                     }
                 )}
@@ -23,14 +32,35 @@ class RenderDashboard extends Component {
     }
 
     render() {
+        const { projects } = this.props;
+        console.log(projects)
+
+        let overview;
+        if(projects){
+            overview = {
+                name: 'Projects overview',
+                subtitle: 'Status',
+                size: {
+                    col: 2,
+                    row: 2,
+                },
+                projects: projects,
+            }
+        }
 
         return (
             <StyledDashBoard>
                 <div className='tasksDue'>
-                     {this.renderCards('tasks_due')}
+                    {this.renderCards('tasks_due')}
                 </div>
                 <div className='projects'>
-                    {this.renderCards('projects')}
+                    {projects && 
+                    <div>
+                        <RenderCard type="overview" data={overview}/>
+                        {projects.map((project, key) =>
+                            <RenderCard type="project" key={key} data={project}/>
+                        )}
+                    </div>}
                 </div>
                 <div className='tasks'>
                     {this.renderCards('tasks')}
@@ -40,6 +70,7 @@ class RenderDashboard extends Component {
     }
 }
 
-export default RenderDashboard;
-
-
+export default connect(
+    ({}) => ({}),
+    {showAllSpecialists}
+)(RenderDashboard);

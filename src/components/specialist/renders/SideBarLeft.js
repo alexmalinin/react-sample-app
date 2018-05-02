@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom';
-import { StyledBar } from '../../../styleComponents/layout/SideBar';
-import { Accordion } from 'semantic-ui-react';
 
-export default class SideBarLeft extends Component {
+import { StyledBar } from '../../../styleComponents/layout/SideBar';
+
+import { PORT, CLIENT } from '../../../constans/constans';
+
+class SideBarLeft extends Component {
 
     render() {
-        let { projects } = this.props;
+        const { specialistProjects, currentProject, currentEpic, allEpics, projects } = this.props;
 
         return(
             <StyledBar className="left" >
-                <Accordion activeIndex={0}>
-                    <Accordion.Title index={0}>
-                        Projects
-                    </Accordion.Title>
-                    <Accordion.Content>
-                        {this.props.projects && this.props.projects.map((project) => 
-                            <NavLink className='projectLink' to={`/client/project/${project.id}`} key={project.id}>
-                                {project.name}
-                            </NavLink>
+                <div className="innerWrapper">
+                    <div className="title">
+                        <h4>Projects</h4>
+                    </div>
+                    <div className={`projects${currentProject ? ' opened' : ''}`}>
+                        {specialistProjects && specialistProjects.map((project, key) => 
+                            <div className="projectWrapper" key={key}>
+                                <NavLink 
+                                    className={`projectLink${currentProject == project.id ? ' active': ''}`} 
+                                    to={`/dashboard/project/${project.id}`}
+                                    key={project.id}>
+                                    {project.logo && project.logo.url
+                                        ? <img src={PORT + project.logo.url} alt={project.name}/>
+                                        : <span className="projectNoLogo">{project.name[0]}</span>
+                                    }
+                                    <p className="projectName">{project.name}</p>
+                                </NavLink>
+                                {currentProject == project.id && <div className="modules">
+                                    {allEpics && allEpics.length 
+                                        ? allEpics.map((epic, key) => 
+                                            <NavLink
+                                                className={currentEpic == key + 1 ? 'active': ''}
+                                                to={`/dashboard/project/${project.id}/module/${key + 1}`}
+                                                key={key}>
+                                                Module {key + 1}
+                                            </NavLink>
+                                        ) : <p>No modules</p>
+                                    }
+                                </div>}
+                            </div>
                         )}
-                    </Accordion.Content>
-                </Accordion>
+                    </div>
+                </div>
             </StyledBar>
         );
     }
 }
+
+export default connect(
+    ({specialistProjects, allEpics}) => ({specialistProjects, allEpics}),
+    {}
+)(SideBarLeft);

@@ -8,6 +8,8 @@ export const IMAGE_PORT =
         ? process.env.REACT_APP_API_HOST
         : '';
 
+export const CLIENT                            = 'Client';
+export const SPECIALIST                        = 'Specialist';
 export const HIDE_FOOTER                       = 'HIDE_FOOTER';
 export const SIDEBAR                           = 'SIDEBAR';
 export const SIGN_UP_STEP_1                    = 'SIGN_UP_STEP_1';
@@ -39,6 +41,8 @@ export const SHOW_CLIENT_DATA                  = 'SHOW_CLIENT_DATA';
 export const SHOW_SPECIALIST_DATA              = 'SHOW_SPECIALIST_DATA';
 export const SHOW_ALL_SPECIALISTS              = 'SHOW_ALL_SPECIALISTS';
 export const SHOW_ALL_PROJECTS                 = 'SHOW_ALL_PROJECTS';
+export const SHOW_SPECIALIST_PROJECTS          = 'SHOW_SPECIALIST_PROJECTS';
+export const SHOW_SPECIALIST_TEAMS             = 'SHOW_SPECIALIST_TEAMS';
 export const SHOW_PROJECT_WITH_ID              = 'SHOW_PROJECT_WITH_ID';
 export const UPDATE_SPECIALIST_PROFILE         = 'UPDATE_SPECIALIST_PROFILE';
 export const EDIT_COMPANY_WITH_ID              = 'EDIT_COMPANY_WITH_ID';
@@ -67,6 +71,9 @@ export const SHOW_EPIC_TASKS                   = 'SHOW_EPIC_TASKS';
 export const ASSIGN_SPECIALIST_TO_TASK         = 'ASSIGN_SPECIALIST_TO_TASK';
 export const REMOVE_SPECIALIST_FROM_TASK       = 'REMOVE_SPECIALIST_FROM_TASK';
 export const SHOW_ALL_TEAMS                    = 'SHOW_ALL_TEAMS';
+export const SHOW_PROJECT_TEAM                 = 'SHOW_PROJECT_TEAM';
+export const ASSIGN_SPECIALIST_TO_TEAM         = 'ASSIGN_SPECIALIST_TO_TEAM';
+export const REMOVE_SPECIALIST_FROM_TEAM       = 'REMOVE_SPECIALIST_FROM_TEAM';
 export const CREATE_CHANNEL                    = 'CREATE_CHANNEL';
 export const DELETE_CHANNEL                    = 'DELETE_CHANNEL';
 export const UPDATE_CHANNEL                    = 'UPDATE_CHANNEL';

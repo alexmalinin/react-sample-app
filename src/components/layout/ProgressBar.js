@@ -4,15 +4,27 @@ import ProgressBar from 'progressbar.js';
 class ProgressBars extends Component {
 
     renderBar () {
-        this.bar = new ProgressBar.Circle(this.container, {
-            strokeWidth: 6,
-            easing: 'easeInOut',
-            duration: 1400,
-            color: '#fff',
-            trailColor: '#eee',
-            trailWidth: 1,
-            svgStyle: {width: '100%', height: '100%'},
-        });
+        if(this.props.linear){
+            this.bar = new ProgressBar.Line(this.container, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#fff',
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: {width: '100%', height: '100%'},
+            });
+        } else {
+            this.bar = new ProgressBar.Circle(this.container, {
+                strokeWidth: 6,
+                easing: 'easeInOut',
+                duration: 1400,
+                color: '#fff',
+                trailColor: '#eee',
+                trailWidth: 1,
+                svgStyle: {width: '100%', height: '100%'},
+            });
+        }
     }
 
     setContainer = (container) => {
@@ -39,4 +51,4 @@ class ProgressBars extends Component {
     }
 }
 
-export default ProgressBars
+export default ProgressBars;

@@ -20,7 +20,7 @@ import {
     updateEpicTask,
     showAllSpecialists,
 } from '../actions/actions';
-import { IMAGE_PORT } from "../constans/constans";
+import { IMAGE_PORT, CLIENT, SPECIALIST } from "../constans/constans";
 import { Progress } from 'semantic-ui-react';
 import Board from 'react-trello';
 import { S_Board } from "../styleComponents/S_Board";
@@ -44,21 +44,15 @@ class ProjectsBoard extends Component {
 
     componentWillReceiveProps(nextProps){
         let epicId;
-        if(nextProps.allEpics && nextProps.currentEpic !== 'all' && nextProps.project){
+        if(nextProps.allEpics && nextProps.currentEpic !== 'all' && nextProps.projectWithId){
             if(+nextProps.currentEpic > nextProps.allEpics.length){
                 epicId = nextProps.allEpics[nextProps.allEpics.length - 1].id;
-                nextProps.history.push(`/client/project/${nextProps.project.id}/module/all`)
+                nextProps.history.push(`/dashboard/project/${nextProps.projectWithId.id}/module/all`);
             } else epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
         }
 
-        if(nextProps.project){
-            document.title = `${nextProps.project.name} | Digital Village`;
-        }
-
-        if(nextProps.project && nextProps.projectId){
-            if(nextProps.project.id != nextProps.projectId){
-                nextProps.showAllEpics(nextProps.projectId);
-            }
+        if(nextProps.projectWithId){
+            document.title = `${nextProps.projectWithId.name} | Digital Village`;
         }
 
         if(nextProps.deleteEpic){
@@ -138,6 +132,7 @@ class ProjectsBoard extends Component {
         } = this.props;
 
         const epicId = allEpics && currentEpic !== 'all' && +currentEpic <= allEpics.length ? allEpics[currentEpic - 1].id : null;
+        const userType = localStorage.getItem('userType');
 
         return (
             <ContainerLarge indentBot>
@@ -163,15 +158,21 @@ class ProjectsBoard extends Component {
                                     updateEpicList={showAllEpics} 
                                     updateProjectEpic={updateProjectEpic}/>
                             )}
+                            {userType === CLIENT && 
                             <div className="dragContainer">
                                 <h3>&nbsp;</h3>
-                                <div className="module">
-                                    <NavLink to={`/client/project/${projectId}/module`} className="addButt">
+                                <div className="module addModule">
+                                    <NavLink to={`/dashboard/project/${projectId}/module/new`} className="addButt">
                                         <span className="plus">+</span>
                                         <span className="add">Add module</span>
                                     </NavLink>
                                 </div>
+                            </div>}
+                            {userType === SPECIALIST && allEpics && allEpics.length === 0 &&
+                            <div className="noModules">
+                                <p>No modules yet</p>
                             </div>
+                            }
                         </div>
                     </S_Board>
             </ContainerLarge>
@@ -180,6 +181,6 @@ class ProjectsBoard extends Component {
 }
 
 export default connect(
-    ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist}) => ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist}),
+    ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist, projectWithId}) => ({allProjects, allEpics, deleteEpic, createEpic, createTask, epicTasks, updateTask, allSpecialists, assignSpecialist, removeSpecialist, projectWithId}),
     {showAllProjects, showAllEpics, deleteProjectEpic, updateProjectEpic, createEpicTask, showEpicTasks, updateEpicTask, showAllSpecialists}
 )(ProjectsBoard);

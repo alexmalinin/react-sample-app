@@ -34,6 +34,10 @@ export default styled.div`
       padding: 10px;
     }
 
+    a{
+        transition: .2s;
+    }
+
     .progressBarsLink {
         a, section {
             width: 75px;

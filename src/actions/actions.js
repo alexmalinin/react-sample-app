@@ -64,6 +64,11 @@ import {
     REMOVE_MEMBER_FROM_CHANNEL,
     UPDATE_CHANNEL,
     DELETE_CHANNEL,
+    ASSIGN_SPECIALIST_TO_TEAM,
+    SHOW_PROJECT_TEAM,
+    REMOVE_SPECIALIST_FROM_TEAM,
+    SHOW_SPECIALIST_PROJECTS,
+    SHOW_SPECIALIST_TEAMS,
 } from '../constans/constans'
 
 export function hideFooter() {
@@ -584,12 +589,34 @@ export function submitCreatedProgect(data) {
     return action;
 }
 
-// get array of all projects (include unsubmitted)
+// get array of all projects (include unsubmitted) by customer, created this project
 
 export function showAllProjects() {
     const action = {
         type: SHOW_ALL_PROJECTS,
         showAllProjects: `${PORT}/api/v1/projects?customer_id=`,
+    };
+
+    return action;
+}
+
+// get array of all projects, specialist assigned on
+
+export function showSpecialistProjects() {
+    const action = {
+        type: SHOW_SPECIALIST_PROJECTS,
+        showSpecialistProjects: `${PORT}/api/v1/specialists/`,
+    };
+
+    return action;
+}
+
+// get array of all teams, specialist assigned on
+
+export function showSpecialistTeams() {
+    const action = {
+        type: SHOW_SPECIALIST_TEAMS,
+        showSpecialistTeams: `${PORT}/api/v1/specialists/`,
     };
 
     return action;
@@ -731,6 +758,40 @@ export function showAllTeams() {
     return action;
 }
 
+// Show Project Team
+
+export function showProjectTeam(project) {
+    const action = {
+        type: SHOW_PROJECT_TEAM,
+        showProjectTeam: `${PORT}/api/v1/projects/${project}/teams`,
+    };
+
+    return action;
+}
+
+// Assign specialist to team
+
+export function assignSpecialistToTeam(project, team, data) {
+    const action = {
+        type: ASSIGN_SPECIALIST_TO_TEAM,
+        payload: data,
+        assignSpecialistToTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/assign`,
+    };
+
+    return action;
+}
+
+// Remove specialist from team
+
+export function removeSpecialistFromTeam(project, team, specialist) {
+    const action = {
+        type: REMOVE_SPECIALIST_FROM_TEAM,
+        removeSpecialistFromTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/remove/${specialist}`,
+    };
+
+    return action;
+}
+
 // Create team channel
 
 export function createTeamChannel(team, data) {
@@ -771,6 +832,7 @@ export function updateTeamChannel(team, channel, data) {
 export function showChannels(team) {
     const action = {
         type: SHOW_CHANNELS,
+        team,
         showChannels: `${PORT}/api/v1/teams/${team}/channels`,
     };
 

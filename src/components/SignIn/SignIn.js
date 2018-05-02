@@ -87,17 +87,16 @@ class SignUp extends Component {
         let { changeUserType, signInReducer } = this.props;
         let { isLogIn, data } = signInReducer;
         let status = data ? data["status"] : null;
-        console.log('signInReducer', signInReducer);
         let user = changeUserType === "Specialist" ? "specialists" : "client";
         if (isLogIn && status !== "logged") {
             return (
-              <Redirect to={`/${user}/dashboard/profile`} />
+              <Redirect to={`/dashboard/profile`} />
             )
         }
 
         if (status === "logged") {
             return (
-                <Redirect to={`/${user}/dashboard/about`} />
+                <Redirect to={`/dashboard/`} />
             )
          }
     };
@@ -106,6 +105,7 @@ class SignUp extends Component {
         let { changeUserType } = this.props;
         let user = changeUserType === "Specialist" ? "specialist" : "customer";
         this.props.signIn(user, values)
+        localStorage.setItem('userType', changeUserType);
     };
 
     handleTabChange  = (ev, {activeIndex}) => {

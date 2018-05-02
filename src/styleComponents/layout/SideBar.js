@@ -16,7 +16,7 @@ export const StyledBar = styled.aside`
     -webkit-box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
     -moz-box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
     box-shadow: 0px 0px 24px 0px rgba(204,204,204,1);
-    transition: .4s ease-in-out;
+    transition: .4s ease-in-out, height 0s;
 
     &.left{
         left: 0;
@@ -68,6 +68,12 @@ export const StyledBar = styled.aside`
                     display: flex;
                     height: 70px;
                     width: 80px;
+
+                    &:hover{
+                        .projectName{
+                            color: #4f5bf0;
+                        }
+                    }
                     .modules{
                         position: absolute;
                         top: 22px;
@@ -89,25 +95,8 @@ export const StyledBar = styled.aside`
                             margin: 3px 0;
 
                             &.active{
-                                span{
-                                    position: relative;
-                                    &::before,
-                                    &::after{
-                                        content: '';
-                                        display: inline-block;
-                                        position: absolute;
-                                        top: 50%;
-                                        right: -8px;
-                                        height: 1px;
-                                        width: 8px;
-                                        background: #aaa;
-                                        transform: rotate(45deg);
-                                        transform-origin: 0 50%;
-                                    }
-                                    &::after{
-                                        transform: rotate(-45deg);
-                                    }
-                                }
+                                color: #4f5bf0;
+                                font-weight: 600;
                             }
                         }
                     }

@@ -1,4 +1,4 @@
-export default (state = 'Specialist', action) => {
+export default (state = localStorage.getItem('userType') || 'Specialist', action) => {
     const { type, user } = action;
     switch (type) {
         case 'CHANGE_USER_TYPE':

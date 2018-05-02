@@ -15,8 +15,6 @@ class TheVillage extends Component {
 
     render() {
 
-        console.log('village')
-
         const data = [
             {   
                 title: 'jobs',

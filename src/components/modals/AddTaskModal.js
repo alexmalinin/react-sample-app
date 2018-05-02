@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { connect }  from 'react-redux'
 import { Header, Modal } from 'semantic-ui-react';
+
+import NewTaskForm from '../client/forms/NewTaskForm';
+
 import { AddNewBtn } from '../../styleComponents/layout/DvButton'
 import StyledSubHeaderLink from '../../styleComponents/StyledSubHeaderLink';
-import NewTaskForm from '../client/forms/NewTaskForm';
 
 class AddTaskModal extends Component {
 
     render() {
-        const { number} = this.props;
+        const { number } = this.props;
 
         return(
-            <Modal trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} closeIcon>
-                <Modal.Header >Task creation</Modal.Header>
+            <Modal 
+                trigger={<a className="button"><StyledSubHeaderLink className='rightLink addButt'/>Add new task</a>} 
+                closeIcon>
+                <Modal.Header>Task creation</Modal.Header>
                 <Modal.Content >
                     <Modal.Description>
                         <Header>New Task</Header>

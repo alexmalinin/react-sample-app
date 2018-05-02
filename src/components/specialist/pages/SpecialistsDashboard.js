@@ -21,7 +21,16 @@ import { projects, days, team } from '../../../helpers/sidebarDbEmulate';
 import ProjectsBoard from '../../ProjectsBoard';
 import Dashboard from '../../Dashboard';
 import { Container } from '../../../styleComponents/layout/Container';
-import { showSpecialistData, updateSpecialistProfile, showAllProjects } from '../../../actions/actions';
+import { 
+    showSpecialistData, 
+    updateSpecialistProfile, 
+    showAllProjects, 
+    showProjectWithId, 
+    showAllEpics, 
+    showSpecialistProjects,
+    showSpecialistTeams,
+} from '../../../actions/actions';
+import Teams from '../../Teams';
 
 const mapPageNameToFieldsCount = {
     'profilePercent': 7,
@@ -45,6 +54,8 @@ class SpecialistsDashboard extends Component {
 
     componentWillMount() {
         this.props.showAllProjects();
+        this.props.showSpecialistProjects();
+        this.props.showSpecialistTeams();
     }
 
     collectPropfileData() {
@@ -152,29 +163,33 @@ class SpecialistsDashboard extends Component {
 
     render() {
         const {match:{params}, allProjects} = this.props;
-        let page = params['page'];
-        let sidebarCondition =
-             page === 'about'
-          || page === 'board'
-          || page === 'test'
-          || page === 'statement'
-          || page === 'year_to_date'
-          || page === 'account'
-          || page === 'teams'
-          || page === 'the_village'
-          || page === 'root';
+        let page;
 
-          // console.log('spec',this.props)
+        if(params['page']){
+            page = params['page'];
+        }
+        else if (params['projectId']){
+            page = 'board';
+        }
+        else if (params['projectNewModule']){
+            page = 'module';
+        } else page = 'root;'
+
+        let sidebarCondition = 
+             page !== 'profile' 
+          && page !== 'industry'
+          && page !== 'company'
+          && page !== 'billings';
 
         return (
 
             <div>
-                <HeaderBasic page={sidebarCondition} userType="specialist"/>
-                <S_MainContainer>
-                    {sidebarCondition && <SideBarLeft projects={allProjects}/>}
-                        {sidebarCondition
+                <HeaderBasic page={sidebarCondition}/>
+                <S_MainContainer sidebarCondition={sidebarCondition}>
+                    {sidebarCondition && <SideBarLeft projects={[]} currentProject={params['projectId']} currentEpic={params['moduleId']}/>}
+                        {sidebarCondition 
                             ? this.renderPage(page)
-                            : <Container>
+                            : <Container sidebarCondition={sidebarCondition}>
                                 <SubHeader percents={this.state}/>
                                 {this.renderPage(page)}
                               </Container>
@@ -189,8 +204,6 @@ class SpecialistsDashboard extends Component {
         switch (page) {
             case 'profile':
                 return <SpecialistsProfile calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
-            case 'teams':
-                return <SpecialistsMyTeams team={team}/>;
             case 'industry':
                 return <SpecialistIndustry calculatePagePercent={this.calculatePagePercent} collectPropfileData={this.collectPropfileData}/>;
             case 'company':
@@ -200,7 +213,12 @@ class SpecialistsDashboard extends Component {
             case 'about':
                 return <SpecialistsAbout/>;
             case 'board':
-                return <ProjectsBoard/>;
+                return <ProjectsBoard
+                    projectId={this.props.match.params['projectId']}
+                    currentEpic={this.props.match.params['moduleId'] || 'all'}
+                    history={this.props.history}/>;
+            case 'teams':
+                return <Teams teams={this.props.specialistTeams}/>;
             case 'test':
                 return <SpecialistsTest/>;
             case 'account':
@@ -211,10 +229,8 @@ class SpecialistsDashboard extends Component {
                 return <SpecialistStatement/>;
             case 'the_village':
                 return <TheVillage/>;
-            case 'root':
-                return <Dashboard/>;
             default:
-                return <SpecialistsAbout/>;
+                return <Dashboard projects={this.props.specialistProjects}/>; 
         }
     };
 
@@ -225,10 +241,22 @@ class SpecialistsDashboard extends Component {
                 this.calculatePercents()
             }
         }
+
+        let projectId = nextProps.match.params["projectId"];
+
+        if(projectId && nextProps.projectWithId){
+            if(nextProps.projectWithId.id != projectId){
+                nextProps.showProjectWithId(projectId);
+                nextProps.showAllEpics(projectId);
+            }
+        }
+        else if(projectId) {
+            nextProps.showProjectWithId(projectId);
+        }
     }
 }
 
 export default connect(
-    ({specialistData, confirmPassword,  educations, experiences, allProjects}) => ({specialistData, confirmPassword,  educations, experiences, allProjects}),
-    { showSpecialistData, updateSpecialistProfile, showAllProjects }
+    ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams, specialistTeams}) => ({specialistData, confirmPassword,  educations, experiences, allProjects, projectWithId, specialistProjects, allTeams, specialistTeams}),
+    { showSpecialistData, updateSpecialistProfile, showAllProjects, showProjectWithId, showAllEpics, showSpecialistProjects, showSpecialistTeams }
 )(SpecialistsDashboard);
