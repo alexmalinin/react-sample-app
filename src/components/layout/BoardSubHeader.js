@@ -28,13 +28,12 @@ class ProjectSubHeader extends Component {
           <SubHeaderLinkWrap 
             content='All' 
             url={`/dashboard/project/${this.props.project}`} 
-            className='allModules'>
-            
-          </SubHeaderLinkWrap>
-          {epics && epics.map((epic, key) =>{
+            className='allModules'/>
+
+          {epics && epics.map((epic, key) => {
             let subheaderCompletedTasks = 0;
             epic.tasks.forEach(task => task.state === 'done' && subheaderCompletedTasks++);
-            return
+            return (
               <SubHeaderLinkWrap 
                 key={key} 
                 content={key + 1} 
@@ -42,6 +41,7 @@ class ProjectSubHeader extends Component {
                 className='module'>
                 <ProgressBars percents={subheaderCompletedTasks / epic.tasks.length * 100}/>
               </SubHeaderLinkWrap>
+            )
           })}
           {changeUserType === CLIENT && 
           <SubHeaderLinkWrap 

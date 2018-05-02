@@ -7,7 +7,7 @@ import SubHeaderLinkWrap from '../forms/renders/SubHeaderLinkWrap';
 import StyledDashboardCard from '../../styleComponents/StyledDashboardCard';
 
 import { showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam } from '../../actions/actions';
-import { PORT, CLIENT, SPECIALIST } from '../../constans/constans';
+import { IMAGE_PORT, CLIENT, SPECIALIST } from '../../constans/constans';
 
 class RenderCard extends Component {
     state = {
@@ -109,7 +109,7 @@ class RenderCard extends Component {
                 <div className="titleWrapper">
                     {type === 'project' && (
                         logo.url 
-                        ? <img src={PORT + logo.url} alt={name}/>
+                        ? <img src={IMAGE_PORT + logo.url} alt={name}/>
                         : <span className="projectNoLogo">{name[0]}</span>
                     )}
                     <div>
