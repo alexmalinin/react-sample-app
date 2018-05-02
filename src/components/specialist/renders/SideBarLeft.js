@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import { StyledBar } from '../../../styleComponents/layout/SideBar';
 
-import { PORT, CLIENT } from '../../../constans/constans';
+import { IMAGE_PORT, CLIENT } from '../../../constans/constans';
 
 class SideBarLeft extends Component {
 
@@ -25,7 +25,7 @@ class SideBarLeft extends Component {
                                     to={`/dashboard/project/${project.id}`}
                                     key={project.id}>
                                     {project.logo && project.logo.url
-                                        ? <img src={PORT + project.logo.url} alt={project.name}/>
+                                        ? <img src={IMAGE_PORT + project.logo.url} alt={project.name}/>
                                         : <span className="projectNoLogo">{project.name[0]}</span>
                                     }
                                     <p className="projectName">{project.name}</p>
