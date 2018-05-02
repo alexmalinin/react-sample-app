@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-import { primaryColors, secondaryColors } from './constants/colors';
+import styled from "styled-components";
+import { primaryColors, secondaryColors } from "./constants/colors";
 
 export default styled.div`
 
-    ${props => props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    ${props => props.widthAuto ? `width: 100%` : `width: 850px`};
+    ${props =>
+      props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
+    ${props => (props.widthAuto ? `width: 100%` : `width: 850px`)};
 
     font-size: 28px;
     font-family: Roboto, sans-serif;
@@ -152,7 +153,7 @@ export default styled.div`
 
     @media (max-width: 1920px) {
 
-     ${props => props.widthAuto ? `width: 100%` : `width: 650px`};
+     ${props => (props.widthAuto ? `width: 100%` : `width: 650px`)};
       margin: 0 auto;
       margin-top: 40px;
 
@@ -168,7 +169,7 @@ export default styled.div`
 
     @media (max-width: 1499px) {
 
-       ${props => props.widthAuto ? `width: 100%` : `width: 475px`};
+       ${props => (props.widthAuto ? `width: 100%` : `width: 475px`)};
 
        .ui {
         &.text.menu {
@@ -180,11 +181,11 @@ export default styled.div`
     }
 
     @media (max-width: 1024px) {
-        ${props => props.widthAuto ? `width: 100%` : `width: 400px`};
+        ${props => (props.widthAuto ? `width: 100%` : `width: 400px`)};
     }
 
     @media (max-width: 767px) {
-        ${props => props.widthAuto ? `width: 100%` : `width: 560px`};
+        ${props => (props.widthAuto ? `width: 100%` : `width: 560px`)};
         margin 40px auto 0;
         border: none;
 

@@ -1,27 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import HeaderBasic from '../../layout/HeaderBasic';
-import SubHeader from '../../layout/SpecialistsSubHeader';
-import { getIndustries, updateSpecialistBillings, showSpecialistData } from '../../../actions/actions'
-import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
-import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
-import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
-import { Message } from 'semantic-ui-react';
-import { S_Message } from '../../../styleComponents/layout/S_Message';
-import { run } from '../../../helpers/scrollToElement';
-import SpecialistBillingForm from '../forms/SpecialistBillingForm';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
+import HeaderBasic from "../../layout/HeaderBasic";
+import SubHeader from "../../layout/SpecialistsSubHeader";
+import {
+  getIndustries,
+  updateSpecialistBillings,
+  showSpecialistData
+} from "../../../actions/actions";
+import {
+  DvTitle,
+  DvTitleSmall
+} from "../../../styleComponents/layout/DvTitles";
+import {
+  Container,
+  ContainerLarge
+} from "../../../styleComponents/layout/Container";
+import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
+import { Message } from "semantic-ui-react";
+import { S_Message } from "../../../styleComponents/layout/S_Message";
+import { run } from "../../../helpers/scrollToElement";
+import SpecialistBillingForm from "../forms/SpecialistBillingForm";
 
 class SpecialistsMyBillings extends Component {
-
   constructor() {
     super();
 
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false,
-    }
+      nextStep: false
+    };
   }
 
   componentWillMount() {
@@ -29,13 +38,19 @@ class SpecialistsMyBillings extends Component {
   }
 
   collectData(values) {
-    const { billing_type, company_name, manager, bank_account_details, swift_code } = values
-    console.log('qwe 456', billing_type)
+    const {
+      billing_type,
+      company_name,
+      manager,
+      bank_account_details,
+      swift_code
+    } = values;
+    console.log("qwe 456", billing_type);
 
-    if (billing_type == '1') {
-      return { company_name, manager }
+    if (billing_type == "1") {
+      return { company_name, manager };
     }
-    return { bank_account_details, swift_code }
+    return { bank_account_details, swift_code };
   }
 
   render() {
@@ -58,20 +73,23 @@ class SpecialistsMyBillings extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
 
-        <SpecialistBillingForm swichTab={this.swichTab} data={this.props.specialistData} onChange={this.change} onSubmit={this.submit}/>
-        {this.state.nextStep && <Redirect to="about"/>}
-
+        <SpecialistBillingForm
+          swichTab={this.swichTab}
+          data={this.props.specialistData}
+          onChange={this.change}
+          onSubmit={this.submit}
+        />
+        {this.state.nextStep && <Redirect to="about" />}
       </div>
-    )
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
-        this.showMessage('success')
-      } else if(nextProps.specialistData.errorUpdateId) {
+        this.showMessage("success");
+      } else if (nextProps.specialistData.errorUpdateId) {
         run(0)();
         this.showMessage();
       }
@@ -79,38 +97,37 @@ class SpecialistsMyBillings extends Component {
   }
 
   showMessage = status => {
-    setTimeout( () => {
-        return this.setState({
-          renderMessage: false,
-          renderErrorMessage: false,
-          nextStep: true,
-        })
-      }, 1500
-    );
+    setTimeout(() => {
+      return this.setState({
+        renderMessage: false,
+        renderErrorMessage: false,
+        nextStep: true
+      });
+    }, 1500);
 
-    status === 'success'
+    status === "success"
       ? this.setState({
-      renderMessage: true,
-    })
+          renderMessage: true
+        })
       : this.setState({
-      renderErrorMessage: true,
-    })
+          renderErrorMessage: true
+        });
   };
 
   change = values => {
-    if (!values.hasOwnProperty('billing_type')) {
+    if (!values.hasOwnProperty("billing_type")) {
       values.billing_type = 0;
     }
-    const data = this.collectData(values)
-    this.props.calculatePagePercent('billingPercent', data);
-  }
+    const data = this.collectData(values);
+    this.props.calculatePagePercent("billingPercent", data);
+  };
 
   submit = values => {
     this.props.updateSpecialistBillings(values);
   };
 }
 
-export default connect(
-  ({ specialistData }) => ({ specialistData }),
-  { updateSpecialistBillings, showSpecialistData }
-)(SpecialistsMyBillings);
+export default connect(({ specialistData }) => ({ specialistData }), {
+  updateSpecialistBillings,
+  showSpecialistData
+})(SpecialistsMyBillings);

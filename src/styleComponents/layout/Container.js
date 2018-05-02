@@ -1,31 +1,32 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContainerLarge = styled.div`
+  margin: 0 auto;
+  max-width: ${props => (props.containerHeader ? `94%` : `1280px`)};
+  width: 100%;
 
-    margin: 0 auto;
-    max-width: ${ props => props.containerHeader ? `94%` : `1280px` };
-    width: 100%;
+  & > .ui.grid {
+    margin: 0;
+  }
 
-    & > .ui.grid {
-       margin: 0;
-    }
+  ${props => (props.indentBot ? `margin-bottom: 250px` : ``)};
 
-    ${props => props.indentBot ? `margin-bottom: 250px` : ``};
+  @media (min-width: 320px) {
+    ${props => (props.xsNoPadding ? `padding: 0` : ``)};
+  }
 
-    @media (min-width: 320px) {
-        ${props => props.xsNoPadding ? `padding: 0` : ``};
-    }
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
 
-    @media screen and (min-width: 768px) {
-        padding: 0;
-    }
+  @media screen and (max-width: 1920px) {
+    max-width: 1910px;
+    padding: 0;
+  }
 
-    @media screen and (max-width: 1920px) {
-        max-width: 1910px;
-        padding: 0;
-    }
-
-    ${props => props.sidebarCondition && `
+  ${props =>
+    props.sidebarCondition &&
+    `
         @media (max-width: 1820px) {
             max-width: 100%;
             padding-left: 260px;
@@ -36,7 +37,7 @@ export const ContainerLarge = styled.div`
             padding-left: 100px;
             padding-right: 20px;
         }
-    `}
+    `};
 `;
 
 export const Container = styled.div`
@@ -45,17 +46,19 @@ export const Container = styled.div`
     /* min-height: 75vh; */
     /* max-width: 1590px; */
     margin: 0 auto;
-    padding: ${ props => props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px` } ;
+    padding: ${props =>
+      props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px`} ;
     margin-bottom: 50px;
 
     max-width: 1280px;
     margin-top: 0;
     background-color: #fff;
-    box-shadow: ${props => props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc` };
+    box-shadow: ${props =>
+      props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc`};
 
-    /* ${props => props.indentBot ? `margin-bottom: 250px` : ``}; */
-    ${props => props.indentTop ? `margin-top: 100px` : ``};
-    ${props => props.relative ? `position: relative` : ``};
+    /* ${props => (props.indentBot ? `margin-bottom: 250px` : ``)}; */
+    ${props => (props.indentTop ? `margin-top: 100px` : ``)};
+    ${props => (props.relative ? `position: relative` : ``)};
 
     transition: .4s ease-in-out;
 
@@ -69,10 +72,12 @@ export const Container = styled.div`
     @media (max-width: 1920px) {
         max-width: 1280px;
 
-        /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
+        /* ${props => (props.indentTop ? `margin-top: 80px` : ``)}; */
     }
 
-    ${props => props.sidebarCondition && `
+    ${props =>
+      props.sidebarCondition &&
+      `
         @media (max-width: 1820px) {
             max-width: 100%;
         }
@@ -118,7 +123,7 @@ export const IntroContainer = styled.div`
   @media (max-width: 1920px) {
       max-width: 600px;
 
-      /* ${props => props.indentTop ? `margin-top: 80px` : ``}; */
+      /* ${props => (props.indentTop ? `margin-top: 80px` : ``)}; */
   }
 
 

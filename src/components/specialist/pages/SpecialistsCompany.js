@@ -1,26 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import HeaderBasic from '../../layout/HeaderBasic';
-import SubHeader from '../../layout/SpecialistsSubHeader';
-import { getIndustries, updateSpecStep2, showSpecialistData } from '../../../actions/actions'
-import {DvTitle, DvTitleSmall} from '../../../styleComponents/layout/DvTitles';
-import { Container, ContainerLarge } from '../../../styleComponents/layout/Container';
-import { S_MainContainer } from '../../../styleComponents/layout/S_MainContainer';
-import { Message } from 'semantic-ui-react';
-import { S_Message } from '../../../styleComponents/layout/S_Message';
-import { run } from '../../../helpers/scrollToElement';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
+import HeaderBasic from "../../layout/HeaderBasic";
+import SubHeader from "../../layout/SpecialistsSubHeader";
+import {
+  getIndustries,
+  updateSpecStep2,
+  showSpecialistData
+} from "../../../actions/actions";
+import {
+  DvTitle,
+  DvTitleSmall
+} from "../../../styleComponents/layout/DvTitles";
+import {
+  Container,
+  ContainerLarge
+} from "../../../styleComponents/layout/Container";
+import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
+import { Message } from "semantic-ui-react";
+import { S_Message } from "../../../styleComponents/layout/S_Message";
+import { run } from "../../../helpers/scrollToElement";
 import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
 
 class SpecialistCompany extends Component {
-
   constructor() {
     super();
 
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false,
+      nextStep: false
     };
   }
 
@@ -50,20 +59,22 @@ class SpecialistCompany extends Component {
         </S_Message>
         {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
-        <SpecialistCompanyForm industries={industries} onSubmit={this.submit} onChange={this.change} />
-        {this.state.nextStep && <Redirect to="billings"/>}
-
+        <SpecialistCompanyForm
+          industries={industries}
+          onSubmit={this.submit}
+          onChange={this.change}
+        />
+        {this.state.nextStep && <Redirect to="billings" />}
       </div>
-    )
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
         run(0)();
-        this.showMessage('success')
-      } else if(nextProps.specialistData.errorUpdateId) {
+        this.showMessage("success");
+      } else if (nextProps.specialistData.errorUpdateId) {
         run(0)();
         this.showMessage();
       }
@@ -71,28 +82,26 @@ class SpecialistCompany extends Component {
   }
 
   showMessage = status => {
-    setTimeout( () => {
-        return this.setState({
-          renderMessage: false,
-          renderErrorMessage: false,
-          nextStep: true,
-        })
-      }, 0
-    );
+    setTimeout(() => {
+      return this.setState({
+        renderMessage: false,
+        renderErrorMessage: false,
+        nextStep: true
+      });
+    }, 0);
 
-    status === 'success'
+    status === "success"
       ? this.setState({
-      renderMessage: true,
-    })
+          renderMessage: true
+        })
       : this.setState({
-      renderErrorMessage: true,
-    })
+          renderErrorMessage: true
+        });
   };
 
-
   change = values => {
-    this.props.calculatePagePercent('companyPercent', values);
-  }
+    this.props.calculatePagePercent("companyPercent", values);
+  };
 
   submit = values => {
     this.props.updateSpecStep2(values);
@@ -100,6 +109,10 @@ class SpecialistCompany extends Component {
 }
 
 export default connect(
-  ({ industries, company, specialistData }) => ({ industries, company, specialistData }),
+  ({ industries, company, specialistData }) => ({
+    industries,
+    company,
+    specialistData
+  }),
   { getIndustries, updateSpecStep2, showSpecialistData }
 )(SpecialistCompany);

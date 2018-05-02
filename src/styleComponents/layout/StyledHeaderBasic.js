@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { secondaryColors } from '../constants/colors';
+import styled from "styled-components";
+import { secondaryColors } from "../constants/colors";
 
 export default styled.header`
 

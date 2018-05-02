@@ -1,102 +1,101 @@
-import axios from 'axios';
-import { SUCCESS, FAIL } from '../constans/constans';
-import jwtDecode from 'jwt-decode';
+import axios from "axios";
+import { SUCCESS, FAIL } from "../constans/constans";
+import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
-    const { type, saveCreatedProgect, payload, ...rest } = action;
-    if (!saveCreatedProgect) return next(action);
+  const { type, saveCreatedProgect, payload, ...rest } = action;
+  if (!saveCreatedProgect) return next(action);
 
-    let token = localStorage.getItem('jwt_token');
-    let { id } = jwtDecode(token);
+  let token = localStorage.getItem("jwt_token");
+  let { id } = jwtDecode(token);
 
-    let files = payload.file ? payload.file.split('||').map((file) => {
+  let files = payload.file
+    ? payload.file.split("||").map(file => {
         return {
-            "document": file,
-            "entity_type": "Project"
-        }
-    }) : [];
+          document: file,
+          entity_type: "Project"
+        };
+      })
+    : [];
 
-    window.payload = payload;
-    let logo = payload["logo"] ? payload["logo"][0] : null;
+  window.payload = payload;
+  let logo = payload["logo"] ? payload["logo"][0] : null;
 
-    if (logo) {
-      let reader = new FileReader();
-      reader.readAsDataURL(logo);
+  if (logo) {
+    let reader = new FileReader();
+    reader.readAsDataURL(logo);
 
-      reader.onload = () => {
-        axios({
-          method: 'post',
-          url: saveCreatedProgect,
-          data: {
-            "project": {
-              "name": payload["name"],
-              "customer_id": id,
-              "description": payload["description"],
-              "user_story": payload["user_story"],
-              "business_requirements": payload["requirements"],
-              "business_rules": payload["rules"],
-              "deliverables": payload["criteria"],
-              "further_notes": payload["solution"],
-              "logo"         : reader.result,
-              "attached_files_attributes": files,
-              "team_attributes": {
-                "name": payload["name"],
-              }
-            }
-          },
-
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          }
-
-        }).then(function (response) {
-          let data = response.data;
-          data.successProjectId = Math.random();
-          return next({ ...rest, type: type + SUCCESS, data: data });
-        })
-          .catch(function () {
-            let data = {};
-            data.successProjectId = Math.random();
-            return next({ ...rest, type: type + FAIL, data: data });
-          });
-      }
-
-    } else {
+    reader.onload = () => {
       axios({
-        method: 'post',
+        method: "post",
         url: saveCreatedProgect,
         data: {
-          "project": {
-            "name": payload["name"],
-            "customer_id": id,
-            "description": payload["description"],
-            "user_story": payload["user_story"],
-            "business_requirements": payload["requirements"],
-            "business_rules": payload["rules"],
-            "deliverables": payload["criteria"],
-            "further_notes": payload["solution"],
-            "attached_files_attributes": files,
-            "team_attributes": {
-              "name": payload["name"],
+          project: {
+            name: payload["name"],
+            customer_id: id,
+            description: payload["description"],
+            user_story: payload["user_story"],
+            business_requirements: payload["requirements"],
+            business_rules: payload["rules"],
+            deliverables: payload["criteria"],
+            further_notes: payload["solution"],
+            logo: reader.result,
+            attached_files_attributes: files,
+            team_attributes: {
+              name: payload["name"]
             }
           }
         },
 
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
-
-      }).then(function (response) {
-        let data = response.data;
-        data.successProjectId = Math.random();
-        return next({ ...rest, type: type + SUCCESS, data: data });
       })
-        .catch(function () {
+        .then(function(response) {
+          let data = response.data;
+          data.successProjectId = Math.random();
+          return next({ ...rest, type: type + SUCCESS, data: data });
+        })
+        .catch(function() {
           let data = {};
           data.successProjectId = Math.random();
           return next({ ...rest, type: type + FAIL, data: data });
         });
-    }
+    };
+  } else {
+    axios({
+      method: "post",
+      url: saveCreatedProgect,
+      data: {
+        project: {
+          name: payload["name"],
+          customer_id: id,
+          description: payload["description"],
+          user_story: payload["user_story"],
+          business_requirements: payload["requirements"],
+          business_rules: payload["rules"],
+          deliverables: payload["criteria"],
+          further_notes: payload["solution"],
+          attached_files_attributes: files,
+          team_attributes: {
+            name: payload["name"]
+          }
+        }
+      },
 
-
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(function(response) {
+        let data = response.data;
+        data.successProjectId = Math.random();
+        return next({ ...rest, type: type + SUCCESS, data: data });
+      })
+      .catch(function() {
+        let data = {};
+        data.successProjectId = Math.random();
+        return next({ ...rest, type: type + FAIL, data: data });
+      });
+  }
 };

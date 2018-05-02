@@ -1,24 +1,30 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import HeaderBasic from '../layout/HeaderBasic';
-import { NavLink } from 'react-router-dom'
-import SubHeader from '../layout/ProjectSubHeader';
-import { Grid } from 'semantic-ui-react'
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container';
-import { createProjectEpic, showProjectWithId, showAllEpics } from '../../actions/actions';
-import { S_Message } from '../../styleComponents/layout/S_Message';
-import { Message } from 'semantic-ui-react';
-import { run } from '../../helpers/scrollToElement';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
+import HeaderBasic from "../layout/HeaderBasic";
+import { NavLink } from "react-router-dom";
+import SubHeader from "../layout/ProjectSubHeader";
+import { Grid } from "semantic-ui-react";
+import {
+  Container,
+  ContainerLarge
+} from "../../styleComponents/layout/Container";
+import {
+  createProjectEpic,
+  showProjectWithId,
+  showAllEpics
+} from "../../actions/actions";
+import { S_Message } from "../../styleComponents/layout/S_Message";
+import { Message } from "semantic-ui-react";
+import { run } from "../../helpers/scrollToElement";
 import Navbar from "../layout/Navbar";
-import ClientModuleForm from './forms/ClientModuleForm';
+import ClientModuleForm from "./forms/ClientModuleForm";
 
 class ClientProjects extends Component {
-
   state = {
     renderMessage: false,
     renderErrorMessage: false,
-    saved: false,
+    saved: false
   };
 
   componentWillMount() {
@@ -31,51 +37,52 @@ class ClientProjects extends Component {
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
-        <ContainerLarge>
-          <SubHeader module projectId={projectId}/>
-          <Container sidebarCondition={true} indentBot>
-            <ClientModuleForm onSubmit={this.submit} />
-            {this.state.saved ? <Redirect to={`/dashboard/project/${projectId}`}/> : null }
-          </Container>
-        </ContainerLarge>
+      <ContainerLarge>
+        <SubHeader module projectId={projectId} />
+        <Container sidebarCondition={true} indentBot>
+          <ClientModuleForm onSubmit={this.submit} />
+          {this.state.saved ? (
+            <Redirect to={`/dashboard/project/${projectId}`} />
+          ) : null}
+        </Container>
+      </ContainerLarge>
     );
   }
 
   showMessage = status => {
-    setTimeout( () => {
-        return this.setState({
-          renderMessage: false,
-          renderErrorMessage: false,
-        })
-      }, 2000
-    );
+    setTimeout(() => {
+      return this.setState({
+        renderMessage: false,
+        renderErrorMessage: false
+      });
+    }, 2000);
 
-    status === 'success'
+    status === "success"
       ? this.setState({
-      renderMessage: true,
-    })
+          renderMessage: true
+        })
       : this.setState({
-      renderErrorMessage: true,
-    })
+          renderErrorMessage: true
+        });
   };
 
   submit = values => {
     const { projectId } = this.props;
     this.props.createProjectEpic(values, projectId);
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.createEpic){
-      if(nextProps.createEpic.successEpicId){
+    if (nextProps.createEpic) {
+      if (nextProps.createEpic.successEpicId) {
         this.setState({
           saved: true
-        })
+        });
       }
     }
   }
 }
 
 export default connect(
-  ({projectWithId, createEpic}) => ({projectWithId, createEpic}),
-  {createProjectEpic, showProjectWithId}
+  ({ projectWithId, createEpic }) => ({ projectWithId, createEpic }),
+  { createProjectEpic, showProjectWithId }
 )(ClientProjects);
