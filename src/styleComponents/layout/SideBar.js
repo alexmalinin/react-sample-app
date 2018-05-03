@@ -35,7 +35,6 @@ export const StyledBar = styled.aside`
         text-transform: uppercase;
         color: #666;
         border-bottom: 1px solid #f2f2f2;
-        /* box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15); */
 
         h4 {
           font-size: 12px;
@@ -190,6 +189,41 @@ export const StyledBar = styled.aside`
 
   &.right {
     right: 0;
+
+    transform: translateX(100%);
+    animation: showme 2s ease-in-out 1s;
+
+    &:hover {
+      transform: translateX(0);
+      &::before {
+        width: 5px;
+      }
+    }
+
+    @keyframes showme {
+      from {
+        transform: translateX(100%);
+      }
+      20% {
+        transform: translateX(0);
+      }
+      80% {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 100%;
+      width: 60px;
+      top: 0;
+      right: 100%;
+      transition-delay: 0.8s;
+    }
 
     & > div {
       width: 100%;
@@ -407,7 +441,7 @@ export const StyledBar = styled.aside`
 
   @media screen and (max-width: 1820px) {
     &.right {
-      display: none;
+      /* display: none; */
     }
   }
 

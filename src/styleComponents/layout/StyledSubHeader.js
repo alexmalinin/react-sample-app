@@ -531,8 +531,9 @@ export default styled.div`
 
   ${props =>
     props.sidebarCondition &&
+    !props.module &&
     `
-        @media (max-width: 1820px) {
+        @media (min-width: 1441px) {
             max-width: 100%;
         }
     `} @media (max-width: 991px) {

@@ -596,12 +596,4 @@ export const S_Board = styled.div`
       }
     }
   }
-
-  @media (max-width: 1920px) {
-    max-width: 1280px;
-  }
-
-  @media (max-width: 1820px) {
-    max-width: 100%;
-  }
 `;

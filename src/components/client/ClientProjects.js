@@ -29,7 +29,7 @@ class ClientProjects extends Component {
     return (
       <ContainerLarge>
         <SubHeader />
-        <Container sidebarCondition indentBot>
+        <Container small sidebarCondition indentBot>
           <S_Message positive profile="true" data-show={renderMessage}>
             <Message.Header>Success!</Message.Header>
             <p>Form updated</p>
