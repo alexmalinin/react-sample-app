@@ -122,7 +122,6 @@ export class AssignDropdown extends Component {
               ))}
             </div>
           </div>
-          ))}
         </StyledAssignDropdown>
       )
     );

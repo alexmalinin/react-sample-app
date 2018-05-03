@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { StyledBar } from "../../../styleComponents/layout/SideBar";
 import { Accordion, Tab } from "semantic-ui-react";
+import Teams from "../../Teams";
 
 class SideBarRight extends Component {
   render() {
@@ -11,7 +12,7 @@ class SideBarRight extends Component {
         menuItem: "TEAMS",
         render: () => (
           <Tab.Pane>
-            <Teams teams={teams} />
+            <Teams teams={teams} renderToRightSidebar />
           </Tab.Pane>
         )
       },
@@ -33,7 +34,7 @@ class SideBarRight extends Component {
   }
 }
 
-function Teams({ teams }) {
+function SidebarTeams({ teams }) {
   return (
     <div>
       {teams && teams.length !== 0

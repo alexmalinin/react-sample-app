@@ -134,6 +134,11 @@ export default styled.div`
   }
 
   .teamSubHeader {
+    display: flex;
+    font-size: 15px;
+    width: 100%;
+    justify-content: space-between;
+
     a {
       &:first-of-type {
         opacity: 1;

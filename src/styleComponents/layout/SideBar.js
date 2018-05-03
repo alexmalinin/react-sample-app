@@ -221,7 +221,9 @@ export const StyledBar = styled.aside`
       .attached.segment.tab {
         padding: 20px;
         border: none;
+        overflow-x: hidden;
         overflow-y: auto;
+        height: 100%;
         max-height: calc(100% - 44px);
 
         .team-tab-project {

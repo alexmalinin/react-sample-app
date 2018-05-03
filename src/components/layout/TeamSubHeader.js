@@ -15,7 +15,7 @@ class TeamSubHeader extends Component {
             &nbsp;
           </SubHeaderLinkWrap>
 
-          {/* <AddTeamModal /> */}
+          <AddTeamModal />
         </div>
       </StyledSubHeader>
     );
