@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.div`
     
@@ -18,8 +18,8 @@ export default styled.div`
         order: 1;
     }
 
-    ${props => props.fileLoader ? `margin-top: 24px` : ``};
-    ${props => props.padded ? `padding: 0 20px` : ``};
+    ${props => (props.fileLoader ? `margin-top: 24px` : ``)};
+    ${props => (props.padded ? `padding: 0 20px` : ``)};
     
     input {
         display: none;
@@ -32,7 +32,7 @@ export default styled.div`
         & img {
             width: 120px;
             height: 120px;
-            object-fit: ${props => props.projectLogo ? 'contain' : 'cover'};
+            object-fit: ${props => (props.projectLogo ? "contain" : "cover")};
         }
     }
     
@@ -45,7 +45,7 @@ export default styled.div`
     }
     
     .ui.button {
-        ${props => props.disabled ? "display: none;" : ''}
+        ${props => (props.disabled ? "display: none;" : "")}
         width: 35px;
         height: 35px;
         /* padding: 16px 55px; */

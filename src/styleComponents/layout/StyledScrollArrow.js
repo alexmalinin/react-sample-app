@@ -1,4 +1,4 @@
-import style, {css} from 'styled-components'
+import style, { css } from "styled-components";
 
 export const StyledScrollArrow = style.div`
     position: fixed;
@@ -38,7 +38,11 @@ export const StyledScrollArrow = style.div`
 
 export const ColoredSpan = style.span`
     
-    ${props => props.color && css`background: ${props.color}`};
+    ${props =>
+      props.color &&
+      css`
+        background: ${props.color};
+      `};
     position: absolute;
     height: 2px;
     width: 25px;

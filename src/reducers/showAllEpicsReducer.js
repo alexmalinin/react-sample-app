@@ -1,12 +1,12 @@
-import { SUCCESS, FAIL, SHOW_ALL_EPICS } from '../constans/constans';
+import { SUCCESS, FAIL, SHOW_ALL_EPICS } from "../constans/constans";
 
 export default (state = null, action) => {
-    const { type, data } = action;
+  const { type, data } = action;
 
-    switch (type) {
-        case SHOW_ALL_EPICS + SUCCESS:
-            return data;
-        default:
-            return state;
-    }
+  switch (type) {
+    case SHOW_ALL_EPICS + SUCCESS:
+      return data;
+    default:
+      return state;
+  }
 };

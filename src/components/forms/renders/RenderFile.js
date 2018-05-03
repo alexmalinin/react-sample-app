@@ -1,124 +1,117 @@
-import React, {Component} from 'react';
-import { Button } from 'semantic-ui-react';
-import StyledUploader from '../../../styleComponents/forms/StyledUploader';
+import React, { Component } from "react";
+import { Button } from "semantic-ui-react";
+import StyledUploader from "../../../styleComponents/forms/StyledUploader";
 import { IMAGE_PORT } from "../../../constans/constans";
 
 class RenderImage extends Component {
+  state = {
+    files: []
+  };
 
-    state = {
-        files: [],
-    };
+  fileHub = [];
 
-    fileHub = [];
+  _handleFileAttach(e) {
+    e.preventDefault();
 
-    _handleFileAttach(e) {
-        e.preventDefault();
+    let files = e.target.files;
+    console.log("files", files);
 
-        
-        let files = e.target.files;
-        console.log("files", files);
+    for (let i = 0; i < files.length; i++) {
+      let reader = new FileReader();
 
-        
+      reader.onloadend = () => {
+        this.fileHub = [...this.fileHub, reader.result];
+        this.setState({
+          files: [...this.state.files, files[i]]
+        });
+        this.shadowfileInput.value = this.fileHub.join("||");
+        this.props.input.onChange(this.shadowfileInput.value);
+        // sample for API console.log('end', this.shadowfileInput.value.split('||'));
+      };
 
-        for(let i = 0; i < files.length; i++) {
-            let reader = new FileReader();
-
-            reader.onloadend = () => {
-                this.fileHub = [...this.fileHub, reader.result];
-                this.setState({
-                    files: [...this.state.files, files[i]]
-                });
-                this.shadowfileInput.value = this.fileHub.join('||');
-                this.props.input.onChange(this.shadowfileInput.value);
-                // sample for API console.log('end', this.shadowfileInput.value.split('||'));
-            };
-
-            reader.readAsDataURL(files[i]);
-        }
+      reader.readAsDataURL(files[i]);
     }
+  }
 
-    returnFileName(name) {
-        if(name.length > 10){
-            return name.slice(0, 5) + '...';
-        } else return name;
+  returnFileName(name) {
+    if (name.length > 10) {
+      return name.slice(0, 5) + "...";
+    } else return name;
+  }
+
+  returnFileSize(number) {
+    if (number < 1024) {
+      return number + "bytes";
+    } else if (number > 1024 && number < 1048576) {
+      return (number / 1024).toFixed(1) + "KB";
+    } else if (number > 1048576) {
+      return (number / 1048576).toFixed(1) + "MB";
     }
+  }
 
-    returnFileSize(number) {
-        if(number < 1024) {
-            return number + 'bytes';
-        } else if(number > 1024 && number < 1048576) {
-            return (number/1024).toFixed(1) + 'KB';
-        } else if(number > 1048576) {
-            return (number/1048576).toFixed(1) + 'MB';
-        }
-    }
+  render() {
+    const {
+      input,
+      placeholder,
+      label,
+      name,
+      type,
+      disabled,
+      padded
+    } = this.props;
 
-    render() {
-        const {
-            input,
-            placeholder,
-            label,
-            name,
-            type,
-            disabled,
-            padded,
-        } = this.props;
+    return (
+      <StyledUploader fileLoader padded={padded}>
+        <p>{label}</p>
+        <span />
+        {this.state.files.map((file, key) => (
+          <div className="filePreview" key={key}>
+            <img src="/images/uploadFile.png" alt="file" />
+            <div className="fileInfo">
+              <p>{this.returnFileName(file.name)}</p>
+              <p>{this.returnFileSize(file.size)}</p>
+            </div>
+            <div className="detailedInfo">
+              <a tabIndex={1} />
+              <div className="dropDown">{file.name}</div>
+            </div>
+          </div>
+        ))}
+        <button className="uploadFile" onClick={this.handleTrigger}>
+          {/* Upload */}
+        </button>
+        <input
+          ref={this.triggerRef}
+          name={name + "2"}
+          disabled={disabled}
+          placeholder={placeholder}
+          type="file"
+          multiple
+          onChange={e => this._handleFileAttach(e)}
+        />
 
-        return (
-            <StyledUploader fileLoader padded={padded}>
-                <p>{label}</p>
-                <span></span>
-                {this.state.files.map((file, key) => 
-                    <div className='filePreview' key={key}>
-                        <img src="/images/uploadFile.png" alt="file"/>
-                        <div className="fileInfo">
-                            <p>{this.returnFileName(file.name)}</p>
-                            <p>{this.returnFileSize(file.size)}</p>
-                        </div>
-                        <div className="detailedInfo">
-                            <a tabIndex={1}></a>
-                            <div className="dropDown">
-                                {file.name}
-                            </div>
-                        </div>
-                    </div>
-                )}
-                <button className='uploadFile' onClick={this.handleTrigger}>
-                {/* Upload */}
-                </button>
-                <input
-                    ref={this.triggerRef}
-                    name={name + '2'}
-                    disabled={disabled}
-                    placeholder={placeholder}
-                    type='file'
-                    multiple
-                    onChange={(e) => this._handleFileAttach(e)}/>
-                
-                <input
-                    ref={(input) => this.shadowfileInput = input}
-                    name={name}
-                    disabled={disabled}
-                    placeholder={placeholder}
-                    type='text'
-                    />
-                
-            </StyledUploader>
-        )
-    }
+        <input
+          ref={input => (this.shadowfileInput = input)}
+          name={name}
+          disabled={disabled}
+          placeholder={placeholder}
+          type="text"
+        />
+      </StyledUploader>
+    );
+  }
 
-    triggerRef = ref => {
-        this.container = ref;
-    };
+  triggerRef = ref => {
+    this.container = ref;
+  };
 
-    handleTrigger = ev => {
-        ev.preventDefault();
-        this.container.click();
-    }
+  handleTrigger = ev => {
+    ev.preventDefault();
+    this.container.click();
+  };
 }
 
 export default RenderImage;
-
 
 // if (avatar && !imagePreviewUrl) {
 //     $imagePreview = (<img src={PORT + avatar.url}/>);

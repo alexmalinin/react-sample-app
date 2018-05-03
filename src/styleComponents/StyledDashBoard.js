@@ -1,25 +1,23 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.div`
-    color: #666;
-    padding: 0;
+  color: #666;
+  padding: 0;
 
+  display: grid;
+  ${props => (props.village ? `` : `grid-template-columns: 1fr 2fr 2fr`)};
+  /* grid-auto-rows: 100px; */
+  grid-gap: 20px;
+
+  & > div > div {
     display: grid;
-    ${props => props.village ? `` : `grid-template-columns: 1fr 2fr 2fr`};
-    /* grid-auto-rows: 100px; */
+    grid-auto-rows: 120px;
     grid-gap: 20px;
-    
+    grid-auto-flow: dense;
+    ${props => (props.village ? `grid-template-columns: repeat(5, 1fr)` : ``)};
+  }
 
-    &>div>div{
-        display: grid;
-        grid-auto-rows: 120px;
-        grid-gap: 20px;
-        grid-auto-flow: dense;
-        ${props => props.village ? `grid-template-columns: repeat(5, 1fr)` : ``};
-    }
-
-    .tasks>div{
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-`
+  .tasks > div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;

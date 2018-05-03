@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.div`
     
@@ -9,19 +9,21 @@ export default styled.div`
     padding: 12px 30px 16px 20px;
     /* margin-top: 20px;
     margin-bottom: 20px; */
-    /* background-color: ${props => props.background || `#f2f2f2` } ; */
-    background: ${props => props.backgroundImg 
-        ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${props.backgroundImg})` 
-        : props.background 
-        || `#f2f2f2` 
-    };
+    /* background-color: ${props => props.background || `#f2f2f2`} ; */
+    background: ${props =>
+      props.backgroundImg
+        ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${
+            props.backgroundImg
+          })`
+        : props.background || `#f2f2f2`};
     background-size: cover;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
     color: ${props => props.titleColor || `#666`};
     grid-row-end: span ${props => props.size.row};
-    ${props => props.village ? `grid-column-end: span ${props.size.col}` : ``};
+    ${props =>
+      props.village ? `grid-column-end: span ${props.size.col}` : ``};
 
     &::before{
         content: '...';
@@ -66,14 +68,14 @@ export default styled.div`
 
         .subTitle {
             color: ${props => {
-                switch(props.type) {
-                    case "project":
-                        return '#8f1ae5';
-                    case "overview":
-                        return '#38ffbf'
-                    default:
-                        return "inherit";
-                }
+              switch (props.type) {
+                case "project":
+                  return "#8f1ae5";
+                case "overview":
+                  return "#38ffbf";
+                default:
+                  return "inherit";
+              }
             }};
             margin-bottom: 5px;
         }
@@ -216,7 +218,9 @@ export default styled.div`
         display: flex;
         position: relative;
 
-        ${props => props.type === 'overview' && `
+        ${props =>
+          props.type === "overview" &&
+          `
             justify-content: space-between;
             align-items: center;
         `}
@@ -239,4 +243,4 @@ export default styled.div`
         }
     }
 
-`
+`;

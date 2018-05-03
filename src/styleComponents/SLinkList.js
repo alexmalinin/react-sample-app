@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from "styled-components";
 
 const renderFooter = `
     float: right;
@@ -82,5 +82,9 @@ const renderFooter = `
 `;
 
 export default styled.ul`
-    ${props => props.footer && css`${renderFooter}`}
+  ${props =>
+    props.footer &&
+    css`
+      ${renderFooter};
+    `};
 `;

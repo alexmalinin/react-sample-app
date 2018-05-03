@@ -1,129 +1,145 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import HeaderBasic from '../layout/HeaderBasic';
-import { NavLink } from 'react-router-dom'
-import SubHeader from '../layout/ClientSubHeader';
-import { Grid } from 'semantic-ui-react';
-import { DvTitle, DvTitleSmall } from '../../styleComponents/layout/DvTitles';
-import { Container, ContainerLarge } from '../../styleComponents/layout/Container'
-import { S_Message } from '../../styleComponents/layout/S_Message';
-import RenderProjectCard from './renders/RenderProjectCard';
-import ClientBillingForm from './forms/ClientBillingForm';
-import { showClientData,  getIndustries, updateClientBilling } from '../../actions/actions';
-import {NewTeamBtn} from '../../styleComponents/layout/DvButton';
-import StyledClientTeam from '../../styleComponents/StyledClientTeam';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router";
+import HeaderBasic from "../layout/HeaderBasic";
+import { NavLink } from "react-router-dom";
+import SubHeader from "../layout/ClientSubHeader";
+import { Grid } from "semantic-ui-react";
+import { DvTitle, DvTitleSmall } from "../../styleComponents/layout/DvTitles";
+import {
+  Container,
+  ContainerLarge
+} from "../../styleComponents/layout/Container";
+import { S_Message } from "../../styleComponents/layout/S_Message";
+import RenderProjectCard from "./renders/RenderProjectCard";
+import ClientBillingForm from "./forms/ClientBillingForm";
+import {
+  showClientData,
+  getIndustries,
+  updateClientBilling
+} from "../../actions/actions";
+import { NewTeamBtn } from "../../styleComponents/layout/DvButton";
+import StyledClientTeam from "../../styleComponents/StyledClientTeam";
 import Navbar from "../layout/Navbar";
-import { Message } from 'semantic-ui-react';
-import { run } from '../../helpers/scrollToElement';
+import { Message } from "semantic-ui-react";
+import { run } from "../../helpers/scrollToElement";
 
 class ClientBilling extends Component {
+  constructor() {
+    super();
 
-    constructor() {
-        super();
-
-        this.state = {
-            renderMessage: false,
-            renderErrorMessage: false,
-            nextStep: false,
-        };
-
-    }
-
-    collectData(values) {
-
-        const { billing_type,
-                account_number,
-                account_details,
-                card_name, card_number,
-                expiry_date,
-                ccv,
-                password } = values;
-
-        if (!billing_type || billing_type == '0') {
-            let obj = { data: {account_number, password,}, count: 2, }
-            return obj
-        }
-
-        if (billing_type == '1') {
-            let obj = {data: { card_name, card_number, expiry_date, ccv, }, count: 4, }
-            return obj
-        }
-        if (billing_type == '2') {
-            let obj = {data: {account_details,}, count: 1, }
-            return obj
-        }
-
-    }
-
-    componentWillMount() {
-      this.props.showClientData();
-    }
-
-    render() {
-        const { clientData } = this.props;
-        const { renderErrorMessage, renderMessage } = this.state;
-
-        return (
-            <div>
-                <S_Message positive profile="true" data-show={renderMessage}>
-                    <Message.Header>Success!</Message.Header>
-                    <p>Form updated</p>
-                </S_Message>
-                <S_Message negative profile="true" data-show={renderErrorMessage}>
-                    <Message.Header>Error!</Message.Header>
-                    <p>Something went wrong, please try again</p>
-                </S_Message>
-                {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
-                <ClientBillingForm onChange={this.change} clientData={clientData} onSubmit={this.submit}/>
-                {this.state.nextStep && <Redirect to="board"/>}
-            </div>
-        )
-    }
-
-    componentWillReceiveProps(nextProps) {
-        let client = nextProps.clientData;
-
-        if (client && client.successBillingId) {
-            this.showMessage('success');
-            run(0)();
-        } else if(client && client.successBillingId) {
-            this.showMessage();
-            run(0)();
-        }
-    }
-
-    showMessage = status => {
-        setTimeout( () => this.setState({
-                renderMessage: false,
-                renderErrorMessage: false,
-                nextStep: true,
-            }), 1500
-        );
-
-        status === 'success'
-            ? this.setState({
-                renderMessage: true,
-            })
-            : this.setState({
-                renderErrorMessage: true,
-            })
+    this.state = {
+      renderMessage: false,
+      renderErrorMessage: false,
+      nextStep: false
     };
+  }
 
-    change = values => {
-        if (!values.hasOwnProperty('billing_type')) {
-          values.billing_type = 0;
-        }
-        const data = this.collectData(values)
-        this.props.calculatePagePercent('billingPercent', data);
-      }
+  collectData(values) {
+    const {
+      billing_type,
+      account_number,
+      account_details,
+      card_name,
+      card_number,
+      expiry_date,
+      ccv,
+      password
+    } = values;
 
-    submit = values => {
-        this.props.updateClientBilling(values)
+    if (!billing_type || billing_type == "0") {
+      let obj = { data: { account_number, password }, count: 2 };
+      return obj;
     }
+
+    if (billing_type == "1") {
+      let obj = {
+        data: { card_name, card_number, expiry_date, ccv },
+        count: 4
+      };
+      return obj;
+    }
+    if (billing_type == "2") {
+      let obj = { data: { account_details }, count: 1 };
+      return obj;
+    }
+  }
+
+  componentWillMount() {
+    this.props.showClientData();
+  }
+
+  render() {
+    const { clientData } = this.props;
+    const { renderErrorMessage, renderMessage } = this.state;
+
+    return (
+      <div>
+        <S_Message positive profile="true" data-show={renderMessage}>
+          <Message.Header>Success!</Message.Header>
+          <p>Form updated</p>
+        </S_Message>
+        <S_Message negative profile="true" data-show={renderErrorMessage}>
+          <Message.Header>Error!</Message.Header>
+          <p>Something went wrong, please try again</p>
+        </S_Message>
+        {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
+        <ClientBillingForm
+          onChange={this.change}
+          clientData={clientData}
+          onSubmit={this.submit}
+        />
+        {this.state.nextStep && <Redirect to="board" />}
+      </div>
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let client = nextProps.clientData;
+
+    if (client && client.successBillingId) {
+      this.showMessage("success");
+      run(0)();
+    } else if (client && client.successBillingId) {
+      this.showMessage();
+      run(0)();
+    }
+  }
+
+  showMessage = status => {
+    setTimeout(
+      () =>
+        this.setState({
+          renderMessage: false,
+          renderErrorMessage: false,
+          nextStep: true
+        }),
+      1500
+    );
+
+    status === "success"
+      ? this.setState({
+          renderMessage: true
+        })
+      : this.setState({
+          renderErrorMessage: true
+        });
+  };
+
+  change = values => {
+    if (!values.hasOwnProperty("billing_type")) {
+      values.billing_type = 0;
+    }
+    const data = this.collectData(values);
+    this.props.calculatePagePercent("billingPercent", data);
+  };
+
+  submit = values => {
+    this.props.updateClientBilling(values);
+  };
 }
 
 export default connect(
-    ({ industries, clientData }) => ({ industries, clientData }),
-    { getIndustries, showClientData, updateClientBilling }
+  ({ industries, clientData }) => ({ industries, clientData }),
+  { getIndustries, showClientData, updateClientBilling }
 )(ClientBilling);
