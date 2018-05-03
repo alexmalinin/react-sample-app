@@ -42,12 +42,18 @@ class ClientDashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.showAllProjects();
+    const {
+      match: { params },
+      projectWithId,
+      showAllProjects,
+      showProjectWithId
+    } = this.props;
+    showAllProjects();
 
-    let projectId = this.props.match.params["projectId"];
+    let projectId = params["projectId"] || params["projectNewModule"];
 
-    if (projectId && !this.props.projectWithId) {
-      this.props.showProjectWithId(projectId);
+    if (projectId && !projectWithId) {
+      showProjectWithId(projectId);
     }
   }
 
@@ -303,10 +309,12 @@ class ClientDashboard extends Component {
       }
     }
 
-    let projectId = nextProps.match.params["projectId"];
+    let projectId =
+      nextProps.match.params["projectId"] ||
+      nextProps.match.params["projectNewModule"];
 
     if (projectId && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id !== projectId) {
+      if (nextProps.projectWithId.id !== +projectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }

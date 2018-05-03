@@ -94,10 +94,9 @@ class SignUp extends Component {
   }
 
   loginRedirect = () => {
-    let { changeUserType, signInReducer } = this.props;
+    let { signInReducer } = this.props;
     let { isLogIn, data } = signInReducer;
     let status = data ? data["status"] : null;
-    let user = changeUserType === "Specialist" ? "specialists" : "client";
     if (isLogIn && status !== "logged") {
       return <Redirect to={`/dashboard/profile`} />;
     }
