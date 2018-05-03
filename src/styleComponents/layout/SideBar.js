@@ -221,7 +221,9 @@ export const StyledBar = styled.aside`
       .attached.segment.tab {
         padding: 20px;
         border: none;
+        overflow-x: hidden;
         overflow-y: auto;
+        height: 100%;
         max-height: calc(100% - 44px);
 
         .team-tab-project {
@@ -245,24 +247,106 @@ export const StyledBar = styled.aside`
             h5 {
               flex-basis: 100%;
             }
+            .attached.segment.tab {
+              position: relative;
+              padding: 20px;
+              border: none;
+              height: 100%;
+              overflow-y: auto;
+              max-height: calc(100% - 44px);
 
-            .person {
-              flex-basis: 20%;
-              text-align: center;
-
-              img,
-              span {
-                display: inline-block;
-                width: 30px;
-                height: 30px;
-                border: 1px solid #e5e5e5;
-                border-radius: 50%;
+              &.locked {
+                overflow-x: hidden;
+                overflow-y: auto;
               }
-              span {
-                text-align: center;
-                font-size: 24px;
-                line-height: 22px;
-                cursor: pointer;
+
+              .team-tab-project {
+                margin-bottom: 30px;
+
+                h4 {
+                  color: #666;
+                  margin-bottom: 0;
+                }
+
+                h5 {
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                }
+
+                .persons {
+                  display: flex;
+                  flex-flow: row wrap;
+                  align-items: center;
+
+                  h5 {
+                    flex-basis: 100%;
+                  }
+
+                  .delete,
+                  .dropdown {
+                  }
+
+                  .person {
+                    flex-basis: 20%;
+                    text-align: center;
+
+                    img,
+                    span {
+                      display: inline-block;
+                      width: 30px;
+                      height: 30px;
+                      border: 1px solid #e5e5e5;
+                      border-radius: 50%;
+                    }
+                    span {
+                      text-align: center;
+                      font-size: 24px;
+                      line-height: 22px;
+                      cursor: pointer;
+                    }
+                  }
+                }
+              }
+
+              .activity-tab-item {
+                text-transform: uppercase;
+                margin-bottom: 60px;
+
+                h4 {
+                  font-size: 15px;
+                  color: #666;
+                }
+
+                .activity-item {
+                  display: flex;
+                  flex-flow: row wrap;
+                  align-items: center;
+                  margin-bottom: 20px;
+
+                  h5 {
+                    flex-basis: 100%;
+                  }
+
+                  .person {
+                    flex-basis: 20%;
+
+                    img {
+                      height: 30px;
+                      width: 30px;
+                      border: 1px solid #e5e5e5;
+                      border-radius: 50%;
+                    }
+                  }
+
+                  .text {
+                    flex-basis: 80%;
+                    font-size: 12px;
+
+                    span:last-of-type {
+                      text-transform: none;
+                    }
+                  }
+                }
               }
             }
           }

@@ -134,6 +134,11 @@ export default styled.div`
   }
 
   .teamSubHeader {
+    display: flex;
+    font-size: 15px;
+    width: 100%;
+    justify-content: space-between;
+
     a {
       &:first-of-type {
         opacity: 1;
@@ -216,6 +221,156 @@ export default styled.div`
       left: 26px;
       width: 20px;
       height: 1px;
+    }
+    .close::after {
+      transform: rotate(45deg);
+      top: 24px;
+    }
+    .close::before {
+      transform: rotate(135deg);
+      top: 24px;
+    }
+
+    .teamSubHeader {
+      display: flex;
+      font-size: 15px;
+      width: 100%;
+      justify-content: space-between;
+
+      a {
+        &:first-of-type {
+          opacity: 1;
+        }
+
+        div {
+          margin-top: 10px;
+          width: 60px;
+          height: 60px;
+          font-size: 12px;
+          opacity: 1;
+
+          &.teamLink {
+            border: 3px solid #fff;
+          }
+        }
+      }
+    }
+
+    .addLink::before,
+    .addLink::after {
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 1px;
+      background-color: #fff;
+    }
+
+    .addLink::after {
+      transform: rotate(90deg);
+    }
+
+    .arrow::after,
+    .arrow::before {
+      content: "";
+      position: absolute;
+      top: 27px;
+      right: 45%;
+      width: 10px;
+      height: 1px;
+      background-color: #fff;
+      transform: rotate(45deg);
+      transform-origin: 100% 50%;
+    }
+
+    .arrow::before {
+      transform: rotate(-45deg);
+    }
+
+    span {
+      display: block;
+      position: absolute;
+      top: 27px;
+      right: 45%;
+      width: 42px;
+      height: 1px;
+      background-color: #fff;
+      opacity: 0.7;
+    }
+
+    .completeLaterLink:hover {
+      border: none;
+
+      & > div {
+        border: none;
+      }
+    }
+
+    .plusLink {
+      a {
+        position: relative;
+      }
+
+      a::before,
+      a::after {
+        content: "";
+        position: absolute;
+        background-color: #fff;
+        top: 28px;
+        left: 26px;
+        width: 20px;
+        height: 1px;
+      }
+
+      a::before {
+        transform: rotate(90deg);
+      }
+
+      a:first-of-type::before,
+      a:first-of-type::after {
+        left: 18px;
+      }
+    }
+
+    .filterVillage,
+    .arrowVillage {
+      border: none !important;
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .arrowVillage {
+      margin: 0;
+      width: 10px;
+    }
+
+    .filterVillage:hover,
+    .arrowVillage:hover,
+    .filterVillage:focus,
+    .arrowVillage:focus {
+      border: none;
+    }
+
+    .arrowVillage::before,
+    .arrowVillage::after {
+      content: "";
+      position: absolute;
+      top: 33px;
+      left: 0;
+      width: 8px;
+      height: 1px;
+      transform: rotate(45deg);
+      background-color: #fff;
+    }
+
+    .arrowVillage::before {
+      top: 28px;
+      transform: rotate(-45deg);
+    }
+
+    .dashboard {
+      width: 62px;
+      height: 62px;
+      font-size: 10px;
     }
 
     a::before {

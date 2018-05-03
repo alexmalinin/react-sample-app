@@ -197,7 +197,8 @@ class ClientDashboard extends Component {
   render() {
     const {
       match: { params },
-      allProjects
+      allProjects,
+      allTeams
     } = this.props;
     let page;
 
@@ -237,7 +238,9 @@ class ClientDashboard extends Component {
               {this.renderPage(page)}
             </Container>
           )}
-          {sidebarCondition && <SideBarRight projects={projects} days={days} />}
+          {sidebarCondition && (
+            <SideBarRight teams={allTeams} projects={projects} days={days} />
+          )}
         </S_MainContainer>
       </div>
     );
@@ -301,10 +304,9 @@ class ClientDashboard extends Component {
     }
 
     let projectId = nextProps.match.params["projectId"];
-    let moduleId = nextProps.match.params["moduleId"];
 
     if (projectId && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id != projectId) {
+      if (nextProps.projectWithId.id !== projectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }

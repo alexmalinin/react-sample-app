@@ -4,7 +4,7 @@ import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
 import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import SideBarLeft from "../renders/SideBarLeft";
-import SideBarRight from "../renders/SideBarRight";
+import SideBarRight from "../../layout/SideBarRight";
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
@@ -195,7 +195,8 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
-      allProjects
+      allProjects,
+      specialistTeams
     } = this.props;
     let page;
 
@@ -232,7 +233,13 @@ class SpecialistsDashboard extends Component {
               {this.renderPage(page)}
             </Container>
           )}
-          {sidebarCondition && <SideBarRight projects={projects} days={days} />}
+          {sidebarCondition && (
+            <SideBarRight
+              teams={specialistTeams}
+              projects={projects}
+              days={days}
+            />
+          )}
         </S_MainContainer>
       </div>
     );

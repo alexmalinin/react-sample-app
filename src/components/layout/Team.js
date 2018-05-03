@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Grid, GridRow, Form, Input } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
@@ -91,7 +91,7 @@ class Team extends Component {
     }
   }
 
-  render() {
+  renderToDashboard() {
     const { team, allSpecialists, changeUserType } = this.props;
     const { channels } = this.state;
 
@@ -99,7 +99,9 @@ class Team extends Component {
       <Grid>
         <Grid.Row className="section-header">
           <Grid.Column computer={6} textAlign="left" floated="left">
-            <p className="title">{team.name} project</p>
+            <p className="title">
+              {team.name} {team.project_id && "project"}
+            </p>
           </Grid.Column>
           <Grid.Column computer={2} textAlign="right" floated="right" />
         </Grid.Row>
@@ -127,6 +129,36 @@ class Team extends Component {
         </Grid.Row>
       </Grid>
     );
+  }
+
+  renderToRightSidebar() {
+    const { team, allSpecialists } = this.props;
+    const { channels } = this.state;
+
+    return (
+      <Fragment>
+        <h4>{team.name}</h4>
+
+        {channels && channels.length !== 0
+          ? channels.map((channel, key) => (
+              <Channel
+                channel={channel}
+                key={key}
+                allSpecialists={allSpecialists}
+                renderToRightSidebar
+              />
+            ))
+          : "There is no channels"}
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { renderToRightSidebar } = this.props;
+
+    return renderToRightSidebar
+      ? this.renderToRightSidebar()
+      : this.renderToDashboard();
   }
 
   submit = () => {
