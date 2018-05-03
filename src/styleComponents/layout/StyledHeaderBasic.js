@@ -53,21 +53,41 @@ export default styled.header`
         }
     }
 
-    .square,
-    .settings,
-    .avatar {
-        width: 22px;
-        height: 21px;
+    .icon-dashboard,
+    .icon-settings,
+    .icon-teams,
+    .icon-billing,
+    .icon-avatar,
+    .icon-logout {
+        width: 35px;
+        height: 35px;
         display: flex;
-        background: url('../../images/header-icon-square.png');
+        background: url('../../images/icon-dashboard.svg');
+        background-size: cover;
     }
 
-    .settings {
-        background: url('../../images/header-icon-settings.png');
+    .icon-teams {
+        background: url('../../images/teams.png');
+        background-size: cover;
     }
 
-    .avatar {
-        background: url('../../images/uploadImg.png');
+    .icon-settings {
+        background: url('../../images/icon-settings.svg');
+        background-size: cover;
+    }
+
+    .icon-billing {
+        background: url('../../images/icon-billing.svg');
+        background-size: cover;
+    }
+
+    .icon-avatar {
+        background: url('../../images/icon-avatar.png');
+        background-size: cover;
+    }
+    
+    .icon-logout {
+        background: url('../../images/icon-logout.svg');
         background-size: cover;
     }
 

@@ -98,37 +98,66 @@ class Header extends Component {
   render() {
     const { page } = this.props;
 
+    let isNavMenu = null;
+
+    if (clientData) {
+      if (clientData.first_name) {
+        isNavMenu = true;
+      }
+    }
+
+    if (specialistData) {
+      if (specialistData.first_name) {
+        isNavMenu = true;
+      }
+    }
+
     return (
       <StyledHeaderBasic className="header-basic">
         <ContainerLarge containerHeader>
-          <NavLink to="/dashboard/">
+          <a href="/">
             <span>Digital Village</span>
-            {/* <img src='/images/logo_basic.png'/> */}
-          </NavLink>
-          {page && (
+              {/* <img src='/images/logo_basic.png'/> */}
+          </a>
+          {(page || isNavMenu) && (
             <div className="right-links">
               <NavLink
                 activeClassName="current"
-                className="button square"
+                className="button icon-dashboard"
                 to="/dashboard/"
               >
                 &nbsp;
               </NavLink>
               <NavLink
                 activeClassName="current"
-                className="button settings"
-                to="#"
+                className="button icon-teams"
+                to="/dashboard/teams"
               >
                 &nbsp;
               </NavLink>
               <NavLink
                 activeClassName="current"
-                className="button avatar"
+                className="button icon-billing"
+                to="/dashboard/account"
+              >
+                &nbsp;
+              </NavLink>
+              <NavLink
+                activeClassName="current"
+                className="button icon-avatar"
                 to="/dashboard/profile"
               >
                 &nbsp;
               </NavLink>
-              {this.renderDropdown()}
+              {/* this.renderDropdown() */}
+              <NavLink
+                activeClassName="current"
+                className="button icon-logout"
+                onClick={this.logOut}
+                to="/sign_up"
+              >
+                &nbsp;
+              </NavLink>
             </div>
           )}
         </ContainerLarge>
