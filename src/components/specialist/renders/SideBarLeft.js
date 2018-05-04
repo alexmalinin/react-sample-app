@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { StyledBar } from "../../../styleComponents/layout/SideBar";
 
-import { IMAGE_PORT, CLIENT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constans/constans";
 
 class SideBarLeft extends Component {
   render() {
@@ -12,8 +12,7 @@ class SideBarLeft extends Component {
       specialistProjects,
       currentProject,
       currentEpic,
-      allEpics,
-      projects
+      allEpics
     } = this.props;
 
     return (

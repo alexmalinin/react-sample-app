@@ -96,15 +96,15 @@ class Header extends Component {
   };
 
   render() {
-    const { specialistData, clientData, page } = this.props;
+    const { page } = this.props;
 
     return (
       <StyledHeaderBasic className="header-basic">
         <ContainerLarge containerHeader>
-          <a href="/">
+          <NavLink to="/dashboard/">
             <span>Digital Village</span>
             {/* <img src='/images/logo_basic.png'/> */}
-          </a>
+          </NavLink>
           {page && (
             <div className="right-links">
               <NavLink

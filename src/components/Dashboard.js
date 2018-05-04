@@ -12,24 +12,9 @@ import DashboardSubHeader from "./layout/DashboardSubHeader";
 
 class Dashboard extends Component {
   render() {
-    let data = [
-      {
-        title: "add task",
-        content: ""
-      },
-      {
-        title: "add module",
-        content: ""
-      },
-      {
-        title: "add project",
-        content: ""
-      }
-    ];
-
     return (
       <ContainerLarge>
-        <DashboardSubHeader dashboard data={data} />
+        <DashboardSubHeader dashboard />
         <Container sidebarCondition dashboardContainer>
           <RenderDashboard projects={this.props.projects} />
         </Container>

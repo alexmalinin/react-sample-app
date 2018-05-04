@@ -25,12 +25,12 @@ class Teams extends Component {
   }
 
   renderToDashboard() {
-    const { teams } = this.props;
+    const { teams, changeUserType } = this.props;
 
     return (
       <ContainerLarge>
         <StyledTeamPage>
-          <TeamSubHeader />
+          <TeamSubHeader userType={changeUserType} />
           <Container sidebarCondition>
             {teams && teams.length !== 0 ? (
               teams.map((team, key) => <Team key={key} team={team} />)

@@ -12,10 +12,9 @@ export const StyledBar = styled.aside`
 
   background-color: white;
   color: #b3b3b3;
-  -webkit-box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
-  -moz-box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
   box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
   transition: 0.4s ease-in-out, height 0s;
+  outline: none;
 
   &.left {
     left: 0;
@@ -191,38 +190,74 @@ export const StyledBar = styled.aside`
     right: 0;
 
     transform: translateX(100%);
-    animation: showme 2s ease-in-out 1s;
 
-    &:hover {
+    &.open {
       transform: translateX(0);
-      &::before {
-        width: 5px;
+
+      .trigger {
+        right: calc(100% + 15px);
+        opacity: 0.9;
+        &::before {
+          left: 15px;
+          top: calc(50% - 8px);
+        }
+        &::after {
+          left: 15px;
+          top: calc(50% + 8px);
+        }
       }
     }
 
-    @keyframes showme {
-      from {
-        transform: translateX(100%);
-      }
-      20% {
-        transform: translateX(0);
-      }
-      80% {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(100%);
-      }
-    }
-
-    &::before {
+    .trigger {
       position: absolute;
-      content: "";
-      height: 100%;
-      width: 60px;
-      top: 0;
+      top: 50%;
       right: 100%;
-      transition-delay: 0.8s;
+
+      height: 200px;
+      width: 120px;
+      border-radius: 50%;
+      border: none;
+      background: #ababab;
+      transform: translate(75%, -50%);
+      transition: 0.4s;
+      outline: none;
+      opacity: 0.7;
+      cursor: pointer;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 30px;
+
+        height: 24px;
+        width: 4px;
+        border-radius: 4px;
+        background: #fff;
+        transform-origin: center 0;
+        transition: 0.4s;
+      }
+
+      &::before {
+        transform: rotate(-45deg);
+        top: calc(50% - 1px);
+      }
+
+      &::after {
+        transform: rotate(-135deg);
+        top: calc(50% + 1px);
+      }
+
+      &:hover {
+        /* transform: translate(65%, -50%); */
+        right: calc(100% + 15px);
+        opacity: 1;
+
+        &::before,
+        &::after {
+          left: 15px;
+        }
+      }
     }
 
     & > div {

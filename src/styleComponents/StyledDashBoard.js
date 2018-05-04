@@ -11,7 +11,7 @@ export default styled.div`
 
   & > div > div {
     display: grid;
-    grid-auto-rows: 120px;
+    grid-auto-rows: 140px;
     grid-gap: 20px;
     grid-auto-flow: dense;
     ${props => (props.village ? `grid-template-columns: repeat(5, 1fr)` : ``)};

@@ -25,21 +25,31 @@ class Module extends Component {
     deleteProjectEpic(project, epic.id);
   };
 
+  renderDescription = () => {
+    const { description } = this.props.epic;
+
+    if (description.length > 70) {
+      return description.slice(0, 70) + "...";
+    } else return description;
+  };
+
+  renderStory = () => {
+    const { user_story } = this.props.epic;
+
+    if (user_story.length > 120) {
+      return user_story.slice(0, 120) + "...";
+    } else return user_story;
+  };
+
   render() {
-    const {
-      epic,
-      number,
-      updateEpicList,
-      updateProjectEpic,
-      changeUserType
-    } = this.props;
+    const { epic, number, updateProjectEpic, changeUserType } = this.props;
 
     return (
       <div className="dragContainer">
         <h3>Module {number}</h3>
         <div className="module">
-          <h4>{epic.description}</h4>
-          <p>{epic.user_story}</p>
+          <h4>{this.renderDescription()}</h4>
+          <p>{this.renderStory()}</p>
           <div>
             <div className="subline">
               <img src="/images/marker.png" alt="marker" />

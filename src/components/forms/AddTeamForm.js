@@ -22,7 +22,7 @@ class AddTeamForm extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, projects } = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -34,14 +34,6 @@ class AddTeamForm extends Component {
                 label="Team name"
                 validate={[required]}
                 padded
-              />
-
-              <Field
-                name="project"
-                component={RenderSelect}
-                placeholder="Select"
-                label="Assign members to team"
-                options={projects}
               />
             </Grid.Column>
 

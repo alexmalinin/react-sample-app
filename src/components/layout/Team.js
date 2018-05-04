@@ -33,10 +33,9 @@ class Team extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    //map channels from back's index
+    //map channels from backend's index
     if (nextProps.allChannels) {
       if (nextProps.allChannels.team === nextProps.team.id) {
-        console.log(nextProps.allChannels.team, nextProps.team.name);
         this.setState({
           channels: nextProps.allChannels
         });

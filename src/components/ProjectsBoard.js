@@ -1,35 +1,22 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { Tab, Transition } from "semantic-ui-react";
-import { Container, ContainerLarge } from "../styleComponents/layout/Container";
-import { S_MainContainer } from "../styleComponents/layout/S_MainContainer";
-import { DvTitle, DvTitleSmall } from "../styleComponents/layout/DvTitles";
-import { StyledTabs } from "../styleComponents/StyledTabCard";
-import StyledCheckbox from "../styleComponents/forms/StyledCheckbox";
-import StyledProfile from "../styleComponents/StyledProfile";
-import RenderTabCard from "./specialist/renders/RenderTabCard";
+import { ContainerLarge } from "../styleComponents/layout/Container";
 import {
   showAllProjects,
   showAllEpics,
   deleteProjectEpic,
   updateProjectEpic,
   createEpicTask,
-  showProjectEpic,
   showEpicTasks,
   updateEpicTask,
   showAllSpecialists
 } from "../actions/actions";
-import { IMAGE_PORT, CLIENT, SPECIALIST } from "../constans/constans";
-import { Progress } from "semantic-ui-react";
-import Board from "react-trello";
+import { CLIENT, SPECIALIST } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import Module from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
-import CustomCard from "./layout/CustomTaskCard";
-import { run } from "../helpers/scrollToElement";
-import projects from "../helpers/projects";
 
 class ProjectsBoard extends Component {
   state = {
@@ -62,7 +49,7 @@ class ProjectsBoard extends Component {
     }
 
     if (nextProps.deleteEpic) {
-      if (this.props.deleteEpic != nextProps.deleteEpic) {
+      if (this.props.deleteEpic !== nextProps.deleteEpic) {
         nextProps.showAllEpics(nextProps.projectId);
       }
     }
@@ -70,7 +57,7 @@ class ProjectsBoard extends Component {
     if (nextProps.createEpic && nextProps.createEpic.successEpicId) {
       if (this.props.createEpic) {
         if (
-          this.props.createEpic.successEpicId !=
+          this.props.createEpic.successEpicId !==
           nextProps.createEpic.successEpicId
         ) {
           nextProps.showAllEpics(nextProps.projectId);
@@ -80,7 +67,7 @@ class ProjectsBoard extends Component {
 
     if (epicId) {
       if (this.props.epicTasks) {
-        if (this.props.currentEpic != nextProps.currentEpic) {
+        if (this.props.currentEpic !== nextProps.currentEpic) {
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
@@ -91,7 +78,7 @@ class ProjectsBoard extends Component {
 
     if (nextProps.createTask && nextProps.createTask.successId) {
       if (this.props.createTask) {
-        if (this.props.createTask != nextProps.createTask) {
+        if (this.props.createTask !== nextProps.createTask) {
           nextProps.showEpicTasks(epicId);
         }
       } else nextProps.showEpicTasks(epicId);
@@ -107,7 +94,7 @@ class ProjectsBoard extends Component {
 
     if (nextProps.removeSpecialist) {
       if (this.props.removeSpecialist) {
-        if (this.props.removeSpecialist != nextProps.removeSpecialist) {
+        if (this.props.removeSpecialist !== nextProps.removeSpecialist) {
           nextProps.showEpicTasks(epicId);
         }
       } else nextProps.showEpicTasks(epicId);
@@ -133,11 +120,8 @@ class ProjectsBoard extends Component {
       showAllEpics,
       updateProjectEpic,
       createEpicTask,
-      createTask,
       currentEpic,
-      showProjectEpic,
-      epicTasks,
-      allSpecialists
+      epicTasks
     } = this.props;
 
     const epicId =

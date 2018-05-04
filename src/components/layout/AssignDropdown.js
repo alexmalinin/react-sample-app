@@ -137,6 +137,9 @@ export class PersonTile extends Component {
     this.setState({
       showDropdown: true
     });
+    if (true) {
+      console.log(this.deleteTile.getBoundingClientRect().top);
+    }
   };
 
   closeDropdown = () => {
@@ -181,7 +184,10 @@ export class PersonTile extends Component {
               </p>
             )}
         </a>
-        <div className={`delete${this.state.showDropdown ? " show" : ""}`}>
+        <div
+          className={`delete${this.state.showDropdown ? " show" : ""}`}
+          ref={div => (this.deleteTile = div)}
+        >
           <div className="close" onClick={this.closeDropdown} />
           <p className="dropdownTitle">Profile</p>
           <div className="info">

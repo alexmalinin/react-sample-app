@@ -38,15 +38,6 @@ class NewTaskForm extends Component {
               />
             </Grid.Column>
 
-            <Grid.Column computer={8}>
-              <InputField
-                name="assignee"
-                label="Assignee"
-                // validate={[required]}
-                padded
-              />
-            </Grid.Column>
-
             <Grid.Column computer={16}>
               <Field
                 name="description"

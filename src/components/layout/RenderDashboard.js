@@ -29,7 +29,6 @@ class RenderDashboard extends Component {
 
   render() {
     const { projects } = this.props;
-    console.log(projects);
 
     let overview;
     if (projects) {

@@ -4,8 +4,20 @@ import { Tab } from "semantic-ui-react";
 import Teams from "../Teams";
 
 class SideBarRight extends Component {
+  state = {
+    opened: false
+  };
+
+  toggle = e => {
+    this.setState({
+      opened: !this.state.opened
+    });
+  };
+
   render() {
     let { days, teams } = this.props;
+    const { opened } = this.state;
+    // console.log(opened);
 
     const panes = [
       {
@@ -27,7 +39,20 @@ class SideBarRight extends Component {
     ];
 
     return (
-      <StyledBar className="right">
+      <StyledBar
+        className={`right${opened ? " open" : ""}`}
+        ref={bar => (this.sideBar = bar)}
+        // tabIndex="-1"
+        // onFocus={this.open}
+        // onBlur={this.close}
+      >
+        <button
+          className="trigger"
+          ref={button => (this.toggleBtn = button)}
+          onClick={this.toggle}
+          // onFocus={e => e.stopPropagation()}
+          // onBlur={e => e.stopPropagation()}
+        />
         <Tab panes={panes} />
       </StyledBar>
     );
