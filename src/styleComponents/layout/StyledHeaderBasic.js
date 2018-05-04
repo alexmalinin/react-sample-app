@@ -10,6 +10,7 @@ export default styled.header`
         background-color: #fff;
         padding-left: 40px;
         padding-right: 40px;
+        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15);
 
         &>div {
             min-width: 20%;
@@ -20,9 +21,27 @@ export default styled.header`
                 display: flex;
                 min-width: auto;
 
-                a{
-                    margin-right: 15px;
-                    margin-left: 15px;
+                a {
+                    margin-right: 12px;
+                    margin-left: 12px;
+                }
+
+                .item-link {
+                    width: 30px;
+                    height: 30px;
+                    text-align: center;
+                    color: #ccc;
+                    transition: color .5s;
+                    font-size: 1.5rem;
+
+                    &:hover {
+                        color: #666;
+                    }
+
+                    img {
+                        max-width: 100%;
+                        height: 100%;
+                    }
                 }
             }
         }
@@ -53,7 +72,6 @@ export default styled.header`
         }
     }
 
-    .icon-dashboard,
     .icon-settings,
     .icon-teams,
     .icon-billing,
@@ -195,8 +213,6 @@ export default styled.header`
 
     @media (max-width: 1920px) {
        &.header-basic {
-        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15);
-
 
         & > div {
             min-height: 87px;
@@ -205,9 +221,6 @@ export default styled.header`
         a {
             font-size: 14px;
 
-            img {
-                width: 60px;
-            }
         }
     }
 `;

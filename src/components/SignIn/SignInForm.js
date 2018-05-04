@@ -56,6 +56,7 @@ class SignInForm extends Component {
                 /> */}
         <SaveBtn
           type="submit"
+          className="login-button"
           disabled={submitting}
           // content=''
           primary

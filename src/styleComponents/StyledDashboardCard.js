@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { primaryColors } from "./constants/colors";
 
 export default styled.div`
     
@@ -15,7 +16,7 @@ export default styled.div`
         ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${
             props.backgroundImg
           })`
-        : props.background || `#f2f2f2`};
+        : props.background || `${primaryColors.accentBackground}`};
     background-size: cover;
     text-transform: uppercase;
     font-size: 12px;

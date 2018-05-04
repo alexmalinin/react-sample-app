@@ -3,11 +3,7 @@ import { primaryColors, secondaryColors } from "./constants/colors";
 
 export default styled.div`
   font-family: "Brix", medium;
-  margin-top: 50px;
-  ${props =>
-    props.borderBottom
-      ? `border-bottom: 4px solid ${secondaryColors.green};`
-      : ``};
+  margin-top: 10px;
   padding-bottom: 1rem;
 
   & > .form-title {

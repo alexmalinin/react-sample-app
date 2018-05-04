@@ -15,6 +15,7 @@ import { showClientData, updateClientProfile } from "../../actions/actions";
 import { S_Message } from "../../styleComponents/layout/S_Message";
 import { Message } from "semantic-ui-react";
 import { run } from "../../helpers/scrollToElement";
+import { getAllUrlParams } from "../../helpers/functions";
 
 class ClientProfile extends Component {
   constructor() {
@@ -23,7 +24,8 @@ class ClientProfile extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
@@ -31,10 +33,14 @@ class ClientProfile extends Component {
     localStorage.removeItem("user_email");
     sessionStorage.removeItem("client_step");
     this.props.showClientData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
 
     return (
       <div>
@@ -52,8 +58,16 @@ class ClientProfile extends Component {
               <RenderProfileForm
                 onChange={this.change}
                 onSubmit={this.submit}
+                isEditing={isEditing}
               />
-              {this.state.nextStep && <Redirect to="company" />}
+              {this.state.nextStep ? (
+                isEditing ? (
+                  <Redirect to="about" />
+                ) : (
+                  <Redirect to="company" />
+                )
+              ) : null}
+              {/* {this.state.nextStep && <Redirect to="company" />} */}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

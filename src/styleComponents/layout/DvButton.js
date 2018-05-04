@@ -286,6 +286,7 @@ export const SaveBtn = styled(Button)`
 
         &.width200 {
           width: 200%;
+   
         } */
   }
 

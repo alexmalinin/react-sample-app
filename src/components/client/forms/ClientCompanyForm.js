@@ -15,7 +15,13 @@ let renderError = true;
 
 class ClientCompanyForm extends Component {
   render() {
-    const { handleSubmit, submitting, clientData, industries } = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      clientData,
+      industries,
+      isEditing
+    } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
@@ -23,6 +29,7 @@ class ClientCompanyForm extends Component {
           industries={industries}
           clientData={clientData}
           submitting={submitting}
+          isEditing={isEditing}
         />
       </form>
     );

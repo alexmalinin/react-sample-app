@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
@@ -56,40 +56,32 @@ class SignUp extends Component {
     ];
 
     return (
-      <div>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <Loader loading={Loading} />
           <IntroContainer>
-            <DvGrid>
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column className="perspective">
-                    <StyledFormHeader borderBottom>
-                      <div className="form-title">Sign in</div>
-                      <div className="form-subtitle">Welcome back!</div>
-                    </StyledFormHeader>
-                    <Tabs mTop="180" widthAuto action="" className="relative">
-                      <Tab
-                        className={
-                          Loading
-                            ? "loading content-loading"
-                            : "loading content-load"
-                        }
-                        menu={{ text: true }}
-                        panes={panes}
-                        activeIndex={activeIndex}
-                        onTabChange={this.handleTabChange}
-                      />
-                    </Tabs>
-                    {confirm && this.loginRedirect()}
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </DvGrid>
+            <div className="perspective">
+              <StyledFormHeader borderBottom>
+                <div className="form-title">Sign in</div>
+                <div className="form-subtitle">Welcome back!</div>
+              </StyledFormHeader>
+              <Tabs mTop="180" widthAuto action="" className="relative">
+                <Tab
+                  className={
+                    Loading ? "loading content-loading" : "loading content-load"
+                  }
+                  menu={{ text: true }}
+                  panes={panes}
+                  activeIndex={activeIndex}
+                  onTabChange={this.handleTabChange}
+                />
+              </Tabs>
+              {confirm && this.loginRedirect()}
+            </div>
           </IntroContainer>
         </S_MainContainer>
-      </div>
+      </Fragment>
     );
   }
 

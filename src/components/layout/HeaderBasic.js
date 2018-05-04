@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Popup } from "semantic-ui-react";
 
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 import { ContainerLarge } from "../../styleComponents/layout/Container";
@@ -123,40 +123,55 @@ class Header extends Component {
             <div className="right-links">
               <NavLink
                 activeClassName="current"
-                className="button icon-dashboard"
+                className="item-link"
                 to="/dashboard/"
               >
-                &nbsp;
+                <Popup
+                  trigger={<i className="fas fa-columns" />}
+                  content="Dashboard"
+                />
               </NavLink>
               <NavLink
                 activeClassName="current"
-                className="button icon-teams"
+                className="item-link"
                 to="/dashboard/teams"
               >
-                &nbsp;
+                <Popup
+                  trigger={<i className="fas fa-users" />}
+                  content="Teams"
+                />
               </NavLink>
               <NavLink
                 activeClassName="current"
-                className="button icon-billing"
+                className="item-link"
                 to="/dashboard/account"
               >
-                &nbsp;
+                <Popup
+                  trigger={<i className="far fa-credit-card" />}
+                  content="Account"
+                />
               </NavLink>
               <NavLink
                 activeClassName="current"
-                className="button icon-avatar"
-                to="/dashboard/profile"
+                className="item-link"
+                to="/dashboard/about"
               >
-                &nbsp;
+                <Popup
+                  trigger={<i className="fas fa-user" />}
+                  content="Profile"
+                />
               </NavLink>
               {/* this.renderDropdown() */}
               <NavLink
                 activeClassName="current"
-                className="button icon-logout"
+                className="item-link"
                 onClick={this.logOut}
                 to="/sign_up"
               >
-                &nbsp;
+                <Popup
+                  trigger={<i className="fas fa-sign-out-alt" />}
+                  content="Log out"
+                />
               </NavLink>
             </div>
           )}

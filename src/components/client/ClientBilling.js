@@ -23,6 +23,7 @@ import StyledClientTeam from "../../styleComponents/StyledClientTeam";
 import Navbar from "../layout/Navbar";
 import { Message } from "semantic-ui-react";
 import { run } from "../../helpers/scrollToElement";
+import { getAllUrlParams } from "../../helpers/functions";
 
 class ClientBilling extends Component {
   constructor() {
@@ -31,7 +32,8 @@ class ClientBilling extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
@@ -67,11 +69,14 @@ class ClientBilling extends Component {
 
   componentWillMount() {
     this.props.showClientData();
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   render() {
     const { clientData } = this.props;
-    const { renderErrorMessage, renderMessage } = this.state;
+    const { renderErrorMessage, renderMessage, isEditing } = this.state;
 
     return (
       <div>
@@ -88,8 +93,16 @@ class ClientBilling extends Component {
           onChange={this.change}
           clientData={clientData}
           onSubmit={this.submit}
+          isEditing={isEditing}
         />
-        {this.state.nextStep && <Redirect to="board" />}
+        {this.state.nextStep ? (
+          isEditing ? (
+            <Redirect to="about" />
+          ) : (
+            <Redirect to="board" />
+          )
+        ) : null}
+        {/* {this.state.nextStep && <Redirect to="board" />} */}
       </div>
     );
   }
