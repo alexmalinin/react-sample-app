@@ -52,7 +52,6 @@ class ClientAbout extends Component {
                         }
                         alt="avatar"
                       />
-                      {/* <img src='/images/undefUser.png' alt='avatar'/> */}
                     </div>
                   </div>
                 </Grid.Column>
@@ -179,36 +178,6 @@ class ClientAbout extends Component {
                         : "No description"
                       : null}, &nbsp;
                   </span>
-                </Grid.Column>
-              </Grid.Row>
-
-              <SectionHeader content="Billing" page="billing" />
-              <Grid.Row className="billing">
-                <Grid.Column computer={16}>
-                  <span>
-                    {clientData
-                      ? clientData["customer_billing"]
-                        ? clientData["customer_billing"]["billing_type"]
-                        : "No billing type"
-                      : null}, &nbsp;
-                  </span>
-                  <br />
-                  <span>
-                    {clientData
-                      ? clientData["customer_billing"]
-                        ? clientData["customer_billing"]["account_number"]
-                        : "No password"
-                      : null}, &nbsp;
-                  </span>
-                  <br />
-                  <span>
-                    {clientData
-                      ? clientData["customer_billing"]
-                        ? clientData["customer_billing"]["password"]
-                        : "No password"
-                      : null}, &nbsp;
-                  </span>
-                  <br />
                 </Grid.Column>
               </Grid.Row>
             </Grid>

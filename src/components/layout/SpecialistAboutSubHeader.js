@@ -18,20 +18,6 @@ class AboutSubHeader extends Component {
             &nbsp;
           </SubHeaderLinkWrap>
         </div>
-        <div>
-          <SubHeaderLinkWrap url="#" className="rightLink arrow">
-            <span />
-            Save
-          </SubHeaderLinkWrap>
-
-          <SubHeaderLinkWrap content="3/9" url="#" className="rightLink">
-            Profile
-          </SubHeaderLinkWrap>
-
-          <SubHeaderLinkWrap content="5%" url="#" className="rightLink">
-            Progress
-          </SubHeaderLinkWrap>
-        </div>
       </StyledSubHeader>
     );
   }

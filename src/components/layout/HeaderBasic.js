@@ -96,7 +96,8 @@ class Header extends Component {
   };
 
   render() {
-    const { page } = this.props;
+    const { page, specialistData, clientData } = this.props;
+
 
     let isNavMenu = null;
 

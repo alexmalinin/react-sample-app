@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Grid, Tab } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
 import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import {
@@ -67,7 +68,7 @@ class SpecialistsAbout extends Component {
         <Container indentBot>
           <StyledProfile>
             <Grid>
-              <SectionHeader />
+              <SectionHeader page="profile"/>
               <Grid.Row className="main-info">
                 <Grid.Column computer={8} textAlign="right">
                   <div className="profile-image">
@@ -116,7 +117,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Services" />
+              <SectionHeader content="Services" page="industry"/>
               <Grid.Row className="services">
                 <Grid.Column computer={16}>
                   <h3>
@@ -195,7 +196,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Skills" />
+              <SectionHeader content="Skills" page="industry"/>
               <Grid.Row className="skills">
                 <Grid.Column computer={16}>
                   <div className="flex-wrapper">
@@ -210,7 +211,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Work / Proffesional experience" />
+              <SectionHeader content="Work / Proffesional experience" page="profile" />
               <Grid.Row>
                 <Grid.Column computer={8}>
                   {work_experience.length
@@ -236,7 +237,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Education" />
+              <SectionHeader content="Education" page="profile"/>
               <Grid.Row className="educations">
                 <Grid.Column computer={16}>
                   {educations_experience.length
@@ -277,14 +278,16 @@ class SpecialistsAbout extends Component {
   // };
 }
 
-function SectionHeader({ content }) {
+function SectionHeader({ content, page }) {
   return (
     <Grid.Row className="section-header">
       <Grid.Column computer={6} textAlign="left" floated="left">
         <span className="title">{content}</span>
       </Grid.Column>
       <Grid.Column computer={2} textAlign="right" floated="right">
-        <Dots />
+        <NavLink to={`/dashboard/${page}?edit`}>
+          <Dots />
+        </NavLink>
       </Grid.Column>
     </Grid.Row>
   );
@@ -292,8 +295,8 @@ function SectionHeader({ content }) {
 
 function Dots() {
   return (
-    <div className="dots">
-      <span /> <span /> <span />
+    <div className="dv-btn">
+      <i className="fas fa-user-edit" />
     </div>
   );
 }
