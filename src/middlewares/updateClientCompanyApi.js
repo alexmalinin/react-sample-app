@@ -23,10 +23,12 @@ export default store => next => action => {
           city: payload["city"],
           abn_acn: payload["abn_acn"],
           tell_about: payload["tell_about"],
-          segment: payload["segment"]["value"],
-          number_of_employers: payload["number_of_employers"]["value"],
+          segment: payload["segment"]["value"] || payload["segment"],
+          number_of_employers:
+            payload["number_of_employers"]["value"] ||
+            payload["number_of_employers"],
           user_id: id,
-          industry_area_id: payload["industry"]["value"]
+          industry_area_id: payload["industry"]["value"] || payload["industry"]
         }
       }
     },

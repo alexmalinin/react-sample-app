@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { primaryColors } from "../constants/colors";
 
 export const StyledBar = styled.aside`
   position: fixed;

@@ -13,6 +13,8 @@ import { Container } from "../../styleComponents/layout/Container";
 import ClientProfile from "./ClientProfile";
 import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
+import ClientAccount from "./ClientAccount";
+import ClientAbout from "./pages/ClientAbout";
 import ProjectsBoard from "../ProjectsBoard";
 import SideBarLeft from "./renders/SideBarLeft";
 import SideBarRight from "../layout/SideBarRight";
@@ -236,7 +238,10 @@ class ClientDashboard extends Component {
           {sidebarCondition ? (
             this.renderPage(page)
           ) : (
-            <Container sidebarCondition={sidebarCondition}>
+            <Container
+              sidebarCondition={sidebarCondition}
+              transparentBackground={page === "root" ? true : false}
+            >
               <SubHeader
                 percents={this.state}
                 sidebarCondition={sidebarCondition}
@@ -269,6 +274,10 @@ class ClientDashboard extends Component {
         return (
           <ClientBilling calculatePagePercent={this.calculatePagePercent} />
         );
+      case "account":
+        return <ClientAccount />;
+      case "about":
+        return <ClientAbout />;
       case "projects":
         document.title = "Add Project | Digital Village";
         return <ClientProjects />;

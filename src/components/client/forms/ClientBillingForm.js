@@ -20,7 +20,8 @@ class ClientBillingForm extends Component {
       submitting,
       clientData,
       handleFormField,
-      swichTab
+      swichTab,
+      isEditing
     } = this.props;
 
     return (
@@ -30,6 +31,7 @@ class ClientBillingForm extends Component {
           submitting={submitting}
           handleFormField={handleFormField}
           swichTab={swichTab}
+          isEditing={isEditing}
         />
       </form>
     );

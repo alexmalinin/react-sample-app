@@ -23,6 +23,7 @@ import StyledClientTeam from "../../styleComponents/StyledClientTeam";
 import Navbar from "../layout/Navbar";
 import { Message } from "semantic-ui-react";
 import { run } from "../../helpers/scrollToElement";
+import { getAllUrlParams } from "../../helpers/functions";
 
 class ClientCompany extends Component {
   constructor() {
@@ -31,17 +32,22 @@ class ClientCompany extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
   componentWillMount() {
     this.props.getIndustries();
     this.props.showClientData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
     const { clientData, industries } = this.props;
 
     return (
@@ -60,8 +66,16 @@ class ClientCompany extends Component {
           industries={industries}
           clientData={clientData}
           onSubmit={this.submit}
+          isEditing={isEditing}
         />
-        {this.state.nextStep && <Redirect to="billing" />}
+        {this.state.nextStep ? (
+          isEditing ? (
+            <Redirect to="about" />
+          ) : (
+            <Redirect to="billing" />
+          )
+        ) : null}
+        {/* {this.state.nextStep && <Redirect to="billing" />} */}
       </div>
     );
   }

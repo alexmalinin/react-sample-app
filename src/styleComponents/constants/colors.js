@@ -9,7 +9,9 @@ export const colors = {
 export const primaryColors = {
   darkGrey: "#666666",
   grey: "#999999",
-  lightGrey: "#cccccc"
+  lightGrey: "#cccccc",
+  accentBackground: "#fff",
+  backgroundColor: "#f2f2f2"
 };
 
 export const secondaryColors = {

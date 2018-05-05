@@ -9,6 +9,7 @@ body,
 #root,
 #root > div {
   height: 100%;
+  background-color: #f2f2f2;
 }
 
 /*________RESET SEMANTIC________*/
@@ -46,6 +47,16 @@ nav.bm-item-list {
   text-align: right;
 }
 
+.dv-btn {
+  color: #ccc;
+  font-size: 1.5rem;
+  transition: color 0.5s;
+}
+
+.dv-btn:hover {
+  color: #666;
+}
+
 .bm-menu-wrap,
 .bm-item-list,
 .bm-menu {
@@ -63,7 +74,7 @@ nav.bm-item-list {
 }
 
 .bm-cross-button:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   top: 14px;
@@ -74,7 +85,7 @@ nav.bm-item-list {
 }
 
 .bm-cross-button:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   top: 14px;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { primaryColors } from "../constants/colors";
 
 export const ContainerLarge = styled.div`
   margin: 0 auto;
@@ -52,7 +53,10 @@ export const Container = styled.div`
 
     max-width: 1280px;
     margin-top: 0;
-    background-color: #fff;
+    background-color: ${props =>
+      props.dashboardContainer
+        ? `transparent`
+        : `${primaryColors.accentBackground}`};;
     box-shadow: ${props =>
       props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc`};
 
@@ -97,9 +101,11 @@ export const IntroContainer = styled.div`
 
   position: relative;
   font-family: 'Brix',sans-serif;
-  margin: 0 auto;
+  margin: 70px auto 0 auto;
+  border-radius: 3px;
+  padding: 30px 30px 60px 30px;
   width: 100%;
-  margin-bottom: 50px;
+  background-color: #fff;
 
   & .confirm-msg {
     font-family: Brix;
@@ -130,7 +136,7 @@ export const IntroContainer = styled.div`
 
   @media (max-width: 600px) {
       width: 100%;
-      padding: 0 10%;
+      padding: 10%;
       margin 40px auto 0;
   }
 `;

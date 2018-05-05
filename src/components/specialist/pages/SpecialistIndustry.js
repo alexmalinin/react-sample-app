@@ -23,6 +23,7 @@ import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer
 import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 class SpecialistIndustry extends Component {
   constructor() {
@@ -31,7 +32,8 @@ class SpecialistIndustry extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
@@ -40,10 +42,14 @@ class SpecialistIndustry extends Component {
     this.props.getProjectTypes();
     this.props.getExperienceLevels();
     this.props.showSpecialistData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
     const {
       industries,
       projectTypes,
@@ -53,11 +59,11 @@ class SpecialistIndustry extends Component {
 
     return (
       <div>
-        <S_Message positive data-show={renderMessage}>
+        <S_Message positive profile="true" data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
           <p>Form updated</p>
         </S_Message>
-        <S_Message negative data-show={renderErrorMessage}>
+        <S_Message negative profile="true" data-show={renderErrorMessage}>
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
@@ -66,10 +72,17 @@ class SpecialistIndustry extends Component {
           projectTypes={projectTypes}
           experienceLevels={experienceLevels}
           specialistData={specialistData}
+          isEditing={isEditing}
           onChange={this.change}
           onSubmit={this.submit}
         />
-        {this.state.nextStep && <Redirect to="company" />}
+        {this.state.nextStep ? (
+          isEditing ? (
+            <Redirect to="about" />
+          ) : (
+            <Redirect to="company" />
+          )
+        ) : null}
       </div>
     );
   }
@@ -90,18 +103,18 @@ class SpecialistIndustry extends Component {
     setTimeout(() => {
       return this.setState({
         renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: true
+        renderErrorMessage: false
       });
-    }, 0);
+    }, 1500);
 
     status === "success"
       ? this.setState({
-          renderMessage: true
-        })
+        renderMessage: true,
+        nextStep: true
+      })
       : this.setState({
-          renderErrorMessage: true
-        });
+        renderErrorMessage: true
+      });
   };
 
   change = values => {

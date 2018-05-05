@@ -47,7 +47,8 @@ class BillingForm extends Component {
       submitting,
       clientData,
       specialistData,
-      handleFormField
+      handleFormField,
+      isEditing
     } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
@@ -197,13 +198,16 @@ class BillingForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/dashboard/company">
-                <BackBtn disabled={submitting} primary>
-                  <span>Back</span>
-                </BackBtn>
-              </NavLink>
+              {!isEditing ? (
+                <NavLink exact to="/dashboard/company">
+                  <BackBtn disabled={submitting} primary>
+                    <span>Back</span>
+                  </BackBtn>
+                </NavLink>
+              ) : null}
+
               <NextBtn type="submit" disabled={submitting} primary>
-                <span>save</span>
+                <span>Save</span>
               </NextBtn>
             </div>
           </Grid.Column>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../helpers/validate";
-import { NextBtn, DvButton } from "../../styleComponents/layout/DvButton";
+import { NextBtn } from "../../styleComponents/layout/DvButton";
 import InputField from "./renders/InputField";
 import RenderField from "./renders/RenderField";
 import EmailField from "./renders/EmailField";
@@ -38,7 +38,8 @@ class RenderProfileForm extends Component {
       experiences,
       submitting,
       clientData,
-      specialistData
+      specialistData,
+      isEditing
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -158,7 +159,7 @@ class RenderProfileForm extends Component {
             <Grid.Column computer={3}>
               <div className="navigation-wrap">
                 <NextBtn type="submit" disabled={submitting} primary>
-                  <span>next step</span>
+                  {isEditing ? <span>Save</span> : <span>NextStep</span>}
                 </NextBtn>
               </div>
             </Grid.Column>

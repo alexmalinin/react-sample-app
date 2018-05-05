@@ -22,6 +22,7 @@ import { Message } from "semantic-ui-react";
 import { run } from "../../../helpers/scrollToElement";
 import AsideLeft from "../renders/AsideLeft";
 import AsideRight from "../renders/AsideRight";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 const PERCENTS_NAME = "propfilePercent";
 
@@ -32,7 +33,8 @@ class SpecialistsProfile extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
 
     this.data = {
@@ -82,19 +84,24 @@ class SpecialistsProfile extends Component {
     localStorage.removeItem("user_email");
     localStorage.removeItem("fillForm1");
     this.props.showSpecialistData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
+
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
     const { educations, experiences } = this.props;
 
     return (
       <div>
-        <S_Message positive data-show={renderMessage}>
+        <S_Message positive profile="true" data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
           <p>Form updated</p>
         </S_Message>
-        <S_Message negative data-show={renderErrorMessage}>
+        <S_Message negative profile="true" data-show={renderErrorMessage}>
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
@@ -106,9 +113,16 @@ class SpecialistsProfile extends Component {
                 onSubmit={this.submit}
                 educations={educations}
                 experiences={experiences}
+                isEditing={isEditing}
                 specialistModal
               />
-              {this.state.nextStep && <Redirect to="industry" />}
+              {this.state.nextStep ? (
+                isEditing ? (
+                  <Redirect to="about" />
+                ) : (
+                  <Redirect to="industry" />
+                )
+              ) : null}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -150,15 +164,15 @@ class SpecialistsProfile extends Component {
     setTimeout(() => {
       return this.setState({
         renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: true
+        renderErrorMessage: false
       });
-    }, 0);
+    }, 1500);
 
     status === "success"
       ? this.setState({
-          renderMessage: true
-        })
+          renderMessage: true,
+          nextStep: true
+      })
       : this.setState({
           renderErrorMessage: true
         });

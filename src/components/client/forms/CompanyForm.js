@@ -19,7 +19,8 @@ class CompanyForm extends Component {
       industries,
       clientData,
       specialistData,
-      handleFormField
+      handleFormField,
+      isEditing
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -135,12 +136,14 @@ class CompanyForm extends Component {
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
               <NavLink exact to="/dashboard/profile">
-                <BackBtn disabled={submitting} primary>
-                  <span>Back</span>
-                </BackBtn>
+                {!isEditing ? (
+                  <BackBtn disabled={submitting} primary>
+                    <span>Back</span>
+                  </BackBtn>
+                ) : null}
               </NavLink>
               <NextBtn type="submit" disabled={submitting} primary>
-                <span>next step</span>
+                {isEditing ? <span>Save</span> : <span>NextStep</span>}
               </NextBtn>
             </div>
           </Grid.Column>

@@ -72,34 +72,26 @@ class SignUp extends Component {
         <S_MainContainer>
           <Loader loading={Loading} />
           <IntroContainer>
-            <DvGrid>
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column className="perspective">
-                    <StyledFormHeader>
-                      <div className="form-title">Create an account</div>
-                      <div className="form-subtitle">
-                        Enter your email and start using Digital Village
-                      </div>
-                    </StyledFormHeader>
-                    <Tabs mTop="180" widthAuto action="">
-                      <Tab
-                        className={
-                          Loading
-                            ? "loading content-loading"
-                            : "loading content-load"
-                        }
-                        menu={{ text: true }}
-                        panes={panes}
-                        activeIndex={activeIndex}
-                        onTabChange={this.handleTabChange}
-                      />
-                      {confirm && <Redirect to="/confirm_email" />}
-                    </Tabs>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </DvGrid>
+            <div className="perspective">
+              <StyledFormHeader>
+                <div className="form-title">Create an account</div>
+                <div className="form-subtitle">
+                  Enter your email and start using Digital Village
+                </div>
+              </StyledFormHeader>
+              <Tabs mTop="180" widthAuto action="">
+                <Tab
+                  className={
+                    Loading ? "loading content-loading" : "loading content-load"
+                  }
+                  menu={{ text: true }}
+                  panes={panes}
+                  activeIndex={activeIndex}
+                  onTabChange={this.handleTabChange}
+                />
+                {confirm && <Redirect to="/confirm_email" />}
+              </Tabs>
+            </div>
           </IntroContainer>
         </S_MainContainer>
       </div>
