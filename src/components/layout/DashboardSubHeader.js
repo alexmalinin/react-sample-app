@@ -1,31 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 
 import { CLIENT } from "../../constans/constans";
+import AddTaskModal from "../modals/AddTaskModal";
 
 class DashboardSubHeader extends Component {
-  renderLinks() {
-    const { data, changeUserType } = this.props;
-
-    return (
-      changeUserType === CLIENT &&
-      data.map((item, index) => (
-        <SubHeaderLinkWrap
-          content={item.content}
-          url="#"
-          className="dashboard addLikSmall"
-          key={index}
-        >
-          {item.title}
-        </SubHeaderLinkWrap>
-      ))
-    );
-  }
-
   render() {
     return (
       <StyledSubHeader projects sidebarCondition dashboardSubHeader>
@@ -62,12 +44,16 @@ class DashboardSubHeader extends Component {
             />
           ) : null}
         </div>
+        <div>
+          <AddTaskModal content="Add task" className="dahsboard" />
 
-        {this.props.dashboard ? (
-          <div className="plusLink">{this.renderLinks()}</div>
-        ) : (
-          <div>{this.renderLinks()}</div>
-        )}
+          <SubHeaderLinkWrap
+            url="/dashboard/project/new"
+            className="rightLink dahsboard addButt"
+          >
+            Add project
+          </SubHeaderLinkWrap>
+        </div>
       </StyledSubHeader>
     );
   }

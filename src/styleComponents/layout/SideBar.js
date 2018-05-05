@@ -12,10 +12,9 @@ export const StyledBar = styled.aside`
 
   background-color: white;
   color: #b3b3b3;
-  -webkit-box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
-  -moz-box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
   box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
   transition: 0.4s ease-in-out, height 0s;
+  outline: none;
 
   &.left {
     left: 0;
@@ -35,7 +34,6 @@ export const StyledBar = styled.aside`
         text-transform: uppercase;
         color: #666;
         border-bottom: 1px solid #f2f2f2;
-        /* box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15); */
 
         h4 {
           font-size: 12px;
@@ -190,6 +188,77 @@ export const StyledBar = styled.aside`
 
   &.right {
     right: 0;
+
+    transform: translateX(100%);
+
+    &.open {
+      transform: translateX(0);
+
+      .trigger {
+        right: calc(100% + 15px);
+        opacity: 0.9;
+        &::before {
+          left: 15px;
+          top: calc(50% - 8px);
+        }
+        &::after {
+          left: 15px;
+          top: calc(50% + 8px);
+        }
+      }
+    }
+
+    .trigger {
+      position: absolute;
+      top: 50%;
+      right: 100%;
+
+      height: 200px;
+      width: 120px;
+      border-radius: 50%;
+      border: none;
+      background: #ababab;
+      transform: translate(75%, -50%);
+      transition: 0.4s;
+      outline: none;
+      opacity: 0.7;
+      cursor: pointer;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 30px;
+
+        height: 24px;
+        width: 4px;
+        border-radius: 4px;
+        background: #fff;
+        transform-origin: center 0;
+        transition: 0.4s;
+      }
+
+      &::before {
+        transform: rotate(-45deg);
+        top: calc(50% - 1px);
+      }
+
+      &::after {
+        transform: rotate(-135deg);
+        top: calc(50% + 1px);
+      }
+
+      &:hover {
+        /* transform: translate(65%, -50%); */
+        right: calc(100% + 15px);
+        opacity: 1;
+
+        &::before,
+        &::after {
+          left: 15px;
+        }
+      }
+    }
 
     & > div {
       width: 100%;
@@ -407,7 +476,7 @@ export const StyledBar = styled.aside`
 
   @media screen and (max-width: 1820px) {
     &.right {
-      display: none;
+      /* display: none; */
     }
   }
 

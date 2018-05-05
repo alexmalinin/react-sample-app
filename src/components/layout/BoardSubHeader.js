@@ -77,6 +77,7 @@ class ProjectSubHeader extends Component {
                 epic={currentEpic}
                 createEpicTask={createEpicTask}
                 currentEpicId={epicId}
+                content="Add task"
               />
             )}
             <SubHeaderLinkWrap
@@ -84,14 +85,14 @@ class ProjectSubHeader extends Component {
               url="#"
               className="rightLink"
             >
-              Tasks
+              <span>Tasks</span>
             </SubHeaderLinkWrap>
             <SubHeaderLinkWrap
               content={`${percents}%`}
               url="#"
               className="rightLink"
             >
-              Module progress
+              <span>Module progress</span>
               <ProgressBars percents={percents} />
             </SubHeaderLinkWrap>
           </div>

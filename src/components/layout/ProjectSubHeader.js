@@ -15,14 +15,14 @@ class ProjectSubHeader extends Component {
     let form = module ? "ClientModuleForm" : "ClientProjectForm";
 
     return (
-      <StyledSubHeader sidebarCondition sidebarCondition projects>
-        {this.props.module ? (
+      <StyledSubHeader sidebarCondition module>
+        {module ? (
           <div>
             <StyledModuleLink className="moduleBreadcrumb">
               <NavLink to="#">New module</NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to={`/client/project/${projectId}`}>
+              <NavLink to={`/dashboard/project/${projectId}`}>
                 Project {projectWithId ? projectWithId.name : ""}
               </NavLink>
             </StyledModuleLink>
@@ -44,7 +44,10 @@ class ProjectSubHeader extends Component {
             Save
           </button>
 
-          <SubHeaderLinkWrap url={`/dashboard/`} className="rightLink close">
+          <SubHeaderLinkWrap
+            url={module ? `/dashboard/project/${projectId}` : "/dashboard/"}
+            className="rightLink close"
+          >
             Cancel
           </SubHeaderLinkWrap>
         </div>

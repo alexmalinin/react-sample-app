@@ -98,9 +98,6 @@ class KanbanBoard extends Component {
         });
       }
     } else {
-      let backlog = [],
-        progress = [],
-        completed = [];
       this.setState({
         showBoard: false
       });
@@ -108,7 +105,7 @@ class KanbanBoard extends Component {
   }
 
   render() {
-    const { currentEpic, allSpecialists, epicId, changeUserType } = this.props;
+    const { changeUserType } = this.props;
     const {
       backlogTasks,
       progressTasks,

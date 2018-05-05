@@ -84,7 +84,9 @@ export default styled.div`
     .progress {
         display: flex;
         justify-content: flex-end;
+        flex-flow: row wrap;
         margin-bottom: 10px;
+        max-width: 300px;
     }
 
     .container{

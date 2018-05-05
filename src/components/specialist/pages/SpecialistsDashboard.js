@@ -195,7 +195,6 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
-      allProjects,
       specialistTeams
     } = this.props;
     let page;

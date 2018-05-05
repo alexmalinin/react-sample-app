@@ -1,23 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import HeaderBasic from "../layout/HeaderBasic";
-import { NavLink } from "react-router-dom";
 import SubHeader from "../layout/ProjectSubHeader";
-import { Grid } from "semantic-ui-react";
 import {
   Container,
   ContainerLarge
 } from "../../styleComponents/layout/Container";
-import {
-  createProjectEpic,
-  showProjectWithId,
-  showAllEpics
-} from "../../actions/actions";
-import { S_Message } from "../../styleComponents/layout/S_Message";
-import { Message } from "semantic-ui-react";
+import { createProjectEpic, showProjectWithId } from "../../actions/actions";
 import { run } from "../../helpers/scrollToElement";
-import Navbar from "../layout/Navbar";
 import ClientModuleForm from "./forms/ClientModuleForm";
 
 class ClientProjects extends Component {
@@ -28,18 +18,16 @@ class ClientProjects extends Component {
   };
 
   componentWillMount() {
-    const { projectId } = this.props;
     run(0)();
   }
 
   render() {
-    const { projectId, projectWithId } = this.props;
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { projectId } = this.props;
 
     return (
       <ContainerLarge>
         <SubHeader module projectId={projectId} />
-        <Container sidebarCondition={true} indentBot>
+        <Container small sidebarCondition={true} indentBot>
           <ClientModuleForm onSubmit={this.submit} />
           {this.state.saved ? (
             <Redirect to={`/dashboard/project/${projectId}`} />

@@ -4,18 +4,18 @@ import { Header, Modal } from "semantic-ui-react";
 
 import NewTaskForm from "../client/forms/NewTaskForm";
 
-import { AddNewBtn } from "../../styleComponents/layout/DvButton";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 
 class AddTaskModal extends Component {
   render() {
-    const { number } = this.props;
+    const { content } = this.props;
 
     return (
       <Modal
         trigger={
           <a className="button">
-            <StyledSubHeaderLink className="rightLink addButt" />Add new task
+            <StyledSubHeaderLink className="rightLink addButt" />
+            {content}
           </a>
         }
         closeIcon

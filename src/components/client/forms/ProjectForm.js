@@ -24,7 +24,7 @@ class ProjectForm extends Component {
           <Grid.Column computer={8}>
             <InputField
               name="name"
-              label="Project name"
+              label="Project name *"
               validate={[required]}
               padded
             />
@@ -32,7 +32,7 @@ class ProjectForm extends Component {
             <Field
               name="description"
               component={RenderTextArea}
-              label="Brief / Description *"
+              label="Brief / Description"
               className="area"
               padded
             />

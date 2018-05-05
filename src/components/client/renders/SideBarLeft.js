@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { StyledBar } from "../../../styleComponents/layout/SideBar";
 import { IMAGE_PORT } from "../../../constans/constans";
-import { Accordion } from "semantic-ui-react";
 
 class SideBarLeft extends Component {
   render() {
@@ -56,7 +55,7 @@ class SideBarLeft extends Component {
                   )}
                 </div>
               ))}
-            <NavLink className="projectLink" to="/dashboard/projects">
+            <NavLink className="projectLink" to="/dashboard/projects/new">
               <span className="addProject" />
             </NavLink>
           </div>

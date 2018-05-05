@@ -23,7 +23,6 @@ class CustomCard extends Component {
       description,
       id,
       specialists,
-      removeSpecialist,
       specialistList,
       userType
     } = this.props;
@@ -40,7 +39,7 @@ class CustomCard extends Component {
             <PersonTile
               specialist={specialist}
               key={key}
-              removeSpecialist={this.assignSpeciaist}
+              handleRemove={this.assignSpeciaist}
               taskId={id}
               removeTitle="task"
               userType={userType}
