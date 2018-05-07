@@ -87,9 +87,9 @@ export default styled.div`
   }
 
   .profileLink {
-    font-size: 11px;
-    height: 60px;
-    width: 60px;
+    font-size: 10px;
+    height: 74px;
+    width: 74px;
   }
 
   .button {
@@ -104,6 +104,7 @@ export default styled.div`
     font-size: 10px;
     width: 74px;
     height: 74px;
+    letter-spacing: 0;
   }
 
   .addButt {
@@ -155,14 +156,12 @@ export default styled.div`
       }
 
       div {
-        margin-top: 10px;
-        width: 60px;
-        height: 60px;
-        font-size: 12px;
+        font-size: 10px;
         opacity: 1;
 
         &.teamLink {
-          border: 3px solid #fff;
+          width: 74px;
+          height: 74px;
         }
       }
     }
@@ -256,22 +255,25 @@ export default styled.div`
   }
 
   .dashboard {
-    width: 62px;
-    height: 62px;
+    width: 74px;
+    height: 74px;
     font-size: 10px;
   }
 
-  .dashboard.active {
-    border: 1px solid #fff;
+  .dv-button__circle {
+    width: 74px;
+    height: 74px;
+    font-size: 10px;
   }
 
   a,
   button {
     position: relative;
     color: #fff;
-    opacity: 0.7;
+    opacity: 0.6;
     font-family: "Brix", sans-serif;
     font-size: 11px;
+    max-height: 74px;
     font-weight: 600;
     line-height: 27px;
     text-transform: uppercase;
@@ -297,8 +299,8 @@ export default styled.div`
       color: #fff;
       opacity: 1;
 
-      & > div {
-        border: 1px solid #fff;
+      & > .dv-button__circle {
+        box-shadow: 0 0 0 3px #fff;
       }
 
       &.container {
