@@ -325,6 +325,13 @@ export const StyledBar = styled.aside`
             h5 {
               flex-basis: 100%;
             }
+
+            .delete,
+            .dropdown {
+              max-width: 220px;
+              min-width: 220px;
+            }
+
             .attached.segment.tab {
               position: relative;
               padding: 20px;
@@ -358,10 +365,6 @@ export const StyledBar = styled.aside`
 
                   h5 {
                     flex-basis: 100%;
-                  }
-
-                  .delete,
-                  .dropdown {
                   }
 
                   .person {

@@ -27,7 +27,7 @@ export class AssignDropdown extends Component {
       showDropdown: true
     });
     setTimeout(() => {
-      this.searchInput.focus();
+      this.searchInput && this.searchInput.focus();
     }, 10);
   };
 
@@ -41,6 +41,29 @@ export class AssignDropdown extends Component {
       e.target.value = "";
     }
   };
+
+  componentDidUpdate() {
+    if (this.state.showDropdown) {
+      //fix positioning of dropdown
+      let dropdownRect = this.dropList.getBoundingClientRect();
+      let triggerRect = this.trigger.getBoundingClientRect();
+      // console.log(triggerRect);
+
+      if (dropdownRect.width + triggerRect.x > document.body.clientWidth) {
+        this.dropList.style.left =
+          -dropdownRect.width -
+          triggerRect.x +
+          document.body.clientWidth -
+          15 +
+          "px";
+      }
+
+      if (dropdownRect.height + triggerRect.y > document.body.clientHeight) {
+        this.dropList.style.top = "auto";
+        this.dropList.style.bottom = "calc(100% + 4px)";
+      }
+    }
+  }
 
   handleSearch = (e, data) => {
     if (data.value != "") {
@@ -82,46 +105,55 @@ export class AssignDropdown extends Component {
     return (
       userType === CLIENT && (
         <StyledAssignDropdown>
-          <a tabIndex="1" onClick={this.openDropdown}>
+          <a
+            tabIndex="1"
+            onClick={this.openDropdown}
+            ref={a => (this.trigger = a)}
+          >
             <span className="plus">+</span>
             {renderToDashboard && label}
           </a>
-          <div className={`dropdown${showDropdown ? " visible" : ""}`}>
-            <div className="close" onClick={this.closeDropdown} />
-            <p className="dropdownTitle">Members</p>
-            <Input
-              type="text"
-              placeholder="Search members"
-              name="searchSpec"
-              ref={input => (this.searchInput = input)}
-              onClick={e => e.target.focus()}
-              onBlur={this.closeDropdown}
-              onChange={this.handleSearch}
-            />
-            <div className="dropdown-list">
-              {options.map((specialist, key) => (
-                <div
-                  key={key}
-                  data={specialist.id}
-                  onClick={this.handleAssign}
-                  className={
-                    assignedIds.indexOf(specialist.id) >= 0 ? "assigned" : ""
-                  }
-                >
-                  <img
+          {showDropdown && (
+            <div
+              className={`dropdown${showDropdown ? " visible" : ""}`}
+              ref={div => (this.dropList = div)}
+            >
+              <div className="close" onClick={this.closeDropdown} />
+              <p className="dropdownTitle">Members</p>
+              <Input
+                type="text"
+                placeholder="Search members"
+                name="searchSpec"
+                ref={input => (this.searchInput = input)}
+                onClick={e => e.target.focus()}
+                onBlur={this.closeDropdown}
+                onChange={this.handleSearch}
+              />
+              <div className="dropdown-list">
+                {options.map((specialist, key) => (
+                  <div
+                    key={key}
                     data={specialist.id}
-                    src={
-                      specialist.avatar.url
-                        ? IMAGE_PORT + specialist.avatar.url
-                        : "/images/uploadImg.png"
+                    onClick={this.handleAssign}
+                    className={
+                      assignedIds.indexOf(specialist.id) >= 0 ? "assigned" : ""
                     }
-                    alt="member"
-                  />
-                  {specialist.first_name + " " + specialist.last_name}
-                </div>
-              ))}
+                  >
+                    <img
+                      data={specialist.id}
+                      src={
+                        specialist.avatar.url
+                          ? IMAGE_PORT + specialist.avatar.url
+                          : "/images/uploadImg.png"
+                      }
+                      alt="member"
+                    />
+                    {specialist.first_name + " " + specialist.last_name}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </StyledAssignDropdown>
       )
     );
@@ -133,13 +165,10 @@ export class PersonTile extends Component {
     showDropdown: false
   };
 
-  openDropdown = () => {
+  openDropdown = e => {
     this.setState({
       showDropdown: true
     });
-    if (true) {
-      console.log(this.deleteTile.getBoundingClientRect().top);
-    }
   };
 
   closeDropdown = () => {
@@ -164,6 +193,7 @@ export class PersonTile extends Component {
       userType,
       renderToDashboard
     } = this.props;
+    const { showDropdown } = this.state;
 
     return (
       <StyledPersonTile>
@@ -184,36 +214,77 @@ export class PersonTile extends Component {
               </p>
             )}
         </a>
-        <div
-          className={`delete${this.state.showDropdown ? " show" : ""}`}
-          ref={div => (this.deleteTile = div)}
-        >
-          <div className="close" onClick={this.closeDropdown} />
-          <p className="dropdownTitle">Profile</p>
-          <div className="info">
-            <img
-              src={
-                specialist.avatar.url
-                  ? IMAGE_PORT + specialist.avatar.url
-                  : "/images/uploadImg.png"
-              }
-              alt="avatar"
-            />
-            <div>
-              <p>{specialist.first_name + " " + specialist.last_name}</p>
-              {userType === CLIENT && (
-                <button
-                  data={specialist.id}
-                  onClick={this.removeSpecialist}
-                  className="remove"
-                >
-                  Remove from {removeTitle}
-                </button>
-              )}
-            </div>
+        {showDropdown && (
+          <DeleteTile
+            specialist={specialist}
+            userType={userType}
+            removeTitle={removeTitle}
+            showDropdown={showDropdown}
+            removeSpecialist={this.removeSpecialist}
+          />
+        )}
+      </StyledPersonTile>
+    );
+  }
+}
+
+class DeleteTile extends Component {
+  componentDidMount() {
+    let deleteRect = this.deleteTile.getBoundingClientRect();
+
+    if (deleteRect.width + deleteRect.left + 10 > document.body.clientWidth) {
+      this.deleteTile.style.left =
+        -deleteRect.width -
+        deleteRect.left +
+        document.body.clientWidth -
+        15 +
+        "px";
+    }
+
+    if (deleteRect.height + deleteRect.y > document.body.clientHeight) {
+      this.deleteTile.style.top = "auto";
+      this.deleteTile.style.bottom = "calc(100% + 4px)";
+    }
+  }
+
+  render() {
+    const {
+      specialist,
+      userType,
+      removeTitle,
+      showDropdown,
+      removeSpecialist
+    } = this.props;
+    return (
+      <div
+        className={`delete${showDropdown ? " show" : ""}`}
+        ref={div => (this.deleteTile = div)}
+      >
+        <div className="close" onClick={this.closeDropdown} />
+        <p className="dropdownTitle">Profile</p>
+        <div className="info">
+          <img
+            src={
+              specialist.avatar.url
+                ? IMAGE_PORT + specialist.avatar.url
+                : "/images/uploadImg.png"
+            }
+            alt="avatar"
+          />
+          <div>
+            <p>{specialist.first_name + " " + specialist.last_name}</p>
+            {userType === CLIENT && (
+              <button
+                data={specialist.id}
+                onClick={removeSpecialist}
+                className="remove"
+              >
+                Remove from {removeTitle}
+              </button>
+            )}
           </div>
         </div>
-      </StyledPersonTile>
+      </div>
     );
   }
 }
