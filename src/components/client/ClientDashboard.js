@@ -10,10 +10,10 @@ import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
 import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
 import { Container } from "../../styleComponents/layout/Container";
+import Dashboard from "../Dashboard";
 import ClientProfile from "./ClientProfile";
 import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
-import ClientAccount from "./ClientAccount";
 import ClientAbout from "./pages/ClientAbout";
 import ProjectsBoard from "../ProjectsBoard";
 import SideBarLeft from "./renders/SideBarLeft";
@@ -22,7 +22,9 @@ import { projects, days } from "../../helpers/sidebarDbEmulate";
 import ClientProjects from "./ClientProjects";
 import ClientModule from "./ClientModule";
 import Teams from "../Teams";
-import Dashboard from "../Dashboard";
+import ClientAccount from "./pages/ClientAccount";
+import ClientYTD from "./pages/ClientYTD";
+import ClientStatement from "./pages/ClientStatement";
 import TheVillage from "../TheVillage";
 
 const mapPageNameToFieldsCount = {
@@ -274,8 +276,6 @@ class ClientDashboard extends Component {
         return (
           <ClientBilling calculatePagePercent={this.calculatePagePercent} />
         );
-      case "account":
-        return <ClientAccount />;
       case "about":
         return <ClientAbout />;
       case "projects":
@@ -299,6 +299,12 @@ class ClientDashboard extends Component {
       case "teams":
         document.title = "Teams | Digital Village";
         return <Teams teams={this.props.allTeams} />;
+      case "account":
+        return <ClientAccount />;
+      case "year_to_date":
+        return <ClientYTD />;
+      case "statement":
+        return <ClientStatement />;
       case "the_village":
         document.title = "The Village | Digital Village";
         return <TheVillage />;

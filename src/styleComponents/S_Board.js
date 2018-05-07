@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { primaryColors } from "./constants/colors";
 
 export const S_Board = styled.div`
   width: 100%;
@@ -478,7 +479,7 @@ export const S_Board = styled.div`
     min-height: 250px;
     margin-top: 30px;
     padding: 30px;
-    background-color: #f2f2f2;
+    background-color: ${primaryColors.accentBackground};
 
     .dropdown {
       position: absolute;

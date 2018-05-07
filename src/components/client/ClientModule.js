@@ -27,7 +27,7 @@ class ClientProjects extends Component {
     return (
       <ContainerLarge>
         <SubHeader module projectId={projectId} />
-        <Container small sidebarCondition={true} indentBot>
+        <Container sidebarCondition={true} indentBot>
           <ClientModuleForm onSubmit={this.submit} />
           {this.state.saved ? (
             <Redirect to={`/dashboard/project/${projectId}`} />

@@ -21,6 +21,7 @@ import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistBillingForm from "../forms/SpecialistBillingForm";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 class SpecialistsMyBillings extends Component {
   constructor() {
@@ -29,12 +30,17 @@ class SpecialistsMyBillings extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
   componentWillMount() {
     this.props.showSpecialistData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   collectData(values) {
@@ -54,7 +60,7 @@ class SpecialistsMyBillings extends Component {
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
 
     return (
       <div>
@@ -78,6 +84,7 @@ class SpecialistsMyBillings extends Component {
           data={this.props.specialistData}
           onChange={this.change}
           onSubmit={this.submit}
+          isEditing={isEditing}
         />
         {this.state.nextStep && <Redirect to="about" />}
       </div>

@@ -36,9 +36,11 @@ class Module extends Component {
   renderStory = () => {
     const { user_story } = this.props.epic;
 
-    if (user_story.length > 120) {
-      return user_story.slice(0, 120) + "...";
-    } else return user_story;
+    if (user_story) {
+      if (user_story.length > 120) {
+        return user_story.slice(0, 120) + "...";
+      } else return user_story;
+    }
   };
 
   render() {

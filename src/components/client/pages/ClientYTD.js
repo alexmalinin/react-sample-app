@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Grid, Tab } from "semantic-ui-react";
-
+import { Grid } from "semantic-ui-react";
 import { Container } from "../../../styleComponents/layout/Container";
 import SpecialistAccountSubHeader from "../../layout/SpecialistAccountSubHeader";
 import StyledAccountPages from "../../../styleComponents/StyledAccountPages";
 
-class SpecialistYTD extends Component {
+class ClientYTD extends Component {
   render() {
     return (
       <StyledAccountPages className="sasas">
@@ -54,4 +52,4 @@ function SectionHeader({ content }) {
   );
 }
 
-export default SpecialistYTD;
+export default ClientYTD;

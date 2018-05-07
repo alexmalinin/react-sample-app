@@ -84,7 +84,8 @@ export const StyledAssignDropdown = styled.div`
     left: 10px;
     min-width: 230px;
     max-height: 300px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     border-radius: 3px;
     background: #fff;
