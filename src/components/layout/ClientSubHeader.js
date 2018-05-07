@@ -8,7 +8,7 @@ import ProgressBars from "../layout/ProgressBar";
 class SubHeader extends Component {
   render() {
     return (
-      <StyledSubHeader>
+      <StyledSubHeader profileForm="true">
         <div className="progressBarsLink">
           <SubHeaderItemWrap content="1" path="profile">
             My Profile

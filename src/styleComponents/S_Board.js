@@ -4,7 +4,7 @@ import { primaryColors } from "./constants/colors";
 export const S_Board = styled.div`
   width: 100%;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 30px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;

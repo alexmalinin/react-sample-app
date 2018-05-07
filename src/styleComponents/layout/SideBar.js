@@ -55,11 +55,6 @@ export const StyledBar = styled.aside`
 
         &.opened {
           width: 100%;
-          background-color: #fff;
-          /* .projectName {
-            opacity: 0;
-            visibility: hidden;
-          } */
         }
 
         .projectWrapper {
