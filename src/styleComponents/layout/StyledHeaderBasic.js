@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondaryColors } from "../constants/colors";
+import { secondaryColors, colors } from "../constants/colors";
 
 export default styled.header`
 
@@ -36,6 +36,12 @@ export default styled.header`
 
                     &:hover {
                         color: #666;
+                    }
+
+                    &.current{
+                        i{
+                            color: ${colors.blue};
+                        }
                     }
 
                     img {
