@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Grid, Tab } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
-import { Container } from "../../styleComponents/layout/Container";
-import SpecialistAccountSubHeader from "../layout/SpecialistAccountSubHeader";
-import StyledAccountPages from "../../styleComponents/StyledAccountPages";
+import { Container } from "../../../styleComponents/layout/Container";
+import SpecialistAccountSubHeader from "../../layout/SpecialistAccountSubHeader";
+import StyledAccountPages from "../../../styleComponents/StyledAccountPages";
 
 class ClientAccount extends Component {
   render() {
     return (
       <StyledAccountPages>
         <SpecialistAccountSubHeader />
-        <Container>
+        <Container sidebarCondition>
           <Grid>
             <SectionHeader content="completed tasks" />
 

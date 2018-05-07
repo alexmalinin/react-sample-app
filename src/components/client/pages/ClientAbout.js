@@ -36,7 +36,7 @@ class ClientAbout extends Component {
     return (
       <ContainerLarge>
         <AboutSubHeader />
-        <Container indentBot>
+        <Container indentBot sidebarCondition>
           <StyledProfile>
             <Grid>
               <SectionHeader page="profile" />

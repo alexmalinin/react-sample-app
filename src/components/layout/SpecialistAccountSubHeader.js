@@ -8,7 +8,7 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 class AboutSubHeader extends Component {
   render() {
     return (
-      <StyledSubHeader account>
+      <StyledSubHeader account sidebarCondition>
         <div>
           <SubHeaderLinkWrap
             content="Account"

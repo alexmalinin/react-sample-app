@@ -11,7 +11,7 @@ class SpecialistAccount extends Component {
     return (
       <StyledAccountPages>
         <SpecialistAccountSubHeader />
-        <Container>
+        <Container sidebarCondition>
           <Grid>
             <SectionHeader content="completed tasks" />
 

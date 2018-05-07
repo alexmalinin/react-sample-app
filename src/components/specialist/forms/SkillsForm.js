@@ -32,7 +32,8 @@ class SkillsForm extends Component {
       experienceLevels,
       welcomeText,
       clientData,
-      specialistData
+      specialistData,
+      isEditing
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -143,9 +144,11 @@ class SkillsForm extends Component {
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
               <NavLink exact to="/dashboard/profile">
-                <BackBtn disabled={submitting} primary>
-                  <span>Back</span>
-                </BackBtn>
+                {!isEditing ? (
+                  <BackBtn disabled={submitting} primary>
+                    <span>Back</span>
+                  </BackBtn>
+                ) : null}
               </NavLink>
               <NextBtn
                 type="submit"
@@ -153,7 +156,7 @@ class SkillsForm extends Component {
                 // content='321'
                 primary
               >
-                <span>next step</span>
+                {isEditing ? <span>Save</span> : <span>next step</span>}
               </NextBtn>
             </div>
 

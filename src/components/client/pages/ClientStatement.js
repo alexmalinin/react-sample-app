@@ -4,12 +4,12 @@ import { Field, reduxForm, change } from "redux-form";
 import { Grid, Tab } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import RenderSelect from "../../forms/renders/RenderSelect";
-import SpecialistStatementForm from "../forms/SpecialistStatementForm";
+import ClientStatementForm from "../forms/ClientStatementForm";
 import {
   getProjectTypes,
   getExperienceLevels,
   getIndustries,
-  showSpecialistData,
+  showClientData,
   updateSpecStep1
 } from "../../../actions/actions";
 
@@ -17,22 +17,19 @@ import { Container } from "../../../styleComponents/layout/Container";
 import SpecialistAccountSubHeader from "../../layout/SpecialistAccountSubHeader";
 import StyledAccountPages from "../../../styleComponents/StyledAccountPages";
 
-class SpecialistStatement extends Component {
+class ClientStatement extends Component {
   componentWillMount() {
     this.props.getIndustries();
     this.props.getProjectTypes();
-    this.props.getExperienceLevels();
-    this.props.showSpecialistData();
+    this.props.showClientData();
   }
 
   render() {
-    console.log(this.props);
-
     const {
       industries,
       projectTypes,
       experienceLevels,
-      specialistData
+      ClientData
     } = this.props;
 
     return (
@@ -66,7 +63,7 @@ class SpecialistStatement extends Component {
 
             <Grid.Row className="sectionTitle">
               <Grid.Column className="sectionColumn" computer={16}>
-                <SpecialistStatementForm onSubmit={this.submit} />
+                <ClientStatementForm onSubmit={this.submit} />
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -88,17 +85,16 @@ function SectionHeader({ content }) {
 }
 
 export default connect(
-  ({ industries, projectTypes, experienceLevels, specialistData }) => ({
+  ({ industries, projectTypes, ClientData }) => ({
     industries,
     projectTypes,
-    experienceLevels,
-    specialistData
+    ClientData
   }),
   {
     updateSpecStep1,
     getIndustries,
     getProjectTypes,
     getExperienceLevels,
-    showSpecialistData
+    showClientData
   }
-)(SpecialistStatement);
+)(ClientStatement);

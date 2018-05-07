@@ -60,15 +60,13 @@ class SpecialistsAbout extends Component {
       : [];
     let { avatar } = specialistData || false;
 
-    console.log(this.props);
-
     return (
       <ContainerLarge>
         <AboutSubHeader />
-        <Container indentBot>
+        <Container indentBot sidebarCondition>
           <StyledProfile>
             <Grid>
-              <SectionHeader page="profile"/>
+              <SectionHeader page="profile" />
               <Grid.Row className="main-info">
                 <Grid.Column computer={8} textAlign="right">
                   <div className="profile-image">
@@ -117,7 +115,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Services" page="industry"/>
+              <SectionHeader content="Services" page="industry" />
               <Grid.Row className="services">
                 <Grid.Column computer={16}>
                   <h3>
@@ -196,7 +194,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Skills" page="industry"/>
+              <SectionHeader content="Skills" page="industry" />
               <Grid.Row className="skills">
                 <Grid.Column computer={16}>
                   <div className="flex-wrapper">
@@ -211,7 +209,10 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Work / Proffesional experience" page="profile" />
+              <SectionHeader
+                content="Work / Proffesional experience"
+                page="profile"
+              />
               <Grid.Row>
                 <Grid.Column computer={8}>
                   {work_experience.length
@@ -237,7 +238,7 @@ class SpecialistsAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Education" page="profile"/>
+              <SectionHeader content="Education" page="profile" />
               <Grid.Row className="educations">
                 <Grid.Column computer={16}>
                   {educations_experience.length

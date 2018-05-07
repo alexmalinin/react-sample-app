@@ -15,7 +15,7 @@ class ProjectSubHeader extends Component {
     let form = module ? "ClientModuleForm" : "ClientProjectForm";
 
     return (
-      <StyledSubHeader sidebarCondition module>
+      <StyledSubHeader sidebarCondition>
         {module ? (
           <div>
             <StyledModuleLink className="moduleBreadcrumb">

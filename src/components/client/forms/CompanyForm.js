@@ -135,13 +135,13 @@ class CompanyForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/dashboard/profile">
-                {!isEditing ? (
+              {!isEditing ? (
+                <NavLink exact to="/dashboard/profile">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>
-                ) : null}
-              </NavLink>
+                </NavLink>
+              ) : null}
               <NextBtn type="submit" disabled={submitting} primary>
                 {isEditing ? <span>Save</span> : <span>NextStep</span>}
               </NextBtn>

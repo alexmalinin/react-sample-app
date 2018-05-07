@@ -109,12 +109,12 @@ class SpecialistIndustry extends Component {
 
     status === "success"
       ? this.setState({
-        renderMessage: true,
-        nextStep: true
-      })
+          renderMessage: true,
+          nextStep: true
+        })
       : this.setState({
-        renderErrorMessage: true
-      });
+          renderErrorMessage: true
+        });
   };
 
   change = values => {
