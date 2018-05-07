@@ -37,7 +37,7 @@ export const StyledBar = styled.aside`
         border-bottom: 1px solid #f2f2f2;
 
         h4 {
-          font-size: 12px;
+          font-size: 1em;
           font-weight: 500;
         }
       }
@@ -55,16 +55,18 @@ export const StyledBar = styled.aside`
 
         &.opened {
           width: 100%;
-          .projectName {
+          background-color: #fff;
+          /* .projectName {
             opacity: 0;
             visibility: hidden;
-          }
+          } */
         }
 
         .projectWrapper {
           position: relative;
           display: flex;
-          height: 70px;
+          flex-wrap: wrap;
+          /* height: 70px; */
           width: 80px;
 
           &:hover {
@@ -73,18 +75,19 @@ export const StyledBar = styled.aside`
             }
           }
           .modules {
-            position: absolute;
-            top: 22px;
+            position: relative;
+            top: 0;
             left: calc(100% + 15px);
             display: flex;
             flex-flow: column nowrap;
-            width: 130px;
+            min-width: 130px;
             height: 100%;
             text-transform: uppercase;
             color: #666;
             font-weight: 500;
             letter-spacing: 1px;
             animation: fadeIn 0.2s 0.4s forwards;
+            transition: max-height 0.5s;
             opacity: 0;
 
             a {
@@ -493,7 +496,7 @@ export const StyledBar = styled.aside`
         }
 
         .modules {
-          display: none;
+          max-height: 0;
         }
       }
 
@@ -502,7 +505,7 @@ export const StyledBar = styled.aside`
         overflow-y: auto;
 
         .modules {
-          display: flex;
+          max-height: 500px;
         }
       }
     }
