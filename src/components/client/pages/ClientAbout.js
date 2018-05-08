@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Grid, Tab } from "semantic-ui-react";
@@ -28,10 +28,100 @@ class ClientAbout extends Component {
 
   renderText = value => (value ? value : `Select`);
 
+  renderBillingData() {
+    const { clientData } = this.props;
+
+    if (clientData) {
+      if (clientData["customer_billing"]) {
+        let billingData = clientData["customer_billing"];
+        let billingType = billingData["billing_type"];
+
+        switch (billingType) {
+          case 0:
+            return (
+              <Fragment>
+                <Grid.Column computer={4}>
+                  <div className="billing-type">Paypal</div>
+                  <span>
+                    {billingData["account_number"]
+                      ? billingData["account_number"]
+                      : "No account number"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["password"]
+                      ? billingData["password"]
+                      : "No password"}
+                  </span>
+                </Grid.Column>
+              </Fragment>
+            );
+          case 1:
+            return (
+              <Fragment>
+                <Grid.Column computer={4}>
+                  <div className="billing-type">Credit card</div>
+                  <span>
+                    {billingData["card_name"]
+                      ? billingData["card_name"]
+                      : "No card name"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["card_number"]
+                      ? billingData["card_number"]
+                      : "No card number"}
+                  </span>
+                </Grid.Column>
+                <Grid.Column computer={4}>
+                  <span>
+                    {billingData["expiry_date"]
+                      ? billingData["expiry_date"]
+                      : "No expiry date"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["ccv"] ? billingData["ccv"] : "No ccv"}
+                  </span>
+                </Grid.Column>
+              </Fragment>
+            );
+          case 2:
+            return (
+              <Fragment>
+                <Grid.Column computer={4}>
+                  <div className="billing-type">Accounts</div>
+                  <span>
+                    {billingData["account_details"]
+                      ? billingData["account_details"]
+                      : "No account details"}
+                  </span>
+                </Grid.Column>
+              </Fragment>
+            );
+          default:
+            return (
+              <Grid.Column computer={4}>
+                <div>No information</div>
+              </Grid.Column>
+            );
+        }
+      } else {
+        return (
+          <Grid.Column computer={4}>
+            <div>No information</div>
+          </Grid.Column>
+        );
+      }
+    }
+  }
+
   render() {
     const { clientData } = this.props;
 
     let { avatar } = clientData || false;
+
+    console.log("clientData", clientData);
 
     return (
       <ContainerLarge>
@@ -179,6 +269,11 @@ class ClientAbout extends Component {
                       : null}, &nbsp;
                   </span>
                 </Grid.Column>
+              </Grid.Row>
+
+              <SectionHeader content="Billing" page="billing" />
+              <Grid.Row className="billing">
+                {this.renderBillingData()}
               </Grid.Row>
             </Grid>
           </StyledProfile>

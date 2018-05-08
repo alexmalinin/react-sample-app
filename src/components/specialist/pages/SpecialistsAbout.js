@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Grid, Tab } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
@@ -47,6 +47,70 @@ class SpecialistsAbout extends Component {
         return "";
     }
   };
+
+  renderBillingData() {
+    const { specialistData } = this.props;
+
+    if (specialistData) {
+      if (specialistData["specialist_billing"]) {
+        let billingData = specialistData["specialist_billing"];
+        let billingType = billingData["billing_type"];
+
+        switch (billingType) {
+          case 0:
+            return (
+              <Fragment>
+                <Grid.Column computer={4}>
+                  <div className="billing-type">Direct payment</div>
+                  <span>
+                    {billingData["bank_account_details"]
+                      ? billingData["bank_account_details"]
+                      : "No bank account details"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["swift_code"]
+                      ? billingData["swift_code"]
+                      : "No swift code"}
+                  </span>
+                </Grid.Column>
+              </Fragment>
+            );
+          case 1:
+            return (
+              <Fragment>
+                <Grid.Column computer={4}>
+                  <div className="billing-type">Payment to company</div>
+                  <span>
+                    {billingData["company_name"]
+                      ? billingData["company_name"]
+                      : "No company name"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["manager"]
+                      ? billingData["manager"]
+                      : "No manager"}
+                  </span>
+                </Grid.Column>
+              </Fragment>
+            );
+          default:
+            return (
+              <Grid.Column computer={4}>
+                <div>No information</div>
+              </Grid.Column>
+            );
+        }
+      } else {
+        return (
+          <Grid.Column computer={4}>
+            <div>No information</div>
+          </Grid.Column>
+        );
+      }
+    }
+  }
 
   render() {
     const { specialistData, experienceLevels } = this.props;
@@ -253,6 +317,11 @@ class SpecialistsAbout extends Component {
                       ))
                     : "No educations"}
                 </Grid.Column>
+              </Grid.Row>
+
+              <SectionHeader content="Billing" page="billings" />
+              <Grid.Row className="billing">
+                {this.renderBillingData()}
               </Grid.Row>
             </Grid>
           </StyledProfile>
