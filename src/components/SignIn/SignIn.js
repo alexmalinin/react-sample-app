@@ -101,8 +101,10 @@ class SignUp extends Component {
   submit = values => {
     let { changeUserType } = this.props;
     let user = changeUserType === "Specialist" ? "specialist" : "customer";
-    this.props.signIn(user, values);
+    var date = new Date();
+    date.setDate(date.getDate() + 1460);
     localStorage.setItem("userType", changeUserType);
+    this.props.signIn(user, values);
   };
 
   handleTabChange = (ev, { activeIndex }) => {

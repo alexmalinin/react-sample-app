@@ -82,10 +82,7 @@ export const StyledAssignDropdown = styled.div`
 
     top: calc(100% + 5px);
     left: 10px;
-    min-width: 230px;
-    max-height: 300px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    min-width: 240px;
 
     border-radius: 3px;
     background: #fff;
@@ -127,18 +124,27 @@ export const StyledAssignDropdown = styled.div`
       display: flex;
       flex-flow: column nowrap;
       width: 100%;
-
+      max-height: 240px;
+      overflow-y: auto;
+      border-radius: inherit;
       background: #fff;
+
+      &::-webkit-scrollbar{
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track{
+        background: transparent;
+      }
+
       div {
         position: relative;
         display: flex;
+        flex: 0 0 auto;
         order: 1;
         align-items: center;
         padding: 5px 15px;
         top: calc(100% + 5px);
-        left: 10px;
-        min-width: 230px;
-        max-height: 300px;
         overflow-y: hidden;
 
         font-family: "Brix";
@@ -209,61 +215,59 @@ export const StyledAssignDropdown = styled.div`
         }
 
         .dropdown-list{
-            z-index: 2;
+          display: flex;
+          flex-flow: column nowrap;
+          width: 100%;
+
+          background: #fff;
+          div{
+            position: relative;
             display: flex;
-            flex-flow: column nowrap;
-            width: 100%;
+            order: 1;
+            align-items: center;
+            padding: 5px 15px;
 
-            background: #fff;
-            div{
-                position: relative;
-                display: flex;
-                order: 1;
-                align-items: center;
-                padding: 5px 15px;
+            font-family: 'Brix';
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            text-transform: none;
+            cursor: pointer;
 
-                font-family: 'Brix';
-                font-size: 16px;
-                font-weight: 500;
-                color: #666;
-                cursor: pointer;
+            &:hover{
+                background: #f7f7f7;
+            }
 
-                &:hover{
-                    background: #f7f7f7;
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 10px;
+            }
+
+            &.assigned{
+                order: 0;
+
+                &::before,
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 25px;
+                    width: 6px;
+                    height: 2px;
+                    background: #38ffbf;
+                    transform: rotate(45deg);
+                    transform-origin: 100% 50%;
+                    border-radius: 2px;
                 }
-
-                text-transform: none;
-
-                img{
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                    margin-right: 10px;
-                }
-
-                &.assigned{
-                    order: 0;
-
-                    &::before,
-                    &::after{
-                        content: '';
-                        position: absolute;
-                        top: 50%;
-                        right: 25px;
-                        width: 6px;
-                        height: 2px;
-                        background: #38ffbf;
-                        transform: rotate(45deg);
-                        transform-origin: 100% 50%;
-                        border-radius: 2px;
-                    }
-                    &::before{
-                        width: 13px;
-                        transform: rotate(133deg);
-                    }
+                &::before{
+                    width: 13px;
+                    transform: rotate(133deg);
                 }
             }
+          }
         }
       }
     }
@@ -292,6 +296,10 @@ export const StyledPersonTile = styled.div`
     color: inherit;
     outline: none;
 
+    &:focus {
+      opacity: 0.7;
+    }
+
     &:hover {
       color: inherit;
     }
@@ -301,10 +309,13 @@ export const StyledPersonTile = styled.div`
     position: absolute;
     z-index: 1;
 
-    display: none;
+    /* display: none; */
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
     flex-flow: column nowrap;
 
-    top: calc(100% + 5px);
+    top: calc(100% + 4px);
     left: 0;
     min-width: 220px;
     padding: 10px 15px 15px 15px;
@@ -318,7 +329,9 @@ export const StyledPersonTile = styled.div`
     cursor: default;
 
     &.show {
-      display: flex;
+      /* display: flex; */
+      opacity: 1;
+      visibility: visible;
     }
 
     p {

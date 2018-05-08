@@ -6,18 +6,16 @@ import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer
 import SideBarLeft from "../renders/SideBarLeft";
 import SideBarRight from "../../layout/SideBarRight";
 import SpecialistsProfile from "./SpecialistsProfile";
-import SpecialistsMyTeams from "./SpecialistsMyTeams";
 import SpecialistsCompany from "./SpecialistsCompany";
 import SpecialistIndustry from "./SpecialistIndustry";
 import SpecialistsAbout from "./SpecialistsAbout";
-import StyledClientTeam from "../../../styleComponents/StyledClientTeam";
 import SpecialistsTest from "./SpecialistsTest";
 import SpecialistsMyBillings from "./SpecialistsMyBillings";
 import SpecialistAccount from "./SpecialistAccount";
 import SpecialistYTD from "./SpecialistYTD";
 import SpecialistStatement from "./SpecialistStatement";
 import TheVillage from "../../TheVillage";
-import { projects, days, team } from "../../../helpers/sidebarDbEmulate";
+import { projects, days } from "../../../helpers/sidebarDbEmulate";
 import ProjectsBoard from "../../ProjectsBoard";
 import Dashboard from "../../Dashboard";
 import { Container } from "../../../styleComponents/layout/Container";
@@ -31,6 +29,7 @@ import {
   showSpecialistTeams
 } from "../../../actions/actions";
 import Teams from "../../Teams";
+import { getCookie, setCookie } from "../../../helpers/functions";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -46,7 +45,8 @@ class SpecialistsDashboard extends Component {
       profilePercent: null,
       industryPercent: null,
       companyPercent: null,
-      billingPercent: null
+      billingPercent: null,
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -192,11 +192,23 @@ class SpecialistsDashboard extends Component {
     }
   }
 
+  toggleRightSidebar = e => {
+    this.setState({
+      rightSidebarOpened: !this.state.rightSidebarOpened
+    });
+    setCookie(
+      "rightSidebarOpened",
+      this.state.rightSidebarOpened ? "" : "open",
+      1460
+    );
+  };
+
   render() {
     const {
       match: { params },
       specialistTeams
     } = this.props;
+    const { rightSidebarOpened } = this.state;
     let page;
 
     if (params["page"]) {
@@ -216,7 +228,10 @@ class SpecialistsDashboard extends Component {
     return (
       <div>
         <HeaderBasic page={sidebarCondition} />
-        <S_MainContainer sidebarCondition={sidebarCondition}>
+        <S_MainContainer
+          sidebarOpened={rightSidebarOpened}
+          sidebarCondition={sidebarCondition}
+        >
           {sidebarCondition && (
             <SideBarLeft
               projects={[]}
@@ -237,6 +252,8 @@ class SpecialistsDashboard extends Component {
               teams={specialistTeams}
               projects={projects}
               days={days}
+              opened={rightSidebarOpened}
+              toggle={this.toggleRightSidebar}
             />
           )}
         </S_MainContainer>

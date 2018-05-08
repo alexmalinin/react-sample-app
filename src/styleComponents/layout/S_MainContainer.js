@@ -71,12 +71,12 @@ export const S_MainContainer = styled.div`
         @media (min-width: 1441px) {
             max-width: 100%;
             padding-left: 260px;
-            padding-right: 60px;
+            padding-right: ${props.sidebarOpened ? "260px" : "60px"};
         }
 
         @media (max-width: 1440px) {
             padding-left: 100px;
-            padding-right: 60px;
+            padding-right: ${props.sidebarOpened ? "260px" : "60px"};
         }
     `}
 `;

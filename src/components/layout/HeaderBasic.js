@@ -24,80 +24,8 @@ class Header extends Component {
     }
   }
 
-  renderDropdown = () => {
-    const { changeUserType, clientData, specialistData } = this.props;
-
-    if (changeUserType === CLIENT && clientData) {
-      return (
-        <Dropdown
-          text={clientData.first_name + " " + clientData.last_name}
-          basic
-          closeOnChange={false}
-          item={true}
-          icon={
-            <div className="drop-icon">
-              <span />
-            </div>
-          }
-          onChange={() => {}}
-        >
-          <Dropdown.Menu>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/">Dashboard</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/teams">Teams</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink onClick={this.logOut} to="/sign_up">
-                Log out
-              </NavLink>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      );
-    } else if (changeUserType === SPECIALIST && specialistData) {
-      return (
-        <Dropdown
-          text={specialistData.first_name + " " + specialistData.last_name}
-          basic
-          className="log-dropdown"
-          item
-          closeOnChange={false}
-          icon={
-            <div className="drop-icon">
-              <span />
-            </div>
-          }
-          onChange={() => {}}
-        >
-          <Dropdown.Menu>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/">Dashboard</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/about">My profile</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/account">Account Billings</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink to="/dashboard/teams">Teams</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <NavLink onClick={this.logOut} to="/sign_up">
-                Log out
-              </NavLink>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      );
-    }
-  };
-
   render() {
     const { page, specialistData, clientData } = this.props;
-
 
     let isNavMenu = null;
 
@@ -118,11 +46,12 @@ class Header extends Component {
         <ContainerLarge containerHeader>
           <a href="/">
             <span>Digital Village</span>
-              {/* <img src='/images/logo_basic.png'/> */}
+            {/* <img src='/images/logo_basic.png'/> */}
           </a>
           {(page || isNavMenu) && (
             <div className="right-links">
               <NavLink
+                exact
                 activeClassName="current"
                 className="item-link"
                 to="/dashboard/"

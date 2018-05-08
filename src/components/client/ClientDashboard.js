@@ -26,6 +26,7 @@ import ClientAccount from "./pages/ClientAccount";
 import ClientYTD from "./pages/ClientYTD";
 import ClientStatement from "./pages/ClientStatement";
 import TheVillage from "../TheVillage";
+import { getCookie, setCookie } from "../../helpers/functions";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -39,7 +40,8 @@ class ClientDashboard extends Component {
     this.state = {
       profilePercent: null,
       companyPercent: null,
-      billingPercent: null
+      billingPercent: null,
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -203,11 +205,23 @@ class ClientDashboard extends Component {
     }
   }
 
+  toggleRightSidebar = e => {
+    this.setState({
+      rightSidebarOpened: !this.state.rightSidebarOpened
+    });
+    setCookie(
+      "rightSidebarOpened",
+      this.state.rightSidebarOpened ? "" : "open",
+      1460
+    );
+  };
+
   render() {
     const {
       match: { params },
       allTeams
     } = this.props;
+    const { rightSidebarOpened } = this.state;
     let page;
 
     if (params["page"]) {
@@ -230,7 +244,10 @@ class ClientDashboard extends Component {
           page={sidebarCondition}
           userType="client"
         />
-        <S_MainContainer sidebarCondition={sidebarCondition}>
+        <S_MainContainer
+          sidebarOpened={rightSidebarOpened}
+          sidebarCondition={sidebarCondition}
+        >
           {sidebarCondition && (
             <SideBarLeft
               currentProject={params["projectId"] || params["projectNewModule"]}
@@ -252,7 +269,13 @@ class ClientDashboard extends Component {
             </Container>
           )}
           {sidebarCondition && (
-            <SideBarRight teams={allTeams} projects={projects} days={days} />
+            <SideBarRight
+              teams={allTeams}
+              projects={projects}
+              days={days}
+              opened={rightSidebarOpened}
+              toggle={this.toggleRightSidebar}
+            />
           )}
         </S_MainContainer>
       </div>

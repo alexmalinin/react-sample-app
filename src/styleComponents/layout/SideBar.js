@@ -193,16 +193,26 @@ export const StyledBar = styled.aside`
     &.open {
       transform: translateX(0);
 
+      &:hover {
+        .trigger {
+          right: calc(100% - 14px);
+        }
+      }
+
       .trigger {
-        right: calc(100% + 15px);
-        opacity: 0.9;
+        right: calc(100% - 30px);
         &::before {
-          left: 15px;
           top: calc(50% - 8px);
         }
         &::after {
-          left: 15px;
           top: calc(50% + 8px);
+        }
+        &:hover {
+          right: calc(100% + 15px);
+          &::before,
+          &::after {
+            left: 15px;
+          }
         }
       }
     }
@@ -315,6 +325,13 @@ export const StyledBar = styled.aside`
             h5 {
               flex-basis: 100%;
             }
+
+            .delete,
+            .dropdown {
+              max-width: 220px;
+              min-width: 220px;
+            }
+
             .attached.segment.tab {
               position: relative;
               padding: 20px;
@@ -348,10 +365,6 @@ export const StyledBar = styled.aside`
 
                   h5 {
                     flex-basis: 100%;
-                  }
-
-                  .delete,
-                  .dropdown {
                   }
 
                   .person {

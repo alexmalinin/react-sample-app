@@ -342,6 +342,10 @@ export default styled.div`
 
       & > div {
         border: 1px solid #fff;
+        &.allModules {
+          border: 2px solid #fff;
+          font-weight: 500;
+        }
       }
 
       &.container {

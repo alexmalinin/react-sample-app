@@ -4,20 +4,8 @@ import { Tab } from "semantic-ui-react";
 import Teams from "../Teams";
 
 class SideBarRight extends Component {
-  state = {
-    opened: false
-  };
-
-  toggle = e => {
-    this.setState({
-      opened: !this.state.opened
-    });
-  };
-
   render() {
-    let { days, teams } = this.props;
-    const { opened } = this.state;
-    // console.log(opened);
+    let { days, teams, opened, toggle } = this.props;
 
     const panes = [
       {
@@ -49,7 +37,7 @@ class SideBarRight extends Component {
         <button
           className="trigger"
           ref={button => (this.toggleBtn = button)}
-          onClick={this.toggle}
+          onClick={toggle}
           // onFocus={e => e.stopPropagation()}
           // onBlur={e => e.stopPropagation()}
         />
@@ -62,11 +50,11 @@ class SideBarRight extends Component {
 function Activity({ days }) {
   return (
     <div>
-      {days.map((day, index) => (
-        <div className="activity-tab-item">
+      {days.map((day, key) => (
+        <div key={key} className="activity-tab-item">
           <h4>{day.day}</h4>
-          {day.activity.map((value, index) => (
-            <div className="activity-item" key={index}>
+          {day.activity.map((value, key) => (
+            <div className="activity-item" key={key}>
               <h5>{value.time}</h5>
               <div className="person">
                 <img src="/images/uploadImg.png" alt="" />
