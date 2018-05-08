@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Icon } from "semantic-ui-react";
 
-export const S_PointCard = styled(Icon)`
+export const S_PointCard = styled.div`
   position: absolute;
   right: 0px;
   ${props => (props["data-edit"] ? "right: 40px;" : "")} top: 0px;

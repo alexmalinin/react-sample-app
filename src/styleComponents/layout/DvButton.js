@@ -239,9 +239,10 @@ export const SaveBtn = styled(Button)`
     background-color: #fff;
     color: #ccc;
     border: 1px solid #ccc;
-    position: absolute;
-    bottom: -26px;
-    right: 20px;
+    position: ${props => (props.static ? `relative` : `absolute`)};
+    bottom: ${props => (props.static ? `10px` : `-26px`)};
+    right: ${props => (props.static ? `0` : `20px`)};
+    ${props => (props.static ? "margin: 10px" : ``)};
     font-family: "Brix";
     text-align: center;
     color: #fff;
@@ -317,9 +318,10 @@ export const BackBtn = styled(Button)`
     background-color: #fff;
     color: #ccc;
     border: 1px solid #ccc;
-    position: absolute;
-    bottom: -26px;
-    left: 25px;
+    position: ${props => (props.static ? "relative" : "absolute")};
+    bottom: ${props => (props.static ? "10px" : "-26px")};
+    left: ${props => (props.static ? "0" : "25px")};
+    ${props => (props.static ? "margin: 10px" : ``)};
     font-family: "Brix";
     text-align: center;
     color: #fff;
@@ -375,6 +377,85 @@ export const BackBtn = styled(Button)`
     @media (max-width: 992px) {
       &.ui.primary.button {
         bottom: auto;
+      }
+    }
+  }
+
+  &.ui.primary.button:hover,
+  &.ui.primary.button:focus {
+    color: ${primaryColors.darkGrey};
+    border: 1px solid ${primaryColors.darkGrey};
+    background-color: transparent;
+
+    span {
+      color: ${primaryColors.darkGrey};
+    }
+    &::before,
+    &::after {
+      background-color: #666;
+    }
+  }
+`;
+
+export const CancelBtn = styled(Button)`
+  &.ui.primary.button {
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    background-color: #fff;
+    color: #ccc;
+    border: 1px solid #ccc;
+    position: ${props => (props.static ? "relative" : "absolute")};
+    bottom: ${props => (props.static ? "10px" : "-26px")};
+    left: ${props => (props.static ? "0" : "25px")};
+    ${props => (props.static ? "margin: 10px" : ``)};
+    font-family: "Brix";
+    text-align: center;
+    color: #fff;
+    z-index: 5;
+
+    span {
+      min-width: 90px;
+      text-transform: uppercase;
+      font-size: 12px;
+      position: absolute;
+      color: #ccc;
+      bottom: -25px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      height: 1px;
+      background-color: #ccc;
+    }
+
+    &::before {
+      width: 20px;
+      top: 30px;
+      left: 19px;
+      transform: rotate(-45deg);
+    }
+
+    &::after {
+      width: 20px;
+      top: 30px;
+      left: 19px;
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 1200px) {
+      &.ui.primary.button {
+        left: ${props => (props.static ? "0" : "15px")};
+      }
+    }
+
+    @media (max-width: 992px) {
+      &.ui.primary.button {
+        bottom: ${props => (props.static ? "10px" : "auto")};
       }
     }
   }

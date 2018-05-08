@@ -9,6 +9,7 @@ import StyledPhoneField from "../../styleComponents/forms/StyledPhoneField";
 import RenderPhone from "./renders/RenderPhone";
 import RenderImage from "../forms/renders/RenderImage";
 import RenderTextArea from "../forms/renders/RenderTextArea";
+import StyledExperienceCards from "../../styleComponents/StyledExperienceCards";
 
 import RenderCards from "../specialist/renders/RenderCards";
 import EdicationModal from "../modals/EdicationModal";
@@ -132,21 +133,25 @@ class RenderProfileForm extends Component {
               </Grid>
               <Grid>
                 <Grid.Row>
-                  <Grid.Column computer={8}>
-                    {this.props.specialistModal ? (
-                      <div>
-                        <RenderCards experiences={experienceData} />
-                        <WorkExperienceModal />
-                      </div>
-                    ) : null}
+                  <Grid.Column computer={16}>
+                    <h3>Education</h3>
+                    <StyledExperienceCards>
+                      {this.props.specialistModal ? (
+                        <div className="experience-section">
+                          <RenderCards educations={educationData} />
+                        </div>
+                      ) : null}
+                    </StyledExperienceCards>
                   </Grid.Column>
-                  <Grid.Column computer={8}>
-                    {this.props.specialistModal ? (
-                      <div>
-                        <RenderCards educations={educationData} />
-                        <EdicationModal />
-                      </div>
-                    ) : null}
+                  <Grid.Column computer={16}>
+                    <h3>Work experience</h3>
+                    <StyledExperienceCards>
+                      {this.props.specialistModal ? (
+                        <div className="experience-section">
+                          <RenderCards experiences={experienceData} />
+                        </div>
+                      ) : null}
+                    </StyledExperienceCards>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

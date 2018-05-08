@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
-import { DvButton } from "../../../styleComponents/layout/DvButton";
+import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import LocationField from "../../forms/renders/LocationField";
 import { Grid } from "semantic-ui-react";
@@ -69,24 +69,24 @@ class WorkExperienceForm extends Component {
           </Grid.Row>
 
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={8} computer={8}>
-              <DvButton
+            <Grid.Column mobile={16} textAlign="right">
+              <CancelBtn
+                onClick={this.closeModal}
+                disabled={submitting}
+                primary
+                static="true"
+              >
+                <span>Cancel</span>
+              </CancelBtn>
+              <SaveBtn
                 type="submit"
                 disabled={submitting}
-                content="SAVE & CONTINUE"
                 primary
-                xsindent="true"
-                smallbtn="true"
-              />
-            </Grid.Column>
-            <Grid.Column mobile={16} tablet={8} computer={8}>
-              <DvButton
-                onClick={this.closeModal}
-                content="CLOSE"
-                disabled={submitting}
-                primary
-                smallbtn="true"
-              />
+                updatebtn="true"
+                static="true"
+              >
+                <span>Save</span>
+              </SaveBtn>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Modal } from "semantic-ui-react";
 import { S_PointCard } from "../../styleComponents/layout/S_PointCard";
+import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
 import {
   deleteExperienceCardWithId,
   deleteExperienceCardWithOutId
@@ -18,27 +19,26 @@ class DeletingExperienceCard extends Component {
 
     return (
       <div>
-        <S_PointCard
-          color="red"
-          className="remove icon"
-          onClick={this.show("tiny")}
-        />
+        <S_PointCard onClick={this.show("tiny")}>
+          <i className="fas fa-trash-alt delete-icon" />
+        </S_PointCard>
         <Modal size={size} open={open} onClose={this.close}>
           <Modal.Header>Deleting Your Card</Modal.Header>
           <Modal.Content>
             <p>Are you sure you want to delete this card?</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button onClick={this.cancelDelete} negative>
-              No
-            </Button>
-            <Button
+            <CancelBtn onClick={this.cancelDelete} primary static="true">
+              <span>No</span>
+            </CancelBtn>
+            <SaveBtn
               onClick={this.deleteCard(id, experience)}
-              positive
-              icon="checkmark"
-              labelPosition="right"
-              content="Yes"
-            />
+              primary
+              updatebtn="true"
+              static="true"
+            >
+              <span>Yes</span>
+            </SaveBtn>
           </Modal.Actions>
         </Modal>
       </div>

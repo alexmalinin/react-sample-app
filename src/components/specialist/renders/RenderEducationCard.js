@@ -1,39 +1,74 @@
-import React from "react";
+import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
 import { StyledEducationCard } from "../../../styleComponents/StyledCard";
 import DeletingEducationCard from "../../modals/DeletingEducationCard";
 import EditingEducationCard from "../../modals/EditingEducationCard";
 
-const RenderEducationCard = ({ education }) => {
-  return (
-    <StyledEducationCard>
-      {education && (
-        <Card.Content>
-          <EditingEducationCard education={education} id={education["id"]} />
-          <DeletingEducationCard education={education} id={education["id"]} />
-          {education.name && <Card.Header>{education.name}</Card.Header>}
-          {(education.specialisation || education.degree) && (
-            <Card.Meta>
-              {" "}
-              {education.specialisation} {education.degree}
-            </Card.Meta>
-          )}
-          {
-            <Card.Description>
-              {education["started_at"] &&
-                education["finished_at"] && (
-                  <p className="period">
-                    <img src="/images/time.png" alt="" /> {education.started_at}{" "}
-                    - {education["finished_at"]}
-                  </p>
-                )}
-              {education.description && <p>{education.description}</p>}
-            </Card.Description>
-          }
-        </Card.Content>
-      )}
-    </StyledEducationCard>
-  );
-};
+class RenderEducationCard extends Component {
+  state = {
+    isExpanded: true
+  };
+
+  componentDidMount() {
+    this.checkDescription(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.checkDescription(nextProps);
+  }
+
+  checkDescription(props) {
+    const {
+      education: { description }
+    } = props;
+
+    if (description) {
+      if (description.length < 600) {
+        this.setState({ isExpanded: false });
+      } else {
+        this.setState({ isExpanded: true });
+      }
+    } else {
+      this.setState({ isExpanded: false });
+    }
+  }
+
+  render() {
+    const { education } = this.props;
+
+    return (
+      <StyledEducationCard expanded={this.state.isExpanded ? "true" : ""}>
+        {education && (
+          <Card.Content>
+            <EditingEducationCard education={education} id={education["id"]} />
+            <DeletingEducationCard education={education} id={education["id"]} />
+            {education.name && <Card.Header>{education.name}</Card.Header>}
+            {(education.specialisation || education.degree) && (
+              <Card.Meta>
+                {" "}
+                {education.specialisation} {education.degree}
+              </Card.Meta>
+            )}
+            {
+              <Card.Description>
+                {education["started_at"] &&
+                  education["finished_at"] && (
+                    <p className="period">
+                      <img src="/images/time.png" alt="" />{" "}
+                      {education.started_at} - {education["finished_at"]}
+                    </p>
+                  )}
+                {education.description && <p>{education.description}</p>}
+              </Card.Description>
+            }
+          </Card.Content>
+        )}
+        {this.state.isExpanded ? (
+          <span className="show-btn fa fa-chevron-down" />
+        ) : null}
+      </StyledEducationCard>
+    );
+  }
+}
 
 export default RenderEducationCard;
