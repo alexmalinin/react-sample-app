@@ -62,6 +62,11 @@ export default styled.div`
     line-height: 18px;
   }
 
+  .billing-type {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
   span {
     font-size: 12px;
     line-height: 13px;
