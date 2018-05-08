@@ -15,15 +15,15 @@ class DashboardSubHeader extends Component {
           <SubHeaderLinkWrap
             content="Dashboard"
             url="/dashboard/"
-            className="dashboard active"
+            className="dashboard dv-button__circle active"
           >
             &nbsp;
           </SubHeaderLinkWrap>
 
           <SubHeaderLinkWrap
             content="The village"
-            url="the_village"
-            className="dashboard"
+            url="/dashboard/the_village"
+            className="dashboard dv-button__circle"
           >
             &nbsp;
           </SubHeaderLinkWrap>

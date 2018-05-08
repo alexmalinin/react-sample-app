@@ -13,7 +13,7 @@ class AboutSubHeader extends Component {
           <SubHeaderLinkWrap
             content="Profile"
             url="/dashboard/about"
-            className="profileLink"
+            className="profileLink dv-button__circle"
           >
             &nbsp;
           </SubHeaderLinkWrap>

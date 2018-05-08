@@ -13,19 +13,19 @@ class AboutSubHeader extends Component {
           <SubHeaderLinkWrap
             content="Account"
             url="/dashboard/account"
-            className="accountSub"
+            className="accountSub dv-button__circle"
           />
 
           <SubHeaderLinkWrap
             content="YTD"
             url="/dashboard/year_to_date"
-            className="accountSub"
+            className="accountSub dv-button__circle"
           />
 
           <SubHeaderLinkWrap
             content="statements"
             url="/dashboard/statement"
-            className="accountSub"
+            className="accountSub dv-button__circle"
           />
         </div>
       </StyledSubHeader>

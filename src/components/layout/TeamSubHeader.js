@@ -12,7 +12,11 @@ class TeamSubHeader extends Component {
     return (
       <StyledSubHeader sidebarCondition account>
         <div className="teamSubHeader">
-          <SubHeaderLinkWrap content="Teams" url="#" className="teamLink">
+          <SubHeaderLinkWrap
+            content="Teams"
+            url="/dashboard/teams"
+            className="teamLink dv-button__circle"
+          >
             &nbsp;
           </SubHeaderLinkWrap>
 
