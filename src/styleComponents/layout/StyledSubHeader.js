@@ -83,6 +83,17 @@ export default styled.div`
     font-size: 15px;
     &.allModules {
       font-weight: 200;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-sizing: content-box;
+        opacity: 0;
+      }
     }
     &.module {
       font-size: 24px;
@@ -90,9 +101,9 @@ export default styled.div`
   }
 
   .profileLink {
-    font-size: 10px;
-    height: 74px;
-    width: 74px;
+    font-size: 11px;
+    height: 60px;
+    width: 60px;
   }
 
   .button {
@@ -107,7 +118,6 @@ export default styled.div`
     font-size: 10px;
     width: 74px;
     height: 74px;
-    letter-spacing: 0;
   }
 
   .addButt {
@@ -159,12 +169,14 @@ export default styled.div`
       }
 
       div {
-        font-size: 10px;
+        margin-top: 10px;
+        width: 60px;
+        height: 60px;
+        font-size: 12px;
         opacity: 1;
 
         &.teamLink {
-          width: 74px;
-          height: 74px;
+          border: 3px solid #fff;
         }
       }
     }
@@ -258,25 +270,22 @@ export default styled.div`
   }
 
   .dashboard {
-    width: 74px;
-    height: 74px;
+    width: 62px;
+    height: 62px;
     font-size: 10px;
   }
 
-  .dv-button__circle {
-    width: 74px;
-    height: 74px;
-    font-size: 10px;
+  .dashboard.active {
+    border: 1px solid #fff;
   }
 
   a,
   button {
     position: relative;
     color: #fff;
-    opacity: 0.6;
+    opacity: 0.7;
     font-family: "Brix", sans-serif;
     font-size: 11px;
-    max-height: 74px;
     font-weight: 600;
     line-height: 27px;
     text-transform: uppercase;
@@ -287,23 +296,20 @@ export default styled.div`
       margin-left: 12px;
     }
 
-    /* &:after {
-            transition: all .4s ease;
-            content: '';
-            height: 2px;
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0;
-        } */
-
     &:hover,
     &.active {
       color: #fff;
       opacity: 1;
 
-      & > .dv-button__circle {
-        box-shadow: 0 0 0 3px #fff;
+      & > div {
+        border: 1px solid #fff;
+      }
+
+      .allModules {
+        font-weight: 500;
+        &::before {
+          opacity: 1;
+        }
       }
 
       &.container {
@@ -342,10 +348,6 @@ export default styled.div`
 
       & > div {
         border: 1px solid #fff;
-        &.allModules {
-          border: 2px solid #fff;
-          font-weight: 500;
-        }
       }
 
       &.container {

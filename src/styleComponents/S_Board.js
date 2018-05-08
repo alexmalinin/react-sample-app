@@ -11,6 +11,10 @@ export const S_Board = styled.div`
   user-select: none;
   transition: 0.4s ease-in-out;
 
+  div.hidden.transition {
+    display: none;
+  }
+
   h3 {
     text-transform: uppercase;
     font-size: 14px;
