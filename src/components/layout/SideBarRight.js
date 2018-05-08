@@ -30,16 +30,11 @@ class SideBarRight extends Component {
       <StyledBar
         className={`right${opened ? " open" : ""}`}
         ref={bar => (this.sideBar = bar)}
-        // tabIndex="-1"
-        // onFocus={this.open}
-        // onBlur={this.close}
       >
         <button
           className="trigger"
           ref={button => (this.toggleBtn = button)}
           onClick={toggle}
-          // onFocus={e => e.stopPropagation()}
-          // onBlur={e => e.stopPropagation()}
         />
         <Tab panes={panes} />
       </StyledBar>

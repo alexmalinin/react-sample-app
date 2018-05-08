@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryColors } from "../constants/colors";
 
 export const StyledBar = styled.aside`
   position: fixed;
@@ -61,7 +60,6 @@ export const StyledBar = styled.aside`
           position: relative;
           display: flex;
           flex-wrap: wrap;
-          /* height: 70px; */
           width: 80px;
 
           &:hover {
@@ -195,7 +193,12 @@ export const StyledBar = styled.aside`
 
       &:hover {
         .trigger {
-          right: calc(100% - 14px);
+          right: calc(100% + 15px);
+          right: calc(100% + 15px);
+          &::before,
+          &::after {
+            left: 15px;
+          }
         }
       }
 
@@ -206,13 +209,6 @@ export const StyledBar = styled.aside`
         }
         &::after {
           top: calc(50% + 8px);
-        }
-        &:hover {
-          right: calc(100% + 15px);
-          &::before,
-          &::after {
-            left: 15px;
-          }
         }
       }
     }

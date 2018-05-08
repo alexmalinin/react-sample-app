@@ -196,8 +196,8 @@ export default styled.div`
   }
 
   .arrow {
-    span {
-      display: block;
+    & + span {
+      display: inline-block;
       position: absolute;
       top: 28px;
       right: 45%;

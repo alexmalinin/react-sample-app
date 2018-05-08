@@ -28,13 +28,9 @@ class SpecialistBillingForm extends Component {
   }
 
   fillFields = data => {
-    // let { name, company_address, website, number_of_employers, country, city, segment} = data;
-
     for (var key in data) {
       this.props.dispatch(change("SpecialistBillingForm", key, data[key]));
     }
-    // this.props.dispatch(change('SpecialistBillingForm', 'name',                   name));
-    // this.props.dispatch(change('SpecialistBillingForm', 'company_address',        company_address));
   };
 }
 

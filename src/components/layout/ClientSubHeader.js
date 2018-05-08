@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
@@ -26,7 +25,7 @@ class SubHeader extends Component {
           </SubHeaderItemWrap>
         </div>
         <div>
-          <SubHeaderLinkWrap url="root" className="rightLink arrow">
+          <SubHeaderLinkWrap url="/dashboard/" className="rightLink arrow">
             <span />
             Complete Later
           </SubHeaderLinkWrap>

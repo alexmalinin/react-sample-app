@@ -1,22 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
 import {
-  getIndustries,
   updateSpecialistBillings,
   showSpecialistData
 } from "../../../actions/actions";
-import {
-  DvTitle,
-  DvTitleSmall
-} from "../../../styleComponents/layout/DvTitles";
-import {
-  Container,
-  ContainerLarge
-} from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
@@ -64,11 +52,6 @@ class SpecialistsMyBillings extends Component {
 
     return (
       <div>
-        {/*<ContainerLarge>*/}
-        {/* <DvTitle mTop='80'>
-          Welcome to The Village!
-        </DvTitle> */}
-        {/*</ContainerLarge>*/}
         <S_Message positive data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
           <p>Form updated</p>

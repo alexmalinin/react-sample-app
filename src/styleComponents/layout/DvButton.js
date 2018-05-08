@@ -4,14 +4,14 @@ import { primaryColors, secondaryColors } from "../constants/colors";
 
 export const DvButton = styled(Button)`
   &.ui.button {
-    ${props => (props.indentTop ? `margin-top: 60px` : ``)};
-    width: ${props => (props.smallbtn ? `50%` : props.midbtn ? "80%" : `100%`)};
+    ${props => (props.indentTop ? "margin-top: 60px;" : "")}
+    width: ${props => (props.smallbtn ? "50%" : props.midbtn ? "80%" : "100%")};
     border-radius: ${props =>
-      props.smallbtn ? `5px` : props.midbtn ? "5px" : `0`};
+      props.smallbtn ? "5px" : props.midbtn ? "5px" : "0"};
     margin-left: ${props =>
-      props.smallbtn ? `25%` : props.midbtn ? "10%" : `0`};
+      props.smallbtn ? "25%" : props.midbtn ? "10%" : "0"};
     font-size: ${props =>
-      props.smallbtn ? `18px` : props.midbtn ? "18px" : `24px`};
+      props.smallbtn ? "18px" : props.midbtn ? "18px" : "24px"};
     font-family: "Brix";
     text-align: center;
 
@@ -248,14 +248,16 @@ export const SaveBtn = styled(Button)`
     z-index: 5;
 
     span {
+      position: absolute;
       min-width: 90px;
+      bottom: -36px;
+      left: 50%;
       text-transform: uppercase;
       font-size: 12px;
-      position: absolute;
+      line-height: 36px;
       color: #ccc;
-      bottom: -22px;
-      right: -16px;
       font-weight: 0;
+      transform: translateX(-50%);
     }
 
     &::before,
@@ -267,33 +269,29 @@ export const SaveBtn = styled(Button)`
     }
 
     &::before {
-      width: ${props => (props.updatebtn ? `10px` : `15px`)};
-      top: ${props => (props.updatebtn ? `33px` : `24px`)};
-      left: ${props => (props.updatebtn ? `20px` : `22px`)};
+      width: ${props => (props.updatebtn ? `14px` : `15px`)};
+      top: ${props => (props.updatebtn ? `38px` : `24px`)};
+      left: ${props => (props.updatebtn ? `12px` : `22px`)};
       transform: rotate(45deg);
     }
 
     &::after {
-      width: ${props => (props.updatebtn ? `20px` : `15px`)};
-      top: ${props => (props.updatebtn ? `30px` : `34px`)};
-      left: ${props => (props.updatebtn ? `25px` : `22px`)};
+      width: ${props => (props.updatebtn ? `30px` : `15px`)};
+      top: ${props => (props.updatebtn ? `32px` : `34px`)};
+      left: ${props => (props.updatebtn ? `20px` : `22px`)};
       transform: rotate(-45deg);
     }
-
-    /* &.verify-btn {
-            padding: 40px;
-        }
-
-        &.width200 {
-          width: 200%;
-   
-        } */
   }
 
   &.ui.primary.button:hover,
   &.ui.primary.button:focus {
     color: #666;
-    border: 1px solid #666;
+    border-width: 1px;
+    border-color: ${props =>
+      props.updatebtn ? secondaryColors.green : "#666"};
+    ${props =>
+      props.updatebtn &&
+      `box-shadow: 0 0 0 3px ${secondaryColors.green};`} border-style: solid;
     background-color: #fff !important;
 
     span {
@@ -301,7 +299,12 @@ export const SaveBtn = styled(Button)`
     }
     &::before,
     &::after {
-      background-color: #666;
+      background-color: ${props =>
+        props.updatebtn
+          ? `${secondaryColors.green}; box-shadow: 0 0 0 1px ${
+              secondaryColors.green
+            };`
+          : "#666"};
     }
   }
 `;

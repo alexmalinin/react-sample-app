@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Field, reduxForm, change } from "redux-form";
+import { Field } from "redux-form";
 import { required } from "../../../helpers/validate";
 import { job_titles } from "../../../helpers/selects/job_titles";
 import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
-import { speciality } from "../../../helpers/selects/speciality";
 import {
-  DvButton,
   NextBtn,
-  BackBtn
+  BackBtn,
+  SaveBtn
 } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
@@ -150,28 +148,18 @@ class SkillsForm extends Component {
                   </BackBtn>
                 ) : null}
               </NavLink>
-              <NextBtn
-                type="submit"
-                disabled={submitting}
-                // content='321'
-                primary
-              >
-                {isEditing ? <span>Save</span> : <span>next step</span>}
-              </NextBtn>
+              {isEditing ? (
+                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                  <span>Save</span>
+                </SaveBtn>
+              ) : (
+                <NextBtn type="submit" disabled={submitting} primary>
+                  <span>NextStep</span>
+                </NextBtn>
+              )}
             </div>
-
-            {/* <DvButton
-                            type="submit"
-                            disabled={submitting}
-                            content='SAVE & CONTINUE'
-                            primary
-                        /> */}
           </Grid.Column>
         </Grid.Row>
-
-        {/* <Grid.Row>
-
-                </Grid.Row> */}
       </Grid>
     );
   }
