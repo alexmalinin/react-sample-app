@@ -278,6 +278,7 @@ class DeleteTile extends Component {
                 data={specialist.id}
                 onClick={removeSpecialist}
                 className="remove"
+                type="button"
               >
                 Remove from {removeTitle}
               </button>

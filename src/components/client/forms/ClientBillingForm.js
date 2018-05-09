@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
-import RenderSelect from "../../forms/renders/RenderSelect";
-import { clientCategories } from "../../../helpers/selects/clientCategories";
-import { DvButton } from "../../../styleComponents/layout/DvButton";
-import InputField from "../../forms/renders/InputField";
-import LocationField from "../../forms/renders/LocationField";
-import RenderTextArea from "../../forms/renders/RenderTextArea";
+import { reduxForm, change } from "redux-form";
 import BillingForm from "./BillingForm";
 
 let renderError = true;

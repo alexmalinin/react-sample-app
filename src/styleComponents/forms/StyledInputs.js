@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondaryColors } from "../constants/colors";
+import { secondaryColors, colors } from "../constants/colors";
 
 export default styled.div`
   border-radius: 0 !important;
@@ -57,6 +57,41 @@ export default styled.div`
       padding-left: 10px;
       border-radius: 0;
     }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    input[name="cost"] {
+      text-align: right;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    .react-datepicker {
+      border: none;
+      box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 0;
+      font-family: "Brix";
+      .react-datepicker__header {
+        border-bottom: none;
+        border-radius: inherit;
+      }
+      .react-datepicker__day {
+        &:hover {
+          border-radius: 0;
+        }
+        &.react-datepicker__day--selected {
+          border-radius: inherit;
+          background-color: ${colors.blue};
+        }
+      }
+    }
+  }
+
+  .ui.input input[type="date"] {
   }
 
   .Select-input {

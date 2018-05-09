@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../constants/colors";
 
 export default styled.div`
     
@@ -43,12 +44,67 @@ export default styled.div`
             width: 120px;
         }    
     }
+
+    .dropzone{
+        width: 100%;
+        height: 100px;
+        display: flex;
+        flex-flow: row wrap;
+        position: relative;
+        border: 2px dashed #ccc;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: color .3s, border-color .3s;
+        margin-bottom: 14px;
+
+        p{
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 500;
+            margin-bottom: 0;
+            color: #ccc;
+            transition: inherit;
+        }
+
+        i{
+            font-size: 2em;
+            color: #ccc;
+            transition: inherit;
+        }
+
+        &.active{
+            &::after{
+                content: 'Drop here';
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                text-transform: uppercase;
+                font-family: "Brix";
+                font-size: 1.6em;
+                color: #666;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                /* background: repeating-linear-gradient(-45deg, #ccc 0px, #ccc 20px, #ddd 20px, #ddd 40px); */
+                background: #fff;
+            }
+        }
+
+        &:hover{
+            border-color: #666;
+            p,i{
+                color: #666;
+            }
+        }
+    }
     
     .ui.button {
         ${props => (props.disabled ? "display: none;" : "")}
         width: 35px;
         height: 35px;
-        /* padding: 16px 55px; */
     }
 
     p{
@@ -69,6 +125,7 @@ export default styled.div`
         margin-bottom: 10px;
         padding: 5px;
         border: 1px solid #f2f2f2;
+        position: relative;
         
         img{
             height: 26px;
@@ -89,7 +146,11 @@ export default styled.div`
         }
 
         .detailedInfo{
-            position: relative;
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            z-index: 100;
 
             a{
                 display: inline-block;
@@ -122,7 +183,6 @@ export default styled.div`
             .dropDown{
                 position: absolute;
                 display: none;
-                z-index: 1000;
                 right: 0;
                 top: calc(100% + 10px);
 
