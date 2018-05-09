@@ -13,6 +13,7 @@ class CommunicationType extends Component {
                 key={item}
                 name={`communication_type.${item}`}
                 component={RenderCircleCheckbox}
+                onChange={(e, v) => this.props.handleCheckboxChange(e, v)}
                 type="checkbox"
                 label={item}
                 value={item}

@@ -21,6 +21,7 @@ import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 class SpecialistCompany extends Component {
   constructor() {
@@ -29,18 +30,23 @@ class SpecialistCompany extends Component {
     this.state = {
       renderMessage: false,
       renderErrorMessage: false,
-      nextStep: false
+      nextStep: false,
+      isEditing: false
     };
   }
 
   componentWillMount() {
     this.props.getIndustries();
     this.props.showSpecialistData();
+
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
   }
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
-    const { industries } = this.props;
+    const { renderMessage, renderErrorMessage, isEditing } = this.state;
+    const { industries, handleFormValueChange } = this.props;
 
     return (
       <div>
@@ -55,6 +61,8 @@ class SpecialistCompany extends Component {
 
         <SpecialistCompanyForm
           industries={industries}
+          isEditing={isEditing}
+          handleFormValueChange={handleFormValueChange}
           onSubmit={this.submit}
           onChange={this.change}
         />

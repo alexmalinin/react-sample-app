@@ -16,7 +16,7 @@ export default styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 100px;
+    width: 100px;
     margin-top: 50px;
 
     .plus {

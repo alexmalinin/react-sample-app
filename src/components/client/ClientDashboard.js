@@ -26,7 +26,11 @@ import ClientAccount from "./pages/ClientAccount";
 import ClientYTD from "./pages/ClientYTD";
 import ClientStatement from "./pages/ClientStatement";
 import TheVillage from "../TheVillage";
-import { getCookie, setCookie } from "../../helpers/functions";
+import {
+  getCookie,
+  setCookie,
+  checkObjectPropertiesForValues
+} from "../../helpers/functions";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -41,7 +45,8 @@ class ClientDashboard extends Component {
       profilePercent: null,
       companyPercent: null,
       billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+      isEdited: false
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -219,9 +224,10 @@ class ClientDashboard extends Component {
   render() {
     const {
       match: { params },
-      allTeams
+      allTeams,
+      changeUserType
     } = this.props;
-    const { rightSidebarOpened } = this.state;
+    const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
     if (params["page"]) {
@@ -264,6 +270,9 @@ class ClientDashboard extends Component {
               <SubHeader
                 percents={this.state}
                 sidebarCondition={sidebarCondition}
+                isEdited={isEdited}
+                user={changeUserType}
+                page={page}
               />
               {this.renderPage(page)}
             </Container>
@@ -292,12 +301,18 @@ class ClientDashboard extends Component {
       case "company":
         document.title = "Company | Digital Village";
         return (
-          <ClientCompany calculatePagePercent={this.calculatePagePercent} />
+          <ClientCompany
+            calculatePagePercent={this.calculatePagePercent}
+            handleFormValueChange={this.handleFormValueChange}
+          />
         );
       case "billing":
         document.title = "Billing | Digital Village";
         return (
-          <ClientBilling calculatePagePercent={this.calculatePagePercent} />
+          <ClientBilling
+            calculatePagePercent={this.calculatePagePercent}
+            handleFormValueChange={this.handleFormValueChange}
+          />
         );
       case "about":
         return <ClientAbout />;
@@ -340,6 +355,14 @@ class ClientDashboard extends Component {
     }
   };
 
+  handleFormValueChange = obj => {
+    if (checkObjectPropertiesForValues(obj)) {
+      this.setState({ isEdited: false });
+    } else {
+      this.setState({ isEdited: true });
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData) {
       if (nextProps.clientData.email) {
@@ -363,11 +386,12 @@ class ClientDashboard extends Component {
 }
 
 export default connect(
-  ({ allProjects, projectWithId, allEpics, allTeams }) => ({
+  ({ allProjects, projectWithId, allEpics, allTeams, changeUserType }) => ({
     allProjects,
     projectWithId,
     allEpics,
-    allTeams
+    allTeams,
+    changeUserType
   }),
   { showAllProjects, showProjectWithId, showAllEpics, showEpicTasks }
 )(ClientDashboard);

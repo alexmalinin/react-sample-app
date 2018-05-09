@@ -2,24 +2,85 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, formValueSelector } from "redux-form";
 import SkillsForm from "./SkillsForm";
+import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 
 let renderError = true;
 
 class SpecialistIndustryForm extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      formData: {},
+      submitError: false
+    };
+  }
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
-        <SkillsForm {...this.props} />
+        <SkillsForm
+          {...this.props}
+          handleChange={this.handleChange}
+          handleSelectChange={this.handleSelectChange}
+          handleCheckboxChange={this.handleCheckboxChange}
+        />
+        <SubmitFormErrorModal
+          isOpen={this.state.submitError}
+          close={this.closeErrorModal}
+        />
       </form>
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  closeErrorModal = () => {
+    this.setState({ submitError: false });
+  };
+
+  handleChange = e => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        [e.target.name]: e.target.value === "" ? null : e.target.value
+      }
+    });
+  };
+
+  handleCheckboxChange = (e, value) => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        [e.target.name]: value || null
+      }
+    });
+  };
+
+  handleSelectChange = (e, name) => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        [name]: e.value || null
+      }
+    });
+  };
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.formData) {
+      this.props.handleFormValueChange(nextState.formData);
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.specialistData) {
       if (renderError) {
         this.fillFields(nextProps.specialistData);
         renderError = false;
       }
+    }
+
+    if (nextProps.submitFailed) {
+      this.setState({ submitError: true });
+    } else {
+      this.setState({ submitError: false });
     }
   }
 
@@ -112,6 +173,7 @@ SpecialistIndustryForm = reduxForm({
 })(SpecialistIndustryForm);
 
 const selector = formValueSelector("SpecialistIndustryForm");
+
 SpecialistIndustryForm = connect(state => {
   const industry = selector(state, "industry");
   const projectType = selector(state, "projectType");

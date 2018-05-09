@@ -88,12 +88,11 @@ class SpecialistsProfile extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
-
   }
 
   render() {
     const { renderMessage, renderErrorMessage, isEditing } = this.state;
-    const { educations, experiences } = this.props;
+    const { educations, experiences, handleFormValueChange } = this.props;
 
     return (
       <div>
@@ -114,6 +113,7 @@ class SpecialistsProfile extends Component {
                 educations={educations}
                 experiences={experiences}
                 isEditing={isEditing}
+                handleFormValueChange={handleFormValueChange}
                 specialistModal
               />
               {this.state.nextStep ? (
@@ -172,7 +172,7 @@ class SpecialistsProfile extends Component {
       ? this.setState({
           renderMessage: true,
           nextStep: true
-      })
+        })
       : this.setState({
           renderErrorMessage: true
         });

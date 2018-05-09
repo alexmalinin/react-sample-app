@@ -75,7 +75,7 @@ class ClientBilling extends Component {
   }
 
   render() {
-    const { clientData } = this.props;
+    const { clientData, handleFormValueChange } = this.props;
     const { renderErrorMessage, renderMessage, isEditing } = this.state;
 
     return (
@@ -94,6 +94,7 @@ class ClientBilling extends Component {
           clientData={clientData}
           onSubmit={this.submit}
           isEditing={isEditing}
+          handleFormValueChange={handleFormValueChange}
         />
         {this.state.nextStep ? (
           isEditing ? (
