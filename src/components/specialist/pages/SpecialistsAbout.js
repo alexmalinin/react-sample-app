@@ -1,23 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Grid, Tab } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
 import {
   Container,
   ContainerLarge
 } from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
-import {
-  DvTitle,
-  DvTitleSmall
-} from "../../../styleComponents/layout/DvTitles";
-import { StyledTabs } from "../../../styleComponents/StyledTabCard";
-import SubscribeForm from "../../forms/SubscribeForm";
 import StyledCheckbox from "../../../styleComponents/forms/StyledCheckbox";
 import StyledProfile from "../../../styleComponents/StyledProfile";
-import RenderTabCard from "../renders/RenderTabCard";
 import {
   showSpecialistData,
   getExperienceLevels
@@ -26,10 +16,6 @@ import { IMAGE_PORT } from "../../../constans/constans";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 
 class SpecialistsAbout extends Component {
-  // state = {
-  //     rerender: false,
-  // };
-
   componentWillMount() {
     this.props.getExperienceLevels();
     this.props.showSpecialistData();
@@ -44,6 +30,8 @@ class SpecialistsAbout extends Component {
       case "Part Time":
         return "(20HRS/WK)";
       case "Not available":
+        return "";
+      default:
         return "";
     }
   };
@@ -316,6 +304,83 @@ class SpecialistsAbout extends Component {
                         </div>
                       ))
                     : "No educations"}
+                </Grid.Column>
+              </Grid.Row>
+
+              <SectionHeader content="Company" page="company" />
+              <Grid.Row className="company">
+                <Grid.Column computer={4}>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["name"]
+                        : "No name"
+                      : null}, &nbsp;
+                  </span>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["company_address"]
+                        : "No company"
+                      : null}, &nbsp;
+                  </span>
+                  <br />
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["country"]
+                        : "No country"
+                      : null}, &nbsp;
+                  </span>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["city"]
+                        : "No city"
+                      : null}, &nbsp;
+                  </span>
+                </Grid.Column>
+                <Grid.Column computer={4}>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["registered_name"]
+                        : "No registered name"
+                      : null}, &nbsp;
+                  </span>
+                  <br />
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["segment"]
+                        : "No segment"
+                      : null}, &nbsp;
+                  </span>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["number_of_employers"]
+                        : "No employers"
+                      : null}, &nbsp;
+                  </span>
+                </Grid.Column>
+                <Grid.Column computer={4}>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["website"]
+                        : "No website"
+                      : null}, &nbsp;
+                  </span>
+                </Grid.Column>
+                <Grid.Column computer={4}>
+                  <span>
+                    {specialistData
+                      ? specialistData["company"]
+                        ? specialistData["company"]["tell_about"]
+                        : "No description"
+                      : null}, &nbsp;
+                  </span>
                 </Grid.Column>
               </Grid.Row>
 

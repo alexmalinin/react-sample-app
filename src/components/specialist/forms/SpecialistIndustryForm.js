@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change, formValueSelector } from "redux-form";
-import RenderField from "../../forms/renders/RenderField";
+import { reduxForm, change, formValueSelector } from "redux-form";
 import SkillsForm from "./SkillsForm";
 
 let renderError = true;
@@ -40,18 +39,17 @@ class SpecialistIndustryForm extends Component {
       experience_level_id
     } = data;
     let renderSkills = [];
-    skills
-      ? skills.forEach(item => {
-          renderSkills.push({ label: item["name"], value: item["id"] });
-        })
-      : null;
+
+    skills &&
+      skills.forEach(item => {
+        renderSkills.push({ label: item["name"], value: item["id"] });
+      });
 
     let renderSpecialities = {};
-    specialities
-      ? specialities.forEach(item => {
-          return (renderSpecialities["_" + item["id"]] = true);
-        })
-      : null;
+    specialities &&
+      specialities.forEach(item => {
+        return (renderSpecialities["_" + item["id"]] = true);
+      });
 
     if (project_type) {
       let renderProjectTypes = {
@@ -100,11 +98,10 @@ class SpecialistIndustryForm extends Component {
         })
       );
     }
-    Object.keys(renderSpecialities).length > 0
-      ? this.props.dispatch(
-          change("SpecialistIndustryForm", "speciality_ids", renderSpecialities)
-        )
-      : null;
+    Object.keys(renderSpecialities).length > 0 &&
+      this.props.dispatch(
+        change("SpecialistIndustryForm", "speciality_ids", renderSpecialities)
+      );
   };
 }
 

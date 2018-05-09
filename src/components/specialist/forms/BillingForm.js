@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Field, reduxForm, change } from "redux-form";
+import { Field } from "redux-form";
 import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
-import RenderSelect from "../../forms/renders/RenderSelect";
-import { NextBtn, BackBtn } from "../../../styleComponents/layout/DvButton";
+import {
+  NextBtn,
+  BackBtn,
+  SaveBtn
+} from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
-import { DvTitle } from "../../../styleComponents/layout/DvTitles";
-import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
-import { employeers } from "../../../helpers/selects/employeers";
-import { segments } from "../../../helpers/selects/segments";
-import SpecialistBillingForm from "./SpecialistBillingForm";
 import InputRadio from "../../forms/renders/InputRadio";
 import RenderImage from "../../forms/renders/RenderImage";
 
@@ -46,14 +42,7 @@ class BillingForm extends Component {
   }
 
   render() {
-    const {
-      submitting,
-      industries,
-      welcomeText,
-      clientData,
-      specialistData,
-      isEditing
-    } = this.props;
+    const { submitting, clientData, specialistData, isEditing } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
@@ -127,7 +116,6 @@ class BillingForm extends Component {
                     name="billing_type"
                     placeholder="Direct payment"
                     value={0}
-                    // checked={true}
                     onChange={this.handleChange}
                     checked={this.state.tab == 0}
                   />
@@ -154,14 +142,15 @@ class BillingForm extends Component {
                   </BackBtn>
                 </NavLink>
               ) : null}
-              <NextBtn
-                type="submit"
-                disabled={submitting}
-                // content='SAVE'
-                primary
-              >
-                <span>save</span>
-              </NextBtn>
+              {isEditing ? (
+                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                  <span>Save</span>
+                </SaveBtn>
+              ) : (
+                <NextBtn type="submit" disabled={submitting} primary>
+                  <span>NextStep</span>
+                </NextBtn>
+              )}
             </div>
           </Grid.Column>
         </Grid.Row>

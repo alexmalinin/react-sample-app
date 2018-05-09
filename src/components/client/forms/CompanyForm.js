@@ -5,7 +5,11 @@ import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import { clientCategories } from "../../../helpers/selects/clientCategories";
-import { NextBtn, BackBtn } from "../../../styleComponents/layout/DvButton";
+import {
+  NextBtn,
+  BackBtn,
+  SaveBtn
+} from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
@@ -142,9 +146,15 @@ class CompanyForm extends Component {
                   </BackBtn>
                 </NavLink>
               ) : null}
-              <NextBtn type="submit" disabled={submitting} primary>
-                {isEditing ? <span>Save</span> : <span>NextStep</span>}
-              </NextBtn>
+              {isEditing ? (
+                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                  <span>Save</span>
+                </SaveBtn>
+              ) : (
+                <NextBtn type="submit" disabled={submitting} primary>
+                  <span>NextStep</span>
+                </NextBtn>
+              )}
             </div>
           </Grid.Column>
         </Grid.Row>

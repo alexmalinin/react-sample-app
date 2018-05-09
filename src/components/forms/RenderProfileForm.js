@@ -2,26 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../helpers/validate";
-import { NextBtn } from "../../styleComponents/layout/DvButton";
+import { NextBtn, SaveBtn } from "../../styleComponents/layout/DvButton";
 import InputField from "./renders/InputField";
-import RenderField from "./renders/RenderField";
 import EmailField from "./renders/EmailField";
 import StyledPhoneField from "../../styleComponents/forms/StyledPhoneField";
 import RenderPhone from "./renders/RenderPhone";
 import RenderImage from "../forms/renders/RenderImage";
-import LocationField from "../forms/renders/LocationField";
 import RenderTextArea from "../forms/renders/RenderTextArea";
 
 import RenderCards from "../specialist/renders/RenderCards";
 import EdicationModal from "../modals/EdicationModal";
 import WorkExperienceModal from "../modals/WorkExperienceModal";
 
-import { Grid, Tab } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 window.change = change;
-
-// let renderErrorSpec   = true;
-// let renderErrorClient = true;
 
 class RenderProfileForm extends Component {
   constructor(props) {
@@ -158,9 +153,20 @@ class RenderProfileForm extends Component {
             </Grid.Column>
             <Grid.Column computer={3}>
               <div className="navigation-wrap">
-                <NextBtn type="submit" disabled={submitting} primary>
-                  {isEditing ? <span>Save</span> : <span>NextStep</span>}
-                </NextBtn>
+                {isEditing ? (
+                  <SaveBtn
+                    type="submit"
+                    disabled={submitting}
+                    primary
+                    updatebtn
+                  >
+                    <span>Save</span>
+                  </SaveBtn>
+                ) : (
+                  <NextBtn type="submit" disabled={submitting} primary>
+                    <span>NextStep</span>
+                  </NextBtn>
+                )}
               </div>
             </Grid.Column>
           </Grid.Row>
@@ -169,31 +175,17 @@ class RenderProfileForm extends Component {
     );
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //     if (nextProps.anyTouched) {
-  //         return false
-  //     } else {
-  //         return true
-  //     }
-  // }
-
   componentWillUpdate(nextProps) {
     if (nextProps.clientData && this.state.fetch) {
-      // if (renderErrorSpec) {
       this.fillFields(nextProps.clientData);
       this.setState({
         fetch: false
       });
-      // renderErrorSpec = false;
-      // }
     } else if (nextProps.specialistData && this.state.fetch) {
-      // if (renderErrorClient) {
       this.fillFields(nextProps.specialistData);
       this.setState({
         fetch: false
       });
-      // renderErrorClient = false;
-      // }
     }
   }
 
@@ -206,9 +198,7 @@ class RenderProfileForm extends Component {
       phone_code,
       phone_number,
       professional_experience_info,
-      description,
-      clearPassword,
-      avatar
+      description
     } = data;
 
     // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));

@@ -44,11 +44,6 @@ class SpecialistCompany extends Component {
 
     return (
       <div>
-        {/*<ContainerLarge>*/}
-        {/* <DvTitle mTop='80'>
-          Welcome to The Village!
-        </DvTitle> */}
-        {/*</ContainerLarge>*/}
         <S_Message positive data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
           <p>Form updated</p>
@@ -57,7 +52,6 @@ class SpecialistCompany extends Component {
           <Message.Header>Error!</Message.Header>
           <p>Something went wrong, please try again</p>
         </S_Message>
-        {/* <DvTitleSmall>My Company</DvTitleSmall> */}
 
         <SpecialistCompanyForm
           industries={industries}
