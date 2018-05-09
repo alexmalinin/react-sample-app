@@ -10,11 +10,10 @@ class WorkExperienceModal extends Component {
     return (
       <Modal
         trigger={
-          <AddNewBtn
-            onClick={this.handleClick}
-            basic
-            content="Add work experience"
-          />
+          <a className="addButt" onClick={this.handleClick}>
+            <span className="plus">+</span>
+            <span className="add">Add work experience</span>
+          </a>
         }
         closeIcon
       >

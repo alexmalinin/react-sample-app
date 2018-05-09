@@ -10,7 +10,10 @@ class EdicationModal extends Component {
     return (
       <Modal
         trigger={
-          <AddNewBtn onClick={this.handleClick} basic content="Add education" />
+          <a className="addButt" onClick={this.handleClick}>
+            <span className="plus">+</span>
+            <span className="add">Add education</span>
+          </a>
         }
         closeIcon
       >

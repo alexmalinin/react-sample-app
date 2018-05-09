@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Header, Modal } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 import { S_PointCard } from "../../styleComponents/layout/S_PointCard";
 import {
   editEducationCardWithId,
@@ -23,12 +23,9 @@ class EditingEducationCard extends Component {
 
     return (
       <div>
-        <S_PointCard
-          color="red"
-          data-edit
-          className="edit icon"
-          onClick={this.show}
-        />
+        <S_PointCard data-edit onClick={this.show}>
+          <i className="fas fa-edit edit-icon" />
+        </S_PointCard>
         <Modal open={open} onClose={this.close} closeIcon>
           <Modal.Header>Editing Your Card</Modal.Header>
           <Modal.Content>
