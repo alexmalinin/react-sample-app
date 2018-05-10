@@ -8,14 +8,44 @@ import { Transition } from "semantic-ui-react";
 import { CLIENT } from "../../constans/constans";
 
 class ProjectSubHeader extends Component {
+  renderProgressBars = () => {
+    const { allEpics } = this.props;
+    return (
+      allEpics &&
+      allEpics.map((epic, key) => {
+        let subheaderCompletedTasks = 0;
+        epic.tasks.forEach(
+          task => task.state === "done" && subheaderCompletedTasks++
+        );
+        return (
+          <SubHeaderLinkWrap
+            key={key}
+            content={key + 1}
+            url={`/dashboard/project/${this.props.project}/module/${key + 1}`}
+            className="module"
+          >
+            <ProgressBars
+              percents={
+                !!epic.tasks.length
+                  ? subheaderCompletedTasks / epic.tasks.length * 100
+                  : 0
+              }
+            />
+          </SubHeaderLinkWrap>
+        );
+      })
+    );
+  };
+
   render() {
     const {
-      epics,
       currentEpic,
       epicTasks,
       changeUserType,
-      project
+      project,
+      allEpics
     } = this.props;
+    console.log("________________");
 
     const allTasksCount = epicTasks && epicTasks.length;
     let completedTasksCount = 0;
@@ -32,26 +62,7 @@ class ProjectSubHeader extends Component {
             className="allModules"
           />
 
-          {epics &&
-            epics.map((epic, key) => {
-              let subheaderCompletedTasks = 0;
-              epic.tasks.forEach(
-                task => task.state === "done" && subheaderCompletedTasks++
-              );
-              return (
-                <SubHeaderLinkWrap
-                  key={key}
-                  content={key + 1}
-                  url={`/dashboard/project/${this.props.project}/module/${key +
-                    1}`}
-                  className="module"
-                >
-                  <ProgressBars
-                    percents={subheaderCompletedTasks / epic.tasks.length * 100}
-                  />
-                </SubHeaderLinkWrap>
-              );
-            })}
+          {allEpics && this.renderProgressBars()}
           {changeUserType === CLIENT && (
             <SubHeaderLinkWrap
               content=""
@@ -99,6 +110,10 @@ class ProjectSubHeader extends Component {
 }
 
 export default connect(
-  ({ updateTask, changeUserType }) => ({ updateTask, changeUserType }),
+  ({ updateTask, changeUserType, allEpics }) => ({
+    updateTask,
+    changeUserType,
+    allEpics
+  }),
   null
 )(ProjectSubHeader);

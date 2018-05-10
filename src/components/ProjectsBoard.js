@@ -133,7 +133,6 @@ class ProjectsBoard extends Component {
       <ContainerLarge indentBot>
         <BoardSubHeader
           project={projectId}
-          epics={allEpics}
           currentEpic={currentEpic}
           epicId={epicId}
           epicTasks={epicTasks}

@@ -10,7 +10,8 @@ export default store => next => action => {
   let { id } = jwtDecode(token);
 
   let specialist_ids = [];
-  payload["specIds"].split(",").forEach(id => specialist_ids.push(+id));
+  payload["specIds"] &&
+    payload["specIds"].split(",").forEach(id => specialist_ids.push(+id));
 
   axios({
     method: "post",

@@ -52,9 +52,11 @@ export const StyledAssignDropdown = styled.div`
     ${props =>
       props.renderToModal &&
       `text-align: center;
-       font-size: 1.2em;
+       font-size: 1.4em;
        margin-top: 5px;
        padding: 5px 0;
+       color: #666;
+       border: 1px dashed #ccc;
     `}
 
     &:hover {
@@ -69,6 +71,14 @@ export const StyledAssignDropdown = styled.div`
       span {
         color: #ddd;
       }
+    }
+
+    &:focus{
+      ${props =>
+        props.renderToModal &&
+        `
+        border-style: solid;
+      `}
     }
 
     span {
