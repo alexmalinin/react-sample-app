@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "semantic-ui-react";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
 import { IMAGE_PORT } from "../../../constans/constans";
+import Dropzone from "react-dropzone";
 
 class RenderImage extends Component {
   state = {
@@ -16,6 +17,26 @@ class RenderImage extends Component {
     let files = e.target.files;
     console.log("files", files);
 
+    this.onDrop(files);
+  }
+
+  returnFileName(name) {
+    if (name.length > 10) {
+      return name.slice(0, 7) + "...";
+    } else return name;
+  }
+
+  returnFileSize(number) {
+    if (number < 1024) {
+      return number + "bytes";
+    } else if (number > 1024 && number < 1048576) {
+      return (number / 1024).toFixed(1) + "KB";
+    } else if (number > 1048576) {
+      return (number / 1048576).toFixed(1) + "MB";
+    }
+  }
+
+  onDrop = files => {
     for (let i = 0; i < files.length; i++) {
       let reader = new FileReader();
 
@@ -31,23 +52,7 @@ class RenderImage extends Component {
 
       reader.readAsDataURL(files[i]);
     }
-  }
-
-  returnFileName(name) {
-    if (name.length > 10) {
-      return name.slice(0, 5) + "...";
-    } else return name;
-  }
-
-  returnFileSize(number) {
-    if (number < 1024) {
-      return number + "bytes";
-    } else if (number > 1024 && number < 1048576) {
-      return (number / 1024).toFixed(1) + "KB";
-    } else if (number > 1048576) {
-      return (number / 1048576).toFixed(1) + "MB";
-    }
-  }
+  };
 
   render() {
     const {
@@ -55,15 +60,25 @@ class RenderImage extends Component {
       placeholder,
       label,
       name,
-      type,
       disabled,
-      padded
+      padded,
+      dropzone
     } = this.props;
 
     return (
-      <StyledUploader fileLoader padded={padded}>
+      <StyledUploader fileLoader dropzone={dropzone} padded={padded}>
         <p>{label}</p>
         <span />
+        {dropzone && (
+          <Dropzone
+            className="dropzone"
+            activeClassName="active"
+            onDrop={this.onDrop}
+          >
+            <p>Drop file here or click to select</p>
+            <i className="fa fa-cloud-download-alt" />
+          </Dropzone>
+        )}
         {this.state.files.map((file, key) => (
           <div className="filePreview" key={key}>
             <img src="/images/uploadFile.png" alt="file" />
@@ -77,9 +92,11 @@ class RenderImage extends Component {
             </div>
           </div>
         ))}
-        <button className="uploadFile" onClick={this.handleTrigger}>
-          {/* Upload */}
-        </button>
+        {!dropzone && (
+          <button className="uploadFile" onClick={this.handleTrigger}>
+            {/* Upload */}
+          </button>
+        )}
         <input
           ref={this.triggerRef}
           name={name + "2"}

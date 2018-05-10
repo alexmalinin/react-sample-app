@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Input } from "semantic-ui-react";
+import { Input, Grid } from "semantic-ui-react";
 
 import {
   StyledAssignDropdown,
-  StyledPersonTile
+  StyledPersonTile,
+  StyledSpecialist
 } from "../../styleComponents/layout/StyledAssignDropdown";
 
 import { IMAGE_PORT, CLIENT, SPECIALIST } from "../../constans/constans";
@@ -58,7 +59,10 @@ export class AssignDropdown extends Component {
           "px";
       }
 
-      if (dropdownRect.height + triggerRect.y > document.body.clientHeight) {
+      if (
+        dropdownRect.height + triggerRect.y + triggerRect.height >
+        document.body.clientHeight
+      ) {
         this.dropList.style.top = "auto";
         this.dropList.style.bottom = "calc(100% + 4px)";
       }
@@ -95,23 +99,23 @@ export class AssignDropdown extends Component {
 
     this.props.handleAssign(type, specId);
 
-    this.closeDropdown();
+    this.props.closeOnChange && this.closeDropdown();
   };
 
   render() {
-    const { label, userType, renderToDashboard } = this.props;
+    const { label, userType, renderToDashboard, renderToModal } = this.props;
     const { options, assignedIds, showDropdown } = this.state;
 
     return (
       userType === CLIENT && (
-        <StyledAssignDropdown>
+        <StyledAssignDropdown renderToModal={renderToModal}>
           <a
             tabIndex="1"
             onClick={this.openDropdown}
             ref={a => (this.trigger = a)}
           >
             <span className="plus">+</span>
-            {renderToDashboard && label}
+            {(renderToDashboard || renderToModal) && label}
           </a>
           {showDropdown && (
             <div
@@ -159,6 +163,8 @@ export class AssignDropdown extends Component {
     );
   }
 }
+
+//Assigned person tile
 
 export class PersonTile extends Component {
   state = {
@@ -228,6 +234,8 @@ export class PersonTile extends Component {
   }
 }
 
+//Delete dropdown for person tile
+
 class DeleteTile extends Component {
   componentDidMount() {
     let deleteRect = this.deleteTile.getBoundingClientRect();
@@ -278,6 +286,7 @@ class DeleteTile extends Component {
                 data={specialist.id}
                 onClick={removeSpecialist}
                 className="remove"
+                type="button"
               >
                 Remove from {removeTitle}
               </button>
@@ -285,6 +294,46 @@ class DeleteTile extends Component {
           </div>
         </div>
       </div>
+    );
+  }
+}
+
+//For add task modal
+
+export class SpecialistTile extends Component {
+  remove = () => {
+    const { remove, index } = this.props;
+    remove(index);
+  };
+  render() {
+    const { specialist } = this.props;
+    return (
+      <StyledSpecialist>
+        <Grid padded="horizontally">
+          <Grid.Row>
+            <Grid.Column computer={10}>
+              <img
+                src={
+                  specialist.avatar.url
+                    ? IMAGE_PORT + specialist.avatar.url
+                    : "/images/uploadImg.png"
+                }
+                alt={specialist.first_name + " " + specialist.last_name}
+              />
+              <p>{specialist.first_name + " " + specialist.last_name}</p>
+            </Grid.Column>
+            <Grid.Column computer={4}>
+              {/* <CostField
+                name="cost"
+                label="Cost"
+                onBlur={this.makeFloat}
+                padded
+              /> */}
+            </Grid.Column>
+            <button type="button" onClick={this.remove} />
+          </Grid.Row>
+        </Grid>
+      </StyledSpecialist>
     );
   }
 }

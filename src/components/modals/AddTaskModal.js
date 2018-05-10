@@ -1,30 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Header, Modal } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 
 import NewTaskForm from "../client/forms/NewTaskForm";
-
+import { createEpicTask } from "../../actions/actions";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 
 class AddTaskModal extends Component {
   render() {
-    const { content } = this.props;
+    const { content, epic, project } = this.props;
 
     return (
       <Modal
+        closeIcon
         trigger={
           <a className="button">
             <StyledSubHeaderLink className="rightLink addButt" />
             {content}
           </a>
         }
-        closeIcon
       >
         <Modal.Header>Task creation</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Header>New Task</Header>
-            <NewTaskForm onSubmit={this.submit} />
+            <NewTaskForm project={project} epic={epic} onSubmit={this.submit} />
           </Modal.Description>
         </Modal.Content>
       </Modal>
@@ -32,11 +31,12 @@ class AddTaskModal extends Component {
   }
 
   submit = data => {
+    console.log(data);
     let close = document.querySelector("i.close.icon");
-    let { currentEpicId, createEpicTask } = this.props;
+    let { createEpicTask } = this.props;
     close.click();
-    createEpicTask(data, currentEpicId);
+    createEpicTask(data, data.epic.value);
   };
 }
 
-export default AddTaskModal;
+export default connect(null, { createEpicTask })(AddTaskModal);

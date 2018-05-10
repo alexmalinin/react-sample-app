@@ -2,8 +2,6 @@ import React from "react";
 import { Field } from "redux-form";
 import { required, minLength2 } from "../../../helpers/validate";
 import RenderField from "./RenderField";
-import Divider from "semantic-ui-react";
-import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 
 class InputField extends React.Component {
   render() {

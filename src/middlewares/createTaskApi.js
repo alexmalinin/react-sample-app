@@ -9,6 +9,9 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
 
+  let specialist_ids = [];
+  payload["specIds"].split(",").forEach(id => specialist_ids.push(+id));
+
   axios({
     method: "post",
     url: createEpicTask,
@@ -17,7 +20,8 @@ export default store => next => action => {
         name: payload["name"],
         description: payload["description"],
         epic_id: epic,
-        state: 0
+        state: 0,
+        specialist_ids
       }
     },
 

@@ -185,6 +185,7 @@ class RenderCard extends Component {
                 allSpecialists={allSpecialists}
                 userType={changeUserType}
                 handleAssign={this.handleAssign}
+                closeOnChange={true}
               />
             )}
           </div>

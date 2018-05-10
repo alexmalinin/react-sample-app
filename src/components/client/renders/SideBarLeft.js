@@ -40,7 +40,7 @@ class SideBarLeft extends Component {
                       {allEpics && allEpics.length ? (
                         allEpics.map((epic, key) => (
                           <NavLink
-                            lassName={currentEpic == key + 1 ? "active" : ""}
+                            className={currentEpic == key + 1 ? "active" : ""}
                             to={`/dashboard/project/${project.id}/module/${key +
                               1}`}
                             key={key}

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change } from "redux-form";
+import { Field } from "redux-form";
 import { NavLink } from "react-router-dom";
 import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import { clientCategories } from "../../../helpers/selects/clientCategories";
 import {
