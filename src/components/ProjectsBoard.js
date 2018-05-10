@@ -119,7 +119,6 @@ class ProjectsBoard extends Component {
       allEpics,
       showAllEpics,
       updateProjectEpic,
-      createEpicTask,
       currentEpic,
       epicTasks
     } = this.props;
@@ -135,7 +134,6 @@ class ProjectsBoard extends Component {
         <BoardSubHeader
           project={projectId}
           epics={allEpics}
-          createEpicTask={createEpicTask}
           currentEpic={currentEpic}
           epicId={epicId}
           epicTasks={epicTasks}

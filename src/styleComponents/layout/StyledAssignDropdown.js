@@ -49,8 +49,22 @@ export const StyledAssignDropdown = styled.div`
     color: #ddd;
     transition: 0.2s;
 
+    ${props =>
+      props.renderToModal &&
+      `text-align: center;
+       font-size: 1.2em;
+       margin-top: 5px;
+       padding: 5px 0;
+    `}
+
     &:hover {
       color: #999;
+
+      ${props =>
+        props.renderToModal &&
+        `
+        background: #f0f0f0;
+        `}
 
       span {
         color: #ddd;
@@ -72,6 +86,8 @@ export const StyledAssignDropdown = styled.div`
       font-weight: 300;
 
       transition: inherit;
+
+      ${props => props.renderToModal && "display: none;"}
     }
   }
 
@@ -169,6 +185,7 @@ export const StyledAssignDropdown = styled.div`
 
         &.assigned {
           order: 0;
+          ${props => props.renderToModal && "display: none;"}
 
           &::before,
           &::after {
@@ -377,6 +394,79 @@ export const StyledPersonTile = styled.div`
           border-radius: 2px;
           background: #e8433e;
           cursor: pointer;
+        }
+      }
+    }
+  }
+`;
+
+export const StyledSpecialist = styled.div`
+  .ui.grid {
+    .row {
+      margin: 10px 20px 10px 20px;
+      border-radius: 5px;
+      transition: 0.3s;
+      &:hover {
+        background: #f0f0f0;
+        button {
+          &::before,
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+      padding: 10px 0;
+      .column {
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+        img {
+          margin-left: 10px;
+          height: 40px;
+          width: 40px;
+          object-fit: contain;
+          background: #fff;
+          border-radius: 50%;
+        }
+        p {
+          margin-left: 10px;
+          margin-bottom: 0;
+          font-size: 1.3em;
+          color: #666;
+        }
+      }
+      button {
+        position: absolute;
+        right: 0;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: none;
+        background: none;
+        height: 100%;
+        width: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: inherit;
+        cursor: pointer;
+        outline: none;
+        &:hover {
+          background: #ccc;
+        }
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: calc(50% - 15px);
+          left: calc(50% - 1px);
+          height: 30px;
+          width: 2px;
+          background: #fff;
+        }
+        &::before {
+          transform: rotate(45deg);
+        }
+        &::after {
+          transform: rotate(-45deg);
         }
       }
     }

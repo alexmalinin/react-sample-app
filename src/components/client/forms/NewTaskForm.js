@@ -10,7 +10,7 @@ import RenderDate from "../../forms/renders/RenderDate";
 import RenderFile from "../../forms/renders/RenderFile";
 import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { AssignDropdown, PersonTile } from "../../layout/AssignDropdown";
+import { AssignDropdown, SpecialistTile } from "../../layout/AssignDropdown";
 import { showProjectTeam } from "../../../actions/actions";
 
 class NewTaskForm extends Component {
@@ -20,6 +20,37 @@ class NewTaskForm extends Component {
       moduleList: [],
       specialists: []
     };
+
+    this.projectList = [];
+  }
+
+  componentWillMount() {
+    const { project, epic, projectWithId, allEpics, allProjects } = this.props;
+
+    if (project && epic && projectWithId) {
+      this.props.dispatch(
+        change("CreateTaskForm", "project", {
+          value: projectWithId.id,
+          label: projectWithId.name
+        })
+      );
+      this.selectProject(projectWithId);
+      this.props.dispatch(
+        change("CreateTaskForm", "epic", {
+          value: allEpics[epic - 1].id,
+          label: allEpics[epic - 1].description
+        })
+      );
+    }
+
+    allProjects &&
+      allProjects.map(project =>
+        this.projectList.push({
+          label: project.name,
+          value: project.id,
+          epics: project.epics
+        })
+      );
   }
 
   makeFloat = e =>
@@ -40,10 +71,11 @@ class NewTaskForm extends Component {
       moduleList.push({ label: epic.description, value: epic.id })
     );
     this.props.dispatch(change("CreateTaskForm", "epic", ""));
-    this.props.showProjectTeam(e.value);
+    this.props.showProjectTeam(e.value || e.id);
 
     this.setState({
-      moduleList: moduleList
+      moduleList: moduleList,
+      specialists: []
     });
   };
 
@@ -57,36 +89,36 @@ class NewTaskForm extends Component {
       });
     } else if (type === "remove") {
       let list = this.state.specialists;
-      console.log(list);
       this.setState({
         specialists: list.splice(this.state.specialists.indexOf(spec), 1)
       });
     }
   };
 
+  removeSpecialist = key => {
+    let specialists = this.state.specialists;
+    specialists.splice(key, 1);
+    this.setState({
+      specialists: specialists
+    });
+  };
+
+  componentDidUpdate() {
+    let specIds = [];
+    this.state.specialists.map(spec => specIds.push(spec.id));
+    specIds = specIds.join(",");
+    this.props.dispatch(change("CreateTaskForm", "specIds", specIds));
+  }
+
   render() {
     const {
       handleSubmit,
       submitting,
       handleFormField,
-      allProjects,
       projectTeam,
       changeUserType
     } = this.props;
     const { specialists, moduleList } = this.state;
-
-    let projectList = [];
-
-    allProjects &&
-      allProjects.map(project =>
-        projectList.push({
-          label: project.name,
-          value: project.id,
-          epics: project.epics
-        })
-      );
-
-    console.log(projectTeam, specialists);
 
     return (
       <form onSubmit={handleSubmit}>
@@ -96,7 +128,7 @@ class NewTaskForm extends Component {
               <Field
                 name="project"
                 component={RenderSelect}
-                options={projectList}
+                options={this.projectList}
                 label="project"
                 placeholder="Select"
                 validate={[required]}
@@ -160,7 +192,6 @@ class NewTaskForm extends Component {
                 type="date"
                 label="Estimate"
                 component={RenderDate}
-                validate={[required]}
                 className="estimate"
                 padded
               />
@@ -176,28 +207,35 @@ class NewTaskForm extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column computer={8}>
-              {specialists.map((spec, key) => (
-                <PersonTile
-                  key={key}
-                  specialist={spec}
-                  handleRemove={this.handleAssign}
-                  labeled
-                  removeTitle="task"
-                  userType={changeUserType}
-                  renderToDashboard
-                />
-              ))}
-              {!!this.state.moduleList.length && (
-                <AssignDropdown
-                  label="Add member"
-                  specialists={specialists}
-                  allSpecialists={projectTeam[0].specialists}
-                  handleAssign={this.handleAssign}
-                  userType={changeUserType}
-                  renderToDashboard
-                />
-              )}
+            <Grid.Column computer={9}>
+              <div className="specialistsWrapper">
+                {/* <Field
+                  name="specialists"
+                  component={RenderField}
+                  value={specIds}
+                /> */}
+                {specialists.map((specialist, key) => (
+                  <SpecialistTile
+                    specialist={specialist}
+                    key={key}
+                    index={key}
+                    remove={this.removeSpecialist}
+                  />
+                ))}
+                {!!this.state.moduleList.length &&
+                  projectTeam &&
+                  projectTeam[0] && (
+                    <AssignDropdown
+                      label="Assign member"
+                      specialists={specialists}
+                      allSpecialists={projectTeam[0].specialists}
+                      handleAssign={this.handleAssign}
+                      userType={changeUserType}
+                      closeOnChange={false}
+                      renderToModal
+                    />
+                  )}
+              </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -224,14 +262,17 @@ class NewTaskForm extends Component {
 NewTaskForm = reduxForm({
   form: "CreateTaskForm",
   destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  initialValues: { cost: "0.00" }
 })(NewTaskForm);
 
 export default connect(
-  ({ allProjects, projectTeam, changeUserType }) => ({
+  ({ allProjects, projectTeam, changeUserType, projectWithId, allEpics }) => ({
     allProjects,
     projectTeam,
-    changeUserType
+    changeUserType,
+    projectWithId,
+    allEpics
   }),
   { showProjectTeam }
 )(NewTaskForm);

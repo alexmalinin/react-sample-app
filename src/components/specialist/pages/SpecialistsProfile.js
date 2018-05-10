@@ -88,7 +88,6 @@ class SpecialistsProfile extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
-
   }
 
   render() {
@@ -172,7 +171,7 @@ class SpecialistsProfile extends Component {
       ? this.setState({
           renderMessage: true,
           nextStep: true
-      })
+        })
       : this.setState({
           renderErrorMessage: true
         });

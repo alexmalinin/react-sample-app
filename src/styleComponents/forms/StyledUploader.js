@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../constants/colors";
+import { colors, secondaryColors } from "../constants/colors";
 
 export default styled.div`
     
@@ -74,6 +74,8 @@ export default styled.div`
         }
 
         &.active{
+            border-style: solid;
+            border-color: ${colors.blue};
             &::after{
                 content: 'Drop here';
                 display: flex;

@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
-import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
 import { CLIENT } from "../../constans/constans";
@@ -14,10 +12,9 @@ class ProjectSubHeader extends Component {
     const {
       epics,
       currentEpic,
-      createEpicTask,
       epicTasks,
-      epicId,
-      changeUserType
+      changeUserType,
+      project
     } = this.props;
 
     const allTasksCount = epicTasks && epicTasks.length;
@@ -75,8 +72,7 @@ class ProjectSubHeader extends Component {
             {changeUserType === CLIENT && (
               <AddTaskModal
                 epic={currentEpic}
-                createEpicTask={createEpicTask}
-                currentEpicId={epicId}
+                project={project}
                 content="Add task"
               />
             )}

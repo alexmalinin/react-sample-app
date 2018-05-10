@@ -121,6 +121,7 @@ class Channel extends Component {
             allSpecialists={allSpecialists}
             handleAssign={this.handleAssign}
             userType={changeUserType}
+            closeOnChange={true}
             renderToDashboard
           />
         </div>
@@ -152,6 +153,7 @@ class Channel extends Component {
             allSpecialists={allSpecialists}
             handleAssign={this.handleAssign}
             userType={changeUserType}
+            closeOnChange={true}
           />
         </div>
       </Fragment>

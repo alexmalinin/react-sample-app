@@ -50,6 +50,7 @@ class CustomCard extends Component {
             allSpecialists={specialistList}
             handleAssign={this.assignSpeciaist}
             userType={userType}
+            closeOnChange={true}
           />
         </div>
         <span className="ddtw">DDTW-{id}</span>
