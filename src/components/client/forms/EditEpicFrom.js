@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
+import { required, date } from "../../../helpers/validate";
+import RenderDate from "../../forms/renders/RenderDate";
 import { DvButton } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
@@ -11,6 +11,7 @@ import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
 import ModuleForm from "./ModuleForm";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderFile from "../../forms/renders/RenderFile";
+import RenderField from "../../forms/renders/RenderField";
 
 let renderError = true;
 
@@ -30,21 +31,50 @@ class EditEpicForm extends Component {
           <Grid.Row>
             <Grid.Column computer={8}>
               <Field
-                name="description"
-                component={RenderTextArea}
-                label="Brief / Description *"
-                className="area"
+                name="name"
+                component={RenderField}
+                label="Module name"
+                className="moduleName"
                 validate={[required]}
                 padded
               />
             </Grid.Column>
-            <Grid.Column computer={8}>
+            <Grid.Column computer={4}>
               <Field
                 name="status"
                 component={RenderSelect}
                 label="status"
                 small
               />
+            </Grid.Column>
+            <Grid.Column computer={4}>
+              <Field
+                name="eta"
+                component={RenderDate}
+                type="date"
+                label="Estimate"
+                className="estimate"
+                validate={[required]}
+                initData={this.props.epic.eta}
+                handleEtaForm={this.handleEtaForm}
+                padded
+                small
+              />
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row>
+            <Grid.Column computer={8}>
+              <Field
+                name="description"
+                component={RenderTextArea}
+                label="Brief / Description"
+                className="area"
+                validate={[required]}
+                padded
+              />
+            </Grid.Column>
+            <Grid.Column computer={8}>
               <Field
                 name="file"
                 type="file"
@@ -54,14 +84,14 @@ class EditEpicForm extends Component {
                 padded
               />
             </Grid.Column>
-            {/* </Grid.Row>
+          </Grid.Row>
 
-                    <Grid.Row> */}
+          <Grid.Row>
             <Grid.Column computer={8}>
               <Field
                 name="user_story"
                 component={RenderTextArea}
-                label="User Story *"
+                label="User Story"
                 className="area"
                 large
                 padded
@@ -112,6 +142,8 @@ class EditEpicForm extends Component {
                 padded
               />
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
             <Grid.Column computer={3} />
             <Grid.Column computer={10}>
               <DvButton
@@ -145,7 +177,8 @@ class EditEpicForm extends Component {
       deliverables,
       business_requirements,
       notes,
-      business_rules
+      business_rules,
+      eta
     } = data;
 
     this.props.dispatch(change("EditEpicForm", "description", description));
@@ -156,6 +189,10 @@ class EditEpicForm extends Component {
     );
     this.props.dispatch(change("EditEpicForm", "solution", notes));
     this.props.dispatch(change("EditEpicForm", "rules", business_rules));
+  };
+
+  handleEtaForm = date => {
+    this.props.dispatch(change("ClientModuleForm", "eta", date));
   };
 
   closeModal = ev => {

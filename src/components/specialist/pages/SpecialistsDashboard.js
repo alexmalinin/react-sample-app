@@ -234,7 +234,6 @@ class SpecialistsDashboard extends Component {
         >
           {sidebarCondition && (
             <SideBarLeft
-              projects={[]}
               currentProject={params["projectId"]}
               currentEpic={params["moduleId"]}
             />

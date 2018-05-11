@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors } from "../constants/colors";
+import { primaryColors, boxShadow } from "../constants/colors";
 
 export const ContainerLarge = styled.div`
   margin: 0 auto;
@@ -57,8 +57,7 @@ export const Container = styled.div`
       props.dashboardContainer
         ? `transparent`
         : `${primaryColors.accentBackground}`};;
-    box-shadow: ${props =>
-      props.dashboardContainer ? `none` : `0px 0px 16px 0px #ccc`};
+    ${props => (props.dashboardContainer ? `` : boxShadow.light)};
 
     /* ${props => (props.indentBot ? `margin-bottom: 250px` : ``)}; */
     ${props => (props.indentTop ? `margin-top: 100px` : ``)};

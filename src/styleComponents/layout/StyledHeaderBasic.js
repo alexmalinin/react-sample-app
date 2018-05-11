@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondaryColors, colors } from "../constants/colors";
+import { secondaryColors, colors, boxShadow } from "../constants/colors";
 
 export default styled.header`
 
@@ -10,7 +10,7 @@ export default styled.header`
         background-color: #fff;
         padding-left: 40px;
         padding-right: 40px;
-        box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.15);
+        ${boxShadow.light};
 
         &>div {
             min-width: 20%;

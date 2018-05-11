@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { boxShadow } from "../constants/colors";
 
 export default styled.div`
   height: 131px;
@@ -33,7 +34,7 @@ export default styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 25px 30px 15px;
-  box-shadow: 0px 0px 16px 0px #ccc;
+  ${boxShadow.light};
   transition: 0.4s ease-in-out;
 
   & > span {

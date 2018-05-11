@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { boxShadow } from "../constants/colors";
 
 export const StyledBar = styled.aside`
   position: fixed;
@@ -12,7 +13,8 @@ export const StyledBar = styled.aside`
 
   background-color: white;
   color: #b3b3b3;
-  box-shadow: 0px 0px 24px 0px rgba(204, 204, 204, 1);
+  ${boxShadow.light};
+
   transition: 0.4s ease-in-out, height 0s;
   outline: none;
 
@@ -53,7 +55,7 @@ export const StyledBar = styled.aside`
         padding-top: 5px;
 
         &.opened {
-          width: 100%;
+          /* width: 100%; */
         }
 
         .projectWrapper {
@@ -112,6 +114,7 @@ export const StyledBar = styled.aside`
           }
           img {
             object-fit: contain;
+            background: #fff;
           }
           .projectNoLogo {
             display: inline-block;
@@ -194,7 +197,6 @@ export const StyledBar = styled.aside`
       &:hover {
         .trigger {
           right: calc(100% + 15px);
-          right: calc(100% + 15px);
           &::before,
           &::after {
             left: 15px;
@@ -241,15 +243,16 @@ export const StyledBar = styled.aside`
         background: #fff;
         transform-origin: center 0;
         transition: 0.4s;
+        transform: rotate(var(--rotate, 0));
       }
 
       &::before {
-        transform: rotate(-45deg);
+        --rotate: -45deg;
         top: calc(50% - 1px);
       }
 
       &::after {
-        transform: rotate(-135deg);
+        --rotate: -135deg;
         top: calc(50% + 1px);
       }
 

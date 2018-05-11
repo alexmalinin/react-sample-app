@@ -45,7 +45,6 @@ class ProjectSubHeader extends Component {
       project,
       allEpics
     } = this.props;
-    console.log("________________");
 
     const allTasksCount = epicTasks && epicTasks.length;
     let completedTasksCount = 0;

@@ -1,14 +1,7 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change, reset } from "redux-form";
+import { reduxForm, change, reset } from "redux-form";
 import { connect } from "react-redux";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
-import { SaveBtn } from "../../../styleComponents/layout/DvButton";
-import InputField from "../../forms/renders/InputField";
-import { Grid } from "semantic-ui-react";
 import ModuleForm from "./ModuleForm";
-
-let renderError = true;
 
 class ClientModuleForm extends Component {
   componentWillMount() {
@@ -19,12 +12,19 @@ class ClientModuleForm extends Component {
     this.props.dispatch(reset("ClientModuleForm"));
   };
 
+  handleEtaForm = date => {
+    this.props.dispatch(change("ClientModuleForm", "eta", date));
+  };
+
   render() {
     const { handleSubmit, submitting } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        <ModuleForm submitting={submitting} />
+        <ModuleForm
+          submitting={submitting}
+          handleEtaForm={this.handleEtaForm}
+        />
       </form>
     );
   }

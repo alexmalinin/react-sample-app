@@ -23,7 +23,7 @@ class RenderField extends React.Component {
     const className = !error ? checkedClass : "";
 
     return (
-      <StyledInputs padded={padded}>
+      <StyledInputs className={this.props.className} padded={padded}>
         <label htmlFor={name}>{label}</label>
         <Input
           error={Boolean(touched && error)}

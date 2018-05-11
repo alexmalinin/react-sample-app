@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
+import { required, date } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
-import { clientCategories } from "../../../helpers/selects/clientCategories";
-import { SaveBtn } from "../../../styleComponents/layout/DvButton";
-import InputField from "../../forms/renders/InputField";
-import GridColumn, { Grid } from "semantic-ui-react";
+import RenderDate from "../../forms/renders/RenderDate";
+import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { employeers } from "../../../helpers/selects/employeers";
 import RenderFile from "../../forms/renders/RenderFile";
 import StyledModuleLink from "../../../styleComponents/StyledModuleLink";
+import InputField from "../../forms/renders/InputField";
+import RenderField from "../../forms/renders/RenderField";
 
 class ModuleForm extends Component {
   render() {
@@ -25,10 +23,10 @@ class ModuleForm extends Component {
           </Grid.Column>
           <Grid.Column computer={8}>
             <Field
-              name="description"
-              component={RenderTextArea}
-              label="Brief / Description *"
-              className="area"
+              name="name"
+              component={RenderField}
+              label="Module name*"
+              className="moduleName"
               validate={[required]}
               padded
             />
@@ -43,21 +41,43 @@ class ModuleForm extends Component {
                   small
                 />
               </Grid.Column>
-              <Grid.Column computer={10}>
+              <Grid.Column computer={6}>
                 <Field
-                  name="file"
-                  type="file"
-                  component={RenderFile}
-                  label="Attach files"
-                  className="area"
+                  name="eta"
+                  component={RenderDate}
+                  type="date"
+                  label="Estimate"
+                  className="estimate"
+                  validate={[required, date]}
+                  handleEtaForm={this.props.handleEtaForm}
                   padded
+                  small
                 />
               </Grid.Column>
             </Grid>
           </Grid.Column>
-          {/* </Grid.Row>
-
-        <Grid.Row> */}
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column computer={8}>
+            <Field
+              name="description"
+              component={RenderTextArea}
+              label="Brief / Description *"
+              className="area"
+              validate={[required]}
+              padded
+            />
+          </Grid.Column>
+          <Grid.Column computer={8}>
+            <Field
+              name="file"
+              type="file"
+              component={RenderFile}
+              label="Attach files"
+              className="area"
+              padded
+            />
+          </Grid.Column>
           <Grid.Column computer={8}>
             <Field
               name="user_story"

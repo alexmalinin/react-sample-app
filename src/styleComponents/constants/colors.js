@@ -7,13 +7,20 @@ export const colors = {
 };
 
 export const primaryColors = {
-  darkGrey: "#666666",
-  grey: "#999999",
-  lightGrey: "#cccccc",
+  darkGrey: "#666",
+  grey: "#999",
+  lightGrey: "#ccc",
   accentBackground: "#fff",
-  backgroundColor: "#f2f2f2"
+  backgroundColor: "#f4f9fa",
+  shadowColor: "#e2eff2"
 };
 
 export const secondaryColors = {
   green: "#38ffbf"
+};
+
+export const boxShadow = {
+  light: `box-shadow: 0 0 24px 0 ${primaryColors.shadowColor}`,
+  grey: `box-shadow: 0 0 12px 0 ${primaryColors.lightGrey}`,
+  dark: `box-shadow: 0 0 12px 0 rgba(0,0,0,.15)`
 };

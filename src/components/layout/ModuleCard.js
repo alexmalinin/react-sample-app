@@ -45,6 +45,7 @@ class Module extends Component {
 
   render() {
     const { epic, number, updateProjectEpic, changeUserType } = this.props;
+    console.log(epic);
 
     return (
       <div className="dragContainer">
@@ -57,10 +58,17 @@ class Module extends Component {
               <img src="/images/marker.png" alt="marker" />
               <span>Remote</span>
             </div>
-            <div className="subline">
-              <img src="/images/calendar.png" alt="calendar" />
-              <span>24/02/2018</span>
-            </div>
+            {epic.eta && (
+              <div className="subline">
+                <img src="/images/calendar.png" alt="calendar" />
+                <span>
+                  {epic.eta
+                    .split("-")
+                    .reverse()
+                    .join("/")}
+                </span>
+              </div>
+            )}
             <div className="subline">
               <img src="/images/dollar.png" alt="dollar" />
               <span>$20,000</span>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { boxShadow } from "../constants/colors";
 
 export const StyledAssignDropdown = styled.div`
   position: relative;
@@ -112,7 +113,7 @@ export const StyledAssignDropdown = styled.div`
 
     border-radius: 3px;
     background: #fff;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    ${boxShadow.dark};
 
     &.visible {
       display: block;
@@ -352,7 +353,7 @@ export const StyledPersonTile = styled.div`
     font-family: "Brix";
     white-space: nowrap;
     text-align: left;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    ${boxShadow.dark};
     cursor: default;
 
     &.show {

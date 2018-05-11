@@ -28,6 +28,7 @@ export default store => next => action => {
         deliverables: payload["criteria"],
         description: payload["description"],
         notes: payload["solution"],
+        eta: payload["eta"],
         attached_files_attributes: files
       }
     },

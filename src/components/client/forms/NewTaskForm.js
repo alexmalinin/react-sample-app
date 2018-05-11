@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
-import { required } from "../../../helpers/validate";
+import { required, date } from "../../../helpers/validate";
 import CostField from "../../forms/renders/CostField";
 import { SubmitBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
@@ -103,6 +103,10 @@ class NewTaskForm extends Component {
     });
   };
 
+  handleEtaForm = date => {
+    this.props.dispatch(change("CreateTaskForm", "eta", date));
+  };
+
   componentDidUpdate() {
     let specIds = [];
     this.state.specialists.map(spec => specIds.push(spec.id));
@@ -114,7 +118,6 @@ class NewTaskForm extends Component {
     const {
       handleSubmit,
       submitting,
-      handleFormField,
       projectTeam,
       changeUserType
     } = this.props;
@@ -134,7 +137,6 @@ class NewTaskForm extends Component {
                 validate={[required]}
                 onChange={this.selectProject}
                 padded
-                handleFormField={handleFormField}
               />
             </Grid.Column>
             <Grid.Column computer={8}>
@@ -147,7 +149,6 @@ class NewTaskForm extends Component {
                 validate={[required]}
                 disabled={!moduleList.length}
                 padded
-                handleFormField={handleFormField}
               />
             </Grid.Column>
           </Grid.Row>
@@ -189,10 +190,12 @@ class NewTaskForm extends Component {
             <Grid.Column computer={5}>
               <Field
                 name="eta"
+                component={RenderDate}
                 type="date"
                 label="Estimate"
-                component={RenderDate}
                 className="estimate"
+                validate={[required, date]}
+                handleEtaForm={this.handleEtaForm}
                 padded
               />
             </Grid.Column>
@@ -209,11 +212,6 @@ class NewTaskForm extends Component {
           <Grid.Row>
             <Grid.Column computer={9}>
               <div className="specialistsWrapper">
-                {/* <Field
-                  name="specialists"
-                  component={RenderField}
-                  value={specIds}
-                /> */}
                 {specialists.map((specialist, key) => (
                   <SpecialistTile
                     specialist={specialist}
