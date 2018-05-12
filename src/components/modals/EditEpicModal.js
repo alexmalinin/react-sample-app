@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Header, Modal } from "semantic-ui-react";
-import { AddNewBtn } from "../../styleComponents/layout/DvButton";
-import { updateProjectEpic } from "../../actions/actions";
 import EditEpicForm from "../client/forms/EditEpicFrom";
 
 class EditEpicModal extends Component {

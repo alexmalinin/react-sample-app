@@ -38,10 +38,9 @@ class ProjectSubHeader extends Component {
             onClick={() => this.props.dispatch(submit(form))}
             className="saveBtn"
           >
-            <StyledSubHeaderLink className="rightLink arrow">
-              <span />
-            </StyledSubHeaderLink>
+            <StyledSubHeaderLink className="rightLink arrow" />
             Save
+            <span />
           </button>
 
           <SubHeaderLinkWrap

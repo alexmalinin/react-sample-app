@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors } from "./constants/colors";
+import { primaryColors, boxShadow } from "./constants/colors";
 
 export const S_Board = styled.div`
   width: 100%;
@@ -140,7 +140,7 @@ export const S_Board = styled.div`
   .dragItem {
     position: relative;
     padding: 20px 20px 15px 20px;
-    box-shadow: 0px 0px 8px 0px #ccc;
+    ${boxShadow.light};
     border-radius: 2px;
 
     text-transform: uppercase;
@@ -231,6 +231,7 @@ export const S_Board = styled.div`
     min-height: 250px;
     margin-top: 30px;
     padding: 30px;
+    ${boxShadow.light};
     background-color: ${primaryColors.accentBackground};
 
     .dropdown {
@@ -333,9 +334,9 @@ export const S_Board = styled.div`
 
         font-size: 36px;
         font-weight: 100;
-        color: #b7b7b7;
+        color: #c8d8d7;
         line-height: 39px;
-        border: 2px solid #b7b7b7;
+        border: 2px solid #c8d8d7;
         border-radius: 50%;
         cursor: pointer;
       }

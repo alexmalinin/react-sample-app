@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { secondaryColors, colors } from "../constants/colors";
+import { secondaryColors, colors, boxShadow } from "../constants/colors";
 
 export default styled.div`
   border-radius: 0 !important;
@@ -9,9 +9,8 @@ export default styled.div`
 
   ${props => (props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``)};
   ${props =>
-    props.small
-      ? `display: inline-block; margin: 20px 40px 0 20px;`
-      : ``} & > div.checkedd:after {
+    props.small ? `display: inline-block; margin: 20px 40px 0 20px` : ``};
+  & > div.checkedd:after {
     content: "";
     position: absolute;
     right: 15px;
@@ -46,6 +45,10 @@ export default styled.div`
     font-weight: ${props => (props.accountInput ? `normal` : `600`)};
   }
 
+  &.moduleName {
+    margin-top: 20px;
+  }
+
   .ui.input {
     width: 100%;
     input {
@@ -56,6 +59,10 @@ export default styled.div`
       letter-spacing: 1.5px;
       padding-left: 10px;
       border-radius: 0;
+
+      &.shadowInput {
+        display: none;
+      }
     }
     input[type="number"] {
       -moz-appearance: textfield;
@@ -70,9 +77,14 @@ export default styled.div`
       -webkit-appearance: none;
     }
 
+    input[name="eta"] {
+      cursor: pointer;
+      width: 145px;
+    }
+
     .react-datepicker {
       border: none;
-      box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+      ${boxShadow.dark};
       border-radius: 0;
       font-family: "Brix";
       .react-datepicker__header {
@@ -88,10 +100,9 @@ export default styled.div`
           background-color: ${colors.blue};
         }
       }
+      .react-datepicker__input-container {
+      }
     }
-  }
-
-  .ui.input input[type="date"] {
   }
 
   .Select-input {

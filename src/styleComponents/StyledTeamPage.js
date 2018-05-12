@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { boxShadow } from "./constants/colors";
 
 export default styled.div`
     color: #666;
@@ -360,7 +361,7 @@ export default styled.div`
 
                     border-radius: 3px;
                     background: #fff;
-                    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+                    ${boxShadow.dark};
 
                     &.visible{
                         display: block;

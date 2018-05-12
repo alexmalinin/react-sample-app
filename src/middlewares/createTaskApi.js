@@ -22,7 +22,8 @@ export default store => next => action => {
         description: payload["description"],
         epic_id: epic,
         state: 0,
-        specialist_ids
+        specialist_ids,
+        eta: payload["eta"]
       }
     },
 

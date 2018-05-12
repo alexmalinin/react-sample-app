@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, secondaryColors } from "../constants/colors";
+import { colors, secondaryColors, boxShadow } from "../constants/colors";
 
 export default styled.div`
     
@@ -117,6 +117,7 @@ export default styled.div`
         font-weight: bold;
         word-spacing: 1.5px;
         padding-left: 7px;
+        margin-bottom: 40px;
     }
 
     .filePreview{
@@ -194,7 +195,7 @@ export default styled.div`
                 white-space: nowrap;
 
                 background-color: #fff;
-                box-shadow: 0 0 12px 0 #ddd;
+                ${boxShadow.dark};
             }
         }
     }

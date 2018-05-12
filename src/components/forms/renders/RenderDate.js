@@ -9,18 +9,26 @@ import "react-datepicker/dist/react-datepicker.css";
 
 class RenderField extends React.Component {
   state = {
-    startDate: moment()
+    date: moment(this.props.initData)
   };
-  // handleChange = e => {
-  //   this.setState({
-  //     [e.target.name]: +e.target.value
-  //   });
-  // };
+
+  componentWillMount() {
+    this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
+    console.log(this.props.initData);
+  }
+
   handleChange = date => {
-    this.setState({
-      startDate: date
-    });
+    if (date && date._isAMomentObject) {
+      this.setState({
+        date
+      });
+    }
   };
+
+  componentDidUpdate() {
+    const { date } = this.state;
+    date && this.props.handleEtaForm(date.format("YYYY-MM-DD"));
+  }
 
   render() {
     const {
@@ -31,14 +39,17 @@ class RenderField extends React.Component {
       type,
       disabled,
       padded,
+      small,
       meta: { touched, error, warning },
       checkedClass
     } = this.props;
 
+    const { date } = this.state;
+
     const className = !error ? checkedClass : "";
 
     return (
-      <StyledInputs padded={padded}>
+      <StyledInputs small={small} padded={padded}>
         <label htmlFor={name}>{label}</label>
         <Input
           error={Boolean(touched && error)}
@@ -50,17 +61,24 @@ class RenderField extends React.Component {
           type={type}
         >
           <DatePicker
-            selected={this.state.startDate}
+            {...input}
+            name={input.name}
+            selected={date}
+            value={date && date.format("DD/MM/YYYY")}
             onChange={this.handleChange}
+            // onBlur={this.handleChange}
             dateFormat="DD/MM/YYYY"
+            autoComplete="off"
+            readOnly
           />
-        </Input>
-        {/* <input
-            name="day"
-            type="number"
-            value={day}
-            onChange={this.handleChange}
+          {/* <input
+            {...input}
+            type={type}
+            name={input.name}
+            className="shadowInput"
+            value={date.format("YYYY-MM-DD")}
           /> */}
+        </Input>
 
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||
