@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { required, date } from "../../../helpers/validate";
 import RenderDate from "../../forms/renders/RenderDate";
-import { DvButton } from "../../../styleComponents/layout/DvButton";
+import { SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
@@ -145,15 +145,16 @@ class EditEpicForm extends Component {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column computer={3} />
-            <Grid.Column computer={10}>
-              <DvButton
+            <Grid.Column computer={16} align="right">
+              <SaveBtn
                 type="submit"
                 disabled={submitting}
-                content="SAVE"
                 primary
-                xsindent="true"
-                smallbtn="true"
-              />
+                updatebtn="true"
+                static="true"
+              >
+                <span>Save</span>
+              </SaveBtn>
             </Grid.Column>
           </Grid.Row>
         </Grid>
