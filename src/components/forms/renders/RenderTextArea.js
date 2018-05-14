@@ -4,20 +4,40 @@ import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 
 class RenderTextArea extends Component {
-  autoresize = event => {
+  state = {
+    fullText: false
+  };
+
+  autoresize = (event, text) => {
     const { large, className } = this.props;
     const textarea = event.target;
     const minHeight = large ? 108 : 72;
 
     if (className === "area") {
-      setTimeout(() => {
-        textarea.style.cssText = `height: ${minHeight}px`;
-        if (textarea.scrollHeight > minHeight) {
-          textarea.style.cssText = `height: ${Math.ceil(
-            textarea.scrollHeight / 36
-          ) * 36}px`;
-        }
-      }, 0);
+      if (text) {
+        setTimeout(() => {
+          textarea.style.cssText = `height: ${minHeight}px`;
+          if (textarea.scrollHeight > minHeight) {
+            textarea.style.cssText = `height: ${Math.ceil(
+              textarea.scrollHeight / 36
+            ) * 36}px`;
+          }
+        }, 0);
+        this.setState({ fullText: true });
+      } else {
+        setTimeout(() => {
+          textarea.style.cssText = `height: ${minHeight}px`;
+        }, 0);
+        this.setState({ fullText: false });
+      }
+    }
+  };
+
+  renderDescription = value => {
+    if (value) {
+      if (value.length > 80) {
+        return value.slice(0, 80) + "...";
+      } else return value;
     }
   };
 
@@ -45,9 +65,15 @@ class RenderTextArea extends Component {
         </div>
         <textarea
           {...input}
+          value={
+            this.state.fullText
+              ? input.value
+              : this.renderDescription(input.value)
+          }
           name={input.name}
           placeholder={placeholder}
-          onKeyDown={this.autoresize}
+          onFocus={e => this.autoresize(e, true)}
+          onBlur={e => this.autoresize(e, false)}
           id={id}
         />
         {touched &&
