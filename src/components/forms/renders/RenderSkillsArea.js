@@ -11,6 +11,7 @@ class RenderSkillsArea extends Component {
         <Field
           name="skills_attributes"
           component={RenderMultiSelect}
+          onChange={e => this.props.handleSelectChange(e, "skills_attributes")}
           placeholder=""
         />
       </StyledSkillsArea>

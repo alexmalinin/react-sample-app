@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, formValueSelector } from "redux-form";
 import { required } from "../../helpers/validate";
 import { NextBtn, SaveBtn } from "../../styleComponents/layout/DvButton";
 import InputField from "./renders/InputField";
@@ -10,7 +10,6 @@ import RenderPhone from "./renders/RenderPhone";
 import RenderImage from "../forms/renders/RenderImage";
 import RenderTextArea from "../forms/renders/RenderTextArea";
 import StyledExperienceCards from "../../styleComponents/StyledExperienceCards";
-
 import RenderCards from "../specialist/renders/RenderCards";
 import EdicationModal from "../modals/EdicationModal";
 import WorkExperienceModal from "../modals/WorkExperienceModal";
@@ -37,6 +36,7 @@ class RenderProfileForm extends Component {
       specialistData,
       isEditing
     } = this.props;
+
     let { avatar } = specialistData || clientData || false;
 
     let educationsChilds1 = specialistData ? specialistData["educations"] : [];
@@ -52,7 +52,7 @@ class RenderProfileForm extends Component {
       : null;
 
     return (
-      <form name="account" onSubmit={handleSubmit}>
+      <form name="account" onSubmit={handleSubmit} onChange={this.handleChange}>
         <Grid>
           <Grid.Row>
             <Grid.Column computer={3}>
@@ -134,20 +134,20 @@ class RenderProfileForm extends Component {
               <Grid>
                 <Grid.Row>
                   <Grid.Column computer={16}>
-                    <h3>Education</h3>
                     <StyledExperienceCards>
                       {this.props.specialistModal ? (
                         <div className="experience-section">
+                          <h3>Education</h3>
                           <RenderCards educations={educationData} />
                         </div>
                       ) : null}
                     </StyledExperienceCards>
                   </Grid.Column>
                   <Grid.Column computer={16}>
-                    <h3>Work experience</h3>
                     <StyledExperienceCards>
                       {this.props.specialistModal ? (
                         <div className="experience-section">
+                          <h3>Work experience</h3>
                           <RenderCards experiences={experienceData} />
                         </div>
                       ) : null}
@@ -163,7 +163,7 @@ class RenderProfileForm extends Component {
                     type="submit"
                     disabled={submitting}
                     primary
-                    updatebtn
+                    updatebtn="true"
                   >
                     <span>Save</span>
                   </SaveBtn>
@@ -180,7 +180,7 @@ class RenderProfileForm extends Component {
     );
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillUpdate(nextProps, nextState) {
     if (nextProps.clientData && this.state.fetch) {
       this.fillFields(nextProps.clientData);
       this.setState({

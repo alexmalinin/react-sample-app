@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change } from "redux-form";
 import BillingForm from "./BillingForm";
+import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 
 let renderError = true;
 
 class ClientBillingForm extends Component {
+  state = {
+    formData: {},
+    submitError: false
+  };
+
   render() {
     const {
       handleSubmit,
@@ -17,7 +23,7 @@ class ClientBillingForm extends Component {
     } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={this.handleChange}>
         <BillingForm
           clientData={clientData}
           submitting={submitting}
@@ -25,8 +31,31 @@ class ClientBillingForm extends Component {
           swichTab={swichTab}
           isEditing={isEditing}
         />
+        <SubmitFormErrorModal
+          isOpen={this.state.submitError}
+          close={this.closeErrorModal}
+        />
       </form>
     );
+  }
+
+  closeErrorModal = () => {
+    this.setState({ submitError: false });
+  };
+
+  handleChange = e => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        [e.target.name]: e.target.value === "" ? null : e.target.value
+      }
+    });
+  };
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.formData) {
+      this.props.handleFormValueChange(nextState.formData);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,6 +68,12 @@ class ClientBillingForm extends Component {
           renderError = false;
         }
       }
+    }
+
+    if (nextProps.submitFailed && Object.keys(this.state.formData).length > 0) {
+      this.setState({ submitError: true });
+    } else {
+      this.setState({ submitError: false });
     }
   }
 

@@ -92,7 +92,7 @@ class SpecialistsProfile extends Component {
 
   render() {
     const { renderMessage, renderErrorMessage, isEditing } = this.state;
-    const { educations, experiences } = this.props;
+    const { educations, experiences, handleFormValueChange } = this.props;
 
     return (
       <div>
@@ -113,6 +113,7 @@ class SpecialistsProfile extends Component {
                 educations={educations}
                 experiences={experiences}
                 isEditing={isEditing}
+                handleFormValueChange={handleFormValueChange}
                 specialistModal
               />
               {this.state.nextStep ? (

@@ -54,6 +54,37 @@ export function getAllUrlParams(url) {
   return obj;
 }
 
+export function getFormIdByPageName(user, page) {
+  if (user === "Specialist") {
+    switch (page) {
+      case "profile":
+        return "RenderProfileForm";
+      case "industry":
+        return "SpecialistIndustryForm";
+      case "company":
+        return "SpecialistCompanyForm";
+      case "billings":
+        return "SpecialistBillingForm";
+      default:
+        return null;
+    }
+  }
+  if (user === "Client") {
+    switch (page) {
+      case "company":
+        return "ClientCompanyForm";
+      case "billing":
+        return "ClientBillingForm";
+      default:
+        return null;
+    }
+  }
+}
+
+export function checkObjectPropertiesForValues(obj) {
+  return Object.values(obj).every(x => x === null || x === "");
+}
+
 export function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);

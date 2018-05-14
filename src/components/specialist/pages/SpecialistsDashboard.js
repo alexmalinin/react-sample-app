@@ -29,7 +29,11 @@ import {
   showSpecialistTeams
 } from "../../../actions/actions";
 import Teams from "../../Teams";
-import { getCookie, setCookie } from "../../../helpers/functions";
+import {
+  getCookie,
+  setCookie,
+  checkObjectPropertiesForValues
+} from "../../../helpers/functions";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -46,7 +50,8 @@ class SpecialistsDashboard extends Component {
       industryPercent: null,
       companyPercent: null,
       billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+      isEdited: false
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -206,9 +211,10 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
-      specialistTeams
+      specialistTeams,
+      changeUserType
     } = this.props;
-    const { rightSidebarOpened } = this.state;
+    const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
     if (params["page"]) {
@@ -242,7 +248,12 @@ class SpecialistsDashboard extends Component {
             this.renderPage(page)
           ) : (
             <Container sidebarCondition={sidebarCondition}>
-              <SubHeader percents={this.state} />
+              <SubHeader
+                percents={this.state}
+                isEdited={isEdited}
+                page={page}
+                user={changeUserType}
+              />
               {this.renderPage(page)}
             </Container>
           )}
@@ -274,6 +285,7 @@ class SpecialistsDashboard extends Component {
           <SpecialistIndustry
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
+            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "company":
@@ -281,6 +293,7 @@ class SpecialistsDashboard extends Component {
           <SpecialistsCompany
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
+            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "billings":
@@ -288,6 +301,7 @@ class SpecialistsDashboard extends Component {
           <SpecialistsMyBillings
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
+            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "about":
@@ -317,6 +331,14 @@ class SpecialistsDashboard extends Component {
     }
   };
 
+  handleFormValueChange = obj => {
+    if (checkObjectPropertiesForValues(obj)) {
+      this.setState({ isEdited: false });
+    } else {
+      this.setState({ isEdited: true });
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
       if (nextProps.specialistData.email) {
@@ -339,6 +361,7 @@ class SpecialistsDashboard extends Component {
 
 export default connect(
   ({
+    changeUserType,
     specialistData,
     confirmPassword,
     educations,
@@ -349,6 +372,7 @@ export default connect(
     allTeams,
     specialistTeams
   }) => ({
+    changeUserType,
     specialistData,
     confirmPassword,
     educations,

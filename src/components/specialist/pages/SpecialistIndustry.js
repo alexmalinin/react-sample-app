@@ -54,7 +54,8 @@ class SpecialistIndustry extends Component {
       industries,
       projectTypes,
       experienceLevels,
-      specialistData
+      specialistData,
+      handleFormValueChange
     } = this.props;
 
     return (
@@ -73,6 +74,7 @@ class SpecialistIndustry extends Component {
           experienceLevels={experienceLevels}
           specialistData={specialistData}
           isEditing={isEditing}
+          handleFormValueChange={handleFormValueChange}
           onChange={this.change}
           onSubmit={this.submit}
         />

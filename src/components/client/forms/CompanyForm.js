@@ -23,7 +23,8 @@ class CompanyForm extends Component {
       clientData,
       specialistData,
       handleFormField,
-      isEditing
+      isEditing,
+      handleSelectChange
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -102,6 +103,7 @@ class CompanyForm extends Component {
                     options={clientCategories}
                     label="Segment"
                     placeholder="Select"
+                    onChange={e => handleSelectChange(e, "segment")}
                     validate={[required]}
                     handleFormField={handleFormField}
                   />
@@ -112,6 +114,7 @@ class CompanyForm extends Component {
                       component={RenderSelect}
                       label="Industry"
                       placeholder="Select"
+                      onChange={e => handleSelectChange(e, "industry")}
                       options={industries.industry}
                       validate={[required]}
                       handleFormField={handleFormField}
@@ -124,6 +127,9 @@ class CompanyForm extends Component {
                       component={RenderSelect}
                       label="Number of employers"
                       placeholder="Select"
+                      onChange={e =>
+                        handleSelectChange(e, "number_of_employers")
+                      }
                       options={employeers}
                       validate={[required]}
                       handleFormField={handleFormField}

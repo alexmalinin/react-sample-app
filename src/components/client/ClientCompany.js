@@ -48,7 +48,7 @@ class ClientCompany extends Component {
 
   render() {
     const { renderMessage, renderErrorMessage, isEditing } = this.state;
-    const { clientData, industries } = this.props;
+    const { clientData, industries, handleFormValueChange } = this.props;
 
     return (
       <div>
@@ -65,6 +65,7 @@ class ClientCompany extends Component {
           onChange={this.change}
           industries={industries}
           clientData={clientData}
+          handleFormValueChange={handleFormValueChange}
           onSubmit={this.submit}
           isEditing={isEditing}
         />

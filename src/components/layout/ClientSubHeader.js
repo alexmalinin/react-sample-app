@@ -3,9 +3,23 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
 import ProgressBars from "../layout/ProgressBar";
+import CompleteLaterModal from "../modals/CompleteLaterModal";
+import { getAllUrlParams } from "../../helpers/functions";
 
 class SubHeader extends Component {
+  state = {
+    isEditing: false
+  };
+
+  componentWillMount() {
+    let param = getAllUrlParams().edit;
+    let isEditing = param ? param : false;
+    this.setState({ isEditing });
+  }
+
   render() {
+    const { user, page, isEdited } = this.props;
+
     return (
       <StyledSubHeader profileForm="true">
         <div className="progressBarsLink">
@@ -25,10 +39,20 @@ class SubHeader extends Component {
           </SubHeaderItemWrap>
         </div>
         <div>
-          <SubHeaderLinkWrap url="/dashboard/" className="rightLink arrow">
-            <span />
-            Complete Later
-          </SubHeaderLinkWrap>
+          {page !== "profile" ? (
+            !this.state.isEditing ? (
+              isEdited ? (
+                <CompleteLaterModal user={user} page={page} />
+              ) : (
+                <SubHeaderLinkWrap
+                  url="/dashboard/"
+                  className="rightLink arrow"
+                >
+                  Complete Later
+                </SubHeaderLinkWrap>
+              )
+            ) : null
+          ) : null}
 
           <SubHeaderLinkWrap content="3/9" url="#" className="rightLink">
             Profile
@@ -44,9 +68,3 @@ class SubHeader extends Component {
 }
 
 export default SubHeader;
-
-// <NavLink className="button" to="/client/dashboard/profile">My Profile</NavLink>
-//                 <NavLink className="button" to="/client/dashboard/company">My Company</NavLink>
-//                 <NavLink className="button" to="/client/dashboard/billing">My Billing</NavLink>
-//                 <NavLink className="button" to="/client/dashboard/projects">Projects</NavLink>
-//                 <NavLink className="button" to="/client/dashboard/my_teams">My Teams</NavLink>

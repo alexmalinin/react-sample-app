@@ -5,7 +5,11 @@ import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
-import { NextBtn, BackBtn } from "../../../styleComponents/layout/DvButton";
+import {
+  NextBtn,
+  BackBtn,
+  SaveBtn
+} from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import { DvTitle } from "../../../styleComponents/layout/DvTitles";
@@ -21,7 +25,9 @@ class CompanyForm extends Component {
       industries,
       welcomeText,
       clientData,
-      specialistData
+      specialistData,
+      isEditing,
+      handleSelectChange
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -77,6 +83,7 @@ class CompanyForm extends Component {
                   component={RenderSelect}
                   label="Segment"
                   placeholder="Select"
+                  onChange={e => handleSelectChange(e, "segment")}
                   options={segments}
                   validate={[required]}
                 />
@@ -88,6 +95,7 @@ class CompanyForm extends Component {
                   component={RenderSelect}
                   label="Industry"
                   placeholder="Select"
+                  onChange={e => handleSelectChange(e, "industry")}
                   options={industries["industry"]}
                   validate={[required]}
                 />
@@ -99,6 +107,7 @@ class CompanyForm extends Component {
                   component={RenderSelect}
                   label="Number of employers"
                   placeholder="Select"
+                  onChange={e => handleSelectChange(e, "number_of_employers")}
                   options={employeers}
                   validate={[required]}
                 />
@@ -107,19 +116,28 @@ class CompanyForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/dashboard/industry">
-                <BackBtn disabled={submitting} primary>
-                  <span>Back</span>
-                </BackBtn>
-              </NavLink>
-              <NextBtn
-                type="submit"
-                disabled={submitting}
-                // content='321'
-                primary
-              >
-                <span>next step</span>
-              </NextBtn>
+              {!isEditing ? (
+                <NavLink exact to="/dashboard/industry">
+                  <BackBtn disabled={submitting} primary>
+                    <span>Back</span>
+                  </BackBtn>
+                </NavLink>
+              ) : null}
+
+              {isEditing ? (
+                <SaveBtn
+                  type="submit"
+                  disabled={submitting}
+                  primary
+                  updatebtn="true"
+                >
+                  <span>Save</span>
+                </SaveBtn>
+              ) : (
+                <NextBtn type="submit" disabled={submitting} primary>
+                  <span>next step</span>
+                </NextBtn>
+              )}
             </div>
           </Grid.Column>
         </Grid.Row>

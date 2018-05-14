@@ -31,7 +31,10 @@ class SkillsForm extends Component {
       welcomeText,
       clientData,
       specialistData,
-      isEditing
+      isEditing,
+      handleChange,
+      handleSelectChange,
+      handleCheckboxChange
     } = this.props;
     let { avatar } = specialistData || clientData || false;
 
@@ -66,14 +69,20 @@ class SkillsForm extends Component {
                   label="I Am a"
                   placeholder="Select"
                   component={RenderSelect}
+                  onChange={e => this.props.handleSelectChange(e, "job_title")}
                   options={job_titles}
                   validate={[required]}
                 />
               </div>
-              <InputField name="position" label="Position" />
+              <InputField
+                name="position"
+                label="Position"
+                onChange={handleChange}
+              />
               <InputField
                 name="industry_title"
                 label="What is your industry title?"
+                onChange={handleChange}
                 validate={[required]}
               />
               {/*doesn't save value*/}
@@ -83,6 +92,9 @@ class SkillsForm extends Component {
                   component={RenderSelect}
                   placeholder="Select"
                   label="Experience Level"
+                  onChange={e =>
+                    this.props.handleSelectChange(e, "experience_level")
+                  }
                   options={experienceLevels}
                   validate={[required]}
                 />
@@ -93,6 +105,7 @@ class SkillsForm extends Component {
                 component={RenderSelect}
                 placeholder="Select"
                 label="Select your area within the digital industry"
+                onChange={e => this.props.handleSelectChange(e, "industry")}
                 options={industries["industry"]}
                 validate={[required]}
               />
@@ -104,12 +117,16 @@ class SkillsForm extends Component {
                   specialities={specialistData.specialities}
                 />
               )}
-              <RenderSkillsArea />
+              <RenderSkillsArea handleSelectChange={handleSelectChange} />
             </StyledWelcomeForm>
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={5}>
-            <InputField name="contact_number" label="Best Contact Number" />
+            <InputField
+              name="contact_number"
+              label="Best Contact Number"
+              onChange={handleChange}
+            />
 
             <div id="project_type" className="half-column">
               <Field
@@ -117,6 +134,7 @@ class SkillsForm extends Component {
                 component={RenderSelect}
                 placeholder="Select"
                 label="Project Interest"
+                onChange={e => this.props.handleSelectChange(e, "project_type")}
                 options={projectTypes}
                 validate={[required]}
               />
@@ -128,6 +146,7 @@ class SkillsForm extends Component {
                   <Field
                     name="hourly_rate"
                     component={RenderField}
+                    onChange={handleChange}
                     type="number"
                     label="Hourly Rate"
                   />
@@ -137,17 +156,18 @@ class SkillsForm extends Component {
 
             <Availability />
 
-            <Communication />
+            <Communication handleCheckboxChange={handleCheckboxChange} />
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              <NavLink exact to="/dashboard/profile">
-                {!isEditing ? (
+              {!isEditing ? (
+                <NavLink exact to="/dashboard/profile">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>
-                ) : null}
-              </NavLink>
+                </NavLink>
+              ) : null}
+
               {isEditing ? (
                 <SaveBtn type="submit" disabled={submitting} primary updatebtn>
                   <span>Save</span>

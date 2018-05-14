@@ -65,9 +65,10 @@ class SpecialistsMyBillings extends Component {
         <SpecialistBillingForm
           swichTab={this.swichTab}
           data={this.props.specialistData}
+          isEditing={isEditing}
+          handleFormValueChange={this.props.handleFormValueChange}
           onChange={this.change}
           onSubmit={this.submit}
-          isEditing={isEditing}
         />
         {this.state.nextStep && <Redirect to="about" />}
       </div>
