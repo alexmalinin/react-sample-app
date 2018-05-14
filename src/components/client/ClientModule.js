@@ -55,7 +55,8 @@ class ClientProjects extends Component {
   };
 
   submit = values => {
-    const { projectId } = this.props;
+    const { projectId, allEpics } = this.props;
+    // values.name = `Module ${allEpics.length + 1} - ${values.name}`;
     this.props.createProjectEpic(values, projectId);
   };
 
@@ -71,6 +72,10 @@ class ClientProjects extends Component {
 }
 
 export default connect(
-  ({ projectWithId, createEpic }) => ({ projectWithId, createEpic }),
+  ({ projectWithId, createEpic, allEpics }) => ({
+    projectWithId,
+    createEpic,
+    allEpics
+  }),
   { createProjectEpic, showProjectWithId }
 )(ClientProjects);

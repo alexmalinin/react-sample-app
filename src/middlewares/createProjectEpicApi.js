@@ -22,7 +22,7 @@ export default store => next => action => {
     url: createProjectEpic + project + "/epics",
     data: {
       epic: {
-        name: "Module #",
+        name: "Module " + payload["name"],
         project_id: project,
         user_story: payload["user_story"],
         business_requirements: payload["requirements"],

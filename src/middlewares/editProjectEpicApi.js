@@ -22,6 +22,7 @@ export default store => next => action => {
     url: updateProjectEpic,
     data: {
       epic: {
+        name: payload["name"],
         user_story: payload["user_story"],
         business_requirements: payload["requirements"],
         business_rules: payload["rules"],

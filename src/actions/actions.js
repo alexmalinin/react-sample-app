@@ -646,7 +646,7 @@ export function createProjectEpic(data, project) {
 
 // update project Epic
 
-export function updateProjectEpic(data, project) {
+export function updateProjectEpic(data) {
   const action = {
     type: UPDATE_PROJECT_EPIC,
     payload: data,

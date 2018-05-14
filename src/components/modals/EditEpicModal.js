@@ -7,7 +7,7 @@ class EditEpicModal extends Component {
     const { epic, number } = this.props;
 
     return (
-      <Modal trigger={<div>Edit</div>} closeIcon>
+      <Modal trigger={<div id={`editEpic${epic.id}`}>Edit</div>} closeIcon>
         <Modal.Header>Module {number}</Modal.Header>
         <Modal.Content>
           <Modal.Description>

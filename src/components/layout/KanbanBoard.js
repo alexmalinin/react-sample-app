@@ -123,7 +123,7 @@ class KanbanBoard extends Component {
               lanes: [
                 { id: "0", title: "Backlog", cards: backlogTasks },
                 { id: "1", title: "In progress", cards: progressTasks },
-                { id: "2", title: "Complete", cards: completedTasks }
+                { id: "2", title: "Done", cards: completedTasks }
               ]
             }}
             className="kanban"
