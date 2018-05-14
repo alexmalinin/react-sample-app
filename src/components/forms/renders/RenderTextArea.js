@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
+import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 
 class RenderTextArea extends Component {
   autoresize = event => {
@@ -33,12 +34,15 @@ class RenderTextArea extends Component {
       meta: { touched, error, warning },
       className,
       large,
+      isRequired,
       padded
     } = this.props;
 
     return (
       <StyledTextArea className={className} large={large} padded={padded}>
-        <p>{label}</p>
+        <div className="textarea-label">
+          {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
+        </div>
         <textarea
           {...input}
           name={input.name}

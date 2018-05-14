@@ -25,9 +25,10 @@ class ModuleForm extends Component {
             <Field
               name="name"
               component={RenderField}
-              label="Module name*"
+              label="Module name"
               className="moduleName"
               validate={[required]}
+              isRequired
               padded
             />
           </Grid.Column>
@@ -49,6 +50,7 @@ class ModuleForm extends Component {
                   label="Estimate"
                   className="estimate"
                   validate={[required, date]}
+                  isRequired
                   handleEtaForm={this.props.handleEtaForm}
                   padded
                   small
@@ -62,9 +64,10 @@ class ModuleForm extends Component {
             <Field
               name="description"
               component={RenderTextArea}
-              label="Brief / Description *"
+              label="Brief / Description"
               className="area"
               validate={[required]}
+              isRequired
               padded
             />
           </Grid.Column>
@@ -82,7 +85,7 @@ class ModuleForm extends Component {
             <Field
               name="user_story"
               component={RenderTextArea}
-              label="User Story *"
+              label="User Story"
               className="area"
               large
               padded

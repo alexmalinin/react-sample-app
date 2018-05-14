@@ -2,6 +2,7 @@ import { Input } from "semantic-ui-react";
 import React from "react";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
+import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
@@ -40,6 +41,7 @@ class RenderField extends React.Component {
       disabled,
       padded,
       small,
+      required,
       meta: { touched, error, warning },
       checkedClass
     } = this.props;
@@ -50,7 +52,9 @@ class RenderField extends React.Component {
 
     return (
       <StyledInputs small={small} padded={padded}>
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>
+          {label && required ? <StyledLabel>{label}</StyledLabel> : label}
+        </label>
         <Input
           error={Boolean(touched && error)}
           {...input}

@@ -71,6 +71,7 @@ class BillingForm extends Component {
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
               <InputField
                 name="password"
@@ -78,6 +79,7 @@ class BillingForm extends Component {
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
             </Grid.Column>
           );
@@ -96,6 +98,7 @@ class BillingForm extends Component {
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
               <InputField
                 name="card_number"
@@ -103,6 +106,7 @@ class BillingForm extends Component {
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
 
               <Grid>
@@ -114,6 +118,7 @@ class BillingForm extends Component {
                       handleFormField={handleFormField}
                       validate={[required]}
                       disabled={disabled}
+                      isRequired
                     />
                   </Grid.Column>
                   <Grid.Column computer={8}>
@@ -123,6 +128,7 @@ class BillingForm extends Component {
                       handleFormField={handleFormField}
                       validate={[required]}
                       disabled={disabled}
+                      isRequired
                     />
                   </Grid.Column>
                 </Grid.Row>
@@ -144,6 +150,7 @@ class BillingForm extends Component {
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
             </Grid.Column>
           );

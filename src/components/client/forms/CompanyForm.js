@@ -50,6 +50,7 @@ class CompanyForm extends Component {
                     label="Company Name"
                     validate={[required]}
                     handleFormField={handleFormField}
+                    isRequired
                   />
 
                   <InputField
@@ -106,6 +107,7 @@ class CompanyForm extends Component {
                     onChange={e => handleSelectChange(e, "segment")}
                     validate={[required]}
                     handleFormField={handleFormField}
+                    isRequired
                   />
 
                   <div id="industry" className="half-column">
@@ -118,6 +120,7 @@ class CompanyForm extends Component {
                       options={industries.industry}
                       validate={[required]}
                       handleFormField={handleFormField}
+                      isRequired
                     />
                   </div>
 
@@ -133,6 +136,7 @@ class CompanyForm extends Component {
                       options={employeers}
                       validate={[required]}
                       handleFormField={handleFormField}
+                      isRequired
                     />
                   </div>
                 </Grid.Column>

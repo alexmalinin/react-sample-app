@@ -21,6 +21,14 @@ export default styled.div`
     padding-left: 10px;
   }
 
+  .speciality-area__label {
+    &:after {
+      content: "*";
+      color: red;
+      margin-left: 5px;
+    }
+  }
+
   & > div {
     display: block;
     margin-left: 0;

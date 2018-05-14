@@ -72,6 +72,7 @@ class SkillsForm extends Component {
                   onChange={e => this.props.handleSelectChange(e, "job_title")}
                   options={job_titles}
                   validate={[required]}
+                  isRequired
                 />
               </div>
               <InputField
@@ -84,6 +85,7 @@ class SkillsForm extends Component {
                 label="What is your industry title?"
                 onChange={handleChange}
                 validate={[required]}
+                isRequired
               />
               {/*doesn't save value*/}
               <div id="experience_level" className="half-column">
@@ -97,6 +99,7 @@ class SkillsForm extends Component {
                   }
                   options={experienceLevels}
                   validate={[required]}
+                  isRequired
                 />
               </div>
               <span id="industry" /> {/*for error scrolling*/}
@@ -108,6 +111,7 @@ class SkillsForm extends Component {
                 onChange={e => this.props.handleSelectChange(e, "industry")}
                 options={industries["industry"]}
                 validate={[required]}
+                isRequired
               />
               <span id="industry_title" /> {/*for error scrolling*/}
               {industry && (
@@ -137,6 +141,7 @@ class SkillsForm extends Component {
                 onChange={e => this.props.handleSelectChange(e, "project_type")}
                 options={projectTypes}
                 validate={[required]}
+                required
               />
             </div>
 

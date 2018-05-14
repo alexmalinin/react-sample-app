@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const StyledTextArea = styled.div`
   ${props => (props.padded ? `padding: 0 20px` : ``)};
 
-  p {
+  p,
+  .textarea-label {
     font-size: 12px;
     text-transform: uppercase;
     color: #666;
@@ -34,7 +35,8 @@ export const StyledTextArea = styled.div`
   }
 
   &.area {
-    p {
+    p,
+    .textarea-label {
       margin-top: 20px;
     }
 

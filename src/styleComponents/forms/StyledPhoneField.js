@@ -65,6 +65,14 @@ export default styled.div`
     font-size: 12px;
   }
 
+  .phone-code__label {
+    &:after {
+      content: "*";
+      margin-left: 5px;
+      color: red;
+    }
+  }
+
   @media (min-width: 1921px) {
     border: 2px solid #ccc;
     margin-bottom: 80px;
