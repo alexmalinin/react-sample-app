@@ -245,11 +245,7 @@ class ClientDashboard extends Component {
 
     return (
       <div>
-        <HeaderBasic
-          props={this.props}
-          page={sidebarCondition}
-          userType="client"
-        />
+        <HeaderBasic match={this.props.match} page={sidebarCondition} />
         <S_MainContainer
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
