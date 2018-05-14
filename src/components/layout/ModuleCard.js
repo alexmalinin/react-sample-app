@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { deleteProjectEpic } from "../../actions/actions";
-import { Dropdown } from "semantic-ui-react";
+import { Form, Input } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, SPECIALIST } from "../../constans/constans";
 
 class Module extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dropdown: false
+      dropdown: false,
+      name: this.props.epic.name,
+      editing: false
     };
   }
 
@@ -20,9 +22,49 @@ class Module extends Component {
     });
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      name: nextProps.epic.name
+    });
+  }
+
   deleteEpic = () => {
     const { epic, project, deleteProjectEpic } = this.props;
     deleteProjectEpic(project, epic.id);
+  };
+
+  handleEdit = (e, data) => {
+    if (data) {
+      const { name, value } = data;
+      this.setState({
+        [name]: value
+      });
+    }
+  };
+
+  toggleEdit = () => {
+    this.setState({
+      editing: true
+    });
+    setTimeout(() => {
+      this.editInput.focus();
+    }, 10);
+  };
+
+  handleKeyboard = e => {
+    if (e.keyCode === 27) {
+      this.closeWithoutSave();
+    }
+    if (e.keyCode === 13) {
+      e.target.blur();
+    }
+  };
+
+  closeWithoutSave = () => {
+    this.setState({
+      name: this.props.epic.name,
+      editing: false
+    });
   };
 
   renderDescription = () => {
@@ -43,13 +85,44 @@ class Module extends Component {
     }
   };
 
+  triggerModal = () => {
+    document.getElementById(`editEpic${this.props.epic.id}`).click();
+  };
+
   render() {
     const { epic, number, updateProjectEpic, changeUserType } = this.props;
-    console.log(epic);
+    const { name, editing } = this.state;
 
     return (
-      <div className="dragContainer">
-        <h3>Module {number}</h3>
+      <div className="dragContainer" onDoubleClick={this.triggerModal}>
+        <h3 onDoubleClick={this.handleEdit}>
+          <span className={`number${editing ? " hidden" : ""}`}>
+            {number > 9 ? number : "0" + number}:
+          </span>
+          <Form className="editChannel" onSubmit={this.submit}>
+            <Input
+              type="text"
+              placeholder="Module name"
+              name="name"
+              value={name}
+              ref={Input => (this.editInput = Input)}
+              // onFocus={e => e.target.select()}
+              disabled={!editing}
+              onKeyUp={this.handleKeyboard}
+              onBlur={this.submit}
+              onChange={this.handleEdit}
+              autoComplete="off"
+              fluid
+            />
+            <button
+              className={`editModule${editing ? " hidden" : ""}`}
+              type="button"
+              onClick={this.toggleEdit}
+            >
+              <img src="/images/edit.png" alt="Edit module" />
+            </button>
+          </Form>
+        </h3>
         <div className="module">
           <h4>{this.renderDescription()}</h4>
           <p>{this.renderStory()}</p>
@@ -87,7 +160,9 @@ class Module extends Component {
                 <div className="item">
                   <EditEpicModal
                     epic={epic}
+                    open={this.state.modal}
                     number={number}
+                    bindTrigger={this.bindTrigger}
                     updateProjectEpic={updateProjectEpic}
                   />
                 </div>
@@ -101,6 +176,30 @@ class Module extends Component {
       </div>
     );
   }
+
+  submit = () => {
+    const {
+      epic: { project_id, id, name },
+      updateProjectEpic
+    } = this.props;
+
+    const data = {
+      name: this.state.name,
+      id,
+      project_id
+    };
+
+    if (!!this.state.name) {
+      updateProjectEpic(data);
+    } else
+      this.setState({
+        name
+      });
+
+    this.setState({
+      editing: false
+    });
+  };
 }
 
 export default connect(({ changeUserType }) => ({ changeUserType }), {

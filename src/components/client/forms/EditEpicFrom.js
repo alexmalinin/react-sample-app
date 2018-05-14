@@ -112,7 +112,7 @@ class EditEpicForm extends Component {
             </Grid.Column>
             {/* </Grid.Row>
 
-                    <Grid.Row> */}
+            <Grid.Row> */}
             <Grid.Column computer={8}>
               <Field
                 name="requirements"
@@ -135,7 +135,7 @@ class EditEpicForm extends Component {
             </Grid.Column>
             {/* </Grid.Row>
 
-                    <Grid.Row> */}
+            <Grid.Row> */}
             <Grid.Column computer={16}>
               <Field
                 name="rules"
@@ -175,6 +175,7 @@ class EditEpicForm extends Component {
 
   fillFields = data => {
     let {
+      name,
       description,
       user_story,
       deliverables,
@@ -184,12 +185,14 @@ class EditEpicForm extends Component {
       eta
     } = data;
 
+    this.props.dispatch(change("EditEpicForm", "name", name));
     this.props.dispatch(change("EditEpicForm", "description", description));
     this.props.dispatch(change("EditEpicForm", "user_story", user_story));
     this.props.dispatch(change("EditEpicForm", "criteria", deliverables));
     this.props.dispatch(
       change("EditEpicForm", "requirements", business_requirements)
     );
+    this.props.dispatch(change("EditEpicForm", "eta", eta));
     this.props.dispatch(change("EditEpicForm", "solution", notes));
     this.props.dispatch(change("EditEpicForm", "rules", business_rules));
   };

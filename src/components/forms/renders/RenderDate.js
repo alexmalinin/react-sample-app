@@ -10,12 +10,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 class RenderField extends React.Component {
   state = {
-    date: moment(this.props.initData)
+    date: this.props.initData ? moment(this.props.initData) : moment()
   };
 
   componentWillMount() {
     this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
-    console.log(this.props.initData);
   }
 
   handleChange = date => {

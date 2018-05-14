@@ -15,7 +15,7 @@ import {
 import { CLIENT, SPECIALIST } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
-import Module from "./layout/ModuleCard";
+import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 
 class ProjectsBoard extends Component {
@@ -143,7 +143,7 @@ class ProjectsBoard extends Component {
           <div className="moduleWrapper">
             {allEpics &&
               allEpics.map((epic, key) => (
-                <Module
+                <ModuleCard
                   epic={epic}
                   key={key}
                   number={key + 1}
@@ -153,7 +153,7 @@ class ProjectsBoard extends Component {
                 />
               ))}
             {userType === CLIENT && (
-              <div className="dragContainer">
+              <div className="dragContainer addModuleContainer">
                 <h3>&nbsp;</h3>
                 <div className="module addModule">
                   <NavLink

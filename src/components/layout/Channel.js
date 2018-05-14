@@ -61,15 +61,8 @@ class Channel extends Component {
   };
 
   renderToDashboard() {
-    const {
-      channel,
-      allSpecialists,
-      specialists,
-      removeFromChannel,
-      changeUserType,
-      teamId
-    } = this.props;
-    const { showDropdown, assignedIds } = this.state;
+    const { channel, allSpecialists, changeUserType } = this.props;
+    const { name, showDeleteConfirmation } = this.state;
 
     return (
       <div className="channel">
@@ -80,17 +73,17 @@ class Channel extends Component {
               placeholder="Channel name"
               name="name"
               disabled={changeUserType === SPECIALIST}
-              value={this.state.name}
+              value={name}
               ref={Input => (this.editInput = Input)}
               onKeyUp={e => e.keyCode === 13 && e.target.blur()}
-              onBlur={this.closeEditForm}
+              onBlur={this.submit}
               onChange={this.handleEdit}
             />
           </Form>
           {changeUserType === CLIENT && (
             <div
               className={`deleteConfirmation${
-                this.state.showDeleteConfirmation ? " show" : ""
+                showDeleteConfirmation ? " show" : ""
               }`}
             >
               <button onClick={this.deleteChannel}>Yes</button>

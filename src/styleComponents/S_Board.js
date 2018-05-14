@@ -8,7 +8,7 @@ export const S_Board = styled.div`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  user-select: none;
+  /* user-select: none; */
   transition: 0.4s ease-in-out;
 
   div.hidden.transition {
@@ -18,9 +18,10 @@ export const S_Board = styled.div`
   h3 {
     text-transform: uppercase;
     font-size: 14px;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
     /* flex: 0 0 31.5%; */
 
+    color: #666;
     border-width: 0px;
     border-bottom-width: 3px;
     border-style: solid;
@@ -45,6 +46,95 @@ export const S_Board = styled.div`
 
     .addModule {
       min-height: auto;
+    }
+
+    &.addModuleContainer {
+      h3 {
+        padding-top: 8px;
+        padding-bottom: 15px;
+      }
+    }
+
+    h3 {
+      display: flex;
+      flex-flow: row nowrap;
+      position: relative;
+
+      .number {
+        position: absolute;
+        top: 10px;
+        left: 5px;
+        transition: 0.3s;
+        &.hidden {
+          opacity: 0;
+          visibility: hidden;
+          left: -10px;
+        }
+      }
+
+      .ui.form {
+        flex: 1 1 auto;
+        color: #666;
+
+        &:hover {
+          button {
+            opacity: 1;
+          }
+        }
+        .ui.input {
+          color: inherit;
+
+          &.disabled {
+            user-select: none;
+            opacity: 1;
+          }
+
+          input {
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: inherit;
+            background: none;
+            border: none;
+            transition: 0.3s;
+            padding-left: 27px;
+
+            &:focus {
+              padding-left: 10px;
+              /* background: #d5e9ea; */
+              /* background: rgba(0, 0, 0, 0.05); */
+              background: rgba(216, 216, 216, 0.18);
+            }
+          }
+        }
+        .editModule {
+          padding: 0;
+          height: 20px;
+          width: 20px;
+          background: none;
+          border: none;
+          position: absolute;
+          top: 50%;
+          right: 0;
+          transform: translateY(-50%);
+          opacity: 0;
+          transition: 0.3s;
+          outline: none;
+          cursor: pointer;
+
+          img {
+            height: 100%;
+            width: 100%;
+          }
+
+          &.hidden {
+            opacity: 0;
+            visibility: hidden;
+            right: -10px;
+          }
+        }
+      }
     }
   }
 
@@ -77,6 +167,8 @@ export const S_Board = styled.div`
         padding-bottom: 15px;
         margin-bottom: 20px;
         z-index: 900;
+        color: #666;
+        padding-left: 0;
 
         border-width: 0px;
         border-bottom-width: 3px;
@@ -142,6 +234,7 @@ export const S_Board = styled.div`
     padding: 20px 20px 15px 20px;
     ${boxShadow.light};
     border-radius: 2px;
+    color: #666;
 
     text-transform: uppercase;
 
