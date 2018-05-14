@@ -87,6 +87,10 @@ class RenderCard extends Component {
     } else removeSpecialistFromTeam(id, team.id, specId);
   };
 
+  nextSpec = () => {
+    this.setState({});
+  };
+
   render() {
     const {
       type,
@@ -96,7 +100,6 @@ class RenderCard extends Component {
       data: {
         name,
         epics,
-        team,
         projects,
         logo,
         //from mockup
@@ -110,7 +113,7 @@ class RenderCard extends Component {
 
     const { projectTeam } = this.state;
 
-    let size, subtitleColor;
+    let size;
 
     switch (type) {
       case "project":
@@ -169,16 +172,12 @@ class RenderCard extends Component {
         <div className={`projectContainer ${type}`}>
           <div className="team">
             {projectTeam &&
-              projectTeam.specialists &&
-              projectTeam.specialists.map((specialist, key) => (
-                <PersonTile
-                  key={key}
-                  specialist={specialist}
-                  handleRemove={this.handleAssign}
-                  userType={changeUserType}
-                  removeTitle="team"
+              projectTeam.specialists && (
+                <ProjectTeam
+                  specialists={projectTeam.specialists}
+                  changeUserType={changeUserType}
                 />
-              ))}
+              )}
             {projectTeam && (
               <AssignDropdown
                 specialists={projectTeam.specialists}
@@ -267,6 +266,61 @@ const RenderDays = ({ days }) => {
 const RenderDayTasks = ({ day }) => {
   return <p className="taskDescription">{day}</p>;
 };
+
+class ProjectTeam extends Component {
+  state = {
+    specialists: this.props.specialists.slice(0, 3),
+    pos: 0
+  };
+
+  prevSpec = () => {
+    this.setState({
+      pos: this.state.pos - 1
+    });
+  };
+
+  nextSpec = () => {
+    this.setState({
+      pos: this.state.pos + 1
+    });
+  };
+
+  render() {
+    const { changeUserType } = this.props;
+    const { pos } = this.state;
+    const hidden = this.props.specialists.length > 3 ? "" : " hidden";
+
+    return (
+      <React.Fragment>
+        <button
+          disabled={pos === 0}
+          className={`prev ${hidden}`}
+          onClick={this.prevSpec}
+        >
+          <i className="fa fa-chevron-left" />
+        </button>
+        {this.props.specialists
+          .slice(pos, pos + 3)
+          .map((specialist, key) => (
+            <PersonTile
+              key={key}
+              specialist={specialist}
+              handleRemove={this.handleAssign}
+              userType={changeUserType}
+              removeTitle="team"
+            />
+          ))}
+        <button
+          disabled={pos === this.props.specialists.length - 3}
+          className={`next ${hidden}`}
+          onClick={this.nextSpec}
+        >
+          <i className="fa fa-chevron-right" />
+        </button>
+      </React.Fragment>
+    );
+  }
+}
 
 export default connect(
   ({

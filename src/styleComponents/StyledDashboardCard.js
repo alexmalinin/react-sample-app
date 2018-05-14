@@ -165,6 +165,7 @@ export default styled.div`
   .projectContainer {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 
     &.project {
       position: absolute;
@@ -175,6 +176,31 @@ export default styled.div`
 
       .team {
         flex: 40%;
+        align-items: center;
+        .next,
+        .prev {
+          border: none;
+          background: none;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s;
+
+          &:disabled {
+            opacity: 0.3;
+          }
+
+          i {
+            transition: 0.3s;
+            color: ${primaryColors.lightGrey};
+
+            &:hover {
+              color: ${primaryColors.darkGrey};
+            }
+          }
+          &.hidden {
+            display: none;
+          }
+        }
       }
 
       .progress {

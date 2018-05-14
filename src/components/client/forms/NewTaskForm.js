@@ -67,9 +67,7 @@ class NewTaskForm extends Component {
   selectProject = e => {
     let moduleList = [];
 
-    e.epics.map(epic =>
-      moduleList.push({ label: epic.description, value: epic.id })
-    );
+    e.epics.map(epic => moduleList.push({ label: epic.name, value: epic.id }));
     this.props.dispatch(change("CreateTaskForm", "epic", ""));
     this.props.showProjectTeam(e.value || e.id);
 
