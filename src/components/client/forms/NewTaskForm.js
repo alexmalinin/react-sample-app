@@ -135,6 +135,7 @@ class NewTaskForm extends Component {
                 label="project"
                 placeholder="Select"
                 validate={[required]}
+                isRequired
                 onChange={this.selectProject}
                 padded
               />
@@ -147,6 +148,7 @@ class NewTaskForm extends Component {
                 label="Module"
                 placeholder="Select"
                 validate={[required]}
+                isRequired
                 disabled={!moduleList.length}
                 padded
               />
@@ -158,6 +160,7 @@ class NewTaskForm extends Component {
                 name="name"
                 label="Summary"
                 validate={[required]}
+                isRequired
                 padded
               />
             </Grid.Column>
@@ -169,6 +172,7 @@ class NewTaskForm extends Component {
                 label="Description"
                 className="area"
                 validate={[required]}
+                isRequired
                 large
                 padded
               />
@@ -195,6 +199,7 @@ class NewTaskForm extends Component {
                 label="Estimate"
                 className="estimate"
                 validate={[required, date]}
+                isRequired
                 handleEtaForm={this.handleEtaForm}
                 padded
               />

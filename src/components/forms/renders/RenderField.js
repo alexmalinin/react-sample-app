@@ -2,6 +2,7 @@ import { Input } from "semantic-ui-react";
 import React from "react";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
+import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 
 class RenderField extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class RenderField extends React.Component {
       checkedClass,
       min,
       pattern,
+      isRequired,
       step
     } = this.props;
 
@@ -24,7 +26,9 @@ class RenderField extends React.Component {
 
     return (
       <StyledInputs className={this.props.className} padded={padded}>
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>
+          {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
+        </label>
         <Input
           error={Boolean(touched && error)}
           {...input}

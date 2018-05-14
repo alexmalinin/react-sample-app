@@ -36,6 +36,7 @@ class EditEpicForm extends Component {
                 label="Module name"
                 className="moduleName"
                 validate={[required]}
+                required
                 padded
               />
             </Grid.Column>
@@ -55,6 +56,7 @@ class EditEpicForm extends Component {
                 label="Estimate"
                 className="estimate"
                 validate={[required]}
+                required
                 initData={this.props.epic.eta}
                 handleEtaForm={this.handleEtaForm}
                 padded
@@ -71,6 +73,7 @@ class EditEpicForm extends Component {
                 label="Brief / Description"
                 className="area"
                 validate={[required]}
+                required
                 padded
               />
             </Grid.Column>

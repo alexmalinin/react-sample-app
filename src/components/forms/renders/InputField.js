@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "redux-form";
 import { required, minLength2 } from "../../../helpers/validate";
+import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import RenderField from "./RenderField";
 
 class InputField extends React.Component {
@@ -13,6 +14,7 @@ class InputField extends React.Component {
       label,
       padded,
       data,
+      isRequired,
       ...rest
     } = this.props;
 
@@ -22,7 +24,9 @@ class InputField extends React.Component {
           name={name}
           type="text"
           placeholder={placeholder}
-          label={label}
+          label={
+            label && isRequired ? <StyledLabel>{label}</StyledLabel> : label
+          }
           component={RenderField}
           disabled={disabled}
           {...rest}

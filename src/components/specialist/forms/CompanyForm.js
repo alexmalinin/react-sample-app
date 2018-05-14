@@ -57,6 +57,7 @@ class CompanyForm extends Component {
                 name="name"
                 label="Company Name"
                 validate={[required]}
+                isRequired
               />
 
               <InputField name="company_address" label="Company Address" />
@@ -79,6 +80,7 @@ class CompanyForm extends Component {
                   placeholder="Select"
                   options={segments}
                   validate={[required]}
+                  isRequired
                 />
               </div>
 
@@ -90,6 +92,7 @@ class CompanyForm extends Component {
                   placeholder="Select"
                   options={industries["industry"]}
                   validate={[required]}
+                  isRequired
                 />
               </div>
 
@@ -101,6 +104,7 @@ class CompanyForm extends Component {
                   placeholder="Select"
                   options={employeers}
                   validate={[required]}
+                  isRequired
                 />
               </div>
             </StyledWelcomeForm>

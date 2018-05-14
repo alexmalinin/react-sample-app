@@ -58,12 +58,14 @@ class BillingForm extends Component {
                 label="Bank account details"
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
               <InputField
                 name="swift_code"
                 label="Swift code"
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
             </Grid.Column>
           );
@@ -80,12 +82,14 @@ class BillingForm extends Component {
                 label="Company name"
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
               <InputField
                 name="manager"
                 label="Manager"
                 validate={[required]}
                 disabled={disabled}
+                isRequired
               />
             </Grid.Column>
           );

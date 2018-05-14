@@ -3,6 +3,7 @@ import "react-select/dist/react-select.css";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import StyledSelect from "../../../styleComponents/forms/StyledSelect";
+import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 
 export default class RenderSelect extends Component {
   render() {
@@ -11,13 +12,16 @@ export default class RenderSelect extends Component {
       input,
       label,
       small,
+      isRequired,
       ...rest
     } = this.props;
     let { value, onChange } = input;
 
     return (
       <StyledInputs {...rest} small={small}>
-        <label>{label}</label>
+        <label>
+          {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
+        </label>
         <StyledSelect
           error={Boolean(touched && error)}
           value={value}

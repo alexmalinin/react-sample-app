@@ -68,6 +68,7 @@ class SkillsForm extends Component {
                   component={RenderSelect}
                   options={job_titles}
                   validate={[required]}
+                  isRequired
                 />
               </div>
               <InputField name="position" label="Position" />
@@ -75,6 +76,7 @@ class SkillsForm extends Component {
                 name="industry_title"
                 label="What is your industry title?"
                 validate={[required]}
+                isRequired
               />
               {/*doesn't save value*/}
               <div id="experience_level" className="half-column">
@@ -85,6 +87,7 @@ class SkillsForm extends Component {
                   label="Experience Level"
                   options={experienceLevels}
                   validate={[required]}
+                  isRequired
                 />
               </div>
               <span id="industry" /> {/*for error scrolling*/}
@@ -95,6 +98,7 @@ class SkillsForm extends Component {
                 label="Select your area within the digital industry"
                 options={industries["industry"]}
                 validate={[required]}
+                isRequired
               />
               <span id="industry_title" /> {/*for error scrolling*/}
               {industry && (
@@ -119,6 +123,7 @@ class SkillsForm extends Component {
                 label="Project Interest"
                 options={projectTypes}
                 validate={[required]}
+                required
               />
             </div>
 
