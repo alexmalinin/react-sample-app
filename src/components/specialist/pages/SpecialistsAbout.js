@@ -158,9 +158,7 @@ class SpecialistsAbout extends Component {
                     </span>
                     <span>
                       {specialistData
-                        ? specialistData["phone_code"] +
-                            " " +
-                            specialistData["phone_number"] || "No phone number"
+                        ? specialistData["phone_number"] || "No phone number"
                         : null}
                     </span>
                   </div>

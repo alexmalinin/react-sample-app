@@ -166,9 +166,7 @@ class ClientAbout extends Component {
                     </span>
                     <span>
                       {clientData
-                        ? clientData["phone_code"] +
-                            " " +
-                            clientData["phone_number"] || "No phone number"
+                        ? clientData["phone_number"] || "No phone number"
                         : null}
                     </span>
                   </div>

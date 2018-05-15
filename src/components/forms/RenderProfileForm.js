@@ -83,7 +83,6 @@ class RenderProfileForm extends Component {
                       isRequired
                     />
                     <StyledPhoneField>
-                      <span className="phone-code__label">Phone</span>
                       <RenderPhone />
                     </StyledPhoneField>
                   </Grid.Column>
@@ -205,7 +204,6 @@ class RenderProfileForm extends Component {
       last_name,
       email,
       address,
-      phone_code,
       phone_number,
       professional_experience_info,
       description
@@ -215,13 +213,6 @@ class RenderProfileForm extends Component {
     this.props.dispatch(change("RenderProfileForm", "first_name", first_name));
     this.props.dispatch(change("RenderProfileForm", "last_name", last_name));
     this.props.dispatch(change("RenderProfileForm", "email", email));
-    this.props.dispatch(
-      change(
-        "RenderProfileForm",
-        "phone_code",
-        phone_code ? { label: phone_code, name: phone_code } : null
-      )
-    );
     this.props.dispatch(
       change("RenderProfileForm", "phone_number", phone_number)
     );
