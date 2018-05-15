@@ -117,6 +117,7 @@ export default styled.div`
     text-transform: none;
     letter-spacing: 1.5px;
     font-size: 16px;
+    max-width: 90%;
   }
 
   .Select-value-label {

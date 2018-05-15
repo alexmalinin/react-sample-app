@@ -518,7 +518,7 @@ export const StyledBar = styled.aside`
     }
   }
 
-  @media screen and (max-width: 1290px) {
+  /* @media screen and (max-width: 1290px) {
     display: none;
-  }
+  } */
 `;
