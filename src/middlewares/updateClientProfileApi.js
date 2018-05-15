@@ -31,7 +31,6 @@ export default store => next => action => {
             avatar: reader.result,
             first_name: payload["first_name"],
             last_name: payload["last_name"],
-            phone_code: payload["phone_code"]["label"],
             phone_number: payload["phone_number"],
             email: payload["email"],
             description: payload["description"],
@@ -62,7 +61,6 @@ export default store => next => action => {
         profile: {
           first_name: payload["first_name"],
           last_name: payload["last_name"],
-          phone_code: payload["phone_code"]["label"],
           phone_number: payload["phone_number"],
           email: payload["email"],
           description: payload["description"],

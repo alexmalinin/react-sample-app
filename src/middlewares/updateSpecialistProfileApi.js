@@ -17,8 +17,6 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
 
-  console.log("payload['phone_number'],", payload["phone_number"]);
-
   window.payload = payload;
   let image = payload["person"] ? payload["person"][0] : null;
 
@@ -35,7 +33,6 @@ export default store => next => action => {
             avatar: reader.result,
             first_name: payload["first_name"],
             last_name: payload["last_name"],
-            phone_code: payload["phone_code"]["label"],
             phone_number: payload["phone_number"],
             email: payload["email"],
             professional_experience_info:
@@ -69,7 +66,6 @@ export default store => next => action => {
         profile: {
           first_name: payload["first_name"],
           last_name: payload["last_name"],
-          phone_code: payload["phone_code"]["label"],
           phone_number: payload["phone_number"],
           email: payload["email"],
           professional_experience_info: payload["professional_experience_info"],
