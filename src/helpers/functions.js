@@ -1,3 +1,5 @@
+import { S_PASSIVE, S_ACTIVE, S_CORE, S_REDGUY } from "../constans/constans";
+
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window
   var queryString = url ? url.split("?")[1] : window.location.search.slice(1);
@@ -106,4 +108,23 @@ export function setCookie(cname, cvalue, exdays) {
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   var expires = "expires=" + d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+export function detectSpecType(role) {
+  switch (role) {
+    case 0:
+      return S_PASSIVE;
+    case 1:
+      return S_ACTIVE;
+    case 2:
+      return S_CORE;
+    case 3:
+      return S_REDGUY;
+    default:
+      return S_PASSIVE;
+  }
+}
+
+export function getUserType() {
+  return localStorage.getItem("s_type");
 }

@@ -11,7 +11,13 @@ import {
   assignSpecialistToTeam,
   removeSpecialistFromTeam
 } from "../../actions/actions";
-import { IMAGE_PORT, CLIENT, SPECIALIST } from "../../constans/constans";
+import {
+  IMAGE_PORT,
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY
+} from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class RenderCard extends Component {
   state = {};
@@ -134,8 +140,6 @@ class RenderCard extends Component {
         break;
     }
 
-    console.log("render card", name);
-
     return (
       <StyledDashboardCard size={size} type={type} village={village}>
         <div className="titleWrapper">
@@ -231,7 +235,7 @@ class RenderCard extends Component {
 
     return (
       <div className="progress">
-        {changeUserType === CLIENT ? (
+        {changeUserType === CLIENT || getUserType() === S_REDGUY ? (
           <SubHeaderLinkWrap
             className="progressItem addModule"
             url={`/dashboard/project/${id}/module/new`}

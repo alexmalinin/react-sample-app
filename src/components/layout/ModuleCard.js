@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { deleteProjectEpic } from "../../actions/actions";
 import { Form, Input } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
-import { CLIENT, SPECIALIST } from "../../constans/constans";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class Module extends Component {
   constructor(props) {
@@ -86,7 +87,9 @@ class Module extends Component {
   };
 
   triggerModal = () => {
-    document.getElementById(`editEpic${this.props.epic.id}`).click();
+    if (this.props.changeUserType === CLIENT || getUserType() === S_REDGUY) {
+      document.getElementById(`editEpic${this.props.epic.id}`).click();
+    }
   };
 
   render() {
@@ -114,13 +117,15 @@ class Module extends Component {
               autoComplete="off"
               fluid
             />
-            <button
-              className={`editModule${editing ? " hidden" : ""}`}
-              type="button"
-              onClick={this.toggleEdit}
-            >
-              <img src="/images/edit.png" alt="Edit module" />
-            </button>
+            {(changeUserType === CLIENT || getUserType() === S_REDGUY) && (
+              <button
+                className={`editModule${editing ? " hidden" : ""}`}
+                type="button"
+                onClick={this.toggleEdit}
+              >
+                <img src="/images/edit.png" alt="Edit module" />
+              </button>
+            )}
           </Form>
         </h3>
         <div className="module">
@@ -151,7 +156,7 @@ class Module extends Component {
               <span>4 weeks</span>
             </div>
           </div>
-          {changeUserType === CLIENT && (
+          {(changeUserType === CLIENT || getUserType() === S_REDGUY) && (
             <div className="dropdown">
               <a tabIndex="1" className="trigger">
                 ...

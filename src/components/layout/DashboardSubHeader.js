@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
-
-import { CLIENT } from "../../constans/constans";
 import AddTaskModal from "../modals/AddTaskModal";
+import { CLIENT, S_REDGUY } from "../../constans/constans";
 
 class DashboardSubHeader extends Component {
   render() {
+    const { theVillage, specialistData, changeUserType } = this.props;
+
     return (
       <StyledSubHeader projects sidebarCondition dashboardSubHeader>
         <div>
@@ -27,7 +28,7 @@ class DashboardSubHeader extends Component {
           >
             &nbsp;
           </SubHeaderLinkWrap>
-          {this.props.theVillage ? (
+          {theVillage ? (
             <SubHeaderLinkWrap
               theVillage
               content="filter"
@@ -35,7 +36,7 @@ class DashboardSubHeader extends Component {
               className="filterVillage dashboard"
             />
           ) : null}
-          {this.props.theVillage ? (
+          {theVillage ? (
             <SubHeaderLinkWrap
               theVillage
               content=""
@@ -45,20 +46,26 @@ class DashboardSubHeader extends Component {
           ) : null}
         </div>
         <div>
-          <AddTaskModal content="Add task" className="dahsboard" />
+          {specialistData &&
+            specialistData.role === S_REDGUY && (
+              <AddTaskModal content="Add task" className="dahsboard" />
+            )}
 
-          <SubHeaderLinkWrap
-            url="/dashboard/project/new"
-            className="rightLink dahsboard addButt"
-          >
-            Add project
-          </SubHeaderLinkWrap>
+          {changeUserType === CLIENT && (
+            <SubHeaderLinkWrap
+              url="/dashboard/project/new"
+              className="rightLink dahsboard addButt"
+            >
+              Add project
+            </SubHeaderLinkWrap>
+          )}
         </div>
       </StyledSubHeader>
     );
   }
 }
 
-export default connect(({ changeUserType }) => ({ changeUserType }), null)(
-  DashboardSubHeader
-);
+export default connect(
+  ({ changeUserType, specialistData }) => ({ changeUserType, specialistData }),
+  null
+)(DashboardSubHeader);

@@ -76,7 +76,6 @@ class SignInForm extends Component {
   };
 
   componentWillReceiveProps(nextState) {
-    console.log(nextState);
     if (nextState.failSignIn) {
       this.renderError(true)();
     }

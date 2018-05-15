@@ -9,7 +9,8 @@ import {
   assignSpecialistToTask,
   removeSpecialistFromTask
 } from "../../actions/actions";
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -119,7 +120,7 @@ class KanbanBoard extends Component {
               ]
             }}
             className="kanban"
-            draggable={changeUserType === CLIENT}
+            draggable={getUserType() === S_REDGUY}
             customCardLayout
             handleDragEnd={this.handleDragEnd}
           >

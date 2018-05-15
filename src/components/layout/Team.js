@@ -9,10 +9,11 @@ import {
   showChannels,
   userType
 } from "../../actions/actions";
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constans/constans";
 
 import Channel from "./Channel";
 import AddChannelForm from "../forms/AddChannelForm";
+import { getUserType } from "../../helpers/functions";
 
 class Team extends Component {
   state = {
@@ -113,7 +114,9 @@ class Team extends Component {
               specialists={""}
             />
           ))}
-          {changeUserType === CLIENT && (
+          {getUserType() !== S_REDGUY &&
+            channels.length === 0 && <p>There is no channels yet :(</p>}
+          {getUserType() === S_REDGUY && (
             <Form className="addChannel" onSubmit={this.submit}>
               <Input
                 type="text"

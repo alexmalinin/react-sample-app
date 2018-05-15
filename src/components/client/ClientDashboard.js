@@ -4,7 +4,8 @@ import {
   showAllProjects,
   showProjectWithId,
   showAllEpics,
-  showEpicTasks
+  showEpicTasks,
+  showClientData
 } from "../../actions/actions";
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
@@ -56,9 +57,11 @@ class ClientDashboard extends Component {
       match: { params },
       projectWithId,
       showAllProjects,
-      showProjectWithId
+      showProjectWithId,
+      showClientData
     } = this.props;
     showAllProjects();
+    showClientData();
 
     let projectId = params["projectId"] || params["projectNewModule"];
 
@@ -389,5 +392,11 @@ export default connect(
     allTeams,
     changeUserType
   }),
-  { showAllProjects, showProjectWithId, showAllEpics, showEpicTasks }
+  {
+    showClientData,
+    showAllProjects,
+    showProjectWithId,
+    showAllEpics,
+    showEpicTasks
+  }
 )(ClientDashboard);

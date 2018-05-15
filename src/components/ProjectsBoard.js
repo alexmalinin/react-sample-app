@@ -12,11 +12,12 @@ import {
   updateEpicTask,
   showAllSpecialists
 } from "../actions/actions";
-import { CLIENT, SPECIALIST } from "../constans/constans";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
+import { getUserType } from "../helpers/functions";
 
 class ProjectsBoard extends Component {
   state = {
@@ -152,20 +153,21 @@ class ProjectsBoard extends Component {
                   updateProjectEpic={updateProjectEpic}
                 />
               ))}
-            {userType === CLIENT && (
-              <div className="dragContainer addModuleContainer">
-                <h3>&nbsp;</h3>
-                <div className="module addModule">
-                  <NavLink
-                    to={`/dashboard/project/${projectId}/module/new`}
-                    className="addButt"
-                  >
-                    <span className="plus">+</span>
-                    <span className="add">Add module</span>
-                  </NavLink>
+            {userType === CLIENT &&
+              getUserType() === S_REDGUY && (
+                <div className="dragContainer addModuleContainer">
+                  <h3>&nbsp;</h3>
+                  <div className="module addModule">
+                    <NavLink
+                      to={`/dashboard/project/${projectId}/module/new`}
+                      className="addButt"
+                    >
+                      <span className="plus">+</span>
+                      <span className="add">Add module</span>
+                    </NavLink>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             {userType === SPECIALIST &&
               allEpics &&
               allEpics.length === 0 && (
