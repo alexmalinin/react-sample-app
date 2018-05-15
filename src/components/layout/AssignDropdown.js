@@ -7,7 +7,13 @@ import {
   StyledSpecialist
 } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import { IMAGE_PORT, CLIENT, SPECIALIST } from "../../constans/constans";
+import {
+  IMAGE_PORT,
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY
+} from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 export class AssignDropdown extends Component {
   state = {
@@ -107,7 +113,7 @@ export class AssignDropdown extends Component {
     const { options, assignedIds, showDropdown } = this.state;
 
     return (
-      userType === CLIENT && (
+      getUserType() === S_REDGUY && (
         <StyledAssignDropdown renderToModal={renderToModal}>
           <a
             tabIndex="1"
@@ -281,7 +287,7 @@ class DeleteTile extends Component {
           />
           <div>
             <p>{specialist.first_name + " " + specialist.last_name}</p>
-            {userType === CLIENT && (
+            {getUserType() === S_REDGUY && (
               <button
                 data={specialist.id}
                 onClick={removeSpecialist}

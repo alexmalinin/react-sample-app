@@ -104,6 +104,7 @@ class RenderImage extends Component {
           placeholder={placeholder}
           type="file"
           multiple
+          accept=".pdf,.doc,.docx"
           onChange={e => this._handleFileAttach(e)}
         />
 

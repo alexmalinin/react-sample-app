@@ -38,15 +38,33 @@ class App extends Component {
         Dashboard = SignIn;
     }
 
+    const token = localStorage.getItem("jwt_token");
+
     return (
       <Router>
         <div>
           <FlexDirection>
             <Switch>
-              <Route exact path="/" render={() => <Redirect to="/sign_up" />} />
+              <Route
+                exact
+                path="/"
+                render={() =>
+                  token ? (
+                    <Redirect to="/dashboard/" />
+                  ) : (
+                    <Redirect to="/sign_in" />
+                  )
+                }
+              />
               <Route
                 path="/index.html"
-                component={() => <Redirect to="/sign_up" />}
+                component={() =>
+                  token ? (
+                    <Redirect to="/dashboard/" />
+                  ) : (
+                    <Redirect to="/sign_in" />
+                  )
+                }
               />
               <Route path="/home" component={Home} />
               <Route path="/contact" component={Contact} />
@@ -65,6 +83,7 @@ class App extends Component {
               <Route path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
+              {!token && <Redirect to="/sign_in" />}
               <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/reset_password" component={ConfirmReset} />
 

@@ -5,13 +5,19 @@ import { Form, Input } from "semantic-ui-react";
 
 import { AssignDropdown, PersonTile } from "./AssignDropdown";
 
-import { IMAGE_PORT, CLIENT, SPECIALIST } from "../../constans/constans";
+import {
+  IMAGE_PORT,
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY
+} from "../../constans/constans";
 import {
   addToChannel,
   removeFromChannel,
   updateTeamChannel,
   deleteTeamChannel
 } from "../../actions/actions";
+import { getUserType } from "../../helpers/functions";
 
 class Channel extends Component {
   state = {
@@ -72,7 +78,7 @@ class Channel extends Component {
               type="text"
               placeholder="Channel name"
               name="name"
-              disabled={changeUserType === SPECIALIST}
+              disabled={getUserType() !== S_REDGUY}
               value={name}
               ref={Input => (this.editInput = Input)}
               onKeyUp={e => e.keyCode === 13 && e.target.blur()}
@@ -80,7 +86,7 @@ class Channel extends Component {
               onChange={this.handleEdit}
             />
           </Form>
-          {changeUserType === CLIENT && (
+          {getUserType() === S_REDGUY && (
             <div
               className={`deleteConfirmation${
                 showDeleteConfirmation ? " show" : ""
@@ -90,7 +96,7 @@ class Channel extends Component {
               <button onClick={this.hideDeleteConfirmation}>No</button>
             </div>
           )}
-          {changeUserType === CLIENT && (
+          {getUserType() === S_REDGUY && (
             <button onClick={this.openDeleteConfirmation} className="delete">
               <img src="/images/trashcan.png" alt="delete" />
             </button>

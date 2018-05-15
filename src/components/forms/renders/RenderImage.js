@@ -60,6 +60,7 @@ class RenderImage extends Component {
           disabled={disabled}
           placeholder={placeholder}
           type={type}
+          accept=".png,.jpg,.jpeg"
           onChange={e => this._handleImageChange(e)}
         />
       </StyledUploader>

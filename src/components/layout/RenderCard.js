@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import ProgressBars from "./ProgressBar";
@@ -11,7 +11,13 @@ import {
   assignSpecialistToTeam,
   removeSpecialistFromTeam
 } from "../../actions/actions";
-import { IMAGE_PORT, CLIENT, SPECIALIST } from "../../constans/constans";
+import {
+  IMAGE_PORT,
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY
+} from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class RenderCard extends Component {
   state = {};
@@ -90,6 +96,13 @@ class RenderCard extends Component {
   nextSpec = () => {
     this.setState({});
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.state.projectTeam !== nextState.projectTeam &&
+      this.props !== nextProps
+    );
+  }
 
   render() {
     const {
@@ -222,7 +235,7 @@ class RenderCard extends Component {
 
     return (
       <div className="progress">
-        {changeUserType === CLIENT ? (
+        {changeUserType === CLIENT || getUserType() === S_REDGUY ? (
           <SubHeaderLinkWrap
             className="progressItem addModule"
             url={`/dashboard/project/${id}/module/new`}
@@ -291,7 +304,7 @@ class ProjectTeam extends Component {
     const hidden = this.props.specialists.length > 3 ? "" : " hidden";
 
     return (
-      <React.Fragment>
+      <Fragment>
         <button
           disabled={pos === 0}
           className={`prev ${hidden}`}
@@ -317,7 +330,7 @@ class ProjectTeam extends Component {
         >
           <i className="fa fa-chevron-right" />
         </button>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

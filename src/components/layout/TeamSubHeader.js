@@ -4,7 +4,8 @@ import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import AddTeamModal from "../modals/AddTeamModal";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, S_CORE, S_REDGUY } from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class TeamSubHeader extends Component {
   render() {
@@ -20,7 +21,9 @@ class TeamSubHeader extends Component {
             &nbsp;
           </SubHeaderLinkWrap>
 
-          {userType === CLIENT && <AddTeamModal />}
+          {(getUserType() === S_CORE || getUserType() === S_REDGUY) && (
+            <AddTeamModal />
+          )}
         </div>
       </StyledSubHeader>
     );

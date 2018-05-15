@@ -5,9 +5,7 @@ import { Dropdown, Popup } from "semantic-ui-react";
 
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 import { ContainerLarge } from "../../styleComponents/layout/Container";
-
-import { showSpecialistData, showClientData } from "../../actions/actions";
-import { CLIENT, SPECIALIST } from "../../constans/constans";
+import { SPECIALIST, CLIENT } from "../../constans/constans";
 
 class Header extends Component {
   state = {
@@ -15,27 +13,21 @@ class Header extends Component {
   };
 
   componentWillMount() {
-    const { showSpecialistData, showClientData, changeUserType } = this.props;
-
-    if (changeUserType === CLIENT) {
-      showClientData();
-    } else if (changeUserType === SPECIALIST) {
-      showSpecialistData();
-    }
+    const { changeUserType } = this.props;
   }
 
   render() {
-    const { page, specialistData, clientData } = this.props;
+    const { page, specialistData, clientData, changeUserType } = this.props;
 
     let isNavMenu = null;
 
-    if (clientData) {
+    if (changeUserType === CLIENT && clientData) {
       if (clientData.first_name) {
         isNavMenu = true;
       }
     }
 
-    if (specialistData) {
+    if (changeUserType === SPECIALIST && specialistData) {
       if (specialistData.first_name) {
         isNavMenu = true;
       }
@@ -96,7 +88,7 @@ class Header extends Component {
                 activeClassName="current"
                 className="item-link"
                 onClick={this.logOut}
-                to="/sign_up"
+                to="/sign_in"
               >
                 <Popup
                   trigger={<i className="fas fa-sign-out-alt" />}
@@ -122,5 +114,5 @@ export default connect(
     specialistData,
     clientData
   }),
-  { showSpecialistData, showClientData }
+  null
 )(Header);

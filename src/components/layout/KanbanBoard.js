@@ -9,7 +9,8 @@ import {
   assignSpecialistToTask,
   removeSpecialistFromTask
 } from "../../actions/actions";
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -53,47 +54,37 @@ class KanbanBoard extends Component {
         nextProps.allSpecialists
       ) {
         let backlog = [],
+          completed = [],
           progress = [],
-          completed = [];
-        nextProps.epicTasks.map(task => {
+          accepted = [];
+        nextProps.epicTasks.forEach(task => {
+          const taskObject = {
+            id: `${task.id}`,
+            assignSpecialist: this.assignSpecialist,
+            removeSpecialist: this.removeSpecialist,
+            title: task.name,
+            description: "Platform - Dashboard",
+            specialists: task.specialists,
+            specialistList: nextProps.allSpecialists
+          };
           if (task.state === "backlog") {
-            backlog.push({
-              id: `${task.id}`,
-              assignSpecialist: this.assignSpecialist,
-              removeSpecialist: this.removeSpecialist,
-              title: task.name,
-              description: "Platform - Dashboard",
-              specialists: task.specialists,
-              specialistList: nextProps.allSpecialists
-            });
+            backlog.push(taskObject);
           }
           if (task.state === "in_progress") {
-            progress.push({
-              id: `${task.id}`,
-              assignSpecialist: this.assignSpecialist,
-              removeSpecialist: this.removeSpecialist,
-              title: task.name,
-              description: "Platform - Dashboard",
-              specialists: task.specialists,
-              specialistList: nextProps.allSpecialists
-            });
+            progress.push(taskObject);
           }
           if (task.state === "done") {
-            completed.push({
-              id: `${task.id}`,
-              assignSpecialist: this.assignSpecialist,
-              removeSpecialist: this.removeSpecialist,
-              title: task.name,
-              description: "Platform - Dashboard",
-              specialists: task.specialists,
-              specialistList: nextProps.allSpecialists
-            });
+            completed.push(taskObject);
+          }
+          if (task.state === "accepted") {
+            accepted.push(taskObject);
           }
         });
         this.setState({
           backlogTasks: backlog,
           progressTasks: progress,
           completedTasks: completed,
+          acceptedTasks: accepted,
           showBoard: true
         });
       }
@@ -110,6 +101,7 @@ class KanbanBoard extends Component {
       backlogTasks,
       progressTasks,
       completedTasks,
+      acceptedTasks,
       showBoard
     } = this.state;
 
@@ -123,11 +115,12 @@ class KanbanBoard extends Component {
               lanes: [
                 { id: "0", title: "Backlog", cards: backlogTasks },
                 { id: "1", title: "In progress", cards: progressTasks },
-                { id: "2", title: "Done", cards: completedTasks }
+                { id: "2", title: "Done", cards: completedTasks },
+                { id: "3", title: "Accepted", cards: acceptedTasks }
               ]
             }}
             className="kanban"
-            draggable={changeUserType === CLIENT}
+            draggable={getUserType() === S_REDGUY}
             customCardLayout
             handleDragEnd={this.handleDragEnd}
           >

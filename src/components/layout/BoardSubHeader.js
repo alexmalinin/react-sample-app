@@ -5,7 +5,8 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
-import { CLIENT } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { getUserType } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
@@ -79,7 +80,7 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
         >
           <div className="boardProgressBars">
-            {changeUserType === CLIENT && (
+            {getUserType() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
                 project={project}

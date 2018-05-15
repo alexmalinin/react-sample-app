@@ -60,6 +60,7 @@ class SpecialistsDashboard extends Component {
     this.props.showAllProjects();
     this.props.showSpecialistProjects();
     this.props.showSpecialistTeams();
+    this.props.showSpecialistData();
   }
 
   collectPropfileData() {
@@ -212,15 +213,18 @@ class SpecialistsDashboard extends Component {
     const {
       match: { params },
       specialistTeams,
-      changeUserType
+      changeUserType,
+      history
     } = this.props;
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
     if (params["page"]) {
       page = params["page"];
-    } else if (params["projectId"]) {
+    } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
+    } else if (params["projectId"] && params["projectId"] === "new") {
+      history.push("/dashboard/");
     } else if (params["projectNewModule"]) {
       page = "module";
     } else page = "root;";

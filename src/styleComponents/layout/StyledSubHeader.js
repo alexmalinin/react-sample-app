@@ -56,6 +56,7 @@ export default styled.div`
   }
 
   .boardProgressBars {
+    padding-bottom: 26px;
     a {
       opacity: 1;
       flex: 33%;
