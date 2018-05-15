@@ -233,7 +233,7 @@ class SpecialistsDashboard extends Component {
 
     return (
       <div>
-        <HeaderBasic page={sidebarCondition} />
+        <HeaderBasic match={this.props.match} page={sidebarCondition} />
         <S_MainContainer
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
