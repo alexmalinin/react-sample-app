@@ -7,6 +7,7 @@ export default styled.div`
       props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
     ${props => (props.widthAuto ? `width: 100%` : `width: 850px`)};
 
+    margin-top: 40px;
     font-size: 28px;
     font-family: Roboto, sans-serif;
     font-weight: 400;
@@ -154,8 +155,6 @@ export default styled.div`
     @media (max-width: 1920px) {
 
      ${props => (props.widthAuto ? `width: 100%` : `width: 650px`)};
-      margin: 0 auto;
-      margin-top: 40px;
 
       .ui {
         &.text.menu {

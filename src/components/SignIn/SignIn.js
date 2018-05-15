@@ -66,7 +66,7 @@ class SignUp extends Component {
                 <div className="form-title">Sign in</div>
                 <div className="form-subtitle">Welcome back!</div>
               </StyledFormHeader>
-              <Tabs mTop="180" widthAuto action="" className="relative">
+              <Tabs widthAuto action="" className="relative">
                 <Tab
                   className={
                     Loading ? "loading content-loading" : "loading content-load"

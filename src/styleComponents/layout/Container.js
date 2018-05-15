@@ -97,13 +97,13 @@ export const Container = styled.div`
 `;
 
 export const IntroContainer = styled.div`
-
   position: relative;
-  font-family: 'Brix',sans-serif;
+  font-family: "Brix", sans-serif;
   margin: 70px auto 0 auto;
   border-radius: 3px;
   padding: 30px 30px 60px 30px;
   width: 100%;
+  max-width: 600px;
   background-color: #fff;
 
   & .confirm-msg {
@@ -126,16 +126,9 @@ export const IntroContainer = styled.div`
     }
   }
 
-  @media (max-width: 1920px) {
-      max-width: 600px;
-
-      /* ${props => (props.indentTop ? `margin-top: 80px` : ``)}; */
-  }
-
-
   @media (max-width: 600px) {
-      width: 100%;
-      padding: 10%;
-      margin 40px auto 0;
+    width: 100%;
+    padding: 10%;
+    margin: 40px auto 0;
   }
 `;

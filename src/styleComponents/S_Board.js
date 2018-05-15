@@ -193,6 +193,7 @@ export const S_Board = styled.div`
         width: 100%;
         overflow: visible;
         z-index: 901;
+        min-width: auto;
 
         article {
           max-width: 100%;

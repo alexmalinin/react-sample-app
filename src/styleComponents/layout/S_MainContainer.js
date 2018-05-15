@@ -3,6 +3,7 @@ import { primaryColors } from "../constants/colors";
 
 export const S_MainContainer = styled.div`
 
+    position: relative;
     max-width: 1920px;
     margin: 0 auto;
     width: 100%;
