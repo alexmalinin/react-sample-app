@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import ProgressBars from "./ProgressBar";
@@ -91,6 +91,13 @@ class RenderCard extends Component {
     this.setState({});
   };
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.state.projectTeam !== nextState.projectTeam &&
+      this.props !== nextProps
+    );
+  }
+
   render() {
     const {
       type,
@@ -126,6 +133,8 @@ class RenderCard extends Component {
         size = this.props.data.size;
         break;
     }
+
+    console.log("render card", name);
 
     return (
       <StyledDashboardCard size={size} type={type} village={village}>
@@ -291,7 +300,7 @@ class ProjectTeam extends Component {
     const hidden = this.props.specialists.length > 3 ? "" : " hidden";
 
     return (
-      <React.Fragment>
+      <Fragment>
         <button
           disabled={pos === 0}
           className={`prev ${hidden}`}
@@ -317,7 +326,7 @@ class ProjectTeam extends Component {
         >
           <i className="fa fa-chevron-right" />
         </button>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

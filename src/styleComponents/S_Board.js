@@ -152,7 +152,7 @@ export const S_Board = styled.div`
     }
 
     & > section {
-      flex: 0 0 31.5%;
+      flex: 0 0 24%;
       background: none;
       max-height: 100%;
       height: 100%;
