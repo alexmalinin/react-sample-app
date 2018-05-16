@@ -1,20 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
-import { Grid, Tab } from "semantic-ui-react";
+import { Tab } from "semantic-ui-react";
 import HeaderIntro from "../layout/HeaderIntro";
 import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
 import { IntroContainer } from "../../styleComponents/layout/Container";
 import Loader from "../layout/Loader";
 import StyledSignUpForm from "../../styleComponents/StyledSignUpForm";
-import DvGrid from "../../styleComponents/layout/DvGrid";
 import StyledFormHeader from "../../styleComponents/StyledFormHeader";
 import Tabs from "../../styleComponents/Tabs";
-import { DvTitleBig } from "../../styleComponents/layout/DvTitles";
 import SignInForm from "./SignInForm";
 import { signIn, userType } from "../../actions/actions";
-import StyledFormHint from "../../styleComponents/forms/StyledFormHint";
 
 class SignUp extends Component {
   componentWillMount() {
@@ -101,9 +97,6 @@ class SignUp extends Component {
   submit = values => {
     let { changeUserType } = this.props;
     let user = changeUserType === "Specialist" ? "specialist" : "customer";
-    var date = new Date();
-    date.setDate(date.getDate() + 1460);
-    localStorage.setItem("userType", changeUserType);
     this.props.signIn(user, values);
   };
 

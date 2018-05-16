@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
@@ -26,7 +26,9 @@ import {
   showProjectWithId,
   showAllEpics,
   showSpecialistProjects,
-  showSpecialistTeams
+  showSpecialistTeams,
+  showProjectTeam,
+  showAllSpecialists
 } from "../../../actions/actions";
 import Teams from "../../Teams";
 import {
@@ -57,7 +59,7 @@ class SpecialistsDashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.showAllProjects();
+    // this.props.showAllProjects();
     this.props.showSpecialistProjects();
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
@@ -356,9 +358,11 @@ class SpecialistsDashboard extends Component {
       if (nextProps.projectWithId.id != projectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
+        nextProps.showProjectTeam(projectId);
       }
     } else if (projectId) {
       nextProps.showProjectWithId(projectId);
+      nextProps.showProjectTeam(projectId);
     }
   }
 }
@@ -394,6 +398,8 @@ export default connect(
     showProjectWithId,
     showAllEpics,
     showSpecialistProjects,
-    showSpecialistTeams
+    showSpecialistTeams,
+    showProjectTeam,
+    showAllSpecialists
   }
 )(SpecialistsDashboard);

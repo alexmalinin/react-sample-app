@@ -83,7 +83,10 @@ class App extends Component {
               <Route path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
-              {!token && <Redirect to="/sign_in" />}
+              {!token &&
+                !localStorage.getItem("user_email") && (
+                  <Redirect to="/sign_in" />
+                )}
               <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/reset_password" component={ConfirmReset} />
 

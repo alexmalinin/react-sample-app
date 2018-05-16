@@ -1,29 +1,28 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Grid, GridRow, Form, Input } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+import { Grid, Form, Input } from "semantic-ui-react";
 
 import {
   showAllSpecialists,
   createTeamChannel,
   showChannels,
-  userType
+  showProjectTeam
 } from "../../actions/actions";
-import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { S_REDGUY } from "../../constans/constans";
 
 import Channel from "./Channel";
-import AddChannelForm from "../forms/AddChannelForm";
 import { getUserType } from "../../helpers/functions";
 
 class Team extends Component {
   state = {
     name: "",
-    channels: []
+    channels: [],
+    specialistsList: null
   };
 
   componentWillMount() {
-    const { showAllSpecialists, team, showChannels } = this.props;
-    showAllSpecialists();
+    const { showProjectTeam, team, showChannels } = this.props;
+    showProjectTeam(team.project_id);
     showChannels(team.id);
   }
 
@@ -37,9 +36,23 @@ class Team extends Component {
     //map channels from backend's index
     if (nextProps.allChannels) {
       if (nextProps.allChannels.team === nextProps.team.id) {
-        this.setState({
-          channels: nextProps.allChannels
-        });
+        this.setState(
+          state =>
+            state.channels === nextProps.allChannels
+              ? null
+              : { channels: nextProps.allChannels }
+        );
+      }
+    }
+
+    if (nextProps.projectTeam) {
+      if (nextProps.projectTeam[0].id === nextProps.team.id) {
+        this.setState(
+          state =>
+            state.specialistsList === nextProps.projectTeam[0].specialists
+              ? null
+              : { specialistsList: nextProps.projectTeam[0].specialists }
+        );
       }
     }
 
@@ -92,8 +105,8 @@ class Team extends Component {
   }
 
   renderToDashboard() {
-    const { team, allSpecialists, changeUserType } = this.props;
-    const { channels } = this.state;
+    const { team } = this.props;
+    const { channels, specialistsList } = this.state;
 
     return (
       <Grid>
@@ -110,7 +123,7 @@ class Team extends Component {
             <Channel
               channel={channel}
               key={key}
-              allSpecialists={allSpecialists}
+              allSpecialists={specialistsList}
               specialists={""}
             />
           ))}
@@ -134,8 +147,8 @@ class Team extends Component {
   }
 
   renderToRightSidebar() {
-    const { team, allSpecialists } = this.props;
-    const { channels } = this.state;
+    const { team } = this.props;
+    const { channels, specialistsList } = this.state;
 
     return (
       <Fragment>
@@ -146,7 +159,7 @@ class Team extends Component {
               <Channel
                 channel={channel}
                 key={key}
-                allSpecialists={allSpecialists}
+                allSpecialists={specialistsList}
                 renderToRightSidebar
               />
             ))
@@ -182,7 +195,8 @@ export default connect(
     removeMember,
     updateChannel,
     deleteChannel,
-    changeUserType
+    changeUserType,
+    projectTeam
   }) => ({
     allSpecialists,
     createChannel,
@@ -191,7 +205,8 @@ export default connect(
     removeMember,
     updateChannel,
     deleteChannel,
-    changeUserType
+    changeUserType,
+    projectTeam
   }),
-  { showAllSpecialists, createTeamChannel, showChannels }
+  { showAllSpecialists, createTeamChannel, showChannels, showProjectTeam }
 )(Team);

@@ -5,9 +5,8 @@ import StyledRadio from "../../../styleComponents/forms/StyledRadio";
 class RenderCircleCheckbox extends Component {
   componentWillReceiveProps(nextProps) {
     let { handleSpecialityCheckbox } = this.props;
-    handleSpecialityCheckbox
-      ? handleSpecialityCheckbox(this.props.itemValue, nextProps)
-      : "";
+    handleSpecialityCheckbox &&
+      handleSpecialityCheckbox(this.props.itemValue, nextProps);
   }
 
   render() {

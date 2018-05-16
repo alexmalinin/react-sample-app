@@ -121,8 +121,6 @@ class ClientAbout extends Component {
 
     let { avatar } = clientData || false;
 
-    console.log("clientData", clientData);
-
     return (
       <ContainerLarge>
         <AboutSubHeader />

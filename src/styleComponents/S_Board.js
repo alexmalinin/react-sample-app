@@ -146,9 +146,28 @@ export const S_Board = styled.div`
     background: none;
     height: auto;
     overflow-y: visible;
+    transition: 0.4s;
+    opacity: 0;
+    z-index: 10;
 
     &.visible {
       display: flex !important;
+    }
+
+    &.show {
+      animation: fade 0.4s forwards;
+    }
+
+    &.fade {
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     & > section {

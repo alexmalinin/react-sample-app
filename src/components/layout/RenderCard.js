@@ -2,7 +2,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import ProgressBars from "./ProgressBar";
-import { AssignDropdown, PersonTile } from "./AssignDropdown";
+import AssignDropdown from "./AssignDropdown";
+import PersonTile from "./PersonTile";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledDashboardCard from "../../styleComponents/StyledDashboardCard";
 
@@ -11,12 +12,7 @@ import {
   assignSpecialistToTeam,
   removeSpecialistFromTeam
 } from "../../actions/actions";
-import {
-  IMAGE_PORT,
-  CLIENT,
-  SPECIALIST,
-  S_REDGUY
-} from "../../constans/constans";
+import { IMAGE_PORT, CLIENT, S_REDGUY } from "../../constans/constans";
 import { getUserType } from "../../helpers/functions";
 
 class RenderCard extends Component {
@@ -38,8 +34,7 @@ class RenderCard extends Component {
     const {
       type,
       data: { id },
-      projectTeam,
-      assignToTeam
+      projectTeam
     } = nextProps;
 
     //TODO: type of cards as different components
@@ -231,7 +226,7 @@ class RenderCard extends Component {
     let completedTasksCount = 0;
     epics &&
       epics.forEach(epic => epic.state === "done" && completedTasksCount++);
-    const percents = Math.round(completedTasksCount / epics.length * 100) || 0;
+    // const percents = Math.round(completedTasksCount / epics.length * 100) || 0;
 
     return (
       <div className="progress">

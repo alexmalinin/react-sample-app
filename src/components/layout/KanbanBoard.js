@@ -9,7 +9,7 @@ import {
   assignSpecialistToTask,
   removeSpecialistFromTask
 } from "../../actions/actions";
-import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { S_REDGUY } from "../../constans/constans";
 import { getUserType } from "../../helpers/functions";
 
 class KanbanBoard extends Component {
@@ -48,7 +48,11 @@ class KanbanBoard extends Component {
       });
     }
 
-    if (nextProps.epicTasks && nextProps.currentEpic !== "all") {
+    if (
+      nextProps.epicTasks &&
+      nextProps.projectTeam &&
+      nextProps.currentEpic !== "all"
+    ) {
       if (
         this.props.epicTasks !== nextProps.epicTasks ||
         nextProps.allSpecialists
@@ -65,7 +69,7 @@ class KanbanBoard extends Component {
             title: task.name,
             description: "Platform - Dashboard",
             specialists: task.specialists,
-            specialistList: nextProps.allSpecialists
+            specialistList: nextProps.projectTeam[0].specialists
           };
           if (task.state === "backlog") {
             backlog.push(taskObject);
@@ -96,7 +100,7 @@ class KanbanBoard extends Component {
   }
 
   render() {
-    const { changeUserType } = this.props;
+    const { changeUserType, currentEpic, epicId, epicTasks } = this.props;
     const {
       backlogTasks,
       progressTasks,
@@ -106,39 +110,63 @@ class KanbanBoard extends Component {
     } = this.state;
 
     return (
-      <Transition animation="fade" duration={400} visible={showBoard}>
-        {backlogTasks.length !== 0 ||
-        progressTasks.length !== 0 ||
-        completedTasks.length !== 0 ? (
-          <Board
-            data={{
-              lanes: [
-                { id: "0", title: "Backlog", cards: backlogTasks },
-                { id: "1", title: "In progress", cards: progressTasks },
-                { id: "2", title: "Done", cards: completedTasks },
-                { id: "3", title: "Accepted", cards: acceptedTasks }
-              ]
-            }}
-            className="kanban"
-            draggable={getUserType() === S_REDGUY}
-            customCardLayout
-            handleDragEnd={this.handleDragEnd}
-          >
-            <CustomCard userType={changeUserType} />
-          </Board>
-        ) : (
-          <div className="noTasks">No tasks for now</div>
-        )}
-      </Transition>
+      // <Transition animation="fade" duration={400} visible={showBoard}>
+      //   {backlogTasks.length !== 0 ||
+      //   progressTasks.length !== 0 ||
+      //   completedTasks.length !== 0 ? (
+      //     <Board
+      //       data={{
+      //         lanes: [
+      //           { id: "0", title: "Backlog", cards: backlogTasks },
+      //           { id: "1", title: "In progress", cards: progressTasks },
+      //           { id: "2", title: "Done", cards: completedTasks },
+      //           { id: "3", title: "Accepted", cards: acceptedTasks }
+      //         ]
+      //       }}
+      //       className="kanban"
+      //       draggable={getUserType() === S_REDGUY}
+      //       customCardLayout
+      //       handleDragEnd={this.handleDragEnd}
+      //     >
+      //       <CustomCard userType={changeUserType} />
+      //     </Board>
+      //   ) : (
+      //     <div className="noTasks">No tasks for now</div>
+      //   )}
+      // </Transition>
+      showBoard &&
+      (backlogTasks.length !== 0 ||
+      progressTasks.length !== 0 ||
+      completedTasks.length !== 0 ? (
+        <Board
+          data={{
+            lanes: [
+              { id: "0", title: "Backlog", cards: backlogTasks },
+              { id: "1", title: "In progress", cards: progressTasks },
+              { id: "2", title: "Done", cards: completedTasks },
+              { id: "3", title: "Accepted", cards: acceptedTasks }
+            ]
+          }}
+          className={`kanban${epicId !== epicTasks.epicId ? " fade" : " show"}`}
+          draggable={getUserType() === S_REDGUY}
+          customCardLayout
+          handleDragEnd={this.handleDragEnd}
+        >
+          <CustomCard userType={changeUserType} />
+        </Board>
+      ) : (
+        <div className="noTasks">No tasks for now</div>
+      ))
     );
   }
 }
 
 export default connect(
-  ({ epicTasks, allSpecialists, changeUserType }) => ({
+  ({ epicTasks, allSpecialists, changeUserType, projectTeam }) => ({
     epicTasks,
     allSpecialists,
-    changeUserType
+    changeUserType,
+    projectTeam
   }),
   { updateEpicTask, assignSpecialistToTask, removeSpecialistFromTask }
 )(KanbanBoard);

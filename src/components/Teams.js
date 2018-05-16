@@ -46,7 +46,7 @@ class Teams extends Component {
   }
 
   renderToRightSidebar() {
-    const { teams, createChannel } = this.props;
+    const { teams } = this.props;
 
     return (
       <div className="team-tab-project">

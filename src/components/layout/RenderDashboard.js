@@ -5,14 +5,12 @@ import RenderCard from "./RenderCard";
 import StyledDashBoard from "../../styleComponents/StyledDashBoard";
 
 import { showAllSpecialists } from "../../actions/actions";
-import { CLIENT, SPECIALIST } from "../../constans/constans";
 import cards from "../../helpers/cardsData";
 
 class RenderDashboard extends Component {
   componentWillMount() {
-    this.props.showAllSpecialists();
+    this.props.showAllSpecialists("active", "core");
   }
-
   renderCards(type) {
     const data = cards;
     let dueCards = data.filter(item => {
