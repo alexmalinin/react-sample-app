@@ -7,11 +7,18 @@ export default styled.form`
     margin-bottom: 50px;
   }
 
-  @media (max-width: 1920px) {
-    margin: 40px 0 90px;
+  .btn-wrap {
+    margin: 0;
+    text-align: right;
+  }
 
+  @media (max-width: 1920px) {
     & > div {
       margin-bottom: 30px;
+    }
+
+    .btn-wrap {
+      margin: 0;
     }
 
     .ui.input input {

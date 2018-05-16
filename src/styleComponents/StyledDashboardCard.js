@@ -97,7 +97,7 @@ export default styled.div`
     position: relative;
     width: 55px;
     height: 55px;
-    margin-left: 10px;
+    margin: 10px 0 10px 10px;
     border: 2px solid #4d4d4d;
     border-radius: 50%;
     font-size: 15px;

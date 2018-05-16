@@ -113,42 +113,6 @@ export const StyledEducationCard = styled(Card)`
     }
   }
 
-  @media (min-width: 1921px) {
-    &.ui.card {
-      & > .content {
-        padding: 50px 80px;
-
-        > .header:not(.ui) {
-          font-size: 48px;
-          margin-bottom: 25px;
-        }
-
-        > .description {
-          color: #000;
-
-          p {
-            margin-bottom: 40px;
-          }
-        }
-      }
-
-      .meta {
-        font-size: 36px;
-        font-weight: 300;
-        line-height: 1;
-      }
-
-      .period {
-        margin: 40px 0;
-
-        img {
-          width: auto;
-          margin-right: 25px;
-        }
-      }
-    }
-  }
-
   @media (max-width: 767px) {
     &.ui.card {
       width: 75%;

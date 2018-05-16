@@ -13,7 +13,10 @@ import {
   updateSpecStep1
 } from "../../../actions/actions";
 
-import { Container } from "../../../styleComponents/layout/Container";
+import {
+  ContainerLarge,
+  Container
+} from "../../../styleComponents/layout/Container";
 import SpecialistAccountSubHeader from "../../layout/SpecialistAccountSubHeader";
 import StyledAccountPages from "../../../styleComponents/StyledAccountPages";
 
@@ -33,42 +36,44 @@ class ClientStatement extends Component {
     } = this.props;
 
     return (
-      <StyledAccountPages>
-        <SpecialistAccountSubHeader />
-        <Container className="sample" sidebarCondition>
-          <Grid>
-            <SectionHeader content="statement" />
+      <ContainerLarge>
+        <StyledAccountPages>
+          <SpecialistAccountSubHeader />
+          <Container className="sample" sidebarCondition>
+            <Grid>
+              <SectionHeader content="statement" />
 
-            <Grid.Row className="sectionTitle">
-              <Grid.Column computer={12}>regent</Grid.Column>
-              <Grid.Column computer={4}>download</Grid.Column>
-            </Grid.Row>
+              <Grid.Row className="sectionTitle">
+                <Grid.Column computer={12}>regent</Grid.Column>
+                <Grid.Column computer={4}>download</Grid.Column>
+              </Grid.Row>
 
-            <Grid.Row className="sectionContent">
-              <Grid.Column computer={12}>2017</Grid.Column>
-              <Grid.Column computer={4} className="statementLinks">
-                <NavLink to="#" className="statementLink">
-                  exel
-                </NavLink>
-                <NavLink to="#" className="statementLink">
-                  pdf
-                </NavLink>
-                <NavLink to="#" className="statementLink">
-                  cvs
-                </NavLink>
-              </Grid.Column>
-            </Grid.Row>
+              <Grid.Row className="sectionContent">
+                <Grid.Column computer={12}>2017</Grid.Column>
+                <Grid.Column computer={4} className="statementLinks">
+                  <NavLink to="#" className="statementLink">
+                    exel
+                  </NavLink>
+                  <NavLink to="#" className="statementLink">
+                    pdf
+                  </NavLink>
+                  <NavLink to="#" className="statementLink">
+                    cvs
+                  </NavLink>
+                </Grid.Column>
+              </Grid.Row>
 
-            <SectionHeader content="general report" />
+              <SectionHeader content="general report" />
 
-            <Grid.Row className="sectionTitle">
-              <Grid.Column className="sectionColumn" computer={16}>
-                <ClientStatementForm onSubmit={this.submit} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
-      </StyledAccountPages>
+              <Grid.Row className="sectionTitle">
+                <Grid.Column className="sectionColumn" computer={16}>
+                  <ClientStatementForm onSubmit={this.submit} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Container>
+        </StyledAccountPages>
+      </ContainerLarge>
     );
   }
 }

@@ -54,19 +54,4 @@ export default styled.div`
     height: 15px;
     border: 1px solid #ccc;
   }
-
-  @media (min-width: 1921px) {
-    .ownRadio::before {
-      height: 30px;
-      width: 30px;
-      left: -55px;
-    }
-
-    .ownInput:checked + .ownRadio::after {
-      width: 20px;
-      height: 20px;
-      top: 5px;
-      left: -50px;
-    }
-  }
 `;

@@ -123,38 +123,4 @@ export default styled.div`
   .Select-value-label {
     color: #ccc !important;
   }
-
-  @media (min-width: 1921px) {
-    margin-bottom: 40px;
-
-    .ui.input {
-      font-size: 28px;
-    }
-
-    .Select-control {
-      height: 74px;
-    }
-
-    .Select-placeholder {
-      padding: 0 25px;
-      line-height: 74px;
-      font-size: 28px;
-    }
-
-    .Select-value {
-      font-size: 28px;
-      padding-left: 25px !important; //overwrite theme
-
-      span {
-        line-height: 74px;
-      }
-    }
-  }
-
-  /* @media(max-width: 1920px) {
-         .ui.input {
-
-            }
-        }
-    } */
 `;
