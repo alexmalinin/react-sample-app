@@ -20,7 +20,7 @@ class AddTaskModal extends Component {
           </a>
         }
       >
-        <Modal.Header>Task creation</Modal.Header>
+        <Modal.Header>Epic creation</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <NewTaskForm project={project} epic={epic} onSubmit={this.submit} />
@@ -31,7 +31,7 @@ class AddTaskModal extends Component {
   }
 
   submit = data => {
-    console.log(data);
+    console.log("add_submit_data", data);
     let close = document.querySelector("i.close.icon");
     let { createEpicTask } = this.props;
     close.click();

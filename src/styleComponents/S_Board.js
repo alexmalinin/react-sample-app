@@ -262,12 +262,12 @@ export const S_Board = styled.div`
 
     text-transform: uppercase;
 
-    &>h4,
-    &>div{
-      flex 0 0 100%;
+    & > h4,
+    & > div {
+      flex: 0 0 100%;
     }
 
-    &::before {
+    /* &::before {
       content: "...";
       position: absolute;
       top: 5px;
@@ -276,7 +276,7 @@ export const S_Board = styled.div`
       color: #7f7f7f;
       user-select: none;
       cursor: pointer;
-    }
+    } */
 
     h4 {
       margin-top: 0;
@@ -363,6 +363,62 @@ export const S_Board = styled.div`
       font-size: 12px;
       color: #989898;
     }
+
+    .dropdown {
+      position: absolute;
+      top: 5px;
+      right: 20px;
+      font-size: 24px;
+
+      button {
+        padding: 0;
+        border: none;
+        background: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .menu {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 0;
+        min-width: 70px;
+        background: #fff;
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        border-radius: 5px;
+
+        .item {
+          padding-left: 10px;
+          width: 100%;
+          line-height: 28px;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.43);
+          text-transform: uppercase;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+            color: #666;
+          }
+        }
+
+        /* &:hover {
+          display: block;
+        } */
+      }
+
+      .trigger {
+        color: #666;
+        outline: none;
+        cursor: pointer;
+
+        /* &:focus + .menu {
+          display: block;
+        } */
+      }
+    }
   }
 
   .module {
@@ -405,7 +461,6 @@ export const S_Board = styled.div`
           width: 100%;
           line-height: 28px;
           font-size: 14px;
-          /* font-weight: 600; */
           color: rgba(0, 0, 0, 0.43);
           text-transform: uppercase;
           cursor: pointer;

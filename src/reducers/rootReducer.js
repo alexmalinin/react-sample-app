@@ -30,6 +30,7 @@ import createTask from "./createTaskReducer";
 import showEpic from "./showProjectEpicReducer";
 import epicTasks from "./showTasksReducer";
 import updateTask from "./updateEpicTaksReducer";
+import deleteTask from "./deleteEpicTaskReducer";
 import assignSpecialist from "./assignSpecialistToTaskReducer";
 import removeSpecialist from "./removeSpecialistFromTaskReducer";
 import allTeams from "./showAllTeamsReducer";
@@ -78,6 +79,7 @@ export default combineReducers({
   showEpic,
   epicTasks,
   updateTask,
+  deleteTask,
   assignSpecialist,
   removeSpecialist,
   allTeams,

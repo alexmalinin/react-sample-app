@@ -90,7 +90,7 @@ class ProjectSubHeader extends Component {
               <AddTaskModal
                 epic={currentEpic}
                 project={project}
-                content="Add task"
+                content="Add epic"
               />
             )}
             <SubHeaderLinkWrap
@@ -98,7 +98,7 @@ class ProjectSubHeader extends Component {
               url="#"
               className="rightLink"
             >
-              <span>Tasks</span>
+              <span>Epics</span>
             </SubHeaderLinkWrap>
             <SubHeaderLinkWrap
               content={`${percents}%`}
