@@ -18,7 +18,7 @@ import {
   updateTeamChannel,
   deleteTeamChannel
 } from "../../actions/actions";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class Channel extends Component {
   state = {
@@ -79,7 +79,7 @@ class Channel extends Component {
               type="text"
               placeholder="Channel name"
               name="name"
-              disabled={getUserType() !== S_REDGUY}
+              disabled={getUserRole() !== S_REDGUY}
               value={name}
               ref={Input => (this.editInput = Input)}
               onKeyUp={e => e.keyCode === 13 && e.target.blur()}
@@ -87,7 +87,7 @@ class Channel extends Component {
               onChange={this.handleEdit}
             />
           </Form>
-          {getUserType() === S_REDGUY && (
+          {getUserRole() === S_REDGUY && (
             <div
               className={`deleteConfirmation${
                 showDeleteConfirmation ? " show" : ""
@@ -97,7 +97,7 @@ class Channel extends Component {
               <button onClick={this.hideDeleteConfirmation}>No</button>
             </div>
           )}
-          {getUserType() === S_REDGUY && (
+          {getUserRole() === S_REDGUY && (
             <button onClick={this.openDeleteConfirmation} className="delete">
               <img src="/images/trashcan.png" alt="delete" />
             </button>
@@ -120,7 +120,7 @@ class Channel extends Component {
             specialists={channel.specialists}
             allSpecialists={allSpecialists}
             handleAssign={this.handleAssign}
-            userType={changeUserType}
+            userType={[S_REDGUY]}
             closeOnChange={true}
             renderToDashboard
           />
@@ -152,7 +152,7 @@ class Channel extends Component {
             specialists={channel.specialists}
             allSpecialists={allSpecialists}
             handleAssign={this.handleAssign}
-            userType={changeUserType}
+            userType={[S_REDGUY]}
             closeOnChange={true}
           />
         </div>

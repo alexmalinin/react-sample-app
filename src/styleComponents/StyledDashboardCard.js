@@ -85,7 +85,6 @@ export default styled.div`
     display: flex;
     justify-content: flex-end;
     flex-flow: row wrap;
-    margin-bottom: 10px;
     max-width: 300px;
   }
 
@@ -107,6 +106,7 @@ export default styled.div`
 
     &.addModule {
       border-color: #ccc;
+      transition: 0.3s;
       &::after,
       &::before {
         content: "";
@@ -117,6 +117,7 @@ export default styled.div`
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        transition: inherit;
       }
       &::after {
         height: 2px;
@@ -152,6 +153,10 @@ export default styled.div`
     }
   }
 
+  span.progressDescription {
+    bottom: -11px;
+  }
+
   .progressDescription {
     position: absolute;
     width: auto;
@@ -160,6 +165,7 @@ export default styled.div`
     transform: translateX(-50%);
     white-space: nowrap;
     font-size: 10px;
+    transition: 0.3s;
   }
 
   .projectContainer {

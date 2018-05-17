@@ -10,7 +10,7 @@ import {
   removeSpecialistFromTask
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class KanbanBoard extends Component {
   constructor(props) {
@@ -124,7 +124,7 @@ class KanbanBoard extends Component {
       //         ]
       //       }}
       //       className="kanban"
-      //       draggable={getUserType() === S_REDGUY}
+      //       draggable={getUserRole() === S_REDGUY}
       //       customCardLayout
       //       handleDragEnd={this.handleDragEnd}
       //     >
@@ -148,7 +148,7 @@ class KanbanBoard extends Component {
             ]
           }}
           className={`kanban${epicId !== epicTasks.epicId ? " fade" : " show"}`}
-          draggable={getUserType() === S_REDGUY}
+          draggable={getUserRole() === S_REDGUY}
           customCardLayout
           handleDragEnd={this.handleDragEnd}
         >

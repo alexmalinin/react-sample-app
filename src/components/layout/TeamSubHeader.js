@@ -5,7 +5,7 @@ import AddTeamModal from "../modals/AddTeamModal";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 
 import { CLIENT, S_CORE, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class TeamSubHeader extends Component {
   render() {
@@ -21,7 +21,7 @@ class TeamSubHeader extends Component {
             &nbsp;
           </SubHeaderLinkWrap>
 
-          {(getUserType() === S_CORE || getUserType() === S_REDGUY) && (
+          {(getUserRole() === S_CORE || getUserRole() === S_REDGUY) && (
             <AddTeamModal />
           )}
         </div>

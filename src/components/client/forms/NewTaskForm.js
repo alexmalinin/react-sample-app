@@ -13,6 +13,7 @@ import RenderTextArea from "../../forms/renders/RenderTextArea";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { showProjectTeam } from "../../../actions/actions";
+import { S_REDGUY } from "../../../constans/constans";
 
 class NewTaskForm extends Component {
   constructor(props) {
@@ -238,7 +239,7 @@ class NewTaskForm extends Component {
                       specialists={specialists}
                       allSpecialists={projectTeam[0].specialists}
                       handleAssign={this.handleAssign}
-                      userType={changeUserType}
+                      userType={[S_REDGUY]}
                       closeOnChange={false}
                       renderToModal
                     />

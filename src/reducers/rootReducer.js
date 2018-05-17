@@ -13,6 +13,7 @@ import projectTypes from "./projectTypesReducer";
 import experienceLevels from "./experienceLevelsReducer";
 import educations from "./educationsReducer";
 import experiences from "./workExperienceReducer";
+import skills from "./skillsReducer";
 import chosenSkills from "./showChosenSkillsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
@@ -59,6 +60,7 @@ export default combineReducers({
   experiences,
   projectTypes,
   experienceLevels,
+  skills,
   chosenSkills,
   clientData,
   specialistData,

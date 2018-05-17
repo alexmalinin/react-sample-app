@@ -21,6 +21,22 @@ import Availability from "../Availability/Availability";
 import RenderImage from "../../forms/renders/RenderImage";
 
 class SkillsForm extends Component {
+  rename = (obj, oldName, newName) => {
+    if (!obj.hasOwnProperty(oldName)) {
+      return false;
+    }
+
+    obj[newName] = obj[oldName];
+    delete obj[oldName];
+    return true;
+  };
+
+  getSkills = () => {
+    if (this.props.skills.length === 0) {
+      this.props.getSkills();
+    }
+  };
+
   render() {
     const {
       submitting,
@@ -34,9 +50,22 @@ class SkillsForm extends Component {
       isEditing,
       handleChange,
       handleSelectChange,
-      handleCheckboxChange
+      handleCheckboxChange,
+      skills
     } = this.props;
     let { avatar } = specialistData || clientData || false;
+
+    if (skills) {
+      skills.forEach(skill => {
+        this.rename(skill, "id", "value");
+        this.rename(skill, "name", "label");
+      });
+      skills.sort((a, b) => {
+        if (a.label < b.label) return -1;
+        else if (a.label > b.label) return 1;
+        else return 0;
+      });
+    }
 
     return (
       <Grid>
@@ -121,7 +150,11 @@ class SkillsForm extends Component {
                   specialities={specialistData.specialities}
                 />
               )}
-              <RenderSkillsArea handleSelectChange={handleSelectChange} />
+              <RenderSkillsArea
+                options={skills}
+                handleSelectChange={handleSelectChange}
+                onOpen={this.getSkills}
+              />
             </StyledWelcomeForm>
           </Grid.Column>
 
@@ -174,7 +207,12 @@ class SkillsForm extends Component {
               ) : null}
 
               {isEditing ? (
-                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                <SaveBtn
+                  type="submit"
+                  disabled={submitting}
+                  primary
+                  updatebtn="true"
+                >
                   <span>Save</span>
                 </SaveBtn>
               ) : (

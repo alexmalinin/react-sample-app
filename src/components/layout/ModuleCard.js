@@ -4,7 +4,7 @@ import { deleteProjectEpic } from "../../actions/actions";
 import { Form, Input } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class Module extends Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class Module extends Component {
   };
 
   triggerModal = () => {
-    if (this.props.changeUserType === CLIENT || getUserType() === S_REDGUY) {
+    if (this.props.changeUserType === CLIENT || getUserRole() === S_REDGUY) {
       document.getElementById(`editEpic${this.props.epic.id}`).click();
     }
   };
@@ -117,7 +117,7 @@ class Module extends Component {
               autoComplete="off"
               fluid
             />
-            {(changeUserType === CLIENT || getUserType() === S_REDGUY) && (
+            {(changeUserType === CLIENT || getUserRole() === S_REDGUY) && (
               <button
                 className={`editModule${editing ? " hidden" : ""}`}
                 type="button"
@@ -156,7 +156,7 @@ class Module extends Component {
               <span>4 weeks</span>
             </div>
           </div>
-          {(changeUserType === CLIENT || getUserType() === S_REDGUY) && (
+          {(changeUserType === CLIENT || getUserRole() === S_REDGUY) && (
             <div className="dropdown">
               <a tabIndex="1" className="trigger">
                 ...

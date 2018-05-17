@@ -218,7 +218,12 @@ class BillingForm extends Component {
               ) : null}
 
               {isEditing ? (
-                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                <SaveBtn
+                  type="submit"
+                  disabled={submitting}
+                  primary
+                  updatebtn="true"
+                >
                   <span>Save</span>
                 </SaveBtn>
               ) : (

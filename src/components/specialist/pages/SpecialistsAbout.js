@@ -248,8 +248,9 @@ class SpecialistsAbout extends Component {
               <Grid.Row className="skills">
                 <Grid.Column computer={16}>
                   <div className="flex-wrapper">
-                    {allSkills === []
-                      ? allSkills.map(item => (
+                    {specialistData["skills"] &&
+                    specialistData["skills"].length !== 0
+                      ? specialistData["skills"].map(item => (
                           <StyledCheckbox key={item.name}>
                             <div>{item.name}</div>
                           </StyledCheckbox>

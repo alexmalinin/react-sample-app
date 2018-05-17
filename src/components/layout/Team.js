@@ -11,7 +11,7 @@ import {
 import { S_REDGUY } from "../../constans/constans";
 
 import Channel from "./Channel";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class Team extends Component {
   state = {
@@ -127,9 +127,9 @@ class Team extends Component {
               specialists={""}
             />
           ))}
-          {getUserType() !== S_REDGUY &&
+          {getUserRole() !== S_REDGUY &&
             channels.length === 0 && <p>There is no channels yet :(</p>}
-          {getUserType() === S_REDGUY && (
+          {getUserRole() === S_REDGUY && (
             <Form className="addChannel" onSubmit={this.submit}>
               <Input
                 type="text"

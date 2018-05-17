@@ -6,17 +6,30 @@ import StyledSpecialityArea from "../../../styleComponents/forms/StyledSpecialit
 
 class RenderSpecialityArea extends Component {
   state = {
-    specialities: []
+    specialities: [],
+    specialityError: false
   };
+
+  componentWillMount() {
+    let isSpecialities = null;
+    this.props.specialities.length > 0 && (isSpecialities = true);
+    this.setState({ specialityError: isSpecialities });
+  }
 
   handleSpecialityCheckbox = (index, data) => {
     let values = [];
+    let isChecked = null;
 
     values = this.state.specialities.slice();
     values[index - 1] = data;
 
+    isChecked = values.some(item => {
+      return item.input.checked === true;
+    });
+
     this.setState({
-      specialities: values
+      specialities: values,
+      specialityError: isChecked
     });
   };
 
