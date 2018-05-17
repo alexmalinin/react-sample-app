@@ -23,7 +23,12 @@ export default store => next => action => {
         epic_id: epic,
         state: 0,
         specialist_ids,
-        eta: payload["eta"]
+        eta: payload["eta"],
+        cost: payload["cost"]
+      },
+
+      attached_files_attributes: {
+        document: payload["file"]
       }
     },
 

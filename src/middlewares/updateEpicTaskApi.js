@@ -17,7 +17,9 @@ export default store => next => action => {
         name: payload["name"],
         description: payload["description"],
         epic_id: epic,
-        state: payload["state"]
+        eta: payload["eta"],
+        state: payload["state"],
+        cost: payload["cost"]
       }
     },
 

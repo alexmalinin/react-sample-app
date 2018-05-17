@@ -84,6 +84,14 @@ class ProjectsBoard extends Component {
       } else nextProps.showEpicTasks(epicId);
     }
 
+    if (nextProps.deleteTask && nextProps.deleteTask.successId) {
+      if (this.props.deleteTask) {
+        if (this.props.deleteTask !== nextProps.deleteTask) {
+          nextProps.showEpicTasks(epicId);
+        }
+      } else nextProps.showEpicTasks(epicId);
+    }
+
     if (nextProps.assignSpecialist) {
       if (this.props.assignSpecialist) {
         if (this.props.assignSpecialist != nextProps.assignSpecialist) {
@@ -190,6 +198,7 @@ export default connect(
     createTask,
     epicTasks,
     updateTask,
+    deleteTask,
     allSpecialists,
     assignSpecialist,
     removeSpecialist,
@@ -202,6 +211,7 @@ export default connect(
     createTask,
     epicTasks,
     updateTask,
+    deleteTask,
     allSpecialists,
     assignSpecialist,
     removeSpecialist,

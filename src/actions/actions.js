@@ -54,6 +54,7 @@ import {
   SHOW_PROJECT_EPIC,
   SHOW_EPIC_TASKS,
   UPDATE_EPIC_TASK,
+  DELETE_EPIC_TASK,
   SHOW_ALL_SPECIALISTS,
   ASSIGN_SPECIALIST_TO_TASK,
   REMOVE_SPECIALIST_FROM_TASK,
@@ -724,6 +725,17 @@ export function updateEpicTask(data, epic, task) {
     type: UPDATE_EPIC_TASK,
     payload: data,
     updateEpicTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}`
+  };
+
+  return action;
+}
+
+// delete task by epic
+
+export function deleteEpicTask(epic, task) {
+  const action = {
+    type: DELETE_EPIC_TASK,
+    deleteEpicTask: `${PORT}/api/v1/epics/${epic}/tasks/${task}`
   };
 
   return action;

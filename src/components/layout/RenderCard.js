@@ -180,6 +180,7 @@ class RenderCard extends Component {
                 <ProjectTeam
                   specialists={projectTeam.specialists}
                   changeUserType={changeUserType}
+                  handleAssign={this.handleAssign}
                 />
               )}
             {projectTeam && (
@@ -242,7 +243,7 @@ class RenderCard extends Component {
         </div>
         <div className="progressItem">
           <p className="progressCount">50/70</p>
-          <p className="progressDescription">Tasks</p>
+          <p className="progressDescription">Epics</p>
         </div>
         <div className="progressItem">
           <ProgressBars percents={25} />
@@ -290,7 +291,7 @@ class ProjectTeam extends Component {
   };
 
   render() {
-    const { changeUserType } = this.props;
+    const { changeUserType, handleAssign } = this.props;
     const { pos } = this.state;
     const hidden = this.props.specialists.length > 3 ? "" : " hidden";
 
@@ -309,7 +310,7 @@ class ProjectTeam extends Component {
             <PersonTile
               key={key}
               specialist={specialist}
-              handleRemove={this.handleAssign}
+              handleRemove={handleAssign}
               userType={changeUserType}
               removeTitle="team"
             />

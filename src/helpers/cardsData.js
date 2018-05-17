@@ -49,7 +49,7 @@ const cards = [
       },
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       },
       {
         count: "2/3",
@@ -70,11 +70,11 @@ const cards = [
     progress: [
       {
         count: 12,
-        description: "all tasks"
+        description: "all epics"
       },
       {
         count: 1,
-        description: "your tasks"
+        description: "your epics"
       }
     ],
     subtitleColor: "#0093f6",
@@ -91,15 +91,15 @@ const cards = [
     days: [
       {
         day: "Today",
-        data: ["sample task 1", "sample task 2", "sample task 3"]
+        data: ["sample epic 1", "sample epic 2", "sample epic 3"]
       },
       {
         day: "Tomorrow",
-        data: ["sample task 1", "sample task 2654", "sample task 1233"]
+        data: ["sample epic 1", "sample epic 2654", "sample epic 1233"]
       },
       {
         day: "Current",
-        data: ["sample task 1", "sample task 278989", "sample task 87993"]
+        data: ["sample epic 1", "sample epic 278989", "sample epic 87993"]
       }
     ],
 
@@ -120,7 +120,7 @@ const cards = [
       },
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       },
       {
         count: "2/3",
@@ -156,7 +156,7 @@ const cards = [
       },
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       }
     ],
     subtitleColor: "#fff",
@@ -185,7 +185,7 @@ const cards = [
     progress: [
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       },
       {
         count: "2/3",
@@ -210,7 +210,7 @@ const cards = [
       },
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       },
       {
         count: "2/3",
@@ -263,7 +263,7 @@ const cards = [
       },
       {
         count: "2/3",
-        description: "tasks"
+        description: "epics"
       },
       {
         count: "2/3",

@@ -48,7 +48,7 @@ class DashboardSubHeader extends Component {
         <div>
           {specialistData &&
             specialistData.role === S_REDGUY && (
-              <AddTaskModal content="Add task" className="dahsboard" />
+              <AddTaskModal content="Add epic" className="dahsboard" />
             )}
 
           {changeUserType === CLIENT && (

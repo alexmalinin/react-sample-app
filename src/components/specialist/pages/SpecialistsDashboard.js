@@ -34,8 +34,11 @@ import Teams from "../../Teams";
 import {
   getCookie,
   setCookie,
-  checkObjectPropertiesForValues
+  checkObjectPropertiesForValues,
+  getUserType
 } from "../../../helpers/functions";
+import { S_REDGUY } from "../../../constans/constans";
+import ClientModule from "../../client/ClientModule";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -225,9 +228,7 @@ class SpecialistsDashboard extends Component {
       page = params["page"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
-    } else if (params["projectId"] && params["projectId"] === "new") {
-      history.push("/dashboard/");
-    } else if (params["projectNewModule"]) {
+    } else if (params["projectNewModule"] && getUserType() === S_REDGUY) {
       page = "module";
     } else page = "root;";
 
@@ -324,6 +325,12 @@ class SpecialistsDashboard extends Component {
         return <Teams teams={this.props.specialistTeams} />;
       case "test":
         return <SpecialistsTest />;
+      case "module":
+        return (
+          <ClientModule
+            projectId={this.props.match.params["projectNewModule"]}
+          />
+        );
       case "account":
         return <SpecialistAccount />;
       case "year_to_date":
