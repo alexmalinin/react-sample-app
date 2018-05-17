@@ -62,7 +62,8 @@ class RenderCard extends Component {
               {(experiences["started_at"] || experiences["finished_at"]) && (
                 <p className="period">
                   <img src="/images/time.png" alt="" />{" "}
-                  {experiences["started_at"]} - {experiences["finished_at"]}
+                  {experiences.started_at.value || experiences.started_at} -{" "}
+                  {experiences.finished_at.value || experiences.finished_at}
                 </p>
               )}
 

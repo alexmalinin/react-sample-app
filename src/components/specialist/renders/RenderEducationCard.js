@@ -55,7 +55,8 @@ class RenderEducationCard extends Component {
                   education["finished_at"] && (
                     <p className="period">
                       <img src="/images/time.png" alt="" />{" "}
-                      {education.started_at} - {education["finished_at"]}
+                      {education.started_at.value || education.started_at} -{" "}
+                      {education.finished_at.value || education.finished_at}
                     </p>
                   )}
                 {education.description && <p>{education.description}</p>}

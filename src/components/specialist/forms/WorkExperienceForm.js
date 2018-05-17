@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
+import RenderSelect from "../../forms/renders/RenderSelect";
 import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import LocationField from "../../forms/renders/LocationField";
@@ -9,10 +10,26 @@ import { Grid } from "semantic-ui-react";
 import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
+import { getYearsForSelect } from "../../../helpers/functions";
 
 let renderError = true;
 
 class WorkExperienceForm extends Component {
+  state = {
+    fetch: true,
+    started: null,
+    finished: null,
+    disabled: true
+  };
+
+  handleSelectChange = e => {
+    if (e.value > this.state.finished) {
+      this.setState({ started: e.value });
+      this.props.dispatch(change("WorkExperienceForm", "finished_at", null));
+    }
+    this.setState({ started: e.value, disabled: false });
+  };
+
   render() {
     const { handleSubmit, submitting } = this.props;
 
@@ -25,6 +42,7 @@ class WorkExperienceForm extends Component {
                 name="position"
                 label="Title/Position/Role"
                 validate={[required]}
+                isRequired
               />
               <Grid>
                 <Grid.Row>
@@ -32,14 +50,22 @@ class WorkExperienceForm extends Component {
                     <InputField
                       name="started_at"
                       label="From"
+                      component={RenderSelect}
+                      onChange={this.handleSelectChange}
+                      options={getYearsForSelect()}
                       validate={[required]}
+                      isRequired
                     />
                   </Grid.Column>
                   <Grid.Column computer={8}>
                     <InputField
                       name="finished_at"
                       label="To"
+                      component={RenderSelect}
+                      disabled={this.state.disabled}
+                      options={getYearsForSelect(this.state.started)}
                       validate={[required]}
+                      isRequired
                     />
                   </Grid.Column>
                 </Grid.Row>
@@ -48,6 +74,7 @@ class WorkExperienceForm extends Component {
                 name="name"
                 label="Company/Project"
                 validate={[required]}
+                isRequired
               />
             </Grid.Column>
             <Grid.Column mobile={16} computer={8}>
@@ -62,7 +89,6 @@ class WorkExperienceForm extends Component {
                   name="description"
                   label="Description"
                   component={RenderTextArea}
-                  // validate={[required]}
                 />
               </StyledLabelArea>
             </Grid.Column>
@@ -103,6 +129,27 @@ class WorkExperienceForm extends Component {
         }
       }
     }
+
+    if (nextProps.experience && this.state.fetch) {
+      if (nextProps.experience.started_at) {
+        this.setState({
+          started:
+            nextProps.experience.started_at.value ||
+            nextProps.experience.started_at,
+          disabled: false
+        });
+      }
+
+      if (nextProps.experience.finished_at) {
+        this.setState({
+          finished:
+            nextProps.experience.finished_at.value ||
+            nextProps.experience.finished_at,
+          fetchYears: false
+        });
+      }
+      this.setState({ fetch: false });
+    }
   }
 
   fillFields = data => {
@@ -117,6 +164,30 @@ class WorkExperienceForm extends Component {
       finished_at
     } = data;
 
+    let started, finished;
+    if (
+      started_at.hasOwnProperty("label") &&
+      started_at.hasOwnProperty("value")
+    ) {
+      started = started_at;
+    } else {
+      started = {
+        label: started_at,
+        value: started_at
+      };
+    }
+    if (
+      finished_at.hasOwnProperty("label") &&
+      finished_at.hasOwnProperty("value")
+    ) {
+      finished = finished_at;
+    } else {
+      finished = {
+        label: finished_at,
+        value: finished_at
+      };
+    }
+
     this.props.dispatch(change("WorkExperienceForm", "name", name));
     this.props.dispatch(change("WorkExperienceForm", "position", position));
     this.props.dispatch(change("WorkExperienceForm", "country", country));
@@ -125,10 +196,8 @@ class WorkExperienceForm extends Component {
     this.props.dispatch(
       change("WorkExperienceForm", "description", description || "")
     );
-    this.props.dispatch(change("WorkExperienceForm", "started_at", started_at));
-    this.props.dispatch(
-      change("WorkExperienceForm", "finished_at", finished_at)
-    );
+    this.props.dispatch(change("WorkExperienceForm", "started_at", started));
+    this.props.dispatch(change("WorkExperienceForm", "finished_at", finished));
   };
 
   closeModal = ev => {
