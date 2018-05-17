@@ -60,7 +60,7 @@ class CustomCard extends Component {
         {cost && (
           <div className="line">
             <img src="/images/dollar.png" alt="dollar" />
-            <span>$20,000</span>
+            <span>${cost}</span>
           </div>
         )}
         {/* <div className="line bell-line">
