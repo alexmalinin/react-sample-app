@@ -119,7 +119,9 @@ export default class AssignDropdown extends Component {
             ref={a => (this.trigger = a)}
           >
             <span className="plus">+</span>
-            {(renderToDashboard || renderToModal) && label}
+            {(renderToDashboard || renderToModal) && (
+              <span className="label">{label}</span>
+            )}
           </a>
           {showDropdown && (
             <div

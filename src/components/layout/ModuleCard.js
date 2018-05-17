@@ -132,10 +132,6 @@ class Module extends Component {
           <h4>{this.renderDescription()}</h4>
           <p>{this.renderStory()}</p>
           <div>
-            <div className="subline">
-              <img src="/images/marker.png" alt="marker" />
-              <span>Remote</span>
-            </div>
             {epic.eta && (
               <div className="subline">
                 <img src="/images/calendar.png" alt="calendar" />
@@ -150,10 +146,6 @@ class Module extends Component {
             <div className="subline">
               <img src="/images/dollar.png" alt="dollar" />
               <span>$20,000</span>
-            </div>
-            <div className="subline">
-              <img src="/images/clock.png" alt="clock" />
-              <span>4 weeks</span>
             </div>
           </div>
           {(changeUserType === CLIENT || getUserRole() === S_REDGUY) && (

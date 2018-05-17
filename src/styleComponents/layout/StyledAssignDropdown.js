@@ -53,53 +53,42 @@ export const StyledAssignDropdown = styled.div`
 
     ${props =>
       props.renderToModal &&
-      `text-align: center;
-       font-size: 1.4em;
-       margin-top: 5px;
-       padding: 5px 0;
-       color: #666;
-       border: 1px dashed #ccc;
+      `
+      margin-left: 30px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
     `}
 
     &:hover {
       color: #999;
 
-      ${props =>
-        props.renderToModal &&
-        `
-        background: #f0f0f0;
-        `}
-
-      span {
+      .plus {
         color: #ddd;
       }
     }
 
-    &:focus{
-      ${props =>
-        props.renderToModal &&
-        `
-        border-style: solid;
-      `}
+    span{
+      transition: inherit;
     }
 
-    span {
+    .plus {
       display: inline-block;
-      height: 30px;
-      width: 30px;
+      height: ${props => (props.renderToModal ? "40px" : "30px")};
+      width: ${props => (props.renderToModal ? "40px" : "30px")};
       border: 1px solid #ddd;
       border-radius: 50%;
 
       text-align: center;
-      font-size: 24px;
-      line-height: 24px;
+      font-size: ${props => (props.renderToModal ? "36px" : "24px")};
+      line-height: ${props => (props.renderToModal ? "32px" : "24px")};
       letter-spacing: -1px;
       margin-right: 5px;
       font-weight: 300;
+    }
 
-      transition: inherit;
-
-      ${props => props.renderToModal && "display: none;"}
+    .label{
+      font-size: 18px;
     }
   }
 

@@ -250,13 +250,22 @@ export const S_Board = styled.div`
   }
 
   .dragItem {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
     position: relative;
     padding: 20px 20px 15px 20px;
     ${boxShadow.light};
     border-radius: 2px;
     color: #666;
+    min-height: 160px;
 
     text-transform: uppercase;
+
+    &>h4,
+    &>div{
+      flex 0 0 100%;
+    }
 
     &::before {
       content: "...";
@@ -300,6 +309,26 @@ export const S_Board = styled.div`
       align-items: center;
       max-width: 80%;
       font-family: "Brix";
+      margin-top: 10px;
+      align-self: flex-end;
+    }
+
+    .line {
+      display: flex;
+      align-items: center;
+      /* margin-top: 5px;
+      margin-bottom: 5px; */
+
+      img {
+        margin-right: 10px;
+      }
+
+      span {
+        text-transform: uppercase;
+        color: #989898;
+        font-weight: 600;
+        padding-top: 5px;
+      }
     }
 
     .bell-line {

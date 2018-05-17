@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import { required, date } from "../../../helpers/validate";
 import CostField from "../../forms/renders/CostField";
-import { SubmitBtn } from "../../../styleComponents/layout/DvButton";
+import {
+  SubmitBtn,
+  CancelBtn,
+  SaveBtn
+} from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderDate from "../../forms/renders/RenderDate";
@@ -248,10 +252,19 @@ class NewTaskForm extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column computer={2} floated="right">
-              <SubmitBtn type="submit" disabled={submitting} primary>
+            <Grid.Column computer={4} floated="right" textAlign="right">
+              <CancelBtn type="button" onClick={this.closeModal} primary static>
+                <span>Cancel</span>
+              </CancelBtn>
+              <SaveBtn
+                type="submit"
+                disabled={submitting}
+                updatebtn="true"
+                primary
+                static="true"
+              >
                 <span>Save</span>
-              </SubmitBtn>
+              </SaveBtn>
             </Grid.Column>
           </Grid.Row>
         </Grid>

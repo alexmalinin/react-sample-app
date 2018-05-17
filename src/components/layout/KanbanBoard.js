@@ -67,6 +67,8 @@ class KanbanBoard extends Component {
             assignSpecialist: this.assignSpecialist,
             removeSpecialist: this.removeSpecialist,
             title: task.name,
+            eta: task.eta,
+            cost: task.cost,
             description: "Platform - Dashboard",
             specialists: task.specialists,
             specialistList: nextProps.projectTeam[0].specialists
@@ -137,7 +139,8 @@ class KanbanBoard extends Component {
       showBoard &&
       (backlogTasks.length !== 0 ||
       progressTasks.length !== 0 ||
-      completedTasks.length !== 0 ? (
+      completedTasks.length !== 0 ||
+      acceptedTasks.length !== 0 ? (
         <Board
           data={{
             lanes: [

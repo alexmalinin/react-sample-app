@@ -21,6 +21,9 @@ import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
 import ClientDashboard from "./client/ClientDashboard";
 import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
+import PrivateRoute from "../decorators/PrivateRoute";
+import { getUserRole } from "../helpers/functions";
+import { S_PASSIVE } from "../constans/constans";
 
 class App extends Component {
   render() {
@@ -105,7 +108,14 @@ class App extends Component {
                 component={Dashboard}
               />
               <Route path="/dashboard/:page" component={Dashboard} />
+              {/* <PrivateRoute
+                exact
+                to="/dashboard/:page"
+                allowed={getUserRole() !== S_PASSIVE}
+                component={Dashboard}
+              /> */}
 
+              <Route path="/404" component={NotFound} />
               <Route path="*" component={NotFound} />
             </Switch>
           </FlexDirection>
