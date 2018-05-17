@@ -46,13 +46,15 @@ class Team extends Component {
     }
 
     if (nextProps.projectTeam) {
-      if (nextProps.projectTeam[0].id === nextProps.team.id) {
-        this.setState(
-          state =>
-            state.specialistsList === nextProps.projectTeam[0].specialists
-              ? null
-              : { specialistsList: nextProps.projectTeam[0].specialists }
-        );
+      if (nextProps.projectTeam[0]) {
+        if (nextProps.projectTeam[0].id === nextProps.team.id) {
+          this.setState(
+            state =>
+              state.specialistsList === nextProps.projectTeam[0].specialists
+                ? null
+                : { specialistsList: nextProps.projectTeam[0].specialists }
+          );
+        }
       }
     }
 
