@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { required, date } from "../../../helpers/validate";
 import RenderDate from "../../forms/renders/RenderDate";
-import { SaveBtn } from "../../../styleComponents/layout/DvButton";
+import { SaveBtn, CancelBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
@@ -147,8 +147,11 @@ class EditEpicForm extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column computer={3} />
-            <Grid.Column computer={16} align="right">
+            <Grid.Column computer={12} />
+            <Grid.Column computer={4} align="right">
+              <CancelBtn type="button" onClick={this.closeModal} primary static>
+                <span>Cancel</span>
+              </CancelBtn>
               <SaveBtn
                 type="submit"
                 disabled={submitting}

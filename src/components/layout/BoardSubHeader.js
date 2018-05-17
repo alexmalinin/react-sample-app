@@ -50,7 +50,11 @@ class ProjectSubHeader extends Component {
     const allTasksCount = epicTasks && epicTasks.length;
     let completedTasksCount = 0;
     epicTasks &&
-      epicTasks.forEach(task => task.state === "done" && completedTasksCount++);
+      epicTasks.forEach(
+        task =>
+          (task.state === "done" || task.state === "accepted") &&
+          completedTasksCount++
+      );
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     return (

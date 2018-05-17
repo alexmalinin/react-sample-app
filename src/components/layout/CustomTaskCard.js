@@ -23,16 +23,34 @@ class CustomCard extends Component {
       id,
       specialists,
       specialistList,
-      userType
+      userType,
+      eta,
+      cost
     } = this.props;
 
     return (
       <div className="dragItem" style={{ backgroundColor: "#fff" }}>
         <h4 className="title">{title}</h4>
-        <h4 className="platform">{description}&nbsp;</h4>
-        <div className="bell-line">
+        {eta && (
+          <div className="line">
+            <img src="/images/calendar.png" alt="calendar" />
+            <span>
+              {eta
+                .split("-")
+                .reverse()
+                .join("/")}
+            </span>
+          </div>
+        )}
+        {cost && (
+          <div className="line">
+            <img src="/images/dollar.png" alt="dollar" />
+            <span>$20,000</span>
+          </div>
+        )}
+        {/* <div className="line bell-line">
           <span className="bell" />
-        </div>
+        </div> */}
         <div className="persons">
           {specialists.map((specialist, key) => (
             <PersonTile
