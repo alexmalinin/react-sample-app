@@ -6,10 +6,16 @@ import StyledDashBoard from "../../styleComponents/StyledDashBoard";
 
 import { showAllSpecialists } from "../../actions/actions";
 import cards from "../../helpers/cardsData";
+import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY, CUSTOMER } from "../../constans/constans";
 
 class RenderDashboard extends Component {
   componentWillMount() {
-    this.props.showAllSpecialists("active", "core");
+    if (getUserRole() === CUSTOMER) {
+      this.props.showAllSpecialists("red_guy");
+    } else if (getUserRole() === S_REDGUY) {
+      this.props.showAllSpecialists("active", "core");
+    }
   }
   renderCards(type) {
     const data = cards;
@@ -60,4 +66,6 @@ class RenderDashboard extends Component {
   }
 }
 
-export default connect(({}) => ({}), { showAllSpecialists })(RenderDashboard);
+export default connect(({ changeUsertype }) => ({ changeUsertype }), {
+  showAllSpecialists
+})(RenderDashboard);

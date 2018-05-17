@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
+import { S_REDGUY } from "../../constans/constans";
 
 class CustomCard extends Component {
   state = {
@@ -47,7 +48,7 @@ class CustomCard extends Component {
             specialists={specialists}
             allSpecialists={specialistList}
             handleAssign={this.assignSpeciaist}
-            userType={userType}
+            userType={[S_REDGUY]}
             closeOnChange={true}
           />
         </div>

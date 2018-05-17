@@ -12,8 +12,13 @@ import {
   assignSpecialistToTeam,
   removeSpecialistFromTeam
 } from "../../actions/actions";
-import { IMAGE_PORT, CLIENT, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import {
+  IMAGE_PORT,
+  CLIENT,
+  S_REDGUY,
+  CUSTOMER
+} from "../../constans/constans";
+import { getUserRole } from "../../helpers/functions";
 
 class RenderCard extends Component {
   state = {};
@@ -87,17 +92,6 @@ class RenderCard extends Component {
       assignSpecialistToTeam(id, team.id, specId);
     } else removeSpecialistFromTeam(id, team.id, specId);
   };
-
-  nextSpec = () => {
-    this.setState({});
-  };
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (
-      this.state.projectTeam !== nextState.projectTeam &&
-      this.props !== nextProps
-    );
-  }
 
   render() {
     const {
@@ -190,7 +184,7 @@ class RenderCard extends Component {
               <AssignDropdown
                 specialists={projectTeam.specialists}
                 allSpecialists={allSpecialists}
-                userType={changeUserType}
+                userType={[S_REDGUY, CUSTOMER]}
                 handleAssign={this.handleAssign}
                 closeOnChange={true}
               />
@@ -230,7 +224,7 @@ class RenderCard extends Component {
 
     return (
       <div className="progress">
-        {changeUserType === CLIENT || getUserType() === S_REDGUY ? (
+        {changeUserType === CLIENT || getUserRole() === S_REDGUY ? (
           <SubHeaderLinkWrap
             className="progressItem addModule"
             url={`/dashboard/project/${id}/module/new`}

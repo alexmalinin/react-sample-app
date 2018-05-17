@@ -6,7 +6,7 @@ import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
 import { CLIENT, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
@@ -82,7 +82,7 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
         >
           <div className="boardProgressBars">
-            {getUserType() === S_REDGUY && (
+            {getUserRole() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
                 project={project}

@@ -17,7 +17,7 @@ import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
-import { getUserType } from "../helpers/functions";
+import { getUserRole } from "../helpers/functions";
 
 class ProjectsBoard extends Component {
   state = {
@@ -153,7 +153,7 @@ class ProjectsBoard extends Component {
                 />
               ))}
             {userType === CLIENT &&
-              getUserType() === S_REDGUY && (
+              getUserRole() === S_REDGUY && (
                 <div className="dragContainer addModuleContainer">
                   <h3>&nbsp;</h3>
                   <div className="module addModule">

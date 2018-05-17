@@ -9,17 +9,9 @@ import {
   getExperienceLevels,
   getIndustries,
   showSpecialistData,
-  updateSpecStep1
+  updateSpecStep1,
+  getSkills
 } from "../../../actions/actions";
-import {
-  DvTitle,
-  DvTitleSmall
-} from "../../../styleComponents/layout/DvTitles";
-import {
-  Container,
-  ContainerLarge
-} from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
@@ -77,6 +69,7 @@ class SpecialistIndustry extends Component {
           handleFormValueChange={handleFormValueChange}
           onChange={this.change}
           onSubmit={this.submit}
+          getSkills={this.props.getSkills}
         />
         {this.state.nextStep ? (
           isEditing ? (
@@ -140,6 +133,7 @@ export default connect(
     getIndustries,
     getProjectTypes,
     getExperienceLevels,
-    showSpecialistData
+    showSpecialistData,
+    getSkills
   }
 )(SpecialistIndustry);

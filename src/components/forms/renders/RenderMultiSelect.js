@@ -9,24 +9,17 @@ export default class RenderSelect extends Component {
       input,
       ...rest
     } = this.props;
-    let { value, onChange } = input;
+    let { value, onChange, placeholder } = input;
 
     return (
       <div>
-        <Select.Creatable
+        <Select
           value={value}
           onChange={onChange}
+          // placeholder={placeholder}
           multi={true}
           {...rest}
         />
-        {/* <div className='skillsField'>
-                    {this.props.input.value ? this.props.input.value.map((item, key) => {
-                        return <div className="skillItem" key={key}>
-                                    {item.value}
-                                    <button onClick={console.log(this.props, 'myprops')}>x</button>
-                                </div>
-                    }) : null}
-                </div> */}
         {touched &&
           ((error && <span>{error}</span>) ||
             (warning && <span>{warning}</span>))}

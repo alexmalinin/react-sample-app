@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
 import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
+import jwtDecode from "jwt-decode";
 
 export default class PersonTile extends Component {
   state = {
@@ -99,6 +100,8 @@ class DeleteTile extends Component {
       showDropdown,
       removeSpecialist
     } = this.props;
+    const thisUser =
+      specialist.id === jwtDecode(localStorage.getItem("jwt_token")).id;
     return (
       <div
         className={`delete${showDropdown ? " show" : ""}`}
@@ -116,17 +119,21 @@ class DeleteTile extends Component {
             alt="avatar"
           />
           <div>
-            <p>{specialist.first_name + " " + specialist.last_name}</p>
-            {getUserType() === S_REDGUY && (
-              <button
-                data={specialist.id}
-                onClick={removeSpecialist}
-                className="remove"
-                type="button"
-              >
-                Remove from {removeTitle}
-              </button>
-            )}
+            <p>
+              {specialist.first_name + " " + specialist.last_name}{" "}
+              {thisUser && "(you)"}
+            </p>
+            {getUserRole() === S_REDGUY &&
+              !thisUser && (
+                <button
+                  data={specialist.id}
+                  onClick={removeSpecialist}
+                  className="remove"
+                  type="button"
+                >
+                  Remove from {removeTitle}
+                </button>
+              )}
           </div>
         </div>
       </div>

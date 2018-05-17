@@ -12,6 +12,7 @@ export const S_ACTIVE = "active";
 export const S_PASSIVE = "passive";
 export const S_CORE = "core";
 export const S_REDGUY = "red_guy";
+export const CUSTOMER = "customer";
 
 export const HIDE_FOOTER = "HIDE_FOOTER";
 export const SIDEBAR = "SIDEBAR";
@@ -37,6 +38,7 @@ export const BILLING = "BILLING";
 export const WORK_EXPERIENCE = "WORK_EXPERIENCE";
 export const GET_PROJECT_TYPES = "GET_PROJECT_TYPES";
 export const GET_EXPERIENCE_LEVELS = "GET_EXPERIENCE_LEVELS";
+export const GET_SKILLS = "GET_SKILLS";
 export const UPDATE_SPECIALIST_STEP_2 = "UPDATE_SPECIALIST_STEP_2";
 export const UPDATE_SPECIALIST_BILLINGS = "UPDATE_SPECIALIST_BILLINGS";
 export const CLEAR_EDUCATION = "CLEAR_EDUCATION";

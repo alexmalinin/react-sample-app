@@ -69,7 +69,8 @@ import {
   REMOVE_SPECIALIST_FROM_TEAM,
   SHOW_SPECIALIST_PROJECTS,
   SHOW_SPECIALIST_TEAMS,
-  CREATE_CUSTOM_TEAM
+  CREATE_CUSTOM_TEAM,
+  GET_SKILLS
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -314,6 +315,17 @@ export function getExperienceLevels() {
   const action = {
     type: GET_EXPERIENCE_LEVELS,
     getExperienceLevels: `${PORT}/api/v1/experience_levels`
+  };
+
+  return action;
+}
+
+// Get skills for specialist
+
+export function getSkills() {
+  const action = {
+    type: GET_SKILLS,
+    getSkills: `${PORT}/api/v1/skills`
   };
 
   return action;

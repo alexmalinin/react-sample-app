@@ -1,4 +1,11 @@
-import { S_PASSIVE, S_ACTIVE, S_CORE, S_REDGUY } from "../constans/constans";
+import {
+  S_PASSIVE,
+  S_ACTIVE,
+  S_CORE,
+  S_REDGUY,
+  CLIENT,
+  SPECIALIST
+} from "../constans/constans";
 import jwtDecode from "jwt-decode";
 
 export function getAllUrlParams(url) {
@@ -126,10 +133,22 @@ export function detectSpecType(role) {
   }
 }
 
-export function getUserType() {
+export function getUserRole() {
   const token = localStorage.getItem("jwt_token");
   if (token) {
     const { role } = jwtDecode(token);
     return role;
   } else return "passive";
+}
+
+export function getUserType() {
+  if (getUserRole() === "customer") {
+    return CLIENT;
+  } else if (
+    [S_ACTIVE, S_CORE, S_PASSIVE, S_REDGUY].some(
+      s_type => s_type === getUserRole()
+    )
+  ) {
+    return SPECIALIST;
+  }
 }

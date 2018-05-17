@@ -156,7 +156,12 @@ class CompanyForm extends Component {
                 </NavLink>
               ) : null}
               {isEditing ? (
-                <SaveBtn type="submit" disabled={submitting} primary updatebtn>
+                <SaveBtn
+                  type="submit"
+                  disabled={submitting}
+                  primary
+                  updatebtn="true"
+                >
                   <span>Save</span>
                 </SaveBtn>
               ) : (

@@ -144,7 +144,7 @@ export default styled.div`
     font-weight: bold;
     word-spacing: 1.5px;
     padding-left: 7px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
 
   .filePreview {

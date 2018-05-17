@@ -23,6 +23,8 @@ export default styled.div`
 
   .Select-menu-outer {
     border-radius: none;
+    position: absolute;
+    top: 42px;
   }
 
   .Select-input > input {
@@ -32,9 +34,6 @@ export default styled.div`
     margin-left: 15px;
   }
 
-  /* .Select-value {
-        display: none !important;
-    } */
   .Select-input {
     margin: 0;
     padding: 0;
@@ -52,10 +51,40 @@ export default styled.div`
   .Select-control {
     border-radius: 0;
     border: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &::before {
+      content: "Start type your skill here...";
+      position: absolute;
+      top: 16px;
+      left: 10px;
+      width: 100%;
+      height: 30px;
+      cursor: text;
+      color: #bbb;
+      font-weight: 400;
+    }
   }
 
-  .is-focused .Select-multi-value-wrapper {
-    border-top-color: #ccc;
+  .Select-placeholder {
+    color: #666;
+    font-family: "Brix";
+    font-weight: 400;
+    cursor: text;
+  }
+
+  .is-focused {
+    .Select-control {
+      &::before {
+        content: "";
+      }
+    }
+    .Select-multi-value-wrapper {
+      border-top-color: #ccc;
+    }
   }
 
   .Select-multi-value-wrapper {

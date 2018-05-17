@@ -178,8 +178,8 @@ SpecialistIndustryForm = connect(state => {
   const industry = selector(state, "industry");
   const projectType = selector(state, "projectType");
   const experienceLevel = selector(state, "experienceLevel");
-  const { specialistData } = state;
-  return { industry, specialistData, projectType, experienceLevel };
+  const { specialistData, skills } = state;
+  return { industry, specialistData, projectType, experienceLevel, skills };
 })(SpecialistIndustryForm);
 
 export default SpecialistIndustryForm;

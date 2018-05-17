@@ -5,7 +5,7 @@ import { Input } from "semantic-ui-react";
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
 import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
-import { getUserType } from "../../helpers/functions";
+import { getUserRole } from "../../helpers/functions";
 import { showAllSpecialists } from "../../actions/actions";
 
 export default class AssignDropdown extends Component {
@@ -103,11 +103,12 @@ export default class AssignDropdown extends Component {
   };
 
   render() {
-    const { label, renderToDashboard, renderToModal } = this.props;
+    const { label, renderToDashboard, renderToModal, userType } = this.props;
     const { options, assignedIds, showDropdown, fetch } = this.state;
+    const renderCondition = userType.some(type => type === getUserRole());
 
     return (
-      getUserType() === S_REDGUY && (
+      renderCondition && (
         <StyledAssignDropdown
           renderToModal={renderToModal}
           // tabIndex="-1"
