@@ -1,4 +1,5 @@
 import { S_PASSIVE, S_ACTIVE, S_CORE, S_REDGUY } from "../constans/constans";
+import jwtDecode from "jwt-decode";
 
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window
@@ -126,5 +127,9 @@ export function detectSpecType(role) {
 }
 
 export function getUserType() {
-  return localStorage.getItem("s_type");
+  const token = localStorage.getItem("jwt_token");
+  if (token) {
+    const { role } = jwtDecode(token);
+    return role;
+  } else return "passive";
 }

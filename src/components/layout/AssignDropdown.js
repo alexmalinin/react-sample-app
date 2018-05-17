@@ -1,21 +1,14 @@
 import React, { Component } from "react";
-import { Input, Grid } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Input } from "semantic-ui-react";
 
-import {
-  StyledAssignDropdown,
-  StyledPersonTile,
-  StyledSpecialist
-} from "../../styleComponents/layout/StyledAssignDropdown";
+import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import {
-  IMAGE_PORT,
-  CLIENT,
-  SPECIALIST,
-  S_REDGUY
-} from "../../constans/constans";
+import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
 import { getUserType } from "../../helpers/functions";
+import { showAllSpecialists } from "../../actions/actions";
 
-export class AssignDropdown extends Component {
+export default class AssignDropdown extends Component {
   state = {
     options: [],
     assignedIds: [],
@@ -41,7 +34,8 @@ export class AssignDropdown extends Component {
   closeDropdown = e => {
     setTimeout(() => {
       this.setState({
-        showDropdown: false
+        showDropdown: false,
+        fetch: false
       });
     }, 100);
     if (e) {
@@ -66,7 +60,7 @@ export class AssignDropdown extends Component {
       }
 
       if (
-        dropdownRect.height + triggerRect.y + triggerRect.height >
+        320 + triggerRect.y + triggerRect.height >
         document.body.clientHeight
       ) {
         this.dropList.style.top = "auto";
@@ -109,12 +103,15 @@ export class AssignDropdown extends Component {
   };
 
   render() {
-    const { label, userType, renderToDashboard, renderToModal } = this.props;
-    const { options, assignedIds, showDropdown } = this.state;
+    const { label, renderToDashboard, renderToModal } = this.props;
+    const { options, assignedIds, showDropdown, fetch } = this.state;
 
     return (
       getUserType() === S_REDGUY && (
-        <StyledAssignDropdown renderToModal={renderToModal}>
+        <StyledAssignDropdown
+          renderToModal={renderToModal}
+          // tabIndex="-1"
+        >
           <a
             tabIndex="1"
             onClick={this.openDropdown}
@@ -140,206 +137,35 @@ export class AssignDropdown extends Component {
                 onChange={this.handleSearch}
               />
               <div className="dropdown-list">
-                {options.map((specialist, key) => (
-                  <div
-                    key={key}
-                    data={specialist.id}
-                    onClick={this.handleAssign}
-                    className={
-                      assignedIds.indexOf(specialist.id) >= 0 ? "assigned" : ""
-                    }
-                  >
-                    <img
+                {options &&
+                  options.map((specialist, key) => (
+                    <div
+                      key={key}
                       data={specialist.id}
-                      src={
-                        specialist.avatar.url
-                          ? IMAGE_PORT + specialist.avatar.url
-                          : "/images/uploadImg.png"
+                      onClick={this.handleAssign}
+                      className={
+                        assignedIds.indexOf(specialist.id) >= 0
+                          ? "assigned"
+                          : ""
                       }
-                      alt="member"
-                    />
-                    {specialist.first_name + " " + specialist.last_name}
-                  </div>
-                ))}
+                    >
+                      <img
+                        data={specialist.id}
+                        src={
+                          specialist.avatar.url
+                            ? IMAGE_PORT + specialist.avatar.url
+                            : "/images/uploadImg.png"
+                        }
+                        alt="member"
+                      />
+                      {specialist.first_name + " " + specialist.last_name}
+                    </div>
+                  ))}
               </div>
             </div>
           )}
         </StyledAssignDropdown>
       )
-    );
-  }
-}
-
-//Assigned person tile
-
-export class PersonTile extends Component {
-  state = {
-    showDropdown: false
-  };
-
-  openDropdown = e => {
-    this.setState({
-      showDropdown: true
-    });
-  };
-
-  closeDropdown = () => {
-    setTimeout(() => {
-      this.setState({
-        showDropdown: false
-      });
-    }, 100);
-  };
-
-  removeSpecialist = (event, data) => {
-    const { handleRemove, specialist } = this.props;
-    handleRemove("remove", specialist.id);
-    this.closeDropdown();
-  };
-
-  render() {
-    const {
-      specialist,
-      labeled,
-      removeTitle,
-      userType,
-      renderToDashboard
-    } = this.props;
-    const { showDropdown } = this.state;
-
-    return (
-      <StyledPersonTile>
-        <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>
-          <img
-            onClick={e => e.target.parentNode.focus()}
-            alt="avatar"
-            src={
-              specialist.avatar.url
-                ? IMAGE_PORT + specialist.avatar.url
-                : "/images/uploadImg.png"
-            }
-          />
-          {labeled &&
-            renderToDashboard && (
-              <p>
-                {specialist.first_name} {specialist.last_name}
-              </p>
-            )}
-        </a>
-        {showDropdown && (
-          <DeleteTile
-            specialist={specialist}
-            userType={userType}
-            removeTitle={removeTitle}
-            showDropdown={showDropdown}
-            removeSpecialist={this.removeSpecialist}
-          />
-        )}
-      </StyledPersonTile>
-    );
-  }
-}
-
-//Delete dropdown for person tile
-
-class DeleteTile extends Component {
-  componentDidMount() {
-    let deleteRect = this.deleteTile.getBoundingClientRect();
-
-    if (deleteRect.width + deleteRect.left + 10 > document.body.clientWidth) {
-      this.deleteTile.style.left =
-        -deleteRect.width -
-        deleteRect.left +
-        document.body.clientWidth -
-        15 +
-        "px";
-    }
-
-    if (deleteRect.height + deleteRect.y > document.body.clientHeight) {
-      this.deleteTile.style.top = "auto";
-      this.deleteTile.style.bottom = "calc(100% + 4px)";
-    }
-  }
-
-  render() {
-    const {
-      specialist,
-      userType,
-      removeTitle,
-      showDropdown,
-      removeSpecialist
-    } = this.props;
-    return (
-      <div
-        className={`delete${showDropdown ? " show" : ""}`}
-        ref={div => (this.deleteTile = div)}
-      >
-        <div className="close" onClick={this.closeDropdown} />
-        <p className="dropdownTitle">Profile</p>
-        <div className="info">
-          <img
-            src={
-              specialist.avatar.url
-                ? IMAGE_PORT + specialist.avatar.url
-                : "/images/uploadImg.png"
-            }
-            alt="avatar"
-          />
-          <div>
-            <p>{specialist.first_name + " " + specialist.last_name}</p>
-            {getUserType() === S_REDGUY && (
-              <button
-                data={specialist.id}
-                onClick={removeSpecialist}
-                className="remove"
-                type="button"
-              >
-                Remove from {removeTitle}
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-//For add task modal
-
-export class SpecialistTile extends Component {
-  remove = () => {
-    const { remove, index } = this.props;
-    remove(index);
-  };
-  render() {
-    const { specialist } = this.props;
-    return (
-      <StyledSpecialist>
-        <Grid padded="horizontally">
-          <Grid.Row>
-            <Grid.Column computer={10}>
-              <img
-                src={
-                  specialist.avatar.url
-                    ? IMAGE_PORT + specialist.avatar.url
-                    : "/images/uploadImg.png"
-                }
-                alt={specialist.first_name + " " + specialist.last_name}
-              />
-              <p>{specialist.first_name + " " + specialist.last_name}</p>
-            </Grid.Column>
-            <Grid.Column computer={4}>
-              {/* <CostField
-                name="cost"
-                label="Cost"
-                onBlur={this.makeFloat}
-                padded
-              /> */}
-            </Grid.Column>
-            <button type="button" onClick={this.remove} />
-          </Grid.Row>
-        </Grid>
-      </StyledSpecialist>
     );
   }
 }

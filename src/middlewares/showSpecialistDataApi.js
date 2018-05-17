@@ -1,7 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { SUCCESS } from "../constans/constans";
-import { detectSpecType } from "../helpers/functions";
 
 export default store => next => action => {
   const { type, showSpecialistData, ...rest } = action;
@@ -16,7 +15,6 @@ export default store => next => action => {
   })
     .then(function(response) {
       let data = response.data;
-      localStorage.setItem("s_type", data.role);
       data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })

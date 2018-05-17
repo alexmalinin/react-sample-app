@@ -10,7 +10,8 @@ import RenderDate from "../../forms/renders/RenderDate";
 import RenderFile from "../../forms/renders/RenderFile";
 import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { AssignDropdown, SpecialistTile } from "../../layout/AssignDropdown";
+import AssignDropdown from "../../layout/AssignDropdown";
+import SpecialistTile from "../../layout/SpecialistTile";
 import { showProjectTeam } from "../../../actions/actions";
 
 class NewTaskForm extends Component {
@@ -25,7 +26,13 @@ class NewTaskForm extends Component {
   }
 
   componentWillMount() {
-    const { project, epic, projectWithId, allEpics, allProjects } = this.props;
+    const {
+      project,
+      epic,
+      projectWithId,
+      allEpics,
+      specialistProjects
+    } = this.props;
 
     if (project && epic && projectWithId) {
       this.props.dispatch(
@@ -38,13 +45,13 @@ class NewTaskForm extends Component {
       this.props.dispatch(
         change("CreateTaskForm", "epic", {
           value: allEpics[epic - 1].id,
-          label: allEpics[epic - 1].description
+          label: allEpics[epic - 1].name
         })
       );
     }
 
-    allProjects &&
-      allProjects.map(project =>
+    specialistProjects &&
+      specialistProjects.forEach(project =>
         this.projectList.push({
           label: project.name,
           value: project.id,
@@ -268,8 +275,14 @@ NewTaskForm = reduxForm({
 })(NewTaskForm);
 
 export default connect(
-  ({ allProjects, projectTeam, changeUserType, projectWithId, allEpics }) => ({
-    allProjects,
+  ({
+    specialistProjects,
+    projectTeam,
+    changeUserType,
+    projectWithId,
+    allEpics
+  }) => ({
+    specialistProjects,
     projectTeam,
     changeUserType,
     projectWithId,

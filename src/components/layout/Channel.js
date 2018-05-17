@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Form, Input } from "semantic-ui-react";
 
-import { AssignDropdown, PersonTile } from "./AssignDropdown";
+import AssignDropdown from "./AssignDropdown";
+import PersonTile from "./PersonTile";
 
 import {
   IMAGE_PORT,

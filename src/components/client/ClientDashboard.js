@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   showAllProjects,
   showProjectWithId,
   showAllEpics,
   showEpicTasks,
-  showClientData
+  showClientData,
+  showProjectTeam
 } from "../../actions/actions";
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
@@ -377,6 +378,7 @@ class ClientDashboard extends Component {
       if (nextProps.projectWithId.id !== +projectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
+        nextProps.showProjectTeam(projectId);
       }
     } else if (projectId && projectId !== "new") {
       nextProps.showProjectWithId(projectId);
@@ -397,6 +399,7 @@ export default connect(
     showAllProjects,
     showProjectWithId,
     showAllEpics,
-    showEpicTasks
+    showEpicTasks,
+    showProjectTeam
   }
 )(ClientDashboard);

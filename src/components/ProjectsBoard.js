@@ -27,7 +27,6 @@ class ProjectsBoard extends Component {
   componentWillMount() {
     this.props.showAllProjects();
     this.props.showAllEpics(this.props.projectId);
-    this.props.showAllSpecialists();
   }
 
   componentWillReceiveProps(nextProps) {

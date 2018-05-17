@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Dropdown, Transition, Input } from "semantic-ui-react";
-import { IMAGE_PORT } from "../../constans/constans";
-import { AssignDropdown, PersonTile } from "./AssignDropdown";
+import AssignDropdown from "./AssignDropdown";
+import PersonTile from "./PersonTile";
 
 class CustomCard extends Component {
   state = {

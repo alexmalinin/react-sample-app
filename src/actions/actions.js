@@ -389,9 +389,10 @@ export function showSpecialistData() {
 
 // Show all specialists
 
-export function showAllSpecialists() {
+export function showAllSpecialists(...roles) {
   const action = {
     type: SHOW_ALL_SPECIALISTS,
+    roles,
     showAllSpecialists: `${PORT}/api/v1/specialists`
   };
 
@@ -721,6 +722,7 @@ export function updateEpicTask(data, epic, task) {
 export function showEpicTasks(epic) {
   const action = {
     type: SHOW_EPIC_TASKS,
+    epic,
     showEpicTasks: `${PORT}/api/v1/epics/${epic}/tasks`
   };
 

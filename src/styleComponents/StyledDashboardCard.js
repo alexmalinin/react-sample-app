@@ -175,7 +175,7 @@ export default styled.div`
       width: 88%;
 
       .team {
-        flex: 40%;
+        flex: 0 0 200px;
         align-items: center;
         .next,
         .prev {

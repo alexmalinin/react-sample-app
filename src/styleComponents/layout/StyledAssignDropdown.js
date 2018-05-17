@@ -4,6 +4,7 @@ import { boxShadow } from "../constants/colors";
 export const StyledAssignDropdown = styled.div`
   position: relative;
   margin: 5px 7px 5px 0;
+  outline: none;
 
   color: #ddd;
   cursor: pointer;
@@ -99,6 +100,17 @@ export const StyledAssignDropdown = styled.div`
       transition: inherit;
 
       ${props => props.renderToModal && "display: none;"}
+    }
+  }
+
+  .preloader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+
+    i{
+      font-size: 2em;
     }
   }
 

@@ -9,8 +9,6 @@ import { NavLink } from "react-router-dom";
 
 class ClientStatementForm extends Component {
   render() {
-    console.log(this.props);
-
     return (
       <form>
         <Grid>

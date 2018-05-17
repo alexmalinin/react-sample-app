@@ -60,7 +60,9 @@ class ProjectSubHeader extends Component {
             content="All"
             url={`/dashboard/project/${this.props.project}`}
             className="allModules"
-          />
+          >
+            &nbsp;
+          </SubHeaderLinkWrap>
 
           {allEpics && this.renderProgressBars()}
           {changeUserType === CLIENT && (

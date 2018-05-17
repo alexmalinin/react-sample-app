@@ -74,6 +74,7 @@ class RenderImage extends Component {
             className="dropzone"
             activeClassName="active"
             onDrop={this.onDrop}
+            accept=".pdf,.doc,.docx"
           >
             <p>Drop file here or click to select</p>
             <i className="fa fa-cloud-download-alt" />
