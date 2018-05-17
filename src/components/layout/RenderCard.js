@@ -45,17 +45,19 @@ class RenderCard extends Component {
     //TODO: type of cards as different components
     if (type === "project") {
       if (projectTeam) {
-        if (projectTeam[0].project_id === id) {
-          if (this.props.projectTeam) {
-            if (this.props.projectTeam !== projectTeam) {
+        if (projectTeam[0]) {
+          if (projectTeam[0].project_id === id) {
+            if (this.props.projectTeam) {
+              if (this.props.projectTeam !== projectTeam) {
+                this.setState({
+                  projectTeam: projectTeam[0]
+                });
+              }
+            } else
               this.setState({
                 projectTeam: projectTeam[0]
               });
-            }
-          } else
-            this.setState({
-              projectTeam: projectTeam[0]
-            });
+          }
         }
       }
 
