@@ -138,14 +138,14 @@ export function getUserRole() {
   if (token) {
     const { role } = jwtDecode(token);
     return role;
-  } else return "undefined";
+  }
 }
 
 export function getUserType() {
   if (getUserRole() === "customer") {
     return CLIENT;
   } else if (
-    [S_ACTIVE, S_CORE, S_PASSIVE, S_REDGUY, "undefined"].some(
+    [S_ACTIVE, S_CORE, S_PASSIVE, S_REDGUY].some(
       s_type => s_type === getUserRole()
     )
   ) {
