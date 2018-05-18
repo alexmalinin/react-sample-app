@@ -19,14 +19,20 @@ export default store => next => action => {
     method: "put",
     url: editEducationCard1 + id + editEducationCard2,
     data: {
-      education: payload
+      education: {
+        name: payload["name"],
+        specialisation: payload["specialisation"],
+        started_at: payload["started_at"]["value"],
+        finished_at: payload["finished_at"]["value"],
+        degree: payload["degree"],
+        description: payload["description"]
+      }
     },
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
     .then(response => {
-      console.log(response);
       return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .catch(function(error) {

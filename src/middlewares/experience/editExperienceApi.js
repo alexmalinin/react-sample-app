@@ -15,26 +15,25 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
 
-  console.log("midle", payload);
-
-  // console.log(
-  //     {
-  //         "education": payload,
-  //     }
-  // )
-
   axios({
     method: "put",
     url: editExperienceCard1 + id + editExperienceCard2,
     data: {
-      work_experience: payload
+      work_experience: {
+        name: payload["name"],
+        country: payload["country"],
+        city: payload["city"],
+        position: payload["position"],
+        started_at: payload["started_at"]["value"],
+        finished_at: payload["finished_at"]["value"],
+        description: payload["description"]
+      }
     },
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
     .then(response => {
-      console.log(response);
       return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .catch(function(error) {

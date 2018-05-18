@@ -20,6 +20,29 @@ export default store => next => action => {
   window.payload = payload;
   let image = payload["person"] ? payload["person"][0] : null;
 
+  const educationData = education.map(item => {
+    return {
+      name: item["name"],
+      specialisation: item["specialisation"],
+      started_at: item["started_at"]["value"] || item["started_at"],
+      finished_at: item["finished_at"]["value"] || item["finished_at"],
+      degree: item["degree"],
+      description: item["description"]
+    };
+  });
+
+  const experienceData = experience.map(item => {
+    return {
+      name: item["name"],
+      country: item["country"],
+      city: item["city"],
+      position: item["position"],
+      started_at: item["started_at"]["value"] || item["started_at"],
+      finished_at: item["finished_at"]["value"] || item["finished_at"],
+      description: item["description"]
+    };
+  });
+
   if (image) {
     let reader = new FileReader();
     reader.readAsDataURL(image);
@@ -37,8 +60,8 @@ export default store => next => action => {
             email: payload["email"],
             professional_experience_info:
               payload["professional_experience_info"],
-            educations_attributes: education,
-            work_experiences_attributes: experience,
+            educations_attributes: educationData,
+            work_experiences_attributes: experienceData,
             address_attributes: {
               city: payload["city"],
               country: payload["country"],
@@ -69,8 +92,8 @@ export default store => next => action => {
           phone_number: payload["phone_number"],
           email: payload["email"],
           professional_experience_info: payload["professional_experience_info"],
-          educations_attributes: education,
-          work_experiences_attributes: experience,
+          educations_attributes: educationData,
+          work_experiences_attributes: experienceData,
           address_attributes: {
             city: payload["city"],
             country: payload["country"],

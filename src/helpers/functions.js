@@ -152,3 +152,19 @@ export function getUserType() {
     return SPECIALIST;
   }
 }
+
+export function getYearsForSelect(start = 1960, end = 2025) {
+  var startYear = start,
+    years = [];
+
+  while (startYear <= end) {
+    let item = {
+      label: startYear,
+      value: startYear
+    };
+    startYear++;
+    years.push(item);
+  }
+
+  return years;
+}
