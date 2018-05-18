@@ -1,6 +1,6 @@
-import { getUserType } from "../helpers/functions";
+import { SPECIALIST } from "../constans/constans";
 
-export default (state = getUserType(), action) => {
+export default (state = SPECIALIST, action) => {
   const { type, user } = action;
   switch (type) {
     case "CHANGE_USER_TYPE":
