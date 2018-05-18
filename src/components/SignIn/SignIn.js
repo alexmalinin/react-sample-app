@@ -11,6 +11,8 @@ import StyledFormHeader from "../../styleComponents/StyledFormHeader";
 import Tabs from "../../styleComponents/Tabs";
 import SignInForm from "./SignInForm";
 import { signIn, userType } from "../../actions/actions";
+import { getUserRole } from "../../helpers/functions";
+import { S_PASSIVE } from "../../constans/constans";
 
 class SignUp extends Component {
   componentWillMount() {
@@ -90,7 +92,9 @@ class SignUp extends Component {
     }
 
     if (status === "logged") {
-      return <Redirect to={`/dashboard/`} />;
+      if (getUserRole() === S_PASSIVE) {
+        return <Redirect to={`/dashboard/about`} />;
+      } else return <Redirect to={`/dashboard/`} />;
     }
   };
 

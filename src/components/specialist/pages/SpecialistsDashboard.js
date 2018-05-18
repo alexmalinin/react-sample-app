@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
@@ -35,10 +35,12 @@ import {
   getCookie,
   setCookie,
   checkObjectPropertiesForValues,
-  getUserType
+  getUserType,
+  getUserRole
 } from "../../../helpers/functions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
+import NotFound from "../../NotFound";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -46,6 +48,8 @@ const mapPageNameToFieldsCount = {
   companyPercent: 8,
   billingPercent: 2
 };
+
+const pagesToCalculate = ["profile", "industry", "company", "billings"];
 
 class SpecialistsDashboard extends Component {
   constructor() {
@@ -224,13 +228,28 @@ class SpecialistsDashboard extends Component {
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
-    if (params["page"]) {
+    const passive = getUserRole() === S_PASSIVE;
+    const allowedPages = [
+      "about",
+      "profile",
+      "industry",
+      "company",
+      "billings"
+    ];
+
+    if (passive) {
+      if (params["page"]) {
+        if (allowedPages.some(page => params["page"] === page)) {
+          page = params["page"];
+        } else page = "forbidden";
+      } else page = "forbidden";
+    } else if (params["page"]) {
       page = params["page"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
     } else if (params["projectNewModule"] && getUserType() === S_REDGUY) {
       page = "module";
-    } else page = "root;";
+    } else page = "root";
 
     let sidebarCondition =
       page !== "profile" &&
@@ -240,19 +259,35 @@ class SpecialistsDashboard extends Component {
 
     return (
       <div>
-        <HeaderBasic match={this.props.match} page={sidebarCondition} />
+        <HeaderBasic
+          passive={passive}
+          match={this.props.match}
+          page={sidebarCondition}
+        />
         <S_MainContainer
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
+          passive={passive}
         >
-          {sidebarCondition && (
-            <SideBarLeft
-              currentProject={params["projectId"]}
-              currentEpic={params["moduleId"]}
-            />
-          )}
           {sidebarCondition ? (
-            this.renderPage(page)
+            <Fragment>
+              {!passive && (
+                <SideBarLeft
+                  currentProject={params["projectId"]}
+                  currentEpic={params["moduleId"]}
+                />
+              )}
+              {this.renderPage(page)}
+              {!passive && (
+                <SideBarRight
+                  teams={specialistTeams}
+                  projects={projects}
+                  days={days}
+                  opened={rightSidebarOpened}
+                  toggle={this.toggleRightSidebar}
+                />
+              )}
+            </Fragment>
           ) : (
             <Container sidebarCondition={sidebarCondition}>
               <SubHeader
@@ -263,15 +298,6 @@ class SpecialistsDashboard extends Component {
               />
               {this.renderPage(page)}
             </Container>
-          )}
-          {sidebarCondition && (
-            <SideBarRight
-              teams={specialistTeams}
-              projects={projects}
-              days={days}
-              opened={rightSidebarOpened}
-              toggle={this.toggleRightSidebar}
-            />
           )}
         </S_MainContainer>
       </div>
@@ -339,6 +365,8 @@ class SpecialistsDashboard extends Component {
         return <SpecialistStatement />;
       case "the_village":
         return <TheVillage />;
+      case "forbidden":
+        return <NotFound />;
       default:
         return <Dashboard projects={this.props.specialistProjects} />;
     }
@@ -354,8 +382,15 @@ class SpecialistsDashboard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
-      if (nextProps.specialistData.email) {
+      if (
+        nextProps.specialistData.email &&
+        pagesToCalculate.some(page => page === nextProps.match.params["page"])
+      ) {
         this.calculatePercents();
+      }
+      if (getUserRole() !== nextProps.specialistData.role) {
+        localStorage.clear();
+        window.location.reload();
       }
     }
 

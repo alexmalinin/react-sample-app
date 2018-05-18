@@ -21,16 +21,14 @@ import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
 import ClientDashboard from "./client/ClientDashboard";
 import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
-import PrivateRoute from "../decorators/PrivateRoute";
-import { getUserRole } from "../helpers/functions";
+import { getUserType, getUserRole } from "../helpers/functions";
 import { S_PASSIVE } from "../constans/constans";
 
 class App extends Component {
   render() {
-    const { changeUserType } = this.props;
     let Dashboard;
 
-    switch (changeUserType) {
+    switch (getUserType()) {
       case "Specialist":
         Dashboard = SpecialistDashboard;
         break;
@@ -42,6 +40,7 @@ class App extends Component {
     }
 
     const token = localStorage.getItem("jwt_token");
+    const passive = getUserRole() !== S_PASSIVE;
 
     return (
       <Router>
@@ -52,7 +51,7 @@ class App extends Component {
                 exact
                 path="/"
                 render={() =>
-                  token ? (
+                  token && passive ? (
                     <Redirect to="/dashboard/" />
                   ) : (
                     <Redirect to="/sign_in" />
@@ -108,12 +107,6 @@ class App extends Component {
                 component={Dashboard}
               />
               <Route path="/dashboard/:page" component={Dashboard} />
-              {/* <PrivateRoute
-                exact
-                to="/dashboard/:page"
-                allowed={getUserRole() !== S_PASSIVE}
-                component={Dashboard}
-              /> */}
 
               <Route path="/404" component={NotFound} />
               <Route path="*" component={NotFound} />
