@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -26,9 +26,10 @@ import { S_PASSIVE } from "../constans/constans";
 
 class App extends Component {
   render() {
+    const { changeUserType } = this.props;
     let Dashboard;
 
-    switch (getUserType()) {
+    switch (changeUserType) {
       case "Specialist":
         Dashboard = SpecialistDashboard;
         break;
@@ -60,7 +61,7 @@ class App extends Component {
               />
               <Route
                 path="/index.html"
-                component={() =>
+                render={() =>
                   token ? (
                     <Redirect to="/dashboard/" />
                   ) : (
@@ -70,11 +71,6 @@ class App extends Component {
               />
               <Route path="/home" component={Home} />
               <Route path="/contact" component={Contact} />
-              <Route path="/how_it_works" component={NotFound} />
-              <Route path="/projects" component={NotFound} />
-              <Route path="/specialist_profiles" component={NotFound} />
-              <Route path="/contact" component={NotFound} />
-              <Route path="/qas" component={NotFound} />
               <Route path="/post_project" component={PostProject} />
               <Route
                 path="/project_overview"
@@ -85,28 +81,33 @@ class App extends Component {
               <Route path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
-              {!token &&
-                !localStorage.getItem("user_email") && (
-                  <Redirect to="/sign_in" />
-                )}
               <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/reset_password" component={ConfirmReset} />
 
-              <Route exact path="/dashboard/" component={Dashboard} />
+              {token ? (
+                <Fragment>
+                  <Route exact path="/dashboard/" component={Dashboard} />
 
-              <Route
-                path="/dashboard/project/:projectNewModule/module/new"
-                component={Dashboard}
-              />
-              <Route
-                path="/dashboard/project/:projectId/module/:moduleId"
-                component={Dashboard}
-              />
-              <Route
-                path="/dashboard/project/:projectId"
-                component={Dashboard}
-              />
-              <Route path="/dashboard/:page" component={Dashboard} />
+                  <Route
+                    path="/dashboard/project/:projectNewModule/module/new"
+                    component={Dashboard}
+                  />
+                  <Route
+                    path="/dashboard/project/:projectId/module/:moduleId"
+                    component={Dashboard}
+                  />
+                  <Route
+                    path="/dashboard/project/:projectId"
+                    component={Dashboard}
+                  />
+                  <Route path="/dashboard/:page" component={Dashboard} />
+                </Fragment>
+              ) : (
+                <Route
+                  path="/dashboard/"
+                  render={() => <Redirect to="/sign_in" />}
+                />
+              )}
 
               <Route path="/404" component={NotFound} />
               <Route path="*" component={NotFound} />

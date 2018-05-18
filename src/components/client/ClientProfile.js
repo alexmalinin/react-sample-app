@@ -30,8 +30,8 @@ class ClientProfile extends Component {
   }
 
   componentWillMount() {
-    localStorage.removeItem("user_email");
     sessionStorage.removeItem("client_step");
+    localStorage.removeItem("user_email");
     this.props.showClientData();
 
     let param = getAllUrlParams().edit;

@@ -70,6 +70,7 @@ class SpecialistsDashboard extends Component {
     this.props.showSpecialistProjects();
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
+    localStorage.removeItem("user_email");
   }
 
   collectPropfileData() {

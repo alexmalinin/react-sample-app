@@ -31,7 +31,8 @@ import TheVillage from "../TheVillage";
 import {
   getCookie,
   setCookie,
-  checkObjectPropertiesForValues
+  checkObjectPropertiesForValues,
+  getUserRole
 } from "../../helpers/functions";
 
 const mapPageNameToFieldsCount = {
@@ -39,6 +40,8 @@ const mapPageNameToFieldsCount = {
   companyPercent: 11,
   billingPercent: null
 };
+
+const pagesToCalculate = ["profile", "industry", "company", "billings"];
 
 class ClientDashboard extends Component {
   constructor() {
@@ -63,6 +66,7 @@ class ClientDashboard extends Component {
     } = this.props;
     showAllProjects();
     showClientData();
+    localStorage.removeItem("user_email");
 
     let projectId = params["projectId"] || params["projectNewModule"];
 
@@ -365,8 +369,15 @@ class ClientDashboard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData) {
-      if (nextProps.clientData.email) {
+      if (
+        nextProps.specialistData.email &&
+        pagesToCalculate.some(page => page === nextProps.match.params["page"])
+      ) {
         this.calculatePercents();
+      }
+      if (getUserRole() !== nextProps.clientData.role) {
+        localStorage.clear();
+        window.location.reload();
       }
     }
 
