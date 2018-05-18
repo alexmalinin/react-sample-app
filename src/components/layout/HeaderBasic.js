@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Dropdown, Popup } from "semantic-ui-react";
@@ -17,7 +17,13 @@ class Header extends Component {
   }
 
   render() {
-    const { page, specialistData, clientData, changeUserType } = this.props;
+    const {
+      page,
+      specialistData,
+      clientData,
+      changeUserType,
+      passive
+    } = this.props;
 
     let isNavMenu = null;
 
@@ -42,37 +48,41 @@ class Header extends Component {
           </a>
           {(page || isNavMenu) && (
             <div className="right-links">
-              <NavLink
-                exact
-                activeClassName="current"
-                className="item-link"
-                to="/dashboard/"
-              >
-                <Popup
-                  trigger={<i className="fas fa-columns" />}
-                  content="Dashboard"
-                />
-              </NavLink>
-              <NavLink
-                activeClassName="current"
-                className="item-link"
-                to="/dashboard/teams"
-              >
-                <Popup
-                  trigger={<i className="fas fa-users" />}
-                  content="Teams"
-                />
-              </NavLink>
-              <NavLink
-                activeClassName="current"
-                className="item-link"
-                to="/dashboard/account"
-              >
-                <Popup
-                  trigger={<i className="far fa-credit-card" />}
-                  content="Account"
-                />
-              </NavLink>
+              {!passive && (
+                <Fragment>
+                  <NavLink
+                    exact
+                    activeClassName="current"
+                    className="item-link"
+                    to="/dashboard/"
+                  >
+                    <Popup
+                      trigger={<i className="fas fa-columns" />}
+                      content="Dashboard"
+                    />
+                  </NavLink>
+                  <NavLink
+                    activeClassName="current"
+                    className="item-link"
+                    to="/dashboard/teams"
+                  >
+                    <Popup
+                      trigger={<i className="fas fa-users" />}
+                      content="Teams"
+                    />
+                  </NavLink>
+                  <NavLink
+                    activeClassName="current"
+                    className="item-link"
+                    to="/dashboard/account"
+                  >
+                    <Popup
+                      trigger={<i className="far fa-credit-card" />}
+                      content="Account"
+                    />
+                  </NavLink>
+                </Fragment>
+              )}
               <NavLink
                 activeClassName="current"
                 className="item-link"

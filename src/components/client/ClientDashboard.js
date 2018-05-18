@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   showAllProjects,
@@ -254,14 +254,23 @@ class ClientDashboard extends Component {
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
         >
-          {sidebarCondition && (
-            <SideBarLeft
-              currentProject={params["projectId"] || params["projectNewModule"]}
-              currentEpic={params["moduleId"]}
-            />
-          )}
           {sidebarCondition ? (
-            this.renderPage(page)
+            <Fragment>
+              <SideBarLeft
+                currentProject={
+                  params["projectId"] || params["projectNewModule"]
+                }
+                currentEpic={params["moduleId"]}
+              />
+              {this.renderPage(page)}
+              <SideBarRight
+                teams={allTeams}
+                projects={projects}
+                days={days}
+                opened={rightSidebarOpened}
+                toggle={this.toggleRightSidebar}
+              />
+            </Fragment>
           ) : (
             <Container
               sidebarCondition={sidebarCondition}
@@ -276,15 +285,6 @@ class ClientDashboard extends Component {
               />
               {this.renderPage(page)}
             </Container>
-          )}
-          {sidebarCondition && (
-            <SideBarRight
-              teams={allTeams}
-              projects={projects}
-              days={days}
-              opened={rightSidebarOpened}
-              toggle={this.toggleRightSidebar}
-            />
           )}
         </S_MainContainer>
       </div>

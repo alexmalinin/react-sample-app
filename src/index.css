@@ -1,15 +1,19 @@
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 html,
 body,
 #root,
 #root > div {
   height: 100%;
   background-color: #f4f9fa;
+}
+
+* {
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 /*________RESET SEMANTIC________*/

@@ -375,7 +375,8 @@ export const StyledPersonTile = styled.div`
       img {
         width: 50px;
         height: 50px;
-        object-fit: cover;
+        object-fit: contain;
+        background: #fff;
         border-radius: 50%;
       }
 

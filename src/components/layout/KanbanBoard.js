@@ -21,6 +21,7 @@ class KanbanBoard extends Component {
       backlogTasks: [],
       progressTasks: [],
       completedTasks: [],
+      acceptedTasks: [],
       showBoard: false,
       editingTask: {}
     };
@@ -128,6 +129,7 @@ class KanbanBoard extends Component {
       showBoard,
       editingTask
     } = this.state;
+    console.log(this.state)
 
     return (
       // <Transition animation="fade" duration={400} visible={showBoard}>
@@ -154,7 +156,7 @@ class KanbanBoard extends Component {
       //     <div className="noTasks">No tasks for now</div>
       //   )}
       // </Transition>
-      showBoard &&
+      currentEpic !== "all" &&
       (backlogTasks.length !== 0 ||
       progressTasks.length !== 0 ||
       completedTasks.length !== 0 ||
