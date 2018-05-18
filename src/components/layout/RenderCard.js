@@ -341,5 +341,9 @@ export default connect(
     removeFromTeam,
     changeUserType
   }),
-  { showProjectTeam, assignSpecialistToTeam, removeSpecialistFromTeam }
+  {
+    showProjectTeam,
+    assignSpecialistToTeam,
+    removeSpecialistFromTeam
+  }
 )(RenderCard);

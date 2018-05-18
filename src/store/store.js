@@ -40,8 +40,10 @@ import showProjectWithId from "../middlewares/showProjectWithIdApi";
 import createProjectEpic from "../middlewares/createProjectEpicApi";
 import updateProjectEpic from "../middlewares/editProjectEpicApi";
 import deleteProjectEpic from "../middlewares/deleteProjectEpicApi";
+import showAllEpicsWithoutProject from "../middlewares/showAllEpicsWithoutProjectApi";
 import showAllEpics from "../middlewares/showAllEpicsApi";
 import showProjectEpic from "../middlewares/showEpicWithIdApi";
+import showAllEpicTasks from "../middlewares/showAllEpicTasksApi";
 import createEpicTask from "../middlewares/createTaskApi";
 import showEpicTasks from "../middlewares/showEpicTasksApi";
 import updateEpicTask from "../middlewares/updateEpicTaskApi";
@@ -101,8 +103,10 @@ const enhancer = applyMiddleware(
   createProjectEpic,
   updateProjectEpic,
   deleteProjectEpic,
+  showAllEpicsWithoutProject,
   showAllEpics,
   showProjectEpic,
+  showAllEpicTasks,
   createEpicTask,
   showEpicTasks,
   updateEpicTask,

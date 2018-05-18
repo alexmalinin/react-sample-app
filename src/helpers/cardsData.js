@@ -1,4 +1,4 @@
-const cards = [
+export const cards = [
   {
     type: "projects",
     title: "Projects Overview",
@@ -279,4 +279,33 @@ const cards = [
   }
 ];
 
-export default cards;
+export const dashboardCards = [
+  {
+    label: "Recent",
+    title: "XYZ Project",
+    module: "1",
+    name: "Module One",
+    percents: "80"
+  },
+  {
+    label: "Recent",
+    title: "ABC Project",
+    module: "4",
+    name: "Module Four",
+    percents: "60"
+  },
+  {
+    label: "Recent",
+    title: "XYZ Project",
+    module: "2",
+    name: "Module Two",
+    percents: "20"
+  },
+  {
+    label: "Recent",
+    title: "ABC Project",
+    module: "3",
+    name: "Module Three",
+    percents: "40"
+  }
+];

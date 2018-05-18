@@ -33,19 +33,29 @@ class ProgressBars extends Component {
   componentDidMount() {
     this.renderBar();
     this.bar.animate(this.props.percents / 100);
-    if (this.props.percents === 100) {
-      this.bar.path.setAttribute("stroke", "#00ffc0");
+
+    if (this.props.strokeColor) {
+      this.bar.path.setAttribute("stroke", this.props.strokeColor);
     } else {
-      this.bar.path.setAttribute("stroke", "#fff");
+      if (this.props.percents === 100) {
+        this.bar.path.setAttribute("stroke", "#00ffc0");
+      } else {
+        this.bar.path.setAttribute("stroke", "#fff");
+      }
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.bar.animate(nextProps.percents / 100);
-    if (nextProps.percents === 100) {
-      this.bar.path.setAttribute("stroke", "#00ffc0");
+
+    if (this.props.strokeColor) {
+      this.bar.path.setAttribute("stroke", this.props.strokeColor);
     } else {
-      this.bar.path.setAttribute("stroke", "#fff");
+      if (nextProps.percents === 100) {
+        this.bar.path.setAttribute("stroke", "#00ffc0");
+      } else {
+        this.bar.path.setAttribute("stroke", "#fff");
+      }
     }
   }
 
