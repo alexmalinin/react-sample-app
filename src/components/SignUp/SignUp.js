@@ -24,7 +24,7 @@ class SignUp extends Component {
   };
 
   componentWillMount() {
-    localStorage.removeItem("user_email");
+    // localStorage.removeItem("user_email");
     run(0)();
     this.setState({
       confirm: false

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
+import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 import jwtDecode from "jwt-decode";
 
@@ -100,8 +100,8 @@ class DeleteTile extends Component {
       showDropdown,
       removeSpecialist
     } = this.props;
-    const thisUser =
-      specialist.id === jwtDecode(localStorage.getItem("jwt_token")).id;
+    const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
+    const thisUser = specialist.id === id && role !== CUSTOMER;
     return (
       <div
         className={`delete${showDropdown ? " show" : ""}`}

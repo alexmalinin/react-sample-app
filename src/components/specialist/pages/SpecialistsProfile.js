@@ -80,9 +80,7 @@ class SpecialistsProfile extends Component {
 
   componentWillMount() {
     run(0)(true);
-    sessionStorage.removeItem("spec_step2");
     localStorage.removeItem("user_email");
-    localStorage.removeItem("fillForm1");
     this.props.showSpecialistData();
 
     let param = getAllUrlParams().edit;
