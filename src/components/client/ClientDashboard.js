@@ -245,7 +245,7 @@ class ClientDashboard extends Component {
       if (params["projectId"] === "new") {
         page = "projects";
       } else page = "board";
-    } else if (params["projectNewModule"]) {
+    } else if (params["moduleId"] === "new") {
       page = "module";
     } else page = "root";
     console.log("page", page);
