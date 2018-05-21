@@ -94,10 +94,12 @@ class App extends Component {
                     component={Dashboard}
                   />
                   <Route
+                    exact
                     path="/dashboard/project/:projectId/module/:moduleId"
                     component={Dashboard}
                   />
                   <Route
+                    exact
                     path="/dashboard/project/:projectId"
                     component={Dashboard}
                   />
