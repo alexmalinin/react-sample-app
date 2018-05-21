@@ -31,6 +31,7 @@ class ProjectsBoard extends Component {
 
   componentWillReceiveProps(nextProps) {
     let epicId;
+    console.log(nextProps);
     if (
       nextProps.allEpics &&
       nextProps.currentEpic !== "all" &&
