@@ -23,13 +23,13 @@ import ClientDashboard from "./client/ClientDashboard";
 import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
 import { getUserType, getUserRole } from "../helpers/functions";
 import { S_PASSIVE } from "../constans/constans";
+import PrivateRoute from "../decorators/PrivateRoute";
 
 class App extends Component {
   render() {
-    const { changeUserType } = this.props;
     let Dashboard;
 
-    switch (changeUserType) {
+    switch (getUserType()) {
       case "Specialist":
         Dashboard = SpecialistDashboard;
         break;
@@ -84,33 +84,20 @@ class App extends Component {
               <Route path="/confirm_email" component={ConfirmEmail} />
               <Route path="/reset_password" component={ConfirmReset} />
 
-              {token ? (
-                <Fragment>
-                  <Route exact path="/dashboard/" component={Dashboard} />
-
-                  {/* <Route
-                    exact
-                    path="/dashboard/project/:projectNewModule/module/new"
-                    component={Dashboard}
-                  /> */}
-                  <Route
-                    exact
-                    path="/dashboard/project/:projectId/module/:moduleId"
-                    component={Dashboard}
-                  />
-                  <Route
-                    exact
-                    path="/dashboard/project/:projectId"
-                    component={Dashboard}
-                  />
-                  <Route exact path="/dashboard/:page" component={Dashboard} />
-                </Fragment>
-              ) : (
-                <Route
-                  path="/dashboard/"
-                  render={() => <Redirect to="/sign_in" />}
-                />
-              )}
+              <PrivateRoute exact path="/dashboard/" component={Dashboard} />
+              <PrivateRoute
+                path="/dashboard/project/:projectNewModule/module/new"
+                component={Dashboard}
+              />
+              <PrivateRoute
+                path="/dashboard/project/:projectId/module/:moduleId"
+                component={Dashboard}
+              />
+              <PrivateRoute
+                path="/dashboard/project/:projectId"
+                component={Dashboard}
+              />
+              <PrivateRoute path="/dashboard/:page" component={Dashboard} />
 
               <Route path="/404" component={NotFound} />
               <Route path="*" component={NotFound} />

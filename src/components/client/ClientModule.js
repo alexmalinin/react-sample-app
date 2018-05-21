@@ -29,30 +29,13 @@ class ClientProjects extends Component {
         <SubHeader module projectId={projectId} />
         <Container sidebarCondition={true} indentBot>
           <ClientModuleForm onSubmit={this.submit} />
-          {this.state.saved ? (
+          {this.state.saved && (
             <Redirect to={`/dashboard/project/${projectId}`} />
-          ) : null}
+          )}
         </Container>
       </ContainerLarge>
     );
   }
-
-  showMessage = status => {
-    setTimeout(() => {
-      return this.setState({
-        renderMessage: false,
-        renderErrorMessage: false
-      });
-    }, 2000);
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   submit = values => {
     const { projectId, allEpics } = this.props;

@@ -237,7 +237,6 @@ class ClientDashboard extends Component {
     } = this.props;
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
-    console.log("params", params);
 
     if (params["page"] && params["page"] !== "projects") {
       page = params["page"];
@@ -245,10 +244,9 @@ class ClientDashboard extends Component {
       if (params["projectId"] === "new") {
         page = "projects";
       } else page = "board";
-    } else if (params["moduleId"] === "new") {
+    } else if (params["projectNewModule"]) {
       page = "module";
     } else page = "root";
-    console.log("page", page);
 
     let sidebarCondition =
       page !== "profile" && page !== "company" && page !== "billing";

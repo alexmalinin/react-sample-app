@@ -1,20 +1,27 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
-export default function PrivateRoute({
-  component: Component,
-  allowed,
-  ...rest
-}) {
+const checkAuth = () => {
+  const token = localStorage.getItem("jwt_token");
+
+  if (!token) {
+    return false;
+  }
+
+  return true;
+};
+
+export default function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
       render={props =>
-        allowed ? (
+        checkAuth() ? (
           <Component {...props} />
         ) : (
           <Redirect
-            to={{ pathname: "/404", state: { from: props.location } }}
+            to={{ pathname: "/sign_in", state: { from: props.location } }}
           />
         )
       }

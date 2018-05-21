@@ -36,7 +36,6 @@ ClientModuleForm = reduxForm({
   forceUnregisterOnUnmount: true
 })(ClientModuleForm);
 
-export default connect(state => {
-  const { clientData } = state;
-  return { clientData };
-})(ClientModuleForm);
+export default connect(({ clientData }) => ({ clientData }), null)(
+  ClientModuleForm
+);

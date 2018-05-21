@@ -35,11 +35,11 @@ import {
   getCookie,
   setCookie,
   checkObjectPropertiesForValues,
-  getUserType,
   getUserRole
 } from "../../../helpers/functions";
 import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
+import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
 
 const mapPageNameToFieldsCount = {
@@ -248,15 +248,16 @@ class SpecialistsDashboard extends Component {
       page = params["page"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
-    } else if (params["projectNewModule"] && getUserType() === S_REDGUY) {
+    } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
       page = "module";
-    } else page = "root";
+    } else page = "dashboard";
 
     let sidebarCondition =
       page !== "profile" &&
       page !== "industry" &&
       page !== "company" &&
-      page !== "billings";
+      page !== "billings" &&
+      page !== "forbidden";
 
     return (
       <div>
@@ -368,8 +369,12 @@ class SpecialistsDashboard extends Component {
         return <TheVillage />;
       case "forbidden":
         return <NotFound />;
-      default:
+      case "search":
+        return <SearchSpecialist />;
+      case "dashboard":
         return <Dashboard projects={this.props.specialistProjects} />;
+      default:
+        return <NotFound />;
     }
   };
 

@@ -1,26 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { showAllTeams } from "../actions/actions";
+import { showAllTeams, showSpecialistTeams } from "../actions/actions";
 import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { CLIENT } from "../constans/constans";
+import { CUSTOMER, SPECIALIST } from "../constans/constans";
+import { getUserType } from "../helpers/functions";
 
 class Teams extends Component {
   componentWillMount() {
-    const { showAllTeams, changeUserType } = this.props;
-
-    changeUserType === CLIENT && showAllTeams();
+    this.showTeams();
   }
+
+  showTeams = () => {
+    const { showAllTeams, showSpecialistTeams } = this.props;
+
+    if (getUserType() === CUSTOMER) {
+      showAllTeams();
+    } else if (getUserType() === SPECIALIST) {
+      showSpecialistTeams();
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.createCustomTeam) {
       if (this.props.createCustomTeam) {
         if (this.props.createCustomTeam !== nextProps.createCustomTeam) {
-          nextProps.showAllTeams();
+          this.showTeams();
         }
-      } else nextProps.showAllTeams();
+      } else this.showTeams();
     }
   }
 
@@ -77,5 +86,5 @@ export default connect(
     changeUserType,
     createCustomTeam
   }),
-  { showAllTeams }
+  { showAllTeams, showSpecialistTeams }
 )(Teams);
