@@ -55,7 +55,7 @@ class SideBarLeft extends Component {
                   )}
                 </div>
               ))}
-            <NavLink className="projectLink" to="/dashboard/projects/new">
+            <NavLink className="projectLink" to="/dashboard/project/new">
               <span className="addProject" />
             </NavLink>
           </div>
