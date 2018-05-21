@@ -88,11 +88,11 @@ class App extends Component {
                 <Fragment>
                   <Route exact path="/dashboard/" component={Dashboard} />
 
-                  <Route
+                  {/* <Route
                     exact
                     path="/dashboard/project/:projectNewModule/module/new"
                     component={Dashboard}
-                  />
+                  /> */}
                   <Route
                     exact
                     path="/dashboard/project/:projectId/module/:moduleId"
