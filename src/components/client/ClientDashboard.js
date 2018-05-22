@@ -319,6 +319,7 @@ class ClientDashboard extends Component {
           />
         );
       case "about":
+        document.title = "Your profile | Digital Village";
         return <ClientAbout />;
       case "projects":
         document.title = "Add Project | Digital Village";
@@ -342,10 +343,13 @@ class ClientDashboard extends Component {
         document.title = "Teams | Digital Village";
         return <Teams teams={this.props.allTeams} />;
       case "account":
+        document.title = "Billings | Digital Village";
         return <ClientAccount />;
       case "year_to_date":
+        document.title = "YTD | Digital Village";
         return <ClientYTD />;
       case "statement":
+        document.title = "Statement | Digital Village";
         return <ClientStatement />;
       case "the_village":
         document.title = "The Village | Digital Village";

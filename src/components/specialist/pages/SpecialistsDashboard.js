@@ -309,6 +309,7 @@ class SpecialistsDashboard extends Component {
   renderPage = page => {
     switch (page) {
       case "profile":
+        document.title = "Profile | Digital Village";
         return (
           <SpecialistsProfile
             calculatePagePercent={this.calculatePagePercent}
@@ -316,6 +317,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "industry":
+        document.title = "Industry | Digital Village";
         return (
           <SpecialistIndustry
             calculatePagePercent={this.calculatePagePercent}
@@ -323,6 +325,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "company":
+        document.title = "Company | Digital Village";
         return (
           <SpecialistsCompany
             calculatePagePercent={this.calculatePagePercent}
@@ -330,6 +333,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "billings":
+        document.title = "Billings | Digital Village";
         return (
           <SpecialistsMyBillings
             calculatePagePercent={this.calculatePagePercent}
@@ -337,6 +341,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "about":
+        document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
       case "board":
         return (
@@ -347,28 +352,37 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "teams":
+        document.title = "Teams | Digital Village";
         return <Teams teams={this.props.specialistTeams} />;
       case "test":
+        document.title = "Test | Digital Village";
         return <SpecialistsTest />;
       case "module":
+        document.title = "Add module | Digital Village";
         return (
           <ClientModule
             projectId={this.props.match.params["projectNewModule"]}
           />
         );
       case "account":
+        document.title = "Billings | Digital Village";
         return <SpecialistAccount />;
       case "year_to_date":
+        document.title = "YTD | Digital Village";
         return <SpecialistYTD />;
       case "statement":
+        document.title = "Statement | Digital Village";
         return <SpecialistStatement />;
       case "the_village":
+        document.title = "The village | Digital Village";
         return <TheVillage />;
       case "forbidden":
         return <NotFound />;
       case "search":
+        document.title = "Search Specialist | Digital Village";
         return <SearchSpecialist />;
       case "dashboard":
+        document.title = "Dashboard | Digital Village";
         return <Dashboard projects={this.props.specialistProjects} />;
       default:
         return <NotFound />;

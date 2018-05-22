@@ -19,18 +19,9 @@ import RenderSkillsArea from "../../forms/renders/RenderSkillsArea";
 import Communication from "../Communication/Communication";
 import Availability from "../Availability/Availability";
 import RenderImage from "../../forms/renders/RenderImage";
+import { renameObjPropNames } from "../../../helpers/functions";
 
 class SkillsForm extends Component {
-  rename = (obj, oldName, newName) => {
-    if (!obj.hasOwnProperty(oldName)) {
-      return false;
-    }
-
-    obj[newName] = obj[oldName];
-    delete obj[oldName];
-    return true;
-  };
-
   getSkills = () => {
     if (this.props.skills.length === 0) {
       this.props.getSkills();
@@ -57,8 +48,8 @@ class SkillsForm extends Component {
 
     if (skills) {
       skills.forEach(skill => {
-        this.rename(skill, "id", "value");
-        this.rename(skill, "name", "label");
+        renameObjPropNames(skill, "id", "value");
+        renameObjPropNames(skill, "name", "label");
       });
       skills.sort((a, b) => {
         if (a.label < b.label) return -1;

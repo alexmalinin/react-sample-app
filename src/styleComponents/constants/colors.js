@@ -3,7 +3,9 @@ export const blueColor = "#3192f6";
 export const colors = {
   green: "#19df2b",
   purple: "#8f1ae5",
-  blue: "#1991fa"
+  blue: "#1991fa",
+  darkBlue: "#4861f2",
+  lightGreyBlue: "#dae1ee"
 };
 
 export const primaryColors = {

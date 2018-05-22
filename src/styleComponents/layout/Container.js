@@ -48,7 +48,11 @@ export const Container = styled.div`
     /* max-width: 1590px; */
     margin: 0 auto;
     padding: ${props =>
-      props.dashboardContainer ? `0 0 80px 0` : `0px 20px 80px 20px`} ;
+      props.dashboardContainer
+        ? `0 0 80px 0`
+        : props.fluid
+          ? `0 20px 0 20px`
+          : `0px 20px 80px 20px`} ;
     margin-bottom: 50px;
 
     max-width: 1280px;

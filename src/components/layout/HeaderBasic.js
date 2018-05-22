@@ -93,7 +93,16 @@ class Header extends Component {
                   content="Profile"
                 />
               </NavLink>
-              {/* this.renderDropdown() */}
+              <NavLink
+                activeClassName="current"
+                className="item-link"
+                to="/dashboard/search"
+              >
+                <Popup
+                  trigger={<i className="fas fa-search" />}
+                  content="Search"
+                />
+              </NavLink>
               <NavLink
                 activeClassName="current"
                 className="item-link"

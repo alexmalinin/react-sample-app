@@ -7,7 +7,9 @@ export default store => next => action => {
 
   axios({
     method: "get",
-    url: `${showAllSpecialists}${roles ? "?roles=" + roles.join(",") : ""}`
+    url: `${showAllSpecialists}${
+      roles.length !== 0 ? "?roles=" + roles.join(",") : ""
+    }`
   })
     .then(function(response) {
       let data = response.data;
