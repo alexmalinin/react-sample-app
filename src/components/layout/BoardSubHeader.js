@@ -5,7 +5,7 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
-import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { CLIENT, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
@@ -69,7 +69,7 @@ class ProjectSubHeader extends Component {
           </SubHeaderLinkWrap>
 
           {allEpics && this.renderProgressBars()}
-          {changeUserType === CLIENT && (
+          {(getUserRole() === CUSTOMER || getUserRole() === S_REDGUY) && (
             <SubHeaderLinkWrap
               content=""
               url={`/dashboard/project/${this.props.project}/module/new`}

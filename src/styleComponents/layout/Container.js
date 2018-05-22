@@ -61,6 +61,7 @@ export const Container = styled.div`
 
     /* ${props => (props.indentBot ? `margin-bottom: 250px` : ``)}; */
     ${props => (props.indentTop ? `margin-top: 100px` : ``)};
+    ${props => (props.indentTopXs ? `margin-top: 40px` : ``)};
     ${props => (props.relative ? `position: relative` : ``)};
 
     transition: .4s ease-in-out;
