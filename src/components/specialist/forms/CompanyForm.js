@@ -83,8 +83,8 @@ class CompanyForm extends Component {
                   name="segment"
                   component={RenderSelect}
                   label="Segment"
-                  placeholder="Select"
                   onChange={e => handleSelectChange(e, "segment")}
+                  placeholder="Select"
                   options={segments}
                   validate={[required]}
                   isRequired
@@ -95,9 +95,9 @@ class CompanyForm extends Component {
                 <Field
                   name="industry"
                   component={RenderSelect}
+                  onChange={e => handleSelectChange(e, "industry")}
                   label="Industry"
                   placeholder="Select"
-                  onChange={e => handleSelectChange(e, "industry")}
                   options={industries["industry"]}
                   validate={[required]}
                   isRequired
@@ -108,9 +108,9 @@ class CompanyForm extends Component {
                 <Field
                   name="number_of_employers"
                   component={RenderSelect}
+                  onChange={e => handleSelectChange(e, "number_of_employers")}
                   label="Number of employers"
                   placeholder="Select"
-                  onChange={e => handleSelectChange(e, "number_of_employers")}
                   options={employeers}
                   validate={[required]}
                   isRequired
@@ -133,12 +133,18 @@ class CompanyForm extends Component {
                   type="submit"
                   disabled={submitting}
                   primary
+                  onClick={this.props.handleSubmitError}
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn type="submit" disabled={submitting} primary>
+                <NextBtn
+                  type="submit"
+                  disabled={submitting}
+                  onClick={this.props.handleSubmitError}
+                  primary
+                >
                   <span>next step</span>
                 </NextBtn>
               )}

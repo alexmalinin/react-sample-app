@@ -35,6 +35,7 @@ import {
   getCookie,
   setCookie,
   checkObjectPropertiesForValues,
+  compareObjects,
   getUserRole
 } from "../../../helpers/functions";
 import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
@@ -59,8 +60,7 @@ class SpecialistsDashboard extends Component {
       industryPercent: null,
       companyPercent: null,
       billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      isEdited: false
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -320,7 +320,6 @@ class SpecialistsDashboard extends Component {
           <SpecialistIndustry
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
-            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "company":
@@ -328,7 +327,6 @@ class SpecialistsDashboard extends Component {
           <SpecialistsCompany
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
-            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "billings":
@@ -336,7 +334,6 @@ class SpecialistsDashboard extends Component {
           <SpecialistsMyBillings
             calculatePagePercent={this.calculatePagePercent}
             collectPropfileData={this.collectPropfileData}
-            handleFormValueChange={this.handleFormValueChange}
           />
         );
       case "about":
@@ -375,14 +372,6 @@ class SpecialistsDashboard extends Component {
         return <Dashboard projects={this.props.specialistProjects} />;
       default:
         return <NotFound />;
-    }
-  };
-
-  handleFormValueChange = obj => {
-    if (checkObjectPropertiesForValues(obj)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
     }
   };
 

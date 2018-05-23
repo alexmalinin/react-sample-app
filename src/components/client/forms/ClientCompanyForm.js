@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, getFormValues } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
@@ -11,14 +11,33 @@ import LocationField from "../../forms/renders/LocationField";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import CompanyForm from "./CompanyForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
+import { checkObjectPropertiesForValues } from "../../../helpers/functions";
 
 let renderError = true;
 
 class ClientCompanyForm extends Component {
-  state = {
-    formData: {},
-    submitError: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      formData: {},
+      fetchFormValues: true,
+      fetchSubmitError: true,
+      submitError: false
+    };
+
+    this.initialFormValues = {};
+  }
+
+  componentWillMount() {
+    if (this.props.clientData) {
+      this.fillFields(this.props.clientData);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
+  }
 
   render() {
     const {
@@ -26,8 +45,7 @@ class ClientCompanyForm extends Component {
       submitting,
       clientData,
       industries,
-      isEditing,
-      isEdited
+      isEditing
     } = this.props;
 
     return (
@@ -38,6 +56,7 @@ class ClientCompanyForm extends Component {
           submitting={submitting}
           isEditing={isEditing}
           handleSelectChange={this.handleSelectChange}
+          handleSubmitError={this.handleSubmitError}
         />
         <SubmitFormErrorModal
           isOpen={this.state.submitError}
@@ -48,7 +67,13 @@ class ClientCompanyForm extends Component {
   }
 
   closeErrorModal = () => {
-    this.setState({ submitError: false });
+    this.setState({ submitError: false, fetchSubmitError: false });
+  };
+
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.setState({ submitError: true });
+    }
   };
 
   handleChange = e => {
@@ -70,8 +95,24 @@ class ClientCompanyForm extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.formData) {
-      this.props.handleFormValueChange(nextState.formData);
+    if (!this.props.isEditing) {
+      if (checkObjectPropertiesForValues(nextState.formData)) {
+        this.props.handleFormEdit(false);
+      } else {
+        this.props.handleFormEdit(true);
+      }
+    }
+
+    if (this.props.isEditing) {
+      if (!this.initialFormValues) {
+        if (checkObjectPropertiesForValues(nextState.formData)) {
+          this.props.handleFormEdit(false);
+        } else {
+          this.props.handleFormEdit(true);
+        }
+      } else {
+        this.props.handleFormChange(nextState.formData, this.initialFormValues);
+      }
     }
   }
 
@@ -87,10 +128,19 @@ class ClientCompanyForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && Object.keys(this.state.formData).length > 0) {
+    if (nextProps.formValues && this.props.isEditing) {
+      if (this.state.fetchFormValues) {
+        this.initialFormValues = nextProps.formValues;
+
+        this.setState({
+          formData: nextProps.formValues,
+          fetchFormValues: false
+        });
+      }
+    }
+
+    if (nextProps.submitFailed && this.state.fetchSubmitError) {
       this.setState({ submitError: true });
-    } else {
-      this.setState({ submitError: false });
     }
   }
 
@@ -113,6 +163,10 @@ ClientCompanyForm = reduxForm({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true
 })(ClientCompanyForm);
+
+ClientCompanyForm = connect(state => ({
+  formValues: getFormValues("ClientCompanyForm")(state)
+}))(ClientCompanyForm);
 
 export default connect(state => {
   const { clientData } = state;

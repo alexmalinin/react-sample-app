@@ -52,7 +52,8 @@ class BillingForm extends Component {
       clientData,
       specialistData,
       handleFormField,
-      isEditing
+      isEditing,
+      handleSubmitError
     } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
@@ -221,13 +222,19 @@ class BillingForm extends Component {
                 <SaveBtn
                   type="submit"
                   disabled={submitting}
+                  onClick={handleSubmitError}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn type="submit" disabled={submitting} primary>
+                <NextBtn
+                  type="submit"
+                  disabled={submitting}
+                  onClick={handleSubmitError}
+                  primary
+                >
                   <span>NextStep</span>
                 </NextBtn>
               )}

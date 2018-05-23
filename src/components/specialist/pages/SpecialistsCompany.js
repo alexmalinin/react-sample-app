@@ -21,7 +21,10 @@ import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
-import { getAllUrlParams } from "../../../helpers/functions";
+import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+
+import NavigationPrompt from "react-router-navigation-prompt";
+import ConfirmationModal from "../../modals/ConfirmationModal";
 
 class SpecialistCompany extends Component {
   constructor() {
@@ -31,7 +34,8 @@ class SpecialistCompany extends Component {
       renderMessage: false,
       renderErrorMessage: false,
       nextStep: false,
-      isEditing: false
+      isEditing: false,
+      isEdited: false
     };
   }
 
@@ -45,8 +49,13 @@ class SpecialistCompany extends Component {
   }
 
   render() {
-    const { renderMessage, renderErrorMessage, isEditing } = this.state;
-    const { industries, handleFormValueChange } = this.props;
+    const {
+      renderMessage,
+      renderErrorMessage,
+      isEditing,
+      isEdited
+    } = this.state;
+    const { industries } = this.props;
 
     return (
       <div>
@@ -62,11 +71,30 @@ class SpecialistCompany extends Component {
         <SpecialistCompanyForm
           industries={industries}
           isEditing={isEditing}
-          handleFormValueChange={handleFormValueChange}
+          isEdited={isEdited}
+          handleFormEdit={this.handleFormEdit}
+          handleFormChange={this.handleFormChange}
           onSubmit={this.submit}
           onChange={this.change}
         />
-        {this.state.nextStep && <Redirect to="billings" />}
+
+        <NavigationPrompt when={this.state.isEdited}>
+          {({ onConfirm, onCancel }) => (
+            <ConfirmationModal
+              isSubmitted={this.state.nextStep}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
+          )}
+        </NavigationPrompt>
+
+        {this.state.nextStep ? (
+          this.state.isEditing ? (
+            <Redirect to="about" />
+          ) : (
+            <Redirect to="billings" />
+          )
+        ) : null}
       </div>
     );
   }
@@ -82,6 +110,18 @@ class SpecialistCompany extends Component {
       }
     }
   }
+
+  handleFormEdit = value => {
+    this.setState({ isEdited: value });
+  };
+
+  handleFormChange = (a, b) => {
+    if (compareObjects(a, b)) {
+      this.setState({ isEdited: false });
+    } else {
+      this.setState({ isEdited: true });
+    }
+  };
 
   showMessage = status => {
     setTimeout(() => {

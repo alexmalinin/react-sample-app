@@ -150,13 +150,19 @@ class BillingForm extends Component {
                 <SaveBtn
                   type="submit"
                   disabled={submitting}
+                  onClick={this.props.handleSubmitError}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn type="submit" disabled={submitting} primary>
+                <NextBtn
+                  type="submit"
+                  disabled={submitting}
+                  onClick={this.props.handleSubmitError}
+                  primary
+                >
                   <span>NextStep</span>
                 </NextBtn>
               )}

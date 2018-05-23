@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, change, formValueSelector } from "redux-form";
+import { reduxForm, change, getFormValues } from "redux-form";
 import SkillsForm from "./SkillsForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 
@@ -12,9 +12,24 @@ class SpecialistIndustryForm extends Component {
 
     this.state = {
       formData: {},
+      fetchFormValues: true,
+      fetchSubmitError: true,
       submitError: false
     };
+
+    this.initialFormValues = null;
   }
+
+  componentWillMount() {
+    if (this.props.specialistData) {
+      this.fillFields(this.props.specialistData);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
+  }
+
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -23,6 +38,7 @@ class SpecialistIndustryForm extends Component {
           handleChange={this.handleChange}
           handleSelectChange={this.handleSelectChange}
           handleCheckboxChange={this.handleCheckboxChange}
+          handleSubmitError={this.handleSubmitError}
         />
         <SubmitFormErrorModal
           isOpen={this.state.submitError}
@@ -33,7 +49,13 @@ class SpecialistIndustryForm extends Component {
   }
 
   closeErrorModal = () => {
-    this.setState({ submitError: false });
+    this.setState({ submitError: false, fetchSubmitError: false });
+  };
+
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.setState({ submitError: true });
+    }
   };
 
   handleChange = e => {
@@ -64,9 +86,7 @@ class SpecialistIndustryForm extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.formData) {
-      this.props.handleFormValueChange(nextState.formData);
-    }
+    this.props.handleFormChange(nextState.formData, this.initialFormValues);
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -77,10 +97,19 @@ class SpecialistIndustryForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed) {
+    if (nextProps.formValues) {
+      if (this.state.fetchFormValues) {
+        this.initialFormValues = nextProps.formValues;
+
+        this.setState({
+          formData: nextProps.formValues,
+          fetchFormValues: false
+        });
+      }
+    }
+
+    if (nextProps.submitFailed && this.state.fetchSubmitError) {
       this.setState({ submitError: true });
-    } else {
-      this.setState({ submitError: false });
     }
   }
 
@@ -172,14 +201,8 @@ SpecialistIndustryForm = reduxForm({
   forceUnregisterOnUnmount: true
 })(SpecialistIndustryForm);
 
-const selector = formValueSelector("SpecialistIndustryForm");
-
-SpecialistIndustryForm = connect(state => {
-  const industry = selector(state, "industry");
-  const projectType = selector(state, "projectType");
-  const experienceLevel = selector(state, "experienceLevel");
-  const { specialistData, skills } = state;
-  return { industry, specialistData, projectType, experienceLevel, skills };
-})(SpecialistIndustryForm);
+SpecialistIndustryForm = connect(state => ({
+  formValues: getFormValues("SpecialistIndustryForm")(state)
+}))(SpecialistIndustryForm);
 
 export default SpecialistIndustryForm;

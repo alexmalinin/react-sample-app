@@ -9,7 +9,9 @@ import { Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistBillingForm from "../forms/SpecialistBillingForm";
-import { getAllUrlParams } from "../../../helpers/functions";
+import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import NavigationPrompt from "react-router-navigation-prompt";
+import ConfirmationModal from "../../modals/ConfirmationModal";
 
 class SpecialistsMyBillings extends Component {
   constructor() {
@@ -48,7 +50,12 @@ class SpecialistsMyBillings extends Component {
   }
 
   render() {
-    const { renderMessage, renderErrorMessage, isEditing } = this.state;
+    const {
+      renderMessage,
+      renderErrorMessage,
+      isEditing,
+      isEdited
+    } = this.state;
 
     return (
       <div>
@@ -66,14 +73,39 @@ class SpecialistsMyBillings extends Component {
           swichTab={this.swichTab}
           data={this.props.specialistData}
           isEditing={isEditing}
-          handleFormValueChange={this.props.handleFormValueChange}
+          isEdited={isEdited}
+          handleFormEdit={this.handleFormEdit}
+          handleFormChange={this.handleFormChange}
           onChange={this.change}
           onSubmit={this.submit}
         />
+
+        <NavigationPrompt when={this.state.isEdited}>
+          {({ onConfirm, onCancel }) => (
+            <ConfirmationModal
+              isSubmitted={this.state.nextStep}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
+          )}
+        </NavigationPrompt>
+
         {this.state.nextStep && <Redirect to="about" />}
       </div>
     );
   }
+
+  handleFormEdit = value => {
+    this.setState({ isEdited: value });
+  };
+
+  handleFormChange = (a, b) => {
+    if (compareObjects(a, b)) {
+      this.setState({ isEdited: false });
+    } else {
+      this.setState({ isEdited: true });
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
