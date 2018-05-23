@@ -62,6 +62,8 @@ import updateTeamChannel from "../middlewares/updateChannelApi";
 import showChannels from "../middlewares/showChannelsApi";
 import addToChannel from "../middlewares/addMemberToChannelApi";
 import removeFromChannel from "../middlewares/removeMemberFromChannelApi";
+import searchSpecialist from "../middlewares/searchSpecialistApi";
+import searchSpecialistForProject from "../middlewares/searchSpecialistForProjectApi";
 
 const enhancer = applyMiddleware(
   contactRequest,
@@ -123,7 +125,9 @@ const enhancer = applyMiddleware(
   updateTeamChannel,
   showChannels,
   addToChannel,
-  removeFromChannel
+  removeFromChannel,
+  searchSpecialist,
+  searchSpecialistForProject
 );
 
 let reduxDevTools =

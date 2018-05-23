@@ -73,7 +73,9 @@ import {
   SHOW_SPECIALIST_PROJECTS,
   SHOW_SPECIALIST_TEAMS,
   CREATE_CUSTOM_TEAM,
-  GET_SKILLS
+  GET_SKILLS,
+  SEARCH_SPECIALIST,
+  SEARCH_SPECIALIST_FOR_PROJECT
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -918,6 +920,27 @@ export function removeFromChannel(team, channel, id) {
   const action = {
     type: REMOVE_MEMBER_FROM_CHANNEL,
     removeFromChannel: `${PORT}/api/v1/teams/${team}/channels/${channel}/remove/${id}`
+  };
+
+  return action;
+}
+
+// Search specialist by name\skill
+
+export function searchSpecialist(payload) {
+  const action = {
+    type: SEARCH_SPECIALIST,
+    payload,
+    searchSpecialist: `${PORT}/api/v1/specialists/search?query=`
+  };
+
+  return action;
+}
+
+export function searchSpecialistForProject(project) {
+  const action = {
+    type: SEARCH_SPECIALIST_FOR_PROJECT,
+    searchSpecialistForProject: `${PORT}/api/v1/specialists/search?project_id=${project}`
   };
 
   return action;

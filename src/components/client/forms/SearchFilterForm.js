@@ -2,19 +2,17 @@ import React, { Component } from "react";
 import { reduxForm, change, reset } from "redux-form";
 import { connect } from "react-redux";
 import StyledSearchFilter from "../../../styleComponents/layout/StyledSearchFilter";
-import {
-  Grid,
-  Form,
-  Input,
-  Button,
-  Transition,
-  Dropdown
-} from "semantic-ui-react";
+import { Grid, Button, Dropdown } from "semantic-ui-react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
-import { getIndustries, getExperienceLevels } from "../../../actions/actions";
-import { Field } from "react-redux-form";
-import RenderSelect from "../../forms/renders/RenderSelect";
+import {
+  getIndustries,
+  getExperienceLevels,
+  getProjectTypes,
+  searchSpecialist,
+  searchSpecialistForProject
+} from "../../../actions/actions";
+import SearchForm from "./SearchForm";
 import { renameObjPropNames } from "../../../helpers/functions";
 
 class SearchFilterForm extends Component {
@@ -22,14 +20,15 @@ class SearchFilterForm extends Component {
     loading: false,
     opened: true,
     range: {
-      min: 155,
-      max: 400
+      min: 0,
+      max: 100
     }
   };
 
   componentWillMount() {
     this.props.getIndustries();
     this.props.getExperienceLevels();
+    this.props.getProjectTypes();
   }
 
   toggleFilters = () => {
@@ -48,13 +47,27 @@ class SearchFilterForm extends Component {
   };
 
   handleRange = value => {
-    this.setState({ range: value });
-    this.props.handleChange(null, { name: "hourly_rate", value });
+    this.setState({
+      range: value
+    });
+  };
+
+  changeProject = (e, data) => {
+    this.setState({ project: data.value });
+    this.props.searchSpecialistForProject(data.value);
   };
 
   render() {
-    const { projects, industries, experienceLevels, handleChange } = this.props;
-    const { loading, opened, range } = this.state;
+    const {
+      projects,
+      industries,
+      experienceLevels,
+      projectTypes,
+      handleChange,
+      searchSpecialist,
+      filters: { industry, experience_level_id, project_type }
+    } = this.props;
+    const { opened, range, project } = this.state;
     industries &&
       industries["industry"] &&
       industries["industry"].forEach(industry =>
@@ -64,6 +77,11 @@ class SearchFilterForm extends Component {
     experienceLevels &&
       experienceLevels.forEach(level =>
         renameObjPropNames(level, "label", "text")
+      );
+
+    projectTypes &&
+      projectTypes.forEach(projectType =>
+        renameObjPropNames(projectType, "label", "text")
       );
 
     return (
@@ -77,24 +95,14 @@ class SearchFilterForm extends Component {
 
           <Grid.Row>
             <Grid.Column computer={14}>
-              <Form>
-                <Input
-                  className="search"
-                  placeholder="Search by keywords"
-                  loading={loading}
-                  icon="search"
-                  iconPosition="left"
-                  action="Search"
-                  fluid
-                />
-              </Form>
+              <SearchForm searchSpecialist={searchSpecialist} />
             </Grid.Column>
 
             <Grid.Column computer={2}>
               <Button
                 onClick={this.clear}
                 role="button"
-                className="clear"
+                className="clear dv-blue inverted"
                 fluid
               >
                 Clear filter
@@ -110,6 +118,9 @@ class SearchFilterForm extends Component {
                 fluid
                 selection
                 options={projects}
+                onChange={this.changeProject}
+                selectOnBlur={false}
+                value={project}
               />
             </Grid.Column>
 
@@ -125,6 +136,12 @@ class SearchFilterForm extends Component {
                 minValue={0}
                 value={range}
                 onChange={this.handleRange}
+                onChangeComplete={value =>
+                  handleChange(null, {
+                    name: "hourly_rate",
+                    value
+                  })
+                }
               />
             </Grid.Column>
           </Grid.Row>
@@ -133,30 +150,34 @@ class SearchFilterForm extends Component {
             <Grid.Column>
               <h4 className="filterTitle">Industry area</h4>
               <Dropdown
-                name="industry_title"
+                name="industry"
                 placeholder="Any industry"
                 fluid
                 search
-                multiple
+                // multiple
+                selectOnBlur={false}
                 options={industries["industry"] || []}
                 onChange={handleChange}
+                value={industry}
                 selection
               />
             </Grid.Column>
 
-            <Grid.Column>
+            {/* <Grid.Column>
               <h4 className="filterTitle">Speciality within that niche</h4>
               <Dropdown
                 placeholder="Any speciality"
                 name="specialities"
                 fluid
                 search
-                multiple
+                // multiple
+                selectOnBlur={false}
                 options={industries["industry"] || []}
                 selection
                 onChange={handleChange}
+                value={specialities}
               />
-            </Grid.Column>
+            </Grid.Column> */}
 
             <Grid.Column>
               <h4 className="filterTitle">Experience Level</h4>
@@ -165,9 +186,11 @@ class SearchFilterForm extends Component {
                 name="experience_level_id"
                 fluid
                 search
-                multiple
+                // multiple
+                selectOnBlur={false}
                 options={experienceLevels || []}
                 onChange={handleChange}
+                value={experience_level_id}
                 selection
               />
             </Grid.Column>
@@ -180,8 +203,10 @@ class SearchFilterForm extends Component {
                 name="project_type"
                 fluid
                 search
-                options={industries["industry"] || []}
+                options={projectTypes || []}
                 onChange={handleChange}
+                value={project_type}
+                selectOnBlur={false}
                 selection
               />
             </Grid.Column>
@@ -228,7 +253,13 @@ SearchFilterForm = reduxForm({
 })(SearchFilterForm);
 
 export default connect(
-  ({ specialistProjects, industries, experienceLevels }) => {
+  ({
+    specialistProjects,
+    industries,
+    experienceLevels,
+    searchResult,
+    projectTypes
+  }) => {
     let projects = [];
     specialistProjects &&
       specialistProjects.map(project =>
@@ -240,11 +271,16 @@ export default connect(
     return {
       projects,
       industries,
-      experienceLevels
+      experienceLevels,
+      projectTypes,
+      searchResult
     };
   },
   {
     getIndustries,
-    getExperienceLevels
+    getExperienceLevels,
+    getProjectTypes,
+    searchSpecialist,
+    searchSpecialistForProject
   }
 )(SearchFilterForm);

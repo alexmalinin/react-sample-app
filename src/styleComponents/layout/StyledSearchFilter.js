@@ -24,6 +24,21 @@ export default styled.div`
     }
   }
 
+  .ui.button {
+    text-transform: uppercase;
+    &.dv-blue {
+      background: ${colors.darkBlue};
+      color: #fff;
+    }
+
+    &.dv-blue.inverted {
+      border: 1px solid ${colors.darkBlue};
+      color: ${colors.darkBlue};
+      background: #fff;
+      font-family: inherit;
+    }
+  }
+
   .ui.grid {
     .row {
       .column {
@@ -71,21 +86,13 @@ export default styled.div`
         .ui.form {
           .ui.input.search {
             .ui.button {
-              background: ${colors.darkBlue};
-              color: #fff;
               text-transform: uppercase;
               padding-left: 40px;
               padding-right: 40px;
+              background: ${colors.darkBlue};
+              color: #fff;
             }
           }
-        }
-
-        .ui.button.clear {
-          border: 1px solid ${colors.darkBlue};
-          color: ${colors.darkBlue};
-          background: #fff;
-          text-transform: uppercase;
-          font-family: inherit;
         }
 
         .input-range {
@@ -111,14 +118,18 @@ export default styled.div`
 
         .checkboxWrapper {
           display: flex;
+          flex-flow: row wrap;
           align-items: center;
           justify-content: space-between;
-          height: 38px;
+          min-height: 38px;
 
           label {
             display: flex;
             align-items: center;
             cursor: pointer;
+            flex: 0 0 70px;
+            margin-top: 4px;
+            margin-bottom: 4px;
 
             input {
               display: none;
@@ -149,13 +160,13 @@ export default styled.div`
             .label {
               display: flex;
               align-items: center;
-              margin-left: 10px;
-              padding: 2px 12px;
+              margin-left: 7px;
               padding: 2px 12px;
               border-radius: 12px;
               background: #f7da97;
               color: #fff;
               font-weight: 500;
+              width: 47px;
 
               i {
                 margin-left: 5px;
@@ -186,6 +197,7 @@ export default styled.div`
     border-radius: 18px;
     color: #fff;
     font-family: inherit;
+    text-transform: none;
 
     .arrow {
       position: absolute;

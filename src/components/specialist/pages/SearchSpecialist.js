@@ -6,20 +6,28 @@ import {
 } from "../../../styleComponents/layout/Container";
 import DashboardSubHeader from "../../layout/DashboardSubHeader";
 import SearchFilterForm from "../../client/forms/SearchFilterForm";
-import { showAllSpecialists } from "../../../actions/actions";
+import SpecialistCard from "../../layout/SpecialistCard";
+import { assignSpecialistToTeam } from "../../../actions/actions";
+import { Grid } from "semantic-ui-react";
 
 class SearchSpecialist extends Component {
   state = {
-    filters: {}
+    filters: {
+      hourly_rate: {
+        min: 0,
+        max: 100
+      }
+    }
   };
 
   componentWillMount() {
-    this.props.showAllSpecialists("passive", "active", "core", "red_guy");
+    // this.props.showAllSpecialists("passive", "active", "core", "red_guy");
   }
 
   handleChange = (event, data) => {
     this.setState({
       filters: {
+        ...this.state.filters,
         [data.name]: data.value
       }
     });
@@ -27,43 +35,72 @@ class SearchSpecialist extends Component {
 
   clearFilters = () => {
     this.setState({
-      filters: {}
+      filters: {
+        hourly_rate: {
+          min: 0,
+          max: 100
+        }
+      }
     });
   };
 
   render() {
-    const { allSpecialists } = this.props;
+    const { searchResult } = this.props;
     const { filters } = this.state;
-    console.log(filters);
 
     return (
       <ContainerLarge indentTop>
-        <DashboardSubHeader />
+        {/* <DashboardSubHeader /> */}
         <Container fluid indentTopXs sidebarCondition>
           <SearchFilterForm
             handleChange={this.handleChange}
             clearFilters={this.clearFilters}
+            filters={filters}
           />
         </Container>
         <Container sidebarCondition dashboardContainer>
-          {allSpecialists &&
-            allSpecialists
-              .filter(specialist => {
-                Object.keys(filters).forEach(filter => {
-                  console.log(specialist[filter], filters[filter]);
-                });
-                return true;
-              })
-              .map(
-                specialist =>
-                  specialist.first_name + " " + specialist.last_name + "  "
-              )}
+          {searchResult && (
+            <FilteredList filters={filters} specialists={searchResult} />
+          )}
         </Container>
       </ContainerLarge>
     );
   }
 }
 
-export default connect(({ allSpecialists }) => ({ allSpecialists }), {
-  showAllSpecialists
-})(SearchSpecialist);
+const FilteredList = ({ filters, specialists }) => {
+  // const industry = specialist => specialist.;
+  const hourly_rate = specialist =>
+    specialist.hourly_rate >= filters.hourly_rate.min &&
+    specialist.hourly_rate <= filters.hourly_rate.max;
+
+  const experience_level_id = specialist =>
+    filters.experience_level_id
+      ? specialist.experience_level_id === filters.experience_level_id
+      : true;
+
+  const project_type = specialist =>
+    filters.project_type
+      ? filters.project_type === specialist.project_type_id
+      : true;
+
+  return (
+    <Grid>
+      <Grid.Row columns={3}>
+        {specialists
+          .filter(hourly_rate)
+          .filter(experience_level_id)
+          .filter(project_type)
+          .map((specialist, key) => (
+            <Grid.Column key={key}>
+              <SpecialistCard key={key} specialist={specialist} />
+            </Grid.Column>
+          ))}
+      </Grid.Row>
+    </Grid>
+  );
+};
+
+export default connect(({ searchResult }) => ({ searchResult }), {})(
+  SearchSpecialist
+);

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, change, getFormValues } from "redux-form";
+import {
+  reduxForm,
+  change,
+  getFormValues,
+  formValueSelector
+} from "redux-form";
 import SkillsForm from "./SkillsForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 
@@ -83,6 +88,7 @@ class SpecialistIndustryForm extends Component {
         [name]: e.value || null
       }
     });
+    console.log(e.value);
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -90,9 +96,9 @@ class SpecialistIndustryForm extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    if (nextProps.specialistData) {
+    if (nextProps.specialistData && nextProps.industries.length !== 0) {
       if (renderError) {
-        this.fillFields(nextProps.specialistData);
+        this.fillFields(nextProps.specialistData, nextProps.industries);
         renderError = false;
       }
     }
@@ -113,7 +119,7 @@ class SpecialistIndustryForm extends Component {
     }
   }
 
-  fillFields = data => {
+  fillFields = (data, industries) => {
     let {
       job_title,
       position,
@@ -126,8 +132,11 @@ class SpecialistIndustryForm extends Component {
       available,
       hourly_rate,
       project_type,
-      experience_level_id
+      experience_level_id,
+      industry_area_id
     } = data;
+    console.log(data);
+
     let renderSkills = [];
 
     skills &&
@@ -179,12 +188,19 @@ class SpecialistIndustryForm extends Component {
     this.props.dispatch(
       change("SpecialistIndustryForm", "availability", available)
     );
+    console.log(industries["industry"], industry_area_id, industries);
 
-    if (specialities[0]) {
+    if (
+      industries &&
+      industries["industry"] &&
+      industries["industry"][industry_area_id - 1]
+    ) {
+      console.log("srabotalo");
+      const { value, label } = industries["industry"][industry_area_id];
       this.props.dispatch(
-        change("SpecialistIndustryForm", "industry", {
-          label: specialities[0].industry_area["name"],
-          value: specialities[0].industry_area["id"]
+        change("SpecialistIndustryForm", "industry_area_id", {
+          label,
+          value
         })
       );
     }
@@ -201,8 +217,21 @@ SpecialistIndustryForm = reduxForm({
   forceUnregisterOnUnmount: true
 })(SpecialistIndustryForm);
 
-SpecialistIndustryForm = connect(state => ({
-  formValues: getFormValues("SpecialistIndustryForm")(state)
-}))(SpecialistIndustryForm);
+const selector = formValueSelector("SpecialistIndustryForm");
+
+SpecialistIndustryForm = connect(state => {
+  const industry = selector(state, "industry");
+  const projectType = selector(state, "projectType");
+  const experienceLevel = selector(state, "experienceLevel");
+  const { specialistData, skills } = state;
+  return {
+    industry,
+    specialistData,
+    projectType,
+    experienceLevel,
+    skills,
+    formValues: getFormValues("SpecialistIndustryForm")(state)
+  };
+})(SpecialistIndustryForm);
 
 export default SpecialistIndustryForm;

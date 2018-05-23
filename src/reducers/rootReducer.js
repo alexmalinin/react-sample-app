@@ -46,6 +46,7 @@ import allChannels from "./showChannelsReducer";
 import addMember from "./addMemberToChannelReducer";
 import removeMember from "./removeMemberFromChannelReducer";
 import updateChannel from "./updateChannelReducer";
+import searchResult from "./searchSpecialistReducer";
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -96,6 +97,7 @@ export default combineReducers({
   allChannels,
   addMember,
   removeMember,
-  deleteChannel
+  deleteChannel,
+  searchResult
   // contactRequest,
 });

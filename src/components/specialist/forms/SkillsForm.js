@@ -124,11 +124,11 @@ class SkillsForm extends Component {
               </div>
               <span id="industry" /> {/*for error scrolling*/}
               <Field
-                name="industry"
+                name="industry_area_id"
                 component={RenderSelect}
                 placeholder="Select"
                 label="Select your area within the digital industry"
-                onChange={e => this.props.handleSelectChange(e, "industry")}
+                onChange={e => handleSelectChange(e, "industry")}
                 options={industries["industry"]}
                 validate={[required]}
                 isRequired
