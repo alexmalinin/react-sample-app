@@ -9,8 +9,6 @@ export default styled.div`
   padding-bottom: 40px;
 
   &.opened {
-    /* min-height: 400px; */
-
     .ui.grid {
       .row {
         &.advancedFilter {
@@ -171,6 +169,46 @@ export default styled.div`
               i {
                 margin-left: 5px;
                 font-size: 0.7em;
+              }
+            }
+          }
+        }
+
+        .skillsWrapper {
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          height: 38px;
+
+          .skill {
+            padding: 0 12px;
+            color: #989ea9;
+            border: 1px solid #dae1ee;
+            border-radius: 12px;
+            margin-right: 6px;
+            white-space: nowrap;
+            line-height: 1.5em;
+          }
+
+          .ui.dropdown {
+            position: absolute;
+            top: 100%;
+
+            .text {
+              color: ${colors.darkBlue};
+              user-select: none;
+            }
+
+            .menu {
+              border-radius: 0;
+              & > .item {
+                color: #989ea9;
+                min-width: 120px;
+                cursor: default;
+
+                &:hover {
+                  background: #fff;
+                }
               }
             }
           }

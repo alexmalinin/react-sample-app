@@ -245,7 +245,11 @@ class SpecialistsDashboard extends Component {
         } else page = "forbidden";
       } else page = "forbidden";
     } else if (params["page"]) {
-      page = params["page"];
+      if (params["page"] === "search") {
+        if (getUserRole() === S_REDGUY) {
+          page = params["page"];
+        } else page = "forbidden";
+      } else page = params["page"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
@@ -379,8 +383,10 @@ class SpecialistsDashboard extends Component {
       case "forbidden":
         return <NotFound />;
       case "search":
-        document.title = "Search Specialist | Digital Village";
-        return <SearchSpecialist />;
+        if (getUserRole() === S_REDGUY) {
+          document.title = "Search Specialist | Digital Village";
+          return <SearchSpecialist />;
+        } else return <NotFound />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={this.props.specialistProjects} />;

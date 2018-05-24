@@ -135,7 +135,6 @@ class SpecialistIndustryForm extends Component {
       experience_level_id,
       industry_area_id
     } = data;
-    console.log(data);
 
     let renderSkills = [];
 
@@ -188,14 +187,12 @@ class SpecialistIndustryForm extends Component {
     this.props.dispatch(
       change("SpecialistIndustryForm", "availability", available)
     );
-    console.log(industries["industry"], industry_area_id, industries);
 
     if (
       industries &&
       industries["industry"] &&
       industries["industry"][industry_area_id - 1]
     ) {
-      console.log("srabotalo");
       const { value, label } = industries["industry"][industry_area_id];
       this.props.dispatch(
         change("SpecialistIndustryForm", "industry_area_id", {
@@ -220,12 +217,12 @@ SpecialistIndustryForm = reduxForm({
 const selector = formValueSelector("SpecialistIndustryForm");
 
 SpecialistIndustryForm = connect(state => {
-  const industry = selector(state, "industry");
+  const industry_area_id = selector(state, "industry_area_id");
   const projectType = selector(state, "projectType");
   const experienceLevel = selector(state, "experienceLevel");
   const { specialistData, skills } = state;
   return {
-    industry,
+    industry_area_id,
     specialistData,
     projectType,
     experienceLevel,

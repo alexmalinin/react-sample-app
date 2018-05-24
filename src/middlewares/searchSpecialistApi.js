@@ -7,10 +7,11 @@ export default store => next => action => {
   if (!searchSpecialist) return next(action);
 
   let token = localStorage.getItem("jwt_token");
+  let payloadQuery = payload ? `?query=${payload}` : "";
 
   axios({
     method: "GET",
-    url: searchSpecialist + payload,
+    url: searchSpecialist + payloadQuery,
     headers: {
       Authorization: `Bearer ${token}`
     }

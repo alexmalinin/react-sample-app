@@ -12,8 +12,6 @@ import ClientModuleForm from "./forms/ClientModuleForm";
 
 class ClientProjects extends Component {
   state = {
-    renderMessage: false,
-    renderErrorMessage: false,
     saved: false
   };
 
@@ -38,8 +36,7 @@ class ClientProjects extends Component {
   }
 
   submit = values => {
-    const { projectId, allEpics } = this.props;
-    // values.name = `Module ${allEpics.length + 1} - ${values.name}`;
+    const { projectId } = this.props;
     this.props.createProjectEpic(values, projectId);
   };
 

@@ -358,8 +358,8 @@ class ClientDashboard extends Component {
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={this.props.allProjects} />;
       default:
-        document.title = "Digital Village";
-        return <ClientProfile />;
+        document.title = "Dashboard | Digital Village";
+        return <Dashboard />;
     }
   };
 

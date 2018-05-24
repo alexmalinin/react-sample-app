@@ -5,15 +5,23 @@ import StyledSkillsArea from "../../../styleComponents/forms/StyledSkillsArea";
 
 class RenderSkillsArea extends Component {
   render() {
-    const { handleSelectChange, options, onOpen } = this.props;
+    const {
+      handleSelectChange,
+      options,
+      onOpen,
+      label,
+      name,
+      padded,
+      placeholder
+    } = this.props;
+
     return (
-      <StyledSkillsArea>
-        <span>Enter your skills here</span>
+      <StyledSkillsArea padded={padded} placeholder={placeholder}>
+        <span>{label}</span>
         <Field
-          name="skills_attributes"
+          name={name}
           component={RenderMultiSelect}
-          onChange={e => handleSelectChange(e, "skills_attributes")}
-          // placeholder="Start type your skill..."
+          onChange={e => handleSelectChange(e, name)}
           placeholder=""
           onOpen={onOpen}
           options={options}

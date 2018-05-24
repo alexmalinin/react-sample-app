@@ -931,7 +931,7 @@ export function searchSpecialist(payload) {
   const action = {
     type: SEARCH_SPECIALIST,
     payload,
-    searchSpecialist: `${PORT}/api/v1/specialists/search?query=`
+    searchSpecialist: `${PORT}/api/v1/specialists/search`
   };
 
   return action;

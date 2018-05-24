@@ -18,7 +18,7 @@ export default store => next => action => {
     ? Object.keys(payload.speciality_ids).map(item => +item.match(/\d+/)[0])
     : null;
 
-  console.log(payload["industry_area_id"]);
+  console.log(payload.industry_area_id);
 
   axios({
     method: "put",
@@ -34,7 +34,7 @@ export default store => next => action => {
         hourly_rate: payload["hourly_rate"],
         project_type_id: payload["project_type"]["value"],
         experience_level_id: payload["experience_level"]["value"],
-        industry_area_id: payload["industry_area_id"],
+        industry_area_id: payload["industry_area_id"]["value"],
         industry_title: payload["industry_title"],
         specialist_skills_attributes: {
           skill_attributes: attr

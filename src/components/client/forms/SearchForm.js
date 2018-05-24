@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Input } from "semantic-ui-react";
+import { Form, Input, Grid, Button } from "semantic-ui-react";
 
 export default class SearchForm extends Component {
   state = {
@@ -13,28 +13,70 @@ export default class SearchForm extends Component {
     });
   };
 
+  handleClear = () => {
+    this.setState({ search: "" });
+  };
+
   handleSubmitSearch = () => {
+    const {
+      currentProject,
+      searchSpecialist,
+      searchSpecialistForProject,
+      toggleProjectError
+    } = this.props;
     const { search } = this.state;
-    search && this.props.searchSpecialist(search);
+
+    !!search ? searchSpecialist(search) : searchSpecialist();
+  };
+
+  clearForm = () => {
+    const {
+      currentProject,
+      searchSpecialistForProject,
+      clear,
+      searchSpecialist
+    } = this.props;
+    clear();
+    this.handleClear();
+    searchSpecialist();
+  };
+
+  met = () => {
+    console.log("ds");
   };
 
   render() {
     const { search, loading } = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmitSearch}>
-        <Input
-          className="search"
-          placeholder="Search by keywords"
-          loading={loading}
-          icon="search"
-          iconPosition="left"
-          action="Search"
-          onChange={this.handleSearch}
-          value={search}
-          fluid
-        />
-      </Form>
+      <React.Fragment>
+        <Grid.Column computer={14}>
+          <Form onSubmit={this.handleSubmitSearch}>
+            <Input
+              className="search"
+              placeholder="Search by keywords"
+              loading={loading}
+              icon="search"
+              iconPosition="left"
+              action="Search"
+              onChange={this.handleSearch}
+              onKeyUp={e => e.keyCode === 13 && e.target.blur()}
+              value={search}
+              fluid
+            />
+          </Form>
+        </Grid.Column>
+        <Grid.Column computer={2}>
+          <Button
+            onClick={this.clearForm}
+            role="button"
+            className="clear dv-blue inverted"
+            fluid
+          >
+            Clear filter
+          </Button>
+        </Grid.Column>
+      </React.Fragment>
     );
   }
 }

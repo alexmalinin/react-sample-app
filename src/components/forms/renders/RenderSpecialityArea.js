@@ -34,8 +34,8 @@ class RenderSpecialityArea extends Component {
   };
 
   render() {
-    const { industry, speciality } = this.props;
-    let industry_id = industry ? industry.value : null;
+    const { industry_area_id, speciality } = this.props;
+    let industry_id = industry_area_id ? industry_area_id.value : null;
 
     let validateProp = !this.state.specialityError
       ? { validate: [required] }

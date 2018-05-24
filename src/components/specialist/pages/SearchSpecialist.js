@@ -69,7 +69,11 @@ class SearchSpecialist extends Component {
 }
 
 const FilteredList = ({ filters, specialists }) => {
-  // const industry = specialist => specialist.;
+  const industry_area_id = specialist =>
+    filters.industry_area_id
+      ? specialist.industry_area_id === filters.industry_area_id
+      : true;
+
   const hourly_rate = specialist =>
     specialist.hourly_rate >= filters.hourly_rate.min &&
     specialist.hourly_rate <= filters.hourly_rate.max;
@@ -89,6 +93,7 @@ const FilteredList = ({ filters, specialists }) => {
       <Grid.Row columns={3}>
         {specialists
           .filter(hourly_rate)
+          .filter(industry_area_id)
           .filter(experience_level_id)
           .filter(project_type)
           .map((specialist, key) => (

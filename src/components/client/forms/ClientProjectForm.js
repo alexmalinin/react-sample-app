@@ -1,30 +1,30 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change, reset } from "redux-form";
+import { reduxForm, reset } from "redux-form";
 import { connect } from "react-redux";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
-import { SaveBtn } from "../../../styleComponents/layout/DvButton";
-import InputField from "../../forms/renders/InputField";
-import { Grid } from "semantic-ui-react";
 import ProjectForm from "./ProjectForm";
-
-let renderError = true;
+import { getSkills } from "../../../actions/actions";
 
 class ClientProjectForm extends Component {
   componentWillMount() {
-    this.clearFileds();
+    this.props.reset("ClientProjectForm");
+    this.props.getSkills();
   }
 
-  clearFileds = () => {
-    this.props.dispatch(reset("ClientProjectForm"));
+  handleSelectChange = (e, name) => {
+    console.log(e, name);
   };
 
   render() {
-    const { handleSubmit, submitting, clientData } = this.props;
+    const { handleSubmit, submitting, clientData, skills } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        <ProjectForm clientData={clientData} submitting={submitting} />
+        <ProjectForm
+          clientData={clientData}
+          submitting={submitting}
+          skills={skills}
+          handleSelectChange={this.handleSelectChange}
+        />
       </form>
     );
   }
@@ -36,7 +36,7 @@ ClientProjectForm = reduxForm({
   forceUnregisterOnUnmount: true
 })(ClientProjectForm);
 
-export default connect(state => {
-  const { clientData } = state;
-  return { clientData };
+export default connect(({ clientData, skills }) => ({ clientData, skills }), {
+  getSkills,
+  reset
 })(ClientProjectForm);
