@@ -153,6 +153,15 @@ export function getUserType() {
   }
 }
 
+export function getUserId() {
+  let token = localStorage.getItem("jwt_token");
+
+  if (token) {
+    const { id } = jwtDecode(token);
+    return id;
+  }
+}
+
 export function getYearsForSelect(start = 1960, end = 2025) {
   var startYear = start,
     years = [];

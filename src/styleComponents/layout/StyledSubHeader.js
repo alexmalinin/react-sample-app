@@ -60,6 +60,7 @@ export default styled.div`
       opacity: 1;
       flex: 33%;
       text-align: center;
+      margin-bottom: 27px;
       &:not(:first-of-type) {
         margin-left: 32px;
       }

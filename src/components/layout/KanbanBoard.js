@@ -11,7 +11,12 @@ import {
   removeSpecialistFromTask
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import {
+  getUserRole,
+  getUserId,
+  getCookie,
+  setCookie
+} from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 
 class KanbanBoard extends Component {
@@ -23,7 +28,8 @@ class KanbanBoard extends Component {
       completedTasks: [],
       acceptedTasks: [],
       showBoard: false,
-      editingTask: {}
+      editingTask: {},
+      myTasks: !!getCookie("showOnlyMyTasks")
     };
   }
 
@@ -45,6 +51,14 @@ class KanbanBoard extends Component {
     removeSpecialistFromTask(epicId, +task, specialist);
   };
 
+  toggleMyTasks = () => {
+    console.log(this.state.myTasks);
+    this.setState({
+      myTasks: !this.state.myTasks
+    });
+    setCookie("showOnlyMyTasks", this.state.myTasks ? "" : "true", 1460);
+  };
+
   componentWillReceiveProps(nextProps) {
     if (this.props.currentEpic !== nextProps.currentEpic) {
       this.setState({
@@ -64,8 +78,15 @@ class KanbanBoard extends Component {
         let backlog = [],
           completed = [],
           progress = [],
-          accepted = [];
-        nextProps.epicTasks.forEach(task => {
+          accepted = [],
+          allTasks = [];
+
+        if (this.state.myTasks) {
+          allTasks = nextProps.epicTasks.filter(task =>
+            task.specialists.some(spec => spec.id === getUserId())
+          );
+        } else allTasks = nextProps.epicTasks;
+        allTasks.forEach(task => {
           const taskObject = {
             id: `${task.id}`,
             assignSpecialist: this.assignSpecialist,
@@ -129,7 +150,7 @@ class KanbanBoard extends Component {
       showBoard,
       editingTask
     } = this.state;
-    console.log(this.state)
+    console.log(this.state);
 
     return (
       // <Transition animation="fade" duration={400} visible={showBoard}>

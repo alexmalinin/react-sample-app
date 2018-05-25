@@ -8,7 +8,7 @@ class RenderImage extends Component {
   state = {
     files: []
   };
-
+  // this.props.attached_files ||
   fileHub = [];
 
   _handleFileAttach(e) {
@@ -64,6 +64,7 @@ class RenderImage extends Component {
       padded,
       dropzone
     } = this.props;
+    console.log(this.props.attached_files);
 
     return (
       <StyledUploader fileLoader dropzone={dropzone} padded={padded}>

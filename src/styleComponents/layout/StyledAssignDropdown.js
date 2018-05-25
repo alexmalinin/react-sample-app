@@ -375,6 +375,11 @@ export const StyledPersonTile = styled.div`
       }
     }
 
+    .dropdownTitle {
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
     .info {
       display: flex;
       flex-flow: row nowrap;

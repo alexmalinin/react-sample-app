@@ -11,7 +11,6 @@ class EditEpicModal extends Component {
         <Modal.Header>Module {number}</Modal.Header>
         <Modal.Content>
           <Modal.Description>
-            <Header>Update module {number} information</Header>
             <EditEpicForm onSubmit={this.submit} epic={epic} />
           </Modal.Description>
         </Modal.Content>

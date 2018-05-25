@@ -285,7 +285,8 @@ class SpecialistsWithId extends Component {
               </Grid.Row>
 
               <SectionHeader
-                content="Work / Proffesional experien editCondition={!specialistId}ce"
+                content="Work / Proffesional experience"
+                editCondition={!specialistId}
                 page="profile"
               />
               <Grid.Row>

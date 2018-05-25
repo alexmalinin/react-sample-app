@@ -5,7 +5,13 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
-import { CLIENT, S_REDGUY, CUSTOMER } from "../../constans/constans";
+import {
+  CLIENT,
+  S_REDGUY,
+  CUSTOMER,
+  S_ACTIVE,
+  S_CORE
+} from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
@@ -88,6 +94,15 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
         >
           <div className="boardProgressBars">
+            {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
+              <SubHeaderLinkWrap
+                // content={`${completedTasksCount}/${allTasksCount}`}
+                url="#"
+                className="rightLink"
+              >
+                <span>Only my tasks</span>
+              </SubHeaderLinkWrap>
+            )}
             {getUserRole() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
