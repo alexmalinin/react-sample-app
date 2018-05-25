@@ -106,6 +106,7 @@ class DeleteTile extends Component {
     } = this.props;
     const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
     const thisUser = specialist.id === id && role !== CUSTOMER;
+
     return (
       <div
         className={`delete${showDropdown ? " show" : ""}`}

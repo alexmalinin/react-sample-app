@@ -59,8 +59,7 @@ class SpecialistIndustry extends Component {
       industries,
       projectTypes,
       experienceLevels,
-      specialistData,
-      handleFormValueChange
+      specialistData
     } = this.props;
 
     return (

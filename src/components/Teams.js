@@ -5,8 +5,8 @@ import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { CUSTOMER, SPECIALIST } from "../constans/constans";
-import { getUserType } from "../helpers/functions";
+import { CUSTOMER, CLIENT, SPECIALIST } from "../constans/constans";
+import { getUserRole } from "../helpers/functions";
 
 class Teams extends Component {
   componentWillMount() {
@@ -16,9 +16,9 @@ class Teams extends Component {
   showTeams = () => {
     const { showAllTeams, showSpecialistTeams } = this.props;
 
-    if (getUserType() === CUSTOMER) {
+    if (getUserRole() === CUSTOMER) {
       showAllTeams();
-    } else if (getUserType() === SPECIALIST) {
+    } else if (getUserRole() === SPECIALIST) {
       showSpecialistTeams();
     }
   };

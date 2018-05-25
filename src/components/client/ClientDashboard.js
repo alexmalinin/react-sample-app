@@ -269,7 +269,7 @@ class ClientDashboard extends Component {
               />
               {this.renderPage(page)}
               <SideBarRight
-                teams={allTeams}
+                teams={this.getCustomerTeams(allTeams)}
                 projects={projects}
                 days={days}
                 opened={rightSidebarOpened}
@@ -306,18 +306,12 @@ class ClientDashboard extends Component {
       case "company":
         document.title = "Company | Digital Village";
         return (
-          <ClientCompany
-            calculatePagePercent={this.calculatePagePercent}
-            handleFormValueChange={this.handleFormValueChange}
-          />
+          <ClientCompany calculatePagePercent={this.calculatePagePercent} />
         );
       case "billing":
         document.title = "Billing | Digital Village";
         return (
-          <ClientBilling
-            calculatePagePercent={this.calculatePagePercent}
-            handleFormValueChange={this.handleFormValueChange}
-          />
+          <ClientBilling calculatePagePercent={this.calculatePagePercent} />
         );
       case "about":
         document.title = "Your profile | Digital Village";
@@ -342,7 +336,7 @@ class ClientDashboard extends Component {
         );
       case "teams":
         document.title = "Teams | Digital Village";
-        return <Teams teams={this.props.allTeams} />;
+        return <Teams teams={this.getCustomerTeams(this.props.allTeams)} />;
       case "account":
         document.title = "Billings | Digital Village";
         return <ClientAccount />;
@@ -369,13 +363,26 @@ class ClientDashboard extends Component {
     }
   };
 
-  handleFormValueChange = obj => {
-    if (checkObjectPropertiesForValues(obj)) {
-      this.setState({ isEdited: false });
+  getCustomerTeams(allTeams) {
+    const { allProjects } = this.props;
+    let clientTeams = [];
+
+    allProjects &&
+      allProjects.forEach(project => {
+        let teams =
+          (allTeams &&
+            allTeams.filter(team => team.project_id === project.id)) ||
+          [];
+
+        clientTeams.push(...teams);
+      });
+
+    if (clientTeams) {
+      return clientTeams;
     } else {
-      this.setState({ isEdited: true });
+      return [];
     }
-  };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData) {
