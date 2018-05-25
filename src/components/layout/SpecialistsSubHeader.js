@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
 import ProgressBars from "../layout/ProgressBar";
-import CompleteLaterModal from "../modals/CompleteLaterModal";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
-import { getAllUrlParams } from "../../helpers/functions";
+import { getAllUrlParams, getUserRole } from "../../helpers/functions";
+import { S_PASSIVE } from "../../constans/constans";
 
 class SubHeader extends Component {
   state = {
@@ -15,10 +15,12 @@ class SubHeader extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
+
+    console.log(getUserRole());
   }
 
   render() {
-    const { user, page, isEdited } = this.props;
+    const { page } = this.props;
 
     return (
       <StyledSubHeader profileForm="true">
@@ -44,28 +46,20 @@ class SubHeader extends Component {
           </SubHeaderItemWrap>
         </div>
         <div>
-          {page !== "profile" ? (
-            !this.state.isEditing ? (
-              isEdited ? (
-                <CompleteLaterModal user={user} page={page} />
-              ) : (
-                <SubHeaderLinkWrap
-                  url="/dashboard/"
-                  className="rightLink arrow"
-                >
-                  Complete Later
-                </SubHeaderLinkWrap>
-              )
-            ) : null
+          {!this.state.isEditing ? (
+            page === "profile" || page === "industry" ? null : (
+              <SubHeaderLinkWrap
+                url={
+                  getUserRole() === S_PASSIVE
+                    ? "/dashboard/about"
+                    : "/dashboard/"
+                }
+                className="rightLink arrow"
+              >
+                Complete Later
+              </SubHeaderLinkWrap>
+            )
           ) : null}
-
-          <SubHeaderLinkWrap content="3/9" url="#" className="rightLink">
-            Profile
-          </SubHeaderLinkWrap>
-
-          <SubHeaderLinkWrap content="5%" url="#" className="rightLink">
-            Progress
-          </SubHeaderLinkWrap>
         </div>
       </StyledSubHeader>
     );

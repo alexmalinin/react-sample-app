@@ -1,16 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, change } from "redux-form";
+import { reduxForm, change, getFormValues } from "redux-form";
 import BillingForm from "./BillingForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
+import { checkObjectPropertiesForValues } from "../../../helpers/functions";
 
 let renderError = true;
 
 class ClientBillingForm extends Component {
-  state = {
-    formData: {},
-    submitError: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {},
+      fetchFormValues: true,
+      fetchSubmitError: true,
+      submitError: false
+    };
+
+    this.initialFormValues = {};
+  }
+
+  componentWillMount() {
+    if (this.props.clientData) {
+      this.fillFields(this.props.clientData);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
+  }
 
   render() {
     const {
@@ -30,6 +48,7 @@ class ClientBillingForm extends Component {
           handleFormField={handleFormField}
           swichTab={swichTab}
           isEditing={isEditing}
+          handleSubmitError={this.handleSubmitError}
         />
         <SubmitFormErrorModal
           isOpen={this.state.submitError}
@@ -40,7 +59,13 @@ class ClientBillingForm extends Component {
   }
 
   closeErrorModal = () => {
-    this.setState({ submitError: false });
+    this.setState({ submitError: false, fetchSubmitError: false });
+  };
+
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.setState({ submitError: true });
+    }
   };
 
   handleChange = e => {
@@ -53,8 +78,24 @@ class ClientBillingForm extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.formData) {
-      this.props.handleFormValueChange(nextState.formData);
+    if (!this.props.isEditing) {
+      if (checkObjectPropertiesForValues(nextState.formData)) {
+        this.props.handleFormEdit(false);
+      } else {
+        this.props.handleFormEdit(true);
+      }
+    }
+
+    if (this.props.isEditing) {
+      if (!this.initialFormValues) {
+        if (checkObjectPropertiesForValues(nextState.formData)) {
+          this.props.handleFormEdit(false);
+        } else {
+          this.props.handleFormEdit(true);
+        }
+      } else {
+        this.props.handleFormChange(nextState.formData, this.initialFormValues);
+      }
     }
   }
 
@@ -70,15 +111,28 @@ class ClientBillingForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && Object.keys(this.state.formData).length > 0) {
+    if (nextProps.formValues && this.props.isEditing) {
+      if (this.state.fetchFormValues) {
+        this.setState({
+          formData: nextProps.formValues,
+          fetchFormValues: false
+        });
+      }
+    }
+
+    if (nextProps.submitFailed && this.state.fetchSubmitError) {
       this.setState({ submitError: true });
-    } else {
-      this.setState({ submitError: false });
     }
   }
 
   fillFields = data => {
     let { customer_billing } = data;
+
+    if (customer_billing) {
+      this.initialFormValues = customer_billing;
+    } else {
+      this.initialFormValues = null;
+    }
 
     for (let key in customer_billing) {
       this.props.dispatch(
@@ -93,6 +147,10 @@ ClientBillingForm = reduxForm({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true
 })(ClientBillingForm);
+
+ClientBillingForm = connect(state => ({
+  formValues: getFormValues("ClientBillingForm")(state)
+}))(ClientBillingForm);
 
 export default connect(state => {
   const { clientData } = state;

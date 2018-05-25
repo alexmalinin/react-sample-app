@@ -22,7 +22,10 @@ import { Message } from "semantic-ui-react";
 import { run } from "../../../helpers/scrollToElement";
 import AsideLeft from "../renders/AsideLeft";
 import AsideRight from "../renders/AsideRight";
-import { getAllUrlParams } from "../../../helpers/functions";
+import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+
+import NavigationPrompt from "react-router-navigation-prompt";
+import ConfirmationModal from "../../modals/ConfirmationModal";
 
 const PERCENTS_NAME = "propfilePercent";
 
@@ -34,7 +37,8 @@ class SpecialistsProfile extends Component {
       renderMessage: false,
       renderErrorMessage: false,
       nextStep: false,
-      isEditing: false
+      isEditing: false,
+      isEdited: false
     };
 
     this.data = {
@@ -89,8 +93,13 @@ class SpecialistsProfile extends Component {
   }
 
   render() {
-    const { renderMessage, renderErrorMessage, isEditing } = this.state;
-    const { educations, experiences, handleFormValueChange } = this.props;
+    const {
+      renderMessage,
+      renderErrorMessage,
+      isEditing,
+      isEdited
+    } = this.state;
+    const { educations, experiences } = this.props;
 
     return (
       <div>
@@ -111,9 +120,22 @@ class SpecialistsProfile extends Component {
                 educations={educations}
                 experiences={experiences}
                 isEditing={isEditing}
-                handleFormValueChange={handleFormValueChange}
+                isEdited={isEdited}
+                handleFormEdit={this.handleFormEdit}
+                handleFormChange={this.handleFormChange}
                 specialistModal
               />
+
+              <NavigationPrompt when={this.state.isEdited}>
+                {({ onConfirm, onCancel }) => (
+                  <ConfirmationModal
+                    isSubmitted={this.state.nextStep}
+                    onCancel={onCancel}
+                    onConfirm={onConfirm}
+                  />
+                )}
+              </NavigationPrompt>
+
               {this.state.nextStep ? (
                 isEditing ? (
                   <Redirect to="about" />
@@ -156,7 +178,27 @@ class SpecialistsProfile extends Component {
         run(0)();
       }
     }
+
+    if (nextProps.formValues && this.props.isEditing) {
+      if (this.state.fetchFormValues) {
+        this.initialFormValues = nextProps.formValues;
+        this.setState({ fetchFormValues: false });
+      }
+      this.setState({ formData: nextProps.formValues });
+    }
   }
+
+  handleFormEdit = value => {
+    this.setState({ isEdited: value });
+  };
+
+  handleFormChange = (a, b) => {
+    if (compareObjects(a, b)) {
+      this.setState({ isEdited: false });
+    } else {
+      this.setState({ isEdited: true });
+    }
+  };
 
   showMessage = status => {
     setTimeout(() => {

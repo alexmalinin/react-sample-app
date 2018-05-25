@@ -168,3 +168,7 @@ export function getYearsForSelect(start = 1960, end = 2025) {
 
   return years;
 }
+
+export function compareObjects(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}

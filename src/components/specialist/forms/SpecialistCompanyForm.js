@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, getFormValues } from "redux-form";
 import CompanyForm from "./CompanyForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
+import { checkObjectPropertiesForValues } from "../../../helpers/functions";
 
 let renderError = true;
 
@@ -11,8 +12,22 @@ class SpecialistCompanyForm extends Component {
     super(props);
     this.state = {
       formData: {},
+      fetchFormValues: true,
+      fetchSubmitError: true,
       submitError: false
     };
+
+    this.initialFormValues = null;
+  }
+
+  componentWillMount() {
+    if (this.props.specialistData && this.props.specialistData.company) {
+      this.fillFields(this.props.specialistData.company);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
   }
 
   render() {
@@ -20,6 +35,7 @@ class SpecialistCompanyForm extends Component {
       <form onSubmit={this.props.handleSubmit} onChange={this.handleChange}>
         <CompanyForm
           {...this.props}
+          handleSubmitError={this.handleSubmitError}
           handleSelectChange={this.handleSelectChange}
         />
         <SubmitFormErrorModal
@@ -29,10 +45,6 @@ class SpecialistCompanyForm extends Component {
       </form>
     );
   }
-
-  closeErrorModal = () => {
-    this.setState({ submitError: false });
-  };
 
   handleChange = e => {
     this.setState({
@@ -52,9 +64,35 @@ class SpecialistCompanyForm extends Component {
     });
   };
 
+  closeErrorModal = () => {
+    this.setState({ submitError: false, fetchSubmitError: false });
+  };
+
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.setState({ submitError: true });
+    }
+  };
+
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.formData) {
-      this.props.handleFormValueChange(nextState.formData);
+    if (!this.props.isEditing) {
+      if (checkObjectPropertiesForValues(nextState.formData)) {
+        this.props.handleFormEdit(false);
+      } else {
+        this.props.handleFormEdit(true);
+      }
+    }
+
+    if (this.props.isEditing) {
+      if (!this.initialFormValues) {
+        if (checkObjectPropertiesForValues(nextState.formData)) {
+          this.props.handleFormEdit(false);
+        } else {
+          this.props.handleFormEdit(true);
+        }
+      } else {
+        this.props.handleFormChange(nextState.formData, this.initialFormValues);
+      }
     }
   }
 
@@ -66,10 +104,19 @@ class SpecialistCompanyForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && Object.keys(this.state.formData).length > 0) {
+    if (nextProps.formValues && this.props.isEditing) {
+      if (this.state.fetchFormValues) {
+        this.initialFormValues = nextProps.formValues;
+
+        this.setState({
+          formData: nextProps.formValues,
+          fetchFormValues: false
+        });
+      }
+    }
+
+    if (nextProps.submitFailed && this.state.fetchSubmitError) {
       this.setState({ submitError: true });
-    } else {
-      this.setState({ submitError: false });
     }
   }
 
@@ -116,6 +163,10 @@ SpecialistCompanyForm = reduxForm({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true
 })(SpecialistCompanyForm);
+
+SpecialistCompanyForm = connect(state => ({
+  formValues: getFormValues("SpecialistCompanyForm")(state)
+}))(SpecialistCompanyForm);
 
 export default connect(state => {
   const { specialistData } = state;

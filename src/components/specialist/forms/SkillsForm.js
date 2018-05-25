@@ -174,7 +174,7 @@ class SkillsForm extends Component {
                 onChange={e => this.props.handleSelectChange(e, "project_type")}
                 options={projectTypes}
                 validate={[required]}
-                required
+                isRequired
               />
             </div>
 
@@ -192,7 +192,7 @@ class SkillsForm extends Component {
               </div>
             </div>
 
-            <Availability />
+            <Availability handleChange={handleChange} />
 
             <Communication handleCheckboxChange={handleCheckboxChange} />
           </Grid.Column>
@@ -210,13 +210,19 @@ class SkillsForm extends Component {
                 <SaveBtn
                   type="submit"
                   disabled={submitting}
+                  onClick={this.props.handleSubmitError}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn type="submit" disabled={submitting} primary>
+                <NextBtn
+                  type="submit"
+                  disabled={submitting}
+                  onClick={this.props.handleSubmitError}
+                  primary
+                >
                   <span>NextStep</span>
                 </NextBtn>
               )}
