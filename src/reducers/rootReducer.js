@@ -24,7 +24,9 @@ import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
 import projectWithId from "./showProjectWithIdReducer";
 import createEpic from "./createProjectEpicReducer";
+import allEpicsWithoutProject from "./showAllEpicsWithoutProjectReducer";
 import allEpics from "./showAllEpicsReducer";
+import allEpicTasks from "./showAllTasksReducer";
 import deleteEpic from "./deleteEpicReducer";
 import createTask from "./createTaskReducer";
 import showEpic from "./showProjectEpicReducer";
@@ -73,8 +75,10 @@ export default combineReducers({
   specialistTeams,
   projectWithId,
   createEpic,
+  allEpicsWithoutProject,
   allEpics,
   deleteEpic,
+  allEpicTasks,
   createTask,
   showEpic,
   epicTasks,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RenderCard from "./RenderCard";
-import cards from "../../helpers/cardsData";
+import { cards } from "../../helpers/cardsData";
 import StyledDashBoard from "../../styleComponents/StyledDashBoard";
 
 class RenderVillage extends Component {

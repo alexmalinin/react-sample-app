@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "./constants/colors";
+import { primaryColors, colors, boxShadow } from "./constants/colors";
 
 export default styled.div`
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: ${props =>
+    props.justifyContentStart ? "flex-start" : "space-between"};
   position: relative;
   padding: 12px 30px 16px 20px;
   background: ${props =>
@@ -34,8 +35,8 @@ export default styled.div`
 
   .titleWrapper {
     display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+    flex-flow: column nowrap;
+    margin-bottom: ${props => (props.titleMargin ? "20px" : "5px")};
 
     img,
     .projectNoLogo {
@@ -69,6 +70,8 @@ export default styled.div`
     .subTitle {
       color: ${props => {
         switch (props.type) {
+          case "task_due":
+            return "#1991fa";
           case "project":
             return "#8f1ae5";
           case "overview":
@@ -77,8 +80,13 @@ export default styled.div`
             return "inherit";
         }
       }};
-      margin-bottom: 5px;
     }
+  }
+
+  .project {
+    color: #fff;
+    position: ${props =>
+      props.type === "module_info" ? " absolute" : "relative"};
   }
 
   .progress {
@@ -97,12 +105,49 @@ export default styled.div`
     width: 55px;
     height: 55px;
     margin: 10px 0 10px 10px;
-    border: 2px solid #4d4d4d;
+    border: ${props =>
+      props.type === "module_info" ? "1px solid #000" : "1px solid #ccc"};
     border-radius: 50%;
-    font-size: 15px;
+    font-size: ${props => (props.type === "module_info" ? "24px" : "15px")};
     color: #4d4d4d;
     font-weight: 500;
     text-align: center;
+
+    &.disabled {
+      color: #ccc;
+    }
+
+    .progressBar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .progressBar + .container {
+      border: none !important;
+      width: 57px;
+      height: 57px;
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    & > span {
+      position: absolute;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 27px;
+      text-transform: uppercase;
+    }
 
     &.addModule {
       border-color: #ccc;
@@ -173,6 +218,12 @@ export default styled.div`
     justify-content: space-between;
     align-items: flex-end;
 
+    &.centered {
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
     &.project {
       position: absolute;
       bottom: 10px;
@@ -240,11 +291,16 @@ export default styled.div`
     margin-bottom: 15px;
   }
 
-  .dayTitle {
+  .dayTitle,
+  .taskInfo {
     margin-bottom: 3px;
     text-transform: none;
     font-style: italic;
     color: #bbb;
+  }
+
+  .taskInfo {
+    text-transform: uppercase;
   }
 
   .content > div {

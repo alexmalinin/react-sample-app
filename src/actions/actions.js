@@ -47,9 +47,11 @@ import {
   SHOW_ALL_PROJECTS,
   SHOW_PROJECT_WITH_ID,
   CREATE_PROJECT_EPIC,
+  SHOW_ALL_EPICS_WITHOUT_PROJECT,
   SHOW_ALL_EPICS,
   DELETE_PROJECT_EPIC,
   UPDATE_PROJECT_EPIC,
+  SHOW_ALL_EPIC_TASKS,
   CREATE_EPIC_TASK,
   SHOW_PROJECT_EPIC,
   SHOW_EPIC_TASKS,
@@ -683,6 +685,17 @@ export function deleteProjectEpic(project, id) {
   return action;
 }
 
+// get array of all epics without projects
+
+export function showAllEpicsWithoutProject() {
+  const action = {
+    type: SHOW_ALL_EPICS_WITHOUT_PROJECT,
+    showAllEpicsWithoutProject: `${PORT}/api/v1/all_epics`
+  };
+
+  return action;
+}
+
 // get array of all projects (include unsubmitted)
 
 export function showAllEpics(project) {
@@ -700,6 +713,17 @@ export function showProjectEpic(project, epic) {
   const action = {
     type: SHOW_PROJECT_EPIC,
     showProjectEpic: `${PORT}/api/v1/projects/${project}/epics/${epic}`
+  };
+
+  return action;
+}
+
+// show all tasks without epic
+
+export function showAllEpicTasks() {
+  const action = {
+    type: SHOW_ALL_EPIC_TASKS,
+    showAllEpicTasks: `${PORT}/api/v1/tasks`
   };
 
   return action;

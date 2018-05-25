@@ -73,6 +73,15 @@ export const Container = styled.div`
       height: 100%;
     }
 
+    & > .default {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 300px;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 1920px) {
         max-width: 1280px;
 
