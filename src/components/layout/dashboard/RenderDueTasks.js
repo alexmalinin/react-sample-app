@@ -39,10 +39,6 @@ class RenderDueTasks extends Component {
               </div>
               <span>All Epics</span>
             </div>
-            <div className="progressItem">
-              <div className="progressCount">0</div>
-              <span>Your epics</span>
-            </div>
           </div>
         </div>
       </StyledDashboardCard>

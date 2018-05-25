@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-
+import moment from "moment";
 import ProgressBars from "./ProgressBar";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
@@ -131,6 +131,8 @@ class RenderCard extends Component {
         break;
     }
 
+    let currentEpic = this.getCurrentEpic(epics);
+
     return (
       <StyledDashboardCard size={size} type={type} village={village}>
         <div className="titleWrapper">
@@ -141,21 +143,15 @@ class RenderCard extends Component {
               <span className="projectNoLogo">{name[0]}</span>
             ))}
           <div>
-            <p className="title">{title || name}</p>
+            <div className="title">{title || name}</div>
             {type !== "tasks" &&
               type !== "tasks_due" && (
-                <p className="subTitle">
-                  {subtitle ? subtitle : `Module ${epics.length}`}
-                </p>
+                <div className="subTitle">
+                  {subtitle ? subtitle : currentEpic ? currentEpic.name : null}
+                </div>
               )}
           </div>
         </div>
-        {days && (
-          <div className="days">
-            {days.map((item, index) => <RenderDays days={item} key={index} />)}
-          </div>
-        )}
-
         <div className="content">
           {content &&
             content.map((item, index) => (
@@ -212,6 +208,27 @@ class RenderCard extends Component {
     );
   }
 
+  getCurrentEpic(epics) {
+    let start = moment().startOf("day"),
+      etaEpics = [];
+
+    etaEpics = epics
+      ? epics.filter(task => {
+          return (
+            moment(task.eta).isSame(start) || moment(task.eta).isAfter(start)
+          );
+        })
+      : null;
+
+    if (etaEpics) {
+      let curentEpics = etaEpics.sort((a, b) => {
+        return new Date(a.eta) - new Date(b.eta);
+      });
+
+      return curentEpics[0];
+    }
+  }
+
   //TODO: type of cards as different components
 
   renderProjectProgress = () => {
@@ -219,6 +236,8 @@ class RenderCard extends Component {
       data: { id, epics },
       changeUserType
     } = this.props;
+
+    // console.log(epics);
 
     let completedTasksCount = 0;
     epics &&
@@ -254,23 +273,6 @@ class RenderCard extends Component {
     );
   };
 }
-
-const RenderDays = ({ days }) => {
-  return (
-    <div className="day">
-      <p className="dayTitle">{days.day}</p>
-      <div className="tasksContainer">
-        {days.data.map((item, index) => {
-          return <RenderDayTasks day={item} key={index} />;
-        })}
-      </div>
-    </div>
-  );
-};
-
-const RenderDayTasks = ({ day }) => {
-  return <p className="taskDescription">{day}</p>;
-};
 
 class ProjectTeam extends Component {
   state = {

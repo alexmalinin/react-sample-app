@@ -16,7 +16,9 @@ class ProjectSubHeader extends Component {
       allEpics.map((epic, key) => {
         let subheaderCompletedTasks = 0;
         epic.tasks.forEach(
-          task => task.state === "done" && subheaderCompletedTasks++
+          task =>
+            (task.state === "done" || task.state === "accepted") &&
+            subheaderCompletedTasks++
         );
         return (
           <SubHeaderLinkWrap

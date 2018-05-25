@@ -62,10 +62,6 @@ class RenderInfo extends Component {
               <div className="progressBar">{`${allTasksCount}/${completedTasks}`}</div>
               <span>All Epics</span>
             </div>
-            <div className="progressItem">
-              <div className="progressCount">0</div>
-              <span>Your epics</span>
-            </div>
           </div>
         </div>
       </StyledDashboardCard>

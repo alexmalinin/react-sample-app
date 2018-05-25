@@ -6,11 +6,12 @@ import RenderDueTasks from "./dashboard/RenderDueTasks";
 import RenderInfo from "./dashboard/RenderInfo";
 import StyledDashBoard from "../../styleComponents/StyledDashBoard";
 import {
+  showAllProjects,
   showAllSpecialists,
+  showSpecialistProjects,
   showAllEpicsWithoutProject,
   showAllEpicTasks
 } from "../../actions/actions";
-import { cards } from "../../helpers/cardsData";
 import { getUserRole } from "../../helpers/functions";
 import { S_REDGUY, CUSTOMER } from "../../constans/constans";
 
@@ -22,6 +23,14 @@ class RenderDashboard extends Component {
       this.props.showAllSpecialists("active", "core");
     }
 
+    if (this.props.changeUserType === "Client") {
+      this.props.showAllProjects();
+    }
+
+    if (this.props.changeUserType === "Specialist") {
+      this.props.showSpecialistProjects();
+    }
+
     if (this.props.showAllEpicsWithoutProject) {
       this.props.showAllEpicsWithoutProject();
     }
@@ -31,33 +40,17 @@ class RenderDashboard extends Component {
     }
   }
 
-  renderCards(type) {
-    const data = cards;
-    let dueCards = data.filter(item => {
-      return item.type === type;
-    });
-    return (
-      <div>
-        {dueCards.map((card, index) => {
-          return <RenderCard key={index} type={type} data={card} />;
-        })}
-      </div>
-    );
-  }
-
   getEtaForWeek(array = []) {
     const start = moment().startOf("day"),
       end = moment().endOf("week");
     let etaTasks = [];
 
-    array
-      ? array.forEach(task => {
-          if (
+    etaTasks = array
+      ? array.filter(task => {
+          return (
             moment(task.eta).isBetween(start, end) ||
             moment(task.eta).isSame(start)
-          ) {
-            etaTasks.push(task);
-          }
+          );
         })
       : null;
 
@@ -67,18 +60,14 @@ class RenderDashboard extends Component {
   }
 
   assignProjectName = epics => {
-    const { specialistProjects, allProjects } = this.props;
+    const { projects } = this.props;
 
     epics &&
       epics.forEach(epic => {
         let proj = null;
 
-        allProjects
-          ? (proj = allProjects.filter(p => p.id === epic.project_id))
-          : null;
-
-        specialistProjects
-          ? (proj = specialistProjects.filter(p => p.id === epic.project_id))
+        projects
+          ? (proj = projects.filter(p => p.id === epic.project_id))
           : null;
 
         epic["project_name"] =
@@ -89,13 +78,7 @@ class RenderDashboard extends Component {
   };
 
   render() {
-    const {
-      projects,
-      allProjects,
-      specialistProjects,
-      allEpicsWithoutProject,
-      allEpicTasks
-    } = this.props;
+    const { projects, allEpicsWithoutProject, allEpicTasks } = this.props;
 
     let overview;
     if (projects) {
@@ -113,19 +96,8 @@ class RenderDashboard extends Component {
     let allEpics = [],
       allTasks = [];
 
-    allProjects &&
-      allProjects.forEach(project => {
-        let epics =
-          (allEpicsWithoutProject &&
-            allEpicsWithoutProject.filter(
-              epic => epic.project_id === project.id
-            )) ||
-          [];
-        allEpics.push(...epics);
-      });
-
-    specialistProjects &&
-      specialistProjects.forEach(project => {
+    projects &&
+      projects.forEach(project => {
         let epics =
           (allEpicsWithoutProject &&
             allEpicsWithoutProject.filter(
@@ -144,8 +116,7 @@ class RenderDashboard extends Component {
         allTasks.push(...tasks);
       });
 
-    return (allProjects && allProjects.length) ||
-      (specialistProjects && specialistProjects.length) ? (
+    return projects && projects.length ? (
       <StyledDashBoard>
         <RenderDueTasks
           allEpicsWithoutProject={allEpics}
@@ -158,6 +129,7 @@ class RenderDashboard extends Component {
           {projects && (
             <div>
               <RenderCard type="overview" data={overview} />
+
               {projects.map((project, key) => (
                 <RenderCard type="project" key={key} data={project} />
               ))}
@@ -180,20 +152,20 @@ class RenderDashboard extends Component {
 
 export default connect(
   ({
-    specialistProjects,
-    allProjects,
+    changeUserType,
     allEpicsWithoutProject,
     allEpicTasks,
     changeUsertype
   }) => ({
-    specialistProjects,
-    allProjects,
+    changeUserType,
     allEpicsWithoutProject,
     allEpicTasks,
     changeUsertype
   }),
   {
+    showAllProjects,
     showAllSpecialists,
+    showSpecialistProjects,
     showAllEpicsWithoutProject,
     showAllEpicTasks
   }
