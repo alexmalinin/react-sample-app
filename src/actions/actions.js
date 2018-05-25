@@ -75,7 +75,8 @@ import {
   CREATE_CUSTOM_TEAM,
   GET_SKILLS,
   SEARCH_SPECIALIST,
-  SEARCH_SPECIALIST_FOR_PROJECT
+  SEARCH_SPECIALIST_FOR_PROJECT,
+  SHOW_SPECIALIST_WITH_ID
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -399,6 +400,17 @@ export function showSpecialistData() {
   const action = {
     type: SHOW_SPECIALIST_DATA,
     showSpecialistData: `${PORT}/api/v1/specialists/`
+  };
+
+  return action;
+}
+
+// Show specialist Data by id
+
+export function showSpecialistWithId(id) {
+  const action = {
+    type: SHOW_SPECIALIST_WITH_ID,
+    showSpecialistWithId: `${PORT}/api/v1/specialists/${id}`
   };
 
   return action;

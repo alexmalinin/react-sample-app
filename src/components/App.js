@@ -97,6 +97,10 @@ class App extends Component {
                 path="/dashboard/project/:projectId"
                 component={Dashboard}
               />
+              <PrivateRoute
+                path="/dashboard/specialist/:specialistId"
+                component={Dashboard}
+              />
               <PrivateRoute path="/dashboard/:page" component={Dashboard} />
 
               <Route path="/404" component={NotFound} />

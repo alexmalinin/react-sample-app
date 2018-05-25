@@ -387,6 +387,9 @@ class SpecialistsDashboard extends Component {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
         } else return <NotFound />;
+      case "specialist":
+        document.title = "Specialist | Digital Village";
+        return null;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={this.props.specialistProjects} />;

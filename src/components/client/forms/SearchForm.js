@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 
 export default class SearchForm extends Component {
@@ -41,15 +41,11 @@ export default class SearchForm extends Component {
     searchSpecialist();
   };
 
-  met = () => {
-    console.log("ds");
-  };
-
   render() {
     const { search, loading } = this.state;
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Grid.Column computer={14}>
           <Form onSubmit={this.handleSubmitSearch}>
             <Input
@@ -76,7 +72,7 @@ export default class SearchForm extends Component {
             Clear filter
           </Button>
         </Grid.Column>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }

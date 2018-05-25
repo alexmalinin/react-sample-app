@@ -17,6 +17,7 @@ import skills from "./skillsReducer";
 import chosenSkills from "./showChosenSkillsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
+import specialistWithId from "./showSpecialistWithIdReducer";
 import allSpecialists from "./showAllSpecialistsReducer";
 import createProject from "./createProjectReducer";
 import allProjects from "./showAllProjectsReducer";
@@ -68,6 +69,7 @@ export default combineReducers({
   chosenSkills,
   clientData,
   specialistData,
+  specialistWithId,
   allSpecialists,
   form: reduxFormReducer,
   createProject,
