@@ -22,6 +22,7 @@ import updateSpecStep2 from "../middlewares/updateSpecStep2Api";
 import updateSpecialistBillings from "../middlewares/updateSpecialistBillingApi";
 import showClientData from "../middlewares/showClientDataApi";
 import showSpecialistData from "../middlewares/showSpecialistDataApi";
+import showSpecialistWithId from "../middlewares/showSpecialistWithIdApi";
 import updateSpecialistProfile from "../middlewares/updateSpecialistProfileApi";
 import editEducation from "../middlewares/education/editEducationApi";
 import editCompany from "../middlewares/company/editCompanyApi";
@@ -86,6 +87,7 @@ const enhancer = applyMiddleware(
   updateSpecialistBillings,
   showClientData,
   showSpecialistData,
+  showSpecialistWithId,
   showAllSpecialists,
   updateSpecialistProfile,
   editEducation,

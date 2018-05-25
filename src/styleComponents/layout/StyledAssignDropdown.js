@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow } from "../constants/colors";
+import { boxShadow, colors, primaryColors } from "../constants/colors";
 
 export const StyledAssignDropdown = styled.div`
   position: relative;
@@ -309,6 +309,8 @@ export const StyledPersonTile = styled.div`
   padding: 4px 0;
   position: relative;
   cursor: pointer;
+  text-transform: none;
+  font-weight: 400;
 
   img {
     width: 30px;
@@ -363,8 +365,14 @@ export const StyledPersonTile = styled.div`
       visibility: visible;
     }
 
-    p {
+    .profileLink {
       margin-bottom: 5px;
+      font-weight: 500;
+      font-size: 16px;
+      color: ${primaryColors.darkGrey};
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .info {
@@ -375,7 +383,7 @@ export const StyledPersonTile = styled.div`
       img {
         width: 50px;
         height: 50px;
-        object-fit: contain;
+        object-fit: cover;
         background: #fff;
         border-radius: 50%;
       }
@@ -394,7 +402,7 @@ export const StyledPersonTile = styled.div`
         }
 
         button {
-          padding: 3px 7px;
+          padding: 7px 7px 3px 7px;
 
           p {
             margin-bottom: 5px;

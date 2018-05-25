@@ -80,6 +80,10 @@ export default styled.div`
         &.all {
           color: ${colors.darkBlue};
           cursor: pointer;
+
+          .ui.popup {
+            color: ${colors.grey};
+          }
         }
       }
     }

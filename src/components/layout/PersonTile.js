@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
 import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
@@ -119,10 +120,18 @@ class DeleteTile extends Component {
             alt="avatar"
           />
           <div>
-            <p>
+            <NavLink
+              className="profileLink"
+              target="blank"
+              to={
+                thisUser
+                  ? "/dashboard/about"
+                  : `/dashboard/specialist/${specialist.id}`
+              }
+            >
               {specialist.first_name + " " + specialist.last_name}{" "}
               {thisUser && "(you)"}
-            </p>
+            </NavLink>
             {getUserRole() === S_REDGUY &&
               !thisUser && (
                 <button

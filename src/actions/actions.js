@@ -408,6 +408,7 @@ export function showSpecialistData() {
 // Show specialist Data by id
 
 export function showSpecialistWithId(id) {
+  console.log(id);
   const action = {
     type: SHOW_SPECIALIST_WITH_ID,
     showSpecialistWithId: `${PORT}/api/v1/specialists/${id}`

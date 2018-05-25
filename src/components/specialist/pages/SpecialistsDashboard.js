@@ -254,6 +254,8 @@ class SpecialistsDashboard extends Component {
       page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
       page = "module";
+    } else if (params["specialistId"]) {
+      page = "specialist";
     } else page = "dashboard";
 
     let sidebarCondition =
@@ -311,6 +313,12 @@ class SpecialistsDashboard extends Component {
   }
 
   renderPage = page => {
+    const {
+      match: { params },
+      history,
+      specialistTeams,
+      specialistProjects
+    } = this.props;
     switch (page) {
       case "profile":
         document.title = "Profile | Digital Village";
@@ -350,24 +358,20 @@ class SpecialistsDashboard extends Component {
       case "board":
         return (
           <ProjectsBoard
-            projectId={this.props.match.params["projectId"]}
-            currentEpic={this.props.match.params["moduleId"] || "all"}
-            history={this.props.history}
+            projectId={params["projectId"]}
+            currentEpic={params["moduleId"] || "all"}
+            history={history}
           />
         );
       case "teams":
         document.title = "Teams | Digital Village";
-        return <Teams teams={this.props.specialistTeams} />;
+        return <Teams teams={specialistTeams} />;
       case "test":
         document.title = "Test | Digital Village";
         return <SpecialistsTest />;
       case "module":
         document.title = "Add module | Digital Village";
-        return (
-          <ClientModule
-            projectId={this.props.match.params["projectNewModule"]}
-          />
-        );
+        return <ClientModule projectId={params["projectNewModule"]} />;
       case "account":
         document.title = "Billings | Digital Village";
         return <SpecialistAccount />;
@@ -388,11 +392,10 @@ class SpecialistsDashboard extends Component {
           return <SearchSpecialist />;
         } else return <NotFound />;
       case "specialist":
-        document.title = "Specialist | Digital Village";
-        return null;
+        return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
-        return <Dashboard projects={this.props.specialistProjects} />;
+        return <Dashboard projects={specialistProjects} />;
       default:
         return <NotFound />;
     }

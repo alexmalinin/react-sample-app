@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import StyledSpecialistCard from "../../styleComponents/StyledSpecialistCard";
 import { Button, Popup } from "semantic-ui-react";
+import { NavLink } from "react-router-dom";
 import { IMAGE_PORT } from "../../constans/constans";
 import { assignSpecialistToTeam } from "../../actions/actions";
 
@@ -80,9 +81,13 @@ class SpecialistCard extends Component {
           >
             Add to team
           </Button>
-          <Button role="button" className="dv-blue inverted" fluid>
+          <NavLink
+            className="ui button dv-blue inverted"
+            to={`/dashboard/specialist/${id}`}
+            target="blank"
+          >
             View profile
-          </Button>
+          </NavLink>
         </div>
         <div className="rating">
           <span>{Math.floor(Math.random() * (5 - 1) + 1)}</span>
