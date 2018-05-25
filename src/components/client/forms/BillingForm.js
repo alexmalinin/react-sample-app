@@ -8,6 +8,7 @@ import { clientCategories } from "../../../helpers/selects/clientCategories";
 import {
   NextBtn,
   BackBtn,
+  CancelBtn,
   SaveBtn
 } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
@@ -210,13 +211,19 @@ class BillingForm extends Component {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              {!isEditing ? (
+              {isEditing ? (
+                <NavLink exact to="/dashboard/about">
+                  <CancelBtn disabled={submitting} primary>
+                    <span>Cancel</span>
+                  </CancelBtn>
+                </NavLink>
+              ) : (
                 <NavLink exact to="/dashboard/company">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>
                 </NavLink>
-              ) : null}
+              )}
 
               {isEditing ? (
                 <SaveBtn
