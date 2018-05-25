@@ -19,18 +19,9 @@ import RenderSkillsArea from "../../forms/renders/RenderSkillsArea";
 import Communication from "../Communication/Communication";
 import Availability from "../Availability/Availability";
 import RenderImage from "../../forms/renders/RenderImage";
+import { renameObjPropNames } from "../../../helpers/functions";
 
 class SkillsForm extends Component {
-  rename = (obj, oldName, newName) => {
-    if (!obj.hasOwnProperty(oldName)) {
-      return false;
-    }
-
-    obj[newName] = obj[oldName];
-    delete obj[oldName];
-    return true;
-  };
-
   getSkills = () => {
     if (this.props.skills.length === 0) {
       this.props.getSkills();
@@ -40,7 +31,7 @@ class SkillsForm extends Component {
   render() {
     const {
       submitting,
-      industry,
+      industry_area_id,
       industries,
       projectTypes,
       experienceLevels,
@@ -57,8 +48,8 @@ class SkillsForm extends Component {
 
     if (skills) {
       skills.forEach(skill => {
-        this.rename(skill, "id", "value");
-        this.rename(skill, "name", "label");
+        renameObjPropNames(skill, "id", "value");
+        renameObjPropNames(skill, "name", "label");
       });
       skills.sort((a, b) => {
         if (a.label < b.label) return -1;
@@ -133,27 +124,30 @@ class SkillsForm extends Component {
               </div>
               <span id="industry" /> {/*for error scrolling*/}
               <Field
-                name="industry"
+                name="industry_area_id"
                 component={RenderSelect}
                 placeholder="Select"
                 label="Select your area within the digital industry"
-                onChange={e => this.props.handleSelectChange(e, "industry")}
+                onChange={e => handleSelectChange(e, "industry")}
                 options={industries["industry"]}
                 validate={[required]}
                 isRequired
               />
               <span id="industry_title" /> {/*for error scrolling*/}
-              {industry && (
+              {industry_area_id && (
                 <RenderSpecialityArea
                   speciality={industries["speciality"]}
-                  industry={industry}
+                  industry_area_id={industry_area_id}
                   specialities={specialistData.specialities}
                 />
               )}
               <RenderSkillsArea
                 options={skills}
                 handleSelectChange={handleSelectChange}
+                name="skills_attributes"
                 onOpen={this.getSkills}
+                label="Enter your skills here"
+                placeholder="Start type your skill here..."
               />
             </StyledWelcomeForm>
           </Grid.Column>

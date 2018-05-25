@@ -8,6 +8,7 @@ import StyledNotFound from "../styleComponents/StyledNotFound";
 class NotFound extends Component {
   componentWillMount() {
     this.props.hideFooter();
+    document.title = "404 not found | Digital Village";
   }
 
   render() {

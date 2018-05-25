@@ -22,6 +22,7 @@ import updateSpecStep2 from "../middlewares/updateSpecStep2Api";
 import updateSpecialistBillings from "../middlewares/updateSpecialistBillingApi";
 import showClientData from "../middlewares/showClientDataApi";
 import showSpecialistData from "../middlewares/showSpecialistDataApi";
+import showSpecialistWithId from "../middlewares/showSpecialistWithIdApi";
 import updateSpecialistProfile from "../middlewares/updateSpecialistProfileApi";
 import editEducation from "../middlewares/education/editEducationApi";
 import editCompany from "../middlewares/company/editCompanyApi";
@@ -62,6 +63,8 @@ import updateTeamChannel from "../middlewares/updateChannelApi";
 import showChannels from "../middlewares/showChannelsApi";
 import addToChannel from "../middlewares/addMemberToChannelApi";
 import removeFromChannel from "../middlewares/removeMemberFromChannelApi";
+import searchSpecialist from "../middlewares/searchSpecialistApi";
+import searchSpecialistForProject from "../middlewares/searchSpecialistForProjectApi";
 
 const enhancer = applyMiddleware(
   contactRequest,
@@ -84,6 +87,7 @@ const enhancer = applyMiddleware(
   updateSpecialistBillings,
   showClientData,
   showSpecialistData,
+  showSpecialistWithId,
   showAllSpecialists,
   updateSpecialistProfile,
   editEducation,
@@ -123,7 +127,9 @@ const enhancer = applyMiddleware(
   updateTeamChannel,
   showChannels,
   addToChannel,
-  removeFromChannel
+  removeFromChannel,
+  searchSpecialist,
+  searchSpecialistForProject
 );
 
 let reduxDevTools =

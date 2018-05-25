@@ -17,6 +17,7 @@ import skills from "./skillsReducer";
 import chosenSkills from "./showChosenSkillsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
+import specialistWithId from "./showSpecialistWithIdReducer";
 import allSpecialists from "./showAllSpecialistsReducer";
 import createProject from "./createProjectReducer";
 import allProjects from "./showAllProjectsReducer";
@@ -46,6 +47,7 @@ import allChannels from "./showChannelsReducer";
 import addMember from "./addMemberToChannelReducer";
 import removeMember from "./removeMemberFromChannelReducer";
 import updateChannel from "./updateChannelReducer";
+import searchResult from "./searchSpecialistReducer";
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -67,6 +69,7 @@ export default combineReducers({
   chosenSkills,
   clientData,
   specialistData,
+  specialistWithId,
   allSpecialists,
   form: reduxFormReducer,
   createProject,
@@ -96,6 +99,7 @@ export default combineReducers({
   allChannels,
   addMember,
   removeMember,
-  deleteChannel
+  deleteChannel,
+  searchResult
   // contactRequest,
 });

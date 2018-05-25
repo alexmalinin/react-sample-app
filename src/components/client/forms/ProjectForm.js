@@ -11,17 +11,31 @@ import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import { employeers } from "../../../helpers/selects/employeers";
 import RenderFile from "../../forms/renders/RenderFile";
+import RenderSkillsArea from "../../forms/renders/RenderSkillsArea";
+import { renameObjPropNames } from "../../../helpers/functions";
 
 class ProjectForm extends Component {
   render() {
-    const { submitting, clientData } = this.props;
+    const { submitting, clientData, skills } = this.props;
 
     let { logo } = clientData || false;
+
+    if (skills) {
+      skills.forEach(skill => {
+        renameObjPropNames(skill, "id", "value");
+        renameObjPropNames(skill, "name", "label");
+      });
+      skills.sort((a, b) => {
+        if (a.label < b.label) return -1;
+        else if (a.label > b.label) return 1;
+        else return 0;
+      });
+    }
 
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column computer={8}>
+          <Grid.Column computer={8} verticalAlign="bottom">
             <InputField
               name="name"
               label="Project name"
@@ -29,16 +43,8 @@ class ProjectForm extends Component {
               isRequired
               padded
             />
-
-            <Field
-              name="description"
-              component={RenderTextArea}
-              label="Brief / Description"
-              className="area"
-              padded
-            />
           </Grid.Column>
-          <Grid.Column computer={8} verticalAlign="bottom">
+          <Grid.Column computer={8}>
             <Field
               name="logo"
               component={RenderImage}
@@ -47,7 +53,17 @@ class ProjectForm extends Component {
               logo={logo}
               placeholder="Choose project logo"
             />
-
+          </Grid.Column>
+          <Grid.Column computer={8}>
+            <Field
+              name="description"
+              component={RenderTextArea}
+              label="Brief / Description"
+              className="area"
+              padded
+            />
+          </Grid.Column>
+          <Grid.Column computer={8}>
             <Field
               name="file"
               type="text"
@@ -57,9 +73,6 @@ class ProjectForm extends Component {
               padded
             />
           </Grid.Column>
-          {/* </Grid.Row>
-
-        <Grid.Row> */}
           <Grid.Column computer={8}>
             <Field
               name="user_story"
@@ -114,6 +127,17 @@ class ProjectForm extends Component {
               component={RenderTextArea}
               label="Business Rules"
               className="area"
+              padded
+            />
+          </Grid.Column>
+          <Grid.Column computer={8}>
+            <RenderSkillsArea
+              options={skills}
+              label="Technologies"
+              name="skills"
+              handleSelectChange={this.props.handleSelectChange}
+              placeholder=""
+              large
               padded
             />
           </Grid.Column>

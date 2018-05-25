@@ -17,7 +17,7 @@ import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
-import { getUserRole } from "../helpers/functions";
+import { getUserRole, getUserType } from "../helpers/functions";
 
 class ProjectsBoard extends Component {
   state = {
@@ -135,7 +135,6 @@ class ProjectsBoard extends Component {
       allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
         ? allEpics[currentEpic - 1].id
         : null;
-    const userType = localStorage.getItem("userType");
 
     return (
       <ContainerLarge indentBot>
@@ -160,22 +159,21 @@ class ProjectsBoard extends Component {
                   updateProjectEpic={updateProjectEpic}
                 />
               ))}
-            {userType === CLIENT &&
-              getUserRole() === S_REDGUY && (
-                <div className="dragContainer addModuleContainer">
-                  <h3>&nbsp;</h3>
-                  <div className="module addModule">
-                    <NavLink
-                      to={`/dashboard/project/${projectId}/module/new`}
-                      className="addButt"
-                    >
-                      <span className="plus">+</span>
-                      <span className="add">Add module</span>
-                    </NavLink>
-                  </div>
+            {(getUserType() === CLIENT || getUserRole() === S_REDGUY) && (
+              <div className="dragContainer addModuleContainer">
+                <h3>&nbsp;</h3>
+                <div className="module addModule">
+                  <NavLink
+                    to={`/dashboard/project/${projectId}/module/new`}
+                    className="addButt"
+                  >
+                    <span className="plus">+</span>
+                    <span className="add">Add module</span>
+                  </NavLink>
                 </div>
-              )}
-            {userType === SPECIALIST &&
+              </div>
+            )}
+            {getUserType() === SPECIALIST &&
               allEpics &&
               allEpics.length === 0 && (
                 <div className="noModules">

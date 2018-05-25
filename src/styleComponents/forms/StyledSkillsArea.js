@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default styled.div`
+  margin: ${props => props.padded && `20px`};
   & > span {
     display: inline-block;
     width: 100%;
@@ -57,7 +58,7 @@ export default styled.div`
     }
 
     &::before {
-      content: "Start type your skill here...";
+      content: "${props => props.placeholder}";
       position: absolute;
       top: 16px;
       left: 10px;
@@ -90,7 +91,7 @@ export default styled.div`
   .Select-multi-value-wrapper {
     font-size: 14px;
     padding-bottom: 20px;
-    margin-top: 40px;
+    margin-top: ${props => (props.padded ? "34px" : "40px")};
     width: 100%;
     border-top: 2px solid #f2f2f2;
 

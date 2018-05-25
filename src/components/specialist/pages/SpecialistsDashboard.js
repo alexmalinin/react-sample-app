@@ -245,11 +245,17 @@ class SpecialistsDashboard extends Component {
         } else page = "forbidden";
       } else page = "forbidden";
     } else if (params["page"]) {
-      page = params["page"];
+      if (params["page"] === "search") {
+        if (getUserRole() === S_REDGUY) {
+          page = params["page"];
+        } else page = "forbidden";
+      } else page = params["page"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
       page = "module";
+    } else if (params["specialistId"]) {
+      page = "specialist";
     } else page = "dashboard";
 
     let sidebarCondition =
@@ -307,8 +313,15 @@ class SpecialistsDashboard extends Component {
   }
 
   renderPage = page => {
+    const {
+      match: { params },
+      history,
+      specialistTeams,
+      specialistProjects
+    } = this.props;
     switch (page) {
       case "profile":
+        document.title = "Profile | Digital Village";
         return (
           <SpecialistsProfile
             calculatePagePercent={this.calculatePagePercent}
@@ -316,6 +329,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "industry":
+        document.title = "Industry | Digital Village";
         return (
           <SpecialistIndustry
             calculatePagePercent={this.calculatePagePercent}
@@ -323,6 +337,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "company":
+        document.title = "Company | Digital Village";
         return (
           <SpecialistsCompany
             calculatePagePercent={this.calculatePagePercent}
@@ -330,6 +345,7 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "billings":
+        document.title = "Billings | Digital Village";
         return (
           <SpecialistsMyBillings
             calculatePagePercent={this.calculatePagePercent}
@@ -337,39 +353,49 @@ class SpecialistsDashboard extends Component {
           />
         );
       case "about":
+        document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
       case "board":
         return (
           <ProjectsBoard
-            projectId={this.props.match.params["projectId"]}
-            currentEpic={this.props.match.params["moduleId"] || "all"}
-            history={this.props.history}
+            projectId={params["projectId"]}
+            currentEpic={params["moduleId"] || "all"}
+            history={history}
           />
         );
       case "teams":
-        return <Teams teams={this.props.specialistTeams} />;
+        document.title = "Teams | Digital Village";
+        return <Teams teams={specialistTeams} />;
       case "test":
+        document.title = "Test | Digital Village";
         return <SpecialistsTest />;
       case "module":
-        return (
-          <ClientModule
-            projectId={this.props.match.params["projectNewModule"]}
-          />
-        );
+        document.title = "Add module | Digital Village";
+        return <ClientModule projectId={params["projectNewModule"]} />;
       case "account":
+        document.title = "Billings | Digital Village";
         return <SpecialistAccount />;
       case "year_to_date":
+        document.title = "YTD | Digital Village";
         return <SpecialistYTD />;
       case "statement":
+        document.title = "Statement | Digital Village";
         return <SpecialistStatement />;
       case "the_village":
+        document.title = "The village | Digital Village";
         return <TheVillage />;
       case "forbidden":
         return <NotFound />;
       case "search":
-        return <SearchSpecialist />;
+        if (getUserRole() === S_REDGUY) {
+          document.title = "Search Specialist | Digital Village";
+          return <SearchSpecialist />;
+        } else return <NotFound />;
+      case "specialist":
+        return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
-        return <Dashboard projects={this.props.specialistProjects} />;
+        document.title = "Dashboard | Digital Village";
+        return <Dashboard projects={specialistProjects} />;
       default:
         return <NotFound />;
     }

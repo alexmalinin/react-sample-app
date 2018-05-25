@@ -18,6 +18,12 @@ export default store => next => action => {
       })
     : [];
 
+  let skill_ids =
+    payload["skills"] &&
+    payload["skills"].map(skill => {
+      return skill.value;
+    });
+
   window.payload = payload;
   let logo = payload["logo"] ? payload["logo"][0] : null;
 
@@ -43,7 +49,8 @@ export default store => next => action => {
             attached_files_attributes: files,
             team_attributes: {
               name: payload["name"]
-            }
+            },
+            skill_ids
           }
         },
 
@@ -79,7 +86,8 @@ export default store => next => action => {
           attached_files_attributes: files,
           team_attributes: {
             name: payload["name"]
-          }
+          },
+          skill_ids
         }
       },
 

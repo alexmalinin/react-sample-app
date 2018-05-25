@@ -5,7 +5,8 @@ import { Dropdown, Popup } from "semantic-ui-react";
 
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 import { ContainerLarge } from "../../styleComponents/layout/Container";
-import { SPECIALIST, CLIENT } from "../../constans/constans";
+import { SPECIALIST, CLIENT, S_REDGUY } from "../../constans/constans";
+import { getUserRole } from "../../helpers/functions";
 
 class Header extends Component {
   state = {
@@ -93,7 +94,18 @@ class Header extends Component {
                   content="Profile"
                 />
               </NavLink>
-              {/* this.renderDropdown() */}
+              {getUserRole() === S_REDGUY && (
+                <NavLink
+                  activeClassName="current"
+                  className="item-link"
+                  to="/dashboard/search"
+                >
+                  <Popup
+                    trigger={<i className="fas fa-search" />}
+                    content="Search"
+                  />
+                </NavLink>
+              )}
               <NavLink
                 activeClassName="current"
                 className="item-link"

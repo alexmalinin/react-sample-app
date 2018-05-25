@@ -172,3 +172,13 @@ export function getYearsForSelect(start = 1960, end = 2025) {
 export function compareObjects(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
+
+export function renameObjPropNames(obj, oldName, newName) {
+  if (!obj.hasOwnProperty(oldName)) {
+    return false;
+  }
+
+  obj[newName] = obj[oldName];
+  delete obj[oldName];
+  return true;
+}
