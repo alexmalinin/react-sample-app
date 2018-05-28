@@ -32,7 +32,7 @@ class SkillsForm extends Component {
   };
 
   getSkills = () => {
-    if (this.props.skills.length === 0) {
+    if (this.props.skills && this.props.skills.length === 0) {
       this.props.getSkills();
     }
   };

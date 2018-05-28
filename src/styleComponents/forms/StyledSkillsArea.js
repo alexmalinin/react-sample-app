@@ -25,6 +25,10 @@ export default styled.div`
     border-radius: none;
     position: absolute;
     top: 42px;
+
+    .Select-menu {
+      max-height: 140px;
+    }
   }
 
   .Select-input > input {

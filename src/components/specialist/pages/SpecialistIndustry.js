@@ -81,6 +81,7 @@ class SpecialistIndustry extends Component {
           onChange={this.change}
           onSubmit={this.submit}
           getSkills={this.props.getSkills}
+          skills={this.props.skills}
         />
 
         <NavigationPrompt when={this.state.isEdited}>
@@ -156,11 +157,12 @@ class SpecialistIndustry extends Component {
 }
 
 export default connect(
-  ({ industries, projectTypes, experienceLevels, specialistData }) => ({
+  ({ industries, projectTypes, experienceLevels, specialistData, skills }) => ({
     industries,
     projectTypes,
     experienceLevels,
-    specialistData
+    specialistData,
+    skills
   }),
   {
     updateSpecStep1,
