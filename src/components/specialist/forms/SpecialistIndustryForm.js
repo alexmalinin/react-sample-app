@@ -88,7 +88,6 @@ class SpecialistIndustryForm extends Component {
         [name]: e.value || null
       }
     });
-    console.log(e.value);
   };
 
   componentWillUpdate(nextProps, nextState) {
@@ -114,7 +113,10 @@ class SpecialistIndustryForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && this.state.fetchSubmitError) {
+    if (
+      (nextProps.submitFailed && this.state.fetchSubmitError) ||
+      (nextProps.submitFailed && this.props.triggerSubmit)
+    ) {
       this.setState({ submitError: true });
     }
   }

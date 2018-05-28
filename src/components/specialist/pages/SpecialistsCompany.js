@@ -48,6 +48,10 @@ class SpecialistCompany extends Component {
     this.setState({ isEditing });
   }
 
+  componentWillUnmount() {
+    this.props.showSpecialistData();
+  }
+
   render() {
     const {
       renderMessage,
@@ -55,6 +59,7 @@ class SpecialistCompany extends Component {
       isEditing,
       isEdited
     } = this.state;
+
     const { industries } = this.props;
 
     return (
@@ -78,10 +83,11 @@ class SpecialistCompany extends Component {
           onChange={this.change}
         />
 
-        <NavigationPrompt when={this.state.isEdited}>
+        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isSubmitted={this.state.nextStep}
+              formId="SpecialistCompanyForm"
               onCancel={onCancel}
               onConfirm={onConfirm}
             />

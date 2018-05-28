@@ -115,7 +115,10 @@ class SpecialistCompanyForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && this.state.fetchSubmitError) {
+    if (
+      (nextProps.submitFailed && this.state.fetchSubmitError) ||
+      (nextProps.submitFailed && this.props.triggerSubmit)
+    ) {
       this.setState({ submitError: true });
     }
   }

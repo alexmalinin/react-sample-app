@@ -407,7 +407,9 @@ export const CancelBtn = styled(Button)`
     border: 1px solid #ccc;
     position: ${props => (props.static ? "relative" : "absolute")};
     bottom: ${props => (props.static ? "10px" : "-26px")};
+    ${props => (props.positionbottom ? `bottom: ${props.positionbottom}` : ``)};
     left: ${props => (props.static ? "0" : "25px")};
+    ${props => (props.positionleft ? `left: ${props.positionleft}` : ``)};
     ${props => (props.static ? "margin: 10px" : ``)};
     font-family: "Brix";
     text-align: center;

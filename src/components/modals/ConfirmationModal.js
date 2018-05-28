@@ -8,17 +8,13 @@ import { connect } from "react-redux";
 import { submit } from "redux-form";
 
 class ConfirmationModal extends Component {
-  state = {
-    open: false
-  };
-
-  componentWillMount() {
-    console.log(this.props);
+  confirmModal = () => {
     const { onConfirm } = this.props;
-    if (this.props.isSubmitted) {
+
+    if (onConfirm) {
       onConfirm();
     }
-  }
+  };
 
   closeModal = ev => {
     const { onCancel } = this.props;
@@ -33,17 +29,10 @@ class ConfirmationModal extends Component {
   };
 
   submitModal = ev => {
-    const { dispatch, user, page, isSubmitted, onConfirm } = this.props;
+    const { dispatch, formId } = this.props;
 
-    const formId = getFormIdByPageName(user, page);
+    dispatch(submit(formId));
     this.closeModal(ev);
-    if (isSubmitted) {
-      dispatch(submit(formId));
-    }
-
-    if (onConfirm) {
-      onConfirm();
-    }
   };
 
   render() {
@@ -54,19 +43,22 @@ class ConfirmationModal extends Component {
         size="tiny"
         open={!isSubmitted}
         onClose={this.closeModal}
-        trigger={
-          <a className="button">
-            <StyledSubHeaderLink className="rightLink arrow" />Complete Later
-          </a>
-        }
         closeIcon
       >
         <Modal.Content>
           <Modal.Description>
-            <Header>Are you sure you want to leave?</Header>
+            <Header>Do you want to save changes?</Header>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
+          <CancelBtn
+            primary
+            positionleft="10"
+            positionbottom="auto"
+            onClick={this.confirmModal}
+          >
+            <span>Don't save</span>
+          </CancelBtn>
           <CancelBtn primary static="true" onClick={this.closeModal}>
             <span>Cancel</span>
           </CancelBtn>
@@ -78,7 +70,7 @@ class ConfirmationModal extends Component {
             updatebtn="true"
             static="true"
           >
-            <span>Ok</span>
+            <span>Save</span>
           </SaveBtn>
         </Modal.Actions>
       </Modal>

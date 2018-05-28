@@ -26,6 +26,7 @@ class RenderProfileForm extends Component {
       fetch: true,
       formData: {},
       fetchFormValues: true,
+      fetchSubmitError: true,
       submitError: false
     };
 
@@ -264,13 +265,16 @@ class RenderProfileForm extends Component {
       }
     }
 
-    if (nextProps.submitFailed && this.state.fetchSubmitError) {
+    if (
+      (nextProps.submitFailed && this.state.fetchSubmitError) ||
+      (nextProps.submitFailed && this.props.triggerSubmit)
+    ) {
       this.setState({ submitError: true });
     }
   }
 
   handleSubmitError = () => {
-    if (this.props.invalid) {
+    if (this.props.submitFailed && this.props.invalid) {
       this.setState({ submitError: true });
     }
   };
