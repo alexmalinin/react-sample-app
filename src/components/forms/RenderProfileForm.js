@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { Field, reduxForm, change, getFormValues } from "redux-form";
 import { required } from "../../helpers/validate";
-import { NextBtn, SaveBtn } from "../../styleComponents/layout/DvButton";
+import {
+  NextBtn,
+  SaveBtn,
+  CancelBtn
+} from "../../styleComponents/layout/DvButton";
 import InputField from "./renders/InputField";
 import EmailField from "./renders/EmailField";
 import StyledPhoneField from "../../styleComponents/forms/StyledPhoneField";
@@ -193,6 +198,14 @@ class RenderProfileForm extends Component {
               </Grid.Column>
               <Grid.Column computer={3}>
                 <div className="navigation-wrap">
+                  {isEditing ? (
+                    <NavLink exact to="/dashboard/about">
+                      <CancelBtn disabled={submitting} primary>
+                        <span>Cancel</span>
+                      </CancelBtn>
+                    </NavLink>
+                  ) : null}
+
                   {isEditing ? (
                     <SaveBtn
                       type="submit"
