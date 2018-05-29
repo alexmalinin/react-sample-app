@@ -34,28 +34,32 @@ class ProgressBars extends Component {
     this.renderBar();
     this.bar.animate(this.props.percents / 100);
 
-    if (this.props.strokeColor) {
-      this.bar.path.setAttribute("stroke", this.props.strokeColor);
+    if (this.props.percents === 100) {
+      this.bar.path.setAttribute("stroke", "#00ffc0");
     } else {
-      if (this.props.percents === 100) {
-        this.bar.path.setAttribute("stroke", "#00ffc0");
-      } else {
-        this.bar.path.setAttribute("stroke", "#fff");
-      }
+      this.props.strokeColor
+        ? this.bar.path.setAttribute("stroke", this.props.strokeColor)
+        : this.bar.path.setAttribute("stroke", "#fff");
+    }
+
+    if (this.props.module && this.props.strokeColor) {
+      this.bar.path.setAttribute("stroke", this.props.strokeColor);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.bar.animate(nextProps.percents / 100);
 
-    if (this.props.strokeColor) {
-      this.bar.path.setAttribute("stroke", this.props.strokeColor);
+    if (nextProps.percents === 100) {
+      this.bar.path.setAttribute("stroke", "#00ffc0");
     } else {
-      if (nextProps.percents === 100) {
-        this.bar.path.setAttribute("stroke", "#00ffc0");
-      } else {
-        this.bar.path.setAttribute("stroke", "#fff");
-      }
+      this.props.strokeColor
+        ? this.bar.path.setAttribute("stroke", this.props.strokeColor)
+        : this.bar.path.setAttribute("stroke", "#fff");
+    }
+
+    if (this.props.module && this.props.strokeColor) {
+      this.bar.path.setAttribute("stroke", this.props.strokeColor);
     }
   }
 

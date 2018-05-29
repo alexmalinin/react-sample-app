@@ -90,6 +90,8 @@ class RenderCard extends Component {
       data: { id, team }
     } = this.props;
 
+    console.log("assign", id, team);
+
     if (type === "assign") {
       assignSpecialistToTeam(id, team.id, specId);
     } else removeSpecialistFromTeam(id, team.id, specId);
@@ -233,8 +235,7 @@ class RenderCard extends Component {
 
   renderProjectProgress = () => {
     const {
-      data: { id, epics },
-      changeUserType
+      data: { id, epics }
     } = this.props;
 
     // console.log(epics);
@@ -246,13 +247,12 @@ class RenderCard extends Component {
 
     return (
       <div className="progress">
-        {changeUserType === CLIENT || getUserRole() === S_REDGUY ? (
+        {getUserRole() === CUSTOMER || getUserRole() === S_REDGUY ? (
           <SubHeaderLinkWrap
             className="progressItem addModule"
+            label="Add module"
             url={`/dashboard/project/${id}/module/new`}
-          >
-            <span className="progressDescription">Add module</span>
-          </SubHeaderLinkWrap>
+          />
         ) : (
           <div>&nbsp;&nbsp;&nbsp;</div>
         )}

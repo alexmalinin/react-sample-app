@@ -397,7 +397,7 @@ class SpecialistsDashboard extends Component {
         return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
-        return <Dashboard projects={specialistProjects} />;
+        return <Dashboard projects={specialistProjects} history={history} />;
       default:
         return <Redirect to="/404" />;
     }

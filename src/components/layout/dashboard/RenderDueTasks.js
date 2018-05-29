@@ -20,8 +20,22 @@ class RenderDueTasks extends Component {
     return tasks;
   };
 
+  getTodaysEpics = epics => {
+    const start = moment().startOf("day");
+
+    return epics ? epics.filter(epic => moment(epic.eta).isSame(start)) : [];
+  };
+
+  renderDescription = description => {
+    if (description.length > 70) {
+      return description.slice(0, 70) + "...";
+    } else return description;
+  };
+
   rendeDueTask() {
     const { allEpicTasks } = this.props;
+
+    let todaysEpics = this.getTodaysEpics(allEpicTasks);
 
     return (
       <StyledDashboardCard size={{ col: 1, row: 1 }} type="task_due">
@@ -38,6 +52,12 @@ class RenderDueTasks extends Component {
                 {allEpicTasks ? allEpicTasks.length : 0}
               </div>
               <span>All Epics</span>
+            </div>
+            <div className="progressItem">
+              <div className="progressCount">
+                {todaysEpics ? todaysEpics.length : 0}
+              </div>
+              <span>Epics</span>
             </div>
           </div>
         </div>
@@ -82,7 +102,9 @@ class RenderDueTasks extends Component {
                     : null}
                 </p>
                 <div className="tasksContainer">
-                  <div className="taskDescription">{task.name}</div>
+                  <div className="taskDescription">
+                    {this.renderDescription(task.name)}
+                  </div>
                   <div className="taskInfo">{`${task.project_name}  >  ${
                     task.epic_name
                   }`}</div>

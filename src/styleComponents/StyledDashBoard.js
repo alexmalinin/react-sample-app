@@ -11,7 +11,7 @@ export default styled.div`
 
   & > div > div {
     display: grid;
-    grid-auto-rows: minmax(140px, auto);
+    grid-auto-rows: 140px;
     grid-gap: 20px;
     grid-auto-flow: dense;
     ${props => (props.village ? `grid-template-columns: repeat(5, 1fr)` : ``)};
@@ -19,5 +19,11 @@ export default styled.div`
 
   .tasks > div {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1600px) {
+    .tasks > div {
+      grid-template-columns: 1fr;
+    }
   }
 `;

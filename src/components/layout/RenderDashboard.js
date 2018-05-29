@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 import moment from "moment";
 import RenderCard from "./RenderCard";
+import RenderProjectCards from "./dashboard/RenderProjectCards";
 import RenderDueTasks from "./dashboard/RenderDueTasks";
 import RenderInfo from "./dashboard/RenderInfo";
 import StyledDashBoard from "../../styleComponents/StyledDashBoard";
@@ -9,13 +11,17 @@ import {
   showAllProjects,
   showAllSpecialists,
   showSpecialistProjects,
-  showAllEpicsWithoutProject,
   showAllEpicTasks
 } from "../../actions/actions";
 import { getUserRole } from "../../helpers/functions";
-import { S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
 
 class RenderDashboard extends Component {
+  state = {
+    fetchSummary: true,
+    summary: null
+  };
+
   componentWillMount() {
     if (getUserRole() === CUSTOMER) {
       this.props.showAllSpecialists("red_guy");
@@ -31,17 +37,46 @@ class RenderDashboard extends Component {
       this.props.showSpecialistProjects();
     }
 
-    if (this.props.showAllEpicsWithoutProject) {
-      this.props.showAllEpicsWithoutProject();
-    }
-
     if (this.props.showAllEpicTasks) {
       this.props.showAllEpicTasks();
     }
   }
 
-  getEtaForWeek(array = []) {
-    const start = moment().startOf("day"),
+  componentWillUpdate(nextProps) {
+    if (nextProps.clientData && this.state.fetchSummary) {
+      this.getSummaryInfo(nextProps.clientData.id);
+      this.setState({ fetchSummary: false });
+    }
+
+    if (nextProps.specialistData && this.state.fetchSummary) {
+      this.getSummaryInfo(nextProps.specialistData.id);
+      this.setState({ fetchSummary: false });
+    }
+  }
+
+  getSummaryInfo = async id => {
+    let user = null;
+
+    if (getUserRole() === CUSTOMER) {
+      user = "customers";
+    } else {
+      user = "specialists";
+    }
+
+    await axios
+      .get(`${PORT}/api/v1/${user}/${id}/dashboard`)
+      .then(response => {
+        this.setState({
+          summary: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  getEtaForWeek(array = [], week = false) {
+    const start = week ? moment().startOf("week") : moment().startOf("day"),
       end = moment().endOf("week");
     let etaTasks = [];
 
@@ -78,7 +113,7 @@ class RenderDashboard extends Component {
   };
 
   render() {
-    const { projects, allEpicsWithoutProject, allEpicTasks } = this.props;
+    const { projects, allEpicTasks, history } = this.props;
 
     let overview;
     if (projects) {
@@ -98,13 +133,7 @@ class RenderDashboard extends Component {
 
     projects &&
       projects.forEach(project => {
-        let epics =
-          (allEpicsWithoutProject &&
-            allEpicsWithoutProject.filter(
-              epic => epic.project_id === project.id
-            )) ||
-          [];
-        allEpics.push(...epics);
+        project.epics && allEpics.push(...project.epics);
       });
 
     allEpics &&
@@ -125,7 +154,13 @@ class RenderDashboard extends Component {
           assignProjectName={this.assignProjectName}
         />
 
-        <div className="projects">
+        <RenderProjectCards
+          projects={projects}
+          history={history}
+          summary={this.state.summary}
+        />
+
+        {/* <div className="projects">
           {projects && (
             <div>
               <RenderCard type="overview" data={overview} />
@@ -135,9 +170,10 @@ class RenderDashboard extends Component {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
 
         <RenderInfo
+          summary={this.state.summary}
           allEpicsWithoutProject={allEpics}
           allEpicTasks={allTasks}
           getEtaForWeek={this.getEtaForWeek}
@@ -152,13 +188,15 @@ class RenderDashboard extends Component {
 
 export default connect(
   ({
+    clientData,
+    specialistData,
     changeUserType,
-    allEpicsWithoutProject,
     allEpicTasks,
     changeUsertype
   }) => ({
+    clientData,
+    specialistData,
     changeUserType,
-    allEpicsWithoutProject,
     allEpicTasks,
     changeUsertype
   }),
@@ -166,7 +204,6 @@ export default connect(
     showAllProjects,
     showAllSpecialists,
     showSpecialistProjects,
-    showAllEpicsWithoutProject,
     showAllEpicTasks
   }
 )(RenderDashboard);

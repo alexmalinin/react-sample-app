@@ -36,7 +36,8 @@ export default class PersonTile extends Component {
       labeled,
       removeTitle,
       userType,
-      renderToDashboard
+      renderToDashboard,
+      hideDelete
     } = this.props;
     const { showDropdown } = this.state;
 
@@ -65,6 +66,7 @@ export default class PersonTile extends Component {
             userType={userType}
             removeTitle={removeTitle}
             showDropdown={showDropdown}
+            hideDelete={hideDelete}
             removeSpecialist={this.removeSpecialist}
           />
         )}
@@ -99,7 +101,8 @@ class DeleteTile extends Component {
       specialist,
       removeTitle,
       showDropdown,
-      removeSpecialist
+      removeSpecialist,
+      hideDelete
     } = this.props;
     const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
     const thisUser = specialist.id === id && role !== CUSTOMER;
@@ -132,17 +135,20 @@ class DeleteTile extends Component {
               {specialist.first_name + " " + specialist.last_name}{" "}
               {thisUser && "(you)"}
             </NavLink>
-            {getUserRole() === S_REDGUY &&
-              !thisUser && (
-                <button
-                  data={specialist.id}
-                  onClick={removeSpecialist}
-                  className="remove"
-                  type="button"
-                >
-                  Remove from {removeTitle}
-                </button>
-              )}
+
+            {hideDelete
+              ? null
+              : getUserRole() === S_REDGUY &&
+                !thisUser && (
+                  <button
+                    data={specialist.id}
+                    onClick={removeSpecialist}
+                    className="remove"
+                    type="button"
+                  >
+                    Remove from {removeTitle}
+                  </button>
+                )}
           </div>
         </div>
       </div>

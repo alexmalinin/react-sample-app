@@ -357,7 +357,12 @@ class ClientDashboard extends Component {
         return <TheVillage />;
       case "root":
         document.title = "Dashboard | Digital Village";
-        return <Dashboard projects={this.props.allProjects} />;
+        return (
+          <Dashboard
+            projects={this.props.allProjects}
+            history={this.props.history}
+          />
+        );
       default:
         document.title = "Dashboard | Digital Village";
         return <Redirect to="/404" />;
