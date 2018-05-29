@@ -47,9 +47,11 @@ export default store => next => action => {
             further_notes: payload["solution"],
             logo: reader.result,
             attached_files_attributes: files,
-            team_attributes: {
-              name: payload["name"]
-            },
+            teams_attributes: [
+              {
+                name: payload["name"]
+              }
+            ],
             skill_ids
           }
         },
@@ -84,9 +86,11 @@ export default store => next => action => {
           deliverables: payload["criteria"],
           further_notes: payload["solution"],
           attached_files_attributes: files,
-          team_attributes: {
-            name: payload["name"]
-          },
+          teams_attributes: [
+            {
+              name: payload["name"]
+            }
+          ],
           skill_ids
         }
       },
