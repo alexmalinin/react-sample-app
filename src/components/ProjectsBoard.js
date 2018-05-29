@@ -10,7 +10,8 @@ import {
   createEpicTask,
   showEpicTasks,
   updateEpicTask,
-  showAllSpecialists
+  showAllSpecialists,
+  showProjectTeam
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
@@ -27,6 +28,7 @@ class ProjectsBoard extends Component {
   componentWillMount() {
     this.props.showAllProjects();
     this.props.showAllEpics(this.props.projectId);
+    this.props.showProjectTeam(this.props.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -145,7 +147,11 @@ class ProjectsBoard extends Component {
           epicTasks={epicTasks}
         />
         <S_Board>
-          <KanbanBoard currentEpic={currentEpic} epicId={epicId} />
+          <KanbanBoard
+            currentProject={projectId}
+            currentEpic={currentEpic}
+            epicId={epicId}
+          />
 
           <div className="moduleWrapper">
             {allEpics &&
@@ -223,6 +229,7 @@ export default connect(
     createEpicTask,
     showEpicTasks,
     updateEpicTask,
-    showAllSpecialists
+    showAllSpecialists,
+    showProjectTeam
   }
 )(ProjectsBoard);

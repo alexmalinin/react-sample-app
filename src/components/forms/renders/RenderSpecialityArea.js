@@ -43,9 +43,14 @@ class RenderSpecialityArea extends Component {
 
     return (
       <StyledSpecialityArea>
-        <p className="speciality-area__label">
-          Select your speciality within that area
-        </p>
+        {speciality &&
+          speciality[industry_id - 1] &&
+          speciality[industry_id - 1][industry_id] &&
+          speciality[industry_id - 1][industry_id].length !== 0 && (
+            <p className="speciality-area__label">
+              Select your speciality within that area
+            </p>
+          )}
 
         <div>
           {speciality &&

@@ -29,7 +29,7 @@ class KanbanBoard extends Component {
       acceptedTasks: [],
       showBoard: false,
       editingTask: {},
-      myTasks: !!getCookie("showOnlyMyTasks")
+      currentProjectTeam: []
     };
   }
 
@@ -51,15 +51,17 @@ class KanbanBoard extends Component {
     removeSpecialistFromTask(epicId, +task, specialist);
   };
 
-  toggleMyTasks = () => {
-    console.log(this.state.myTasks);
-    this.setState({
-      myTasks: !this.state.myTasks
-    });
-    setCookie("showOnlyMyTasks", this.state.myTasks ? "" : "true", 1460);
-  };
-
   componentWillReceiveProps(nextProps) {
+    if (nextProps.projectTeam) {
+      if (nextProps.projectTeam[0]) {
+        if (nextProps.projectTeam[0].project_id === +nextProps.currentProject) {
+          this.setState({
+            currentProjectTeam: nextProps.projectTeam[0].specialists
+          });
+        }
+      }
+    }
+
     if (this.props.currentEpic !== nextProps.currentEpic) {
       this.setState({
         showBoard: false
@@ -78,15 +80,9 @@ class KanbanBoard extends Component {
         let backlog = [],
           completed = [],
           progress = [],
-          accepted = [],
-          allTasks = [];
+          accepted = [];
 
-        if (this.state.myTasks) {
-          allTasks = nextProps.epicTasks.filter(task =>
-            task.specialists.some(spec => spec.id === getUserId())
-          );
-        } else allTasks = nextProps.epicTasks;
-        allTasks.forEach(task => {
+        nextProps.epicTasks.forEach(task => {
           const taskObject = {
             id: `${task.id}`,
             assignSpecialist: this.assignSpecialist,
@@ -96,7 +92,7 @@ class KanbanBoard extends Component {
             cost: task.cost,
             description: "Platform - Dashboard",
             specialists: task.specialists,
-            specialistList: nextProps.projectTeam[0].specialists
+            specialistList: this.state.currentProjectTeam
           };
           if (task.state === "backlog") {
             backlog.push(taskObject);
@@ -148,35 +144,11 @@ class KanbanBoard extends Component {
       completedTasks,
       acceptedTasks,
       showBoard,
-      editingTask
+      editingTask,
+      currentProjectTeam
     } = this.state;
-    console.log(this.state);
 
     return (
-      // <Transition animation="fade" duration={400} visible={showBoard}>
-      //   {backlogTasks.length !== 0 ||
-      //   progressTasks.length !== 0 ||
-      //   completedTasks.length !== 0 ? (
-      //     <Board
-      //       data={{
-      //         lanes: [
-      //           { id: "0", title: "Backlog", cards: backlogTasks },
-      //           { id: "1", title: "In progress", cards: progressTasks },
-      //           { id: "2", title: "Done", cards: completedTasks },
-      //           { id: "3", title: "Accepted", cards: acceptedTasks }
-      //         ]
-      //       }}
-      //       className="kanban"
-      //       draggable={getUserRole() === S_REDGUY}
-      //       customCardLayout
-      //       handleDragEnd={this.handleDragEnd}
-      //     >
-      //       <CustomCard userType={changeUserType} />
-      //     </Board>
-      //   ) : (
-      //     <div className="noTasks">No tasks for now</div>
-      //   )}
-      // </Transition>
       currentEpic !== "all" &&
       (backlogTasks.length !== 0 ||
       progressTasks.length !== 0 ||

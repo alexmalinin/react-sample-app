@@ -185,7 +185,7 @@ export const S_Board = styled.div`
         font-size: 14px;
         padding-bottom: 15px;
         margin-bottom: 20px;
-        z-index: 900;
+        /* z-index: 900; */
         color: #666;
         padding-left: 0;
 
@@ -211,7 +211,7 @@ export const S_Board = styled.div`
       & > div {
         width: 100%;
         overflow: visible;
-        z-index: 901;
+        /* z-index: 901; */
         min-width: auto;
 
         article {

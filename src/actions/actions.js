@@ -76,7 +76,8 @@ import {
   GET_SKILLS,
   SEARCH_SPECIALIST,
   SEARCH_SPECIALIST_FOR_PROJECT,
-  SHOW_SPECIALIST_WITH_ID
+  SHOW_SPECIALIST_WITH_ID,
+  SHOW_SPECIALIST_TASKS
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -645,6 +646,17 @@ export function showSpecialistTeams() {
   const action = {
     type: SHOW_SPECIALIST_TEAMS,
     showSpecialistTeams: `${PORT}/api/v1/specialists/`
+  };
+
+  return action;
+}
+
+// get array of all tasks, specialist assigned on
+
+export function showSpecialistTasks() {
+  const action = {
+    type: SHOW_SPECIALIST_TASKS,
+    showSpecialistTasks: `${PORT}/api/v1/specialists/`
   };
 
   return action;

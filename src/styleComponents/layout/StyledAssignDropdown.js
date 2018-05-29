@@ -105,7 +105,7 @@ export const StyledAssignDropdown = styled.div`
 
   .dropdown {
     position: absolute;
-    z-index: 2;
+    z-index: 1001;
     display: none;
 
     top: calc(100% + 5px);
@@ -241,62 +241,6 @@ export const StyledAssignDropdown = styled.div`
                     border-color: #dbdbdb;
                 }
             }
-        }
-
-        .dropdown-list{
-          display: flex;
-          flex-flow: column nowrap;
-          width: 100%;
-
-          background: #fff;
-          div{
-            position: relative;
-            display: flex;
-            order: 1;
-            align-items: center;
-            padding: 5px 15px;
-
-            font-family: 'Brix';
-            font-size: 16px;
-            font-weight: 500;
-            color: #666;
-            text-transform: none;
-            cursor: pointer;
-
-            &:hover{
-                background: #f7f7f7;
-            }
-
-            img{
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-right: 10px;
-            }
-
-            &.assigned{
-                order: 0;
-
-                &::before,
-                &::after{
-                    content: '';
-                    position: absolute;
-                    top: 50%;
-                    right: 25px;
-                    width: 6px;
-                    height: 2px;
-                    background: #38ffbf;
-                    transform: rotate(45deg);
-                    transform-origin: 100% 50%;
-                    border-radius: 2px;
-                }
-                &::before{
-                    width: 13px;
-                    transform: rotate(133deg);
-                }
-            }
-          }
         }
       }
     }

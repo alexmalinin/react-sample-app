@@ -42,6 +42,7 @@ import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
+import SpecialistMyTasks from "./SpecialistMyTasks";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -352,6 +353,9 @@ class SpecialistsDashboard extends Component {
             collectPropfileData={this.collectPropfileData}
           />
         );
+      case "epics":
+        document.title = "Your epics | Digital Village";
+        return <SpecialistMyTasks />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
