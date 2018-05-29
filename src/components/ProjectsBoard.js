@@ -11,7 +11,8 @@ import {
   showEpicTasks,
   updateEpicTask,
   showAllSpecialists,
-  showProjectTeam
+  showProjectTeam,
+  showProjectWithId
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
@@ -19,6 +20,7 @@ import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType } from "../helpers/functions";
+import EditProjectForm from "./forms/EditProjectForm";
 
 class ProjectsBoard extends Component {
   state = {
@@ -123,8 +125,8 @@ class ProjectsBoard extends Component {
     }
   }
 
-  render() {
-    let {
+  renderContent = () => {
+    const {
       projectId,
       allEpics,
       showAllEpics,
@@ -138,14 +140,8 @@ class ProjectsBoard extends Component {
         ? allEpics[currentEpic - 1].id
         : null;
 
-    return (
-      <ContainerLarge indentBot>
-        <BoardSubHeader
-          project={projectId}
-          currentEpic={currentEpic}
-          epicId={epicId}
-          epicTasks={epicTasks}
-        />
+    if (currentEpic !== "all") {
+      return (
         <S_Board>
           <KanbanBoard
             currentProject={projectId}
@@ -188,6 +184,36 @@ class ProjectsBoard extends Component {
               )}
           </div>
         </S_Board>
+      );
+    } else {
+      return <EditProjectForm projectId={projectId} />;
+    }
+  };
+
+  render() {
+    const {
+      projectId,
+      allEpics,
+      showAllEpics,
+      updateProjectEpic,
+      currentEpic,
+      epicTasks
+    } = this.props;
+
+    const epicId =
+      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
+        ? allEpics[currentEpic - 1].id
+        : null;
+
+    return (
+      <ContainerLarge indentBot>
+        <BoardSubHeader
+          project={projectId}
+          currentEpic={currentEpic}
+          epicId={epicId}
+          epicTasks={epicTasks}
+        />
+        {this.renderContent()}
       </ContainerLarge>
     );
   }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button } from "semantic-ui-react";
-import { primaryColors, secondaryColors } from "../constants/colors";
+import { primaryColors, secondaryColors, colors } from "../constants/colors";
 
 export const DvButton = styled(Button)`
   &.ui.button {
@@ -642,4 +642,12 @@ export const SubmitBtn = styled(Button)`
       background-color: #666;
     }
   }
+`;
+
+export const DvBlueButton = styled(Button)`
+  text-transform: uppercase;
+  padding-left: 40px;
+  padding-right: 40px;
+  background: ${colors.darkBlue};
+  color: #fff;
 `;

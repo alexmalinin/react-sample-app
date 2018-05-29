@@ -66,6 +66,19 @@ export const StyledTextArea = styled.div`
       background-size: 100% 36px;
     }
   }
+
+  &.transparent {
+    textarea {
+      padding: 8px;
+      margin-bottom: 15px;
+      border: none;
+      min-height: 72px;
+      height: ${props => (props.large ? `108px` : `72px`)};
+      overflow: hidden;
+      line-height: 36px;
+      resize: none;
+    }
+  }
 `;
 
 export const StyledLabelArea = styled.label`

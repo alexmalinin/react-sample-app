@@ -77,7 +77,8 @@ import {
   SEARCH_SPECIALIST,
   SEARCH_SPECIALIST_FOR_PROJECT,
   SHOW_SPECIALIST_WITH_ID,
-  SHOW_SPECIALIST_TASKS
+  SHOW_SPECIALIST_TASKS,
+  UPDATE_PROJECT
 } from "../constans/constans";
 
 export function hideFooter() {
@@ -618,6 +619,18 @@ export function submitCreatedProgect(data) {
   return action;
 }
 
+// submit a Project
+
+export function updateCreatedProject(data) {
+  const action = {
+    type: UPDATE_PROJECT,
+    payload: data,
+    updateCreatedProject: `${PORT}/api/v1/projects/${data.project_id}`
+  };
+
+  return action;
+}
+
 // get array of all projects (include unsubmitted) by customer, created this project
 
 export function showAllProjects() {
@@ -725,10 +738,11 @@ export function showAllEpicsWithoutProject() {
 
 // get array of all projects (include unsubmitted)
 
-export function showAllEpics(project) {
+export function showAllEpics(projectId) {
   const action = {
     type: SHOW_ALL_EPICS,
-    showAllEpics: `${PORT}/api/v1/epics?project_id=${project}`
+    projectId: projectId,
+    showAllEpics: `${PORT}/api/v1/epics?project_id=${projectId}`
   };
 
   return action;

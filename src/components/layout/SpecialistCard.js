@@ -5,6 +5,7 @@ import { Button, Popup } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { IMAGE_PORT } from "../../constans/constans";
 import { assignSpecialistToTeam } from "../../actions/actions";
+import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 
 class SpecialistCard extends Component {
   render() {
@@ -67,7 +68,7 @@ class SpecialistCard extends Component {
           )}
         </div>
         <div className="row buttons">
-          <Button
+          <DvBlueButton
             role="button"
             className="dv-blue"
             fluid
@@ -80,7 +81,7 @@ class SpecialistCard extends Component {
             // }
           >
             Add to team
-          </Button>
+          </DvBlueButton>
           <NavLink
             className="ui button dv-blue inverted"
             to={`/dashboard/specialist/${id}`}

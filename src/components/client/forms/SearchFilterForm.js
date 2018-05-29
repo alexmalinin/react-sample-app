@@ -19,7 +19,7 @@ import { renameObjPropNames } from "../../../helpers/functions";
 class SearchFilterForm extends Component {
   state = {
     loading: false,
-    opened: true,
+    opened: false,
     projectError: false,
     range: {
       min: 0,

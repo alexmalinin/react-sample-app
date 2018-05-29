@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
+import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
 
 export default class SearchForm extends Component {
   state = {
@@ -63,14 +64,14 @@ export default class SearchForm extends Component {
           </Form>
         </Grid.Column>
         <Grid.Column computer={2}>
-          <Button
+          <DvBlueButton
             onClick={this.clearForm}
             role="button"
             className="clear dv-blue inverted"
             fluid
           >
             Clear filter
-          </Button>
+          </DvBlueButton>
         </Grid.Column>
       </Fragment>
     );
