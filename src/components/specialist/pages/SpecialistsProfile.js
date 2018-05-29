@@ -126,10 +126,13 @@ class SpecialistsProfile extends Component {
                 specialistModal
               />
 
-              <NavigationPrompt when={this.state.isEdited}>
+              <NavigationPrompt
+                when={this.state.isEdited && !this.state.nextStep}
+              >
                 {({ onConfirm, onCancel }) => (
                   <ConfirmationModal
                     isSubmitted={this.state.nextStep}
+                    formId="RenderProfileForm"
                     onCancel={onCancel}
                     onConfirm={onConfirm}
                   />

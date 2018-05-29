@@ -80,10 +80,11 @@ class SpecialistsMyBillings extends Component {
           onSubmit={this.submit}
         />
 
-        <NavigationPrompt when={this.state.isEdited}>
+        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isSubmitted={this.state.nextStep}
+              formId="SpecialistBillingForm"
               onCancel={onCancel}
               onConfirm={onConfirm}
             />

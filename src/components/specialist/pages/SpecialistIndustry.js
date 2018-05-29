@@ -84,10 +84,11 @@ class SpecialistIndustry extends Component {
           skills={this.props.skills}
         />
 
-        <NavigationPrompt when={this.state.isEdited}>
+        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isSubmitted={this.state.nextStep}
+              formId="SpecialistIndustryForm"
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
