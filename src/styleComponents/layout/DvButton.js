@@ -645,9 +645,16 @@ export const SubmitBtn = styled(Button)`
 `;
 
 export const DvBlueButton = styled(Button)`
-  text-transform: uppercase;
-  padding-left: 40px;
-  padding-right: 40px;
-  background: ${colors.darkBlue};
-  color: #fff;
+  &.ui.button.dv-blue {
+    text-transform: uppercase;
+    padding-left: 40px;
+    padding-right: 40px;
+    background: ${colors.darkBlue};
+    color: #fff;
+
+    &.inverted {
+      color: ${colors.darkBlue};
+      background: #fff;
+    }
+  }
 `;

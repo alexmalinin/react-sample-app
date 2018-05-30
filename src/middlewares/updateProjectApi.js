@@ -23,7 +23,7 @@ export default store => next => action => {
     });
 
   window.payload = payload;
-  let logo = payload["logo"] ? payload["logo"][0] : null;
+  let logo = payload["logo"] ? payload["logo"][0] : undefined;
   let reader = new FileReader();
 
   if (logo) {
@@ -38,10 +38,10 @@ export default store => next => action => {
         name: payload["name"],
         description: payload["description"],
         user_story: payload["user_story"],
-        business_requirements: payload["requirements"],
-        business_rules: payload["rules"],
-        deliverables: payload["criteria"],
-        further_notes: payload["solution"],
+        business_requirements: payload["business_requirements"],
+        business_rules: payload["business_rules"],
+        deliverables: payload["acceptance_criteria"],
+        further_notes: payload["solution_design"],
         logo: logo && reader.result,
         // attached_files_attributes: files,
         skill_ids

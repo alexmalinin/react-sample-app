@@ -631,6 +631,8 @@ export function updateCreatedProject(data) {
   return action;
 }
 
+export function asyncUpdateProject(data) {}
+
 // get array of all projects (include unsubmitted) by customer, created this project
 
 export function showAllProjects() {

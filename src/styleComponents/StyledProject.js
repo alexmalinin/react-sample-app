@@ -33,13 +33,48 @@ export default styled.div`
           border-radius: 1px;
           ${boxShadow.light};
 
+          p {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: ${primaryColors.accentGrey};
+          }
+
           &.projectAside {
+            .asideInfo {
+              padding-top: 14px;
+              padding-bottom: 8px;
+              border-bottom: 1px solid rgba(152, 158, 169, 0.2);
+
+              &:last-of-type {
+                border: none;
+              }
+
+              .label {
+                color: ${primaryColors.darkGrey};
+              }
+
+              .skillsWrapper {
+                display: flex;
+                flex-flow: row wrap;
+
+                .skill {
+                  border: 1px solid ${primaryColors.lightGrey};
+                  white-space: nowrap;
+                  border-radius: 12px;
+                  padding: 1px 12px;
+                }
+              }
+            }
           }
           &.projectMain {
+            display: flex;
+            flex-flow: column nowrap;
+
             .title {
               display: flex;
               flex-flow: row nowrap;
               align-items: center;
+              padding: 8px;
               img,
               .projectNoLogo {
                 width: 80px;
@@ -68,12 +103,11 @@ export default styled.div`
                 );
                 color: #fff;
               }
+            }
 
-              p {
-                font-size: 1.4em;
-                font-weight: 500;
-                color: ${primaryColors.darkGrey};
-              }
+            .dv-blue {
+              align-self: flex-end;
+              width: 140px;
             }
           }
         }
