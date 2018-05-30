@@ -46,6 +46,7 @@ class ClientBillingForm extends Component {
           clientData={clientData}
           submitting={submitting}
           handleFormField={handleFormField}
+          handleEtaForm={this.handleEtaForm}
           swichTab={swichTab}
           isEditing={isEditing}
           handleSubmitError={this.handleSubmitError}
@@ -77,6 +78,10 @@ class ClientBillingForm extends Component {
     });
   };
 
+  handleEtaForm = date => {
+    this.props.dispatch(change("ClientBillingForm", "expiry_date", date));
+  };
+
   componentWillUpdate(nextProps, nextState) {
     if (!this.props.isEditing) {
       if (checkObjectPropertiesForValues(nextState.formData)) {
@@ -100,6 +105,8 @@ class ClientBillingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.clientData);
+
     let client = nextProps.clientData;
 
     if (client) {

@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required } from "../../../helpers/validate";
+import {
+  required,
+  maxLength4,
+  maxLength20,
+  number
+} from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
+import RenderDate from "../../forms/renders/RenderDate";
 import { clientCategories } from "../../../helpers/selects/clientCategories";
 import {
   NextBtn,
@@ -106,7 +112,7 @@ class BillingForm extends Component {
                 name="card_number"
                 label="Card number"
                 handleFormField={handleFormField}
-                validate={[required]}
+                validate={[required, number, maxLength20]}
                 disabled={disabled}
                 isRequired
               />
@@ -114,10 +120,17 @@ class BillingForm extends Component {
               <Grid>
                 <Grid.Row>
                   <Grid.Column computer={8}>
-                    <InputField
+                    <Field
                       name="expiry_date"
                       label="Expiry date"
-                      handleFormField={handleFormField}
+                      component={RenderDate}
+                      // handleFormField={handleFormField}
+                      initData={
+                        clientData.customer_billing
+                          ? clientData.customer_billing.expiry_date
+                          : null
+                      }
+                      handleEtaForm={this.props.handleEtaForm}
                       validate={[required]}
                       disabled={disabled}
                       isRequired
@@ -128,7 +141,7 @@ class BillingForm extends Component {
                       name="ccv"
                       label="CVV"
                       handleFormField={handleFormField}
-                      validate={[required]}
+                      validate={[required, number, maxLength4]}
                       disabled={disabled}
                       isRequired
                     />
@@ -242,7 +255,7 @@ class BillingForm extends Component {
                   onClick={handleSubmitError}
                   primary
                 >
-                  <span>NextStep</span>
+                  <span>Next Step</span>
                 </NextBtn>
               )}
             </div>

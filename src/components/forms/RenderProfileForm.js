@@ -224,7 +224,7 @@ class RenderProfileForm extends Component {
                       onClick={this.handleSubmitError}
                       primary
                     >
-                      <span>NextStep</span>
+                      <span>Next Step</span>
                     </NextBtn>
                   )}
                 </div>

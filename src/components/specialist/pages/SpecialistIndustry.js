@@ -44,6 +44,10 @@ class SpecialistIndustry extends Component {
     this.setState({ isEditing });
   }
 
+  componentWillUnmount() {
+    this.props.showSpecialistData();
+  }
+
   render() {
     const {
       renderMessage,

@@ -77,7 +77,8 @@ export default styled.div`
       -webkit-appearance: none;
     }
 
-    input[name="eta"] {
+    input[name="eta"],
+    input[name="expiry_date"] {
       cursor: pointer;
       width: 145px;
     }

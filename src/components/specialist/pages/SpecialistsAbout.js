@@ -248,8 +248,8 @@ class SpecialistsWithId extends Component {
                 <Grid.Column computer={4}>
                   <span>Project interests</span>
                   <h3>
-                    {specialist
-                      ? this.renderText(specialist["project_interest"])
+                    {specialist && specialist["project_type"]
+                      ? this.renderText(specialist["project_type"].name)
                       : null}
                   </h3>
                   <span>Speciality within that niche</span>
