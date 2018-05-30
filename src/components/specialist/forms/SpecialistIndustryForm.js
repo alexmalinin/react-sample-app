@@ -31,10 +31,6 @@ class SpecialistIndustryForm extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.reset();
-  }
-
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
@@ -195,7 +191,8 @@ class SpecialistIndustryForm extends Component {
       industries["industry"] &&
       industries["industry"][industry_area_id - 1]
     ) {
-      const { value, label } = industries["industry"][industry_area_id];
+      const { value, label } = industries["industry"][industry_area_id - 1];
+
       this.props.dispatch(
         change("SpecialistIndustryForm", "industry_area_id", {
           label,

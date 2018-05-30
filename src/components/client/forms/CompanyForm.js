@@ -179,7 +179,7 @@ class CompanyForm extends Component {
                   onClick={this.props.handleSubmitError}
                   primary
                 >
-                  <span>NextStep</span>
+                  <span>Next Step</span>
                 </NextBtn>
               )}
             </div>

@@ -14,6 +14,7 @@ class RenderField extends React.Component {
   };
 
   componentWillMount() {
+    console.log("componentWillMount", this.props);
     this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
   }
 
@@ -40,7 +41,7 @@ class RenderField extends React.Component {
       disabled,
       padded,
       small,
-      required,
+      isRequired,
       meta: { touched, error, warning },
       checkedClass
     } = this.props;
@@ -52,7 +53,7 @@ class RenderField extends React.Component {
     return (
       <StyledInputs small={small} padded={padded}>
         <label htmlFor={name}>
-          {label && required ? <StyledLabel>{label}</StyledLabel> : label}
+          {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
         </label>
         <Input
           error={Boolean(touched && error)}

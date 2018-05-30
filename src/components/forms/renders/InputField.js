@@ -31,7 +31,7 @@ class InputField extends React.Component {
           disabled={disabled}
           {...rest}
           padded={padded}
-          validate={validate ? [required, minLength2] : []}
+          validate={validate ? [...validate, minLength2] : []}
           data={data}
         />
       </div>
