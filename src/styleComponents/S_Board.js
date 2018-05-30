@@ -254,7 +254,7 @@ export const S_Board = styled.div`
     flex-flow: row wrap;
     align-items: flex-start;
     position: relative;
-    padding: 20px 20px 15px 20px;
+    padding: 30px 30px 15px 30px;
     ${boxShadow.light};
     border-radius: 2px;
     color: #666;
@@ -279,9 +279,8 @@ export const S_Board = styled.div`
     } */
 
     h4 {
-      margin-top: 0;
+      margin-top: 10px;
       margin-bottom: 10px;
-
       font-size: 13px;
       letter-spacing: 1.04px;
     }
