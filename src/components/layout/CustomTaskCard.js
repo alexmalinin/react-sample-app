@@ -25,6 +25,14 @@ class CustomCard extends Component {
     open.click();
   };
 
+  renderTitle = () => {
+    const { title } = this.props;
+
+    if (title.length > 70) {
+      return title.slice(0, 70) + "...";
+    } else return title;
+  };
+
   render() {
     const {
       title,
@@ -45,7 +53,7 @@ class CustomCard extends Component {
         style={{ backgroundColor: "#fff" }}
         onMouseLeave={() => this.setState({ showDropdown: false })}
       >
-        <h4 className="title">{title}</h4>
+        <h4 className="title">{this.renderTitle()}</h4>
         {eta && (
           <div className="line">
             <img src="/images/calendar.png" alt="calendar" />
