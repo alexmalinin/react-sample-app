@@ -161,6 +161,8 @@ class EditTaskForm extends Component {
               <InputField
                 name="name"
                 label="Summary"
+                component={RenderTextArea}
+                className="area"
                 validate={[required]}
                 isRequired
                 padded
