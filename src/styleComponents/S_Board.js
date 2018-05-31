@@ -254,7 +254,7 @@ export const S_Board = styled.div`
     flex-flow: row wrap;
     align-items: flex-start;
     position: relative;
-    padding: 30px 30px 15px 30px;
+    padding: 5px 15px;
     ${boxShadow.light};
     border-radius: 2px;
     color: #666;

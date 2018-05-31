@@ -111,13 +111,19 @@ class EditProjectForm extends Component {
                         onOpen={this.getSkills}
                       />
                     ) : (
-                      <div className="skillsWrapper">
-                        <p>Technologies:</p>
-                        {projectWithId &&
-                          projectWithId.skills.map((skill, key) => (
-                            <div className="skill">{skill.label}</div>
-                          ))}
-                      </div>
+                      <React.Fragment>
+                        <p>
+                          <span className="label">Technologies:</span>
+                        </p>
+                        <div className="skillsWrapper">
+                          {projectWithId &&
+                            projectWithId.skills.map((skill, key) => (
+                              <div className="skill" key={key}>
+                                {skill.label}
+                              </div>
+                            ))}
+                        </div>
+                      </React.Fragment>
                     )}
                   </div>
                 </div>
@@ -130,7 +136,12 @@ class EditProjectForm extends Component {
                     ) : (
                       <span className="projectNoLogo">{name[0]}</span>
                     )}
-                    <p>{name} Project</p>
+                    <p>
+                      {name} Project{" "}
+                      <span className="status">
+                        {state !== "discovery" && "On review"}
+                      </span>
+                    </p>
                   </div>
                   <Field
                     name="description"

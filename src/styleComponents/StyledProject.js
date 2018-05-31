@@ -53,6 +53,21 @@ export default styled.div`
                 color: ${primaryColors.darkGrey};
               }
 
+              .skillsWrapper {
+                display: flex;
+                flex-flow: row wrap;
+
+                .skill {
+                  padding: 0 8px;
+                  border: 1px solid #dae1ee;
+                  border-radius: 12px;
+                  white-space: nowrap;
+                  font-size: 0.9em;
+                  line-height: 1.4em;
+                  margin-left: 6px;
+                }
+              }
+
               .projectSkills {
                 & > span {
                   padding-left: 0;
@@ -114,6 +129,11 @@ export default styled.div`
                 font-size: 1.6em;
                 color: ${primaryColors.darkGrey};
                 font-weight: 500;
+              }
+
+              .status {
+                color: ${primaryColors.accentGrey};
+                opacity: 0.8;
               }
             }
 

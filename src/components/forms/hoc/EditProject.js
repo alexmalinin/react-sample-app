@@ -26,14 +26,16 @@ class EditProject extends Component {
       method: "PUT",
       url: `${PORT}/api/v1/projects/${this.props.projectId}`,
       data: {
-        name: values["name"],
-        description: values["description"],
-        user_story: values["user_story"],
-        business_requirements: values["business_requirements"],
-        business_rules: values["business_rules"],
-        deliverables: values["deliverables"],
-        further_notes: values["further_notes"],
-        skill_ids,
+        project: {
+          name: values["name"],
+          description: values["description"],
+          user_story: values["user_story"],
+          business_requirements: values["business_requirements"],
+          business_rules: values["business_rules"],
+          deliverables: values["deliverables"],
+          further_notes: values["further_notes"],
+          skill_ids
+        },
         review: this.props.projectWithId.state === "reviewed_by_admin"
         // attached_files_attributes: files,
       }

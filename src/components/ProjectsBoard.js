@@ -29,7 +29,8 @@ import { Message } from "semantic-ui-react";
 
 class ProjectsBoard extends Component {
   state = {
-    fetchEpicTasks: true
+    fetchEpicTasks: true,
+    myTasks: false
   };
 
   componentWillMount() {
@@ -130,6 +131,10 @@ class ProjectsBoard extends Component {
     }
   }
 
+  toggleMyTasks = () => {
+    this.setState({ myTasks: !this.state.myTasks });
+  };
+
   renderContent = () => {
     const {
       projectId,
@@ -151,6 +156,7 @@ class ProjectsBoard extends Component {
             currentProject={projectId}
             currentEpic={currentEpic}
             epicId={epicId}
+            myTasks={this.state.myTasks}
           />
 
           <div className="moduleWrapper">
@@ -196,7 +202,7 @@ class ProjectsBoard extends Component {
 
   render() {
     const { projectId, allEpics, currentEpic, epicTasks } = this.props;
-    const { renderMessage, renderErrorMessage } = this.state;
+    const { renderMessage, renderErrorMessage, myTasks } = this.state;
 
     const epicId =
       allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
@@ -210,6 +216,8 @@ class ProjectsBoard extends Component {
           currentEpic={currentEpic}
           epicId={epicId}
           epicTasks={epicTasks}
+          toggleMyTasks={this.toggleMyTasks}
+          myTasks={myTasks}
         />
         {this.renderContent()}
       </ContainerLarge>

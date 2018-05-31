@@ -114,6 +114,26 @@ export default styled.div`
 
   .rightLink {
     font-size: 15px;
+
+    & + span {
+      transition: inherit;
+    }
+
+    &.unactive {
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+
+        & + span {
+          opacity: 1;
+        }
+      }
+
+      & + span {
+        opacity: 0.6;
+      }
+    }
   }
 
   .accountSub {

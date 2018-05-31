@@ -12,7 +12,7 @@ import {
   S_ACTIVE,
   S_CORE
 } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import { getUserRole, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
@@ -52,17 +52,21 @@ class ProjectSubHeader extends Component {
       epicTasks,
       changeUserType,
       project,
-      allEpics
+      allEpics,
+      myTasks
     } = this.props;
 
     const allTasksCount = epicTasks && epicTasks.length;
-    let completedTasksCount = 0;
+    let completedTasksCount = 0,
+      myTasksCount = 0;
     epicTasks &&
-      epicTasks.forEach(
-        task =>
-          (task.state === "done" || task.state === "accepted") &&
-          completedTasksCount++
-      );
+      epicTasks.forEach(task => {
+        (task.state === "done" || task.state === "accepted") &&
+          completedTasksCount++;
+        task.specialists.some(
+          spec => spec.id === getUserId() && myTasksCount++
+        );
+      });
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     return (
@@ -94,15 +98,16 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
         >
           <div className="boardProgressBars">
-            {/* {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
+            {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
               <SubHeaderLinkWrap
-                // content={`${completedTasksCount}/${allTasksCount}`}
+                content={myTasksCount}
                 url="#"
-                className="rightLink"
+                className={`rightLink${myTasks ? "" : " unactive"}`}
+                onClick={this.props.toggleMyTasks}
               >
-                <span>Only my tasks</span>
+                <span>Assigned to me</span>
               </SubHeaderLinkWrap>
-            )} */}
+            )}
             {getUserRole() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
