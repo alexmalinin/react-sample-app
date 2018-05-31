@@ -647,10 +647,12 @@ export const SubmitBtn = styled(Button)`
 export const DvBlueButton = styled(Button)`
   &.ui.button.dv-blue {
     text-transform: uppercase;
-    padding-left: 40px;
-    padding-right: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: ${colors.darkBlue};
     color: #fff;
+    white-space: nowrap;
 
     &.inverted {
       color: ${colors.darkBlue};

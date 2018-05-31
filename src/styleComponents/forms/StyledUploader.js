@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { colors, secondaryColors, boxShadow } from "../constants/colors";
+import {
+  colors,
+  secondaryColors,
+  boxShadow,
+  primaryColors
+} from "../constants/colors";
 
 export default styled.div`
   position: relative;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 
@@ -139,7 +143,7 @@ export default styled.div`
   p {
     flex: 0 0 100%;
     font-size: 12px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #666;
     font-weight: bold;
     word-spacing: 1.5px;
@@ -151,14 +155,23 @@ export default styled.div`
     display: flex;
     align-items: center;
     height: 40px;
-    width: 100px;
     margin-bottom: 10px;
     padding: 5px;
-    border: 1px solid #f2f2f2;
     position: relative;
 
-    img {
-      height: 26px;
+    .fileIcon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 36px;
+      width: 36px;
+      background: rgba(72, 97, 242, 0.1);
+      border-radius: 3px;
+
+      i {
+        font-size: 22px;
+        color: ${colors.darkBlue};
+      }
     }
 
     .fileInfo {
@@ -170,8 +183,16 @@ export default styled.div`
       p {
         padding: 0;
         margin: 0;
-        font-size: 10px;
-        color: #ccc;
+        font-size: 13px;
+        line-height: 16px;
+        color: ${primaryColors.accentGrey};
+        font-weight: 500;
+
+        &.fileName {
+          color: ${primaryColors.darkGrey};
+        }
+        &.fileSize {
+        }
       }
     }
 
@@ -229,13 +250,15 @@ export default styled.div`
 
   .uploadFile {
     position: relative;
-    height: 40px;
-    width: 100px;
+    height: 36px;
+    width: 36px;
     background: none;
     margin-bottom: 10px;
-    border: 1px solid #f2f2f2;
     cursor: pointer;
+    border: none;
+    border-radius: 3px;
     outline: none;
+    transition: 0.3s;
 
     &::before,
     &::after {
@@ -246,10 +269,20 @@ export default styled.div`
       height: 16px;
       width: 2px;
       background-color: #f2f2f2;
+      transition: inherit;
     }
 
     &::after {
       transform: rotate(90deg);
+    }
+
+    &:hover {
+      background: rgba(152, 158, 169, 0.1);
+
+      &::before,
+      &::after {
+        background-color: ${primaryColors.accentBackground};
+      }
     }
   }
 

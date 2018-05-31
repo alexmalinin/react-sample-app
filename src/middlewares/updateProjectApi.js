@@ -40,8 +40,8 @@ export default store => next => action => {
         user_story: payload["user_story"],
         business_requirements: payload["business_requirements"],
         business_rules: payload["business_rules"],
-        deliverables: payload["acceptance_criteria"],
-        further_notes: payload["solution_design"],
+        deliverables: payload["deliverables"],
+        further_notes: payload["further_notes"],
         logo: logo && reader.result,
         // attached_files_attributes: files,
         skill_ids

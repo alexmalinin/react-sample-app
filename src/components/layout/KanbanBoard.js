@@ -29,7 +29,8 @@ class KanbanBoard extends Component {
       acceptedTasks: [],
       showBoard: false,
       editingTask: {},
-      currentProjectTeam: []
+      currentProjectTeam: [],
+      myTasks: false
     };
   }
 
@@ -80,9 +81,16 @@ class KanbanBoard extends Component {
         let backlog = [],
           completed = [],
           progress = [],
-          accepted = [];
+          accepted = [],
+          taskList = [];
 
-        nextProps.epicTasks.forEach(task => {
+        if (this.state.myTasks) {
+          taskList = nextProps.epicTasks.filter(task =>
+            task.specialists.some(spec => spec.id === getUserId())
+          );
+        } else taskList = nextProps.epicTasks;
+
+        taskList.forEach(task => {
           const taskObject = {
             id: `${task.id}`,
             assignSpecialist: this.assignSpecialist,

@@ -12,18 +12,24 @@ class RenderSkillsArea extends Component {
       label,
       name,
       padded,
-      placeholder
+      placeholder,
+      className
     } = this.props;
 
     return (
-      <StyledSkillsArea padded={padded} placeholder={placeholder}>
+      <StyledSkillsArea
+        className={className}
+        padded={padded}
+        placeholder={placeholder}
+      >
         <span>{label}</span>
         <Field
           name={name}
           component={RenderMultiSelect}
-          onChange={e => handleSelectChange(e, name)}
+          onChange={e => handleSelectChange && handleSelectChange(e, name)}
           placeholder=""
           onOpen={onOpen}
+          // disabled
           options={options}
         />
       </StyledSkillsArea>

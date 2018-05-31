@@ -25,6 +25,7 @@ export const StyledTextArea = styled.div`
     padding: 15px;
     outline: none;
     margin-bottom: 0;
+    ${props => props.disabled && "pointer-events: none"};
   }
 
   @media (max-width: 1920px) {

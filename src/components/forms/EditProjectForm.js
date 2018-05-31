@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reduxForm, change, Form, Field } from "redux-form";
+import { reduxForm, change, Form, Field, initialize } from "redux-form";
 import { TextArea } from "react-semantic-redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid } from "semantic-ui-react";
 import {
-  updateCreatedProject,
   showProjectWithId,
-  getProjectTypes
+  getProjectTypes,
+  getSkills
 } from "../../actions/actions";
-import { IMAGE_PORT } from "../../constans/constans";
+import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "../../constans/constans";
 import RenderTextArea from "./renders/RenderTextArea";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
+import { renameObjPropNames, getUserRole } from "../../helpers/functions";
+import RenderFile from "./renders/RenderFile";
 
 class EditProjectForm extends Component {
   state = {
@@ -24,26 +26,18 @@ class EditProjectForm extends Component {
     this.props.getProjectTypes();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.projectWithId) {
-      if (this.state.fetch) {
-        this.fillFields(nextProps.projectWithId);
-        this.setState({ fetch: false });
-      }
+  getSkills = () => {
+    const { skills, getSkills } = this.props;
 
-      if (+nextProps.projectId !== nextProps.projectWithId.id) {
-        this.setState({ fetch: true });
-      }
+    if (!skills || skills.length === 0) {
+      getSkills();
     }
+  };
 
-    if (nextProps.updateProject) {
-      if (this.props.updateProject) {
-        if (
-          this.props.updateProject.successId !==
-          nextProps.updateProject.successId
-        ) {
-        }
-      } else null; //set flash message
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.projectWithId && nextProps.projectId) {
+      if (nextProps.projectWithId.id !== +nextProps.projectId) {
+      }
     }
   }
 
@@ -53,11 +47,18 @@ class EditProjectForm extends Component {
       projectId,
       projectTypes,
       handleSubmit,
-      submitting
+      submitting,
+      dirty,
+      skills,
+      submitSucceeded
     } = this.props;
-    const { logo = {}, name = "", customer = {}, project_type, skills = [] } =
+    const { logo = {}, name = "", customer = {}, project_type, state } =
       projectWithId || {};
-    let submitText = "submit";
+
+    const hasPermission =
+      getUserRole() === CUSTOMER || getUserRole() === S_REDGUY;
+
+    console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
 
     return (
       <StyledProject
@@ -70,7 +71,7 @@ class EditProjectForm extends Component {
         <i className="fa fa-spinner fa-3x fa-pulse preloader" />
         <Form onSubmit={handleSubmit}>
           <Grid>
-            <Grid.Row>
+            <Grid.Row stretched>
               <Grid.Column computer={4}>
                 <div className="projectAside">
                   <div className="asideInfo">
@@ -91,25 +92,33 @@ class EditProjectForm extends Component {
                     <p>
                       <span className="label">Attached files:</span>
                     </p>
+                    <Field
+                      name="file"
+                      type="text"
+                      component={RenderFile}
+                      disabled={!hasPermission}
+                      className="projectFiles"
+                    />
                   </div>
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Technologies:</span>
-                    </p>
-                    <div className="skillsWrapper">
-                      {skills.map((skill, key) => (
-                        <div className="skill">{skill.name}</div>
-                      ))}
-                    </div>
-                    <RenderSkillsArea
-                      options={skills}
-                      label="Technologies"
-                      name="skills"
-                      // handleSelectChange={this.props.handleSelectChange}
-                      placeholder=""
-                      large
-                      padded
-                    />
+                    {hasPermission ? (
+                      <RenderSkillsArea
+                        options={skills}
+                        label="Technologies:"
+                        name="skills"
+                        placeholder="Add few new technologies"
+                        className="projectSkills"
+                        onOpen={this.getSkills}
+                      />
+                    ) : (
+                      <div className="skillsWrapper">
+                        <p>Technologies:</p>
+                        {projectWithId &&
+                          projectWithId.skills.map((skill, key) => (
+                            <div className="skill">{skill.label}</div>
+                          ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Grid.Column>
@@ -126,6 +135,7 @@ class EditProjectForm extends Component {
                   <Field
                     name="description"
                     placeholder="Type your description here"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
@@ -135,15 +145,17 @@ class EditProjectForm extends Component {
                     name="user_story"
                     label="User story"
                     placeholder="Write your story here"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
                     unhiddable
                   />
                   <Field
-                    name="acceptance_criteria"
+                    name="deliverables"
                     label="Acceptance criteria"
                     placeholder="Write some acceptance criterea"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
@@ -153,6 +165,7 @@ class EditProjectForm extends Component {
                     name="business_requirements"
                     label="Business requirements"
                     placeholder="Write some business requirements"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
@@ -162,27 +175,40 @@ class EditProjectForm extends Component {
                     name="business_rules"
                     label="Business rules"
                     placeholder="Write some business rules"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
                     unhiddable
                   />
                   <Field
-                    name="solution_design"
+                    name="further_notes"
                     label="Solution design"
                     placeholder="Write your solution design here"
+                    disabled={!hasPermission}
                     component={RenderText}
                     className="transparent"
                     autoHeight
                     unhiddable
                   />
-                  <DvBlueButton
-                    loading={submitting}
-                    role="button"
-                    className="clear dv-blue"
-                  >
-                    {submitText}
-                  </DvBlueButton>
+                  {hasPermission && (
+                    <div className="controls">
+                      <DvBlueButton
+                        loading={submitting}
+                        role="button"
+                        className="clear dv-blue"
+                        disabled={state === "discovery" && !dirty}
+                      >
+                        {state === "discovery"
+                          ? dirty
+                            ? "Save"
+                            : submitSucceeded
+                              ? "Saved"
+                              : "Up to date"
+                          : "Submit"}
+                      </DvBlueButton>
+                    </div>
+                  )}
                 </div>
               </Grid.Column>
             </Grid.Row>
@@ -191,47 +217,29 @@ class EditProjectForm extends Component {
       </StyledProject>
     );
   }
-
-  fillFields = data => {
-    const {
-      description,
-      user_story,
-      deliverables,
-      business_requirements,
-      business_rules,
-      further_notes
-    } = data;
-    const form = "EditProjectForm";
-
-    const { dispatch } = this.props;
-
-    dispatch(change(form, "description", description));
-    dispatch(change(form, "user_story", user_story));
-    dispatch(change(form, "acceptance_criteria", deliverables));
-    dispatch(change(form, "business_requirements", business_requirements));
-    dispatch(change(form, "business_rules", business_rules));
-    dispatch(change(form, "solution_design", further_notes));
-  };
-
-  submit = values => {
-    console.log(values);
-  };
 }
 
 EditProjectForm = reduxForm({
   form: "EditProjectForm",
   destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(EditProjectForm);
 
-export default connect(
-  ({ projectWithId, updateProject, projectTypes }) => ({
+const mapStateToProps = (state, ownProps) => {
+  const { projectWithId, updateProject, projectTypes, skills } = state;
+  return {
     projectWithId,
     updateProject,
-    projectTypes
-  }),
-  {
-    showProjectWithId,
-    getProjectTypes
-  }
-)(EditProjectForm);
+    projectTypes,
+    skills,
+    initialValues: projectWithId
+  };
+};
+
+export default connect(mapStateToProps, {
+  showProjectWithId,
+  getProjectTypes,
+  getSkills
+})(EditProjectForm);

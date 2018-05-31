@@ -12,25 +12,24 @@ import {
   updateEpicTask,
   showAllSpecialists,
   showProjectTeam,
-  updateCreatedProject
+  updateCreatedProject,
+  showProjectWithId
 } from "../actions/actions";
-import { SubmissionError } from "redux-form";
+import { SubmissionError, initialize, reset } from "redux-form";
 import { CLIENT, SPECIALIST, S_REDGUY, PORT } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType } from "../helpers/functions";
-import EditProjectForm from "./forms/EditProjectForm";
+import EditProject from "./forms/hoc/EditProject";
 import Axios from "axios";
 import { S_Message } from "../styleComponents/layout/S_Message";
 import { Message } from "semantic-ui-react";
 
 class ProjectsBoard extends Component {
   state = {
-    fetchEpicTasks: true,
-    renderMessage: false,
-    renderErrorMessage: false
+    fetchEpicTasks: true
   };
 
   componentWillMount() {
@@ -191,42 +190,8 @@ class ProjectsBoard extends Component {
         </S_Board>
       );
     } else {
-      return <EditProjectForm onSubmit={this.submit} projectId={projectId} />;
+      return <EditProject projectId={projectId} />;
     }
-  };
-
-  submit = values => {
-    values.project_id = this.props.projectId;
-    // this.props.updateCreatedProject(values);
-    return Axios({
-      method: "PUT",
-      url: `${PORT}/api/v1/projects/${this.props.projectId}`,
-      data: {
-        project: {
-          name: values["name"],
-          description: values["description"],
-          user_story: values["user_story"],
-          business_requirements: values["business_requirements"],
-          business_rules: values["business_rules"],
-          deliverables: values["acceptance_criteria"],
-          further_notes: values["solution_design"]
-          // attached_files_attributes: files,
-        }
-      }
-    })
-      .then(response => {
-        this.setState({ renderMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
-      })
-      .catch(error => {
-        this.setState({ renderErrorMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
-        throw new SubmissionError({ _error: "Updating project failed" });
-      });
   };
 
   render() {
@@ -247,14 +212,6 @@ class ProjectsBoard extends Component {
           epicTasks={epicTasks}
         />
         {this.renderContent()}
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Project updated</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
       </ContainerLarge>
     );
   }
@@ -298,6 +255,9 @@ export default connect(
     updateEpicTask,
     showAllSpecialists,
     showProjectTeam,
-    updateCreatedProject
+    updateCreatedProject,
+    showProjectWithId,
+    initialize,
+    reset
   }
 )(ProjectsBoard);

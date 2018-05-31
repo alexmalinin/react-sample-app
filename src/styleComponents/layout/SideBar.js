@@ -3,7 +3,7 @@ import { boxShadow } from "../constants/colors";
 
 export const StyledBar = styled.aside`
   position: fixed;
-  z-index: 999;
+  z-index: 998;
   display: flex;
   top: 87px;
 

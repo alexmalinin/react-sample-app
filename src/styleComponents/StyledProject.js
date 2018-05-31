@@ -33,12 +33,6 @@ export default styled.div`
           border-radius: 1px;
           ${boxShadow.light};
 
-          p {
-            font-size: 1.2em;
-            font-weight: 500;
-            color: ${primaryColors.accentGrey};
-          }
-
           &.projectAside {
             .asideInfo {
               padding-top: 14px;
@@ -49,32 +43,44 @@ export default styled.div`
                 border: none;
               }
 
+              & > p {
+                font-size: 1.2em;
+                font-weight: 500;
+                color: ${primaryColors.accentGrey};
+              }
+
               .label {
                 color: ${primaryColors.darkGrey};
               }
 
-              .skillsWrapper {
-                display: flex;
-                flex-flow: row wrap;
+              .projectSkills {
+                & > span {
+                  padding-left: 0;
+                  font-size: 1.2em;
+                  font-weight: 500;
+                  color: ${primaryColors.darkGrey};
+                  text-transform: none;
+                }
 
-                .skill {
-                  border: 1px solid ${primaryColors.lightGrey};
-                  white-space: nowrap;
-                  border-radius: 12px;
-                  padding: 1px 12px;
+                .Select-multi-value-wrapper {
+                  border-top-width: 1px;
+                }
+              }
+
+              .projectFiles {
+                & > p {
+                  margin-bottom: 0;
                 }
               }
             }
           }
           &.projectMain {
-            display: flex;
-            flex-flow: column nowrap;
-
             .title {
               display: flex;
               flex-flow: row nowrap;
               align-items: center;
               padding: 8px;
+
               img,
               .projectNoLogo {
                 width: 80px;
@@ -103,11 +109,21 @@ export default styled.div`
                 );
                 color: #fff;
               }
+
+              p {
+                font-size: 1.6em;
+                color: ${primaryColors.darkGrey};
+                font-weight: 500;
+              }
             }
 
-            .dv-blue {
-              align-self: flex-end;
-              width: 140px;
+            .controls {
+              display: flex;
+              justify-content: flex-end;
+
+              .dv-blue {
+                width: 140px;
+              }
             }
           }
         }

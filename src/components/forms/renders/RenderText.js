@@ -16,11 +16,17 @@ class RenderText extends Component {
       large,
       isRequired,
       padded,
-      autoHeight
+      autoHeight,
+      disabled
     } = this.props;
 
     return (
-      <StyledTextArea className={className} large={large} padded={padded}>
+      <StyledTextArea
+        className={className}
+        large={large}
+        padded={padded}
+        disabled={disabled}
+      >
         <div className="textarea-label">
           {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
         </div>

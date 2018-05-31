@@ -94,7 +94,7 @@ class ProjectSubHeader extends Component {
           className="boardProgressBars"
         >
           <div className="boardProgressBars">
-            {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
+            {/* {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
               <SubHeaderLinkWrap
                 // content={`${completedTasksCount}/${allTasksCount}`}
                 url="#"
@@ -102,7 +102,7 @@ class ProjectSubHeader extends Component {
               >
                 <span>Only my tasks</span>
               </SubHeaderLinkWrap>
-            )}
+            )} */}
             {getUserRole() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
