@@ -318,6 +318,7 @@ class SpecialistsDashboard extends Component {
     const {
       match: { params },
       history,
+      location,
       specialistTeams,
       specialistProjects
     } = this.props;

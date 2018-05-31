@@ -54,6 +54,12 @@ class SpecialistsProfile extends Component {
     this.handleFormField = this.handleFormField.bind(this);
   }
 
+  clearLocation = () => {
+    this.setState({
+      nextLocation: false
+    });
+  };
+
   handleFormField(e) {
     let data = e.target.value;
     this.data[e.target.name] = data;
@@ -131,8 +137,9 @@ class SpecialistsProfile extends Component {
               >
                 {({ onConfirm, onCancel }) => (
                   <ConfirmationModal
-                    isSubmitted={this.state.nextStep}
+                    isOpen={true}
                     formId="RenderProfileForm"
+                    clearLocation={this.clearLocation}
                     onCancel={onCancel}
                     onConfirm={onConfirm}
                   />

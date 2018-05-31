@@ -260,7 +260,7 @@ export default styled.div`
   }
 
   .arrow {
-    & + span {
+    & + span{
       display: inline-block;
       position: absolute;
       top: 33px;

@@ -26,9 +26,13 @@ class SpecialistIndustryForm extends Component {
   }
 
   componentWillMount() {
-    if (this.props.specialistData) {
-      this.fillFields(this.props.specialistData);
+    if (this.props.specialistData && this.props.industries) {
+      this.fillFields(this.props.specialistData, this.props.industries);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.reset();
   }
 
   render() {

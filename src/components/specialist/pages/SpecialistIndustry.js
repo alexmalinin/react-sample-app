@@ -29,7 +29,8 @@ class SpecialistIndustry extends Component {
       renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
-      isEdited: false
+      isEdited: false,
+      nextLocation: false
     };
   }
 
@@ -47,6 +48,12 @@ class SpecialistIndustry extends Component {
   componentWillUnmount() {
     this.props.showSpecialistData();
   }
+
+  clearLocation = () => {
+    this.setState({
+      nextLocation: false
+    });
+  };
 
   render() {
     const {
@@ -88,11 +95,17 @@ class SpecialistIndustry extends Component {
           skills={this.props.skills}
         />
 
-        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
+        <NavigationPrompt
+          when={(crntLocation, nextLocation) => {
+            this.setState({ nextLocation: nextLocation.pathname });
+            return this.state.isEdited && !this.state.nextStep;
+          }}
+        >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
-              isSubmitted={this.state.nextStep}
+              isOpen={true}
               formId="SpecialistIndustryForm"
+              clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
@@ -102,6 +115,8 @@ class SpecialistIndustry extends Component {
         {this.state.nextStep ? (
           isEditing ? (
             <Redirect to="about" />
+          ) : this.state.nextLocation === "/dashboard/profile" ? (
+            <Redirect to="profile" />
           ) : (
             <Redirect to="company" />
           )

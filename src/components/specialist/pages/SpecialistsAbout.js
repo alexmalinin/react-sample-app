@@ -10,6 +10,7 @@ import StyledCheckbox from "../../../styleComponents/forms/StyledCheckbox";
 import StyledProfile from "../../../styleComponents/StyledProfile";
 import {
   showSpecialistData,
+  getIndustries,
   showSpecialistWithId,
   getExperienceLevels
 } from "../../../actions/actions";
@@ -21,15 +22,31 @@ class SpecialistsWithId extends Component {
   componentWillMount() {
     const {
       specialistId,
+      getIndustries,
       getExperienceLevels,
       showSpecialistWithId
     } = this.props;
+
+    getIndustries();
     getExperienceLevels();
     specialistId ? showSpecialistWithId(specialistId) : showSpecialistData();
     run(0)(true);
   }
 
   renderText = value => (value ? value : `Select`);
+
+  renderIndustryName = () => {
+    const { specialistData, industries } = this.props;
+
+    let industry = null;
+
+    if (industries && industries["industry"]) {
+      industry =
+        industries["industry"][specialistData.industry_area_id - 1].label;
+    }
+
+    return industry;
+  };
 
   hoursPerWeek = availability => {
     switch (availability) {
@@ -113,6 +130,7 @@ class SpecialistsWithId extends Component {
       specialistWithId,
       experienceLevels,
       specialistData,
+      industries,
       specialistId
     } = this.props;
     let specialist;
@@ -227,13 +245,7 @@ class SpecialistsWithId extends Component {
                 </Grid.Column>
                 <Grid.Column computer={4}>
                   <span>Industry area</span>
-                  <h3>
-                    {specialist
-                      ? specialist["specialities"][0]
-                        ? specialist["specialities"][0]["industry_area"]["name"]
-                        : "No industry"
-                      : null}
-                  </h3>
+                  <h3>{this.renderIndustryName() || "No industry area"}</h3>
                   <span>Experience level</span>
                   <h3>
                     {experienceLevels && specialist
@@ -462,10 +474,16 @@ function Dots() {
 }
 
 export default connect(
-  ({ specialistData, specialistWithId, experienceLevels }) => ({
+  ({ specialistData, industries, specialistWithId, experienceLevels }) => ({
     specialistWithId,
+    industries,
     specialistData,
     experienceLevels
   }),
-  { showSpecialistData, showSpecialistWithId, getExperienceLevels }
+  {
+    showSpecialistData,
+    getIndustries,
+    showSpecialistWithId,
+    getExperienceLevels
+  }
 )(SpecialistsWithId);
