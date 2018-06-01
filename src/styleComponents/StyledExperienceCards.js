@@ -10,7 +10,7 @@ export default styled.div`
     align-items: start;
   }
 
-  .addButt {
+  .addButton {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;

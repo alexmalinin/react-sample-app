@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
@@ -353,9 +354,6 @@ class SpecialistsDashboard extends Component {
             collectPropfileData={this.collectPropfileData}
           />
         );
-      case "epics":
-        document.title = "Your epics | Digital Village";
-        return <SpecialistMyTasks />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
@@ -394,14 +392,14 @@ class SpecialistsDashboard extends Component {
         if (getUserRole() === S_REDGUY) {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
-        } else return <NotFound />;
+        } else return <Redirect to="/404" />;
       case "specialist":
         return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={specialistProjects} />;
       default:
-        return <NotFound />;
+        return <Redirect to="/404" />;
     }
   };
 

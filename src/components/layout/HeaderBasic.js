@@ -65,16 +65,6 @@ class Header extends Component {
                   <NavLink
                     activeClassName="current"
                     className="item-link"
-                    to="/dashboard/epics"
-                  >
-                    <Popup
-                      trigger={<i className="fas fa-tasks" />}
-                      content="My epics"
-                    />
-                  </NavLink>
-                  <NavLink
-                    activeClassName="current"
-                    className="item-link"
                     to="/dashboard/teams"
                   >
                     <Popup

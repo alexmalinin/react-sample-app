@@ -518,7 +518,7 @@ export const S_Board = styled.div`
       }
     }
 
-    .addButt {
+    .addButton {
       display: flex;
       flex-flow: column nowrap;
       align-items: center;

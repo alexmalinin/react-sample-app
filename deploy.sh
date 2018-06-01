@@ -15,7 +15,7 @@ keys () {
 }
 while true; do
 	keys
-    read -p 'Are you sure you want to deploy new build?(Y/n): ' yn
+    read -p 'Are you sure you want to deploy new build?(Y/n): ' ynssh-cop
 
     case $yn in
 

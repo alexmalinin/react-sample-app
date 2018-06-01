@@ -18,7 +18,8 @@ class AddTeamModal extends Component {
         size="tiny"
         trigger={
           <a className="button">
-            <StyledSubHeaderLink className="rightLink addButt" />Add team
+            <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
+            <span>Add team</span>
           </a>
         }
         closeIcon

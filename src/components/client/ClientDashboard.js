@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import {
   showAllProjects,
@@ -359,7 +360,7 @@ class ClientDashboard extends Component {
         return <Dashboard projects={this.props.allProjects} />;
       default:
         document.title = "Dashboard | Digital Village";
-        return <Dashboard />;
+        return <Redirect to="/404" />;
     }
   };
 

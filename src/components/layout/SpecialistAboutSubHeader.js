@@ -9,13 +9,13 @@ class AboutSubHeader extends Component {
   render() {
     return (
       <StyledSubHeader profile="true" about="true" sidebarCondition>
-        <div>
+        <div className="left">
           <SubHeaderLinkWrap
-            content="Profile"
+            label="Profile"
             url="/dashboard/about"
-            className="profileLink dv-button__circle"
+            className="profileLink"
           >
-            &nbsp;
+            <i className="fas fa-user" />
           </SubHeaderLinkWrap>
         </div>
       </StyledSubHeader>

@@ -177,7 +177,7 @@ class ProjectsBoard extends Component {
                 <div className="module addModule">
                   <NavLink
                     to={`/dashboard/project/${projectId}/module/new`}
-                    className="addButt"
+                    className="addButton"
                   >
                     <span className="plus">+</span>
                     <span className="add">Add module</span>

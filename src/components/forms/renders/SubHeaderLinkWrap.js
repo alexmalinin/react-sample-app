@@ -14,9 +14,9 @@ class SubHeaderLinkWrap extends Component {
       >
         <SubHeaderLink
           className={this.props.className}
-          number={this.props.content}
+          content={this.props.children}
         />
-        {this.props.children}
+        <span>{this.props.label}</span>
       </NavLink>
     );
   }
