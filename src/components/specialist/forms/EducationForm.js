@@ -63,7 +63,7 @@ class EducationForm extends Component {
                       label="To"
                       component={RenderSelect}
                       disabled={this.state.disabled}
-                      options={getYearsForSelect(this.state.started)}
+                      options={getYearsForSelect(this.state.started, true)}
                       validate={[required]}
                       isRequired
                     />

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import LocationField from "../../forms/renders/LocationField";
 import { Grid } from "semantic-ui-react";
-import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
 import { getYearsForSelect } from "../../../helpers/functions";
@@ -63,7 +61,7 @@ class WorkExperienceForm extends Component {
                       label="To"
                       component={RenderSelect}
                       disabled={this.state.disabled}
-                      options={getYearsForSelect(this.state.started)}
+                      options={getYearsForSelect(this.state.started, true)}
                       validate={[required]}
                       isRequired
                     />
