@@ -17,7 +17,7 @@ class ProjectSubHeader extends Component {
     return (
       <StyledSubHeader sidebarCondition projectSubHeader="true">
         {module ? (
-          <div>
+          <div className="left moduleSubHeader">
             <StyledModuleLink className="moduleBreadcrumb">
               <NavLink to="#">New module</NavLink>
             </StyledModuleLink>
@@ -31,9 +31,9 @@ class ProjectSubHeader extends Component {
             </StyledModuleLink>
           </div>
         ) : (
-          <div />
+          <div className="left" />
         )}
-        <div>
+        <div className="right">
           <button
             onClick={() => this.props.dispatch(submit(form))}
             className="saveBtn"

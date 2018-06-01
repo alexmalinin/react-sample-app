@@ -87,8 +87,7 @@ export default styled.div`
 
   .project {
     color: #fff;
-    position: ${props =>
-      props.type === "module_info" ? " absolute" : "relative"};
+    position: relative;
   }
 
   .progress {
@@ -107,8 +106,7 @@ export default styled.div`
     width: 55px;
     height: 55px;
     margin: 10px 0 10px 10px;
-    border: ${props =>
-      props.type === "module_info" ? "1px solid #000" : "1px solid #ccc"};
+    border: 1px solid #4d4d4d;
     border-radius: 50%;
     font-size: ${props => (props.type === "module_info" ? "24px" : "15px")};
     color: #4d4d4d;
@@ -117,6 +115,7 @@ export default styled.div`
 
     &.disabled {
       color: #ccc;
+      border: 1px solid #ccc;
     }
 
     .progressBar {
@@ -138,17 +137,20 @@ export default styled.div`
       transform: translateX(-50%);
     }
 
-    & > span {
+    & > span,
+    & + span {
       position: absolute;
       left: 50%;
-      -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
       transform: translateX(-50%);
       white-space: nowrap;
       font-size: 11px;
       font-weight: 600;
       line-height: 27px;
       text-transform: uppercase;
+    }
+
+    & + span {
+      bottom: -16px;
     }
 
     &.addModule {
@@ -245,7 +247,7 @@ export default styled.div`
           transition: 0.3s;
 
           &:disabled {
-            opacity: 0.3;
+            opacity: 0;
           }
 
           i {

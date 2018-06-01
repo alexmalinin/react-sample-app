@@ -162,6 +162,14 @@ export default styled.div`
         display: flex !important;
       }
     }
+
+    .moduleSubHeader{
+      .moduleBreadcrumb{
+        a{
+          color: #fff;
+        }
+      }
+    }
   }
 
   .progressBarsLink {

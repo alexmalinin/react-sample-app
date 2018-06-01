@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import RenderModuleInfo from "./RenderModuleInfo";
 import ProgressBars from "../ProgressBar";
 import StyledDashboardCard from "../../../styleComponents/StyledDashboardCard";
 
@@ -28,25 +29,22 @@ class RenderInfo extends Component {
 
   getCompletedTasks(array) {
     let completedCount = 0;
-
     array &&
       array.forEach(
         item =>
           (item.state === "done" || item.state === "accepted") &&
           completedCount++
       );
-
     return completedCount;
   }
 
   renderDone() {
-    const { type, allEpicTasks, getEtaForWeek } = this.props;
+    const { allEpicTasks, getEtaForWeek } = this.props;
 
-    const allTasks = getEtaForWeek(allEpicTasks);
+    const allTasks = getEtaForWeek(allEpicTasks, true);
 
     const allTasksCount = allTasks && allTasks.length,
-      completedTasks = this.getCompletedTasks(allTasks),
-      percents = Math.round(completedTasks / allTasksCount * 100) || 0;
+      completedTasks = this.getCompletedTasks(allTasks);
 
     return (
       <StyledDashboardCard size={{ col: 1, row: 1 }} type="task_due">
@@ -55,7 +53,7 @@ class RenderInfo extends Component {
           <div className="subTitle">This week</div>
         </div>
 
-        <div className={`projectContainer ${type}`}>
+        <div className="projectContainer info-done">
           <div className="team" />
           <div className="progress">
             <div className="progressItem disabled">
@@ -68,11 +66,39 @@ class RenderInfo extends Component {
     );
   }
 
-  renderCompleted() {
-    const { type, allEpicsWithoutProject, allEpicTasks } = this.props;
+  getTasks() {
+    const { summary } = this.props;
+    let completedTasks = 0;
 
-    const completedEpics = this.getCompletedEpics(allEpicsWithoutProject);
-    const completedTasks = this.getCompletedTasks(allEpicTasks);
+    summary &&
+      summary.forEach(element => {
+        for (let key in element) {
+          let value = element[key];
+          completedTasks += value.completed_tasks;
+        }
+      });
+
+    return completedTasks;
+  }
+
+  getEpics() {
+    const { summary } = this.props;
+    let completedEpics = 0;
+
+    summary &&
+      summary.forEach(element => {
+        for (let key in element) {
+          let value = element[key];
+          completedEpics += value.completed_modules;
+        }
+      });
+
+    return completedEpics;
+  }
+
+  renderCompleted() {
+    const completedEpics = this.getEpics(),
+      completedTasks = this.getTasks();
 
     return (
       <StyledDashboardCard size={{ col: 1, row: 1 }}>
@@ -82,13 +108,13 @@ class RenderInfo extends Component {
           </div>
         </div>
 
-        <div className={`projectContainer ${type}`}>
+        <div className="projectContainer info-completed">
           <div className="team" />
           <div className="progress">
             <div className="progressItem">
               <div className="progressBar">{completedTasks}</div>
               <ProgressBars percents={100} />
-              <span>Tasks</span>
+              <span>Epics</span>
             </div>
             <div className="progressItem">
               <div className="progressBar">{completedEpics}</div>
@@ -106,7 +132,7 @@ class RenderInfo extends Component {
     );
   }
 
-  renderModuleInfo() {
+  render() {
     const { allEpicsWithoutProject, getEtaForWeek } = this.props;
 
     let allEpics = getEtaForWeek(allEpicsWithoutProject);
@@ -115,43 +141,18 @@ class RenderInfo extends Component {
     allEpics = allEpics.length >= 6 ? allEpics.slice(0, 6) : allEpics;
 
     return (
-      allEpics &&
-      allEpics.map((epic, index) => {
-        const allTasksCount = epic.tasks && epic.tasks.length,
-          completedTasks = this.getCompletedTasks(epic.tasks),
-          percents = Math.round(completedTasks / allTasksCount * 100) || 0;
-
-        return (
-          <StyledDashboardCard
-            size={{ col: 1, row: 1 }}
-            background="#00ffc0"
-            type="module_info"
-            key={index}
-          >
-            <div className="project">{epic.project_name || "Unnamed"}</div>
-
-            <div className="projectContainer centered">
-              <div className="progress">
-                <div className="progressItem">
-                  <div className="progressBar">{allTasksCount}</div>
-                  <ProgressBars percents={percents} strokeColor="#000" />
-                  <span>{epic.name}</span>
-                </div>
-              </div>
-            </div>
-          </StyledDashboardCard>
-        );
-      })
-    );
-  }
-
-  render() {
-    return (
       <div className="tasks">
         <div>
           {this.renderDone()}
           {this.renderCompleted()}
-          {this.renderModuleInfo()}
+          {allEpics &&
+            allEpics.map((epic, index) => (
+              <RenderModuleInfo
+                key={index}
+                epic={epic}
+                getCompletedTasks={this.getCompletedTasks}
+              />
+            ))}
         </div>
       </div>
     );
