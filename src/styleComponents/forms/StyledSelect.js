@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import Select from "react-select";
+import { primaryColors } from "../constants/colors";
 
 export default styled(Select)`
   .Select-control:focus {
@@ -50,7 +51,10 @@ export default styled(Select)`
   & .Select-control {
     border-radius: 0;
     border: none;
-    border-bottom: 2px solid #f2f2f2;
+    ${props =>
+      props.formodal
+        ? "border: 1px solid #dae1ee; border-radius: 3px"
+        : "border-bottom: 2px solid #f2f2f2;"};
   }
 
   ${props =>

@@ -5,8 +5,11 @@ import { Grid } from "semantic-ui-react";
 
 export default class SpecialistTile extends Component {
   remove = () => {
-    const { remove, index } = this.props;
-    remove(index);
+    const {
+      remove,
+      specialist: { id }
+    } = this.props;
+    remove(id);
   };
   render() {
     const { specialist } = this.props;

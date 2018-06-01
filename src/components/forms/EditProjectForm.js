@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { reduxForm, change, Form, Field, initialize } from "redux-form";
-import { TextArea } from "react-semantic-redux-form";
+import { reduxForm, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid } from "semantic-ui-react";
 import {
@@ -10,11 +9,10 @@ import {
   getSkills
 } from "../../actions/actions";
 import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "../../constans/constans";
-import RenderTextArea from "./renders/RenderTextArea";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
-import { renameObjPropNames, getUserRole } from "../../helpers/functions";
+import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
 
 class EditProjectForm extends Component {
@@ -50,6 +48,7 @@ class EditProjectForm extends Component {
       handleSubmit,
       submitting,
       dirty,
+      pristine,
       skills,
       submitSucceeded
     } = this.props;
@@ -58,6 +57,23 @@ class EditProjectForm extends Component {
 
     const hasPermission =
       getUserRole() === CUSTOMER || getUserRole() === S_REDGUY;
+
+    let stateText;
+
+    switch (state) {
+      case "recent_created":
+        stateText = "Waiting for producer";
+        break;
+      case "review_by_admin":
+        stateText = "On review";
+        break;
+      case "discovery":
+        stateText = "";
+        break;
+      default:
+        stateText = "";
+        break;
+    }
 
     console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
 
@@ -209,7 +225,7 @@ class EditProjectForm extends Component {
                     autoHeight
                     unhiddable
                   />
-                  {hasPermission && (
+                  {oneOfRoles(CUSTOMER, S_REDGUY) && (
                     <div className="controls">
                       {projectWithId && projectWithId.state === "draft" ? (
                         <Fragment>

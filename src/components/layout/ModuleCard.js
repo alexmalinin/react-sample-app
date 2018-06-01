@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteProjectEpic } from "../../actions/actions";
-import { Form, Input } from "semantic-ui-react";
+import { deleteProjectEpic, showAllEpics } from "../../actions/actions";
+import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
-import { CLIENT, SPECIALIST, S_REDGUY } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { oneOfRoles } from "../../helpers/functions";
+import { S_Message } from "../../styleComponents/layout/S_Message";
 
 class Module extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dropdown: false,
-      name: this.props.epic.name,
-      editing: false
-    };
-  }
+  state = {
+    dropdown: false,
+    name: this.props.epic.name,
+    editing: false,
+    modal: false
+  };
 
   showDropdown = () => {
     let prevState = this.state.dropdown;
@@ -86,18 +85,40 @@ class Module extends Component {
     }
   };
 
-  triggerModal = () => {
-    if (this.props.changeUserType === CLIENT || getUserRole() === S_REDGUY) {
-      document.getElementById(`editEpic${this.props.epic.id}`).click();
-    }
+  renderMessage = () => {
+    this.setState({ renderMessage: true });
+    setTimeout(
+      () =>
+        this.setState({
+          renderMessage: false,
+          renderErrorMessage: false
+        }),
+      2500
+    );
+  };
+
+  renderErrorMessage = () => {
+    this.setState({ renderErrorMessage: true });
+    setTimeout(
+      () =>
+        this.setState({
+          renderMessage: false,
+          renderErrorMessage: false
+        }),
+      2500
+    );
+  };
+
+  openModal = () => {
+    this.editEpicModal.open();
   };
 
   render() {
-    const { epic, number, updateProjectEpic, changeUserType } = this.props;
-    const { name, editing } = this.state;
+    const { epic, number, showAllEpics } = this.props;
+    const { name, editing, renderMessage, renderErrorMessage } = this.state;
 
     return (
-      <div className="dragContainer" onDoubleClick={this.triggerModal}>
+      <div className="dragContainer" onDoubleClick={this.openModal}>
         <h3 onDoubleClick={this.handleEdit}>
           <span className={`number${editing ? " hidden" : ""}`}>
             {number > 9 ? number : "0" + number}:
@@ -117,7 +138,7 @@ class Module extends Component {
               autoComplete="off"
               fluid
             />
-            {(changeUserType === CLIENT || getUserRole() === S_REDGUY) && (
+            {oneOfRoles(CUSTOMER, S_REDGUY) && (
               <button
                 className={`editModule${editing ? " hidden" : ""}`}
                 type="button"
@@ -148,7 +169,7 @@ class Module extends Component {
               <span>$20,000</span>
             </div>
           </div>
-          {(changeUserType === CLIENT || getUserRole() === S_REDGUY) && (
+          {oneOfRoles(CUSTOMER, S_REDGUY) && (
             <div className="dropdown">
               <a tabIndex="1" className="trigger">
                 ...
@@ -157,10 +178,11 @@ class Module extends Component {
                 <div className="item">
                   <EditEpicModal
                     epic={epic}
-                    open={this.state.modal}
                     number={number}
-                    bindTrigger={this.bindTrigger}
-                    updateProjectEpic={updateProjectEpic}
+                    showAllEpics={showAllEpics}
+                    renderMessage={this.renderMessage}
+                    renderErrorMessage={this.renderErrorMessage}
+                    ref={ref => (this.editEpicModal = ref)}
                   />
                 </div>
                 <div className="item">
@@ -169,6 +191,14 @@ class Module extends Component {
               </div>
             </div>
           )}
+          <S_Message positive data-show={renderMessage}>
+            <Message.Header>Success!</Message.Header>
+            <p>{epic.name} updated</p>
+          </S_Message>
+          <S_Message negative formodal="true" data-show={renderErrorMessage}>
+            <Message.Header>Error!</Message.Header>
+            <p>Something went wrong, please try again</p>
+          </S_Message>
         </div>
       </div>
     );
@@ -199,6 +229,7 @@ class Module extends Component {
   };
 }
 
-export default connect(({ changeUserType }) => ({ changeUserType }), {
-  deleteProjectEpic
+export default connect(null, {
+  deleteProjectEpic,
+  showAllEpics
 })(Module);

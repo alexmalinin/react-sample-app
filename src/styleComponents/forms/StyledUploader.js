@@ -25,6 +25,10 @@ export default styled.div`
   ${props => (props.fileLoader ? `margin-top: 24px` : ``)};
   ${props => (props.padded ? `padding: 0 20px` : ``)};
 
+  & > p {
+    text-transform: uppercase;
+  }
+
   input {
     display: none;
   }
@@ -51,11 +55,14 @@ export default styled.div`
 
   .dropzone {
     width: 100%;
-    height: 100px;
+    height: ${props => (props.small ? "60px" : "100px")};
     display: flex;
     flex-flow: row wrap;
     position: relative;
-    border: 2px dashed #ccc;
+    border-color: #ccc;
+    border-style: dashed;
+    border-width: ${props => (props.small ? "2px" : "2px")};
+    border-radius: ${props => (props.small ? "0px" : "0")};
     justify-content: center;
     align-items: center;
     cursor: pointer;

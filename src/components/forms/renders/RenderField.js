@@ -1,10 +1,51 @@
 import { Input } from "semantic-ui-react";
-import React from "react";
+import React, { Component } from "react";
+import { initialize } from "redux-form";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
+import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 
-class RenderField extends React.Component {
+class RenderField extends Component {
+  state = {
+    loading: false,
+    updError: false
+  };
+
+  //TODO: apply thunk here
+  keyDown = e => {
+    const { onSelfSubmit } = this.props;
+    if (e.keyCode === 13) {
+      if (onSelfSubmit) {
+        this.submit(e);
+      }
+      e.target.blur();
+    }
+  };
+
+  submit = e => {
+    const {
+      meta: { dirty, dispatch, form },
+      onSelfSubmit,
+      input
+    } = this.props;
+    if (dirty && onSelfSubmit) {
+      this.setState({ loading: true });
+      onSelfSubmit(input.name, e.target.value)
+        .then(resp => {
+          const { data } = resp;
+          if (data.state) {
+            data.state = taskStatuses.find(
+              status => status.enum === data.state
+            ).value;
+          }
+          this.setState({ loading: false, updError: false });
+          dispatch(initialize(form, data));
+        })
+        .catch(error => this.setState({ loading: false, updError: true }));
+    }
+  };
+
   render() {
     const {
       input,
@@ -19,8 +60,10 @@ class RenderField extends React.Component {
       min,
       pattern,
       isRequired,
-      step
+      step,
+      autoComplete
     } = this.props;
+    const { loading, updError } = this.state;
 
     const className = !error ? checkedClass : "";
 
@@ -30,7 +73,7 @@ class RenderField extends React.Component {
           {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
         </label>
         <Input
-          error={Boolean(touched && error)}
+          error={Boolean(touched && error) || updError}
           {...input}
           name={input.name}
           className={className}
@@ -40,6 +83,11 @@ class RenderField extends React.Component {
           min={min}
           pattern={pattern}
           step={step}
+          autoComplete={autoComplete || "off"}
+          onKeyDown={this.keyDown}
+          onFocus={e => this.setState({ updError: false })}
+          onBlur={this.submit}
+          loading={loading}
         />
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||

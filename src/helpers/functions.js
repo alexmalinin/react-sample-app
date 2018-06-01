@@ -140,6 +140,8 @@ export function getUserRole() {
     const { role } = jwtDecode(token);
     return role;
   }
+
+  return "";
 }
 
 export function getUserType() {
@@ -152,6 +154,10 @@ export function getUserType() {
   ) {
     return SPECIALIST;
   }
+}
+
+export function oneOfRoles(...roles) {
+  return roles.some(role => role === getUserRole());
 }
 
 export function getUserId() {

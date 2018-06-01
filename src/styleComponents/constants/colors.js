@@ -9,6 +9,7 @@ export const colors = {
 };
 
 export const primaryColors = {
+  green: "#85c473",
   darkGrey: "#666",
   grey: "#999",
   lightGrey: "#ccc",

@@ -18,7 +18,8 @@ export default class AssignDropdown extends Component {
 
   //Assign members dropdown
 
-  openDropdown = () => {
+  openDropdown = e => {
+    e.stopPropagation();
     let assignedIds = [];
     this.props.specialists.forEach(spec => assignedIds.push(spec.id));
     this.setState({
@@ -127,6 +128,7 @@ export default class AssignDropdown extends Component {
             <div
               className={`dropdown${showDropdown ? " visible" : ""}`}
               ref={div => (this.dropList = div)}
+              onClick={e => e.stopPropagation()}
             >
               <div className="close" onClick={this.closeDropdown} />
               <p className="dropdownTitle">Members</p>

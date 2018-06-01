@@ -163,10 +163,11 @@ export default styled.div`
       }
     }
 
-    .moduleSubHeader{
+    &.moduleSubHeader{
       .moduleBreadcrumb{
         a{
           color: #fff;
+          font-weight: 400;
         }
       }
     }

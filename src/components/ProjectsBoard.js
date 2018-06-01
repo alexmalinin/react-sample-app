@@ -136,13 +136,7 @@ class ProjectsBoard extends Component {
   };
 
   renderContent = () => {
-    const {
-      projectId,
-      allEpics,
-      showAllEpics,
-      updateProjectEpic,
-      currentEpic
-    } = this.props;
+    const { projectId, allEpics, showAllEpics, currentEpic } = this.props;
 
     const epicId =
       allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
@@ -168,7 +162,6 @@ class ProjectsBoard extends Component {
                   number={key + 1}
                   project={projectId}
                   updateEpicList={showAllEpics}
-                  updateProjectEpic={updateProjectEpic}
                 />
               ))}
             {(getUserType() === CLIENT || getUserRole() === S_REDGUY) && (
