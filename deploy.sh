@@ -6,37 +6,29 @@ host="85.90.244.10"
 app_name="react-dv"
 path="~/www/$app_name"
 
-red=`tput setaf 1`
 keys () {
-	echo "Your parameters: "
-	echo "Application name: $app_name"
-	echo "User: $user_to"
-	echo "Host: $host"
+	echo "$(tput setaf 2)Your parameters:$(tput sgr0) \nApp name: $(tput setaf 2)$app_name$(tput sgr0) \nUser: $(tput setaf 2)$user_to$(tput sgr0) \nHost: $(tput setaf 2)$host$(tput sgr0)"
 }
+
+keys #just show if you set everything up
+
 while true; do
-	keys
-    read -p 'Are you sure you want to deploy new build?(Y/n): ' ynssh-cop
+    read -p "$(tput setaf 6)Are you sure you want to deploy new build?(Y/n): $(tput sgr0)" yn
 
     case $yn in
 
         [Yy]* )
-        if ssh "$user_to"@"$host" "[ -d $path ]"; then
-        	echo "$(tput setaf 1)Folder is not empty, removing all files!$(tput sgr0)"
-        	ssh "$user_to"@"$host" "rm -rf $path/*"
-            echo "Copying new build!"
-            npm run build && scp -r build "$user_to"@"$host":"$path/" ;
-        else
-        	ssh "$user_to"@"$host" "mkdir -p $path"
-        	npm run build && scp -r build "$user_to"@"$host":"$path/" ;
-        fi
-		echo "_______________________________________________________________________________________________________";
-		echo "\n $(tput setaf 2)Done!!"
-		echo "Dont forget to check server config!!"
-         break;;
+            keys
+            npm run build && rsync -aP --delete build "$user_to"@"$host":"$path/"
+		    echo "\n $(tput setaf 2)Done! Good luck!$(tput sgr0)"
+            break;;
 
-        [Nn]* ) exit;;
+        [Nn]* ) echo "$(tput setaf 11) Goodbye :($(tput sgr0)"
+                exit
+                break
+                ;;
 
-        * ) echo 'Please answer yes or no: ';;
+        * ) echo "\n$(tput setaf 9)Please answer yes or no: $(tput sgr0)\n";;
 
     esac
 
