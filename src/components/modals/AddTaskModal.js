@@ -15,8 +15,8 @@ class AddTaskModal extends Component {
         closeIcon
         trigger={
           <a className="button">
-            <StyledSubHeaderLink className="rightLink addButt" />
-            {content}
+            <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
+            <span>{content}</span>
           </a>
         }
       >

@@ -4,7 +4,6 @@ import { boxShadow } from "./constants/colors";
 export default styled.div`
     color: #666;
     font-size: 16px;
-    letter-spacing: 1.2px;
     font-weight: 500;
     color: #999;
 

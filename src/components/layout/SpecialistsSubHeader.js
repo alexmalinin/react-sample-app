@@ -23,7 +23,7 @@ class SubHeader extends Component {
     const { page } = this.props;
 
     return (
-      <StyledSubHeader profileForm="true">
+      <StyledSubHeader profileForm="true" greenGradient>
         <div className="progressBarsLink">
           <SubHeaderItemWrap content="1" path="profile">
             My Profile

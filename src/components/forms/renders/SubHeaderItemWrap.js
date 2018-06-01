@@ -35,7 +35,7 @@ class SubHeaderItemWrap extends Component {
       <section className={active ? "active" : ""}>
         <SubHeaderLink
           className={this.props.className}
-          number={this.props.content}
+          content={this.props.content}
         />
         {this.props.children}
       </section>

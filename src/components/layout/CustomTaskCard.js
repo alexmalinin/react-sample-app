@@ -5,6 +5,10 @@ import { S_REDGUY } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 
+const defaultProps = {
+  specialists: []
+};
+
 class CustomCard extends Component {
   state = {
     showDropdown: false
@@ -121,5 +125,7 @@ class CustomCard extends Component {
     );
   }
 }
+
+CustomCard.defaultProps = defaultProps;
 
 export default CustomCard;

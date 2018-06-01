@@ -5,17 +5,17 @@ import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 
-class AboutSubHeader extends Component {
+class MyTasksSubHeader extends Component {
   render() {
     return (
       <StyledSubHeader profile="true" about="true" sidebarCondition>
-        <div className="left">
+        <div>
           <SubHeaderLinkWrap
-            label="Profile"
-            url="/dashboard/about"
-            className="profileLink"
+            content="My tasks"
+            url="/dashboard/epics"
+            className="profileLink dv-button__circle"
           >
-            <i className="fas fa-user" />
+            &nbsp;
           </SubHeaderLinkWrap>
         </div>
       </StyledSubHeader>
@@ -23,4 +23,4 @@ class AboutSubHeader extends Component {
   }
 }
 
-export default AboutSubHeader;
+export default MyTasksSubHeader;

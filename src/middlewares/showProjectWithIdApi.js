@@ -1,6 +1,7 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { SUCCESS } from "../constans/constans";
+import { renameObjPropNames } from "../helpers/functions";
 
 export default store => next => action => {
   const { type, showProjectWithId, id, ...rest } = action;
@@ -15,6 +16,10 @@ export default store => next => action => {
   })
     .then(function(response) {
       let data = response.data;
+      data.skills.forEach(skill => {
+        renameObjPropNames(skill, "id", "value");
+        renameObjPropNames(skill, "name", "label");
+      });
       data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, colors, boxShadow } from "./constants/colors";
+import { primaryColors, boxShadow } from "./constants/colors";
 
 export default styled.div`
   display: flex;
@@ -35,7 +35,8 @@ export default styled.div`
 
   .titleWrapper {
     display: flex;
-    flex-flow: column nowrap;
+    flex-direction: ${props => (props.type === "project" ? "row" : "column")};
+    flex-wrap: nowrap;
     margin-bottom: ${props => (props.titleMargin ? "20px" : "5px")};
 
     img,
@@ -65,6 +66,7 @@ export default styled.div`
 
     .title {
       margin-bottom: 3px;
+      ${props => props.type === "project" && "margin-top: 14px;"};
     }
 
     .subTitle {

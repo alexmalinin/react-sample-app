@@ -12,40 +12,24 @@ class DashboardSubHeader extends Component {
 
     return (
       <StyledSubHeader projects sidebarCondition dashboardSubHeader>
-        <div>
+        <div className="left">
           <SubHeaderLinkWrap
-            content="Dashboard"
+            label="Dashboard"
             url="/dashboard/"
-            className="dashboard dv-button__circle active"
+            className="dashboard"
           >
-            &nbsp;
+            <i className="fa fa-columns" />
           </SubHeaderLinkWrap>
 
           <SubHeaderLinkWrap
-            content="The village"
+            label="The village"
             url="/dashboard/the_village"
-            className="dashboard dv-button__circle"
+            className="dashboard"
           >
-            &nbsp;
+            <i className="fas fa-newspaper" />
           </SubHeaderLinkWrap>
-          {theVillage ? (
-            <SubHeaderLinkWrap
-              theVillage
-              content="filter"
-              url="#"
-              className="filterVillage dashboard"
-            />
-          ) : null}
-          {theVillage ? (
-            <SubHeaderLinkWrap
-              theVillage
-              content=""
-              url="#"
-              className="arrowVillage dashboard"
-            />
-          ) : null}
         </div>
-        <div>
+        <div className="right">
           {specialistData &&
             specialistData.role === S_REDGUY && (
               <AddTaskModal content="Add epic" className="dahsboard" />
@@ -54,10 +38,9 @@ class DashboardSubHeader extends Component {
           {changeUserType === CLIENT && (
             <SubHeaderLinkWrap
               url="/dashboard/project/new"
-              className="rightLink dahsboard addButt"
-            >
-              Add project
-            </SubHeaderLinkWrap>
+              label="Add project"
+              className="rightLink dahsboard addButton"
+            />
           )}
         </div>
       </StyledSubHeader>

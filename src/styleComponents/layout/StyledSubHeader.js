@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow } from "../constants/colors";
+import { boxShadow, colors, secondaryColors } from "../constants/colors";
 
 export default styled.div`
   height: 131px;
@@ -7,19 +7,12 @@ export default styled.div`
   margin: 0 auto;
   margin-top: 21px;
 
-  ${props =>
-    props.profile || props.account || props.dashboardSubHeader
-      ? `background: #2d68ee; /* Old browsers */
-         background: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%); /* FF3.6-15 */
-         background: -webkit-linear-gradient(left, #2d68ee 0%,#7439e3 100%); /* Chrome10-25,Safari5.1-6 */
-         background: linear-gradient(to right, #2d68ee 0%,#7439e3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2d68ee', endColorstr='#7439e3',GradientType=1 ); /* IE6-9 */
-         margin-top: 21px;`
-      : `background: #00a2ee; /* Old browsers */
-         background: -moz-linear-gradient(left, #00a2ee 0%, #00e1ce 100%); /* FF3.6-15 */
-         background: -webkit-linear-gradient(left, #00a2ee 0%,#00e1ce 100%); /* Chrome10-25,Safari5.1-6 */
-         background: linear-gradient(to right, #00a2ee 0%,#00e1ce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00a2ee', endColorstr='#00e1ce',GradientType=1 ); /* IE6-9 */`};
+  /* background: ${props =>
+    props.greenGradient
+      ? "linear-gradient(to right, #00a2ee 0%,#00e1ce 100%)"
+      : "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"}; */
+
+  background: linear-gradient(to right, #2d68ee 0%,#7439e3 100%);
 
   margin-bottom: ${props =>
     props.profileForm
@@ -33,16 +26,142 @@ export default styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 30px 15px;
+  padding: 25px 15px 15px;
   ${boxShadow.light};
   transition: 0.4s ease-in-out;
 
-  & > span {
-    padding: 10px;
-  }
+  & > div {
+    display: flex;
 
-  a {
-    transition: 0.2s;
+    a.button,
+    section,
+    button {
+      position: relative;
+      color: #fff;
+      opacity: 0.7;
+      font-family: "Brix", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 27px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: 0.2s;
+      width: 90px;
+
+      i{
+        font-size: 2em;
+      }
+
+      .container {
+        border: none !important;
+        width: 67px;
+        height: 67px;
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &:hover,
+      &.active {
+        color: #fff;
+        opacity: 1;
+
+        .allModules {
+          font-weight: 500;
+          &::before {
+            opacity: 1;
+          }
+        }
+
+        &.container {
+          border: none;
+        }
+      }
+
+      & > span {
+        /* position: absolute;
+        left: 50%;
+        transform: translateX(-50%); */
+        white-space: nowrap;
+      }
+
+      .boldLink {
+      }
+
+      .profileLink,
+      .teamLink {
+        font-size: 14px;
+      }
+
+      .dashboard {
+        font-size: 10px;
+      }
+
+      /* .modalTrigger {
+        height: 60px;
+        width: 60px;
+      } */
+
+      &.active {
+        div {
+          border: 2px solid #fff;
+        }
+      }
+
+      .addButton {
+        border: 2px solid #fff;
+        &::after,
+        &::before {
+          content: "";
+          height: 24px;
+          width: 2px;
+          border-radius: 2px;
+          background: #fff;
+          position: absolute;
+          opacity: 0.8;
+        }
+        &::after {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &.statements {
+      a {
+        div {
+          font-size: 12px;
+        }
+      }
+    }
+
+    &.teamSubHeader {
+      font-size: 12px;
+    }
+
+    &.kanbanSubHeader {
+      a:not(:first-of-type) {
+        margin-left: -12px;
+      }
+    }
+
+    &.boardProgressBars {
+      a {
+        opacity: 1;
+
+        div {
+          border: 2px solid #fff;
+        }
+        /* flex: 33%;
+        text-align: center;
+        &:not(:first-of-type) {
+          margin-left: 32px;
+        } */
+      }
+      &.visible {
+        display: flex !important;
+      }
+    }
   }
 
   .progressBarsLink {
@@ -55,84 +174,45 @@ export default styled.div`
     }
   }
 
-  .boardProgressBars {
-    a {
-      opacity: 1;
-      flex: 33%;
-      text-align: center;
-      &:not(:first-of-type) {
-        margin-left: 32px;
-      }
-      span {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-      }
-    }
-    .container {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    &.visible {
-      display: flex !important;
-    }
-  }
-
-  div {
-    display: flex;
-    font-size: 15px;
-    &.allModules {
-      font-weight: 200;
-      position: relative;
-      &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        border: 3px solid #fff;
-        border-radius: 50%;
-        box-sizing: content-box;
-        opacity: 0;
-      }
-    }
-    &.module {
-      font-size: 24px;
-    }
-  }
-
-  .profileLink {
-    font-size: 11px;
-    height: 60px;
-    width: 60px;
-  }
-
   .button {
     cursor: pointer;
   }
 
   .rightLink {
     font-size: 15px;
+
+    & + span {
+      transition: inherit;
+    }
+
+    &.myTasks {
+      &.active {
+        border-color: ${secondaryColors.green};
+        box-shadow: 0 0 0 1px ${secondaryColors.green};
+      }
+
+      &.unactive {
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 1;
+
+          & + span {
+            opacity: 1;
+          }
+        }
+
+        & + span {
+          opacity: 0.6;
+        }
+      }
+    }
   }
 
   .accountSub {
     font-size: 10px;
     width: 74px;
     height: 74px;
-  }
-
-  .addButt {
-    &::after,
-    &::before {
-      content: "";
-      height: 20px;
-      width: 1px;
-      background: #fff;
-      position: absolute;
-    }
-    &::after {
-      transform: rotate(90deg);
-    }
   }
 
   .saveBtn {
@@ -146,41 +226,16 @@ export default styled.div`
   .close::before {
     content: "";
     position: absolute;
-    width: 18px;
+    width: 22px;
     height: 1px;
     background-color: #fff;
-    top: 28px;
+    top: 33px;
   }
   .close::after {
     transform: rotate(45deg);
   }
   .close::before {
     transform: rotate(135deg);
-  }
-
-  .teamSubHeader {
-    display: flex;
-    font-size: 15px;
-    width: 100%;
-    justify-content: space-between;
-
-    a {
-      &:first-of-type {
-        opacity: 1;
-      }
-
-      div {
-        margin-top: 10px;
-        width: 60px;
-        height: 60px;
-        font-size: 12px;
-        opacity: 1;
-
-        &.teamLink {
-          border: 3px solid #fff;
-        }
-      }
-    }
   }
 
   .addLink::before,
@@ -200,9 +255,9 @@ export default styled.div`
     & + span {
       display: inline-block;
       position: absolute;
-      top: 28px;
+      top: 33px;
       right: 45%;
-      width: 42px;
+      width: 46px;
       height: 1px;
       background-color: #fff;
       opacity: 0.7;
@@ -213,7 +268,7 @@ export default styled.div`
   .arrow::before {
     content: "";
     position: absolute;
-    top: 28px;
+    top: 33px;
     right: 45%;
     width: 10px;
     height: 1px;
@@ -270,62 +325,7 @@ export default styled.div`
     transform: rotate(-45deg);
   }
 
-  .dashboard {
-    width: 62px;
-    height: 62px;
-    font-size: 10px;
-  }
-
-  .dashboard.active {
-    border: 1px solid #fff;
-  }
-
-  a,
-  button {
-    position: relative;
-    color: #fff;
-    opacity: 0.7;
-    font-family: "Brix", sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 27px;
-    text-transform: uppercase;
-    text-decoration: none;
-
-    & + a,
-    & + section {
-      margin-left: 12px;
-    }
-
-    &:hover,
-    &.active {
-      color: #fff;
-      opacity: 1;
-
-      & > div {
-        border: 1px solid #fff;
-      }
-
-      .allModules {
-        font-weight: 500;
-        &::before {
-          opacity: 1;
-        }
-      }
-
-      &.container {
-        border: none;
-      }
-      /* &:after {
-                background: #fff;
-                width: 100%;
-            }     */
-    }
-
-    /* &.active:after {
-            background: #fff;
-            width: 100%;
-        }     */
+  a {
   }
 
   section {
@@ -355,16 +355,6 @@ export default styled.div`
         border: none;
       }
     }
-  }
-
-  .container {
-    border: none !important;
-    width: 57px;
-    height: 57px;
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
   }
 
   @media (max-width: 1920px) {

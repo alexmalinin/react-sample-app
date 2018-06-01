@@ -4,11 +4,11 @@ import StyledUploader from "../../../styleComponents/forms/StyledUploader";
 import { IMAGE_PORT } from "../../../constans/constans";
 import Dropzone from "react-dropzone";
 
-class RenderImage extends Component {
+class RenderFile extends Component {
   state = {
     files: []
   };
-
+  // this.props.attached_files ||
   fileHub = [];
 
   _handleFileAttach(e) {
@@ -62,11 +62,28 @@ class RenderImage extends Component {
       name,
       disabled,
       padded,
-      dropzone
+      dropzone,
+      className
     } = this.props;
+    console.log(this.props.attached_files);
+    let filetype = "",
+      fileIcon = "";
+
+    switch (filetype) {
+      case "pdf":
+        fileIcon = "-pdf";
+        break;
+      default:
+        fileIcon = "-alt";
+    }
 
     return (
-      <StyledUploader fileLoader dropzone={dropzone} padded={padded}>
+      <StyledUploader
+        fileLoader
+        dropzone={dropzone}
+        padded={padded}
+        className={className}
+      >
         <p>{label}</p>
         <span />
         {dropzone && (
@@ -82,22 +99,25 @@ class RenderImage extends Component {
         )}
         {this.state.files.map((file, key) => (
           <div className="filePreview" key={key}>
-            <img src="/images/uploadFile.png" alt="file" />
-            <div className="fileInfo">
-              <p>{this.returnFileName(file.name)}</p>
-              <p>{this.returnFileSize(file.size)}</p>
+            <div className="fileIcon">
+              <i className={`far fa-file${fileIcon}`} />
             </div>
-            <div className="detailedInfo">
+            <div className="fileInfo">
+              <p className="fileName">{this.returnFileName(file.name)}</p>
+              <p className="fileSize">{this.returnFileSize(file.size)}</p>
+            </div>
+            {/* <div className="detailedInfo">
               <a tabIndex={1} />
               <div className="dropDown">{file.name}</div>
-            </div>
+            </div> */}
           </div>
         ))}
-        {!dropzone && (
-          <button className="uploadFile" onClick={this.handleTrigger}>
-            {/* Upload */}
-          </button>
-        )}
+        {!dropzone &&
+          !disabled && (
+            <button className="uploadFile" onClick={this.handleTrigger}>
+              {/* Upload */}
+            </button>
+          )}
         <input
           ref={this.triggerRef}
           name={name + "2"}
@@ -130,7 +150,7 @@ class RenderImage extends Component {
   };
 }
 
-export default RenderImage;
+export default RenderFile;
 
 // if (avatar && !imagePreviewUrl) {
 //     $imagePreview = (<img src={PORT + avatar.url}/>);

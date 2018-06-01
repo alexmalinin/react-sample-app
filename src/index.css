@@ -16,6 +16,14 @@ ul {
   padding: 0;
 }
 
+.dimmable.dimmed #root {
+  filter: blur(1px);
+}
+
+.dimmable.dimmed .dimmer {
+  background: rgba(56, 60, 85, 0.9);
+}
+
 /*________RESET SEMANTIC________*/
 
 .ui.primary.button,

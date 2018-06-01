@@ -71,6 +71,8 @@ class ProjectForm extends Component {
               label="Attach files"
               className="area"
               padded
+              dropzone
+              createProject
             />
           </Grid.Column>
           <Grid.Column computer={8}>

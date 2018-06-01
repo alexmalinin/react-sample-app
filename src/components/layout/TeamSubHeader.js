@@ -11,16 +11,17 @@ class TeamSubHeader extends Component {
   render() {
     const { userType } = this.props;
     return (
-      <StyledSubHeader sidebarCondition account>
-        <div className="teamSubHeader">
+      <StyledSubHeader sidebarCondition>
+        <div className="left">
           <SubHeaderLinkWrap
-            content="Teams"
+            label="Teams"
             url="/dashboard/teams"
-            className="teamLink dv-button__circle"
+            className="boldLink teamLink"
           >
-            &nbsp;
+            <i className="fas fa-users" />
           </SubHeaderLinkWrap>
-
+        </div>
+        <div className="right">
           {(getUserRole() === S_CORE || getUserRole() === S_REDGUY) && (
             <AddTeamModal />
           )}

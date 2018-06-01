@@ -24,7 +24,12 @@ class EditEpicForm extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const {
+      handleSubmit,
+      submitting,
+      epic: { attached_files, eta }
+    } = this.props;
+
     return (
       <form onSubmit={handleSubmit}>
         <Grid>
@@ -57,7 +62,7 @@ class EditEpicForm extends Component {
                 className="estimate"
                 validate={[required]}
                 required
-                initData={this.props.epic.eta}
+                initData={eta}
                 handleEtaForm={this.handleEtaForm}
                 padded
                 small
@@ -84,6 +89,7 @@ class EditEpicForm extends Component {
                 component={RenderFile}
                 label="Attach files"
                 className="area"
+                attached_files={attached_files}
                 padded
               />
             </Grid.Column>

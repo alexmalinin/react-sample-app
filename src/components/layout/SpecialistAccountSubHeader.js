@@ -9,24 +9,18 @@ class AboutSubHeader extends Component {
   render() {
     return (
       <StyledSubHeader account sidebarCondition>
-        <div>
-          <SubHeaderLinkWrap
-            content="Account"
-            url="/dashboard/account"
-            className="accountSub dv-button__circle"
-          />
+        <div className="left statements">
+          <SubHeaderLinkWrap url="/dashboard/account" label="Account">
+            <i className="fas fa-wallet" />
+          </SubHeaderLinkWrap>
 
-          <SubHeaderLinkWrap
-            content="YTD"
-            url="/dashboard/year_to_date"
-            className="accountSub dv-button__circle"
-          />
+          <SubHeaderLinkWrap url="/dashboard/year_to_date" label="Year To Date">
+            YTD
+          </SubHeaderLinkWrap>
 
-          <SubHeaderLinkWrap
-            content="statements"
-            url="/dashboard/statement"
-            className="accountSub dv-button__circle"
-          />
+          <SubHeaderLinkWrap label="Statements" url="/dashboard/statement">
+            {/*  */}
+          </SubHeaderLinkWrap>
         </div>
       </StyledSubHeader>
     );

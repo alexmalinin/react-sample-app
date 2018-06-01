@@ -34,9 +34,11 @@ import updateClientProfile from "../middlewares/updateClientProfileApi";
 import updateClientCompany from "../middlewares/updateClientCompanyApi";
 import updateClientBilling from "../middlewares/updateClientBillingApi";
 import saveCreatedProject from "../middlewares/createProjectApi";
+import updateProject from "../middlewares/updateProjectApi";
 import showAllProjects from "../middlewares/showAllProjectsApi";
 import showSpecialistProjects from "../middlewares/showSpecialistProjectsApi";
 import showSpecialistTeams from "../middlewares/showSpecialistTeamsApi";
+import showSpecialistTasks from "../middlewares/showSpecialistTasksApi";
 import showProjectWithId from "../middlewares/showProjectWithIdApi";
 import createProjectEpic from "../middlewares/createProjectEpicApi";
 import updateProjectEpic from "../middlewares/editProjectEpicApi";
@@ -100,9 +102,11 @@ const enhancer = applyMiddleware(
   updateClientCompany,
   updateClientBilling,
   saveCreatedProject,
+  updateProject,
   showAllProjects,
   showSpecialistProjects,
   showSpecialistTeams,
+  showSpecialistTasks,
   showProjectWithId,
   createProjectEpic,
   updateProjectEpic,

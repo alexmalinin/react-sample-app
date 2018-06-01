@@ -11,7 +11,12 @@ import {
   removeSpecialistFromTask
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import {
+  getUserRole,
+  getUserId,
+  getCookie,
+  setCookie
+} from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 
 class KanbanBoard extends Component {
@@ -23,7 +28,8 @@ class KanbanBoard extends Component {
       completedTasks: [],
       acceptedTasks: [],
       showBoard: false,
-      editingTask: {}
+      editingTask: {},
+      currentProjectTeam: []
     };
   }
 
@@ -46,6 +52,16 @@ class KanbanBoard extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.projectTeam) {
+      if (nextProps.projectTeam[0]) {
+        if (nextProps.projectTeam[0].project_id === +nextProps.currentProject) {
+          this.setState({
+            currentProjectTeam: nextProps.projectTeam[0].specialists
+          });
+        }
+      }
+    }
+
     if (this.props.currentEpic !== nextProps.currentEpic) {
       this.setState({
         showBoard: false
@@ -59,13 +75,22 @@ class KanbanBoard extends Component {
     ) {
       if (
         this.props.epicTasks !== nextProps.epicTasks ||
-        nextProps.allSpecialists
+        nextProps.allSpecialists ||
+        nextProps.myTasks !== this.props.myTasks
       ) {
         let backlog = [],
           completed = [],
           progress = [],
-          accepted = [];
-        nextProps.epicTasks.forEach(task => {
+          accepted = [],
+          taskList = [];
+
+        if (nextProps.myTasks) {
+          taskList = nextProps.epicTasks.filter(task =>
+            task.specialists.some(spec => spec.id === getUserId())
+          );
+        } else taskList = nextProps.epicTasks;
+
+        taskList.forEach(task => {
           const taskObject = {
             id: `${task.id}`,
             assignSpecialist: this.assignSpecialist,
@@ -75,7 +100,7 @@ class KanbanBoard extends Component {
             cost: task.cost,
             description: "Platform - Dashboard",
             specialists: task.specialists,
-            specialistList: nextProps.projectTeam[0].specialists
+            specialistList: this.state.currentProjectTeam
           };
           if (task.state === "backlog") {
             backlog.push(taskObject);
@@ -127,35 +152,11 @@ class KanbanBoard extends Component {
       completedTasks,
       acceptedTasks,
       showBoard,
-      editingTask
+      editingTask,
+      currentProjectTeam
     } = this.state;
-    console.log(this.state)
 
     return (
-      // <Transition animation="fade" duration={400} visible={showBoard}>
-      //   {backlogTasks.length !== 0 ||
-      //   progressTasks.length !== 0 ||
-      //   completedTasks.length !== 0 ? (
-      //     <Board
-      //       data={{
-      //         lanes: [
-      //           { id: "0", title: "Backlog", cards: backlogTasks },
-      //           { id: "1", title: "In progress", cards: progressTasks },
-      //           { id: "2", title: "Done", cards: completedTasks },
-      //           { id: "3", title: "Accepted", cards: acceptedTasks }
-      //         ]
-      //       }}
-      //       className="kanban"
-      //       draggable={getUserRole() === S_REDGUY}
-      //       customCardLayout
-      //       handleDragEnd={this.handleDragEnd}
-      //     >
-      //       <CustomCard userType={changeUserType} />
-      //     </Board>
-      //   ) : (
-      //     <div className="noTasks">No tasks for now</div>
-      //   )}
-      // </Transition>
       currentEpic !== "all" &&
       (backlogTasks.length !== 0 ||
       progressTasks.length !== 0 ||

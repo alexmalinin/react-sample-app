@@ -12,6 +12,7 @@ export const primaryColors = {
   darkGrey: "#666",
   grey: "#999",
   lightGrey: "#ccc",
+  accentGrey: "#989ea9",
   accentBackground: "#fff",
   backgroundColor: "#f4f9fa",
   shadowColor: "#e2eff2"

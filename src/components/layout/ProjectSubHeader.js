@@ -45,10 +45,9 @@ class ProjectSubHeader extends Component {
 
           <SubHeaderLinkWrap
             url={module ? `/dashboard/project/${projectId}` : "/dashboard/"}
+            label="Cancel"
             className="rightLink close"
-          >
-            Cancel
-          </SubHeaderLinkWrap>
+          />
         </div>
       </StyledSubHeader>
     );

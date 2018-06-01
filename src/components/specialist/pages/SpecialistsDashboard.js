@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
@@ -42,6 +43,7 @@ import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
+import SpecialistMyTasks from "./SpecialistMyTasks";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -390,14 +392,14 @@ class SpecialistsDashboard extends Component {
         if (getUserRole() === S_REDGUY) {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
-        } else return <NotFound />;
+        } else return <Redirect to="/404" />;
       case "specialist":
         return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={specialistProjects} />;
       default:
-        return <NotFound />;
+        return <Redirect to="/404" />;
     }
   };
 

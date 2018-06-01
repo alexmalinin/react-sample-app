@@ -5,8 +5,14 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
-import { CLIENT, S_REDGUY, CUSTOMER } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import {
+  CLIENT,
+  S_REDGUY,
+  CUSTOMER,
+  S_ACTIVE,
+  S_CORE
+} from "../../constans/constans";
+import { getUserRole, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
@@ -23,10 +29,10 @@ class ProjectSubHeader extends Component {
         return (
           <SubHeaderLinkWrap
             key={key}
-            content={key + 1}
             url={`/dashboard/project/${this.props.project}/module/${key + 1}`}
             className="module"
           >
+            {key + 1}
             <ProgressBars
               percents={
                 !!epic.tasks.length
@@ -41,73 +47,76 @@ class ProjectSubHeader extends Component {
   };
 
   render() {
-    const {
-      currentEpic,
-      epicTasks,
-      changeUserType,
-      project,
-      allEpics
-    } = this.props;
+    const { currentEpic, epicTasks, project, allEpics, myTasks } = this.props;
 
     const allTasksCount = epicTasks && epicTasks.length;
-    let completedTasksCount = 0;
+    let completedTasksCount = 0,
+      myTasksCount = 0;
     epicTasks &&
-      epicTasks.forEach(
-        task =>
-          (task.state === "done" || task.state === "accepted") &&
-          completedTasksCount++
-      );
+      epicTasks.forEach(task => {
+        (task.state === "done" || task.state === "accepted") &&
+          completedTasksCount++;
+        task.specialists.some(
+          spec => spec.id === getUserId() && myTasksCount++
+        );
+      });
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     return (
       <StyledSubHeader sidebarCondition profile="true">
-        <div>
+        <div className="left kanbanSubHeader">
           <SubHeaderLinkWrap
-            content="All"
+            label={<span>&nbsp;</span>}
             url={`/dashboard/project/${this.props.project}`}
             className="allModules"
           >
-            &nbsp;
+            <span>All</span>
           </SubHeaderLinkWrap>
 
           {allEpics && this.renderProgressBars()}
           {(getUserRole() === CUSTOMER || getUserRole() === S_REDGUY) && (
             <SubHeaderLinkWrap
-              content=""
+              label="Add module"
               url={`/dashboard/project/${this.props.project}/module/new`}
-              className="addButt"
-            >
-              Add module
-            </SubHeaderLinkWrap>
+              className="addButton"
+            />
           )}
         </div>
         <Transition
           animation="fade"
           duration={400}
-          visible={currentEpic != "all"}
-          className="boardProgressBars"
+          visible={currentEpic !== "all"}
         >
-          <div className="boardProgressBars">
+          <div className="right boardProgressBars">
+            {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
+              <SubHeaderLinkWrap
+                label="Assigned to me"
+                url="#"
+                className={`rightLink myTasks${
+                  myTasks ? " active" : " unactive"
+                }`}
+                onClick={this.props.toggleMyTasks}
+              >
+                {myTasksCount}
+              </SubHeaderLinkWrap>
+            )}
             {getUserRole() === S_REDGUY && (
               <AddTaskModal
                 epic={currentEpic}
                 project={project}
                 content="Add epic"
+                className="addTask"
               />
             )}
-            <SubHeaderLinkWrap
-              content={`${completedTasksCount}/${allTasksCount}`}
-              url="#"
-              className="rightLink"
-            >
-              <span>Epics</span>
+            <SubHeaderLinkWrap label="Epics" url="#" className="rightLink">
+              {`${completedTasksCount}/${allTasksCount}`}
             </SubHeaderLinkWrap>
             <SubHeaderLinkWrap
-              content={`${percents}%`}
+              label="Module progress"
               url="#"
               className="rightLink"
             >
-              <span>Module progress</span>
+              {percents}%
               <ProgressBars percents={percents} />
             </SubHeaderLinkWrap>
           </div>

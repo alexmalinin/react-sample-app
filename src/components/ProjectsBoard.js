@@ -10,23 +10,33 @@ import {
   createEpicTask,
   showEpicTasks,
   updateEpicTask,
-  showAllSpecialists
+  showAllSpecialists,
+  showProjectTeam,
+  updateCreatedProject,
+  showProjectWithId
 } from "../actions/actions";
-import { CLIENT, SPECIALIST, S_REDGUY } from "../constans/constans";
+import { SubmissionError, initialize, reset } from "redux-form";
+import { CLIENT, SPECIALIST, S_REDGUY, PORT } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType } from "../helpers/functions";
+import EditProject from "./forms/hoc/EditProject";
+import Axios from "axios";
+import { S_Message } from "../styleComponents/layout/S_Message";
+import { Message } from "semantic-ui-react";
 
 class ProjectsBoard extends Component {
   state = {
-    fetchEpicTasks: true
+    fetchEpicTasks: true,
+    myTasks: false
   };
 
   componentWillMount() {
     this.props.showAllProjects();
     this.props.showAllEpics(this.props.projectId);
+    this.props.showProjectTeam(this.props.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -121,14 +131,17 @@ class ProjectsBoard extends Component {
     }
   }
 
-  render() {
-    let {
+  toggleMyTasks = () => {
+    this.setState({ myTasks: !this.state.myTasks });
+  };
+
+  renderContent = () => {
+    const {
       projectId,
       allEpics,
       showAllEpics,
       updateProjectEpic,
-      currentEpic,
-      epicTasks
+      currentEpic
     } = this.props;
 
     const epicId =
@@ -136,16 +149,15 @@ class ProjectsBoard extends Component {
         ? allEpics[currentEpic - 1].id
         : null;
 
-    return (
-      <ContainerLarge indentBot>
-        <BoardSubHeader
-          project={projectId}
-          currentEpic={currentEpic}
-          epicId={epicId}
-          epicTasks={epicTasks}
-        />
+    if (currentEpic !== "all") {
+      return (
         <S_Board>
-          <KanbanBoard currentEpic={currentEpic} epicId={epicId} />
+          <KanbanBoard
+            currentProject={projectId}
+            currentEpic={currentEpic}
+            epicId={epicId}
+            myTasks={this.state.myTasks}
+          />
 
           <div className="moduleWrapper">
             {allEpics &&
@@ -165,7 +177,7 @@ class ProjectsBoard extends Component {
                 <div className="module addModule">
                   <NavLink
                     to={`/dashboard/project/${projectId}/module/new`}
-                    className="addButt"
+                    className="addButton"
                   >
                     <span className="plus">+</span>
                     <span className="add">Add module</span>
@@ -182,6 +194,32 @@ class ProjectsBoard extends Component {
               )}
           </div>
         </S_Board>
+      );
+    } else {
+      return <EditProject projectId={projectId} />;
+    }
+  };
+
+  render() {
+    const { projectId, allEpics, currentEpic, epicTasks } = this.props;
+    const { renderMessage, renderErrorMessage, myTasks } = this.state;
+
+    const epicId =
+      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
+        ? allEpics[currentEpic - 1].id
+        : null;
+
+    return (
+      <ContainerLarge indentBot>
+        <BoardSubHeader
+          project={projectId}
+          currentEpic={currentEpic}
+          epicId={epicId}
+          epicTasks={epicTasks}
+          toggleMyTasks={this.toggleMyTasks}
+          myTasks={myTasks}
+        />
+        {this.renderContent()}
       </ContainerLarge>
     );
   }
@@ -223,6 +261,11 @@ export default connect(
     createEpicTask,
     showEpicTasks,
     updateEpicTask,
-    showAllSpecialists
+    showAllSpecialists,
+    showProjectTeam,
+    updateCreatedProject,
+    showProjectWithId,
+    initialize,
+    reset
   }
 )(ProjectsBoard);

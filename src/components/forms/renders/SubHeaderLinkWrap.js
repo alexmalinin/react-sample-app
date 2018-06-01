@@ -6,12 +6,17 @@ import SubHeaderLink from "./SubHeaderLink";
 class SubHeaderLinkWrap extends Component {
   render() {
     return (
-      <NavLink exact className="button" to={this.props.url}>
+      <NavLink
+        exact
+        className="button"
+        to={this.props.url}
+        onClick={this.props.onClick}
+      >
         <SubHeaderLink
           className={this.props.className}
-          number={this.props.content}
+          content={this.props.children}
         />
-        {this.props.children}
+        <span>{this.props.label}</span>
       </NavLink>
     );
   }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors, primaryColors, boxShadow } from "../constants/colors";
 
 export const StyledTextArea = styled.div`
   ${props => (props.padded ? `padding: 0 20px` : ``)};
@@ -24,6 +25,7 @@ export const StyledTextArea = styled.div`
     padding: 15px;
     outline: none;
     margin-bottom: 0;
+    ${props => props.disabled && "pointer-events: none"};
   }
 
   @media (max-width: 1920px) {
@@ -64,6 +66,34 @@ export const StyledTextArea = styled.div`
 
       -webkit-background-size: 100% 50px;
       background-size: 100% 36px;
+    }
+  }
+
+  &.transparent {
+    textarea {
+      padding: 6px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      resize: none;
+      min-height: auto;
+      letter-spacing: normal;
+      color: ${primaryColors.accentGrey};
+      font-weight: 400;
+      font-size: 0.9em;
+      line-height: 2em;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &::placeholder {
+        color: ${primaryColors.accentGrey};
+      }
+
+      &:focus {
+        border-color: ${colors.darkBlue};
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+        cursor: text;
+      }
     }
   }
 `;

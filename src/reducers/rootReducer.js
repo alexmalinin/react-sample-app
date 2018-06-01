@@ -20,9 +20,11 @@ import specialistData from "./showSpecialistDataReducer";
 import specialistWithId from "./showSpecialistWithIdReducer";
 import allSpecialists from "./showAllSpecialistsReducer";
 import createProject from "./createProjectReducer";
+import updateProject from "./updateProjectReducer";
 import allProjects from "./showAllProjectsReducer";
 import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
+import specialistTasks from "./showSpecialistTasksReducer";
 import projectWithId from "./showProjectWithIdReducer";
 import createEpic from "./createProjectEpicReducer";
 import allEpicsWithoutProject from "./showAllEpicsWithoutProjectReducer";
@@ -73,9 +75,11 @@ export default combineReducers({
   allSpecialists,
   form: reduxFormReducer,
   createProject,
+  updateProject,
   allProjects,
   specialistProjects,
   specialistTeams,
+  specialistTasks,
   projectWithId,
   createEpic,
   allEpicsWithoutProject,
