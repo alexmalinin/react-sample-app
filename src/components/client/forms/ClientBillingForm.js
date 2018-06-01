@@ -78,7 +78,17 @@ class ClientBillingForm extends Component {
     });
   };
 
+  handleEtaChange = date => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        expiry_date: date
+      }
+    });
+  };
+
   handleEtaForm = date => {
+    this.handleEtaChange(date);
     this.props.dispatch(change("ClientBillingForm", "expiry_date", date));
   };
 

@@ -76,6 +76,7 @@ class BillingForm extends Component {
               <InputField
                 name="account_number"
                 label="Account number"
+                type="number"
                 handleFormField={handleFormField}
                 validate={[required]}
                 disabled={disabled}
@@ -111,8 +112,9 @@ class BillingForm extends Component {
               <InputField
                 name="card_number"
                 label="Card number"
+                type="number"
                 handleFormField={handleFormField}
-                validate={[required, number, maxLength20]}
+                validate={[required, maxLength20]}
                 disabled={disabled}
                 isRequired
               />
@@ -126,7 +128,7 @@ class BillingForm extends Component {
                       component={RenderDate}
                       // handleFormField={handleFormField}
                       initData={
-                        clientData.customer_billing
+                        clientData && clientData.customer_billing
                           ? clientData.customer_billing.expiry_date
                           : null
                       }
@@ -140,8 +142,9 @@ class BillingForm extends Component {
                     <InputField
                       name="ccv"
                       label="CVV"
+                      type="number"
                       handleFormField={handleFormField}
-                      validate={[required, number, maxLength4]}
+                      validate={[required, maxLength4]}
                       disabled={disabled}
                       isRequired
                     />
