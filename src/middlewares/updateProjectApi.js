@@ -43,7 +43,7 @@ export default store => next => action => {
         deliverables: payload["deliverables"],
         further_notes: payload["further_notes"],
         logo: logo && reader.result,
-        // attached_files_attributes: files,
+        attached_files_attributes: files,
         skill_ids
       }
     },

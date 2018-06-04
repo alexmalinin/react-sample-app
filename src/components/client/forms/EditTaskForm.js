@@ -122,6 +122,11 @@ class EditTaskForm extends Component {
     } = this.props;
 
     const { moduleList, specialists } = this.state;
+    const {
+      epicTask: { attached_files }
+    } = this.props;
+
+    console.log("epic", this.props.epicTask);
 
     return (
       <form onSubmit={handleSubmit}>
@@ -189,6 +194,8 @@ class EditTaskForm extends Component {
                 component={RenderFile}
                 dropzone
                 label="Attach files"
+                attached_files={attached_files}
+                submitSucceeded={this.props.submitSucceeded}
                 className="area"
                 padded
               />

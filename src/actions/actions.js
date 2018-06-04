@@ -80,6 +80,7 @@ import {
   SHOW_SPECIALIST_TASKS,
   UPDATE_PROJECT
 } from "../constans/constans";
+import axios from "axios";
 
 export function hideFooter() {
   const action = {

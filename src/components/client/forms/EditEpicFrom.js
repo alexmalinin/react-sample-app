@@ -90,6 +90,7 @@ class EditEpicForm extends Component {
                 label="Attach files"
                 className="area"
                 attached_files={attached_files}
+                submitSucceeded={this.props.submitSucceeded}
                 padded
               />
             </Grid.Column>
