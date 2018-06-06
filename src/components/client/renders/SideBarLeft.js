@@ -33,7 +33,15 @@ class SideBarLeft extends Component {
                     ) : (
                       <span className="projectNoLogo">{project.name[0]}</span>
                     )}
-                    <p className="projectName">{project.name}</p>
+                    {/* <p className="projectName">{project.name}</p> */}
+
+                    <div className="projectName">
+                      {project.name}
+                      {project.state &&
+                        project.state === "draft" && (
+                          <span className="projectStatus">(Draft)</span>
+                        )}
+                    </div>
                   </NavLink>
                   {currentProject == project.id && (
                     <div className="modules">

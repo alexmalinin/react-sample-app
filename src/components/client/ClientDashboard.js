@@ -262,6 +262,7 @@ class ClientDashboard extends Component {
           {sidebarCondition ? (
             <Fragment>
               <SideBarLeft
+                // allProjects={this.props.allProjects}
                 currentProject={
                   params["projectId"] || params["projectNewModule"]
                 }

@@ -5,7 +5,7 @@ import { PORT } from "../../../constans/constans";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { Message } from "semantic-ui-react";
 // temporal
-import { showProjectWithId } from "../../../actions/actions";
+import { showProjectWithId, showAllProjects } from "../../../actions/actions";
 import { connect } from "react-redux";
 
 class EditProject extends Component {
@@ -39,6 +39,7 @@ class EditProject extends Component {
           name: values["name"],
           description: values["description"],
           user_story: values["user_story"],
+          state: values["state"],
           business_requirements: values["business_requirements"],
           business_rules: values["business_rules"],
           deliverables: values["deliverables"],
@@ -60,6 +61,7 @@ class EditProject extends Component {
         // });
         // Try to keep succeed and dirty
         this.props.showProjectWithId(this.props.projectId);
+        this.props.showAllProjects();
       })
       .catch(error => {
         console.log(error);
@@ -91,5 +93,6 @@ class EditProject extends Component {
 }
 
 export default connect(({ projectWithId }) => ({ projectWithId }), {
-  showProjectWithId
+  showProjectWithId,
+  showAllProjects
 })(EditProject);

@@ -272,6 +272,19 @@ export default styled.div`
     }
   }
 
+  .arrow-down {
+    & + span {
+      display: inline-block;
+      position: absolute;
+      top: -8px;
+      right: 50%;
+      width: 1px;
+      height: 46px;
+      background-color: #fff;
+      opacity: 0.7;
+    }
+  }
+
   .arrow::after,
   .arrow::before {
     content: "";
@@ -287,6 +300,23 @@ export default styled.div`
 
   .arrow::before {
     transform: rotate(-45deg);
+  }
+  
+  .arrow-down::after,
+  .arrow-down::before {
+    content: "";
+    position: absolute;
+    top: 38px;
+    right: 50%;
+    width: 10px;
+    height: 1px;
+    background-color: #fff;
+    transform: rotate(141deg);
+    transform-origin: 100% 50%;
+  }
+
+  .arrow-down::before {
+    transform: rotate(38deg);
   }
 
   .completeLaterLink:hover {
