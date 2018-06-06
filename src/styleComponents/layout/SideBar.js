@@ -143,6 +143,14 @@ export const StyledBar = styled.aside`
             font-weight: 900;
             letter-spacing: 1px;
             transition: 0.4s;
+
+            .projectStatus {
+              position: absolute;
+              bottom: 0;
+              font-size: 12px;
+              color: #ccc;
+              text-transform: none;
+            }
           }
           .addProject {
             display: inline-block;

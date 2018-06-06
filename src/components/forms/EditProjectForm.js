@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, Form, Field, initialize } from "redux-form";
 import { TextArea } from "react-semantic-redux-form";
@@ -144,7 +144,9 @@ class EditProjectForm extends Component {
                     <p>
                       {name} Project{" "}
                       <span className="status">
-                        {state !== "discovery" && "On review"}
+                        {state !== "discovery" && state === "draft"
+                          ? "Draft"
+                          : "On review"}
                       </span>
                     </p>
                   </div>
@@ -209,20 +211,67 @@ class EditProjectForm extends Component {
                   />
                   {hasPermission && (
                     <div className="controls">
-                      <DvBlueButton
-                        loading={submitting}
-                        role="button"
-                        className="clear dv-blue"
-                        disabled={state === "discovery" && !dirty}
-                      >
-                        {state === "discovery"
-                          ? dirty
-                            ? "Save"
-                            : submitSucceeded
-                              ? "Saved"
-                              : "Up to date"
-                          : "Submit"}
-                      </DvBlueButton>
+                      {projectWithId && projectWithId.state === "draft" ? (
+                        <Fragment>
+                          <DvBlueButton
+                            loading={submitting}
+                            role="button"
+                            className="clear dv-blue"
+                            disabled={state === "discovery" && !dirty}
+                            onClick={() =>
+                              this.props.dispatch(
+                                change(
+                                  "EditProjectForm",
+                                  "state",
+                                  "recent_created"
+                                )
+                              )
+                            }
+                          >
+                            {state === "discovery"
+                              ? dirty
+                                ? "Save"
+                                : submitSucceeded
+                                  ? "Saved"
+                                  : "Up to date"
+                              : "Publish"}
+                          </DvBlueButton>
+                          <DvBlueButton
+                            loading={submitting}
+                            role="button"
+                            className="clear dv-blue"
+                            disabled={state === "discovery" && !dirty}
+                            onClick={() =>
+                              this.props.dispatch(
+                                change("EditProjectForm", "state", "draft")
+                              )
+                            }
+                          >
+                            {state === "discovery"
+                              ? dirty
+                                ? "Save"
+                                : submitSucceeded
+                                  ? "Saved"
+                                  : "Up to date"
+                              : "Update"}
+                          </DvBlueButton>
+                        </Fragment>
+                      ) : (
+                        <DvBlueButton
+                          loading={submitting}
+                          role="button"
+                          className="clear dv-blue"
+                          disabled={state === "discovery" && !dirty}
+                        >
+                          {state === "discovery"
+                            ? dirty
+                              ? "Save"
+                              : submitSucceeded
+                                ? "Saved"
+                                : "Up to date"
+                            : "Submit"}
+                        </DvBlueButton>
+                      )}
                     </div>
                   )}
                 </div>

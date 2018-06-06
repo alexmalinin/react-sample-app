@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { submit } from "redux-form";
+import { submit, change, registerField } from "redux-form";
 import { NavLink } from "react-router-dom";
 
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
@@ -35,11 +35,34 @@ class ProjectSubHeader extends Component {
         )}
         <div className="right">
           <button
-            onClick={() => this.props.dispatch(submit(form))}
+            onClick={() => {
+              this.props.dispatch(
+                change("ClientProjectForm", "state", "draft")
+              );
+
+              setTimeout(() => {
+                this.props.dispatch(submit(form));
+              }, 0);
+            }}
+            className="saveBtn"
+          >
+            <StyledSubHeaderLink className="rightLink arrow-down" />
+            Save
+            <span />
+          </button>
+
+          <button
+            onClick={() => {
+              this.props.dispatch(change("ClientProjectForm", "state", null));
+
+              setTimeout(() => {
+                this.props.dispatch(submit(form));
+              }, 0);
+            }}
             className="saveBtn"
           >
             <StyledSubHeaderLink className="rightLink arrow" />
-            Save
+            Submit
             <span />
           </button>
 
