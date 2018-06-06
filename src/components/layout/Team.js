@@ -22,6 +22,7 @@ class Team extends Component {
 
   componentWillMount() {
     const { showProjectTeam, team, showChannels } = this.props;
+
     showProjectTeam(team.project_id);
     showChannels(team.id);
   }

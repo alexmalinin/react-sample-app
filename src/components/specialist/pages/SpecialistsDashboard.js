@@ -228,6 +228,7 @@ class SpecialistsDashboard extends Component {
       changeUserType,
       history
     } = this.props;
+
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
@@ -321,6 +322,7 @@ class SpecialistsDashboard extends Component {
       specialistTeams,
       specialistProjects
     } = this.props;
+
     switch (page) {
       case "profile":
         document.title = "Profile | Digital Village";

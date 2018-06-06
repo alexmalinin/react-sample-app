@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { showAllTeams, showSpecialistTeams } from "../actions/actions";
+import { showClientTeams, showSpecialistTeams } from "../actions/actions";
 import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { CUSTOMER, CLIENT, SPECIALIST } from "../constans/constans";
+import { CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
 import { getUserRole } from "../helpers/functions";
 
 class Teams extends Component {
@@ -14,34 +14,35 @@ class Teams extends Component {
   }
 
   showTeams = () => {
-    const { showAllTeams, showSpecialistTeams } = this.props;
+    const { showClientTeams, showSpecialistTeams } = this.props;
 
     if (getUserRole() === CUSTOMER) {
-      showAllTeams();
-    } else if (getUserRole() === SPECIALIST) {
+      showClientTeams();
+    } else if (getUserRole() === S_CORE || getUserRole() === S_REDGUY) {
       showSpecialistTeams();
     }
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.createCustomTeam) {
-      if (this.props.createCustomTeam) {
-        if (this.props.createCustomTeam !== nextProps.createCustomTeam) {
-          this.showTeams();
-        }
-      } else this.showTeams();
+      if (this.props.createCustomTeam !== nextProps.createCustomTeam) {
+        this.showTeams();
+      }
     }
   }
 
   renderToDashboard() {
-    const { teams, changeUserType } = this.props;
+    const { teams, changeUserType, specialistData } = this.props;
 
     return (
       <ContainerLarge>
         <StyledTeamPage>
-          <TeamSubHeader userType={changeUserType} />
+          <TeamSubHeader
+            userType={changeUserType}
+            specialistId={specialistData && specialistData.id}
+          />
           <Container sidebarCondition>
-            {teams && teams.length !== 0 ? (
+            {teams && teams.length > 0 ? (
               teams.map((team, key) => <Team key={key} team={team} />)
             ) : (
               <div className="teamsPlaceholder">
@@ -59,10 +60,11 @@ class Teams extends Component {
 
     return (
       <div className="team-tab-project">
-        {teams && teams.length !== 0 ? (
-          teams.map((team, key) => (
-            <Team key={key} team={team} renderToRightSidebar />
-          ))
+        {teams && teams.length > 0 ? (
+          teams.map(
+            (team, key) =>
+              team && <Team key={key} team={team} renderToRightSidebar />
+          )
         ) : (
           <div className="teamsPlaceholder">
             <p>No teams for now</p>
@@ -82,9 +84,11 @@ class Teams extends Component {
 }
 
 export default connect(
-  ({ changeUserType, createCustomTeam }) => ({
+  ({ specialistData, changeUserType, createCustomTeam, specialistTeams }) => ({
+    specialistData,
     changeUserType,
-    createCustomTeam
+    createCustomTeam,
+    specialistTeams
   }),
-  { showAllTeams, showSpecialistTeams }
+  { showClientTeams, showSpecialistTeams }
 )(Teams);
