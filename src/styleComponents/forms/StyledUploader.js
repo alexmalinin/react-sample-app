@@ -157,7 +157,9 @@ export default styled.div`
     height: 40px;
     margin-bottom: 10px;
     padding: 5px;
+    padding-right: 15px;
     position: relative;
+    cursor: pointer;
 
     .fileIcon {
       display: flex;
@@ -171,6 +173,12 @@ export default styled.div`
       i {
         font-size: 22px;
         color: ${colors.darkBlue};
+      }
+    }
+
+    &.active {
+      .fileIcon:hover i:before {
+        content: "\f358";
       }
     }
 
@@ -246,6 +254,23 @@ export default styled.div`
         ${boxShadow.dark};
       }
     }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+
+    &:hover .file-delete {
+      display: block;
+    }
+
+    & .file-delete {
+      position: absolute;
+      font-size: 10px;
+      color: #666;
+      right: 5px;
+      top: 0;
+      display: none;
+    }
   }
 
   .uploadFile {
@@ -283,6 +308,16 @@ export default styled.div`
       &::after {
         background-color: ${primaryColors.accentBackground};
       }
+    }
+  }
+
+  .errorMessage {
+    color: #db4538;
+    width: 100%;
+    padding: 5px;
+
+    span {
+      width: 100%;
     }
   }
 

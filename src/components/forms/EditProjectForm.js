@@ -37,6 +37,7 @@ class EditProjectForm extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.projectWithId && nextProps.projectId) {
       if (nextProps.projectWithId.id !== +nextProps.projectId) {
+        this.props.showProjectWithId(nextProps.projectId);
       }
     }
   }
@@ -96,6 +97,10 @@ class EditProjectForm extends Component {
                       name="file"
                       type="text"
                       component={RenderFile}
+                      projectId={projectId}
+                      attached_files={
+                        projectWithId && projectWithId.attached_files
+                      }
                       disabled={!hasPermission}
                       className="projectFiles"
                     />

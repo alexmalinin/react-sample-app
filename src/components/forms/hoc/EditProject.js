@@ -22,6 +22,15 @@ class EditProject extends Component {
         return skill.value;
       });
 
+    let files = values.file
+      ? values.file.split("||").map(file => {
+          return {
+            document: file,
+            entity_type: "Project"
+          };
+        })
+      : [];
+
     return Axios({
       method: "PUT",
       url: `${PORT}/api/v1/projects/${this.props.projectId}`,
@@ -34,6 +43,7 @@ class EditProject extends Component {
           business_rules: values["business_rules"],
           deliverables: values["deliverables"],
           further_notes: values["further_notes"],
+          attached_files_attributes: files,
           skill_ids
         },
         review: this.props.projectWithId.state === "reviewed_by_admin"

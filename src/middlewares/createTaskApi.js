@@ -9,6 +9,15 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
 
+  let files = payload.file
+    ? payload.file.split("||").map(file => {
+        return {
+          document: file,
+          entity_type: "Task"
+        };
+      })
+    : [];
+
   let specialist_ids = [];
   payload["specIds"] &&
     payload["specIds"].split(",").forEach(id => specialist_ids.push(+id));
@@ -24,9 +33,9 @@ export default store => next => action => {
         state: 0,
         specialist_ids,
         eta: payload["eta"],
-        cost: payload["cost"]
+        cost: payload["cost"],
+        attached_files_attributes: files
       },
-
       attached_files_attributes: {
         document: payload["file"]
       }

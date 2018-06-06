@@ -7,6 +7,7 @@ import {
   SPECIALIST
 } from "../constans/constans";
 import jwtDecode from "jwt-decode";
+import { deleteAttachedFile } from "../actions/actions";
 
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window

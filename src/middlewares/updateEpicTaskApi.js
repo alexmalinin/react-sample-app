@@ -9,6 +9,15 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
 
+  let files = payload.file
+    ? payload.file.split("||").map(file => {
+        return {
+          document: file,
+          entity_type: "Project"
+        };
+      })
+    : [];
+
   axios({
     method: "PUT",
     url: updateEpicTask,
@@ -19,7 +28,8 @@ export default store => next => action => {
         epic_id: epic,
         eta: payload["eta"],
         state: payload["state"],
-        cost: payload["cost"]
+        cost: payload["cost"],
+        attached_files_attributes: files
       }
     },
 
