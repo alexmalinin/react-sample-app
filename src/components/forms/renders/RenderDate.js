@@ -10,7 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 class RenderDate extends React.Component {
   state = {
-    date: this.props.initData ? moment(this.props.initData) : moment()
+    date: moment(this.props.initData, "YYYY-MM-DD").isValid()
+      ? moment(this.props.initData)
+      : moment()
   };
 
   componentWillMount() {
