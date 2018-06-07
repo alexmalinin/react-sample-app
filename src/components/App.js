@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -24,6 +24,7 @@ import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
 import { getUserType, getUserRole } from "../helpers/functions";
 import { S_PASSIVE } from "../constans/constans";
 import PrivateRoute from "../decorators/PrivateRoute";
+import AssignRoute from "../decorators/AssignRoute";
 
 class App extends Component {
   render() {
@@ -69,6 +70,7 @@ class App extends Component {
                   )
                 }
               />
+
               <Route path="/home" component={Home} />
               <Route path="/contact" component={Contact} />
               <Route path="/post_project" component={PostProject} />
@@ -102,6 +104,16 @@ class App extends Component {
                 component={Dashboard}
               />
               <PrivateRoute path="/dashboard/:page" component={Dashboard} />
+
+              <AssignRoute
+                path="/api/v1/projects/:projectId/teams/:teamId/assign/:specialistId"
+                assignPath="/dashboard/project/:projectId"
+              />
+
+              <AssignRoute
+                path="/api/v1/teams/:teamId/assign/:specialistId"
+                assignPath="/dashboard/teams"
+              />
 
               <Route path="/404" component={NotFound} />
               <Route path="*" component={NotFound} />

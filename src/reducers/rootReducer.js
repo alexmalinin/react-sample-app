@@ -24,6 +24,7 @@ import updateProject from "./updateProjectReducer";
 import allProjects from "./showAllProjectsReducer";
 import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
+import allCustomTeams from "./showCustomTeamsReducer";
 import specialistTasks from "./showSpecialistTasksReducer";
 import projectWithId from "./showProjectWithIdReducer";
 import createEpic from "./createProjectEpicReducer";
@@ -80,6 +81,7 @@ export default combineReducers({
   allProjects,
   specialistProjects,
   specialistTeams,
+  allCustomTeams,
   specialistTasks,
   projectWithId,
   createEpic,

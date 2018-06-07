@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { IMAGE_PORT } from "../../constans/constans";
 import { assignSpecialistToTeam } from "../../actions/actions";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
+import InviteSpecialistModal from "../modals/InviteSpecialistModal";
 
 class SpecialistCard extends Component {
   render() {
@@ -20,9 +21,9 @@ class SpecialistCard extends Component {
         skills,
         experience_level_id
       },
-      assignSpecialistToTeam,
-      projectWithId,
-      experienceLevels
+      experienceLevels,
+      projectId,
+      handleMessage
     } = this.props;
 
     return (
@@ -68,20 +69,11 @@ class SpecialistCard extends Component {
           )}
         </div>
         <div className="row buttons">
-          <DvBlueButton
-            role="button"
-            className="dv-blue"
-            fluid
-            // onClick={e =>
-            //   assignSpecialistToTeam(
-            //     projectWithId.id,
-            //     projectWithId.team.id,
-            //     id
-            //   )
-            // }
-          >
-            Add to team
-          </DvBlueButton>
+          <InviteSpecialistModal
+            specialistId={id}
+            projectId={projectId}
+            handleMessage={handleMessage}
+          />
           <NavLink
             className="ui button dv-blue inverted"
             to={`/dashboard/specialist/${id}`}

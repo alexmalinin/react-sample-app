@@ -41,7 +41,7 @@ export default styled(Modal)`
           padding: 0;
         }
       }
-      .dv-blue {
+      .dv-blue:not(.fluid) {
         position: absolute;
         bottom: 0;
         right: 14px;

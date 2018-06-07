@@ -53,6 +53,12 @@ export default styled.div`
                 color: ${primaryColors.darkGrey};
               }
 
+              .project-team {
+                display: flex;
+                flex-flow: row wrap;
+                align-items: center;
+              }
+
               .skillsWrapper {
                 display: flex;
                 flex-flow: row wrap;
@@ -85,6 +91,13 @@ export default styled.div`
               .projectFiles {
                 & > p {
                   margin-bottom: 0;
+                }
+              }
+
+              .uploadFile {
+                &:before,
+                &:after {
+                  background-color: #ddd;
                 }
               }
             }

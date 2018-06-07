@@ -6,7 +6,9 @@ import { Grid } from "semantic-ui-react";
 import {
   showProjectWithId,
   getProjectTypes,
-  getSkills
+  getSkills,
+  showProjectTeam,
+  showCustomTeams
 } from "../../actions/actions";
 import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
 import RenderText from "./renders/RenderText";
@@ -15,6 +17,8 @@ import RenderSkillsArea from "./renders/RenderSkillsArea";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
 import Axios from "axios";
+import AssignTeamDropdown from "../layout/AssignTeamDropdown";
+import PersonTile from "../layout/PersonTile";
 
 class EditProjectForm extends Component {
   state = {
@@ -22,7 +26,14 @@ class EditProjectForm extends Component {
   };
 
   componentWillMount() {
+    const { projectWithId } = this.props;
+
     this.props.getProjectTypes();
+    this.props.showCustomTeams();
+
+    if (projectWithId) {
+      this.props.showProjectTeam(projectWithId.id);
+    }
   }
 
   getSkills = () => {
@@ -63,8 +74,10 @@ class EditProjectForm extends Component {
       submitting,
       dirty,
       skills,
-      submitSucceeded
+      submitSucceeded,
+      projectTeam
     } = this.props;
+
     const { logo = {}, name = "", customer = {}, project_type, state } =
       projectWithId || {};
 
@@ -88,7 +101,9 @@ class EditProjectForm extends Component {
         break;
     }
 
-    console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
+    // console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
+
+    const team = (projectTeam && projectTeam.specialists) || [];
 
     return (
       <StyledProject
@@ -157,6 +172,35 @@ class EditProjectForm extends Component {
                         </div>
                       </React.Fragment>
                     )}
+                  </div>
+                  <div className="asideInfo">
+                    <p>
+                      <span className="label">Team members:</span>
+                    </p>
+                    <div className="project-team">
+                      {team &&
+                        team.map((person, index) => {
+                          return (
+                            <PersonTile
+                              key={index}
+                              specialist={person}
+                              // handleRemove={this.handleAssign}
+                              removeTitle="project"
+                              hideDelete
+                              // userType={changeUserType}
+                            />
+                          );
+                        })}
+                      {getUserRole() === S_REDGUY && (
+                        <AssignTeamDropdown
+                          specialists={team}
+                          allTeams={this.props.allCustomTeams}
+                          handleAssignTeam={this.props.handleAssignTeam}
+                          userType={[S_REDGUY]}
+                          closeOnChange={true}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </Grid.Column>
@@ -299,12 +343,21 @@ EditProjectForm = reduxForm({
 })(EditProjectForm);
 
 const mapStateToProps = (state, ownProps) => {
-  const { projectWithId, updateProject, projectTypes, skills } = state;
+  const {
+    projectWithId,
+    updateProject,
+    projectTypes,
+    skills,
+    allCustomTeams,
+    projectTeam
+  } = state;
   return {
     projectWithId,
     updateProject,
     projectTypes,
     skills,
+    projectTeam,
+    allCustomTeams,
     initialValues: projectWithId
   };
 };
@@ -312,5 +365,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
   showProjectWithId,
   getProjectTypes,
-  getSkills
+  getSkills,
+  showProjectTeam,
+  showCustomTeams
 })(EditProjectForm);

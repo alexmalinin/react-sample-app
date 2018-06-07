@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   ContainerLarge,
@@ -7,8 +7,12 @@ import {
 import DashboardSubHeader from "../../layout/DashboardSubHeader";
 import SearchFilterForm from "../../client/forms/SearchFilterForm";
 import SpecialistCard from "../../layout/SpecialistCard";
-import { assignSpecialistToTeam } from "../../../actions/actions";
-import { Grid } from "semantic-ui-react";
+import {
+  assignSpecialistToTeam,
+  showCustomTeams
+} from "../../../actions/actions";
+import { Grid, Message } from "semantic-ui-react";
+import { S_Message } from "../../../styleComponents/layout/S_Message";
 
 class SearchSpecialist extends Component {
   state = {
@@ -17,12 +21,22 @@ class SearchSpecialist extends Component {
         min: 0,
         max: 100
       }
-    }
+    },
+    selectedProject: null,
+    renderMessage: false,
+    renderErrorMessage: false
   };
 
   componentWillMount() {
+    this.props.showCustomTeams();
     // this.props.showAllSpecialists("passive", "active", "core", "red_guy");
   }
+
+  handleMessage = (name, value) => {
+    this.setState({
+      [name]: value
+    });
+  };
 
   handleChange = (event, data) => {
     this.setState({
@@ -44,31 +58,56 @@ class SearchSpecialist extends Component {
     });
   };
 
+  handleChangeProject = value => {
+    this.setState({ selectedProject: value });
+  };
+
   render() {
     const { searchResult } = this.props;
-    const { filters } = this.state;
+    const {
+      filters,
+      selectedProject,
+      renderMessage,
+      renderErrorMessage
+    } = this.state;
 
     return (
-      <ContainerLarge indentTop>
-        {/* <DashboardSubHeader /> */}
-        <Container fluid indentTopXs sidebarCondition>
-          <SearchFilterForm
-            handleChange={this.handleChange}
-            clearFilters={this.clearFilters}
-            filters={filters}
-          />
-        </Container>
-        <Container sidebarCondition dashboardContainer>
-          {searchResult && (
-            <FilteredList filters={filters} specialists={searchResult} />
-          )}
-        </Container>
-      </ContainerLarge>
+      <Fragment>
+        <ContainerLarge indentTop>
+          {/* <DashboardSubHeader /> */}
+          <Container fluid indentTopXs sidebarCondition>
+            <SearchFilterForm
+              handleChange={this.handleChange}
+              handleChangeProject={this.handleChangeProject}
+              clearFilters={this.clearFilters}
+              filters={filters}
+            />
+          </Container>
+          <Container sidebarCondition dashboardContainer>
+            {searchResult && (
+              <FilteredList
+                filters={filters}
+                specialists={searchResult}
+                projectId={selectedProject}
+                handleMessage={this.handleMessage}
+              />
+            )}
+          </Container>
+        </ContainerLarge>
+        <S_Message positive profile="true" data-show={renderMessage}>
+          <Message.Header>Success!</Message.Header>
+          <p>Specialist was invited</p>
+        </S_Message>
+        <S_Message negative profile="true" data-show={renderErrorMessage}>
+          <Message.Header>Error!</Message.Header>
+          <p>Something went wrong, please try again</p>
+        </S_Message>
+      </Fragment>
     );
   }
 }
 
-const FilteredList = ({ filters, specialists }) => {
+const FilteredList = ({ filters, specialists, projectId, handleMessage }) => {
   const industry_area_id = specialist =>
     filters.industry_area_id
       ? specialist.industry_area_id === filters.industry_area_id
@@ -98,7 +137,12 @@ const FilteredList = ({ filters, specialists }) => {
           .filter(project_type)
           .map((specialist, key) => (
             <Grid.Column key={key}>
-              <SpecialistCard key={key} specialist={specialist} />
+              <SpecialistCard
+                key={key}
+                specialist={specialist}
+                projectId={projectId}
+                handleMessage={handleMessage}
+              />
             </Grid.Column>
           ))}
       </Grid.Row>
@@ -106,6 +150,6 @@ const FilteredList = ({ filters, specialists }) => {
   );
 };
 
-export default connect(({ searchResult }) => ({ searchResult }), {})(
-  SearchSpecialist
-);
+export default connect(({ searchResult }) => ({ searchResult }), {
+  showCustomTeams
+})(SearchSpecialist);
