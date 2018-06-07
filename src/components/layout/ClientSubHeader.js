@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
+import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import ProgressBars from "../layout/ProgressBar";
-import CompleteLaterModal from "../modals/CompleteLaterModal";
 import { getAllUrlParams } from "../../helpers/functions";
 
 class SubHeader extends Component {
@@ -41,16 +42,16 @@ class SubHeader extends Component {
         <div>
           {page !== "profile" ? (
             !this.state.isEditing ? (
-              isEdited ? (
-                <CompleteLaterModal user={user} page={page} />
-              ) : (
-                <SubHeaderLinkWrap
-                  url="/dashboard/"
-                  className="rightLink arrow"
-                >
-                  Complete Later
-                </SubHeaderLinkWrap>
-              )
+              // <SubHeaderLinkWrap
+              //   url="/dashboard/"
+              //   label="Complete Later"
+              //   className="rightLink arrow"
+              // />
+              <NavLink exact className="button" to="/dashboard/">
+                <StyledSubHeaderLink className="rightLink arrow" />
+                Complete Later
+                <span />
+              </NavLink>
             ) : null
           ) : null}
         </div>

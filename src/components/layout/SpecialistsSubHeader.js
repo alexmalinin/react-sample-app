@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
+import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import ProgressBars from "../layout/ProgressBar";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import { getAllUrlParams, getUserRole } from "../../helpers/functions";
@@ -48,16 +50,28 @@ class SubHeader extends Component {
         <div>
           {!this.state.isEditing ? (
             page === "profile" || page === "industry" ? null : (
-              <SubHeaderLinkWrap
-                url={
+              // <SubHeaderLinkWrap
+              //   url={
+              //     getUserRole() === S_PASSIVE
+              //       ? "/dashboard/about"
+              //       : "/dashboard/"
+              //   }
+              //   label="Complete Later"
+              //   className="rightLink arrow"
+              // />
+              <NavLink
+                exact
+                className="button"
+                to={
                   getUserRole() === S_PASSIVE
                     ? "/dashboard/about"
                     : "/dashboard/"
                 }
-                className="rightLink arrow"
               >
+                <StyledSubHeaderLink className="rightLink arrow" />
                 Complete Later
-              </SubHeaderLinkWrap>
+                <span />
+              </NavLink>
             )
           ) : null}
         </div>

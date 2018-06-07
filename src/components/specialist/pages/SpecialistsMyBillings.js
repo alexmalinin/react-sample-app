@@ -21,9 +21,16 @@ class SpecialistsMyBillings extends Component {
       renderMessage: false,
       renderErrorMessage: false,
       nextStep: false,
-      isEditing: false
+      isEditing: false,
+      nextLocation: false
     };
   }
+
+  clearLocation = () => {
+    this.setState({
+      nextLocation: false
+    });
+  };
 
   componentWillMount() {
     this.props.showSpecialistData();
@@ -31,6 +38,10 @@ class SpecialistsMyBillings extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
+  }
+
+  componentWillUnmount() {
+    this.props.showSpecialistData();
   }
 
   collectData(values) {
@@ -80,18 +91,30 @@ class SpecialistsMyBillings extends Component {
           onSubmit={this.submit}
         />
 
-        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
+        <NavigationPrompt
+          when={(crntLocation, nextLocation) => {
+            this.setState({ nextLocation: nextLocation.pathname });
+            return this.state.isEdited && !this.state.nextStep;
+          }}
+        >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
-              isSubmitted={this.state.nextStep}
+              isOpen={true}
               formId="SpecialistBillingForm"
+              clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep && <Redirect to="about" />}
+        {this.state.nextStep ? (
+          this.state.nextLocation === "/dashboard/company" ? (
+            <Redirect to="company" />
+          ) : (
+            <Redirect to="about" />
+          )
+        ) : null}
       </div>
     );
   }

@@ -78,8 +78,9 @@ class ClientProfile extends Component {
               >
                 {({ onConfirm, onCancel }) => (
                   <ConfirmationModal
-                    isSubmitted={this.state.nextStep}
+                    isOpen={true}
                     formId="RenderProfileForm"
+                    clearLocation={this.clearLocation}
                     onCancel={onCancel}
                     onConfirm={onConfirm}
                   />
@@ -93,7 +94,6 @@ class ClientProfile extends Component {
                   <Redirect to="company" />
                 )
               ) : null}
-              {/* {this.state.nextStep && <Redirect to="company" />} */}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

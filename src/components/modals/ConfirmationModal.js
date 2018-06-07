@@ -23,25 +23,30 @@ class ConfirmationModal extends Component {
     let close = document.querySelector("i.close.icon");
     close.click();
 
+    this.props.clearLocation();
+
     if (onCancel) {
       onCancel();
     }
   };
 
   submitModal = ev => {
-    const { dispatch, formId } = this.props;
+    const { dispatch, formId, onCancel } = this.props;
 
     dispatch(submit(formId));
-    this.closeModal(ev);
+
+    if (onCancel) {
+      onCancel();
+    }
   };
 
   render() {
-    const { isSubmitted, submitting } = this.props;
+    const { submitting } = this.props;
 
     return (
       <Modal
         size="tiny"
-        open={!isSubmitted}
+        open={this.props.isOpen}
         onClose={this.closeModal}
         closeIcon
       >

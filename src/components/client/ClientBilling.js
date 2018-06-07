@@ -36,9 +36,16 @@ class ClientBilling extends Component {
       renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
-      isEdited: false
+      isEdited: false,
+      nextLocation: false
     };
   }
+
+  clearLocation = () => {
+    this.setState({
+      nextLocation: false
+    });
+  };
 
   collectData(values) {
     const {
@@ -107,11 +114,17 @@ class ClientBilling extends Component {
           handleFormChange={this.handleFormChange}
         />
 
-        <NavigationPrompt when={this.state.isEdited && !this.state.nextStep}>
+        <NavigationPrompt
+          when={(crntLocation, nextLocation) => {
+            this.setState({ nextLocation: nextLocation.pathname });
+            return this.state.isEdited && !this.state.nextStep;
+          }}
+        >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
-              isSubmitted={this.state.nextStep}
+              isOpen={true}
               formId="ClientBillingForm"
+              clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
@@ -121,11 +134,12 @@ class ClientBilling extends Component {
         {this.state.nextStep ? (
           isEditing ? (
             <Redirect to="about" />
+          ) : this.state.nextLocation === "/dashboard/company" ? (
+            <Redirect to="company" />
           ) : (
             <Redirect to="board" />
           )
         ) : null}
-        {/* {this.state.nextStep && <Redirect to="board" />} */}
       </div>
     );
   }
