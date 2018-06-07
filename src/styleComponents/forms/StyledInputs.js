@@ -173,6 +173,10 @@ export default styled.div`
           cursor: text;
         }
       }
+
+      &.disabled {
+        opacity: 1;
+      }
     }
   }
 `;

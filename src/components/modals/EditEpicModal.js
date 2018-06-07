@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Modal, Message } from "semantic-ui-react";
 import EditEpicForm from "../client/forms/EditEpicFrom";
 import axios from "axios";
-import { PORT, CUSTOMER, S_REDGUY } from "../../constans/constans";
+import { PORT, CUSTOMER, S_CORE, S_REDGUY } from "../../constans/constans";
 import { S_Message } from "../../styleComponents/layout/S_Message";
 import StyledModal from "../../styleComponents/layout/StyledModal";
 import { oneOfRoles } from "../../helpers/functions";
@@ -16,7 +16,7 @@ class EditEpicModal extends Component {
   };
 
   open = () => {
-    if (oneOfRoles(CUSTOMER, S_REDGUY)) {
+    if (oneOfRoles(CUSTOMER, S_CORE, S_REDGUY)) {
       this.setState({ opened: true });
     }
   };

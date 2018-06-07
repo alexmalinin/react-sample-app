@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { deleteProjectEpic, showAllEpics } from "../../actions/actions";
 import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
-import { S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { oneOfRoles } from "../../helpers/functions";
 import { S_Message } from "../../styleComponents/layout/S_Message";
 
@@ -169,7 +169,7 @@ class Module extends Component {
               <span>$20,000</span>
             </div>
           </div>
-          {oneOfRoles(CUSTOMER, S_REDGUY) && (
+          {oneOfRoles(CUSTOMER, S_CORE, S_REDGUY) && (
             <div className="dropdown">
               <a tabIndex="1" className="trigger">
                 ...

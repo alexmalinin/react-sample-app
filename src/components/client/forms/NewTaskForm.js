@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
-import { required, date } from "../../../helpers/validate";
+import { required, date, maxLength260 } from "../../../helpers/validate";
 import CostField from "../../forms/renders/CostField";
 import {
   SubmitBtn,
@@ -171,7 +171,7 @@ class NewTaskForm extends Component {
                 label="Summary"
                 component={RenderTextArea}
                 className="area"
-                validate={[required]}
+                validate={[required, maxLength260]}
                 isRequired
                 padded
               />

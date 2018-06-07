@@ -8,7 +8,8 @@ import RenderFile from "../../forms/renders/RenderFile";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
 import axios from "axios";
-import { PORT } from "../../../constans/constans";
+import { PORT, S_REDGUY } from "../../../constans/constans";
+import { getUserRole } from "../../../helpers/functions";
 
 class EditEpicForm extends Component {
   handleEtaForm = date => {
@@ -43,8 +44,10 @@ class EditEpicForm extends Component {
       epic: { attached_files, eta }
     } = this.props;
 
+    const disabled = getUserRole() === S_REDGUY ? false : true;
+
     return (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} disabled={disabled}>
         <Grid>
           <Grid.Row>
             <h4 className="modalHeader">Module {number}</h4>
@@ -58,6 +61,7 @@ class EditEpicForm extends Component {
                 placeholder="Choose name for your module"
                 component={RenderField}
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
 
               <Field
@@ -68,6 +72,7 @@ class EditEpicForm extends Component {
                 autoHeight
                 component={RenderText}
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="user_story"
@@ -78,6 +83,7 @@ class EditEpicForm extends Component {
                 label="User Story"
                 large
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="deliverables"
@@ -88,6 +94,7 @@ class EditEpicForm extends Component {
                 label="Acceptance criteria"
                 large
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="notes"
@@ -98,6 +105,7 @@ class EditEpicForm extends Component {
                 label="Solution design"
                 large
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="business_requirements"
@@ -108,6 +116,7 @@ class EditEpicForm extends Component {
                 label="Business Requirements"
                 large
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="business_rules"
@@ -117,6 +126,7 @@ class EditEpicForm extends Component {
                 placeholder="Type your business rules here"
                 label="Business Rules"
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
             </Grid.Column>
             <Grid.Column computer={6}>
@@ -130,6 +140,7 @@ class EditEpicForm extends Component {
                 required
                 initData={eta}
                 handleEtaForm={this.handleEtaForm}
+                disabled={disabled}
               />
               <Field
                 name="file"
@@ -140,6 +151,7 @@ class EditEpicForm extends Component {
                 submitSucceeded={this.props.submitSucceeded}
                 dropzone
                 small
+                disabled={disabled}
               />
               {/* {oneOfRoles(CUSTOMER, S_REDGUY) && (
                 <DvBlueButton

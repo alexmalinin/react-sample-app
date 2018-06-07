@@ -13,6 +13,7 @@ import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import RenderSelectField from "../../forms/renders/RenderSelectField";
 import axios from "axios";
 import { PORT, S_REDGUY } from "../../../constans/constans";
+import { getUserRole } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 
@@ -81,6 +82,8 @@ class EditTaskForm extends Component {
     } = this.props;
     const { specialists } = this.state;
 
+    const disabled = getUserRole() === S_REDGUY ? false : true;
+
     return (
       <Form onSubmit={handleSubmit}>
         <Grid>
@@ -96,6 +99,7 @@ class EditTaskForm extends Component {
                 component={RenderField}
                 onKeyDown={e => console.log(e.keyCode)}
                 onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
               />
               <Field
                 name="description"
@@ -104,6 +108,7 @@ class EditTaskForm extends Component {
                 component={RenderText}
                 onSelfSubmit={this.handleSubmit}
                 autoHeight
+                disabled={disabled}
               />
             </Grid.Column>
 
@@ -119,6 +124,7 @@ class EditTaskForm extends Component {
                       className="transparent clear estimate"
                       initData={this.props.epicTask.eta}
                       handleEtaForm={this.handleEtaForm}
+                      disabled={disabled}
                     />
                   </Grid.Column>
                   <Grid.Column>
@@ -132,6 +138,7 @@ class EditTaskForm extends Component {
                       selectOnBlur={false}
                       handleSubmit={this.handleSubmit}
                       fluid
+                      disabled={disabled}
                     />
                   </Grid.Column>
                 </Grid.Row>
@@ -141,9 +148,11 @@ class EditTaskForm extends Component {
                 type="text"
                 label="Attach files"
                 component={RenderFile}
+                attached_files={attached_files}
                 dropzone
                 submitSucceeded={this.props.submitSucceeded}
                 small
+                disabled={disabled}
               />
               <div className="specialistsWrapper">
                 {projectTeam &&

@@ -208,17 +208,18 @@ class RenderFile extends Component {
         <p>{label}</p>
         <span />
 
-        {dropzone && (
-          <Dropzone
-            className="dropzone"
-            activeClassName="active"
-            onDrop={this.onDrop}
-            accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
-          >
-            <p>Drop file here or click to select</p>
-            {!rest.small && <i className="fa fa-cloud-download-alt" />}
-          </Dropzone>
-        )}
+        {dropzone &&
+          !disabled && (
+            <Dropzone
+              className="dropzone"
+              activeClassName="active"
+              onDrop={this.onDrop}
+              accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
+            >
+              <p>Drop file here or click to select</p>
+              {!rest.small && <i className="fa fa-cloud-download-alt" />}
+            </Dropzone>
+          )}
 
         {this.state.files.map((file, key) => {
           return (
@@ -294,14 +295,14 @@ class RenderFile extends Component {
           type="text"
         />
 
-        <div className="errorMessage">
-          {this.state.error ? (
+        {this.state.error ? (
+          <div className="errorMessage">
             <span>
               Invalid file type. <br />Allowed file extensions: .txt, .rtf,
               .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png
             </span>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </StyledUploader>
     );
   }

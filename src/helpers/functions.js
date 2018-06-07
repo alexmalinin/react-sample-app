@@ -169,17 +169,24 @@ export function getUserId() {
   }
 }
 
-export function getYearsForSelect(start = 1960, end = 2025) {
+export function getYearsForSelect(start = 1960, end) {
   var startYear = start,
     years = [];
 
-  while (startYear <= end) {
+  while (startYear <= new Date().getFullYear()) {
     let item = {
       label: startYear,
       value: startYear
     };
     startYear++;
     years.push(item);
+  }
+
+  if (end) {
+    years.push({
+      label: "Present",
+      value: "Present"
+    });
   }
 
   return years;
