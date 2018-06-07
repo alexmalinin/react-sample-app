@@ -8,12 +8,13 @@ import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-class RenderDate extends React.Component {
+class RenderField extends React.Component {
   state = {
     date: this.props.initData ? moment(this.props.initData) : moment()
   };
 
   componentWillMount() {
+    console.log("componentWillMount", this.props);
     this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
   }
 
@@ -90,4 +91,4 @@ class RenderDate extends React.Component {
   }
 }
 
-export default RenderDate;
+export default RenderField;

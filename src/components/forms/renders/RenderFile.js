@@ -193,7 +193,8 @@ class RenderFile extends Component {
       disabled,
       padded,
       dropzone,
-      className
+      className,
+      ...rest
     } = this.props;
 
     return (
@@ -202,6 +203,7 @@ class RenderFile extends Component {
         dropzone={dropzone}
         padded={padded}
         className={className}
+        {...rest}
       >
         <p>{label}</p>
         <span />
@@ -214,7 +216,7 @@ class RenderFile extends Component {
             accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
           >
             <p>Drop file here or click to select</p>
-            <i className="fa fa-cloud-download-alt" />
+            {!rest.small && <i className="fa fa-cloud-download-alt" />}
           </Dropzone>
         )}
 

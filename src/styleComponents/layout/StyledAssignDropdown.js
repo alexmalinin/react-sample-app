@@ -54,8 +54,7 @@ export const StyledAssignDropdown = styled.div`
     ${props =>
       props.renderToModal &&
       `
-      margin-left: 30px;
-      margin-top: 10px;
+      margin: 10px;
       display: flex;
       align-items: center;
     `}
@@ -66,6 +65,10 @@ export const StyledAssignDropdown = styled.div`
       .plus {
         color: #ddd;
       }
+
+      .label{
+        color: #666;
+      }
     }
 
     span{
@@ -74,21 +77,22 @@ export const StyledAssignDropdown = styled.div`
 
     .plus {
       display: inline-block;
-      height: ${props => (props.renderToModal ? "40px" : "30px")};
-      width: ${props => (props.renderToModal ? "40px" : "30px")};
+      height: ${props => (props.renderToModal ? "48px" : "30px")};
+      width: ${props => (props.renderToModal ? "48px" : "30px")};
       border: 1px solid #ddd;
       border-radius: 50%;
 
       text-align: center;
       font-size: ${props => (props.renderToModal ? "36px" : "24px")};
-      line-height: ${props => (props.renderToModal ? "32px" : "24px")};
+      line-height: ${props => (props.renderToModal ? "42px" : "24px")};
       letter-spacing: -1px;
-      margin-right: 5px;
+      margin-right: ${props => (props.renderToModal ? "8px" : "5px")};
       font-weight: 300;
     }
 
     .label{
-      font-size: 18px;
+      font-size: ${props => (props.renderToModal ? "1.2em" : "18px")};
+      color: #999;
     }
   }
 
@@ -373,9 +377,11 @@ export const StyledPersonTile = styled.div`
 export const StyledSpecialist = styled.div`
   .ui.grid {
     .row {
-      margin: 10px 20px 10px 20px;
+      margin: 10px 0;
       border-radius: 5px;
       transition: 0.3s;
+      padding: 3px 0;
+
       &:hover {
         background: #f0f0f0;
         button {
@@ -385,15 +391,15 @@ export const StyledSpecialist = styled.div`
           }
         }
       }
-      padding: 10px 0;
+
       .column {
         display: flex;
         align-items: center;
         padding-left: 0;
         img {
           margin-left: 10px;
-          height: 40px;
-          width: 40px;
+          height: 48px;
+          width: 48px;
           object-fit: contain;
           background: #fff;
           border-radius: 50%;
@@ -401,10 +407,11 @@ export const StyledSpecialist = styled.div`
         p {
           margin-left: 10px;
           margin-bottom: 0;
-          font-size: 1.3em;
+          font-size: 1.2em;
           color: #666;
         }
       }
+
       button {
         position: absolute;
         right: 0;
@@ -419,9 +426,11 @@ export const StyledSpecialist = styled.div`
         transition: inherit;
         cursor: pointer;
         outline: none;
+
         &:hover {
           background: #ccc;
         }
+
         &::before,
         &::after {
           content: "";
@@ -432,9 +441,11 @@ export const StyledSpecialist = styled.div`
           width: 2px;
           background: #fff;
         }
+
         &::before {
           transform: rotate(45deg);
         }
+
         &::after {
           transform: rotate(-45deg);
         }

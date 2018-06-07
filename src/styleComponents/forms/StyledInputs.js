@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { secondaryColors, colors, boxShadow } from "../constants/colors";
+import {
+  secondaryColors,
+  colors,
+  boxShadow,
+  primaryColors
+} from "../constants/colors";
 
 export default styled.div`
   border-radius: 0 !important;
@@ -123,5 +128,51 @@ export default styled.div`
 
   .Select-value-label {
     color: #ccc !important;
+  }
+
+  &.transparent {
+    label {
+      left: 7px;
+    }
+
+    &.clear {
+      label {
+        left: 0;
+      }
+
+      .ui.input {
+        input {
+          --inputbdcolor: ${primaryColors.lightGrey};
+        }
+      }
+    }
+
+    .ui.input {
+      input {
+        padding: 6px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        resize: none;
+        min-height: auto;
+        letter-spacing: normal;
+        color: ${primaryColors.accentGrey};
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 2em;
+        border: 1px solid var(--inputbdcolor, transparent);
+        border-radius: 5px;
+        cursor: pointer;
+
+        &::placeholder {
+          color: ${primaryColors.accentGrey};
+        }
+
+        &:focus {
+          --inputbdcolor: ${colors.darkBlue};
+          box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+          cursor: text;
+        }
+      }
+    }
   }
 `;

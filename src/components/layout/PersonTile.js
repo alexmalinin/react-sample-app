@@ -11,6 +11,7 @@ export default class PersonTile extends Component {
   };
 
   openDropdown = e => {
+    e.stopPropagation();
     this.setState({
       showDropdown: true
     });
@@ -106,10 +107,12 @@ class DeleteTile extends Component {
     } = this.props;
     const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
     const thisUser = specialist.id === id && role !== CUSTOMER;
+
     return (
       <div
         className={`delete${showDropdown ? " show" : ""}`}
         ref={div => (this.deleteTile = div)}
+        onClick={e => e.stopPropagation()}
       >
         <div className="close" onClick={this.closeDropdown} />
         <p className="dropdownTitle">Profile</p>
@@ -136,19 +139,18 @@ class DeleteTile extends Component {
               {thisUser && "(you)"}
             </NavLink>
 
-            {hideDelete
-              ? null
-              : getUserRole() === S_REDGUY &&
-                !thisUser && (
-                  <button
-                    data={specialist.id}
-                    onClick={removeSpecialist}
-                    className="remove"
-                    type="button"
-                  >
-                    Remove from {removeTitle}
-                  </button>
-                )}
+            {!hideDelete &&
+              getUserRole() === S_REDGUY &&
+              !thisUser && (
+                <button
+                  data={specialist.id}
+                  onClick={removeSpecialist}
+                  className="remove"
+                  type="button"
+                >
+                  Remove from {removeTitle}
+                </button>
+              )}
           </div>
         </div>
       </div>

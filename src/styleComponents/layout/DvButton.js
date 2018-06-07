@@ -653,6 +653,7 @@ export const DvBlueButton = styled(Button)`
     background: ${colors.darkBlue};
     color: #fff;
     white-space: nowrap;
+    width: 140px;
 
     &.inverted {
       color: ${colors.darkBlue};

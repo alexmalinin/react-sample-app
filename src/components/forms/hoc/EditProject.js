@@ -56,10 +56,6 @@ class EditProject extends Component {
         setTimeout(() => {
           this.setState({ renderMessage: false, renderErrorMessage: false });
         }, 2500);
-        // this.props.initialize("EditProjectForm", response.data, false, {
-        //   keepSubmitSucceeded: false
-        // });
-        // Try to keep succeed and dirty
         this.props.showProjectWithId(this.props.projectId);
         this.props.showAllProjects();
       })

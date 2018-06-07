@@ -1,6 +1,6 @@
 import React from "react";
 import { Field } from "redux-form";
-import { required, minLength2 } from "../../../helpers/validate";
+import { minLength2 } from "../../../helpers/validate";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import RenderField from "./RenderField";
 

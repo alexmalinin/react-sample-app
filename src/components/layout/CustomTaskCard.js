@@ -104,13 +104,14 @@ class CustomCard extends Component {
               tabIndex="1"
               className="trigger"
               onClick={e => {
+                e.stopPropagation();
                 this.setState({ showDropdown: !this.state.showDropdown });
               }}
             >
               ...
             </a>
             {this.state.showDropdown ? (
-              <div className="menu">
+              <div className="menu" onClick={e => e.stopPropagation()}>
                 <div className="item">
                   <div onClick={this.showEditTaskModal}>Edit</div>
                 </div>

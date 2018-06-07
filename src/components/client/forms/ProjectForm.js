@@ -64,15 +64,14 @@ class ProjectForm extends Component {
             />
           </Grid.Column>
           <Grid.Column computer={8}>
-            <Field
-              name="file"
-              type="text"
-              component={RenderFile}
-              label="Attach files"
-              className="area"
+            <RenderSkillsArea
+              options={skills}
+              label="Technologies"
+              name="skills"
+              handleSelectChange={this.props.handleSelectChange}
+              placeholder=""
+              large
               padded
-              dropzone
-              createProject
             />
           </Grid.Column>
           <Grid.Column computer={8}>
@@ -133,14 +132,15 @@ class ProjectForm extends Component {
             />
           </Grid.Column>
           <Grid.Column computer={8}>
-            <RenderSkillsArea
-              options={skills}
-              label="Technologies"
-              name="skills"
-              handleSelectChange={this.props.handleSelectChange}
-              placeholder=""
-              large
+            <Field
+              name="file"
+              type="text"
+              component={RenderFile}
+              label="Attach files"
+              className="area"
               padded
+              dropzone
+              createProject
             />
           </Grid.Column>
         </Grid.Row>

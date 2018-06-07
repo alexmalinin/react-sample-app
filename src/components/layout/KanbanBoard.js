@@ -29,7 +29,8 @@ class KanbanBoard extends Component {
       acceptedTasks: [],
       showBoard: false,
       editingTask: {},
-      currentProjectTeam: []
+      currentProjectTeam: [],
+      editModal: false
     };
   }
 
@@ -134,9 +135,16 @@ class KanbanBoard extends Component {
     const { epicTasks } = this.props;
 
     if (id && epicTasks) {
-      let epicTask = epicTasks.filter(task => task.id === Number(id));
-      this.setState({ editingTask: epicTask[0] });
+      let epicTask = epicTasks.find(task => task.id === Number(id));
+      this.setState({ editingTask: epicTask, editModal: true });
     }
+  };
+
+  closeModal = updated => {
+    if (updated) {
+      this.props.showEpicTasks(this.props.epicId);
+    }
+    this.setState({ editModal: false });
   };
 
   deleteTask = (epic, id) => {
@@ -151,9 +159,8 @@ class KanbanBoard extends Component {
       progressTasks,
       completedTasks,
       acceptedTasks,
-      showBoard,
       editingTask,
-      currentProjectTeam
+      editModal
     } = this.state;
 
     return (
@@ -178,6 +185,7 @@ class KanbanBoard extends Component {
             draggable={getUserRole() === S_REDGUY}
             customCardLayout
             handleDragEnd={this.handleDragEnd}
+            onCardClick={this.handleEditTask}
           >
             <CustomCard
               userType={changeUserType}
@@ -186,7 +194,14 @@ class KanbanBoard extends Component {
               deleteTask={this.deleteTask}
             />
           </Board>
-          <EditTaskModal epic={epicId} epicTask={editingTask} />
+          <EditTaskModal
+            open={editModal}
+            close={this.closeModal}
+            epic={epicId}
+            epicTask={editingTask}
+            assignSpecialist={this.assignSpecialist}
+            removeSpecialist={this.removeSpecialist}
+          />
         </Fragment>
       ) : (
         <div className="noTasks">No tasks for now</div>

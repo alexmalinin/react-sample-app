@@ -81,7 +81,7 @@ export const StyledTextArea = styled.div`
       font-weight: 400;
       font-size: 0.9em;
       line-height: 2em;
-      border: 1px solid transparent;
+      border: 1px solid var(--bdcolor, transparent);
       border-radius: 5px;
       cursor: pointer;
 
@@ -89,10 +89,55 @@ export const StyledTextArea = styled.div`
         color: ${primaryColors.accentGrey};
       }
 
-      &:focus {
+      &.editing {
+        --bdcolor: #ccc;
+        margin-bottom: 7px;
+      }
+
+      &.error {
+        --bdcolor: red;
+      }
+
+      &:focus,
+      &.editing:focus {
         border-color: ${colors.darkBlue};
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
         cursor: text;
+      }
+    }
+  }
+
+  .controls {
+    margin-bottom: 14px;
+    .ui.button {
+      padding: 4px 14px 6px 14px;
+      color: var(--butcolor, #666);
+      line-height: normal;
+      font-weight: 600;
+      background: var(--butbgcolor, transparent);
+      border: 1px solid var(--butbdcolor, #ccc);
+      border-radius: 4px;
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.6;
+      }
+
+      &.save {
+        --butbdcolor: ${primaryColors.green};
+        --butcolor: #fff;
+        --butbgcolor: ${primaryColors.green};
+        margin-right: 14px;
+      }
+
+      &.cancel {
+        --butbdcolor: transparent;
+        --butcolor: ${primaryColors.grey};
+
+        &:hover {
+          --butbdcolor: ${primaryColors.lightGrey};
+        }
       }
     }
   }

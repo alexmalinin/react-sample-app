@@ -91,6 +91,7 @@ export default styled.div`
           }
           &.projectMain {
             .title {
+              position: relative;
               display: flex;
               flex-flow: row nowrap;
               align-items: center;
@@ -134,16 +135,16 @@ export default styled.div`
               .status {
                 color: ${primaryColors.accentGrey};
                 opacity: 0.8;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                transform: translateY(-50%);
               }
             }
 
             .controls {
               display: flex;
               justify-content: flex-end;
-
-              .dv-blue {
-                width: 140px;
-              }
             }
           }
         }

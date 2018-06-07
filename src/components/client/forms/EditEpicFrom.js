@@ -1,230 +1,167 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change } from "redux-form";
-import { required, date } from "../../../helpers/validate";
+import { connect } from "react-redux";
+import { Form, Field, reduxForm, change } from "redux-form";
+import { required } from "../../../helpers/validate";
 import RenderDate from "../../forms/renders/RenderDate";
-import { SaveBtn, CancelBtn } from "../../../styleComponents/layout/DvButton";
-import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
-import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
-import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
-import ModuleForm from "./ModuleForm";
-import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderFile from "../../forms/renders/RenderFile";
+import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
-
-let renderError = true;
+import axios from "axios";
+import { PORT } from "../../../constans/constans";
 
 class EditEpicForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fetch: true
-    };
-  }
+  handleEtaForm = date => {
+    this.props.dispatch(change("ClientModuleForm", "eta", date));
+    this.handleSubmit("eta", date);
+  };
+
+  //TODO: apply thunk here
+  handleSubmit = (name, value) => {
+    const {
+      epic: { id, project_id },
+      setEdited
+    } = this.props;
+
+    setEdited();
+
+    return axios({
+      method: "PUT",
+      url: `${PORT}/api/v1/projects/${project_id}/epics/${id}`,
+      data: {
+        [name]: value
+      }
+    });
+  };
 
   render() {
     const {
       handleSubmit,
       submitting,
+      number,
+      dirty,
       epic: { attached_files, eta }
     } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Grid>
           <Grid.Row>
-            <Grid.Column computer={8}>
+            <h4 className="modalHeader">Module {number}</h4>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column computer={10}>
               <Field
                 name="name"
-                component={RenderField}
                 label="Module name"
-                className="moduleName"
-                validate={[required]}
-                required
-                padded
+                className="transparent"
+                placeholder="Choose name for your module"
+                component={RenderField}
+                onSelfSubmit={this.handleSubmit}
               />
-            </Grid.Column>
-            <Grid.Column computer={4}>
+
               <Field
-                name="status"
-                component={RenderSelect}
-                label="status"
-                small
+                name="description"
+                label="Brief / Description"
+                className="transparent"
+                placeholder="Type your description here"
+                autoHeight
+                component={RenderText}
+                onSelfSubmit={this.handleSubmit}
+              />
+              <Field
+                name="user_story"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your user story here"
+                label="User Story"
+                large
+                onSelfSubmit={this.handleSubmit}
+              />
+              <Field
+                name="deliverables"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your acceptance criterea here"
+                label="Acceptance criteria"
+                large
+                onSelfSubmit={this.handleSubmit}
+              />
+              <Field
+                name="notes"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your solution design here"
+                label="Solution design"
+                large
+                onSelfSubmit={this.handleSubmit}
+              />
+              <Field
+                name="business_requirements"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your business requirements here"
+                label="Business Requirements"
+                large
+                onSelfSubmit={this.handleSubmit}
+              />
+              <Field
+                name="business_rules"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your business rules here"
+                label="Business Rules"
+                onSelfSubmit={this.handleSubmit}
               />
             </Grid.Column>
-            <Grid.Column computer={4}>
+            <Grid.Column computer={6}>
               <Field
                 name="eta"
                 component={RenderDate}
                 type="date"
                 label="Estimate"
-                className="estimate"
+                className="transparent clear estimate"
                 validate={[required]}
                 required
                 initData={eta}
                 handleEtaForm={this.handleEtaForm}
-                padded
-                small
               />
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column computer={8}>
-              <Field
-                name="description"
-                component={RenderTextArea}
-                label="Brief / Description"
-                className="area"
-                validate={[required]}
-                required
-                padded
-              />
-            </Grid.Column>
-            <Grid.Column computer={8}>
               <Field
                 name="file"
                 type="file"
                 component={RenderFile}
                 label="Attach files"
-                className="area"
                 attached_files={attached_files}
                 submitSucceeded={this.props.submitSucceeded}
-                padded
+                dropzone
+                small
               />
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column computer={8}>
-              <Field
-                name="user_story"
-                component={RenderTextArea}
-                label="User Story"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
-            <Grid.Column computer={8}>
-              <Field
-                name="criteria"
-                component={RenderTextArea}
-                label="Acceptance criteria"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
-            {/* </Grid.Row>
-
-            <Grid.Row> */}
-            <Grid.Column computer={8}>
-              <Field
-                name="requirements"
-                component={RenderTextArea}
-                label="Business Requirements"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
-            <Grid.Column computer={8}>
-              <Field
-                name="solution"
-                component={RenderTextArea}
-                label="Solution design"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
-            {/* </Grid.Row>
-
-            <Grid.Row> */}
-            <Grid.Column computer={16}>
-              <Field
-                name="rules"
-                component={RenderTextArea}
-                label="Business Rules"
-                className="area"
-                padded
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={12} />
-            <Grid.Column computer={4} align="right">
-              <CancelBtn type="button" onClick={this.closeModal} primary static>
-                <span>Cancel</span>
-              </CancelBtn>
-              <SaveBtn
-                type="submit"
-                disabled={submitting}
-                primary
-                updatebtn="true"
-                static="true"
-              >
-                <span>Save</span>
-              </SaveBtn>
+              {/* {oneOfRoles(CUSTOMER, S_REDGUY) && (
+                <DvBlueButton
+                  role="button"
+                  className="clear dv-blue"
+                  disabled={!dirty}
+                >
+                  {dirty ? "Save" : "Up to date"}
+                </DvBlueButton>
+              )} */}
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </form>
+      </Form>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.epic && this.state.fetch) {
-      this.fillFields(nextProps.epic);
-      this.setState({
-        fetch: false
-      });
-    }
-  }
-
-  fillFields = data => {
-    let {
-      name,
-      description,
-      user_story,
-      deliverables,
-      business_requirements,
-      notes,
-      business_rules,
-      eta
-    } = data;
-
-    this.props.dispatch(change("EditEpicForm", "name", name));
-    this.props.dispatch(change("EditEpicForm", "description", description));
-    this.props.dispatch(change("EditEpicForm", "user_story", user_story));
-    this.props.dispatch(change("EditEpicForm", "criteria", deliverables));
-    this.props.dispatch(
-      change("EditEpicForm", "requirements", business_requirements)
-    );
-    this.props.dispatch(change("EditEpicForm", "eta", eta));
-    this.props.dispatch(change("EditEpicForm", "solution", notes));
-    this.props.dispatch(change("EditEpicForm", "rules", business_rules));
-  };
-
-  handleEtaForm = date => {
-    this.props.dispatch(change("ClientModuleForm", "eta", date));
-  };
-
-  closeModal = ev => {
-    ev.preventDefault();
-    let close = document.querySelector("i.close.icon");
-    close.click();
-  };
-
-  componentWillUnmount() {
-    renderError = true;
   }
 }
 
 export default reduxForm({
   form: "EditEpicForm",
   destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(EditEpicForm);

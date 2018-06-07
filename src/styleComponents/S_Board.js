@@ -259,6 +259,7 @@ export const S_Board = styled.div`
     border-radius: 2px;
     color: #666;
     min-height: 160px;
+    cursor: pointer;
 
     text-transform: uppercase;
 
