@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { reduxForm, Form, Field } from "redux-form";
+import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid } from "semantic-ui-react";
 import {
