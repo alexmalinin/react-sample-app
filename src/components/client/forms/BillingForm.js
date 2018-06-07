@@ -42,10 +42,10 @@ class BillingForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData && this.state.fetch) {
-      if (nextProps.clientData.customer_billing) {
-        if (nextProps.clientData.customer_billing.billing_type) {
+      if (nextProps.clientData.billing) {
+        if (nextProps.clientData.billing.billing_type) {
           this.setState({
-            tab: nextProps.clientData.customer_billing.billing_type,
+            tab: nextProps.clientData.billing.billing_type,
             fetch: false
           });
         }
@@ -67,37 +67,9 @@ class BillingForm extends Component {
 
     const tabs = [
       {
-        billingTab: "paypal",
-        render: () => {
-          let disabled = tab == 0 ? false : true;
-
-          return (
-            <Grid.Column mobile={16} computer={16}>
-              <InputField
-                name="account_number"
-                label="Account number"
-                type="number"
-                handleFormField={handleFormField}
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="password"
-                label="Password"
-                handleFormField={handleFormField}
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-            </Grid.Column>
-          );
-        }
-      },
-      {
         billingTab: "credit_card",
         render: () => {
-          let disabled = tab == 1 ? false : true;
+          let disabled = tab == 0 ? false : true;
 
           return (
             <Grid.Column mobile={16} computer={16}>
@@ -126,10 +98,9 @@ class BillingForm extends Component {
                       name="expiry_date"
                       label="Expiry date"
                       component={RenderDate}
-                      // handleFormField={handleFormField}
                       initData={
-                        clientData && clientData.customer_billing
-                          ? clientData.customer_billing.expiry_date
+                        clientData && clientData.billing
+                          ? clientData.billing.expiry_date
                           : null
                       }
                       handleEtaForm={this.props.handleEtaForm}
@@ -143,7 +114,7 @@ class BillingForm extends Component {
                       name="ccv"
                       label="CVV"
                       type="number"
-                      handleFormField={handleFormField}
+                      // handleFormField={handleFormField}
                       validate={[required, maxLength4]}
                       disabled={disabled}
                       isRequired
@@ -156,19 +127,55 @@ class BillingForm extends Component {
         }
       },
       {
-        billingTab: "accounts",
+        billingTab: "direct_payment",
         render: () => {
-          let disabled = tab == 2 ? false : true;
-
+          let disabled = tab == 1 ? false : true;
           return (
             <Grid.Column mobile={16} computer={16}>
               <InputField
-                name="account_details"
-                label="Account details"
-                handleFormField={handleFormField}
+                name="correspondent_bank"
+                label="Correspondent Bank"
                 validate={[required]}
                 disabled={disabled}
                 isRequired
+              />
+              <InputField
+                name="beneficiary_bank"
+                label="Beneficiary Bank"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="beneficiary_name"
+                label="Beneficiary Name"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="iban"
+                label="IBAN"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="swift_code"
+                label="Swift code"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="purpose_of_payment"
+                label="Purpose of payment"
+                disabled={disabled}
+              />
+              <InputField
+                name="beneficiary_account"
+                label="Beneficiary Account"
+                disabled={disabled}
               />
             </Grid.Column>
           );
@@ -196,7 +203,7 @@ class BillingForm extends Component {
                 <Grid.Column computer={4}>
                   <InputRadio
                     name="billing_type"
-                    placeholder="Paypal"
+                    placeholder="Credit Card"
                     value={0}
                     // checked={true}
                     onChange={this.handleChange}
@@ -207,18 +214,9 @@ class BillingForm extends Component {
                   <InputRadio
                     name="billing_type"
                     value={1}
-                    placeholder="Credit card"
+                    placeholder="Direct Payment"
                     onChange={this.handleChange}
                     checked={this.state.tab == 1}
-                  />
-                </Grid.Column>
-                <Grid.Column computer={4}>
-                  <InputRadio
-                    name="billing_type"
-                    value={2}
-                    placeholder="Accounts"
-                    onChange={this.handleChange}
-                    checked={this.state.tab == 2}
                   />
                 </Grid.Column>
               </Grid.Row>

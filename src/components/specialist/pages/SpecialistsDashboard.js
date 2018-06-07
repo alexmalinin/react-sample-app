@@ -154,14 +154,14 @@ class SpecialistsDashboard extends Component {
   }
 
   collectBillingData() {
-    const { specialist_billing } = this.props.specialistData;
+    const { billing } = this.props.specialistData;
     const {
       billing_type,
       bank_account_details,
       swift_code,
       company_name,
       manager
-    } = specialist_billing ? specialist_billing : {};
+    } = billing ? billing : {};
 
     if (billing_type === 0) {
       const data = {

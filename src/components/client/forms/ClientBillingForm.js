@@ -146,17 +146,17 @@ class ClientBillingForm extends Component {
   }
 
   fillFields = data => {
-    let { customer_billing } = data;
+    let { billing } = data;
 
-    if (customer_billing) {
-      this.initialFormValues = customer_billing;
+    if (billing) {
+      this.initialFormValues = billing;
     } else {
       this.initialFormValues = null;
     }
 
-    for (let key in customer_billing) {
+    for (let key in billing) {
       this.props.dispatch(
-        change("ClientBillingForm", key, customer_billing[key])
+        change("ClientBillingForm", key, billing[key])
       );
     }
   };

@@ -24,6 +24,7 @@ class SpecialistsWithId extends Component {
       specialistId,
       getIndustries,
       getExperienceLevels,
+      showSpecialistData,
       showSpecialistWithId
     } = this.props;
 
@@ -38,9 +39,11 @@ class SpecialistsWithId extends Component {
   renderIndustryName = () => {
     const { specialistData, industries } = this.props;
 
+    console.log(this.props);
+
     let industry = null;
 
-    if (industries && industries["industry"]) {
+    if (industries && industries["industry"] && specialistData) {
       industry =
         industries["industry"][specialistData.industry_area_id - 1].label;
     }
@@ -65,8 +68,8 @@ class SpecialistsWithId extends Component {
     const { specialistData } = this.props;
 
     if (specialistData) {
-      if (specialistData["specialist_billing"]) {
-        let billingData = specialistData["specialist_billing"];
+      if (specialistData["billing"]) {
+        let billingData = specialistData["billing"];
         let billingType = billingData["billing_type"];
 
         switch (billingType) {
@@ -74,17 +77,28 @@ class SpecialistsWithId extends Component {
             return (
               <Fragment>
                 <Grid.Column computer={4}>
-                  <div className="billing-type">Direct payment</div>
+                  <div className="billing-type">Credit card</div>
                   <span>
-                    {billingData["bank_account_details"]
-                      ? billingData["bank_account_details"]
-                      : "No bank account details"}
+                    {billingData["card_name"]
+                      ? billingData["card_name"]
+                      : "No card name"}
                   </span>
                   <br />
                   <span>
-                    {billingData["swift_code"]
-                      ? billingData["swift_code"]
-                      : "No swift code"}
+                    {billingData["card_number"]
+                      ? billingData["card_number"]
+                      : "No card number"}
+                  </span>
+                </Grid.Column>
+                <Grid.Column computer={4}>
+                  <span>
+                    {billingData["expiry_date"]
+                      ? billingData["expiry_date"]
+                      : "No expiry date"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["ccv"] ? billingData["ccv"] : "No ccv"}
                   </span>
                 </Grid.Column>
               </Fragment>
@@ -93,17 +107,23 @@ class SpecialistsWithId extends Component {
             return (
               <Fragment>
                 <Grid.Column computer={4}>
-                  <div className="billing-type">Payment to company</div>
+                  <div className="billing-type">Direct Payment</div>
                   <span>
-                    {billingData["company_name"]
-                      ? billingData["company_name"]
-                      : "No company name"}
+                    {billingData["correspondent_bank"]
+                      ? billingData["correspondent_bank"]
+                      : "No correspondent bank"}
                   </span>
                   <br />
                   <span>
-                    {billingData["manager"]
-                      ? billingData["manager"]
-                      : "No manager"}
+                    {billingData["swift_code"]
+                      ? billingData["swift_code"]
+                      : "No Swift code"}
+                  </span>
+                  <br />
+                  <span>
+                    {billingData["iban"]
+                      ? billingData["iban"]
+                      : "No IBAN"}
                   </span>
                 </Grid.Column>
               </Fragment>

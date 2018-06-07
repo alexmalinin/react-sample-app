@@ -134,7 +134,7 @@ class ClientDashboard extends Component {
   }
 
   collectBillingData() {
-    const { customer_billing } = this.props.clientData;
+    const { billing } = this.props.clientData;
     const {
       billing_type,
       account_number,
@@ -144,7 +144,7 @@ class ClientDashboard extends Component {
       expiry_date,
       ccv,
       account_details
-    } = customer_billing ? customer_billing : {};
+    } = billing ? billing : {};
 
     if (billing_type === 0) {
       const data = {

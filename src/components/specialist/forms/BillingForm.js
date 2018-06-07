@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Field } from "redux-form";
-import { required } from "../../../helpers/validate";
+import {maxLength20, maxLength4, required} from "../../../helpers/validate";
 import {
   NextBtn,
   BackBtn,
@@ -12,6 +12,7 @@ import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import InputRadio from "../../forms/renders/InputRadio";
 import RenderImage from "../../forms/renders/RenderImage";
+import RenderDate from "../../forms/renders/RenderDate";
 
 class BillingForm extends Component {
   constructor(props) {
@@ -31,10 +32,10 @@ class BillingForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData && this.state.fetch) {
-      if (nextProps.specialistData.specialist_billing) {
-        if (nextProps.specialistData.specialist_billing.billing_type) {
+      if (nextProps.specialistData.billing) {
+        if (nextProps.specialistData.billing.billing_type) {
           this.setState({
-            tab: nextProps.specialistData.specialist_billing.billing_type,
+            tab: nextProps.specialistData.billing.billing_type,
             fetch: false
           });
         }
@@ -43,20 +44,101 @@ class BillingForm extends Component {
   }
 
   render() {
-    const { submitting, clientData, specialistData, isEditing } = this.props;
+    const { submitting, clientData, specialistData, handleFormField, isEditing } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
     const tabs = [
       {
-        billingTab: "direct_payment",
+        billingTab: "credit_card",
         render: () => {
           let disabled = tab == 0 ? false : true;
+
           return (
             <Grid.Column mobile={16} computer={16}>
               <InputField
-                name="bank_account_details"
-                label="Bank account details"
+                name="card_name"
+                label="Card name"
+                handleFormField={handleFormField}
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="card_number"
+                label="Card number"
+                type="number"
+                handleFormField={handleFormField}
+                validate={[required, maxLength20]}
+                disabled={disabled}
+                isRequired
+              />
+
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column computer={8}>
+                    <Field
+                      name="expiry_date"
+                      label="Expiry date"
+                      component={RenderDate}
+                      initData={
+                        specialistData && specialistData.billing
+                            ? specialistData.billing.expiry_date
+                            : null
+                      }
+                      handleEtaForm={this.props.handleEtaForm}
+                      validate={[required]}
+                      disabled={disabled}
+                      isRequired
+                    />
+                </Grid.Column>
+                <Grid.Column computer={8}>
+                  <InputField
+                    name="ccv"
+                    label="CVV"
+                    type="number"
+                    // handleFormField={handleFormField}
+                    validate={[required, maxLength4]}
+                    disabled={disabled}
+                    isRequired
+                  />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Grid.Column>
+            );
+        }
+      },
+      {
+        billingTab: "direct_payment",
+        render: () => {
+          let disabled = tab == 1 ? false : true;
+          return (
+            <Grid.Column mobile={16} computer={16}>
+              <InputField
+                name="correspondent_bank"
+                label="Correspondent Bank"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="beneficiary_bank"
+                label="Beneficiary Bank"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="beneficiary_name"
+                label="Beneficiary Name"
+                validate={[required]}
+                disabled={disabled}
+                isRequired
+              />
+              <InputField
+                name="iban"
+                label="IBAN"
                 validate={[required]}
                 disabled={disabled}
                 isRequired
@@ -68,29 +150,15 @@ class BillingForm extends Component {
                 disabled={disabled}
                 isRequired
               />
-            </Grid.Column>
-          );
-        }
-      },
-      {
-        billingTab: "payment_to_company",
-        render: () => {
-          let disabled = tab == 1 ? false : true;
-          return (
-            <Grid.Column mobile={16} computer={16}>
               <InputField
-                name="company_name"
-                label="Company name"
-                validate={[required]}
+                name="purpose_of_payment"
+                label="Purpose of payment"
                 disabled={disabled}
-                isRequired
               />
               <InputField
-                name="manager"
-                label="Manager"
-                validate={[required]}
+                name="beneficiary_account"
+                label="Beneficiary Account"
                 disabled={disabled}
-                isRequired
               />
             </Grid.Column>
           );
@@ -119,7 +187,7 @@ class BillingForm extends Component {
                 <Grid.Column computer={5}>
                   <InputRadio
                     name="billing_type"
-                    placeholder="Direct payment"
+                    placeholder="Credit Card"
                     value={0}
                     onChange={this.handleChange}
                     checked={this.state.tab == 0}
@@ -129,7 +197,7 @@ class BillingForm extends Component {
                   <InputRadio
                     name="billing_type"
                     value={1}
-                    placeholder="Payment to company"
+                    placeholder="Direct Payment"
                     onChange={this.handleChange}
                     checked={this.state.tab == 1}
                   />

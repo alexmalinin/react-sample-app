@@ -32,31 +32,13 @@ class ClientAbout extends Component {
     const { clientData } = this.props;
 
     if (clientData) {
-      if (clientData["customer_billing"]) {
-        let billingData = clientData["customer_billing"];
+
+      if (clientData["billing"]) {
+        let billingData = clientData["billing"];
         let billingType = billingData["billing_type"];
 
         switch (billingType) {
           case 0:
-            return (
-              <Fragment>
-                <Grid.Column computer={4}>
-                  <div className="billing-type">Paypal</div>
-                  <span>
-                    {billingData["account_number"]
-                      ? billingData["account_number"]
-                      : "No account number"}
-                  </span>
-                  <br />
-                  <span>
-                    {billingData["password"]
-                      ? billingData["password"]
-                      : "No password"}
-                  </span>
-                </Grid.Column>
-              </Fragment>
-            );
-          case 1:
             return (
               <Fragment>
                 <Grid.Column computer={4}>
@@ -90,11 +72,11 @@ class ClientAbout extends Component {
             return (
               <Fragment>
                 <Grid.Column computer={4}>
-                  <div className="billing-type">Accounts</div>
+                  <div className="billing-type">Direct Payment</div>
                   <span>
-                    {billingData["account_details"]
-                      ? billingData["account_details"]
-                      : "No account details"}
+                    {billingData["swift_code"]
+                      ? billingData["swift_code"]
+                      : "No swift_code"}
                   </span>
                 </Grid.Column>
               </Fragment>
