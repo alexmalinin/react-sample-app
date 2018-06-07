@@ -61,6 +61,7 @@ import {
   ASSIGN_SPECIALIST_TO_TASK,
   REMOVE_SPECIALIST_FROM_TASK,
   SHOW_ALL_TEAMS,
+  SHOW_CLIENT_TEAMS,
   CREATE_CHANNEL,
   SHOW_CHANNELS,
   ADD_MEMBER_TO_CHANNEL,
@@ -411,7 +412,6 @@ export function showSpecialistData() {
 // Show specialist Data by id
 
 export function showSpecialistWithId(id) {
-  console.log(id);
   const action = {
     type: SHOW_SPECIALIST_WITH_ID,
     showSpecialistWithId: `${PORT}/api/v1/specialists/${id}`
@@ -851,6 +851,17 @@ export function showAllTeams() {
   return action;
 }
 
+// get array of all teams, assigned on customer projects
+
+export function showClientTeams() {
+  const action = {
+    type: SHOW_CLIENT_TEAMS,
+    showClientTeams: `${PORT}/api/v1/customers/`
+  };
+
+  return action;
+}
+
 // Show Project Team
 
 export function showProjectTeam(project) {
@@ -887,10 +898,11 @@ export function removeSpecialistFromTeam(project, team, specialist) {
 
 // Create custom team
 
-export function createCustomTeam(data) {
+export function createCustomTeam(data, specialistId) {
   const action = {
     type: CREATE_CUSTOM_TEAM,
     payload: data,
+    specialistId,
     createCustomTeam: `${PORT}/api/v1/teams`
   };
 

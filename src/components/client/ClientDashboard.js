@@ -7,7 +7,8 @@ import {
   showAllEpics,
   showEpicTasks,
   showClientData,
-  showProjectTeam
+  showProjectTeam,
+  showClientTeams
 } from "../../actions/actions";
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
@@ -63,10 +64,12 @@ class ClientDashboard extends Component {
       projectWithId,
       showAllProjects,
       showProjectWithId,
-      showClientData
+      showClientData,
+      showClientTeams
     } = this.props;
     showAllProjects();
     showClientData();
+    showClientTeams();
     localStorage.removeItem("user_email");
 
     let projectId = params["projectId"] || params["projectNewModule"];
@@ -233,7 +236,7 @@ class ClientDashboard extends Component {
   render() {
     const {
       match: { params },
-      allTeams,
+      clientTeams,
       changeUserType
     } = this.props;
     const { rightSidebarOpened, isEdited } = this.state;
@@ -270,7 +273,7 @@ class ClientDashboard extends Component {
               />
               {this.renderPage(page)}
               <SideBarRight
-                teams={allTeams}
+                teams={clientTeams}
                 projects={projects}
                 days={days}
                 opened={rightSidebarOpened}
@@ -298,6 +301,8 @@ class ClientDashboard extends Component {
   }
 
   renderPage = page => {
+    const { clientTeams } = this.props;
+
     switch (page) {
       case "profile":
         document.title = "Profile | Digital Village";
@@ -307,18 +312,12 @@ class ClientDashboard extends Component {
       case "company":
         document.title = "Company | Digital Village";
         return (
-          <ClientCompany
-            calculatePagePercent={this.calculatePagePercent}
-            handleFormValueChange={this.handleFormValueChange}
-          />
+          <ClientCompany calculatePagePercent={this.calculatePagePercent} />
         );
       case "billing":
         document.title = "Billing | Digital Village";
         return (
-          <ClientBilling
-            calculatePagePercent={this.calculatePagePercent}
-            handleFormValueChange={this.handleFormValueChange}
-          />
+          <ClientBilling calculatePagePercent={this.calculatePagePercent} />
         );
       case "about":
         document.title = "Your profile | Digital Village";
@@ -343,7 +342,7 @@ class ClientDashboard extends Component {
         );
       case "teams":
         document.title = "Teams | Digital Village";
-        return <Teams teams={this.props.allTeams} />;
+        return <Teams teams={clientTeams} />;
       case "account":
         document.title = "Billings | Digital Village";
         return <ClientAccount />;
@@ -367,14 +366,6 @@ class ClientDashboard extends Component {
       default:
         document.title = "Dashboard | Digital Village";
         return <Redirect to="/404" />;
-    }
-  };
-
-  handleFormValueChange = obj => {
-    if (checkObjectPropertiesForValues(obj)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
     }
   };
 
@@ -409,11 +400,11 @@ class ClientDashboard extends Component {
 }
 
 export default connect(
-  ({ allProjects, projectWithId, allEpics, allTeams, changeUserType }) => ({
+  ({ allProjects, projectWithId, allEpics, clientTeams, changeUserType }) => ({
     allProjects,
     projectWithId,
     allEpics,
-    allTeams,
+    clientTeams,
     changeUserType
   }),
   {
@@ -422,6 +413,7 @@ export default connect(
     showProjectWithId,
     showAllEpics,
     showEpicTasks,
-    showProjectTeam
+    showProjectTeam,
+    showClientTeams
   }
 )(ClientDashboard);
