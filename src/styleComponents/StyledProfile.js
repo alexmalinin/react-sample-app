@@ -17,6 +17,7 @@ export default styled.div`
 
     .title {
       text-transform: uppercase;
+      font-style: normal;
     }
 
     .dots {
@@ -179,6 +180,19 @@ export default styled.div`
 
     & > * {
       margin: 0;
+    }
+  }
+
+  .billing {
+    .billingItem {
+      margin-bottom: 12px;
+
+      p {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0;
+      }
     }
   }
 

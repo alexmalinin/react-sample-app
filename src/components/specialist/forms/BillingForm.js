@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Field } from "redux-form";
-import {maxLength20, maxLength4, required} from "../../../helpers/validate";
+import { maxLength20, maxLength4, required } from "../../../helpers/validate";
 import {
   NextBtn,
   BackBtn,
@@ -15,20 +15,16 @@ import RenderImage from "../../forms/renders/RenderImage";
 import RenderDate from "../../forms/renders/RenderDate";
 
 class BillingForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tab: "0",
-      fetch: true
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+  state = {
+    tab: "0",
+    fetch: true
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       tab: event.target.value
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData && this.state.fetch) {
@@ -44,7 +40,13 @@ class BillingForm extends Component {
   }
 
   render() {
-    const { submitting, clientData, specialistData, handleFormField, isEditing } = this.props;
+    const {
+      submitting,
+      clientData,
+      specialistData,
+      handleFormField,
+      isEditing
+    } = this.props;
     const { tab } = this.state;
     let { avatar } = specialistData || clientData || false;
 
@@ -83,30 +85,30 @@ class BillingForm extends Component {
                       component={RenderDate}
                       initData={
                         specialistData && specialistData.billing
-                            ? specialistData.billing.expiry_date
-                            : null
+                          ? specialistData.billing.expiry_date
+                          : null
                       }
                       handleEtaForm={this.props.handleEtaForm}
                       validate={[required]}
                       disabled={disabled}
                       isRequired
                     />
-                </Grid.Column>
-                <Grid.Column computer={8}>
-                  <InputField
-                    name="ccv"
-                    label="CVV"
-                    type="number"
-                    // handleFormField={handleFormField}
-                    validate={[required, maxLength4]}
-                    disabled={disabled}
-                    isRequired
-                  />
+                  </Grid.Column>
+                  <Grid.Column computer={8}>
+                    <InputField
+                      name="ccv"
+                      label="CVV"
+                      type="number"
+                      // handleFormField={handleFormField}
+                      validate={[required, maxLength4]}
+                      disabled={disabled}
+                      isRequired
+                    />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
             </Grid.Column>
-            );
+          );
         }
       },
       {

@@ -27,10 +27,7 @@ class SpecialistBillingForm extends Component {
   }
 
   componentWillMount() {
-    if (
-      this.props.specialistData &&
-      this.props.specialistData.billing
-    ) {
+    if (this.props.specialistData && this.props.specialistData.billing) {
       this.fillFields(this.props.specialistData.billing);
     }
   }
@@ -113,10 +110,7 @@ class SpecialistBillingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.specialistData &&
-      nextProps.specialistData.billing
-    ) {
+    if (nextProps.specialistData && nextProps.specialistData.billing) {
       if (renderError) {
         this.fillFields(nextProps.specialistData.billing);
         renderError = false;

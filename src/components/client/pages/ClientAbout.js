@@ -1,21 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Grid, Tab } from "semantic-ui-react";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
+import { Grid } from "semantic-ui-react";
 import {
   Container,
   ContainerLarge
 } from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
-import {
-  DvTitle,
-  DvTitleSmall
-} from "../../../styleComponents/layout/DvTitles";
-import { StyledTabs } from "../../../styleComponents/StyledTabCard";
-import SubscribeForm from "../../forms/SubscribeForm";
-import StyledCheckbox from "../../../styleComponents/forms/StyledCheckbox";
 import StyledProfile from "../../../styleComponents/StyledProfile";
 import { showClientData } from "../../../actions/actions";
 import { IMAGE_PORT } from "../../../constans/constans";
@@ -32,54 +22,77 @@ class ClientAbout extends Component {
     const { clientData } = this.props;
 
     if (clientData) {
-
       if (clientData["billing"]) {
-        let billingData = clientData["billing"];
-        let billingType = billingData["billing_type"];
+        const {
+          billing_type,
+          card_name,
+          card_number,
+          correspondent_bank,
+          beneficiary_bank,
+          beneficiary_name,
+          swift_code,
+          iban,
+          purpose_of_payment,
+          beneficiary_account
+        } = clientData["billing"];
 
-        switch (billingType) {
+        switch (billing_type) {
           case 0:
             return (
-              <Fragment>
-                <Grid.Column computer={4}>
+              <Grid.Row className="billing">
+                <Grid.Column computer={16}>
                   <div className="billing-type">Credit card</div>
-                  <span>
-                    {billingData["card_name"]
-                      ? billingData["card_name"]
-                      : "No card name"}
-                  </span>
-                  <br />
-                  <span>
-                    {billingData["card_number"]
-                      ? billingData["card_number"]
-                      : "No card number"}
-                  </span>
                 </Grid.Column>
-                <Grid.Column computer={4}>
-                  <span>
-                    {billingData["expiry_date"]
-                      ? billingData["expiry_date"]
-                      : "No expiry date"}
-                  </span>
-                  <br />
-                  <span>
-                    {billingData["ccv"] ? billingData["ccv"] : "No ccv"}
-                  </span>
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Card name</p>
+                    <h3>{card_name || "No correspondent bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Card number</p>
+                    <h3>{card_number || "No correspondent bank"}</h3>
+                  </div>
                 </Grid.Column>
-              </Fragment>
+              </Grid.Row>
             );
-          case 2:
+          case 1:
             return (
-              <Fragment>
-                <Grid.Column computer={4}>
+              <Grid.Row className="billing">
+                <Grid.Column computer={16}>
                   <div className="billing-type">Direct Payment</div>
-                  <span>
-                    {billingData["swift_code"]
-                      ? billingData["swift_code"]
-                      : "No swift_code"}
-                  </span>
                 </Grid.Column>
-              </Fragment>
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Correspond bank</p>
+                    <h3>{correspondent_bank || "No correspondent bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary bank</p>
+                    <h3>{beneficiary_bank || "No beneficiary bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary name</p>
+                    <h3>{beneficiary_name || "No beneficiary name"}</h3>
+                  </div>
+                </Grid.Column>
+                <Grid.Column computer={1} />
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Swift code</p>
+                    <h3>{swift_code || "No Swift code"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>IBAN</p>
+                    <h3>{iban || "No IBAN"}</h3>
+                    <p>Purpose of payment</p>
+                    <h3>{purpose_of_payment || "No purpose"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary account</p>
+                    <h3>{beneficiary_account || "No beneficiary account"}</h3>
+                  </div>
+                </Grid.Column>
+              </Grid.Row>
             );
           default:
             return (
@@ -250,9 +263,7 @@ class ClientAbout extends Component {
               </Grid.Row>
 
               <SectionHeader content="Billing" page="billing" />
-              <Grid.Row className="billing">
-                {this.renderBillingData()}
-              </Grid.Row>
+              {this.renderBillingData()}
             </Grid>
           </StyledProfile>
         </Container>
