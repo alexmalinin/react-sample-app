@@ -55,7 +55,8 @@ class RenderTextArea extends Component {
       className,
       large,
       isRequired,
-      padded
+      padded,
+      paddedError
     } = this.props;
 
     return (
@@ -77,7 +78,9 @@ class RenderTextArea extends Component {
           id={id}
         />
         {touched &&
-          ((error && <StyledError>{error}</StyledError>) ||
+          ((error && (
+            <StyledError paddedError={paddedError}>{error}</StyledError>
+          )) ||
             (warning && <span>{warning}</span>))}
       </StyledTextArea>
     );

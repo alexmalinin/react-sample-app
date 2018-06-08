@@ -49,7 +49,7 @@ class RenderInfo extends Component {
     return (
       <StyledDashboardCard size={{ col: 1, row: 1 }} type="task_due">
         <div className="titleWrapper">
-          <div className="title">Tasks Done</div>
+          <div className="title">Epics Done</div>
           <div className="subTitle">This week</div>
         </div>
 

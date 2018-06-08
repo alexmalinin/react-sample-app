@@ -40,7 +40,7 @@ class RenderDueTasks extends Component {
     return (
       <StyledDashboardCard size={{ col: 1, row: 1 }} type="task_due">
         <div className="titleWrapper">
-          <div className="title">Tasks Due</div>
+          <div className="title">Epics Due</div>
           <div className="subTitle">Today</div>
         </div>
 
@@ -80,7 +80,7 @@ class RenderDueTasks extends Component {
         titleMargin="true"
       >
         <div className="titleWrapper">
-          <div className="title">Tasks Due</div>
+          <div className="title">Epics Due</div>
           <div className="subTitle">This week</div>
         </div>
 

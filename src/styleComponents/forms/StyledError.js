@@ -4,7 +4,7 @@ export default styled.span`
   color: #db4538;
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: ${props => (props.paddedError ? "35px" : "0px")};
   font-size: 14px;
   font-weight: 300;
 
