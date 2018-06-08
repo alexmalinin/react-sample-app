@@ -30,7 +30,9 @@ class EditEpicForm extends Component {
       method: "PUT",
       url: `${PORT}/api/v1/projects/${project_id}/epics/${id}`,
       data: {
-        [name]: value
+        epic: {
+          [name]: value
+        }
       }
     });
   };
@@ -143,12 +145,13 @@ class EditEpicForm extends Component {
                 disabled={disabled}
               />
               <Field
-                name="file"
+                name="attached_files"
                 type="file"
                 component={RenderFile}
                 label="Attach files"
-                attached_files={attached_files}
                 submitSucceeded={this.props.submitSucceeded}
+                onSelfSubmit={this.handleSubmit}
+                entity_type="Module"
                 dropzone
                 small
                 disabled={disabled}

@@ -8,12 +8,13 @@ import {
   getProjectTypes,
   getSkills
 } from "../../actions/actions";
-import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "../../constans/constans";
+import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
+import Axios from "axios";
 
 class EditProjectForm extends Component {
   state = {
@@ -39,6 +40,19 @@ class EditProjectForm extends Component {
       }
     }
   }
+
+  handleSubmit = (name, value) => {
+    const { projectId } = this.props;
+    return Axios({
+      method: "PUT",
+      url: `${PORT}/api/v1/projects/${projectId}`,
+      data: {
+        project: {
+          [name]: value
+        }
+      }
+    });
+  };
 
   render() {
     const {
@@ -110,14 +124,12 @@ class EditProjectForm extends Component {
                       <span className="label">Attached files:</span>
                     </p>
                     <Field
-                      name="file"
+                      name="attached_files"
                       type="text"
                       component={RenderFile}
                       projectId={projectId}
-                      attached_files={
-                        projectWithId && projectWithId.attached_files
-                      }
                       disabled={!hasPermission}
+                      onSelfSubmit={this.handleSubmit}
                       className="projectFiles"
                     />
                   </div>
@@ -171,6 +183,7 @@ class EditProjectForm extends Component {
                     placeholder="Type your description here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -181,6 +194,7 @@ class EditProjectForm extends Component {
                     placeholder="Write your story here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -191,6 +205,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some acceptance criterea"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -201,6 +216,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some business requirements"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -211,6 +227,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some business rules"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -221,58 +238,33 @@ class EditProjectForm extends Component {
                     placeholder="Write your solution design here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
                   />
                   {oneOfRoles(CUSTOMER, S_REDGUY) && (
                     <div className="controls">
-                      {projectWithId && projectWithId.state === "draft" ? (
-                        <Fragment>
-                          <DvBlueButton
-                            loading={submitting}
-                            role="button"
-                            className="clear dv-blue"
-                            disabled={state === "discovery" && !dirty}
-                            onClick={() =>
-                              this.props.dispatch(
-                                change(
-                                  "EditProjectForm",
-                                  "state",
-                                  "recent_created"
-                                )
+                      {state === "draft" && (
+                        <DvBlueButton
+                          loading={submitting}
+                          role="button"
+                          className="clear dv-blue"
+                          disabled={state === "discovery" && !dirty}
+                          onClick={() =>
+                            this.props.dispatch(
+                              change(
+                                "EditProjectForm",
+                                "state",
+                                "recent_created"
                               )
-                            }
-                          >
-                            {state === "discovery"
-                              ? dirty
-                                ? "Save"
-                                : submitSucceeded
-                                  ? "Saved"
-                                  : "Up to date"
-                              : "Publish"}
-                          </DvBlueButton>
-                          <DvBlueButton
-                            loading={submitting}
-                            role="button"
-                            className="clear dv-blue"
-                            disabled={state === "discovery" && !dirty}
-                            onClick={() =>
-                              this.props.dispatch(
-                                change("EditProjectForm", "state", "draft")
-                              )
-                            }
-                          >
-                            {state === "discovery"
-                              ? dirty
-                                ? "Save"
-                                : submitSucceeded
-                                  ? "Saved"
-                                  : "Up to date"
-                              : "Update"}
-                          </DvBlueButton>
-                        </Fragment>
-                      ) : (
+                            )
+                          }
+                        >
+                          "Publish"
+                        </DvBlueButton>
+                      )}
+                      {state === "reviewed_by_admin" && (
                         <DvBlueButton
                           loading={submitting}
                           role="button"

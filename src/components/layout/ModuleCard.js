@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { deleteProjectEpic, showAllEpics } from "../../actions/actions";
+import {
+  deleteProjectEpic,
+  showAllEpics,
+  updateProjectEpic
+} from "../../actions/actions";
 import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
 import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
@@ -28,7 +32,8 @@ class Module extends Component {
     });
   }
 
-  deleteEpic = () => {
+  deleteEpic = e => {
+    e.stopPropagation();
     const { epic, project, deleteProjectEpic } = this.props;
     deleteProjectEpic(project, epic.id);
   };
@@ -115,11 +120,17 @@ class Module extends Component {
 
   render() {
     const { epic, number, showAllEpics } = this.props;
-    const { name, editing, renderMessage, renderErrorMessage } = this.state;
+    const {
+      name,
+      editing,
+      dropdown,
+      renderMessage,
+      renderErrorMessage
+    } = this.state;
 
     return (
-      <div className="dragContainer" onDoubleClick={this.openModal}>
-        <h3 onDoubleClick={this.handleEdit}>
+      <div className="dragContainer">
+        <h3 onDoubleClick={this.toggleEdit}>
           <span className={`number${editing ? " hidden" : ""}`}>
             {number > 9 ? number : "0" + number}:
           </span>
@@ -149,7 +160,7 @@ class Module extends Component {
             )}
           </Form>
         </h3>
-        <div className="module">
+        <div className="module" onClick={this.openModal}>
           <h4>{this.renderDescription()}</h4>
           <p>{this.renderStory()}</p>
           <div>
@@ -171,10 +182,18 @@ class Module extends Component {
           </div>
           {oneOfRoles(CUSTOMER, S_CORE, S_REDGUY) && (
             <div className="dropdown">
-              <a tabIndex="1" className="trigger">
+              <a
+                tabIndex="-1"
+                className="trigger"
+                onClick={e => {
+                  e.stopPropagation();
+                  this.setState({ dropdown: !this.state.dropdown });
+                }}
+                onBlur={e => this.setState({ dropdown: false })}
+              >
                 ...
               </a>
-              <div className="menu">
+              <div className={`menu${dropdown ? " open" : ""}`}>
                 <div className="item">
                   <EditEpicModal
                     epic={epic}
@@ -231,5 +250,6 @@ class Module extends Component {
 
 export default connect(null, {
   deleteProjectEpic,
-  showAllEpics
+  showAllEpics,
+  updateProjectEpic
 })(Module);

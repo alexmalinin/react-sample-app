@@ -39,11 +39,14 @@ class SpecialistsWithId extends Component {
   renderIndustryName = () => {
     const { specialistData, industries } = this.props;
 
-    console.log(this.props);
-
     let industry = null;
 
-    if (industries && industries["industry"] && specialistData) {
+    if (
+      industries &&
+      industries["industry"] &&
+      specialistData &&
+      specialistData["industry_area_id"]
+    ) {
       industry =
         industries["industry"][specialistData.industry_area_id - 1].label;
     }

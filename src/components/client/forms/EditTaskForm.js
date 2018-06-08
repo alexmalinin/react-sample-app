@@ -144,13 +144,13 @@ class EditTaskForm extends Component {
                 </Grid.Row>
               </Grid>
               <Field
-                name="file"
+                name="attached_files"
                 type="text"
                 label="Attach files"
                 component={RenderFile}
-                attached_files={attached_files}
                 dropzone
                 submitSucceeded={this.props.submitSucceeded}
+                onSelfSubmit={this.handleSubmit}
                 small
                 disabled={disabled}
               />

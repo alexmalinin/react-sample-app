@@ -23,7 +23,7 @@ class EditProject extends Component {
       });
 
     let files = values.file
-      ? values.file.split("||").map(file => {
+      ? values.file.map(file => {
           return {
             document: file,
             entity_type: "Project"
