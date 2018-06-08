@@ -24,6 +24,7 @@ class SpecialistsWithId extends Component {
       specialistId,
       getIndustries,
       getExperienceLevels,
+      showSpecialistData,
       showSpecialistWithId
     } = this.props;
 
@@ -38,9 +39,11 @@ class SpecialistsWithId extends Component {
   renderIndustryName = () => {
     const { specialistData, industries } = this.props;
 
+    console.log(this.props);
+
     let industry = null;
 
-    if (industries && industries["industry"]) {
+    if (industries && industries["industry"] && specialistData) {
       industry =
         industries["industry"][specialistData.industry_area_id - 1].label;
     }
@@ -65,48 +68,79 @@ class SpecialistsWithId extends Component {
     const { specialistData } = this.props;
 
     if (specialistData) {
-      if (specialistData["specialist_billing"]) {
-        let billingData = specialistData["specialist_billing"];
-        let billingType = billingData["billing_type"];
+      if (specialistData["billing"]) {
+        const {
+          billing: {
+            billing_type,
+            card_name,
+            card_number,
+            correspondent_bank,
+            beneficiary_bank,
+            beneficiary_name,
+            swift_code,
+            iban,
+            purpose_of_payment,
+            beneficiary_account
+          }
+        } = specialistData;
 
-        switch (billingType) {
+        switch (billing_type) {
           case 0:
             return (
-              <Fragment>
-                <Grid.Column computer={4}>
-                  <div className="billing-type">Direct payment</div>
-                  <span>
-                    {billingData["bank_account_details"]
-                      ? billingData["bank_account_details"]
-                      : "No bank account details"}
-                  </span>
-                  <br />
-                  <span>
-                    {billingData["swift_code"]
-                      ? billingData["swift_code"]
-                      : "No swift code"}
-                  </span>
+              <Grid.Row className="billing">
+                <Grid.Column computer={16}>
+                  <div className="billing-type">Credit card</div>
                 </Grid.Column>
-              </Fragment>
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Card name</p>
+                    <h3>{card_name || "No correspondent bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Card number</p>
+                    <h3>{card_number || "No correspondent bank"}</h3>
+                  </div>
+                </Grid.Column>
+              </Grid.Row>
             );
           case 1:
             return (
-              <Fragment>
-                <Grid.Column computer={4}>
-                  <div className="billing-type">Payment to company</div>
-                  <span>
-                    {billingData["company_name"]
-                      ? billingData["company_name"]
-                      : "No company name"}
-                  </span>
-                  <br />
-                  <span>
-                    {billingData["manager"]
-                      ? billingData["manager"]
-                      : "No manager"}
-                  </span>
+              <Grid.Row className="billing">
+                <Grid.Column computer={16}>
+                  <div className="billing-type">Direct Payment</div>
                 </Grid.Column>
-              </Fragment>
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Correspond bank</p>
+                    <h3>{correspondent_bank || "No correspondent bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary bank</p>
+                    <h3>{beneficiary_bank || "No beneficiary bank"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary name</p>
+                    <h3>{beneficiary_name || "No beneficiary name"}</h3>
+                  </div>
+                </Grid.Column>
+                <Grid.Column computer={1} />
+                <Grid.Column computer={3}>
+                  <div className="billingItem">
+                    <p>Swift code</p>
+                    <h3>{swift_code || "No Swift code"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>IBAN</p>
+                    <h3>{iban || "No IBAN"}</h3>
+                    <p>Purpose of payment</p>
+                    <h3>{purpose_of_payment || "No purpose"}</h3>
+                  </div>
+                  <div className="billingItem">
+                    <p>Beneficiary account</p>
+                    <h3>{beneficiary_account || "No beneficiary account"}</h3>
+                  </div>
+                </Grid.Column>
+              </Grid.Row>
             );
           default:
             return (
@@ -435,9 +469,7 @@ class SpecialistsWithId extends Component {
                     page="billings"
                     editCondition={!specialistId}
                   />
-                  <Grid.Row className="billing">
-                    {this.renderBillingData()}
-                  </Grid.Row>
+                  {this.renderBillingData()}
                 </Fragment>
               )}
             </Grid>

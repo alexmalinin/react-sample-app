@@ -27,11 +27,8 @@ class SpecialistBillingForm extends Component {
   }
 
   componentWillMount() {
-    if (
-      this.props.specialistData &&
-      this.props.specialistData.specialist_billing
-    ) {
-      this.fillFields(this.props.specialistData.specialist_billing);
+    if (this.props.specialistData && this.props.specialistData.billing) {
+      this.fillFields(this.props.specialistData.billing);
     }
   }
 
@@ -44,6 +41,8 @@ class SpecialistBillingForm extends Component {
       <form onSubmit={this.props.handleSubmit} onChange={this.handleChange}>
         <BillingForm
           {...this.props}
+          handleFormField={this.handleFormField}
+          handleEtaForm={this.handleEtaForm}
           handleSubmitError={this.handleSubmitError}
         />
 
@@ -74,6 +73,20 @@ class SpecialistBillingForm extends Component {
     });
   };
 
+  handleEtaChange = date => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        expiry_date: date
+      }
+    });
+  };
+
+  handleEtaForm = date => {
+    this.handleEtaChange(date);
+    this.props.dispatch(change("SpecialistBillingForm", "expiry_date", date));
+  };
+
   componentWillUpdate(nextProps, nextState) {
     if (!this.props.isEditing) {
       if (checkObjectPropertiesForValues(nextState.formData)) {
@@ -97,12 +110,9 @@ class SpecialistBillingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.specialistData &&
-      nextProps.specialistData.specialist_billing
-    ) {
+    if (nextProps.specialistData && nextProps.specialistData.billing) {
       if (renderError) {
-        this.fillFields(nextProps.specialistData.specialist_billing);
+        this.fillFields(nextProps.specialistData.billing);
         renderError = false;
       }
     }

@@ -14,13 +14,21 @@ export default store => next => action => {
     url: updateSpecialistBillings + id,
     data: {
       specialist: {
-        specialist_billing_attributes: {
+        billing_attributes: {
           billing_type: payload["billing_type"],
-          company_name: payload["company_name"],
-          manager: payload["manager"],
-          bank_account_details: payload["bank_account_details"],
+          card_name: payload["card_name"],
+          card_number: payload["card_number"],
+          expiry_date: payload["expiry_date"],
+          ccv: payload["ccv"],
+          correspondent_bank: payload["correspondent_bank"],
+          beneficiary_bank: payload["beneficiary_bank"],
+          beneficiary_name: payload["beneficiary_name"],
+          purpose_of_payment: payload["purpose_of_payment"],
+          beneficiary_account: payload["beneficiary_account"],
           swift_code: payload["swift_code"],
-          specialist_id: payload["specialist_id"]
+          iban: payload["iban"],
+          user_type: 'Specialist',
+          user_id: id,
         }
       }
     },

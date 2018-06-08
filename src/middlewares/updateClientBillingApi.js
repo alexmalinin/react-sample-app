@@ -8,21 +8,27 @@ export default store => next => action => {
 
   let token = localStorage.getItem("jwt_token");
   let { id } = jwtDecode(token);
-  // debugger
+
   axios({
     method: "put",
     url: updateClientBilling + id,
     data: {
       customer: {
-        customer_billing_attributes: {
+        billing_attributes: {
           billing_type: payload["billing_type"],
-          account_number: payload["account_number"],
-          password: payload["password"],
           card_name: payload["card_name"],
           card_number: payload["card_number"],
           expiry_date: payload["expiry_date"],
           ccv: payload["ccv"],
-          account_details: payload["account_details"]
+          correspondent_bank: payload["correspondent_bank"],
+          beneficiary_bank: payload["beneficiary_bank"],
+          beneficiary_name: payload["beneficiary_name"],
+          purpose_of_payment: payload["purpose_of_payment"],
+          beneficiary_account: payload["beneficiary_account"],
+          swift_code: payload["swift_code"],
+          iban: payload["iban"],
+          user_type: "Customer",
+          user_id: id
         }
       }
     },
