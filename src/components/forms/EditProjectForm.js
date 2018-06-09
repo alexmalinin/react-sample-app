@@ -62,7 +62,6 @@ class EditProjectForm extends Component {
       handleSubmit,
       submitting,
       dirty,
-      pristine,
       skills,
       submitSucceeded
     } = this.props;
@@ -172,9 +171,8 @@ class EditProjectForm extends Component {
                     <p>
                       {name} Project{" "}
                       <span className="status">
-                        {state !== "discovery" && state === "draft"
-                          ? "Draft"
-                          : "On review"}
+                        {state === "draft" && "Drafted"}
+                        {state === "reviewed_by_admin" && "On review"}
                       </span>
                     </p>
                   </div>

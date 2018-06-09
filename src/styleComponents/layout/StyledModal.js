@@ -4,7 +4,7 @@ import { primaryColors } from "../constants/colors";
 
 export default styled(Modal)`
   &.ui.modal {
-    .close {
+    & > .close {
       top: 14px;
       right: 14px;
       border: none;

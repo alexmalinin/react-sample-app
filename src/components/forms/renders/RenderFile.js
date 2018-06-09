@@ -65,8 +65,8 @@ class RenderFile extends Component {
   }
 
   returnFileName(name) {
-    if (name.length > 10) {
-      return name.slice(0, 7) + "...";
+    if (name.length > 20) {
+      return name.slice(0, 17) + "...";
     } else return name;
   }
 
@@ -81,7 +81,6 @@ class RenderFile extends Component {
   }
 
   onDrop = files => {
-    console.log("files", files);
     if (files.length < 1) {
       this.setState({ error: true });
     } else {
@@ -132,22 +131,28 @@ class RenderFile extends Component {
     }
   };
 
-  changeFileStatus = (id, name, status) => {
+  handleDeleteFile = (id, name, status) => {
+    const {
+      meta: { dispatch, form }
+    } = this.props;
     let data = this.state.files.slice(),
       index;
 
     if (id) {
       index = data.findIndex(file => file.id === id);
-      data[index].status = status;
     }
 
     if (name) {
       index = data.findIndex(file => file.name === name);
-      data[index].status = status;
     }
+
+    data.splice(index, 1);
 
     if (this.props.onSelfSubmit) {
       this.deleteAttachedFile(id);
+    } else {
+      this.fileHub.splice(index, 1);
+      dispatch(change(form, "file", this.fileHub));
     }
 
     this.setState({
@@ -156,7 +161,14 @@ class RenderFile extends Component {
   };
 
   getFileExtension = file => {
-    let filetype = file.split(".").pop();
+    let filetype;
+    if (file.name) {
+      filetype = file.name.split(".").pop();
+    } else if (file.document) {
+      if (file.document.url) {
+        filetype = file.document.url.split(".").pop();
+      }
+    }
 
     switch (filetype) {
       case "doc":
@@ -182,7 +194,10 @@ class RenderFile extends Component {
     return axios
       .delete(`${PORT}/api/v1/attached_files/${file}`)
       .then(resp => this.setState({ loading: false }))
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error);
+        this.setState({ loading: false });
+      });
   };
 
   downloadFile = file => {
@@ -222,7 +237,6 @@ class RenderFile extends Component {
       onSelfSubmit,
       ...rest
     } = this.props;
-    console.log(this.state.loading);
 
     return (
       <StyledUploader
@@ -251,29 +265,25 @@ class RenderFile extends Component {
         {this.state.files.map((file, key) => (
           <div
             key={key}
-            className={`filePreview ${
-              file.status && file.status === "delete" ? "disabled" : "active"
-            } ${onSelfSubmit ? " selfSubmit" : ""}`}
-            onClick={
-              file.status && file.status === "delete"
-                ? () => this.changeFileStatus(file.id, file.name, "save")
-                : null
-            }
+            className={`filePreview${onSelfSubmit ? " active" : ""}`}
           >
-            <div className="fileIcon" onClick={() => this.downloadFile(file)}>
-              <i
-                className={`far fa-file${
-                  file.name
-                    ? this.getFileExtension(file.name)
-                    : this.getFileExtension(file.document.url)
-                }`}
-              />
+            <div
+              className="fileIcon"
+              onClick={() =>
+                onSelfSubmit &&
+                file.document &&
+                file.document.url &&
+                this.downloadFile(file)
+              }
+            >
+              <i className={`far fa-file${this.getFileExtension(file)}`} />
             </div>
             <div className="fileInfo">
               <p className="fileName">
-                {file.name
-                  ? this.returnFileName(file.name)
-                  : this.returnFileName(file.document.url.split("/").pop())}
+                {file.name && this.returnFileName(file.name)}
+                {file.document &&
+                  file.document.url &&
+                  this.returnFileName(file.document.url.split("/").pop())}
               </p>
               <p className="fileSize">
                 {file.size
@@ -281,17 +291,14 @@ class RenderFile extends Component {
                   : this.returnFileSize(0)}
               </p>
             </div>
-
-            {file.status !== "delete" && (
-              <div
-                className="file-delete"
-                onClick={() =>
-                  this.changeFileStatus(file.id, file.name, "delete")
-                }
-              >
-                <i className="fas fa-times" />
-              </div>
-            )}
+            <div
+              className="file-delete"
+              onClick={() =>
+                this.handleDeleteFile(file.id, file.name, "delete")
+              }
+            >
+              <i className="fas fa-times" />
+            </div>
           </div>
         ))}
         <Loader inline inverted disabled={!this.state.loading} />
@@ -311,14 +318,6 @@ class RenderFile extends Component {
           multiple
           accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
           onChange={e => this._handleFileAttach(e)}
-        />
-
-        <input
-          ref={input => (this.shadowFileInput = input)}
-          name={input.name}
-          disabled={disabled}
-          placeholder={placeholder}
-          type="text"
         />
 
         {this.state.error ? (

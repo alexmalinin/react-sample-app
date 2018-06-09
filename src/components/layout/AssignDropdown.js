@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
+import { IMAGE_PORT } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
-import { showAllSpecialists } from "../../actions/actions";
 
 export default class AssignDropdown extends Component {
   state = {
@@ -107,6 +105,7 @@ export default class AssignDropdown extends Component {
     const { label, renderToDashboard, renderToModal, userType } = this.props;
     const { options, assignedIds, showDropdown, fetch } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
+    console.log(options)
 
     return (
       renderCondition && (
@@ -115,7 +114,7 @@ export default class AssignDropdown extends Component {
           // tabIndex="-1"
         >
           <a
-            tabIndex="1"
+            tabIndex="-1"
             onClick={this.openDropdown}
             ref={a => (this.trigger = a)}
           >

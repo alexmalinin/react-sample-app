@@ -9,7 +9,7 @@ export default store => next => action => {
   let token = localStorage.getItem("jwt_token");
 
   let files = payload.file
-    ? payload.file.split("||").map(file => {
+    ? payload["file"].map(file => {
         return {
           document: file,
           entity_type: "Project"

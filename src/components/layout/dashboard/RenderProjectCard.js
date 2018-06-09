@@ -52,19 +52,17 @@ class RenderProjectCard extends Component {
     } = nextProps;
 
     if (projectTeam) {
-      if (projectTeam[0]) {
-        if (projectTeam[0].project_id === id) {
-          if (this.props.projectTeam) {
-            if (this.props.projectTeam !== projectTeam) {
-              this.setState({
-                projectTeam: projectTeam[0]
-              });
-            }
-          } else
+      if (projectTeam.project_id === id) {
+        if (this.props.projectTeam) {
+          if (this.props.projectTeam !== projectTeam) {
             this.setState({
-              projectTeam: projectTeam[0]
+              projectTeam: projectTeam
             });
-        }
+          }
+        } else
+          this.setState({
+            projectTeam: projectTeam
+          });
       }
     }
   }

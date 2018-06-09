@@ -137,7 +137,7 @@ class ClientBilling extends Component {
           ) : this.state.nextLocation === "/dashboard/company" ? (
             <Redirect to="company" />
           ) : (
-            <Redirect to="board" />
+            <Redirect to="/dashboard/the_village" />
           )
         ) : null}
       </div>

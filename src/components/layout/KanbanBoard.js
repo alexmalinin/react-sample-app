@@ -54,12 +54,10 @@ class KanbanBoard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.projectTeam) {
-      if (nextProps.projectTeam[0]) {
-        if (nextProps.projectTeam[0].project_id === +nextProps.currentProject) {
-          this.setState({
-            currentProjectTeam: nextProps.projectTeam[0].specialists
-          });
-        }
+      if (nextProps.projectTeam.project_id === +nextProps.currentProject) {
+        this.setState({
+          currentProjectTeam: nextProps.projectTeam.specialists
+        });
       }
     }
 

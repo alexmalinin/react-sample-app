@@ -81,6 +81,7 @@ class EditTaskForm extends Component {
       epicTask: { attached_files }
     } = this.props;
     const { specialists } = this.state;
+    console.log(projectTeam);
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
 
@@ -155,18 +156,17 @@ class EditTaskForm extends Component {
                 disabled={disabled}
               />
               <div className="specialistsWrapper">
-                {projectTeam &&
-                  projectTeam[0] && (
-                    <AssignDropdown
-                      label="Add assignee"
-                      specialists={specialists}
-                      allSpecialists={projectTeam[0].specialists}
-                      handleAssign={this.handleAssign}
-                      userType={[S_REDGUY]}
-                      closeOnChange={false}
-                      renderToModal
-                    />
-                  )}
+                {projectTeam && (
+                  <AssignDropdown
+                    label="Add assignee"
+                    specialists={specialists}
+                    allSpecialists={projectTeam.specialists}
+                    handleAssign={this.handleAssign}
+                    userType={[S_REDGUY]}
+                    closeOnChange={false}
+                    renderToModal
+                  />
+                )}
                 {specialists.map((specialist, key) => (
                   <SpecialistTile
                     specialist={specialist}
