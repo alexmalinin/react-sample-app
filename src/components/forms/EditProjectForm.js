@@ -259,7 +259,7 @@ class EditProjectForm extends Component {
                             )
                           }
                         >
-                          "Publish"
+                          Publish
                         </DvBlueButton>
                       )}
                       {state === "reviewed_by_admin" && (

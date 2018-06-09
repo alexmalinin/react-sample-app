@@ -96,12 +96,18 @@ class SpecialistsWithId extends Component {
                 </Grid.Column>
                 <Grid.Column computer={3}>
                   <div className="billingItem">
-                    <p>Card name</p>
-                    <h3>{card_name || "No correspondent bank"}</h3>
+                    <p>Name on card</p>
+                    <h3>{card_name || "No name on card"}</h3>
                   </div>
+                </Grid.Column>
+                <Grid.Column computer={3}>
                   <div className="billingItem">
                     <p>Card number</p>
-                    <h3>{card_number || "No correspondent bank"}</h3>
+                    <h3>
+                      {card_number
+                        ? card_number.replace(/(\d{4})/g, "$1 ")
+                        : "No card number"}
+                    </h3>
                   </div>
                 </Grid.Column>
               </Grid.Row>

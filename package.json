@@ -33,6 +33,7 @@
     "react-trello": "^1.28.1",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
+    "redux-form-input-masks": "^1.1.4",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.73.1",
     "styled-components": "^2.1.2"

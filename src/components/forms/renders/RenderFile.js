@@ -291,14 +291,16 @@ class RenderFile extends Component {
                   : this.returnFileSize(0)}
               </p>
             </div>
-            <div
-              className="file-delete"
-              onClick={() =>
-                this.handleDeleteFile(file.id, file.name, "delete")
-              }
-            >
-              <i className="fas fa-times" />
-            </div>
+            {!disabled && (
+              <div
+                className="file-delete"
+                onClick={() =>
+                  this.handleDeleteFile(file.id, file.name, "delete")
+                }
+              >
+                <i className="fas fa-times" />
+              </div>
+            )}
           </div>
         ))}
         <Loader inline inverted disabled={!this.state.loading} />
