@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { boxShadow, colors, primaryColors } from "../constants/colors";
+import { Popup } from "semantic-ui-react";
 
 export const StyledAssignDropdown = styled.div`
   position: relative;
@@ -41,14 +42,13 @@ export const StyledAssignDropdown = styled.div`
     }
   }
 
-  a {
+  .dropdownTrigger {
     display: inline-block;
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    color: inherit;
     outline: none;
-    color: #ddd;
+    color: white;
     transition: 0.2s;
 
     ${props =>
@@ -76,23 +76,52 @@ export const StyledAssignDropdown = styled.div`
     }
 
     .plus {
-      display: inline-block;
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
       height: ${props => (props.renderToModal ? "48px" : "30px")};
       width: ${props => (props.renderToModal ? "48px" : "30px")};
-      border: 1px solid #ddd;
+      color: ${props => (props.blue ? "white" : "#ccc")};
       border-radius: 50%;
+      border: ${props => (props.blue ? "none" : "1px solid #ccc")};
+      background: ${props => (props.blue ? colors.darkBlue : "white")};
 
       text-align: center;
-      font-size: ${props => (props.renderToModal ? "36px" : "24px")};
-      line-height: ${props => (props.renderToModal ? "42px" : "24px")};
-      letter-spacing: -1px;
+      font-size: ${props => (props.renderToModal ? "36px" : "21px")};
+      line-height: ${props => (props.renderToModal ? "42px" : "unset")};
       margin-right: ${props => (props.renderToModal ? "8px" : "5px")};
       font-weight: 300;
+
+      &::before,
+      &::after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: ${props => (props.renderToModal ? "20px" : "12px")};
+        width: 1px;
+        background: ${props => (props.blue ? "white" : "#ccc")};
+      }
+
+      &::after{
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
     }
 
     .label{
       font-size: ${props => (props.renderToModal ? "1.2em" : "18px")};
       color: #999;
+
+      &.assignTeam{
+        font-size: 14px;
+        color: ${primaryColors.lightGrey};
+
+        &:hover{
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -226,26 +255,81 @@ export const StyledAssignDropdown = styled.div`
         }
 
         .ui.input{
+          width: 100%;
+          padding: 10px 15px;
+
+          input{
+            display: inline-block;
+            position: relative;
+            height: 100%;
             width: 100%;
-            padding: 10px 15px;
+            z-index: 1;
+            font-size: 12px;
 
-            input{
-                display: inline-block;
-                position: relative;
-                height: 100%;
-                width: 100%;
-                z-index: 1;
-                font-size: 12px;
-
-                &::placeholder{
-                    color: #a1a1a1;
-                }
-
-                &:focus{
-                    border-color: #dbdbdb;
-                }
+            &::placeholder{
+                color: #a1a1a1;
             }
+
+            &:focus{
+                border-color: #dbdbdb;
+            }
+          }
         }
+      }
+    }
+  }
+`;
+
+export const StyledDropdown = styled(Popup)`
+  .ui.attached.tabular.menu {
+    min-width: 240px;
+  }
+
+  .dropdownTitle {
+    color: ${colors.darkBlue};
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .ui.attached.bottom {
+    padding: 0;
+    .ui.input {
+      font-size: 12px;
+      margin: 8px 16px 0;
+    }
+
+    .dropdown-list {
+      margin-top: 4px;
+      padding-bottom: 8px;
+      max-height: 160px;
+      overflow-y: auto;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        color: ${primaryColors.darkGrey};
+        padding: 8px 16px;
+        cursor: pointer;
+
+        img {
+          height: 30px;
+          width: 30px;
+          background: white;
+          border-radius: 50%;
+          margin-right: 6px;
+        }
+
+        &:hover {
+          background: ${primaryColors.backgroundColor};
+        }
+      }
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
       }
     }
   }
@@ -259,12 +343,14 @@ export const StyledPersonTile = styled.div`
   cursor: pointer;
   text-transform: none;
   font-weight: 400;
+  margin-right: ${props => (props.compressed ? "-3px" : "0")};
 
   img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-right: 5px;
+    background: #fff;
+    margin-right: ${props => (props.compressed ? "0" : "5px")};
   }
 
   a {
@@ -450,6 +536,45 @@ export const StyledSpecialist = styled.div`
           transform: rotate(-45deg);
         }
       }
+    }
+  }
+`;
+
+export const StyledMembersWrapper = styled.div`
+  &.outer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    .allMembers {
+      margin-right: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background: ${colors.darkBlue};
+      color: white;
+      cursor: pointer;
+      z-index: 1;
+    }
+  }
+  &.inner {
+    max-width: 240px;
+
+    & > div {
+      display: inline-block;
+    }
+
+    h3 {
+      flex: 0 0 100%;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      color: ${colors.darkBlue};
+      margin-bottom: 4px;
+      font-weight: 600;
+      font-family: "Brix";
     }
   }
 `;

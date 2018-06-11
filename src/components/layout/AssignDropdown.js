@@ -105,7 +105,6 @@ export default class AssignDropdown extends Component {
     const { label, renderToDashboard, renderToModal, userType } = this.props;
     const { options, assignedIds, showDropdown, fetch } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
-    console.log(options)
 
     return (
       renderCondition && (
@@ -115,10 +114,11 @@ export default class AssignDropdown extends Component {
         >
           <a
             tabIndex="-1"
+            className="dropdownTrigger"
             onClick={this.openDropdown}
             ref={a => (this.trigger = a)}
           >
-            <span className="plus">+</span>
+            <span className="plus" />
             {(renderToDashboard || renderToModal) && (
               <span className="label">{label}</span>
             )}

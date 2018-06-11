@@ -53,12 +53,13 @@ class KanbanBoard extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    //TODO request a specialists list from back on dropdown open
     if (nextProps.projectTeam) {
       if (nextProps.projectTeam.project_id === +nextProps.currentProject) {
         this.setState({
           currentProjectTeam: nextProps.projectTeam.specialists
         });
-      }
+      } else this.setState({ currentProjectTeam: [] });
     }
 
     if (this.props.currentEpic !== nextProps.currentEpic) {
@@ -98,8 +99,7 @@ class KanbanBoard extends Component {
             eta: task.eta,
             cost: task.cost,
             description: "Platform - Dashboard",
-            specialists: task.specialists,
-            specialistList: this.state.currentProjectTeam
+            specialists: task.specialists
           };
           if (task.state === "backlog") {
             backlog.push(taskObject);
@@ -190,6 +190,7 @@ class KanbanBoard extends Component {
               epic={epicId}
               handleEditTask={this.handleEditTask}
               deleteTask={this.deleteTask}
+              specialistList={this.state.currentProjectTeam}
             />
           </Board>
           <EditTaskModal

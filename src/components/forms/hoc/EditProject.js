@@ -14,6 +14,8 @@ class EditProject extends Component {
     renderErrorMessage: false
   };
 
+  //move all async to one file
+
   submit = values => {
     values.project_id = this.props.projectId;
     let skill_ids =
@@ -67,6 +69,8 @@ class EditProject extends Component {
         }, 2500);
       });
   };
+
+  //move all async to one file
 
   handleAssignTeam = id => {
     const { projectId } = this.props;

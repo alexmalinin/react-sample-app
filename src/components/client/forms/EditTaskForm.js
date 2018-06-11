@@ -81,7 +81,6 @@ class EditTaskForm extends Component {
       epicTask: { attached_files }
     } = this.props;
     const { specialists } = this.state;
-    console.log(projectTeam);
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
 

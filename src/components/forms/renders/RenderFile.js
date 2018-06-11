@@ -65,8 +65,8 @@ class RenderFile extends Component {
   }
 
   returnFileName(name) {
-    if (name.length > 20) {
-      return name.slice(0, 17) + "...";
+    if (name.length > 12) {
+      return name.slice(0, 9) + "...";
     } else return name;
   }
 

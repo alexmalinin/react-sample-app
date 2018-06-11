@@ -27,13 +27,19 @@ export default styled.div`
     transition: inherit;
     .row {
       .column {
+        display: flex;
+        flex-flow: row nowrap;
+
         & > div {
           padding: 20px;
           background: #fff;
           border-radius: 1px;
-          ${boxShadow.light};
+          border-radius: 1px solid ${primaryColors.accentGrey};
 
           &.projectAside {
+            flex: 0 0 350px;
+            margin-right: 20px;
+
             .asideInfo {
               padding-top: 14px;
               padding-bottom: 8px;
@@ -51,12 +57,36 @@ export default styled.div`
 
               .label {
                 color: ${primaryColors.darkGrey};
+
+                &.assignTeam {
+                  color: ${primaryColors.lightGrey};
+                }
               }
 
-              .project-team {
+              .teamWrapper {
                 display: flex;
-                flex-flow: row wrap;
+                flex-flow: row nowrap;
                 align-items: center;
+
+                .project-team {
+                  display: flex;
+                  flex-flow: row nowrap;
+                  align-items: center;
+
+                  .allMembers {
+                    margin-right: 5px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    background: ${colors.darkBlue};
+                    color: white;
+                    cursor: pointer;
+                    z-index: 1;
+                  }
+                }
               }
 
               .skillsWrapper {
@@ -103,6 +133,7 @@ export default styled.div`
             }
           }
           &.projectMain {
+            flex: 1 1 auto;
             .title {
               position: relative;
               display: flex;

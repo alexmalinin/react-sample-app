@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
-import { Grid } from "semantic-ui-react";
+import { Grid, Popup } from "semantic-ui-react";
 import {
   showProjectWithId,
   getProjectTypes,
@@ -14,11 +14,16 @@ import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
-import { getUserRole, oneOfRoles } from "../../helpers/functions";
+import {
+  getUserRole,
+  oneOfRoles,
+  renameObjPropNames
+} from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
 import Axios from "axios";
 import AssignTeamDropdown from "../layout/AssignTeamDropdown";
 import PersonTile from "../layout/PersonTile";
+import MembersDropdown from "../layout/dropdowns/MembersDropdown";
 
 class EditProjectForm extends Component {
   state = {
@@ -29,7 +34,6 @@ class EditProjectForm extends Component {
     const { projectWithId } = this.props;
 
     this.props.getProjectTypes();
-    this.props.showCustomTeams();
 
     if (projectWithId) {
       this.props.showProjectTeam(projectWithId.id);
@@ -65,6 +69,31 @@ class EditProjectForm extends Component {
     });
   };
 
+  //make normal search select instead of multiselect
+  handleSkills = (e, name) => {
+    let skillsIds = [];
+    for (let key in e) {
+      e[key].value && skillsIds.push(e[key].value);
+    }
+
+    this.setState({ updatingSkills: true });
+    this.handleSubmit("skill_ids", skillsIds)
+      .then(resp => {
+        const skills = resp.data.skills;
+        skills.forEach(skill => {
+          renameObjPropNames(skill, "id", "value");
+          renameObjPropNames(skill, "name", "label");
+        });
+        this.props.change("skills", skills);
+        this.setState({ updatingSkills: false });
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.change("skills", this.props.projectWithId.skills);
+        this.setState({ updatingSkills: false });
+      });
+  };
+
   render() {
     const {
       projectWithId,
@@ -75,7 +104,10 @@ class EditProjectForm extends Component {
       dirty,
       skills,
       submitSucceeded,
-      projectTeam
+      projectTeam,
+      showCustomTeams,
+      allCustomTeams,
+      handleAssignTeam
     } = this.props;
 
     const { logo = {}, name = "", customer = {}, project_type, state } =
@@ -116,8 +148,8 @@ class EditProjectForm extends Component {
         <i className="fa fa-spinner fa-3x fa-pulse preloader" />
         <Form onSubmit={handleSubmit}>
           <Grid>
-            <Grid.Row stretched>
-              <Grid.Column computer={4}>
+            <Grid.Row columns={1}>
+              <Grid.Column>
                 <div className="projectAside">
                   <div className="asideInfo">
                     <p>
@@ -156,6 +188,7 @@ class EditProjectForm extends Component {
                         placeholder="Add few new technologies"
                         className="projectSkills"
                         onOpen={this.getSkills}
+                        handleSelectChange={this.handleSkills}
                       />
                     ) : (
                       <React.Fragment>
@@ -175,27 +208,20 @@ class EditProjectForm extends Component {
                   </div>
                   <div className="asideInfo">
                     <p>
-                      <span className="label">Team members:</span>
+                      <span className="label">Members:</span>
                     </p>
-                    <div className="project-team">
-                      {team &&
-                        team.map((person, index) => {
-                          return (
-                            <PersonTile
-                              key={index}
-                              specialist={person}
-                              // handleRemove={this.handleAssign}
-                              removeTitle="project"
-                              hideDelete
-                              // userType={changeUserType}
-                            />
-                          );
-                        })}
+                    <div className="teamWrapper">
+                      <MembersDropdown
+                        members={team}
+                        countToShow={5}
+                        position="bottom left"
+                        handleRemove={this.handleAssign}
+                      />
                       {getUserRole() === S_REDGUY && (
                         <AssignTeamDropdown
+                          // label="Invite custom team"
                           specialists={team}
-                          allTeams={this.props.allCustomTeams}
-                          handleAssignTeam={this.props.handleAssignTeam}
+                          handleAssignTeam={handleAssignTeam}
                           userType={[S_REDGUY]}
                           closeOnChange={true}
                         />
@@ -203,8 +229,6 @@ class EditProjectForm extends Component {
                     </div>
                   </div>
                 </div>
-              </Grid.Column>
-              <Grid.Column computer={12}>
                 <div className="projectMain">
                   <div className="title">
                     {logo.url ? (
