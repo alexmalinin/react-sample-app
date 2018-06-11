@@ -1,43 +1,36 @@
 import React, { Component } from "react";
-import { Header, Modal } from "semantic-ui-react";
-import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
-import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
-import { getFormIdByPageName } from "../../helpers/functions";
-
 import { connect } from "react-redux";
 import { submit } from "redux-form";
+import { Header, Modal } from "semantic-ui-react";
+import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
+import { closeConfirmationModal } from "../../actions/actions";
+import { CLOSE_CONFIRMATION_MODAL } from "../../constans/constans";
 
-class ConfirmationModal extends Component {
-  confirmModal = () => {
-    const { onConfirm } = this.props;
+class SavingConfirmationModal extends Component {
+  confirmModal = ev => {
+    const { dispatch, formId } = this.props;
 
-    if (onConfirm) {
-      onConfirm();
-    }
-  };
-
-  closeModal = ev => {
-    const { onCancel, clearLocation } = this.props;
+    dispatch({ type: CLOSE_CONFIRMATION_MODAL });
 
     ev.preventDefault();
     let close = document.querySelector("i.close.icon");
     close.click();
+  };
 
-    clearLocation && clearLocation();
+  closeModal = ev => {
+    const { handleChangeState, closeConfirmationModal, dispatch } = this.props;
 
-    if (onCancel) {
-      onCancel();
+    if (handleChangeState) {
+      this.props.handleChangeState("confirmation", false);
     }
+
+    dispatch({ type: CLOSE_CONFIRMATION_MODAL });
   };
 
   submitModal = ev => {
-    const { dispatch, formId, onCancel } = this.props;
+    const { dispatch, formId } = this.props;
 
     dispatch(submit(formId));
-
-    if (onCancel) {
-      onCancel();
-    }
   };
 
   render() {
@@ -83,4 +76,4 @@ class ConfirmationModal extends Component {
   }
 }
 
-export default connect()(ConfirmationModal);
+export default connect()(SavingConfirmationModal);

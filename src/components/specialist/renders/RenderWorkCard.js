@@ -34,7 +34,7 @@ class RenderCard extends Component {
   }
 
   render() {
-    const { experiences } = this.props;
+    const { experiences, isEdited, handleChangeState } = this.props;
 
     return (
       <StyledEducationCard expanded={this.state.isExpanded ? "true" : ""}>
@@ -43,6 +43,8 @@ class RenderCard extends Component {
             <EditingExperienceCard
               experience={experiences}
               id={experiences["id"]}
+              isEdited={isEdited}
+              handleChangeState={handleChangeState}
             />
             <DeletingExperienceCard
               experience={experiences}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderField from "../../forms/renders/RenderField";
@@ -10,6 +11,10 @@ import StyledWelcomeForm from "../../../styleComponents/StyledWelcomeForm";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
 import { getYearsForSelect } from "../../../helpers/functions";
+import {
+  closeConfirmationModal,
+  showSubmitErrorModal
+} from "../../../actions/actions";
 
 let renderError = true;
 
@@ -18,7 +23,8 @@ class EducationForm extends Component {
     fetch: true,
     started: null,
     finished: null,
-    disabled: true
+    disabled: true,
+    fetchSubmitError: true
   };
 
   handleSelectChange = e => {
@@ -114,6 +120,7 @@ class EducationForm extends Component {
               <SaveBtn
                 type="submit"
                 disabled={submitting}
+                onClick={this.handleSubmitError}
                 primary
                 updatebtn="true"
                 static="true"
@@ -127,11 +134,17 @@ class EducationForm extends Component {
     );
   }
 
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.props.showSubmitErrorModal();
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.education) {
       if (nextProps.education.educationSuccessId) {
         if (renderError) {
-          this.fillFields(nextProps.education);
+          // this.fillFields(nextProps.education);
           renderError = false;
         }
       }
@@ -157,19 +170,44 @@ class EducationForm extends Component {
       }
       this.setState({ fetch: false });
     }
+
+    if (nextProps.submitSucceeded || nextProps.submitFailed) {
+      this.props.closeConfirmationModal();
+    }
+
+    if (
+      (nextProps.submitFailed && this.state.fetchSubmitError) ||
+      (nextProps.submitFailed && this.props.triggerSubmit)
+    ) {
+      this.props.showSubmitErrorModal();
+      this.setState({ fetchSubmitError: false });
+    }
   }
 
-  fillFields = data => {
-    let {
-      name,
-      specialisation,
-      degree,
-      description,
-      started_at,
-      finished_at
-    } = data;
+  closeModal = ev => {
+    ev.preventDefault();
 
-    let started, finished;
+    let close = document.querySelector("i.close.icon");
+    close.click();
+  };
+
+  componentWillUnmount() {
+    renderError = true;
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  const { education } = ownProps;
+
+  let started_at = null,
+    finished_at = null,
+    started = null,
+    finished = null;
+
+  started_at = education && education.started_at;
+  finished_at = education && education.finished_at;
+
+  if (started_at) {
     if (
       started_at.hasOwnProperty("label") &&
       started_at.hasOwnProperty("value")
@@ -181,6 +219,9 @@ class EducationForm extends Component {
         value: started_at
       };
     }
+  }
+
+  if (finished_at) {
     if (
       finished_at.hasOwnProperty("label") &&
       finished_at.hasOwnProperty("value")
@@ -192,32 +233,32 @@ class EducationForm extends Component {
         value: finished_at
       };
     }
-
-    this.props.dispatch(change("EducationForm", "name", name));
-    this.props.dispatch(
-      change("EducationForm", "specialisation", specialisation)
-    );
-    this.props.dispatch(change("EducationForm", "degree", degree));
-    this.props.dispatch(
-      change("EducationForm", "description", description || "")
-    );
-    this.props.dispatch(change("EducationForm", "started_at", started));
-    this.props.dispatch(change("EducationForm", "finished_at", finished));
-  };
-
-  closeModal = ev => {
-    ev.preventDefault();
-    let close = document.querySelector("i.close.icon");
-    close.click();
-  };
-
-  componentWillUnmount() {
-    renderError = true;
   }
-}
 
-export default reduxForm({
+  const initialValues = { ...education };
+
+  if (started) {
+    initialValues.started_at = started;
+  }
+
+  if (finished) {
+    initialValues.finished_at = finished;
+  }
+
+  return {
+    initialValues
+  };
+};
+
+EducationForm = reduxForm({
   form: "EducationForm",
   destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
+})(EducationForm);
+
+export default connect(mapStateToProps, {
+  closeConfirmationModal,
+  showSubmitErrorModal
 })(EducationForm);

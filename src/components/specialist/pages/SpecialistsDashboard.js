@@ -44,6 +44,8 @@ import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
 import SpecialistMyTasks from "./SpecialistMyTasks";
+import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
+import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -311,6 +313,15 @@ class SpecialistsDashboard extends Component {
             </Container>
           )}
         </S_MainContainer>
+
+        {this.props.confirmationModal && (
+          <SavingConfirmationModal
+            isOpen={true}
+            formId={this.props.confirmationModal.formId}
+          />
+        )}
+
+        {this.props.submitErrorModal && <SubmitFormErrorModal isOpen={true} />}
       </div>
     );
   }
@@ -446,7 +457,9 @@ export default connect(
     projectWithId,
     specialistProjects,
     allTeams,
-    specialistTeams
+    specialistTeams,
+    confirmationModal,
+    submitErrorModal
   }) => ({
     changeUserType,
     specialistData,
@@ -457,7 +470,9 @@ export default connect(
     projectWithId,
     specialistProjects,
     allTeams,
-    specialistTeams
+    specialistTeams,
+    confirmationModal,
+    submitErrorModal
   }),
   {
     showSpecialistData,

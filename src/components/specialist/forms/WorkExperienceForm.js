@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm, change } from "redux-form";
 import { required } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
@@ -9,6 +10,10 @@ import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import { StyledLabelArea } from "../../../styleComponents/forms/StyledTextArea";
 import { getYearsForSelect } from "../../../helpers/functions";
+import {
+  closeConfirmationModal,
+  showSubmitErrorModal
+} from "../../../actions/actions";
 
 let renderError = true;
 
@@ -17,7 +22,9 @@ class WorkExperienceForm extends Component {
     fetch: true,
     started: null,
     finished: null,
-    disabled: true
+    disabled: true,
+    fetchFormChage: true,
+    fetchSubmitError: true
   };
 
   handleSelectChange = e => {
@@ -30,6 +37,8 @@ class WorkExperienceForm extends Component {
 
   render() {
     const { handleSubmit, submitting } = this.props;
+
+    console.log("props", this.props);
 
     return (
       <form onSubmit={handleSubmit}>
@@ -105,6 +114,7 @@ class WorkExperienceForm extends Component {
               <SaveBtn
                 type="submit"
                 disabled={submitting}
+                onClick={this.handleSubmitError}
                 primary
                 updatebtn="true"
                 static="true"
@@ -118,11 +128,17 @@ class WorkExperienceForm extends Component {
     );
   }
 
+  handleSubmitError = () => {
+    if (this.props.submitFailed && this.props.invalid) {
+      this.props.showSubmitErrorModal();
+    }
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.experience) {
       if (nextProps.experience.experienceSuccessId) {
         if (renderError) {
-          this.fillFields(nextProps.experience);
+          // this.fillFields(nextProps.experience);
           renderError = false;
         }
       }
@@ -148,21 +164,44 @@ class WorkExperienceForm extends Component {
       }
       this.setState({ fetch: false });
     }
+
+    if (nextProps.submitSucceeded || nextProps.submitFailed) {
+      this.props.closeConfirmationModal();
+    }
+
+    if (
+      (nextProps.submitFailed && this.state.fetchSubmitError) ||
+      (nextProps.submitFailed && this.props.triggerSubmit)
+    ) {
+      this.props.showSubmitErrorModal();
+      this.setState({ fetchSubmitError: false });
+    }
   }
 
-  fillFields = data => {
-    let {
-      name,
-      position,
-      country,
-      city,
-      degree,
-      description,
-      started_at,
-      finished_at
-    } = data;
+  closeModal = ev => {
+    ev.preventDefault();
 
-    let started, finished;
+    let close = document.querySelector("i.close.icon");
+    close.click();
+  };
+
+  componentWillUnmount() {
+    renderError = true;
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  const { experience } = ownProps;
+
+  let started_at = null,
+    finished_at = null,
+    started = null,
+    finished = null;
+
+  started_at = experience && experience.started_at;
+  finished_at = experience && experience.finished_at;
+
+  if (started_at) {
     if (
       started_at.hasOwnProperty("label") &&
       started_at.hasOwnProperty("value")
@@ -174,6 +213,9 @@ class WorkExperienceForm extends Component {
         value: started_at
       };
     }
+  }
+
+  if (finished_at) {
     if (
       finished_at.hasOwnProperty("label") &&
       finished_at.hasOwnProperty("value")
@@ -185,32 +227,32 @@ class WorkExperienceForm extends Component {
         value: finished_at
       };
     }
-
-    this.props.dispatch(change("WorkExperienceForm", "name", name));
-    this.props.dispatch(change("WorkExperienceForm", "position", position));
-    this.props.dispatch(change("WorkExperienceForm", "country", country));
-    this.props.dispatch(change("WorkExperienceForm", "city", city));
-    this.props.dispatch(change("WorkExperienceForm", "degree", degree));
-    this.props.dispatch(
-      change("WorkExperienceForm", "description", description || "")
-    );
-    this.props.dispatch(change("WorkExperienceForm", "started_at", started));
-    this.props.dispatch(change("WorkExperienceForm", "finished_at", finished));
-  };
-
-  closeModal = ev => {
-    ev.preventDefault();
-    let close = document.querySelector("i.close.icon");
-    close.click();
-  };
-
-  componentWillUnmount() {
-    renderError = true;
   }
-}
 
-export default reduxForm({
+  const initialValues = { ...experience };
+
+  if (started) {
+    initialValues.started_at = started;
+  }
+
+  if (finished) {
+    initialValues.finished_at = finished;
+  }
+
+  return {
+    initialValues
+  };
+};
+
+WorkExperienceForm = reduxForm({
   form: "WorkExperienceForm",
   destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
+})(WorkExperienceForm);
+
+export default connect(mapStateToProps, {
+  closeConfirmationModal,
+  showSubmitErrorModal
 })(WorkExperienceForm);

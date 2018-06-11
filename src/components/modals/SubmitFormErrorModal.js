@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Header, Modal } from "semantic-ui-react";
 import { CancelBtn } from "../../styleComponents/layout/DvButton";
+import { closeSubmitErrorModal } from "../../actions/actions";
 
 class SubmitFormErrorModal extends Component {
   state = {
@@ -12,15 +14,28 @@ class SubmitFormErrorModal extends Component {
   }
 
   closeModal = ev => {
+    const { close, closeSubmitErrorModal } = this.props;
     this.setState({ open: false });
-    this.props.close();
+
+    if (closeSubmitErrorModal) {
+      closeSubmitErrorModal();
+    }
+
+    if (close) {
+      this.props.close();
+    }
   };
 
   render() {
     const { open } = this.state;
 
     return (
-      <Modal size="tiny" open={open} onClose={this.closeModal} closeIcon>
+      <Modal
+        size="tiny"
+        open={this.props.isOpen}
+        onClose={this.closeModal}
+        closeIcon
+      >
         <Modal.Content>
           <Modal.Description>
             <Header>Please fill in all the required fields</Header>
@@ -36,4 +51,4 @@ class SubmitFormErrorModal extends Component {
   }
 }
 
-export default SubmitFormErrorModal;
+export default connect(null, { closeSubmitErrorModal })(SubmitFormErrorModal);

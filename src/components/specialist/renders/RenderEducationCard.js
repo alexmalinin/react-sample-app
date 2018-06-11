@@ -34,13 +34,17 @@ class RenderEducationCard extends Component {
   }
 
   render() {
-    const { education } = this.props;
+    const { education, handleConfirmationModal } = this.props;
 
     return (
       <StyledEducationCard expanded={this.state.isExpanded ? "true" : ""}>
         {education && (
           <Card.Content>
-            <EditingEducationCard education={education} id={education["id"]} />
+            <EditingEducationCard
+              education={education}
+              id={education["id"]}
+              handleConfirmationModal={handleConfirmationModal}
+            />
             <DeletingEducationCard education={education} id={education["id"]} />
             {education.name && <Card.Header>{education.name}</Card.Header>}
             {(education.specialisation || education.degree) && (

@@ -1,13 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm, change } from "redux-form";
+import { Field, reduxForm, change, getFormValues } from "redux-form";
+import { isEqual } from "lodash";
 import { required, date, maxLength260 } from "../../../helpers/validate";
 import CostField from "../../forms/renders/CostField";
-import {
-  SubmitBtn,
-  CancelBtn,
-  SaveBtn
-} from "../../../styleComponents/layout/DvButton";
+import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderDate from "../../forms/renders/RenderDate";
@@ -24,10 +21,13 @@ class NewTaskForm extends Component {
     super(props);
     this.state = {
       moduleList: [],
-      specialists: []
+      specialists: [],
+      fetchInitialValues: true,
+      fetchSubmitError: true
     };
 
     this.projectList = [];
+    this.initialValues = [];
   }
 
   componentWillMount() {
@@ -134,204 +134,238 @@ class NewTaskForm extends Component {
     const { specialists, moduleList } = this.state;
 
     return (
-      <form onSubmit={handleSubmit}>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column computer={8}>
-              <Field
-                name="project"
-                component={RenderSelect}
-                options={this.projectList}
-                label="project"
-                placeholder="Select"
-                validate={[required]}
-                isRequired
-                onChange={this.selectProject}
-                padded
-              />
-            </Grid.Column>
-            <Grid.Column computer={8}>
-              <Field
-                name="epic"
-                component={RenderSelect}
-                options={moduleList}
-                label="Module"
-                placeholder="Select"
-                validate={[required]}
-                isRequired
-                disabled={!moduleList.length}
-                padded
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={16}>
-              <InputField
-                name="name"
-                label="Summary"
-                component={RenderTextArea}
-                className="area"
-                validate={[required, maxLength260]}
-                isRequired
-                padded
-              />
-            </Grid.Column>
+      <Fragment>
+        <form onSubmit={handleSubmit}>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column computer={8}>
+                <Field
+                  name="project"
+                  component={RenderSelect}
+                  options={this.projectList}
+                  label="project"
+                  placeholder="Select"
+                  validate={[required]}
+                  isRequired
+                  onChange={this.selectProject}
+                  padded
+                />
+              </Grid.Column>
+              <Grid.Column computer={8}>
+                <Field
+                  name="epic"
+                  component={RenderSelect}
+                  options={moduleList}
+                  label="Module"
+                  placeholder="Select"
+                  validate={[required]}
+                  isRequired
+                  disabled={!moduleList.length}
+                  padded
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column computer={16}>
+                <InputField
+                  name="name"
+                  label="Summary"
+                  component={RenderTextArea}
+                  className="area"
+                  validate={[required, maxLength260]}
+                  isRequired
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="description"
-                component={RenderTextArea}
-                label="Description"
-                className="area"
-                validate={[required]}
-                isRequired
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="description"
+                  component={RenderTextArea}
+                  label="Description"
+                  className="area"
+                  validate={[required]}
+                  isRequired
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="user_story"
-                component={RenderTextArea}
-                label="User Story"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="user_story"
+                  component={RenderTextArea}
+                  label="User Story"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="deliverables"
-                component={RenderTextArea}
-                label="Acceptance Criteria"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="deliverables"
+                  component={RenderTextArea}
+                  label="Acceptance Criteria"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="notes"
-                component={RenderTextArea}
-                label="Notes"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="notes"
+                  component={RenderTextArea}
+                  label="Notes"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="business_requirements"
-                component={RenderTextArea}
-                label="Business Requirements"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="business_requirements"
+                  component={RenderTextArea}
+                  label="Business Requirements"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="business_rules"
-                component={RenderTextArea}
-                label="Business Rules"
-                className="area"
-                large
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="business_rules"
+                  component={RenderTextArea}
+                  label="Business Rules"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={16}>
-              <Field
-                name="attached_files"
-                type="text"
-                component={RenderFile}
-                dropzone
-                label="Attach files"
-                className="area"
-                padded
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={5}>
-              <Field
-                name="eta"
-                component={RenderDate}
-                type="date"
-                label="Estimate"
-                className="estimate"
-                validate={[required, date]}
-                isRequired
-                handleEtaForm={this.handleEtaForm}
-                padded
-              />
-            </Grid.Column>
+              <Grid.Column computer={16}>
+                <Field
+                  name="attached_files"
+                  type="text"
+                  component={RenderFile}
+                  dropzone
+                  label="Attach files"
+                  className="area"
+                  padded
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column computer={5}>
+                <Field
+                  name="eta"
+                  component={RenderDate}
+                  type="date"
+                  label="Estimate"
+                  className="estimate"
+                  validate={[required, date]}
+                  isRequired
+                  handleEtaForm={this.handleEtaForm}
+                  padded
+                />
+              </Grid.Column>
 
-            <Grid.Column computer={3}>
-              <CostField
-                name="cost"
-                label="Cost"
-                onBlur={this.makeFloat}
-                padded
-              />
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={9}>
-              <div className="specialistsWrapper">
-                {specialists.map((specialist, key) => (
-                  <SpecialistTile
-                    specialist={specialist}
-                    key={key}
-                    index={key}
-                    remove={this.removeSpecialist}
-                  />
-                ))}
-                {!!this.state.moduleList.length &&
-                  projectTeam && (
-                    <AssignDropdown
-                      label="Assign member"
-                      specialists={specialists}
-                      allSpecialists={projectTeam.specialists}
-                      handleAssign={this.handleAssign}
-                      userType={[S_REDGUY]}
-                      closeOnChange={false}
-                      renderToModal
+              <Grid.Column computer={3}>
+                <CostField
+                  name="cost"
+                  label="Cost"
+                  onBlur={this.makeFloat}
+                  padded
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column computer={9}>
+                <div className="specialistsWrapper">
+                  {specialists.map((specialist, key) => (
+                    <SpecialistTile
+                      specialist={specialist}
+                      key={key}
+                      index={key}
+                      remove={this.removeSpecialist}
                     />
-                  )}
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={4} floated="right" textAlign="right">
-              <CancelBtn type="button" onClick={this.closeModal} primary static>
-                <span>Cancel</span>
-              </CancelBtn>
-              <SaveBtn
-                type="submit"
-                disabled={submitting}
-                updatebtn="true"
-                primary
-                static="true"
-              >
-                <span>Save</span>
-              </SaveBtn>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </form>
+                  ))}
+                  {!!this.state.moduleList.length &&
+                    projectTeam && (
+                      <AssignDropdown
+                        label="Assign member"
+                        specialists={specialists}
+                        allSpecialists={projectTeam.specialists}
+                        handleAssign={this.handleAssign}
+                        userType={[S_REDGUY]}
+                        closeOnChange={false}
+                        renderToModal
+                      />
+                    )}
+                  {!!this.state.moduleList.length &&
+                    projectTeam &&
+                    projectTeam[0] && (
+                      <AssignDropdown
+                        label="Assign member"
+                        specialists={specialists}
+                        allSpecialists={projectTeam[0].specialists}
+                        handleAssign={this.handleAssign}
+                        userType={[S_REDGUY]}
+                        closeOnChange={false}
+                        renderToModal
+                      />
+                    )}
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column computer={4} floated="right" textAlign="right">
+                <CancelBtn
+                  type="button"
+                  onClick={this.closeModal}
+                  primary
+                  static
+                >
+                  <span>Cancel</span>
+                </CancelBtn>
+                <SaveBtn
+                  type="submit"
+                  disabled={submitting}
+                  updatebtn="true"
+                  primary
+                  static="true"
+                >
+                  <span>Save</span>
+                </SaveBtn>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </form>
+      </Fragment>
     );
   }
 
-  componentWillReceiveProps(nextProps) {}
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.formValues && this.state.fetchInitialValues) {
+      this.initialValues = nextProps.formValues;
+      this.setState({
+        fetchInitialValues: false
+      });
+    }
+
+    if (isEqual(this.initialValues, nextProps.formValues)) {
+      this.props.handleChangeState("isEdited", false);
+    } else {
+      this.props.handleChangeState("isEdited", true);
+    }
+  }
 
   closeModal = ev => {
     ev.preventDefault();
+
     let close = document.querySelector("i.close.icon");
     close.click();
   };
@@ -344,19 +378,25 @@ NewTaskForm = reduxForm({
   initialValues: { cost: "0.00" }
 })(NewTaskForm);
 
-export default connect(
-  ({
+const mapStateToProps = (state, ownProps) => {
+  const {
     specialistProjects,
     projectTeam,
     changeUserType,
     projectWithId,
     allEpics
-  }) => ({
+  } = state;
+
+  const formValues = getFormValues("CreateTaskForm")(state);
+
+  return {
     specialistProjects,
     projectTeam,
     changeUserType,
     projectWithId,
-    allEpics
-  }),
-  { showProjectTeam }
-)(NewTaskForm);
+    allEpics,
+    formValues
+  };
+};
+
+export default connect(mapStateToProps, { showProjectTeam })(NewTaskForm);

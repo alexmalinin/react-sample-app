@@ -7,6 +7,8 @@ import { education } from "../../actions/actions";
 
 class EdicationModal extends Component {
   render() {
+    const { handleConfirmationModal } = this.props;
+
     return (
       <Modal
         trigger={
@@ -21,7 +23,10 @@ class EdicationModal extends Component {
         <Modal.Content>
           <Modal.Description>
             <Header>List any formal education here</Header>
-            <EducationForm onSubmit={this.submit} />
+            <EducationForm
+              handleConfirmationModal={handleConfirmationModal}
+              onSubmit={this.submit}
+            />
           </Modal.Description>
         </Modal.Content>
       </Modal>

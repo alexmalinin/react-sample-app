@@ -7,6 +7,7 @@ import { workExperience } from "../../actions/actions";
 
 class WorkExperienceModal extends Component {
   render() {
+    const { handleConfirmationModal } = this.props;
     return (
       <Modal
         trigger={
@@ -24,7 +25,10 @@ class WorkExperienceModal extends Component {
               Tell us about previous companies you’ve worked at, projects you’ve
               worked on or things you’ve built
             </Header>
-            <WorkExperienceForm onSubmit={this.submit} />
+            <WorkExperienceForm
+              handleConfirmationModal={handleConfirmationModal}
+              onSubmit={this.submit}
+            />
           </Modal.Description>
         </Modal.Content>
       </Modal>
