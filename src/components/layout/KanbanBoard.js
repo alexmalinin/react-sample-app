@@ -86,7 +86,9 @@ class KanbanBoard extends Component {
 
         if (nextProps.myTasks) {
           taskList = nextProps.epicTasks.filter(task =>
-            task.specialists.some(spec => spec.id === getUserId())
+            task.specialist_tasks.some(
+              ({ specialist }) => specialist.id === getUserId()
+            )
           );
         } else taskList = nextProps.epicTasks;
 

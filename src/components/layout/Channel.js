@@ -77,8 +77,9 @@ class Channel extends Component {
   };
 
   renderToDashboard() {
-    const { channel, allSpecialists, changeUserType } = this.props;
+    const { channel, allSpecialists } = this.props;
     const { name, showDeleteConfirmation } = this.state;
+    const isGeneral = channel.name === "General";
 
     return (
       <div className="channel">
@@ -93,7 +94,7 @@ class Channel extends Component {
               type="text"
               placeholder="Channel name"
               name="name"
-              disabled={getUserRole() !== S_REDGUY}
+              disabled={getUserRole() !== S_REDGUY || isGeneral}
               value={name}
               ref={Input => (this.editInput = Input)}
               onKeyUp={e => e.keyCode === 13 && e.target.blur()}
@@ -111,11 +112,12 @@ class Channel extends Component {
               <button onClick={this.hideDeleteConfirmation}>No</button>
             </div>
           )}
-          {getUserRole() === S_REDGUY && (
-            <button onClick={this.openDeleteConfirmation} className="delete">
-              <img src="/images/trashcan.png" alt="delete" />
-            </button>
-          )}
+          {!isGeneral &&
+            getUserRole() === S_REDGUY && (
+              <button onClick={this.openDeleteConfirmation} className="delete">
+                <img src="/images/trashcan.png" alt="delete" />
+              </button>
+            )}
         </div>
         <div className="members">
           {channel.specialists.map((person, key) => (
@@ -125,19 +127,22 @@ class Channel extends Component {
               handleRemove={this.handleAssign}
               labeled
               removeTitle="channel"
-              userType={changeUserType}
+              userType={[]}
+              hideDelete={isGeneral}
               renderToDashboard
             />
           ))}
-          <AssignDropdown
-            label="Add member"
-            specialists={channel.specialists}
-            allSpecialists={allSpecialists}
-            handleAssign={this.handleAssign}
-            userType={[S_REDGUY]}
-            closeOnChange={true}
-            renderToDashboard
-          />
+          {!isGeneral && (
+            <AssignDropdown
+              label="Add member"
+              specialists={channel.specialists}
+              allSpecialists={allSpecialists}
+              handleAssign={this.handleAssign}
+              userType={[S_REDGUY]}
+              closeOnChange={true}
+              renderToDashboard
+            />
+          )}
         </div>
       </div>
     );
@@ -145,6 +150,7 @@ class Channel extends Component {
 
   renderToRightSidebar() {
     const { channel, changeUserType, allSpecialists } = this.props;
+    const isGeneral = channel.name === "General";
 
     return (
       <Fragment>
@@ -161,14 +167,16 @@ class Channel extends Component {
               userType={changeUserType}
             />
           ))}
-          <AssignDropdown
-            label="Add member"
-            specialists={channel.specialists}
-            allSpecialists={allSpecialists}
-            handleAssign={this.handleAssign}
-            userType={[S_REDGUY]}
-            closeOnChange={true}
-          />
+          {!isGeneral && (
+            <AssignDropdown
+              label="Add member"
+              specialists={channel.specialists}
+              allSpecialists={allSpecialists}
+              handleAssign={this.handleAssign}
+              userType={[S_REDGUY]}
+              closeOnChange={true}
+            />
+          )}
         </div>
       </Fragment>
     );

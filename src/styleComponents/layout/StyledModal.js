@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Modal } from "semantic-ui-react";
-import { primaryColors } from "../constants/colors";
+import { primaryColors, colors } from "../constants/colors";
 
 export default styled(Modal)`
   &.ui.modal {
@@ -56,6 +56,54 @@ export default styled(Modal)`
         position: absolute;
         bottom: 0;
         right: 14px;
+      }
+    }
+
+    .specialistsWrapper {
+      .totalCosts {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: ${primaryColors.darkGrey};
+
+        .label {
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 12px;
+          margin-bottom: 0;
+        }
+
+        .total {
+          margin-right: 12px;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+
+      .specialistsInnerWrapper {
+        max-height: 230px;
+        overflow-y: auto;
+
+        .ui.grid {
+          margin-top: -10px;
+          margin-bottom: -10px;
+        }
+
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgba(72, 97, 242, 0.2);
+
+          &:hover {
+            background: rgba(72, 97, 242, 0.4);
+          }
+        }
+
+        &::-webkit-scrollbar-track {
+          background: rgba(72, 97, 242, 0.1);
+        }
       }
     }
   }

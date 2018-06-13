@@ -226,11 +226,11 @@ class SearchFilterForm extends Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row columns={3} className="advancedFilter">
-            <Grid.Column />
-            <Grid.Column>
+            {/* <Grid.Column /> */}
+            {/* <Grid.Column>
               <h4 className="filterTitle">Rating</h4>
               <Checkboxes items={[5, 4, 3, 2, 1]} />
-            </Grid.Column>
+            </Grid.Column> */}
 
             {project &&
               projectWithId &&
@@ -241,21 +241,20 @@ class SearchFilterForm extends Component {
                   <div className="skillsWrapper">
                     {projectWithId["skills"].slice(0, 4).map((skill, key) => (
                       <div key={key} className="skill">
-                        {skill.name}
+                        {skill.label}
                       </div>
                     ))}
                     {projectWithId["skills"].length > 4 && (
-                      <Dropdown basic item text="See all skills" icon>
-                        <Dropdown.Menu>
+                      <Popup on="click" trigger={<p>"See the rest skills"</p>}>
+                        <div>
                           {projectWithId["skills"]
                             .slice(4)
                             .map((skill, key) => (
-                              <Dropdown.Item key={key}>
-                                {skill.name}
-                              </Dropdown.Item>
+                              <div key={key}>{skill.label}</div>
                             ))}
-                        </Dropdown.Menu>
-                      </Dropdown>
+                          }
+                        </div>
+                      </Popup>
                     )}
                     {projectWithId["skills"].length === 0 && "No skills"}
                   </div>

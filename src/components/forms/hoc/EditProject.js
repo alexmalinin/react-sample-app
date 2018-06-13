@@ -14,6 +14,10 @@ class EditProject extends Component {
     renderErrorMessage: false
   };
 
+  componentWillMount() {
+    this.props.showProjectWithId(this.props.projectId);
+  }
+
   //move all async to one file
 
   submit = values => {

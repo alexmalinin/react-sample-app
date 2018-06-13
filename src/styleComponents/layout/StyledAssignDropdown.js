@@ -453,7 +453,7 @@ export const StyledPersonTile = styled.div`
           font-weight: 500;
           border: none;
           border-radius: 2px;
-          background: #e8433e;
+          background: ${primaryColors.red};
           cursor: pointer;
         }
       }
@@ -462,24 +462,62 @@ export const StyledPersonTile = styled.div`
 `;
 
 export const StyledSpecialist = styled.div`
-  .ui.grid {
-    .row {
-      margin: 10px 0;
-      border-radius: 5px;
-      transition: 0.3s;
-      padding: 3px 0;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 3px 0;
+  border-radius: 5px;
+  transition: 0.3s;
 
-      &:hover {
-        background: #f0f0f0;
-        button {
-          &::before,
-          &::after {
-            opacity: 1;
-          }
-        }
+  &:hover {
+    .avatar {
+      button {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .avatar {
+    position: relative;
+    height: 48px;
+    width: 48px;
+    flex: 0 0 48px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100%;
+      width: 100%;
+      border: none;
+      transform: translate(-50%, -50%);
+      background: ${primaryColors.red};
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.3s;
+
+      &::before,
+      &::after {
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(var(--crossRotate, 0));
+        position: absolute;
+        height: 24px;
+        width: 2px;
+        background: white;
       }
 
-      .column {
+      /* .column {
         display: flex;
         align-items: center;
         padding-left: 0;
@@ -496,47 +534,35 @@ export const StyledSpecialist = styled.div`
           margin-bottom: 0;
           font-size: 1.2em;
           color: #666;
-        }
+        } */
+      &::before {
+        --crossRotate: 45deg;
       }
 
-      button {
-        position: absolute;
-        right: 0;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border: none;
-        background: none;
-        height: 100%;
-        width: 50px;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: inherit;
-        cursor: pointer;
-        outline: none;
-
-        &:hover {
-          background: #ccc;
-        }
-
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          top: calc(50% - 15px);
-          left: calc(50% - 1px);
-          height: 30px;
-          width: 2px;
-          background: #fff;
-        }
-
-        &::before {
-          transform: rotate(45deg);
-        }
-
-        &::after {
-          transform: rotate(-45deg);
-        }
+      &::after {
+        --crossRotate: -45deg;
       }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  p {
+    flex: 1 1 auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-size: 1.1em;
+    color: #666;
+  }
+
+  .ui.input {
+    flex: 0 0 80px;
+    margin-right: 8px;
+
+    input {
+      padding: 0.67em;
     }
   }
 `;

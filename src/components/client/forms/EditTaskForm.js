@@ -75,11 +75,31 @@ class EditTaskForm extends Component {
       .catch(error => console.log(error));
   };
 
+  handleCost = specId => {
+    const {
+      epicTask: { id, epic_id },
+      projectWithId,
+      formValues
+    } = this.props;
+    axios({
+      method: "PUT",
+      url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
+      data: {
+        task: {
+          cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
+          project_id: projectWithId.id
+        }
+      }
+    }).then(resp => {
+      console.log(resp);
+    });
+  };
+
   render() {
     const {
       handleSubmit,
       projectTeam,
-      epicTask: { attached_files }
+      epicTask: { attached_files, cost, specialist_tasks }
     } = this.props;
     const { specialists } = this.state;
 
@@ -213,6 +233,21 @@ class EditTaskForm extends Component {
                 disabled={disabled}
               />
               <div className="specialistsWrapper">
+                <div className="totalCosts">
+                  <p className="label">Total costs</p>
+                  <span className="total">${cost}</span>
+                </div>
+                <div className="specialistsInnerWrapper">
+                  {specialists.map((specialist, key) => (
+                    <SpecialistTile
+                      specialist={specialist}
+                      key={key}
+                      index={key}
+                      remove={this.removeSpecialist}
+                      handleSubmit={this.handleCost}
+                    />
+                  ))}
+                </div>
                 {projectTeam && (
                   <AssignDropdown
                     label="Add assignee"
@@ -224,14 +259,6 @@ class EditTaskForm extends Component {
                     renderToModal
                   />
                 )}
-                {specialists.map((specialist, key) => (
-                  <SpecialistTile
-                    specialist={specialist}
-                    key={key}
-                    index={key}
-                    remove={this.removeSpecialist}
-                  />
-                ))}
               </div>
             </Grid.Column>
           </Grid.Row>
@@ -262,7 +289,8 @@ const mapStateToProps = (state, ownProps) => {
     changeUserType,
     projectWithId,
     allEpics,
-    initialValues
+    initialValues,
+    formValues: state.form
   };
 };
 

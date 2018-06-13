@@ -139,7 +139,7 @@ class AssignTeamDropdown extends Component {
               placeholder="Search teams"
               name="searchTeam"
               fluid
-              input={<input type="text" autocomplete="off" />}
+              input={<input type="text" autoComplete="off" />}
               onChange={this.handleSearch}
             />
             <div className="dropdown-list">
