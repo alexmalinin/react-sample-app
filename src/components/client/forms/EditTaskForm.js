@@ -110,6 +110,61 @@ class EditTaskForm extends Component {
                 autoHeight
                 disabled={disabled}
               />
+
+              <Field
+                name="user_story"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your user story here"
+                label="User Story"
+                large
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
+              <Field
+                name="deliverables"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your acceptance criterea here"
+                label="Acceptance criteria"
+                large
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
+              <Field
+                name="notes"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your solution design here"
+                label="Solution design"
+                large
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
+              <Field
+                name="business_requirements"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your business requirements here"
+                label="Business Requirements"
+                large
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
+              <Field
+                name="business_rules"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your business rules here"
+                label="Business Rules"
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
             </Grid.Column>
 
             <Grid.Column computer={6}>

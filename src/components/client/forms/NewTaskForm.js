@@ -192,6 +192,61 @@ class NewTaskForm extends Component {
 
             <Grid.Column computer={16}>
               <Field
+                name="user_story"
+                component={RenderTextArea}
+                label="User Story"
+                className="area"
+                large
+                padded
+              />
+            </Grid.Column>
+
+            <Grid.Column computer={16}>
+              <Field
+                name="deliverables"
+                component={RenderTextArea}
+                label="Acceptance Criteria"
+                className="area"
+                large
+                padded
+              />
+            </Grid.Column>
+
+            <Grid.Column computer={16}>
+              <Field
+                name="notes"
+                component={RenderTextArea}
+                label="Notes"
+                className="area"
+                large
+                padded
+              />
+            </Grid.Column>
+
+            <Grid.Column computer={16}>
+              <Field
+                name="business_requirements"
+                component={RenderTextArea}
+                label="Business Requirements"
+                className="area"
+                large
+                padded
+              />
+            </Grid.Column>
+
+            <Grid.Column computer={16}>
+              <Field
+                name="business_rules"
+                component={RenderTextArea}
+                label="Business Rules"
+                className="area"
+                large
+                padded
+              />
+            </Grid.Column>
+
+            <Grid.Column computer={16}>
+              <Field
                 name="attached_files"
                 type="text"
                 component={RenderFile}

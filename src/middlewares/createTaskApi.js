@@ -34,6 +34,11 @@ export default store => next => action => {
         specialist_ids,
         eta: payload["eta"],
         cost: payload["cost"],
+        user_story: payload["user_story"],
+        deliverables: payload["deliverables"],
+        business_requirements: payload["business_requirements"],
+        business_rules: payload["business_rules"],
+        notes: payload["notes"],
         attached_files_attributes: files
       },
       attached_files_attributes: {

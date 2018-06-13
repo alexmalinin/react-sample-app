@@ -29,6 +29,11 @@ export default store => next => action => {
         eta: payload["eta"],
         state: payload["state"],
         cost: payload["cost"],
+        user_story: payload["user_story"],
+        deliverables: payload["deliverables"],
+        business_requirements: payload["business_requirements"],
+        business_rules: payload["business_rules"],
+        notes: payload["notes"],
         attached_files_attributes: files
       }
     },
