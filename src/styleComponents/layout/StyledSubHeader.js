@@ -5,7 +5,7 @@ export default styled.div`
   height: 131px;
   max-width: 1280px;
   margin: 0 auto;
-  margin-top: 21px;
+  margin-top: 20px;
 
   /* background: ${props =>
     props.greenGradient
@@ -18,8 +18,8 @@ export default styled.div`
     props.profileForm
       ? "80px"
       : props.about || props.projectSubHeader
-        ? "calc(21px + 1rem)"
-        : "21px"};
+        ? "calc(20px + 1rem)"
+        : "20px"};
   text-align: center;
   z-index: 2;
   position: relative;

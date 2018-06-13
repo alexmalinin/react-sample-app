@@ -36,6 +36,9 @@ import {
   checkObjectPropertiesForValues,
   getUserRole
 } from "../../helpers/functions";
+import { PORT } from "../../constans/constans";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -76,6 +79,19 @@ class ClientDashboard extends Component {
 
     if (projectId && projectId !== "new" && !projectWithId) {
       showProjectWithId(projectId);
+    }
+  }
+
+  componentDidMount() {
+    if (!this.props.specialistData) {
+      let token = localStorage.getItem("jwt_token"),
+        id = jwtDecode(token).id;
+
+      if (id) {
+        axios
+          .get(`${PORT}/api/v1/customers/${id}`)
+          .catch(error => this.props.history.push("/sign_in"));
+      }
     }
   }
 
