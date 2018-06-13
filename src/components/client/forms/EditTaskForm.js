@@ -17,10 +17,12 @@ import { getUserRole } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { maxLength80 } from "../../../helpers/validate";
+import { formatCurrency } from "../../../helpers/validate";
 
 class EditTaskForm extends Component {
   state = {
-    specialists: this.props.epicTask.specialists
+    specialists: this.props.epicTask.specialists,
+    totalCost: this.props.epicTask.cost
   };
 
   handleEtaForm = date => {
@@ -69,9 +71,13 @@ class EditTaskForm extends Component {
       };
 
     axios(payload)
-      .then(response =>
-        this.setState({ specialists: response.data.specialists })
-      )
+      .then(response => {
+        console.log(response);
+        this.setState({
+          specialists: response.data.specialists,
+          totalCost: response.data.cost
+        });
+      })
       .catch(error => console.log(error));
   };
 
@@ -91,7 +97,7 @@ class EditTaskForm extends Component {
         }
       }
     }).then(resp => {
-      console.log(resp);
+      this.setState({ totalCost: resp.data.cost });
     });
   };
 
@@ -101,7 +107,7 @@ class EditTaskForm extends Component {
       projectTeam,
       epicTask: { attached_files, cost, specialist_tasks }
     } = this.props;
-    const { specialists } = this.state;
+    const { specialists, totalCost } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
 
@@ -235,12 +241,15 @@ class EditTaskForm extends Component {
               <div className="specialistsWrapper">
                 <div className="totalCosts">
                   <p className="label">Total costs</p>
-                  <span className="total">${cost}</span>
+                  <span className="total">
+                    ${<span>{formatCurrency(totalCost)}</span>}
+                  </span>
                 </div>
                 <div className="specialistsInnerWrapper">
                   {specialists.map((specialist, key) => (
                     <SpecialistTile
                       specialist={specialist}
+                      // cost={specialist_tasks}
                       key={key}
                       index={key}
                       remove={this.removeSpecialist}
@@ -282,6 +291,10 @@ const mapStateToProps = (state, ownProps) => {
   initialValues.state = taskStatuses.find(
     status => status.enum === epicTask.state
   ).value;
+  epicTask.specialist_tasks.forEach(
+    ({ cost, specialist }) =>
+      (initialValues["cost_spec_" + specialist.id] = cost)
+  );
 
   return {
     allProjects,

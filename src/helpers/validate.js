@@ -25,3 +25,8 @@ export const creditCard = value =>
     : value.length === 16
       ? undefined
       : "Must be 16 numbers";
+export const formatCurrency = value =>
+  String(value % 1 === 0 ? value : value.toFixed(2)).replace(
+    /(\d)(?=(\d{3})+(?!\d))/g,
+    "$1 "
+  );

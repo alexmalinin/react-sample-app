@@ -54,7 +54,7 @@ export const StyledAssignDropdown = styled.div`
     ${props =>
       props.renderToModal &&
       `
-      margin: 10px;
+      margin: 0px;
       display: flex;
       align-items: center;
     `}
@@ -343,27 +343,49 @@ export const StyledPersonTile = styled.div`
   cursor: pointer;
   text-transform: none;
   font-weight: 400;
-  margin-right: ${props => (props.compressed ? "-3px" : "0")};
+  margin-right: ${props => (props.compressed ? "-8px" : "0")};
 
   img {
     width: 30px;
     height: 30px;
+<<<<<<< HEAD
     object-fit: cover;
     border-radius: 50%;
+=======
+>>>>>>> [Fix] split costs fields + staging fix
     background: #fff;
-    margin-right: ${props => (props.compressed ? "0" : "5px")};
+    margin-right: ${props => (props.compressed ? "0 " : "5px")};
+    border: ${props =>
+      props.compressed ? `1px solid ${colors.darkBlue}` : "none"};
+    border-radius: 50%;
   }
 
   a {
+    position: relative;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     text-decoration: none;
     color: inherit;
     outline: none;
+    border-radius: 50%;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: ${colors.darkBlue};
+      opacity: 0;
+    }
 
     &:focus {
-      opacity: 0.7;
+      &::before {
+        opacity: 0.15;
+      }
     }
 
     &:hover {

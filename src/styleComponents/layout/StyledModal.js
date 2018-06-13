@@ -50,6 +50,14 @@ export default styled(Modal)`
               /* margin-bottom: 0; */
             }
           }
+
+          .ui.input {
+            &.disabled {
+              input {
+                border: none;
+              }
+            }
+          }
         }
       }
       .dv-blue:not(.fluid) {

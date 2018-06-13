@@ -4,6 +4,7 @@ import PersonTile from "./PersonTile";
 import { S_REDGUY } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
+import { formatCurrency } from "../../helpers/validate";
 
 const defaultProps = {
   specialists: []
@@ -72,7 +73,7 @@ class CustomCard extends Component {
         {!!cost && (
           <div className="line">
             <img src="/images/dollar.png" alt="dollar" />
-            <span>${cost}</span>
+            <span>{formatCurrency(cost)}</span>
           </div>
         )}
         {/* <div className="line bell-line">
