@@ -431,6 +431,7 @@ export const S_Board = styled.div`
     padding: 30px;
     ${boxShadow.light};
     background-color: ${primaryColors.accentBackground};
+    cursor: pointer;
 
     .dropdown {
       position: absolute;
@@ -455,6 +456,10 @@ export const S_Board = styled.div`
         background: #fff;
         border: 1px solid rgba(34, 36, 38, 0.15);
         border-radius: 5px;
+
+        &.open {
+          display: block;
+        }
 
         .item {
           padding-left: 10px;
@@ -481,10 +486,6 @@ export const S_Board = styled.div`
         color: #666;
         outline: none;
         cursor: pointer;
-
-        &:focus + .menu {
-          display: block;
-        }
       }
     }
 

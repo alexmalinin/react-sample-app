@@ -10,7 +10,7 @@ export default store => next => action => {
   let { id } = jwtDecode(token);
 
   let files = payload.file
-    ? payload.file.split("||").map(file => {
+    ? payload.file.map(file => {
         return {
           document: file,
           entity_type: "Project"

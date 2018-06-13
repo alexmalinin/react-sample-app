@@ -67,6 +67,7 @@ class SearchFilterForm extends Component {
     this.props.searchSpecialistForProject(data.value);
     this.props.showProjectWithId(data.value);
     this.searchForm.handleClear();
+    this.props.handleChangeProject(data.value);
   };
 
   toggleProjectError = () => {

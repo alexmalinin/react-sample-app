@@ -2,18 +2,28 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
-import { Grid } from "semantic-ui-react";
+import { Grid, Popup } from "semantic-ui-react";
 import {
   showProjectWithId,
   getProjectTypes,
-  getSkills
+  getSkills,
+  showProjectTeam,
+  showCustomTeams
 } from "../../actions/actions";
-import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "../../constans/constans";
+import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
-import { getUserRole, oneOfRoles } from "../../helpers/functions";
+import {
+  getUserRole,
+  oneOfRoles,
+  renameObjPropNames
+} from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
+import Axios from "axios";
+import AssignTeamDropdown from "../layout/AssignTeamDropdown";
+import PersonTile from "../layout/PersonTile";
+import MembersDropdown from "../layout/dropdowns/MembersDropdown";
 
 class EditProjectForm extends Component {
   state = {
@@ -21,7 +31,13 @@ class EditProjectForm extends Component {
   };
 
   componentWillMount() {
+    const { projectWithId } = this.props;
+
     this.props.getProjectTypes();
+
+    if (projectWithId) {
+      this.props.showProjectTeam(projectWithId.id);
+    }
   }
 
   getSkills = () => {
@@ -40,6 +56,44 @@ class EditProjectForm extends Component {
     }
   }
 
+  handleSubmit = (name, value) => {
+    const { projectId } = this.props;
+    return Axios({
+      method: "PUT",
+      url: `${PORT}/api/v1/projects/${projectId}`,
+      data: {
+        project: {
+          [name]: value
+        }
+      }
+    });
+  };
+
+  //make normal search select instead of multiselect
+  handleSkills = (e, name) => {
+    let skillsIds = [];
+    for (let key in e) {
+      e[key].value && skillsIds.push(e[key].value);
+    }
+
+    this.setState({ updatingSkills: true });
+    this.handleSubmit("skill_ids", skillsIds)
+      .then(resp => {
+        const skills = resp.data.skills;
+        skills.forEach(skill => {
+          renameObjPropNames(skill, "id", "value");
+          renameObjPropNames(skill, "name", "label");
+        });
+        this.props.change("skills", skills);
+        this.setState({ updatingSkills: false });
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.change("skills", this.props.projectWithId.skills);
+        this.setState({ updatingSkills: false });
+      });
+  };
+
   render() {
     const {
       projectWithId,
@@ -48,10 +102,14 @@ class EditProjectForm extends Component {
       handleSubmit,
       submitting,
       dirty,
-      pristine,
       skills,
-      submitSucceeded
+      submitSucceeded,
+      projectTeam,
+      showCustomTeams,
+      allCustomTeams,
+      handleAssignTeam
     } = this.props;
+
     const { logo = {}, name = "", customer = {}, project_type, state } =
       projectWithId || {};
 
@@ -75,7 +133,9 @@ class EditProjectForm extends Component {
         break;
     }
 
-    console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
+    // console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
+
+    const team = (projectTeam && projectTeam.specialists) || [];
 
     return (
       <StyledProject
@@ -88,8 +148,8 @@ class EditProjectForm extends Component {
         <i className="fa fa-spinner fa-3x fa-pulse preloader" />
         <Form onSubmit={handleSubmit}>
           <Grid>
-            <Grid.Row stretched>
-              <Grid.Column computer={4}>
+            <Grid.Row columns={1}>
+              <Grid.Column>
                 <div className="projectAside">
                   <div className="asideInfo">
                     <p>
@@ -110,14 +170,12 @@ class EditProjectForm extends Component {
                       <span className="label">Attached files:</span>
                     </p>
                     <Field
-                      name="file"
+                      name="attached_files"
                       type="text"
                       component={RenderFile}
                       projectId={projectId}
-                      attached_files={
-                        projectWithId && projectWithId.attached_files
-                      }
                       disabled={!hasPermission}
+                      onSelfSubmit={this.handleSubmit}
                       className="projectFiles"
                     />
                   </div>
@@ -130,6 +188,7 @@ class EditProjectForm extends Component {
                         placeholder="Add few new technologies"
                         className="projectSkills"
                         onOpen={this.getSkills}
+                        handleSelectChange={this.handleSkills}
                       />
                     ) : (
                       <React.Fragment>
@@ -147,9 +206,29 @@ class EditProjectForm extends Component {
                       </React.Fragment>
                     )}
                   </div>
+                  <div className="asideInfo">
+                    <p>
+                      <span className="label">Members:</span>
+                    </p>
+                    <div className="teamWrapper">
+                      <MembersDropdown
+                        members={team}
+                        countToShow={5}
+                        position="bottom left"
+                        handleRemove={this.handleAssign}
+                      />
+                      {getUserRole() === S_REDGUY && (
+                        <AssignTeamDropdown
+                          // label="Invite custom team"
+                          specialists={team}
+                          handleAssignTeam={handleAssignTeam}
+                          userType={[S_REDGUY]}
+                          closeOnChange={true}
+                        />
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </Grid.Column>
-              <Grid.Column computer={12}>
                 <div className="projectMain">
                   <div className="title">
                     {logo.url ? (
@@ -160,9 +239,8 @@ class EditProjectForm extends Component {
                     <p>
                       {name} Project{" "}
                       <span className="status">
-                        {state !== "discovery" && state === "draft"
-                          ? "Draft"
-                          : "On review"}
+                        {state === "draft" && "Drafted"}
+                        {state === "reviewed_by_admin" && "On review"}
                       </span>
                     </p>
                   </div>
@@ -171,6 +249,7 @@ class EditProjectForm extends Component {
                     placeholder="Type your description here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -181,6 +260,7 @@ class EditProjectForm extends Component {
                     placeholder="Write your story here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -191,6 +271,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some acceptance criterea"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -201,6 +282,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some business requirements"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -211,6 +293,7 @@ class EditProjectForm extends Component {
                     placeholder="Write some business rules"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -221,58 +304,33 @@ class EditProjectForm extends Component {
                     placeholder="Write your solution design here"
                     disabled={!hasPermission}
                     component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
                     className="transparent"
                     autoHeight
                     unhiddable
                   />
                   {oneOfRoles(CUSTOMER, S_REDGUY) && (
                     <div className="controls">
-                      {projectWithId && projectWithId.state === "draft" ? (
-                        <Fragment>
-                          <DvBlueButton
-                            loading={submitting}
-                            role="button"
-                            className="clear dv-blue"
-                            disabled={state === "discovery" && !dirty}
-                            onClick={() =>
-                              this.props.dispatch(
-                                change(
-                                  "EditProjectForm",
-                                  "state",
-                                  "recent_created"
-                                )
+                      {state === "draft" && (
+                        <DvBlueButton
+                          loading={submitting}
+                          role="button"
+                          className="clear dv-blue"
+                          disabled={state === "discovery" && !dirty}
+                          onClick={() =>
+                            this.props.dispatch(
+                              change(
+                                "EditProjectForm",
+                                "state",
+                                "recent_created"
                               )
-                            }
-                          >
-                            {state === "discovery"
-                              ? dirty
-                                ? "Save"
-                                : submitSucceeded
-                                  ? "Saved"
-                                  : "Up to date"
-                              : "Publish"}
-                          </DvBlueButton>
-                          <DvBlueButton
-                            loading={submitting}
-                            role="button"
-                            className="clear dv-blue"
-                            disabled={state === "discovery" && !dirty}
-                            onClick={() =>
-                              this.props.dispatch(
-                                change("EditProjectForm", "state", "draft")
-                              )
-                            }
-                          >
-                            {state === "discovery"
-                              ? dirty
-                                ? "Save"
-                                : submitSucceeded
-                                  ? "Saved"
-                                  : "Up to date"
-                              : "Update"}
-                          </DvBlueButton>
-                        </Fragment>
-                      ) : (
+                            )
+                          }
+                        >
+                          Publish
+                        </DvBlueButton>
+                      )}
+                      {state === "reviewed_by_admin" && (
                         <DvBlueButton
                           loading={submitting}
                           role="button"
@@ -309,12 +367,21 @@ EditProjectForm = reduxForm({
 })(EditProjectForm);
 
 const mapStateToProps = (state, ownProps) => {
-  const { projectWithId, updateProject, projectTypes, skills } = state;
+  const {
+    projectWithId,
+    updateProject,
+    projectTypes,
+    skills,
+    allCustomTeams,
+    projectTeam
+  } = state;
   return {
     projectWithId,
     updateProject,
     projectTypes,
     skills,
+    projectTeam,
+    allCustomTeams,
     initialValues: projectWithId
   };
 };
@@ -322,5 +389,7 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
   showProjectWithId,
   getProjectTypes,
-  getSkills
+  getSkills,
+  showProjectTeam,
+  showCustomTeams
 })(EditProjectForm);

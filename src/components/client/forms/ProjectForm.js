@@ -133,7 +133,7 @@ class ProjectForm extends Component {
           </Grid.Column>
           <Grid.Column computer={8}>
             <Field
-              name="file"
+              name="attached_files"
               type="text"
               component={RenderFile}
               label="Attach files"

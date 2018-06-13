@@ -23,7 +23,7 @@ class Team extends Component {
   componentWillMount() {
     const { showProjectTeam, team, showChannels } = this.props;
 
-    showProjectTeam(team.project_id);
+    team.project_id && showProjectTeam(team.project_id);
     showChannels(team.id);
   }
 
@@ -47,15 +47,13 @@ class Team extends Component {
     }
 
     if (nextProps.projectTeam) {
-      if (nextProps.projectTeam[0]) {
-        if (nextProps.projectTeam[0].id === nextProps.team.id) {
-          this.setState(
-            state =>
-              state.specialistsList === nextProps.projectTeam[0].specialists
-                ? null
-                : { specialistsList: nextProps.projectTeam[0].specialists }
-          );
-        }
+      if (nextProps.projectTeam.id === nextProps.team.id) {
+        this.setState(
+          state =>
+            state.specialistsList === nextProps.projectTeam.specialists
+              ? null
+              : { specialistsList: nextProps.projectTeam.specialists }
+        );
       }
     }
 

@@ -90,7 +90,7 @@ class NewTaskForm extends Component {
   };
 
   handleAssign = (type, specId) => {
-    const spec = this.props.projectTeam[0].specialists.find(
+    const spec = this.props.projectTeam.specialists.find(
       spec => spec.id === +specId
     );
     if (type === "assign") {
@@ -192,7 +192,7 @@ class NewTaskForm extends Component {
 
             <Grid.Column computer={16}>
               <Field
-                name="file"
+                name="attached_files"
                 type="text"
                 component={RenderFile}
                 dropzone
@@ -238,12 +238,11 @@ class NewTaskForm extends Component {
                   />
                 ))}
                 {!!this.state.moduleList.length &&
-                  projectTeam &&
-                  projectTeam[0] && (
+                  projectTeam && (
                     <AssignDropdown
                       label="Assign member"
                       specialists={specialists}
-                      allSpecialists={projectTeam[0].specialists}
+                      allSpecialists={projectTeam.specialists}
                       handleAssign={this.handleAssign}
                       userType={[S_REDGUY]}
                       closeOnChange={false}

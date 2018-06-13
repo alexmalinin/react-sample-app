@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { submit, change, registerField } from "redux-form";
 import { NavLink } from "react-router-dom";
@@ -34,37 +34,52 @@ class ProjectSubHeader extends Component {
           <div className="left" />
         )}
         <div className="right">
-          <button
-            onClick={() => {
-              this.props.dispatch(
-                change("ClientProjectForm", "state", "draft")
-              );
+          {module ? (
+            <button
+              className="saveBtn"
+              onClick={() => this.props.dispatch(submit(form))}
+            >
+              <StyledSubHeaderLink className="rightLink arrow" />
+              Save
+              <span />
+            </button>
+          ) : (
+            <Fragment>
+              <button
+                onClick={() => {
+                  this.props.dispatch(
+                    change("ClientProjectForm", "state", "draft")
+                  );
 
-              setTimeout(() => {
-                this.props.dispatch(submit(form));
-              }, 0);
-            }}
-            className="saveBtn"
-          >
-            <StyledSubHeaderLink className="rightLink arrow-down" />
-            Save
-            <span />
-          </button>
+                  setTimeout(() => {
+                    this.props.dispatch(submit(form));
+                  }, 0);
+                }}
+                className="saveBtn"
+              >
+                <StyledSubHeaderLink className="rightLink arrow-down" />
+                Save
+                <span />
+              </button>
 
-          <button
-            onClick={() => {
-              this.props.dispatch(change("ClientProjectForm", "state", null));
+              <button
+                onClick={() => {
+                  this.props.dispatch(
+                    change("ClientProjectForm", "state", null)
+                  );
 
-              setTimeout(() => {
-                this.props.dispatch(submit(form));
-              }, 0);
-            }}
-            className="saveBtn"
-          >
-            <StyledSubHeaderLink className="rightLink arrow" />
-            Submit
-            <span />
-          </button>
+                  setTimeout(() => {
+                    this.props.dispatch(submit(form));
+                  }, 0);
+                }}
+                className="saveBtn"
+              >
+                <StyledSubHeaderLink className="rightLink arrow" />
+                Submit
+                <span />
+              </button>
+            </Fragment>
+          )}
 
           <SubHeaderLinkWrap
             url={module ? `/dashboard/project/${projectId}` : "/dashboard/"}

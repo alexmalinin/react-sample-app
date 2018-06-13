@@ -659,5 +659,9 @@ export const DvBlueButton = styled(Button)`
       color: ${colors.darkBlue};
       background: #fff;
     }
+
+    &.fluid {
+      width: 100%;
+    }
   }
 `;

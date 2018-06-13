@@ -115,8 +115,6 @@ class ClientBillingForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.clientData);
-
     let client = nextProps.clientData;
 
     if (client) {
@@ -155,9 +153,7 @@ class ClientBillingForm extends Component {
     }
 
     for (let key in billing) {
-      this.props.dispatch(
-        change("ClientBillingForm", key, billing[key])
-      );
+      this.props.dispatch(change("ClientBillingForm", key, billing[key]));
     }
   };
 }
@@ -168,11 +164,10 @@ ClientBillingForm = reduxForm({
   forceUnregisterOnUnmount: true
 })(ClientBillingForm);
 
-ClientBillingForm = connect(state => ({
-  formValues: getFormValues("ClientBillingForm")(state)
-}))(ClientBillingForm);
-
 export default connect(state => {
   const { clientData } = state;
-  return { clientData };
+  return {
+    clientData,
+    formValues: getFormValues("ClientBillingForm")(state)
+  };
 })(ClientBillingForm);

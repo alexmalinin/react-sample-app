@@ -57,13 +57,13 @@ class RenderText extends Component {
     onSelfSubmit(name, value)
       .then(resp => {
         const { data } = resp;
-        if (data.state) {
+        if (data.state && typeof data.state === "number") {
           data.state = taskStatuses.find(
             status => status.enum === data.state
           ).value;
         }
         this.setState({ loading: false, updError: false, editing: false });
-        dispatch(initialize(form, data));
+        dispatch(change(form, name, data[name]));
       })
       .catch(error => {
         console.log(error);

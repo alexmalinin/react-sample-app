@@ -144,29 +144,28 @@ class EditTaskForm extends Component {
                 </Grid.Row>
               </Grid>
               <Field
-                name="file"
+                name="attached_files"
                 type="text"
                 label="Attach files"
                 component={RenderFile}
-                attached_files={attached_files}
                 dropzone
                 submitSucceeded={this.props.submitSucceeded}
+                onSelfSubmit={this.handleSubmit}
                 small
                 disabled={disabled}
               />
               <div className="specialistsWrapper">
-                {projectTeam &&
-                  projectTeam[0] && (
-                    <AssignDropdown
-                      label="Add assignee"
-                      specialists={specialists}
-                      allSpecialists={projectTeam[0].specialists}
-                      handleAssign={this.handleAssign}
-                      userType={[S_REDGUY]}
-                      closeOnChange={false}
-                      renderToModal
-                    />
-                  )}
+                {projectTeam && (
+                  <AssignDropdown
+                    label="Add assignee"
+                    specialists={specialists}
+                    allSpecialists={projectTeam.specialists}
+                    handleAssign={this.handleAssign}
+                    userType={[S_REDGUY]}
+                    closeOnChange={false}
+                    renderToModal
+                  />
+                )}
                 {specialists.map((specialist, key) => (
                   <SpecialistTile
                     specialist={specialist}

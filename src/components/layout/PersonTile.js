@@ -4,10 +4,15 @@ import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropd
 import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 import jwtDecode from "jwt-decode";
+import { Popup } from "semantic-ui-react";
 
 export default class PersonTile extends Component {
   state = {
     showDropdown: false
+  };
+
+  static defaultProps = {
+    specialist: {}
   };
 
   openDropdown = e => {
@@ -38,20 +43,36 @@ export default class PersonTile extends Component {
       removeTitle,
       userType,
       renderToDashboard,
-      hideDelete
+      hideDelete,
+      compressed
     } = this.props;
     const { showDropdown } = this.state;
+    const fullName = specialist.first_name + " " + specialist.last_name;
 
     return (
-      <StyledPersonTile>
-        <a tabIndex="1" onClick={this.openDropdown} onBlur={this.closeDropdown}>
-          <img
-            onClick={e => e.target.parentNode.focus()}
-            alt="avatar"
-            src={
-              specialist.avatar.url
-                ? IMAGE_PORT + specialist.avatar.url
-                : "/images/uploadImg.png"
+      <StyledPersonTile compressed={compressed}>
+        <a
+          tabIndex="-1"
+          onClick={this.openDropdown}
+          onBlur={this.closeDropdown}
+        >
+          <Popup
+            trigger={
+              <img
+                onClick={e => e.target.parentNode.focus()}
+                alt={fullName}
+                src={
+                  specialist.avatar.url
+                    ? IMAGE_PORT + specialist.avatar.url
+                    : "/images/uploadImg.png"
+                }
+              />
+            }
+            content={fullName}
+            style={
+              labeled || showDropdown
+                ? { opacity: 0, visibility: "hidden" }
+                : {}
             }
           />
           {labeled &&
@@ -79,6 +100,10 @@ export default class PersonTile extends Component {
 //Delete dropdown for person tile
 
 class DeleteTile extends Component {
+  static defaultProps = {
+    specialist: {}
+  };
+
   componentDidMount() {
     let deleteRect = this.deleteTile.getBoundingClientRect();
 
@@ -107,6 +132,7 @@ class DeleteTile extends Component {
     } = this.props;
     const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
     const thisUser = specialist.id === id && role !== CUSTOMER;
+    const fullName = specialist.first_name + " " + specialist.last_name;
 
     return (
       <div
@@ -123,7 +149,7 @@ class DeleteTile extends Component {
                 ? IMAGE_PORT + specialist.avatar.url
                 : "/images/uploadImg.png"
             }
-            alt="avatar"
+            alt={fullName}
           />
           <div>
             <NavLink
@@ -135,7 +161,7 @@ class DeleteTile extends Component {
                   : `/dashboard/specialist/${specialist.id}`
               }
             >
-              {specialist.first_name + " " + specialist.last_name}{" "}
+              {fullName}&nbsp;
               {thisUser && "(you)"}
             </NavLink>
 

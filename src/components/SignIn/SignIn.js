@@ -84,7 +84,12 @@ class SignUp extends Component {
   }
 
   loginRedirect = () => {
-    let { signInReducer } = this.props;
+    let {
+      signInReducer,
+      location,
+      location: { state }
+    } = this.props;
+
     let { isLogIn, data } = signInReducer;
     let status = data ? data["status"] : null;
     if (isLogIn && status !== "logged") {
@@ -94,7 +99,20 @@ class SignUp extends Component {
     if (status === "logged") {
       if (getUserRole() === S_PASSIVE) {
         return <Redirect to={`/dashboard/about`} />;
-      } else return <Redirect to={`/dashboard/`} />;
+      } else {
+        if (state && state.from) {
+          return (
+            <Redirect
+              to={{
+                pathname: state.from.pathname,
+                from: location
+              }}
+            />
+          );
+        } else {
+          return <Redirect to={`/dashboard/`} />;
+        }
+      }
     }
   };
 

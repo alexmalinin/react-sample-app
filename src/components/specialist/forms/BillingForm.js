@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Field } from "redux-form";
-import { maxLength20, maxLength4, required } from "../../../helpers/validate";
+import { required } from "../../../helpers/validate";
 import {
   NextBtn,
   BackBtn,
@@ -12,7 +12,6 @@ import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
 import InputRadio from "../../forms/renders/InputRadio";
 import RenderImage from "../../forms/renders/RenderImage";
-import RenderDate from "../../forms/renders/RenderDate";
 
 class BillingForm extends Component {
   state = {
@@ -57,57 +56,30 @@ class BillingForm extends Component {
           let disabled = tab == 0 ? false : true;
 
           return (
-            <Grid.Column mobile={16} computer={16}>
-              <InputField
-                name="card_name"
-                label="Card name"
-                handleFormField={handleFormField}
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="card_number"
-                label="Card number"
-                type="number"
-                handleFormField={handleFormField}
-                validate={[required, maxLength20]}
-                disabled={disabled}
-                isRequired
-              />
-
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column computer={8}>
-                    <Field
-                      name="expiry_date"
-                      label="Expiry date"
-                      component={RenderDate}
-                      initData={
-                        specialistData && specialistData.billing
-                          ? specialistData.billing.expiry_date
-                          : null
-                      }
-                      handleEtaForm={this.props.handleEtaForm}
-                      validate={[required]}
-                      disabled={disabled}
-                      isRequired
-                    />
-                  </Grid.Column>
-                  <Grid.Column computer={8}>
-                    <InputField
-                      name="ccv"
-                      label="CVV"
-                      type="number"
-                      // handleFormField={handleFormField}
-                      validate={[required, maxLength4]}
-                      disabled={disabled}
-                      isRequired
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
+            <Grid.Row>
+              <Grid.Column mobile={8} computer={8}>
+                <InputField
+                  name="card_name"
+                  label="Card name"
+                  handleFormField={handleFormField}
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+              </Grid.Column>
+              <Grid.Column mobile={8} computer={8}>
+                <InputField
+                  name="card_number"
+                  label="Card number"
+                  // type="number"
+                  handleFormField={handleFormField}
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                  creditCard
+                />
+              </Grid.Column>
+            </Grid.Row>
           );
         }
       },
@@ -116,53 +88,55 @@ class BillingForm extends Component {
         render: () => {
           let disabled = tab == 1 ? false : true;
           return (
-            <Grid.Column mobile={16} computer={16}>
-              <InputField
-                name="correspondent_bank"
-                label="Correspondent Bank"
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="beneficiary_bank"
-                label="Beneficiary Bank"
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="beneficiary_name"
-                label="Beneficiary Name"
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="iban"
-                label="IBAN"
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="swift_code"
-                label="Swift code"
-                validate={[required]}
-                disabled={disabled}
-                isRequired
-              />
-              <InputField
-                name="purpose_of_payment"
-                label="Purpose of payment"
-                disabled={disabled}
-              />
-              <InputField
-                name="beneficiary_account"
-                label="Beneficiary Account"
-                disabled={disabled}
-              />
-            </Grid.Column>
+            <Grid.Row>
+              <Grid.Column mobile={16} computer={16}>
+                <InputField
+                  name="correspondent_bank"
+                  label="Correspondent Bank"
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+                <InputField
+                  name="beneficiary_bank"
+                  label="Beneficiary Bank"
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+                <InputField
+                  name="beneficiary_name"
+                  label="Beneficiary Name"
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+                <InputField
+                  name="iban"
+                  label="IBAN"
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+                <InputField
+                  name="swift_code"
+                  label="Swift code"
+                  validate={[required]}
+                  disabled={disabled}
+                  isRequired
+                />
+                <InputField
+                  name="purpose_of_payment"
+                  label="Purpose of payment"
+                  disabled={disabled}
+                />
+                <InputField
+                  name="beneficiary_account"
+                  label="Beneficiary Account"
+                  disabled={disabled}
+                />
+              </Grid.Column>
+            </Grid.Row>
           );
         }
       }
@@ -205,7 +179,7 @@ class BillingForm extends Component {
                   />
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>{tabs[tab].render()}</Grid.Row>
+              {tabs[tab].render()}
             </Grid>
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>

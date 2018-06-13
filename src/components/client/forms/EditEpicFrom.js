@@ -8,8 +8,8 @@ import RenderFile from "../../forms/renders/RenderFile";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
 import axios from "axios";
-import { PORT, S_REDGUY } from "../../../constans/constans";
-import { getUserRole } from "../../../helpers/functions";
+import { PORT, S_REDGUY, CUSTOMER } from "../../../constans/constans";
+import { getUserRole, oneOfRoles } from "../../../helpers/functions";
 
 class EditEpicForm extends Component {
   handleEtaForm = date => {
@@ -30,7 +30,9 @@ class EditEpicForm extends Component {
       method: "PUT",
       url: `${PORT}/api/v1/projects/${project_id}/epics/${id}`,
       data: {
-        [name]: value
+        epic: {
+          [name]: value
+        }
       }
     });
   };
@@ -38,13 +40,11 @@ class EditEpicForm extends Component {
   render() {
     const {
       handleSubmit,
-      submitting,
       number,
-      dirty,
-      epic: { attached_files, eta }
+      epic: { eta }
     } = this.props;
 
-    const disabled = getUserRole() === S_REDGUY ? false : true;
+    const disabled = !oneOfRoles(CUSTOMER, S_REDGUY);
 
     return (
       <Form onSubmit={handleSubmit} disabled={disabled}>
@@ -143,12 +143,13 @@ class EditEpicForm extends Component {
                 disabled={disabled}
               />
               <Field
-                name="file"
+                name="attached_files"
                 type="file"
                 component={RenderFile}
                 label="Attach files"
-                attached_files={attached_files}
                 submitSucceeded={this.props.submitSucceeded}
+                onSelfSubmit={this.handleSubmit}
+                entity_type="Module"
                 dropzone
                 small
                 disabled={disabled}

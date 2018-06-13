@@ -28,8 +28,8 @@ class EditTaskModal extends Component {
         open={open}
         onClose={this.close}
         trigger={<div id="editTask" />}
+        closeIcon={<button className="close icon" onClick={close} />}
       >
-        <button className="close icon" onClick={close} />
         <Modal.Content>
           <Modal.Description>
             <EditTaskForm

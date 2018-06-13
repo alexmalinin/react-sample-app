@@ -14,6 +14,8 @@ class EditProject extends Component {
     renderErrorMessage: false
   };
 
+  //move all async to one file
+
   submit = values => {
     values.project_id = this.props.projectId;
     let skill_ids =
@@ -23,7 +25,7 @@ class EditProject extends Component {
       });
 
     let files = values.file
-      ? values.file.split("||").map(file => {
+      ? values.file.map(file => {
           return {
             document: file,
             entity_type: "Project"
@@ -68,16 +70,47 @@ class EditProject extends Component {
       });
   };
 
+  //move all async to one file
+
+  handleAssignTeam = id => {
+    const { projectId } = this.props;
+
+    return Axios({
+      method: "POST",
+      url: `${PORT}/api/v1/teams/${id}/invite_team_members`,
+      data: {
+        project_id: projectId
+      }
+    })
+      .then(response => {
+        this.setState({ renderMessage: true });
+        setTimeout(() => {
+          this.setState({ renderMessage: false, renderErrorMessage: false });
+        }, 2500);
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ renderErrorMessage: true });
+        setTimeout(() => {
+          this.setState({ renderMessage: false, renderErrorMessage: false });
+        }, 2500);
+      });
+  };
+
   render() {
     const { projectId } = this.props;
     const { renderMessage, renderErrorMessage } = this.state;
 
     return (
       <React.Fragment>
-        <EditProjectForm onSubmit={this.submit} projectId={projectId} />
+        <EditProjectForm
+          onSubmit={this.submit}
+          projectId={projectId}
+          handleAssignTeam={this.handleAssignTeam}
+        />
         <S_Message positive profile="true" data-show={renderMessage}>
           <Message.Header>Success!</Message.Header>
-          <p>Project updated</p>
+          <p>Team was invited</p>
         </S_Message>
         <S_Message negative profile="true" data-show={renderErrorMessage}>
           <Message.Header>Error!</Message.Header>

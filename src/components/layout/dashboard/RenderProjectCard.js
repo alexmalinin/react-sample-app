@@ -13,6 +13,7 @@ import {
 } from "../../../constans/constans";
 import { getUserRole } from "../../../helpers/functions";
 import { showProjectTeam } from "../../../actions/actions";
+import MembersDropdown from "../dropdowns/MembersDropdown";
 
 class RenderProjectCard extends Component {
   state = {
@@ -52,19 +53,17 @@ class RenderProjectCard extends Component {
     } = nextProps;
 
     if (projectTeam) {
-      if (projectTeam[0]) {
-        if (projectTeam[0].project_id === id) {
-          if (this.props.projectTeam) {
-            if (this.props.projectTeam !== projectTeam) {
-              this.setState({
-                projectTeam: projectTeam[0]
-              });
-            }
-          } else
+      if (projectTeam.project_id === id) {
+        if (this.props.projectTeam) {
+          if (this.props.projectTeam !== projectTeam) {
             this.setState({
-              projectTeam: projectTeam[0]
+              projectTeam: projectTeam
             });
-        }
+          }
+        } else
+          this.setState({
+            projectTeam: projectTeam
+          });
       }
     }
   }
@@ -114,7 +113,6 @@ class RenderProjectCard extends Component {
 
   render() {
     const {
-      changeUserType,
       data: { id, epics, name, logo },
       getCurrentEpic
     } = this.props;
@@ -145,9 +143,10 @@ class RenderProjectCard extends Component {
           <div className="team">
             {projectTeam &&
               projectTeam.specialists && (
-                <ProjectTeam
-                  specialists={projectTeam.specialists}
-                  changeUserType={changeUserType}
+                <MembersDropdown
+                  members={projectTeam.specialists}
+                  countToShow={3}
+                  position="bottom left"
                 />
               )}
           </div>
@@ -159,66 +158,10 @@ class RenderProjectCard extends Component {
   }
 }
 
-class ProjectTeam extends Component {
-  state = {
-    specialists: this.props.specialists.slice(0, 3),
-    pos: 0
-  };
-
-  prevSpec = () => {
-    this.setState({
-      pos: this.state.pos - 1
-    });
-  };
-
-  nextSpec = () => {
-    this.setState({
-      pos: this.state.pos + 1
-    });
-  };
-
-  render() {
-    const { changeUserType } = this.props;
-    const { pos } = this.state;
-    const hidden = this.props.specialists.length > 3 ? "" : " hidden";
-
-    return (
-      <Fragment>
-        <button
-          disabled={pos === 0}
-          className={`prev ${hidden}`}
-          onClick={this.prevSpec}
-        >
-          <i className="fa fa-chevron-left" />
-        </button>
-        {this.props.specialists
-          .slice(pos, pos + 3)
-          .map((specialist, key) => (
-            <PersonTile
-              key={key}
-              specialist={specialist}
-              userType={changeUserType}
-              hideDelete={true}
-              removeTitle="team"
-            />
-          ))}
-        <button
-          disabled={pos === this.props.specialists.length - 3}
-          className={`next ${hidden}`}
-          onClick={this.nextSpec}
-        >
-          <i className="fa fa-chevron-right" />
-        </button>
-      </Fragment>
-    );
-  }
-}
-
 export default connect(
-  ({ projectTeam, allSpecialists, changeUserType }) => ({
+  ({ projectTeam, allSpecialists }) => ({
     projectTeam,
-    allSpecialists,
-    changeUserType
+    allSpecialists
   }),
   {
     showProjectTeam

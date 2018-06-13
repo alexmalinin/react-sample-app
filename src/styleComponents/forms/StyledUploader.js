@@ -264,6 +264,10 @@ export default styled.div`
 
     &.disabled {
       opacity: 0.5;
+
+      &.selfSubmit {
+        display: none;
+      }
     }
 
     &:hover .file-delete {
@@ -278,6 +282,10 @@ export default styled.div`
       top: 0;
       display: none;
     }
+  }
+
+  .ui.loader:after {
+    border-color: #666 transparent transparent transparent !important;
   }
 
   .uploadFile {

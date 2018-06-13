@@ -52,7 +52,6 @@ class SpecialistsMyBillings extends Component {
       bank_account_details,
       swift_code
     } = values;
-    console.log("qwe 456", billing_type);
 
     if (billing_type == "1") {
       return { company_name, manager };

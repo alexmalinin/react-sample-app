@@ -18,3 +18,9 @@ export const minLength8 = minLength(8);
 export const maxLength4 = maxLength(4);
 export const maxLength20 = maxLength(20);
 export const maxLength260 = maxLength(260);
+export const creditCard = value =>
+  value && /[0-9]{*}/i.test(value)
+    ? "Card number contains invalid symbols"
+    : value.length === 16
+      ? undefined
+      : "Must be 16 numbers";

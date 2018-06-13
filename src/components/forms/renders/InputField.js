@@ -3,6 +3,7 @@ import { Field } from "redux-form";
 import { minLength2 } from "../../../helpers/validate";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import RenderField from "./RenderField";
+import { createNumberMask, createTextMask } from "redux-form-input-masks";
 
 class InputField extends React.Component {
   render() {
@@ -15,8 +16,18 @@ class InputField extends React.Component {
       padded,
       data,
       isRequired,
+      creditCard,
       ...rest
     } = this.props;
+    let creditCardPattern = {};
+
+    if (creditCard) {
+      creditCardPattern = createTextMask({
+        pattern: "9999 9999 9999 9999",
+        guide: false,
+        allowEmpty: true
+      });
+    }
 
     return (
       <div>
@@ -33,6 +44,7 @@ class InputField extends React.Component {
           padded={padded}
           validate={validate ? [...validate, minLength2] : []}
           data={data}
+          {...creditCardPattern}
         />
       </div>
     );

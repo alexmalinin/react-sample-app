@@ -73,6 +73,7 @@ import {
   REMOVE_SPECIALIST_FROM_TEAM,
   SHOW_SPECIALIST_PROJECTS,
   SHOW_SPECIALIST_TEAMS,
+  SHOW_CUSTOM_TEAMS,
   CREATE_CUSTOM_TEAM,
   GET_SKILLS,
   SEARCH_SPECIALIST,
@@ -81,7 +82,7 @@ import {
   SHOW_SPECIALIST_TASKS,
   UPDATE_PROJECT
 } from "../constans/constans";
-import axios from "axios";
+import Axios from "axios";
 
 export function hideFooter() {
   const action = {
@@ -662,6 +663,17 @@ export function showSpecialistTeams() {
   const action = {
     type: SHOW_SPECIALIST_TEAMS,
     showSpecialistTeams: `${PORT}/api/v1/specialists/`
+  };
+
+  return action;
+}
+
+// show all custom teams
+
+export function showCustomTeams() {
+  const action = {
+    type: SHOW_CUSTOM_TEAMS,
+    showCustomTeams: `${PORT}/api/v1/custom_teams/`
   };
 
   return action;
