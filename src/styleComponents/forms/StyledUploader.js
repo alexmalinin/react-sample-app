@@ -13,6 +13,12 @@ export default styled.div`
   align-items: center;
   margin-bottom: 20px;
 
+  &.projectFiles {
+    .ui.loader {
+      margin-right: 30px;
+    }
+  }
+
   &::after,
   &::before,
   span {
@@ -292,7 +298,7 @@ export default styled.div`
     position: relative;
     height: 36px;
     width: 36px;
-    background: none;
+    background: rgba(152, 158, 169, 0.1);
     margin-bottom: 10px;
     cursor: pointer;
     border: none;
@@ -308,7 +314,7 @@ export default styled.div`
       left: calc(50% - 1px);
       height: 16px;
       width: 2px;
-      background-color: #f2f2f2;
+      background-color: ${primaryColors.lightGrey};
       transition: inherit;
     }
 
@@ -317,7 +323,7 @@ export default styled.div`
     }
 
     &:hover {
-      background: rgba(152, 158, 169, 0.1);
+      background: rgba(152, 158, 169, 0.3);
 
       &::before,
       &::after {

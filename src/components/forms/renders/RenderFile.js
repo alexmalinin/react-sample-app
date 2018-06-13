@@ -44,7 +44,7 @@ class RenderFile extends Component {
 
   validateFileExtension = fld => {
     if (
-      !/(\.txt|\.rtf|\.doc|\.docx|\.html|\.pdf|\.odt|\.psd|\.jpg|\.zip|\.png)$/i.test(
+      !/(\.txt|\.rtf|\.doc|\.docx|\.html|\.pdf|\.odt|\.psd|\.jpg|\.zip|\.png|\.jpeg|\.xlsx)$/i.test(
         fld
       )
     ) {
@@ -81,6 +81,7 @@ class RenderFile extends Component {
   }
 
   onDrop = files => {
+    console.log("onDrop");
     if (files.length < 1) {
       this.setState({ error: true });
     } else {
@@ -106,6 +107,8 @@ class RenderFile extends Component {
           onSelfSubmit(input.name + "_attributes", [
             {
               document: reader.result,
+              name: file.name,
+              size: file.size,
               entity_type
             }
           ])
@@ -184,6 +187,8 @@ class RenderFile extends Component {
         return "-image";
       case "pdf":
         return "-pdf";
+      case "xlsx":
+        return "-excel";
       default:
         return "-alt";
     }
@@ -191,6 +196,7 @@ class RenderFile extends Component {
 
   deleteAttachedFile = file => {
     this.setState({ loading: true });
+
     return axios
       .delete(`${PORT}/api/v1/attached_files/${file}`)
       .then(resp => this.setState({ loading: false }))
@@ -255,7 +261,7 @@ class RenderFile extends Component {
               className="dropzone"
               activeClassName="active"
               onDrop={this.onDrop}
-              accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
+              accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
             >
               <p>Drop file here or click to select</p>
               {!rest.small && <i className="fa fa-cloud-download-alt" />}
@@ -303,7 +309,12 @@ class RenderFile extends Component {
             )}
           </div>
         ))}
-        <Loader inline inverted disabled={!this.state.loading} />
+        <Loader
+          style={{ display: this.state.loading ? "block" : "none" }}
+          inline
+          inverted
+          disabled={!this.state.loading}
+        />
 
         {!dropzone &&
           !disabled && (
@@ -318,15 +329,16 @@ class RenderFile extends Component {
           placeholder={placeholder}
           type="file"
           multiple
-          accept=".txt, .rtf, .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png"
+          accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
           onChange={e => this._handleFileAttach(e)}
         />
 
         {this.state.error ? (
           <div className="errorMessage">
             <span>
-              Invalid file type. <br />Allowed file extensions: .txt, .rtf,
-              .doc, .docx, .html, .pdf, .odt, .psd, .jpg, .zip, .png
+              Invalid file type. <br />Allowed file extensions: .pdf, .doc,
+              .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg,
+              .zip, .png
             </span>
           </div>
         ) : null}
