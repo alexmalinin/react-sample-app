@@ -31,7 +31,12 @@ class EditingEducationCard extends Component {
         <S_PointCard data-edit onClick={this.show}>
           <i className="fas fa-edit edit-icon" />
         </S_PointCard>
-        <Modal open={open} onClose={this.close} closeIcon>
+        <Modal
+          className="hidden-icon"
+          open={open}
+          onClose={this.close}
+          closeIcon
+        >
           <Modal.Header>Editing Your Card</Modal.Header>
           <Modal.Content>
             <Modal.Description>

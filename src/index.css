@@ -40,6 +40,10 @@ ul {
   overflow: auto;
 }
 
+.modal.hidden-icon .close.icon {
+  display: none;
+}
+
 /*_____________Global__________________*/
 
 .Select-control {

@@ -77,6 +77,15 @@ export default styled.div`
     text-transform: uppercase;
   }
 
+  .profile-item {
+    margin-bottom: 1em;
+
+    .profile-label {
+      display: inline-block;
+      margin: 0 10px 0 0;
+    }
+  }
+
   .main-info {
     display: flex;
     justify-content: center;
@@ -185,13 +194,18 @@ export default styled.div`
 
   .billing {
     .billingItem {
+      font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
       margin-bottom: 12px;
 
       p {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        margin-bottom: 0;
+        margin-bottom: 1em;
+      }
+
+      span {
+        font-size: 16px;
       }
     }
   }

@@ -33,6 +33,7 @@ class AddTaskModal extends Component {
               <span>{content}</span>
             </a>
           }
+          className="hidden-icon"
           closeIcon
         >
           <Modal.Header>Epic creation</Modal.Header>
