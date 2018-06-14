@@ -27,7 +27,7 @@ export default class SpecialistTile extends Component {
 
   render() {
     const { specialist } = this.props;
-    const allowed = oneOfRoles([S_REDGUY]);
+    const allowed = oneOfRoles(S_REDGUY);
 
     return (
       <StyledSpecialist>

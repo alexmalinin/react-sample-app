@@ -6,7 +6,8 @@ import {
   showAllSpecialists,
   createTeamChannel,
   showChannels,
-  showProjectTeam
+  showProjectTeam,
+  showCustomTeam
 } from "../../actions/actions";
 import { S_REDGUY, S_CORE } from "../../constans/constans";
 import Channel from "./Channel";
@@ -21,9 +22,11 @@ class Team extends Component {
   };
 
   componentWillMount() {
-    const { showProjectTeam, team, showChannels } = this.props;
+    const { showProjectTeam, showCustomTeam, team, showChannels } = this.props;
 
-    team.project_id && showProjectTeam(team.project_id);
+    if (team.custom_team) {
+      showCustomTeam(team.id);
+    } else showProjectTeam(team.project_id);
     showChannels(team.id);
   }
 
@@ -61,6 +64,17 @@ class Team extends Component {
             state.specialistsList === nextProps.projectTeam.specialists
               ? null
               : { specialistsList: nextProps.projectTeam.specialists }
+        );
+      }
+    }
+
+    if (nextProps.customTeam) {
+      if (nextProps.customTeam.id === nextProps.team.id) {
+        this.setState(
+          state =>
+            state.specialistsList === nextProps.customTeam.specialists
+              ? null
+              : { specialistsList: nextProps.customTeam.specialists }
         );
       }
     }
@@ -173,6 +187,7 @@ class Team extends Component {
                 onKeyUp={e => e.keyCode === 13 && e.target.blur()}
                 onChange={this.handleChange}
                 onBlur={() => this.setState({ error: false })}
+                autoComplete="off"
               />
             </Form>
           )}
@@ -231,7 +246,8 @@ export default connect(
     updateChannel,
     deleteChannel,
     changeUserType,
-    projectTeam
+    projectTeam,
+    customTeam
   }) => ({
     allSpecialists,
     createChannel,
@@ -241,7 +257,14 @@ export default connect(
     updateChannel,
     deleteChannel,
     changeUserType,
-    projectTeam
+    projectTeam,
+    customTeam
   }),
-  { showAllSpecialists, createTeamChannel, showChannels, showProjectTeam }
+  {
+    showAllSpecialists,
+    createTeamChannel,
+    showChannels,
+    showProjectTeam,
+    showCustomTeam
+  }
 )(Team);

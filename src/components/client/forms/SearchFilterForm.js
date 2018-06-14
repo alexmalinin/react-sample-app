@@ -244,20 +244,23 @@ class SearchFilterForm extends Component {
                         {skill.label}
                       </div>
                     ))}
-                    {projectWithId["skills"].length > 4 && (
-                      <Popup on="click" trigger={<p>"See the rest skills"</p>}>
-                        <div>
-                          {projectWithId["skills"]
-                            .slice(4)
-                            .map((skill, key) => (
-                              <div key={key}>{skill.label}</div>
-                            ))}
-                          }
-                        </div>
-                      </Popup>
-                    )}
                     {projectWithId["skills"].length === 0 && "No skills"}
                   </div>
+                  {projectWithId["skills"].length > 4 && (
+                    <Popup
+                      on="click"
+                      size="small"
+                      trigger={<a className="allSkills">See all skills</a>}
+                    >
+                      <div className="skills">
+                        {projectWithId["skills"]
+                          // .slice(4)
+                          .map((skill, key) => (
+                            <span key={key}>{skill.label}&nbsp;</span>
+                          ))}
+                      </div>
+                    </Popup>
+                  )}
                 </Grid.Column>
               )}
           </Grid.Row>

@@ -53,20 +53,26 @@ export default class PersonTile extends Component {
       <StyledPersonTile compressed={compressed}>
         <a
           tabIndex="-1"
-          onClick={this.openDropdown}
+          onClick={e => {
+            e.stopPropagation();
+            e.target.focus();
+          }}
+          onFocus={this.openDropdown}
           onBlur={this.closeDropdown}
         >
           <Popup
             trigger={
-              <img
-                onClick={e => e.target.parentNode.focus()}
-                alt={fullName}
-                src={
-                  specialist.avatar.url
-                    ? IMAGE_PORT + specialist.avatar.url
-                    : "/images/uploadImg.png"
-                }
-              />
+              <div className="imgWrapper">
+                <img
+                  onClick={e => e.target.parentNode.focus()}
+                  alt={fullName}
+                  src={
+                    specialist.avatar.url
+                      ? IMAGE_PORT + specialist.avatar.url
+                      : "/images/uploadImg.png"
+                  }
+                />
+              </div>
             }
             content={fullName}
             style={

@@ -5,6 +5,7 @@ import { S_REDGUY } from "../../constans/constans";
 import { getUserRole } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 import { formatCurrency } from "../../helpers/validate";
+import MembersDropdown from "./dropdowns/MembersDropdown";
 
 const defaultProps = {
   specialists: []
@@ -80,7 +81,7 @@ class CustomCard extends Component {
           <span className="bell" />
         </div> */}
         <div className="persons">
-          {specialists.map((specialist, key) => (
+          {/* {specialists.map((specialist, key) => (
             <PersonTile
               specialist={specialist}
               key={key}
@@ -89,13 +90,22 @@ class CustomCard extends Component {
               removeTitle="task"
               userType={userType}
             />
-          ))}
+          ))} */}
+          <MembersDropdown
+            members={specialists}
+            countToShow={3}
+            position="bottom left"
+            handleRemove={this.handleAssign}
+            removeText="epic"
+          />
+
           <AssignDropdown
             specialists={specialists}
             allSpecialists={specialistList}
             handleAssign={this.assignSpeciaist}
             userType={[S_REDGUY]}
             closeOnChange={true}
+            blue
           />
         </div>
         <span className="ddtw">DDTW-{id}</span>

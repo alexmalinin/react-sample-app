@@ -72,7 +72,7 @@ class Header extends Component {
                       content="Teams"
                     />
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     activeClassName="current"
                     className="item-link"
                     to="/dashboard/account"
@@ -81,7 +81,7 @@ class Header extends Component {
                       trigger={<i className="far fa-credit-card" />}
                       content="Account"
                     />
-                  </NavLink>
+                  </NavLink> */}
                 </Fragment>
               )}
               <NavLink

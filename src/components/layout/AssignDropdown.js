@@ -102,7 +102,13 @@ export default class AssignDropdown extends Component {
   };
 
   render() {
-    const { label, renderToDashboard, renderToModal, userType } = this.props;
+    const {
+      label,
+      renderToDashboard,
+      renderToModal,
+      userType,
+      blue
+    } = this.props;
     const { options, assignedIds, showDropdown, fetch } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
 
@@ -110,6 +116,7 @@ export default class AssignDropdown extends Component {
       renderCondition && (
         <StyledAssignDropdown
           renderToModal={renderToModal}
+          blue={blue}
           // tabIndex="-1"
         >
           <a
@@ -139,6 +146,7 @@ export default class AssignDropdown extends Component {
                 onClick={e => e.target.focus()}
                 onBlur={this.closeDropdown}
                 onChange={this.handleSearch}
+                autoComplete="off"
               />
               <div className="dropdown-list">
                 {options &&
@@ -165,6 +173,7 @@ export default class AssignDropdown extends Component {
                       {specialist.first_name + " " + specialist.last_name}
                     </div>
                   ))}
+                {options.length === 0 && <div>No available specialists</div>}
               </div>
             </div>
           )}

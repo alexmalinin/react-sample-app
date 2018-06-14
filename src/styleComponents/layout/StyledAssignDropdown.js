@@ -43,7 +43,8 @@ export const StyledAssignDropdown = styled.div`
   }
 
   .dropdownTrigger {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     width: 100%;
     height: 100%;
     border-radius: inherit;
@@ -80,8 +81,9 @@ export const StyledAssignDropdown = styled.div`
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      height: ${props => (props.renderToModal ? "48px" : "30px")};
-      width: ${props => (props.renderToModal ? "48px" : "30px")};
+      padding: ${props => (props.renderToModal ? "0" : "4px 0")}; 
+      height: ${props => (props.renderToModal ? "48px" : "36px")};
+      width: ${props => (props.renderToModal ? "48px" : "36px")};
       color: ${props => (props.blue ? "white" : "#ccc")};
       border-radius: 50%;
       border: ${props => (props.blue ? "none" : "1px solid #ccc")};
@@ -101,7 +103,8 @@ export const StyledAssignDropdown = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
         height: ${props => (props.renderToModal ? "20px" : "12px")};
-        width: 1px;
+        width: 2px;
+        border-radius: 2px;
         background: ${props => (props.blue ? "white" : "#ccc")};
       }
 
@@ -221,8 +224,8 @@ export const StyledAssignDropdown = styled.div`
         text-transform: none;
 
         img {
-          width: 30px;
-          height: 30px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           object-fit: cover;
           margin-right: 10px;
@@ -230,7 +233,7 @@ export const StyledAssignDropdown = styled.div`
 
         &.assigned {
           order: 0;
-          ${props => props.renderToModal && "display: none;"}
+          /* ${props => props.renderToModal && "display: none;"} */
 
           &::before,
           &::after {
@@ -313,8 +316,8 @@ export const StyledDropdown = styled(Popup)`
         cursor: pointer;
 
         img {
-          height: 30px;
-          width: 30px;
+          height: 36px;
+          width: 36px;
           background: white;
           border-radius: 50%;
           margin-right: 6px;
@@ -344,15 +347,11 @@ export const StyledPersonTile = styled.div`
   text-transform: none;
   font-weight: 400;
   margin-right: ${props => (props.compressed ? "-8px" : "0")};
-
   img {
     width: 30px;
     height: 30px;
-<<<<<<< HEAD
     object-fit: cover;
     border-radius: 50%;
-=======
->>>>>>> [Fix] split costs fields + staging fix
     background: #fff;
     margin-right: ${props => (props.compressed ? "0 " : "5px")};
     border: ${props =>
@@ -361,15 +360,22 @@ export const StyledPersonTile = styled.div`
   }
 
   a {
+  .imgWrapper {
     position: relative;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    outline: none;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     overflow: hidden;
+    margin-right: ${props => (props.compressed ? "0 " : "5px")};
+
+    img {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border: ${props =>
+        props.compressed ? `1px solid ${colors.darkBlue}` : "none"};
+      border-radius: 50%;
+    }
 
     &::before {
       content: "";
@@ -381,10 +387,22 @@ export const StyledPersonTile = styled.div`
       background: ${colors.darkBlue};
       opacity: 0;
     }
+  }
+
+  a {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
 
     &:focus {
-      &::before {
-        opacity: 0.15;
+      .imgWrapper {
+        &::before {
+          opacity: 0.15;
+        }
       }
     }
 
@@ -597,14 +615,18 @@ export const StyledMembersWrapper = styled.div`
 
     .allMembers {
       margin-right: 5px;
-      display: flex;
+      /* display: flex;
       justify-content: center;
-      align-items: center;
-      height: 30px;
-      width: 30px;
+      align-items: center; */
+      height: 36px;
+      width: 36px;
       border-radius: 50%;
       background: ${colors.darkBlue};
       color: white;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      font-weight: 600;
       cursor: pointer;
       z-index: 1;
     }

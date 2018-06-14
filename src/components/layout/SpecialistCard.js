@@ -82,10 +82,10 @@ class SpecialistCard extends Component {
             View profile
           </NavLink>
         </div>
-        <div className="rating">
+        {/* <div className="rating">
           <span>{Math.floor(Math.random() * (5 - 1) + 1)}</span>
           <i className="fa fa-star" />
-        </div>
+        </div> */}
       </StyledSpecialistCard>
     );
   }

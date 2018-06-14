@@ -17,7 +17,7 @@ class MembersDropdown extends Component {
   handleAssign = () => {};
 
   render() {
-    const { members, countToShow, position } = this.props;
+    const { members, countToShow, position, removeText } = this.props;
     const rest = members.length - countToShow;
 
     return (
@@ -28,7 +28,7 @@ class MembersDropdown extends Component {
               key={index}
               specialist={person}
               handleRemove={this.handleAssign}
-              removeTitle="project"
+              removeTitle={removeText}
               compressed
             />
           );
@@ -39,7 +39,11 @@ class MembersDropdown extends Component {
             position={position}
             basic
             style={{ border: "none" }}
-            trigger={<a className="allMembers">+{rest}</a>}
+            trigger={
+              <a onClick={e => e.stopPropagation()} className="allMembers">
+                {rest}
+              </a>
+            }
           >
             <StyledMembersWrapper className="inner">
               <h3>Members</h3>
@@ -49,7 +53,7 @@ class MembersDropdown extends Component {
                     key={index}
                     specialist={person}
                     handleRemove={this.handleAssign}
-                    removeTitle="project"
+                    removeTitle={removeText}
                   />
                 );
               })}

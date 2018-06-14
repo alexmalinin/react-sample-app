@@ -84,7 +84,8 @@ import {
   SHOW_CONFIRMATION_MODAL,
   CLOSE_CONFIRMATION_MODAL,
   SHOW_SUBMIT_ERROR_MODAL,
-  CLOSE_SUBMIT_ERROR_MODAL
+  CLOSE_SUBMIT_ERROR_MODAL,
+  SHOW_CUSTOM_TEAM
 } from "../constans/constans";
 import Axios from "axios";
 
@@ -884,6 +885,17 @@ export function showProjectTeam(project) {
   const action = {
     type: SHOW_PROJECT_TEAM,
     showProjectTeam: `${PORT}/api/v1/projects/${project}/teams`
+  };
+
+  return action;
+}
+
+// Show Custom Team
+
+export function showCustomTeam(team) {
+  const action = {
+    type: SHOW_CUSTOM_TEAM,
+    showCustomTeam: `${PORT}/api/v1/custom_team/${team}`
   };
 
   return action;

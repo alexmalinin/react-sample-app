@@ -19,6 +19,7 @@ import {
   deleteTeamChannel
 } from "../../actions/actions";
 import { getUserRole } from "../../helpers/functions";
+import MembersDropdown from "./dropdowns/MembersDropdown";
 
 class Channel extends Component {
   state = {
@@ -100,6 +101,7 @@ class Channel extends Component {
               onKeyUp={e => e.keyCode === 13 && e.target.blur()}
               onBlur={this.submit}
               onChange={this.handleEdit}
+              autoComplete="off"
             />
           </Form>
           {getUserRole() === S_REDGUY && (
@@ -157,16 +159,13 @@ class Channel extends Component {
         <h5>#{channel.name}</h5>
 
         <div className="persons team">
-          {channel.specialists.map((person, key) => (
-            <PersonTile
-              key={key}
-              specialist={person}
-              handleRemove={this.handleAssign}
-              labeled
-              removeTitle="channel"
-              userType={changeUserType}
-            />
-          ))}
+          <MembersDropdown
+            members={channel.specialists}
+            countToShow={3}
+            position="bottom left"
+            handleRemove={this.handleAssign}
+            removeText="channel"
+          />
           {!isGeneral && (
             <AssignDropdown
               label="Add member"
@@ -175,6 +174,7 @@ class Channel extends Component {
               handleAssign={this.handleAssign}
               userType={[S_REDGUY]}
               closeOnChange={true}
+              blue
             />
           )}
         </div>
