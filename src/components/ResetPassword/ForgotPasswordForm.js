@@ -12,9 +12,11 @@ class ForgotPasswordForm extends Component {
       <StyledVerificationForm onSubmit={handleSubmit}>
         <EmailField name="email" label="Your Email" checkedClass="checked" />
 
-        <SaveBtn type="submit" disabled={submitting} primary>
-          <span>Submit</span>
-        </SaveBtn>
+        <div className="btn-wrap">
+          <SaveBtn type="submit" disabled={submitting} primary>
+            <span>Submit</span>
+          </SaveBtn>
+        </div>
       </StyledVerificationForm>
     );
   }

@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 import { showClientTeams, showSpecialistTeams } from "../actions/actions";
 import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
+import { PORT, CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
 import { getUserRole } from "../helpers/functions";
+import { Message } from "semantic-ui-react";
+import { S_Message } from "../styleComponents/layout/S_Message";
 
 class Teams extends Component {
+  state = {
+    renderMessage: false,
+    renderErrorMessage: false
+  };
+
   componentWillMount() {
     this.showTeams();
   }
@@ -31,8 +39,31 @@ class Teams extends Component {
     }
   }
 
+  removeTeam = team => {
+    const { id, specialist_id } = team;
+
+    return axios
+      .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
+      .then(res => {
+        this.setState({ renderMessage: true });
+        setTimeout(() => {
+          this.setState({ renderMessage: false, renderErrorMessage: false });
+        }, 2500);
+
+        this.showTeams();
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ renderErrorMessage: true });
+        setTimeout(() => {
+          this.setState({ renderMessage: false, renderErrorMessage: false });
+        }, 2500);
+      });
+  };
+
   renderToDashboard() {
     const { teams, changeUserType, specialistData } = this.props;
+    const { renderMessage, renderErrorMessage } = this.state;
 
     return (
       <ContainerLarge>
@@ -43,7 +74,9 @@ class Teams extends Component {
           />
           <Container sidebarCondition>
             {teams && teams.length > 0 ? (
-              teams.map((team, key) => <Team key={key} team={team} />)
+              teams.map((team, key) => (
+                <Team key={key} team={team} removeTeam={this.removeTeam} />
+              ))
             ) : (
               <div className="teamsPlaceholder">
                 <p>No teams for now</p>
@@ -51,6 +84,15 @@ class Teams extends Component {
             )}
           </Container>
         </StyledTeamPage>
+
+        <S_Message positive profile="true" data-show={renderMessage}>
+          <Message.Header>Success!</Message.Header>
+          <p>Team was deleted</p>
+        </S_Message>
+        <S_Message negative profile="true" data-show={renderErrorMessage}>
+          <Message.Header>Error!</Message.Header>
+          <p>Something went wrong, please try again</p>
+        </S_Message>
       </ContainerLarge>
     );
   }

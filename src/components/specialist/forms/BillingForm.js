@@ -215,7 +215,7 @@ class BillingForm extends Component {
                   onClick={this.props.handleSubmitError}
                   primary
                 >
-                  <span>Next Step</span>
+                  <span>Submit</span>
                 </NextBtn>
               )}
             </div>

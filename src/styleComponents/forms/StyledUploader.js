@@ -41,7 +41,7 @@ export default styled.div`
 
   .imgPreview {
     display: inline-block;
-    margin-left: 30px;
+    margin-left: ${props => (props.projectLogo ? "0" : "30px")};
 
     & img {
       width: 120px;
@@ -129,7 +129,7 @@ export default styled.div`
     background-color: transparent !important;
     position: absolute;
     top: 0px;
-    left: 30px;
+    ${props => (props.projectLogo ? null : "left: 30px;")};
   }
   .ui.button::after,
   .ui.button::before {

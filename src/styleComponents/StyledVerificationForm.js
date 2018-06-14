@@ -4,7 +4,7 @@ export default styled.form`
   width: 100%;
 
   & > div {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
   }
 
   .btn-wrap {
@@ -13,10 +13,6 @@ export default styled.form`
   }
 
   @media (max-width: 1920px) {
-    & > div {
-      margin-bottom: 30px;
-    }
-
     .btn-wrap {
       margin: 0;
     }

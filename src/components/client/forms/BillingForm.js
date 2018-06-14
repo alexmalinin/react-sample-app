@@ -230,7 +230,7 @@ class BillingForm extends Component {
                   onClick={handleSubmitError}
                   primary
                 >
-                  <span>Next Step</span>
+                  <span>Submit</span>
                 </NextBtn>
               )}
             </div>

@@ -56,7 +56,8 @@ class RenderTextArea extends Component {
       large,
       isRequired,
       padded,
-      paddedError
+      paddedError,
+      ...rest
     } = this.props;
 
     return (
@@ -76,6 +77,7 @@ class RenderTextArea extends Component {
           onFocus={e => this.autoresize(e, true)}
           onBlur={e => this.autoresize(e, false)}
           id={id}
+          {...rest}
         />
         {touched &&
           ((error && (

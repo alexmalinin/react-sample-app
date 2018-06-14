@@ -14,7 +14,7 @@ export default styled.div`
 
   ${props => (props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``)};
   ${props =>
-    props.small ? `display: inline-block; margin: 20px 40px 0 20px` : ``};
+    props.small ? `display: inline-block; margin: 20px 40px 0 0` : ``};
   & > div.checkedd:after {
     content: "";
     position: absolute;
@@ -176,6 +176,12 @@ export default styled.div`
 
       &.disabled {
         opacity: 1;
+
+        .react-datepicker-wrapper {
+          input {
+            border: none;
+          }
+        }
       }
 
       &.error {

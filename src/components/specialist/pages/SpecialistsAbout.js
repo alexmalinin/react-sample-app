@@ -308,14 +308,14 @@ class SpecialistsWithId extends Component {
                       ? this.renderText(specialist["project_type"].name)
                       : null}
                   </h3>
-                  <span>Speciality within that niche</span>
+                  {/* <span>Speciality within that niche</span>
                   <h3 className="niche">
                     {specialist
                       ? specialist["specialities"].map((item, key) => (
                           <span key={key}>{item.name}</span>
                         ))
                       : null}
-                  </h3>
+                  </h3> */}
                 </Grid.Column>
               </Grid.Row>
 

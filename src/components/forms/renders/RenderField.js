@@ -61,7 +61,8 @@ class RenderField extends Component {
       pattern,
       isRequired,
       step,
-      autoComplete
+      autoComplete,
+      ...rest
     } = this.props;
     const { loading, updError } = this.state;
 
@@ -91,6 +92,7 @@ class RenderField extends Component {
           // }}
           onBlur={this.submit}
           loading={loading}
+          {...rest}
         />
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||

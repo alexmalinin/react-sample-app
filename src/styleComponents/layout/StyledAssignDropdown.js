@@ -348,6 +348,7 @@ export const StyledPersonTile = styled.div`
   img {
     width: 30px;
     height: 30px;
+    object-fit: cover;
     border-radius: 50%;
     background: #fff;
     margin-right: ${props => (props.compressed ? "0" : "5px")};
@@ -486,7 +487,7 @@ export const StyledSpecialist = styled.div`
           margin-left: 10px;
           height: 48px;
           width: 48px;
-          object-fit: contain;
+          object-fit: cover;
           background: #fff;
           border-radius: 50%;
         }

@@ -65,6 +65,7 @@ class SideBarLeft extends Component {
               ))}
             <NavLink className="projectLink" to="/dashboard/project/new">
               <span className="addProject" />
+              <div className="addProject-label">Add project</div>
             </NavLink>
           </div>
         </div>

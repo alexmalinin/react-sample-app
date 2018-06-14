@@ -23,6 +23,34 @@ export default styled.div`
     visibility: hidden;
   }
 
+  .projectLogo {
+    max-width: 100px;
+
+    & > div {
+      margin-bottom: 0;
+    }
+
+    .imgPreview {
+      display: inline-block;
+
+      .image-preloader {
+        padding: 0;
+      }
+
+      & img {
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+        border-radius: 50%;
+        object-fit: ${props => (props.projectLogo ? "contain" : "cover")};
+      }
+    }
+
+    .ui.button {
+      padding: 40px !important;
+    }
+  }
+
   .ui.grid {
     transition: inherit;
     .row {
@@ -133,6 +161,7 @@ export default styled.div`
               flex-flow: row nowrap;
               align-items: center;
               padding: 8px;
+              margin-bottom: 2em;
 
               img,
               .projectNoLogo {

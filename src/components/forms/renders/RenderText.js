@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { reset, change, initialize } from "redux-form";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
@@ -6,6 +7,13 @@ import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import { TextArea } from "react-semantic-redux-form/dist";
 import { Button } from "semantic-ui-react";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
+import {
+  showProjectWithId,
+  showAllProjects,
+  showSpecialistProjects
+} from "../../../actions/actions";
+import { getUserRole } from "../../../helpers/functions";
+import { CUSTOMER } from "../../../constans/constans";
 
 class RenderText extends Component {
   state = {
@@ -49,7 +57,9 @@ class RenderText extends Component {
     const {
       onSelfSubmit,
       input: { name, value },
-      meta: { dispatch, form }
+      meta: { dispatch, form },
+      projectId,
+      updateProjects
     } = this.props;
 
     this.setState({ loading: true });
@@ -64,6 +74,18 @@ class RenderText extends Component {
         }
         this.setState({ loading: false, updError: false, editing: false });
         dispatch(change(form, name, data[name]));
+
+        if (projectId) {
+          this.props.showProjectWithId(projectId);
+        }
+
+        if (updateProjects) {
+          if (getUserRole() === CUSTOMER) {
+            this.props.showAllProjects();
+          } else {
+            this.props.showSpecialistProjects();
+          }
+        }
       })
       .catch(error => {
         console.log(error);
@@ -133,4 +155,10 @@ class RenderText extends Component {
   }
 }
 
-export default RenderText;
+export default connect(null, {
+  showProjectWithId,
+  showAllProjects,
+  showSpecialistProjects
+})(RenderText);
+
+// export default RenderText;

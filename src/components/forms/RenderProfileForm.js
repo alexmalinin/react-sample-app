@@ -114,6 +114,7 @@ class RenderProfileForm extends Component {
                         label="First Name"
                         validate={[required]}
                         isRequired
+                        tabIndex="1"
                       />
 
                       <InputField
@@ -121,9 +122,10 @@ class RenderProfileForm extends Component {
                         label="City"
                         validate={[required]}
                         isRequired
+                        tabIndex="3"
                       />
                       <StyledPhoneField>
-                        <RenderPhone />
+                        <RenderPhone tabIndex="5" />
                       </StyledPhoneField>
                     </Grid.Column>
                     <Grid.Column computer={8}>
@@ -132,18 +134,21 @@ class RenderProfileForm extends Component {
                         label="Last Name"
                         validate={[required]}
                         isRequired
+                        tabIndex="2"
                       />
                       <InputField
                         name="country"
                         label="Country"
                         validate={[required]}
                         isRequired
+                        tabIndex="4"
                       />
                       <EmailField
                         name="email"
                         label="Email"
                         validate={[required]}
                         isRequired
+                        tabIndex="6"
                       />
                     </Grid.Column>
                   </Grid.Row>
@@ -170,6 +175,7 @@ class RenderProfileForm extends Component {
                           }
                           component={RenderTextArea}
                           className="area"
+                          tabIndex="7"
                         />
                       </div>
                     </Grid.Column>

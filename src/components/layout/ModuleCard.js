@@ -8,7 +8,7 @@ import {
 import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
 import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
-import { oneOfRoles } from "../../helpers/functions";
+import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import { S_Message } from "../../styleComponents/layout/S_Message";
 
 class Module extends Component {
@@ -130,7 +130,7 @@ class Module extends Component {
 
     return (
       <div className="dragContainer">
-        <h3 onDoubleClick={this.toggleEdit}>
+        <h3 onDoubleClick={getUserRole() === S_REDGUY ? this.toggleEdit : null}>
           <span className={`number${editing ? " hidden" : ""}`}>
             {number > 9 ? number : "0" + number}:
           </span>
@@ -149,7 +149,7 @@ class Module extends Component {
               autoComplete="off"
               fluid
             />
-            {oneOfRoles(CUSTOMER, S_REDGUY) && (
+            {oneOfRoles(S_REDGUY) && (
               <button
                 className={`editModule${editing ? " hidden" : ""}`}
                 type="button"
@@ -180,7 +180,7 @@ class Module extends Component {
               <span>$20,000</span>
             </div>
           </div>
-          {oneOfRoles(CUSTOMER, S_CORE, S_REDGUY) && (
+          {oneOfRoles(S_REDGUY) && (
             <div className="dropdown">
               <a
                 tabIndex="-1"
@@ -195,14 +195,7 @@ class Module extends Component {
               </a>
               <div className={`menu${dropdown ? " open" : ""}`}>
                 <div className="item">
-                  <EditEpicModal
-                    epic={epic}
-                    number={number}
-                    showAllEpics={showAllEpics}
-                    renderMessage={this.renderMessage}
-                    renderErrorMessage={this.renderErrorMessage}
-                    ref={ref => (this.editEpicModal = ref)}
-                  />
+                  <div>Edit</div>
                 </div>
                 <div className="item">
                   <div onClick={this.deleteEpic}>Delete</div>
@@ -210,6 +203,16 @@ class Module extends Component {
               </div>
             </div>
           )}
+
+          <EditEpicModal
+            epic={epic}
+            number={number}
+            showAllEpics={showAllEpics}
+            renderMessage={this.renderMessage}
+            renderErrorMessage={this.renderErrorMessage}
+            ref={ref => (this.editEpicModal = ref)}
+          />
+
           <S_Message positive data-show={renderMessage}>
             <Message.Header>Success!</Message.Header>
             <p>{epic.name} updated</p>

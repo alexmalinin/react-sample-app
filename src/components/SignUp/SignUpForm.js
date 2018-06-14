@@ -14,6 +14,22 @@ import PrivacyPolicy from "../modals/PrivacyPolicy";
 import EmailField from "../forms/renders/EmailField";
 
 class SignUpForm extends Component {
+  componentWillMount() {
+    document.addEventListener("keyup", this.handleFormSubmit);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keyup", this.handleFormSubmit);
+  }
+
+  handleFormSubmit = event => {
+    let key = event.key || event.keyCode;
+
+    if (key === "Enter" || key === 13) {
+      this.props.handleSubmit();
+    }
+  };
+
   render() {
     const { handleSubmit, submitting, person, hasPerson } = this.props;
 

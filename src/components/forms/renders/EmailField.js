@@ -12,7 +12,8 @@ const EmailField = props => {
     label,
     data,
     checkedClass,
-    isRequired
+    isRequired,
+    ...rest
   } = props;
 
   return (
@@ -27,6 +28,7 @@ const EmailField = props => {
         validate={[required, email]}
         disabled={disabled}
         data={data}
+        {...rest}
       />
     </div>
   );
