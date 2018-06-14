@@ -32,6 +32,7 @@ class RenderProfileForm extends Component {
       formData: {},
       fetchFormValues: true,
       fetchSubmitError: true,
+      confirmation: false,
       submitError: false
     };
 
@@ -40,19 +41,19 @@ class RenderProfileForm extends Component {
 
   componentWillMount() {
     if (this.props.specialistData) {
-      this.fillFields(this.props.specialistData);
+      // this.fillFields(this.props.specialistData);
     }
     if (this.props.clientData) {
-      this.fillFields(this.props.clientData);
+      // this.fillFields(this.props.clientData);
     }
   }
 
   componentWillUnmount() {
     if (this.props.specialistData) {
-      this.fillFields(this.props.specialistData);
+      // this.fillFields(this.props.specialistData);
     }
     if (this.props.clientData) {
-      this.fillFields(this.props.clientData);
+      // this.fillFields(this.props.clientData);
     }
 
     this.props.reset();
@@ -68,6 +69,8 @@ class RenderProfileForm extends Component {
       specialistData,
       isEditing
     } = this.props;
+
+    // console.log("props", this.props);
 
     let { avatar } = specialistData || clientData || false;
 
@@ -252,12 +255,12 @@ class RenderProfileForm extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.clientData && this.state.fetch) {
-      this.fillFields(nextProps.clientData);
+      // this.fillFields(nextProps.clientData);
       this.setState({
         fetch: false
       });
     } else if (nextProps.specialistData && this.state.fetch) {
-      this.fillFields(nextProps.specialistData);
+      // this.fillFields(nextProps.specialistData);
       this.setState({
         fetch: false
       });
@@ -296,53 +299,89 @@ class RenderProfileForm extends Component {
     this.setState({ submitError: false, fetchSubmitError: false });
   };
 
-  fillFields = data => {
-    let {
-      first_name,
-      last_name,
-      email,
-      address,
-      phone_number,
-      professional_experience_info,
-      description
-    } = data;
+  // fillFields = data => {
+  //   let {
+  //     first_name,
+  //     last_name,
+  //     email,
+  //     address,
+  //     phone_number,
+  //     professional_experience_info,
+  //     description
+  //   } = data;
 
-    // this.props.dispatch(change('RenderProfileForm', 'avatar',       avatar));
-    this.props.dispatch(change("RenderProfileForm", "first_name", first_name));
-    this.props.dispatch(change("RenderProfileForm", "last_name", last_name));
-    this.props.dispatch(change("RenderProfileForm", "email", email));
-    this.props.dispatch(
-      change("RenderProfileForm", "phone_number", phone_number)
-    );
-    this.props.dispatch(
-      change("RenderProfileForm", "country", address ? address.country : null)
-    );
-    this.props.dispatch(
-      change("RenderProfileForm", "city", address ? address.city : null)
-    );
-    this.props.dispatch(
-      change("RenderProfileForm", "description", description)
-    );
-    this.props.dispatch(
-      change(
-        "RenderProfileForm",
-        "professional_experience_info",
-        professional_experience_info
-      )
-    );
-  };
+  //   this.props.dispatch(change("RenderProfileForm", "first_name", first_name));
+  //   this.props.dispatch(change("RenderProfileForm", "last_name", last_name));
+  //   this.props.dispatch(change("RenderProfileForm", "email", email));
+  //   this.props.dispatch(
+  //     change("RenderProfileForm", "phone_number", phone_number)
+  //   );
+  //   this.props.dispatch(
+  //     change("RenderProfileForm", "country", address ? address.country : null)
+  //   );
+  //   this.props.dispatch(
+  //     change("RenderProfileForm", "city", address ? address.city : null)
+  //   );
+  //   this.props.dispatch(
+  //     change("RenderProfileForm", "description", description)
+  //   );
+  //   this.props.dispatch(
+  //     change(
+  //       "RenderProfileForm",
+  //       "professional_experience_info",
+  //       professional_experience_info
+  //     )
+  //   );
+  // };
 }
 
 RenderProfileForm = reduxForm({
-  form: "RenderProfileForm"
+  form: "RenderProfileForm",
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(RenderProfileForm);
 
-RenderProfileForm = connect(state => ({
-  formValues: getFormValues("RenderProfileForm")(state)
-}))(RenderProfileForm);
+const mapStateToProps = (state, ownProps) => {
+  const { specialistData, clientData, percents } = state;
+  let initialValues = {};
 
-export default connect(({ clientData, specialistData, percents }) => ({
-  clientData,
-  specialistData,
-  percents
-}))(RenderProfileForm);
+  if (specialistData) {
+    initialValues = {
+      first_name: specialistData.first_name,
+      last_name: specialistData.last_name,
+      email: specialistData.email,
+      country: specialistData.address ? specialistData.address.country : null,
+      city: specialistData.address ? specialistData.address.city : null,
+      phone_number: specialistData.phone_number,
+      professional_experience_info: specialistData.professional_experience_info,
+      description: specialistData.description
+    };
+  }
+
+  if (clientData) {
+    initialValues = {
+      first_name: clientData.first_name,
+      last_name: clientData.last_name,
+      email: clientData.email,
+      country: clientData.address ? clientData.address.country : null,
+      city: clientData.address ? clientData.address.city : null,
+      phone_number: clientData.phone_number,
+      professional_experience_info: clientData.professional_experience_info,
+      description: clientData.description
+    };
+  }
+
+  const formValues = getFormValues("RenderProfileForm")(state);
+
+  return {
+    percents,
+    specialistData,
+    clientData,
+    formValues,
+    initialValues
+  };
+};
+
+export default connect(mapStateToProps, {})(RenderProfileForm);

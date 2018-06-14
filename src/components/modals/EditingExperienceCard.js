@@ -1,12 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Button, Header, Modal } from "semantic-ui-react";
 import { S_PointCard } from "../../styleComponents/layout/S_PointCard";
 import {
   editExperienceCardWithId,
-  editExperienceCardWithOutId
+  editExperienceCardWithOutId,
+  showConfirmationModal,
+  closeConfirmationModal
 } from "../../actions/actions";
 import WorkExperienceForm from "../specialist/forms/WorkExperienceForm";
+import { isDirty } from "redux-form";
+
+let isEdited = false;
 
 class EditingExperienceCard extends Component {
   state = {
@@ -15,7 +20,7 @@ class EditingExperienceCard extends Component {
 
   render() {
     const { open, size } = this.state;
-    const { id, experience } = this.props;
+    const { id, experience, handleChangeState } = this.props;
     if (id) {
       this.experienceId = Math.random();
       experience.experienceSuccessId = this.experienceId;
@@ -24,7 +29,7 @@ class EditingExperienceCard extends Component {
     }
 
     return (
-      <div>
+      <Fragment>
         <S_PointCard data-edit onClick={this.show}>
           <i className="fas fa-edit edit-icon" />
         </S_PointCard>
@@ -35,17 +40,19 @@ class EditingExperienceCard extends Component {
               <Header>/ List your formal experience here /</Header>
               <WorkExperienceForm
                 experience={experience}
+                handleChangeState={handleChangeState}
+                handleEditForm={this.handleEditForm}
                 onSubmit={this.submit}
               />
             </Modal.Description>
           </Modal.Content>
         </Modal>
-      </div>
+      </Fragment>
     );
   }
 
   show = () => {
-    return this.setState({ open: true });
+    return this.setState({ open: true, fetchConfirmation: true });
   };
 
   submit = experience => {
@@ -55,7 +62,8 @@ class EditingExperienceCard extends Component {
     let {
       editExperienceCardWithId,
       editExperienceCardWithOutId,
-      id
+      id,
+      closeConfirmationModal
     } = this.props;
     id
       ? editExperienceCardWithId(experience, id)
@@ -63,13 +71,37 @@ class EditingExperienceCard extends Component {
           experience,
           this.props.experience.experienceSuccessId
         );
-    this.close();
+
+    // this.close();
+    closeConfirmationModal();
+    this.setState({ open: false });
   };
 
-  close = () => this.setState({ open: false });
+  close = () => {
+    const { showConfirmationModal } = this.props;
+
+    if (isEdited) {
+      showConfirmationModal({ formId: "WorkExperienceForm" });
+    } else {
+      closeConfirmationModal();
+      this.setState({ open: false });
+    }
+
+    setTimeout(() => {
+      isEdited = false;
+    }, 0);
+  };
 }
 
-export default connect(null, {
-  editExperienceCardWithId,
-  editExperienceCardWithOutId
-})(EditingExperienceCard);
+export default connect(
+  state => {
+    isEdited = isDirty("WorkExperienceForm")(state);
+    return {};
+  },
+  {
+    editExperienceCardWithId,
+    editExperienceCardWithOutId,
+    showConfirmationModal,
+    closeConfirmationModal
+  }
+)(EditingExperienceCard);

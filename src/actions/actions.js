@@ -80,7 +80,11 @@ import {
   SEARCH_SPECIALIST_FOR_PROJECT,
   SHOW_SPECIALIST_WITH_ID,
   SHOW_SPECIALIST_TASKS,
-  UPDATE_PROJECT
+  UPDATE_PROJECT,
+  SHOW_CONFIRMATION_MODAL,
+  CLOSE_CONFIRMATION_MODAL,
+  SHOW_SUBMIT_ERROR_MODAL,
+  CLOSE_SUBMIT_ERROR_MODAL
 } from "../constans/constans";
 import Axios from "axios";
 
@@ -1007,6 +1011,39 @@ export function searchSpecialistForProject(project) {
   const action = {
     type: SEARCH_SPECIALIST_FOR_PROJECT,
     searchSpecialistForProject: `${PORT}/api/v1/specialists/search?project_id=${project}`
+  };
+
+  return action;
+}
+
+export function showConfirmationModal(payload) {
+  const action = {
+    type: SHOW_CONFIRMATION_MODAL,
+    payload
+  };
+
+  return action;
+}
+
+export function closeConfirmationModal() {
+  const action = {
+    type: CLOSE_CONFIRMATION_MODAL
+  };
+
+  return action;
+}
+
+export function showSubmitErrorModal() {
+  const action = {
+    type: SHOW_SUBMIT_ERROR_MODAL
+  };
+
+  return action;
+}
+
+export function closeSubmitErrorModal() {
+  const action = {
+    type: CLOSE_SUBMIT_ERROR_MODAL
   };
 
   return action;

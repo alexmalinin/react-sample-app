@@ -3,8 +3,13 @@ import RenderEducationCard from "./RenderEducationCard";
 import RenderWorkCard from "./RenderWorkCard";
 import EdicationModal from "../../modals/EdicationModal";
 import WorkExperienceModal from "../../modals/WorkExperienceModal";
+import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
 
 class RenderCards extends Component {
+  state = {
+    isEdited: false
+  };
+
   componentDidUpdate() {
     this.addEventListener();
   }
@@ -20,38 +25,45 @@ class RenderCards extends Component {
     }
   }
 
+  handleChangeState = (name, value) => {
+    this.setState({
+      [name]: value
+    });
+  };
+
   render() {
     const { educations, experiences } = this.props;
-    // let normalizedEducations = educations ? educations : []
-    // // normalizedEducations.sort( (a,b) => {
-    // //     let f = a.id;
-    // //     let s = b.id;
-    // //
-    // //     if(f > s) {
-    // //         return 1
-    // //     } else {
-    // //         return -1
-    // //     }
-    // //
-    // // });
 
     return (
       <div className="cards-wrapper">
         {educations
           ? educations.map((education, index) => (
-              <RenderEducationCard key={index} education={education} />
+              <RenderEducationCard
+                key={index}
+                education={education}
+                handleChangeState={this.handleChangeState}
+              />
             ))
           : null}
 
-        {educations ? <EdicationModal /> : null}
+        {educations ? (
+          <EdicationModal handleChangeState={this.handleChangeState} />
+        ) : null}
 
         {experiences
           ? experiences.map((experiences, index) => (
-              <RenderWorkCard key={index} experiences={experiences} />
+              <RenderWorkCard
+                key={index}
+                experiences={experiences}
+                isEdited={this.state.isEdited}
+                handleChangeState={this.handleChangeState}
+              />
             ))
           : null}
 
-        {experiences ? <WorkExperienceModal /> : null}
+        {experiences ? (
+          <WorkExperienceModal handleChangeState={this.handleChangeState} />
+        ) : null}
       </div>
     );
   }

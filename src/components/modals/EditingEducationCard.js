@@ -4,9 +4,14 @@ import { Header, Modal } from "semantic-ui-react";
 import { S_PointCard } from "../../styleComponents/layout/S_PointCard";
 import {
   editEducationCardWithId,
-  editEducationCardWithOutId
+  editEducationCardWithOutId,
+  showConfirmationModal,
+  closeConfirmationModal
 } from "../../actions/actions";
 import EducationForm from "../specialist/forms/EducationForm";
+import { isDirty } from "redux-form";
+
+let isEdited = false;
 
 class EditingEducationCard extends Component {
   state = {
@@ -15,7 +20,7 @@ class EditingEducationCard extends Component {
 
   render() {
     const { open, size } = this.state;
-    const { id, education } = this.props;
+    const { id, education, handleConfirmationModal } = this.props;
     if (id) {
       this.educationId = Math.random();
       education.educationSuccessId = this.educationId;
@@ -31,7 +36,11 @@ class EditingEducationCard extends Component {
           <Modal.Content>
             <Modal.Description>
               <Header>/ List your formal education here /</Header>
-              <EducationForm education={education} onSubmit={this.submit} />
+              <EducationForm
+                education={education}
+                handleConfirmationModal={handleConfirmationModal}
+                onSubmit={this.submit}
+              />
             </Modal.Description>
           </Modal.Content>
         </Modal>
@@ -58,13 +67,35 @@ class EditingEducationCard extends Component {
           education,
           this.props.education.educationSuccessId
         );
-    this.close();
+
+    this.setState({ open: false });
   };
 
-  close = () => this.setState({ open: false });
+  close = () => {
+    const { showConfirmationModal } = this.props;
+
+    if (isEdited) {
+      showConfirmationModal({ formId: "EducationForm" });
+    } else {
+      closeConfirmationModal();
+      this.setState({ open: false });
+    }
+
+    setTimeout(() => {
+      isEdited = false;
+    }, 0);
+  };
 }
 
-export default connect(null, {
-  editEducationCardWithId,
-  editEducationCardWithOutId
-})(EditingEducationCard);
+export default connect(
+  state => {
+    isEdited = isDirty("EducationForm")(state);
+    return {};
+  },
+  {
+    editEducationCardWithId,
+    editEducationCardWithOutId,
+    showConfirmationModal,
+    closeConfirmationModal
+  }
+)(EditingEducationCard);
