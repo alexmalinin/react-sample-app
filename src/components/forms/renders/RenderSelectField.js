@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { initialize } from "redux-form";
+import { change } from "redux-form";
 import "react-select/dist/react-select.css";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
@@ -31,7 +31,7 @@ export default class RenderSelectField extends Component {
           status => status.enum === data.state
         ).value;
         this.setState({ loading: false, updError: false });
-        dispatch(initialize(form, data));
+        dispatch(change(form, input.name, data.state));
       })
       .catch(error => this.setState({ loading: false, updError: true }));
   };

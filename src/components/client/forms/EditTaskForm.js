@@ -72,7 +72,6 @@ class EditTaskForm extends Component {
 
     axios(payload)
       .then(response => {
-        console.log(response);
         this.setState({
           specialists: response.data.specialists,
           totalCost: response.data.cost
@@ -291,10 +290,12 @@ const mapStateToProps = (state, ownProps) => {
   initialValues.state = taskStatuses.find(
     status => status.enum === epicTask.state
   ).value;
-  epicTask.specialist_tasks.forEach(
-    ({ cost, specialist }) =>
-      (initialValues["cost_spec_" + specialist.id] = cost)
-  );
+
+  epicTask.specialist_tasks &&
+    epicTask.specialist_tasks.forEach(
+      ({ cost, specialist }) =>
+        (initialValues["cost_spec_" + specialist.id] = cost)
+    );
 
   return {
     allProjects,
