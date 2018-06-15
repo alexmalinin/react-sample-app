@@ -39,13 +39,15 @@ import {
   compareObjects,
   getUserRole
 } from "../../../helpers/functions";
-import { S_REDGUY, S_PASSIVE } from "../../../constans/constans";
+import { PORT, S_REDGUY, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
 import SpecialistMyTasks from "./SpecialistMyTasks";
 import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -75,6 +77,19 @@ class SpecialistsDashboard extends Component {
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
     localStorage.removeItem("user_email");
+  }
+
+  componentDidMount() {
+    if (!this.props.specialistData) {
+      let token = localStorage.getItem("jwt_token"),
+        id = jwtDecode(token).id;
+
+      if (id) {
+        axios
+          .get(`${PORT}/api/v1/specialists/${id}`)
+          .catch(error => this.props.history.push("/sign_in"));
+      }
+    }
   }
 
   collectPropfileData() {
