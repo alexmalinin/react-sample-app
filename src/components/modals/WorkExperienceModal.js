@@ -16,6 +16,7 @@ class WorkExperienceModal extends Component {
             <span className="add">Add work experience</span>
           </a>
         }
+        className="hidden-icon"
         closeIcon
       >
         <Modal.Header>Work Experience</Modal.Header>

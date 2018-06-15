@@ -17,6 +17,7 @@ class EdicationModal extends Component {
             <span className="add">Add education</span>
           </a>
         }
+        className="hidden-icon"
         closeIcon
       >
         <Modal.Header>Education</Modal.Header>

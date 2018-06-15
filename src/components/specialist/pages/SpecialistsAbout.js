@@ -97,17 +97,17 @@ class SpecialistsWithId extends Component {
                 <Grid.Column computer={3}>
                   <div className="billingItem">
                     <p>Name on card</p>
-                    <h3>{card_name || "No name on card"}</h3>
+                    <span>{card_name || "No name on card"}</span>
                   </div>
                 </Grid.Column>
                 <Grid.Column computer={3}>
                   <div className="billingItem">
                     <p>Card number</p>
-                    <h3>
+                    <span>
                       {card_number
                         ? card_number.replace(/(\d{4})/g, "$1 ")
                         : "No card number"}
-                    </h3>
+                    </span>
                   </div>
                 </Grid.Column>
               </Grid.Row>
@@ -193,6 +193,7 @@ class SpecialistsWithId extends Component {
     let educations_experience = specialist ? specialist["educations"] : [];
     let work_experience = specialist ? specialist["work_experiences"] : [];
     let { avatar } = specialist || false;
+    let company = specialist ? specialist["company"] : null;
 
     return (
       <ContainerLarge>
@@ -397,77 +398,76 @@ class SpecialistsWithId extends Component {
               />
               <Grid.Row className="company">
                 <Grid.Column computer={4}>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["name"]
-                        : "No name"
-                      : null}, &nbsp;
-                  </span>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["company_address"]
-                        : "No company"
-                      : null}, &nbsp;
-                  </span>
-                  <br />
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["country"]
-                        : "No country"
-                      : null}, &nbsp;
-                  </span>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["city"]
-                        : "No city"
-                      : null}, &nbsp;
-                  </span>
+                  {!company && <div>No information</div>}
+
+                  {company &&
+                    company["name"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Name:</p>
+                        <span className="profile-value">{company["name"]}</span>
+                      </div>
+                    )}
+                  {company &&
+                    company["company_address"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Address:</p>
+                        <span>{company["company_address"]}</span>
+                      </div>
+                    )}
+                  {company &&
+                    company["country"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Country:</p>
+                        <span>{company["country"]}</span>
+                      </div>
+                    )}
+                  {company &&
+                    company["city"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">City:</p>
+                        <span>{company["city"]}</span>
+                      </div>
+                    )}
                 </Grid.Column>
                 <Grid.Column computer={4}>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["registered_name"]
-                        : "No registered name"
-                      : null}, &nbsp;
-                  </span>
-                  <br />
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["segment"]
-                        : "No segment"
-                      : null}, &nbsp;
-                  </span>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["number_of_employers"]
-                        : "No employers"
-                      : null}, &nbsp;
-                  </span>
+                  {company &&
+                    company["registered_name"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Registered name:</p>
+                        <span>{company["registered_name"]}</span>
+                      </div>
+                    )}
+                  {company &&
+                    company["segment"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Segment:</p>
+                        <span>{company["segment"]}</span>
+                      </div>
+                    )}
+                  {company &&
+                    company["number_of_employers"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Number of employers:</p>
+                        <span> {company["number_of_employers"]}</span>
+                      </div>
+                    )}
                 </Grid.Column>
                 <Grid.Column computer={4}>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["website"]
-                        : "No website"
-                      : null}, &nbsp;
-                  </span>
+                  {company &&
+                    company["website"] && (
+                      <div className="profile-item">
+                        <p className="profile-label">Website:</p>
+                        <span>{company["website"]}</span>
+                      </div>
+                    )}
                 </Grid.Column>
                 <Grid.Column computer={4}>
-                  <span>
-                    {specialist
-                      ? specialist["company"]
-                        ? specialist["company"]["tell_about"]
-                        : "No description"
-                      : null}, &nbsp;
-                  </span>
+                  {company &&
+                    company["tell_about"] && (
+                      <div className="profile-item">
+                        <span>{company["tell_about"]}</span>
+                      </div>
+                    )}
                 </Grid.Column>
               </Grid.Row>
 

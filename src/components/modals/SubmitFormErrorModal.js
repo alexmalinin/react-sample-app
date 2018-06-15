@@ -32,6 +32,7 @@ class SubmitFormErrorModal extends Component {
     return (
       <Modal
         size="tiny"
+        className="hidden-icon"
         open={this.props.isOpen}
         onClose={this.closeModal}
         closeIcon
