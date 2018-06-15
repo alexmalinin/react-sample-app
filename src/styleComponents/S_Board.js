@@ -172,6 +172,7 @@ export const S_Board = styled.div`
 
     & > section {
       flex: 0 0 24%;
+      max-width: 24%;
       background: none;
       max-height: 100%;
       height: 100%;
@@ -284,6 +285,8 @@ export const S_Board = styled.div`
       margin-bottom: 10px;
       font-size: 13px;
       letter-spacing: 1.04px;
+      word-wrap: break-word;
+      max-width: calc(100% - 30px);
     }
 
     .platform {

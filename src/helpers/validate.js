@@ -11,12 +11,13 @@ export const minLength = min => value =>
   value && value.length < min ? `Must be ${min} characters or more` : undefined;
 export const maxLength = max => value =>
   value && value.length > max
-    ? `Must be no more than ${max} characters`
+    ? `Must be less then ${max} characters`
     : undefined;
 export const minLength2 = minLength(2);
 export const minLength8 = minLength(8);
 export const maxLength4 = maxLength(4);
 export const maxLength20 = maxLength(20);
+export const maxLength80 = maxLength(80);
 export const maxLength260 = maxLength(260);
 export const creditCard = value =>
   value && /[0-9]{*}/i.test(value)

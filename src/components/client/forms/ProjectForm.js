@@ -140,6 +140,7 @@ class ProjectForm extends Component {
               className="area"
               padded
               dropzone
+              indentTop
               createProject
             />
           </Grid.Column>

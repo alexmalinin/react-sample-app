@@ -25,11 +25,11 @@ class RenderField extends Component {
 
   submit = e => {
     const {
-      meta: { dirty, dispatch, form },
+      meta: { dirty, dispatch, form, error },
       onSelfSubmit,
       input
     } = this.props;
-    if (dirty && onSelfSubmit) {
+    if (dirty && onSelfSubmit && !error) {
       this.setState({ loading: true });
       onSelfSubmit(input.name, e.target.value)
         .then(resp => {
@@ -85,7 +85,10 @@ class RenderField extends Component {
           step={step}
           autoComplete={autoComplete || "off"}
           onKeyDown={this.keyDown}
-          onFocus={e => this.setState({ updError: false })}
+          // onFocus={e => {
+          //   this.setState({ updError: false });
+          //   input.onFocus();
+          // }}
           onBlur={this.submit}
           loading={loading}
         />

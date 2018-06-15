@@ -16,6 +16,7 @@ import { PORT, S_REDGUY } from "../../../constans/constans";
 import { getUserRole } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
+import { maxLength80 } from "../../../helpers/validate";
 
 class EditTaskForm extends Component {
   state = {
@@ -99,6 +100,7 @@ class EditTaskForm extends Component {
                 component={RenderField}
                 onKeyDown={e => console.log(e.keyCode)}
                 onSelfSubmit={this.handleSubmit}
+                validate={[maxLength80]}
                 disabled={disabled}
               />
               <Field
@@ -168,7 +170,7 @@ class EditTaskForm extends Component {
             </Grid.Column>
 
             <Grid.Column computer={6}>
-              <Grid className="float">
+              <Grid padded="vertically" className="float">
                 <Grid.Row columns={2}>
                   <Grid.Column>
                     <Field
@@ -268,7 +270,8 @@ EditTaskForm = reduxForm({
   destroyOnUnmount: true,
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
-  keepDirtyOnReinitialize: false
+  keepDirtyOnReinitialize: false,
+  touchOnChange: true
 })(EditTaskForm);
 
 export default connect(mapStateToProps, { showProjectTeam })(EditTaskForm);

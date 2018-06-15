@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Field, reduxForm, change } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required, date } from "../../../helpers/validate";
+import {
+  required,
+  date,
+  maxLength80,
+  minLength2
+} from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderDate from "../../forms/renders/RenderDate";
 import { Grid } from "semantic-ui-react";
@@ -27,7 +32,7 @@ class ModuleForm extends Component {
               component={RenderField}
               label="Module name"
               className="moduleName"
-              validate={[required]}
+              validate={[required, minLength2, maxLength80]}
               isRequired
               padded
             />
@@ -79,6 +84,7 @@ class ModuleForm extends Component {
               label="Attach files"
               className="area"
               padded
+              indentTop
             />
           </Grid.Column>
           <Grid.Column computer={8}>

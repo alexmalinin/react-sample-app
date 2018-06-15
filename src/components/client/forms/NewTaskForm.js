@@ -2,7 +2,12 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change, getFormValues } from "redux-form";
 import { isEqual } from "lodash";
-import { required, date, maxLength260 } from "../../../helpers/validate";
+import {
+  required,
+  date,
+  maxLength260,
+  maxLength80
+} from "../../../helpers/validate";
 import CostField from "../../forms/renders/CostField";
 import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
@@ -170,11 +175,12 @@ class NewTaskForm extends Component {
                 <InputField
                   name="name"
                   label="Summary"
-                  component={RenderTextArea}
+                  // component={RenderTextArea}
                   className="area"
-                  validate={[required, maxLength260]}
+                  validate={[required, maxLength80]}
                   isRequired
                   padded
+                  // maxLength={80}
                 />
               </Grid.Column>
 
