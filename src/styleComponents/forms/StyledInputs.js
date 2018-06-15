@@ -177,6 +177,14 @@ export default styled.div`
       &.disabled {
         opacity: 1;
       }
+
+      &.error {
+        input {
+          &:focus {
+            --inputbdcolor: ${primaryColors.red};
+          }
+        }
+      }
     }
   }
 `;

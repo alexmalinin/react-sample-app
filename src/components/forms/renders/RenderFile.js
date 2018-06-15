@@ -246,7 +246,6 @@ class RenderFile extends Component {
 
     return (
       <StyledUploader
-        fileLoader
         dropzone={dropzone}
         padded={padded}
         className={className}

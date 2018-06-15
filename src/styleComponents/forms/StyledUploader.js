@@ -28,7 +28,7 @@ export default styled.div`
     order: 1;
   }
 
-  ${props => (props.fileLoader ? `margin-top: 24px` : ``)};
+  ${props => (props.indentTop ? `margin-top: 24px` : ``)};
   ${props => (props.padded ? `padding: 0 20px` : ``)};
 
   & > p {

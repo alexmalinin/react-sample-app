@@ -19,10 +19,10 @@ class InputField extends React.Component {
       creditCard,
       ...rest
     } = this.props;
-    let creditCardPattern = {};
+    let mask = {};
 
     if (creditCard) {
-      creditCardPattern = createTextMask({
+      mask = createTextMask({
         pattern: "9999 9999 9999 9999",
         guide: false,
         allowEmpty: true
@@ -44,7 +44,7 @@ class InputField extends React.Component {
           padded={padded}
           validate={validate ? [...validate, minLength2] : []}
           data={data}
-          {...creditCardPattern}
+          {...mask}
         />
       </div>
     );

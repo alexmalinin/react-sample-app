@@ -37,9 +37,16 @@ export const StyledTextArea = styled.div`
   }
 
   &.area {
+    position: relative;
     p,
     .textarea-label {
       margin-top: 20px;
+    }
+
+    .ui.error.input {
+      span {
+        right: 20px;
+      }
     }
 
     textarea {
@@ -96,6 +103,7 @@ export const StyledTextArea = styled.div`
 
       &.error {
         --bdcolor: red;
+        --inputbdcolor: red;
       }
 
       &:focus,

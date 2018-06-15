@@ -39,6 +39,12 @@ export default styled(Modal)`
       .ui.grid.float {
         .row {
           padding: 0;
+
+          .column {
+            .transparent.clear {
+              /* margin-bottom: 0; */
+            }
+          }
         }
       }
       .dv-blue:not(.fluid) {

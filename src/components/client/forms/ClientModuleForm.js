@@ -33,7 +33,8 @@ class ClientModuleForm extends Component {
 ClientModuleForm = reduxForm({
   form: "ClientModuleForm",
   destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  touchOnChange: true
 })(ClientModuleForm);
 
 export default connect(({ clientData }) => ({ clientData }), null)(
