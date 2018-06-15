@@ -123,13 +123,6 @@ export default styled.div`
                   margin-bottom: 0;
                 }
               }
-
-              .uploadFile {
-                &:before,
-                &:after {
-                  background-color: #ddd;
-                }
-              }
             }
           }
           &.projectMain {
