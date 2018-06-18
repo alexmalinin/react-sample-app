@@ -90,7 +90,7 @@ class RenderImage extends Component {
       if (projectLogo) {
         $imagePreview = (
           <div className="image-preloader">
-            <img src="../../images/default-logo.png" alt="" />
+            <img src="../../images/placeholder.png" alt="" />
           </div>
         );
       } else {
