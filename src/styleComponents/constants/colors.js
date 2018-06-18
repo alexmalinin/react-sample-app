@@ -17,6 +17,7 @@ export const primaryColors = {
   accentBackground: "#fff",
   backgroundColor: "#f4f9fa",
   shadowColor: "#e2eff2",
+  transparentBlue: "#989ea9",
   errorColor: "#db4538",
   red: "#e8433e"
 };

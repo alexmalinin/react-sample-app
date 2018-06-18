@@ -195,7 +195,9 @@ class AssignTeamDropdown extends Component {
             <div className="dropdown-list">
               {allCustomTeams ? (
                 allCustomTeams
-                  .filter(team => team.name.includes(teamInput))
+                  .filter(team =>
+                    team.name.match(new RegExp(`${teamInput}`, "i"))
+                  )
                   .map((team, key) => (
                     <div
                       key={key}

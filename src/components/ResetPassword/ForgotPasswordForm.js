@@ -25,5 +25,8 @@ class ForgotPasswordForm extends Component {
 export default reduxForm({
   form: "ForgotPasswordForm",
   destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  forceUnregisterOnUnmount: true,
+  initialValues: {
+    email: localStorage.getItem("user_email")
+  }
 })(ForgotPasswordForm);

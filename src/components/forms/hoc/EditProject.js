@@ -85,7 +85,7 @@ class EditProject extends Component {
         }, 2500);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         this.setState({ renderErrorMessage: true });
         setTimeout(() => {
           this.setState({ renderMessage: false, renderErrorMessage: false });

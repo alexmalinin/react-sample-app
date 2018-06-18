@@ -23,9 +23,6 @@ import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType } from "../helpers/functions";
 import EditProject from "./forms/hoc/EditProject";
-import Axios from "axios";
-import { S_Message } from "../styleComponents/layout/S_Message";
-import { Message } from "semantic-ui-react";
 
 class ProjectsBoard extends Component {
   state = {
@@ -152,7 +149,12 @@ class ProjectsBoard extends Component {
             epicId={epicId}
             myTasks={this.state.myTasks}
           />
-
+        </S_Board>
+      );
+    } else {
+      return (
+        <S_Board>
+          <EditProject projectId={projectId} />
           <div className="moduleWrapper">
             {allEpics &&
               allEpics.map((epic, key) => (
@@ -188,8 +190,6 @@ class ProjectsBoard extends Component {
           </div>
         </S_Board>
       );
-    } else {
-      return <EditProject projectId={projectId} />;
     }
   };
 

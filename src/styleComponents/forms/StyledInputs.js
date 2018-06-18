@@ -199,8 +199,9 @@ export default styled.div`
         letter-spacing: normal;
         color: ${primaryColors.accentGrey};
         font-weight: 400;
-        font-size: 0.9em;
+        font-size: 15px;
         line-height: 2em;
+        font-family: "Brix";
         border: 1px solid var(--inputbdcolor, transparent);
         border-radius: 5px;
         cursor: pointer;
@@ -222,6 +223,7 @@ export default styled.div`
         .react-datepicker-wrapper {
           input {
             border: none;
+            padding-left: 0;
           }
         }
       }
@@ -238,6 +240,7 @@ export default styled.div`
     .ui.dropdown.selection {
       &.disabled {
         border-color: transparent;
+        padding-left: 0;
 
         i.dropdown.icon {
           opacity: 0;

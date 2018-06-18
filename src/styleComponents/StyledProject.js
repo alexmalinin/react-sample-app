@@ -3,6 +3,7 @@ import { colors, primaryColors, boxShadow } from "./constants/colors";
 
 export default styled.div`
   transition: 0.6s;
+  margin-bottom: 80px;
 
   &.loading {
     .preloader {
@@ -61,8 +62,8 @@ export default styled.div`
         & > div {
           padding: 20px;
           background: #fff;
-          border-radius: 1px;
-          border-radius: 1px solid ${primaryColors.accentGrey};
+          border-radius: 3px;
+          border: 1px solid rgba(0, 0, 0, 0.05);
 
           &.projectAside {
             flex: 0 0 350px;
@@ -122,13 +123,14 @@ export default styled.div`
                 flex-flow: row wrap;
 
                 .skill {
-                  padding: 0 8px;
+                  padding: 4px 8px;
                   border: 1px solid #dae1ee;
                   border-radius: 12px;
                   white-space: nowrap;
-                  font-size: 0.9em;
+                  font-size: 14px;
                   line-height: 1.4em;
-                  margin-left: 6px;
+                  margin-left: 10px;
+                  margin-bottom: 10px;
                 }
               }
 
