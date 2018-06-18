@@ -60,7 +60,7 @@ class BillingForm extends Component {
               <Grid.Column mobile={8} computer={8}>
                 <InputField
                   name="card_name"
-                  label="Card name"
+                  label="Name on card"
                   handleFormField={handleFormField}
                   validate={[required]}
                   disabled={disabled}

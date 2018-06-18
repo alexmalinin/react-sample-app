@@ -10,6 +10,7 @@ import EditEpicModal from "../modals/EditEpicModal";
 import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import { S_Message } from "../../styleComponents/layout/S_Message";
+import { formatCurrency } from "../../helpers/validate";
 
 class Module extends Component {
   state = {
@@ -177,7 +178,7 @@ class Module extends Component {
             )}
             <div className="subline">
               <img src="/images/dollar.png" alt="dollar" />
-              <span>$20,000</span>
+              <span>{formatCurrency(epic.cost)}</span>
             </div>
           </div>
           {oneOfRoles(S_REDGUY) && (

@@ -156,11 +156,10 @@ export default styled.div`
   p {
     flex: 0 0 100%;
     font-size: 12px;
-    /* text-transform: uppercase; */
     color: #666;
     font-weight: bold;
     word-spacing: 1.5px;
-    padding-left: 7px;
+    padding-left: ${props => (props.small ? "0" : "7px")};
     margin-bottom: 24px;
   }
 

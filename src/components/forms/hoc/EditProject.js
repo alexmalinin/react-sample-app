@@ -14,6 +14,10 @@ class EditProject extends Component {
     renderErrorMessage: false
   };
 
+  componentWillMount() {
+    this.props.showProjectWithId(this.props.projectId);
+  }
+
   //move all async to one file
 
   submit = values => {
@@ -54,19 +58,11 @@ class EditProject extends Component {
       }
     })
       .then(response => {
-        this.setState({ renderMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
         this.props.showProjectWithId(this.props.projectId);
         this.props.showAllProjects();
       })
       .catch(error => {
         console.log(error);
-        this.setState({ renderErrorMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
       });
   };
 

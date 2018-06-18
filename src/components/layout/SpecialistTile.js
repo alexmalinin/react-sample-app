@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { StyledSpecialist } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT } from "../../constans/constans";
-import { Grid } from "semantic-ui-react";
+import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
+import { Field } from "redux-form";
+import { Input } from "react-semantic-redux-form";
+import { createNumberMask } from "redux-form-input-masks";
+import { oneOfRoles } from "../../helpers/functions";
 
 export default class SpecialistTile extends Component {
   remove = () => {
@@ -11,34 +14,53 @@ export default class SpecialistTile extends Component {
     } = this.props;
     remove(id);
   };
+
+  submitCost = e => {
+    const {
+      handleSubmit,
+      specialist: { id },
+      input
+    } = this.props;
+
+    handleSubmit(id);
+  };
+
   render() {
     const { specialist } = this.props;
+    const allowed = oneOfRoles(S_REDGUY);
+
     return (
       <StyledSpecialist>
-        <Grid padded="horizontally">
-          <Grid.Row>
-            <Grid.Column computer={10}>
-              <img
-                src={
-                  specialist.avatar.url
-                    ? IMAGE_PORT + specialist.avatar.url
-                    : "/images/uploadImg.png"
-                }
-                alt={specialist.first_name + " " + specialist.last_name}
-              />
-              <p>{specialist.first_name + " " + specialist.last_name}</p>
-            </Grid.Column>
-            <Grid.Column computer={4}>
-              {/* <CostField
-                name="cost"
-                label="Cost"
-                onBlur={this.makeFloat}
-                padded
-              /> */}
-            </Grid.Column>
-            <button type="button" onClick={this.remove} />
-          </Grid.Row>
-        </Grid>
+        <div className="avatar">
+          <img
+            src={
+              specialist.avatar.url
+                ? IMAGE_PORT + specialist.avatar.url
+                : "/images/uploadImg.png"
+            }
+            alt={specialist.first_name + " " + specialist.last_name}
+          />
+          {allowed && <button type="button" onClick={this.remove} />}
+        </div>
+        <p>{specialist.first_name + " " + specialist.last_name}</p>
+        {allowed && (
+          <Field
+            name={"cost_spec_" + specialist.id}
+            component={Input}
+            fluid
+            autoComplete="off"
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                this.submitCost(e);
+                e.target.blur();
+              }
+            }}
+            onBlur={e => this.submitCost(e)}
+            {...createNumberMask({
+              prefix: "$"
+            })}
+          />
+        )}
       </StyledSpecialist>
     );
   }

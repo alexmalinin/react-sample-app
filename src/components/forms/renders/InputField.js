@@ -3,7 +3,7 @@ import { Field } from "redux-form";
 import { minLength2 } from "../../../helpers/validate";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import RenderField from "./RenderField";
-import { createNumberMask, createTextMask } from "redux-form-input-masks";
+import { createTextMask } from "redux-form-input-masks";
 
 class InputField extends React.Component {
   render() {

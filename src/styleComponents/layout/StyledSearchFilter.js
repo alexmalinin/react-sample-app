@@ -213,6 +213,14 @@ export default styled.div`
             }
           }
         }
+
+        .allSkills {
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
       &.advancedFilter {
         overflow: hidden;

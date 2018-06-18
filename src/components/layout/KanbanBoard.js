@@ -8,7 +8,8 @@ import {
   updateEpicTask,
   deleteEpicTask,
   assignSpecialistToTask,
-  removeSpecialistFromTask
+  removeSpecialistFromTask,
+  showAllEpics
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constans/constans";
 import {
@@ -141,6 +142,7 @@ class KanbanBoard extends Component {
   closeModal = updated => {
     if (updated) {
       this.props.showEpicTasks(this.props.epicId);
+      this.props.showAllEpics(this.props.currentProject);
     }
     this.setState({ editModal: false });
   };
@@ -221,6 +223,7 @@ export default connect(
     updateEpicTask,
     deleteEpicTask,
     assignSpecialistToTask,
-    removeSpecialistFromTask
+    removeSpecialistFromTask,
+    showAllEpics
   }
 )(KanbanBoard);

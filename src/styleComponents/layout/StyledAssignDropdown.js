@@ -8,7 +8,7 @@ export const StyledAssignDropdown = styled.div`
   outline: none;
 
   color: #ddd;
-  cursor: pointer;
+  cursor: default;
 
   .dropdownTitle {
     color: #5366e5;
@@ -20,11 +20,17 @@ export const StyledAssignDropdown = styled.div`
 
   .close {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 3px;
+    right: 3px;
     height: 10px;
     width: 10px;
+    padding: 10px;
     cursor: pointer;
+    opacity: 0.4;
+
+    &:hover {
+      opacity: 1;
+    }
 
     &::before,
     &::after {
@@ -32,46 +38,46 @@ export const StyledAssignDropdown = styled.div`
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 8px;
+      width: 10px;
       height: 1px;
-      background: #bbb;
-      transform: rotate(45deg);
+      background: #666;
+      transform: translate(-50%, -50%) rotate(var(--crossRotate, 45deg));
     }
     &::after {
-      transform: rotate(-45deg);
+      --crossRotate: -45deg;
     }
   }
 
   .dropdownTrigger {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     width: 100%;
     height: 100%;
     border-radius: inherit;
     outline: none;
     color: white;
     transition: 0.2s;
+    cursor: pointer;
 
     ${props =>
       props.renderToModal &&
       `
-      margin: 10px;
+      margin: 0px;
       display: flex;
       align-items: center;
-    `}
-
-    &:hover {
+    `} &:hover {
       color: #999;
 
       .plus {
         color: #ddd;
       }
 
-      .label{
+      .label {
         color: #666;
       }
     }
 
-    span{
+    span {
       transition: inherit;
     }
 
@@ -80,8 +86,9 @@ export const StyledAssignDropdown = styled.div`
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      height: ${props => (props.renderToModal ? "48px" : "30px")};
-      width: ${props => (props.renderToModal ? "48px" : "30px")};
+      padding: ${props => (props.renderToModal ? "0" : "4px 0")};
+      height: ${props => (props.renderToModal ? "48px" : "36px")};
+      width: ${props => (props.renderToModal ? "48px" : "36px")};
       color: ${props => (props.blue ? "white" : "#ccc")};
       border-radius: 50%;
       border: ${props => (props.blue ? "none" : "1px solid #ccc")};
@@ -94,44 +101,45 @@ export const StyledAssignDropdown = styled.div`
       font-weight: 300;
 
       &::before,
-      &::after{
-        content: '';
+      &::after {
+        content: "";
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         height: ${props => (props.renderToModal ? "20px" : "12px")};
-        width: 1px;
+        width: 2px;
+        border-radius: 2px;
         background: ${props => (props.blue ? "white" : "#ccc")};
       }
 
-      &::after{
+      &::after {
         transform: translate(-50%, -50%) rotate(90deg);
       }
     }
 
-    .label{
+    .label {
       font-size: ${props => (props.renderToModal ? "1.2em" : "18px")};
       color: #999;
 
-      &.assignTeam{
+      &.assignTeam {
         font-size: 14px;
         color: ${primaryColors.lightGrey};
 
-        &:hover{
+        &:hover {
           text-decoration: underline;
         }
       }
     }
   }
 
-  .preloader{
+  .preloader {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
 
-    i{
+    i {
       font-size: 2em;
     }
   }
@@ -139,7 +147,6 @@ export const StyledAssignDropdown = styled.div`
   .dropdown {
     position: absolute;
     z-index: 1001;
-    display: none;
 
     top: calc(100% + 5px);
     left: 10px;
@@ -148,10 +155,6 @@ export const StyledAssignDropdown = styled.div`
     border-radius: 3px;
     background: #fff;
     ${boxShadow.dark};
-
-    &.visible {
-      display: block;
-    }
 
     .dropdownTitle {
       padding: 10px 15px 0 15px;
@@ -178,6 +181,11 @@ export const StyledAssignDropdown = styled.div`
           border-color: #dbdbdb;
         }
       }
+
+      i.spinner {
+        z-index: 1;
+        right: 15px;
+      }
     }
 
     .dropdown-list {
@@ -190,11 +198,11 @@ export const StyledAssignDropdown = styled.div`
       border-radius: inherit;
       background: #fff;
 
-      &::-webkit-scrollbar{
+      &::-webkit-scrollbar {
         width: 4px;
       }
 
-      &::-webkit-scrollbar-track{
+      &::-webkit-scrollbar-track {
         background: transparent;
       }
 
@@ -221,8 +229,8 @@ export const StyledAssignDropdown = styled.div`
         text-transform: none;
 
         img {
-          width: 30px;
-          height: 30px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           object-fit: cover;
           margin-right: 10px;
@@ -230,7 +238,6 @@ export const StyledAssignDropdown = styled.div`
 
         &.assigned {
           order: 0;
-          ${props => props.renderToModal && "display: none;"}
 
           &::before,
           &::after {
@@ -249,32 +256,39 @@ export const StyledAssignDropdown = styled.div`
             width: 13px;
             transform: rotate(133deg);
           }
-        .dropdownTitle{
+
+          .dropdownTitle {
             padding: 10px 15px 0 15px;
             margin-bottom: 0;
-        }
+          }
 
-        .ui.input{
-          width: 100%;
-          padding: 10px 15px;
-
-          input{
-            display: inline-block;
-            position: relative;
-            height: 100%;
+          .ui.input {
             width: 100%;
-            z-index: 1;
-            font-size: 12px;
+            padding: 10px 15px;
 
-            &::placeholder{
+            input {
+              display: inline-block;
+              position: relative;
+              height: 100%;
+              width: 100%;
+              z-index: 1;
+              font-size: 12px;
+
+              &::placeholder {
                 color: #a1a1a1;
-            }
+              }
 
-            &:focus{
+              &:focus {
                 border-color: #dbdbdb;
+              }
             }
           }
         }
+      }
+
+      .noResults {
+        padding: 5px 15px;
+        color: ${primaryColors.accentGrey};
       }
     }
   }
@@ -313,8 +327,8 @@ export const StyledDropdown = styled(Popup)`
         cursor: pointer;
 
         img {
-          height: 30px;
-          width: 30px;
+          height: 36px;
+          width: 36px;
           background: white;
           border-radius: 50%;
           margin-right: 6px;
@@ -343,18 +357,39 @@ export const StyledPersonTile = styled.div`
   cursor: pointer;
   text-transform: none;
   font-weight: 400;
-  margin-right: ${props => (props.compressed ? "-3px" : "0")};
+  margin-right: ${props => (props.compressed ? "-8px" : "0")};
 
-  img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
+  .imgWrapper {
+    position: relative;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: #fff;
-    margin-right: ${props => (props.compressed ? "0" : "5px")};
+    overflow: hidden;
+    margin-right: ${props => (props.compressed ? "0 " : "5px")};
+
+    img {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border: ${props =>
+        props.compressed ? `1px solid ${colors.darkBlue}` : "none"};
+      border-radius: 50%;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: ${colors.darkBlue};
+      opacity: 0;
+    }
   }
 
   a {
+    position: relative;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -363,7 +398,11 @@ export const StyledPersonTile = styled.div`
     outline: none;
 
     &:focus {
-      opacity: 0.7;
+      .imgWrapper {
+        &::before {
+          opacity: 0.15;
+        }
+      }
     }
 
     &:hover {
@@ -375,7 +414,6 @@ export const StyledPersonTile = styled.div`
     position: absolute;
     z-index: 1;
 
-    /* display: none; */
     display: flex;
     opacity: 0;
     visibility: hidden;
@@ -395,7 +433,6 @@ export const StyledPersonTile = styled.div`
     cursor: default;
 
     &.show {
-      /* display: flex; */
       opacity: 1;
       visibility: visible;
     }
@@ -453,7 +490,7 @@ export const StyledPersonTile = styled.div`
           font-weight: 500;
           border: none;
           border-radius: 2px;
-          background: #e8433e;
+          background: ${primaryColors.red};
           cursor: pointer;
         }
       }
@@ -462,120 +499,160 @@ export const StyledPersonTile = styled.div`
 `;
 
 export const StyledSpecialist = styled.div`
-  .ui.grid {
-    .row {
-      margin: 10px 0;
-      border-radius: 5px;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 3px 0;
+  border-radius: 5px;
+  transition: 0.3s;
+
+  &:hover {
+    .avatar {
+      button {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .avatar {
+    position: relative;
+    height: 48px;
+    width: 48px;
+    flex: 0 0 48px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100%;
+      width: 100%;
+      border: none;
+      transform: translate(-50%, -50%);
+      background: ${primaryColors.red};
+      cursor: pointer;
+      opacity: 0;
       transition: 0.3s;
-      padding: 3px 0;
+
+      &::before,
+      &::after {
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(var(--crossRotate, 0));
+        position: absolute;
+        height: 24px;
+        width: 2px;
+        background: white;
+      }
+
+      &::before {
+        --crossRotate: 45deg;
+      }
+
+      &::after {
+        --crossRotate: -45deg;
+      }
 
       &:hover {
-        background: #f0f0f0;
-        button {
-          &::before,
-          &::after {
-            opacity: 1;
-          }
-        }
+        opacity: 1;
       }
+    }
+  }
 
-      .column {
-        display: flex;
-        align-items: center;
-        padding-left: 0;
-        img {
-          margin-left: 10px;
-          height: 48px;
-          width: 48px;
-          object-fit: cover;
-          background: #fff;
-          border-radius: 50%;
-        }
-        p {
-          margin-left: 10px;
-          margin-bottom: 0;
-          font-size: 1.2em;
-          color: #666;
-        }
-      }
+  p {
+    flex: 1 1 auto;
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-size: 1.1em;
+    color: #666;
+  }
 
-      button {
-        position: absolute;
-        right: 0;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border: none;
-        background: none;
-        height: 100%;
-        width: 50px;
-        top: 50%;
-        transform: translateY(-50%);
-        transition: inherit;
-        cursor: pointer;
-        outline: none;
+  .ui.input {
+    flex: 0 0 80px;
+    margin-right: 8px;
 
-        &:hover {
-          background: #ccc;
-        }
-
-        &::before,
-        &::after {
-          content: "";
-          position: absolute;
-          top: calc(50% - 15px);
-          left: calc(50% - 1px);
-          height: 30px;
-          width: 2px;
-          background: #fff;
-        }
-
-        &::before {
-          transform: rotate(45deg);
-        }
-
-        &::after {
-          transform: rotate(-45deg);
-        }
-      }
+    input {
+      padding: 0.67em;
     }
   }
 `;
 
 export const StyledMembersWrapper = styled.div`
-  &.outer {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  .dropdownWrapper {
+    display: inline-flex;
+    position: relative;
+    padding: 4px 0;
 
     .allMembers {
       margin-right: 5px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 30px;
-      width: 30px;
+      height: 36px;
+      width: 36px;
       border-radius: 50%;
       background: ${colors.darkBlue};
       color: white;
+      text-align: center;
+      line-height: 36px;
+      font-size: 18px;
+      font-weight: 600;
       cursor: pointer;
       z-index: 1;
     }
-  }
-  &.inner {
-    max-width: 240px;
 
-    & > div {
-      display: inline-block;
-    }
+    .membersDropdown {
+      position: absolute;
+      z-index: 100;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 240px;
+      padding: 1rem;
+      background: white;
+      ${boxShadow.dark};
+      border-radius: 3px;
 
-    h3 {
-      flex: 0 0 100%;
-      font-size: 0.8em;
-      text-transform: uppercase;
-      color: ${colors.darkBlue};
-      margin-bottom: 4px;
-      font-weight: 600;
-      font-family: "Brix";
+      & > div {
+        display: inline-block;
+      }
+
+      h3 {
+        flex: 0 0 100%;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        color: ${colors.darkBlue};
+        padding-bottom: 5px;
+        margin-bottom: 4px;
+        font-weight: 600;
+        font-family: "Brix";
+        border-width: 0px;
+        border-bottom-width: 3px;
+        border-style: solid;
+        -webkit-border-image: -webkit-gradient(left, #2d68ee 0%, #7439e3 100%)
+          100% 2 stretch;
+        -webkit-border-image: -webkit-linear-gradient(
+            left,
+            #2d68ee 0%,
+            #7439e3 100%
+          )
+          100% 2 stretch;
+        -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%)
+          100% 2 stretch;
+        -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100%
+          2 stretch;
+        border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2
+          stretch;
+      }
     }
   }
 `;

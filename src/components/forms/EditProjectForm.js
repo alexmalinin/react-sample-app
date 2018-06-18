@@ -217,9 +217,10 @@ class EditProjectForm extends Component {
                     <div className="teamWrapper">
                       <MembersDropdown
                         members={team}
-                        countToShow={5}
+                        countToShow={3}
                         position="bottom left"
                         handleRemove={this.handleAssign}
+                        removeText="project"
                       />
                       {getUserRole() === S_REDGUY && (
                         <AssignTeamDropdown

@@ -17,10 +17,12 @@ import { getUserRole } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { maxLength80 } from "../../../helpers/validate";
+import { formatCurrency } from "../../../helpers/validate";
 
 class EditTaskForm extends Component {
   state = {
-    specialists: this.props.epicTask.specialists
+    specialists: this.props.epicTask.specialists,
+    totalCost: this.props.epicTask.cost
   };
 
   handleEtaForm = date => {
@@ -69,19 +71,42 @@ class EditTaskForm extends Component {
       };
 
     axios(payload)
-      .then(response =>
-        this.setState({ specialists: response.data.specialists })
-      )
+      .then(response => {
+        this.setState({
+          specialists: response.data.specialists,
+          totalCost: response.data.cost
+        });
+      })
       .catch(error => console.log(error));
+  };
+
+  handleCost = specId => {
+    const {
+      epicTask: { id, epic_id },
+      projectWithId,
+      formValues
+    } = this.props;
+    axios({
+      method: "PUT",
+      url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
+      data: {
+        task: {
+          cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
+          project_id: projectWithId.id
+        }
+      }
+    }).then(resp => {
+      this.setState({ totalCost: resp.data.cost });
+    });
   };
 
   render() {
     const {
       handleSubmit,
       projectTeam,
-      epicTask: { attached_files }
+      epicTask: { attached_files, cost, specialist_tasks }
     } = this.props;
-    const { specialists } = this.state;
+    const { specialists, totalCost } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
 
@@ -213,6 +238,24 @@ class EditTaskForm extends Component {
                 disabled={disabled}
               />
               <div className="specialistsWrapper">
+                <div className="totalCosts">
+                  <p className="label">Total costs</p>
+                  <span className="total">
+                    ${<span>{formatCurrency(totalCost)}</span>}
+                  </span>
+                </div>
+                <div className="specialistsInnerWrapper">
+                  {specialists.map((specialist, key) => (
+                    <SpecialistTile
+                      specialist={specialist}
+                      // cost={specialist_tasks}
+                      key={key}
+                      index={key}
+                      remove={this.removeSpecialist}
+                      handleSubmit={this.handleCost}
+                    />
+                  ))}
+                </div>
                 {projectTeam && (
                   <AssignDropdown
                     label="Add assignee"
@@ -220,18 +263,10 @@ class EditTaskForm extends Component {
                     allSpecialists={projectTeam.specialists}
                     handleAssign={this.handleAssign}
                     userType={[S_REDGUY]}
-                    closeOnChange={false}
+                    closeOnChange
                     renderToModal
                   />
                 )}
-                {specialists.map((specialist, key) => (
-                  <SpecialistTile
-                    specialist={specialist}
-                    key={key}
-                    index={key}
-                    remove={this.removeSpecialist}
-                  />
-                ))}
               </div>
             </Grid.Column>
           </Grid.Row>
@@ -256,13 +291,20 @@ const mapStateToProps = (state, ownProps) => {
     status => status.enum === epicTask.state
   ).value;
 
+  epicTask.specialist_tasks &&
+    epicTask.specialist_tasks.forEach(
+      ({ cost, specialist }) =>
+        (initialValues["cost_spec_" + specialist.id] = cost)
+    );
+
   return {
     allProjects,
     projectTeam,
     changeUserType,
     projectWithId,
     allEpics,
-    initialValues
+    initialValues,
+    formValues: state.form
   };
 };
 

@@ -62,6 +62,7 @@ class RenderField extends Component {
       isRequired,
       step,
       autoComplete,
+      onSelfSubmit,
       ...rest
     } = this.props;
     const { loading, updError } = this.state;

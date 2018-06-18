@@ -22,6 +22,44 @@ class AssignTeamDropdown extends Component {
     searching: false
   };
 
+  openDropdown = e => {
+    e.stopPropagation();
+    this.fetchTeams();
+
+    this.setState(
+      {
+        showDropdown: true
+      },
+      () => {
+        document.addEventListener("click", this.closeDropdown);
+      }
+    );
+  };
+
+  closeDropdown = e => {
+    if (this.dropdown && !this.dropdown.contains(e.target)) {
+      this.setState(
+        {
+          showDropdown: false
+        },
+        () => {
+          document.removeEventListener("click", this.closeDropdown);
+        }
+      );
+    }
+  };
+
+  handleCloseButton = e => {
+    this.setState(
+      {
+        showDropdown: false
+      },
+      () => {
+        document.removeEventListener("click", this.closeDropdown);
+      }
+    );
+  };
+
   fetchTeams = () => {
     if (!this.props.allCustomTeams) {
       this.props.showCustomTeams();
@@ -34,7 +72,8 @@ class AssignTeamDropdown extends Component {
     });
   };
 
-  searchSpecs = () => {
+  searchSpecs = e => {
+    e.preventDefault();
     this.setState({ searching: true });
     Axios({
       method: "GET",
@@ -58,6 +97,7 @@ class AssignTeamDropdown extends Component {
     } else type = "assign";
 
     this.props.handleAssignTeam(teamId);
+    this.handleCloseButton();
   };
 
   inviteSpecialist = e => {
@@ -72,6 +112,7 @@ class AssignTeamDropdown extends Component {
         team.id
       }/specialist_invitation/${specialistId}`
     });
+    this.handleCloseButton();
   };
 
   render() {
@@ -81,7 +122,8 @@ class AssignTeamDropdown extends Component {
       teamInput,
       specInput,
       specialists,
-      searching
+      searching,
+      showDropdown
     } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
 
@@ -90,18 +132,22 @@ class AssignTeamDropdown extends Component {
         menuItem: "members",
         render: () => (
           <Tab.Pane>
-            <Form onSubmit={this.searchSpecs}>
-              <Input
-                type="text"
-                placeholder="Search specialists"
-                name="searchSpec"
-                fluid
-                onChange={e => this.setState({ specInput: e.target.value })}
-                value={specInput}
-                loading={searching}
-                autoComplete="off"
-              />
-            </Form>
+            <Input
+              type="text"
+              placeholder="Search specialists"
+              name="searchSpec"
+              fluid
+              onChange={e => this.setState({ specInput: e.target.value })}
+              value={specInput}
+              loading={searching}
+              autoComplete="off"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  e.preventDefault();
+                  this.searchSpecs(e);
+                }
+              }}
+            />
             <div className="dropdown-list">
               {specialists &&
                 specialists.map((specialist, key) => (
@@ -122,6 +168,9 @@ class AssignTeamDropdown extends Component {
                     {specialist.first_name + " " + specialist.last_name}
                   </div>
                 ))}
+              {!specialists && (
+                <span className="noResults">Start searching</span>
+              )}
               {specialists &&
                 specialists.length === 0 && (
                   <span className="noResults">No results</span>
@@ -139,8 +188,9 @@ class AssignTeamDropdown extends Component {
               placeholder="Search teams"
               name="searchTeam"
               fluid
-              input={<input type="text" autocomplete="off" />}
+              input={<input type="text" autoComplete="off" />}
               onChange={this.handleSearch}
+              onKeyDown={e => e.keyCode === 13 && e.preventDefault()}
             />
             <div className="dropdown-list">
               {allCustomTeams ? (
@@ -169,25 +219,19 @@ class AssignTeamDropdown extends Component {
 
     return (
       renderCondition && (
-        <StyledAssignDropdown blue renderToModal={renderToModal}>
-          <StyledDropdown
-            on="click"
-            onMount={this.fetchTeams}
-            basic
-            style={{ padding: 0, border: "none" }}
-            position="bottom left"
-            trigger={
-              <a tabIndex="-1" className="dropdownTrigger">
-                <span className="plus">&nbsp;</span>
-              </a>
-            }
-          >
-            <StyledTab
-              panes={panes}
-              onTabChange={this.handleTabChange}
-              defaultActiveIndex={1}
-            />
-          </StyledDropdown>
+        <StyledAssignDropdown team blue renderToModal={renderToModal}>
+          <a className="dropdownTrigger" onClick={this.openDropdown}>
+            <span className="plus">&nbsp;</span>
+          </a>
+          {showDropdown && (
+            <div className="dropdown" ref={el => (this.dropdown = el)}>
+              <StyledTab
+                panes={panes}
+                onTabChange={this.handleTabChange}
+                defaultActiveIndex={1}
+              />
+            </div>
+          )}
         </StyledAssignDropdown>
       )
     );

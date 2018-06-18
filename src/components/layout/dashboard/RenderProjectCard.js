@@ -147,6 +147,8 @@ class RenderProjectCard extends Component {
                   members={projectTeam.specialists}
                   countToShow={3}
                   position="bottom left"
+                  removeText="project"
+                  hideDelete
                 />
               )}
           </div>

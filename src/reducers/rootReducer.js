@@ -43,6 +43,7 @@ import allTeams from "./showAllTeamsReducer";
 import clientTeams from "./showClientTeamsReducer";
 import createCustomTeam from "./createCustomTeamReducer";
 import projectTeam from "./showProjectTeamReducer";
+import customTeam from "./showCustomTeamReducer";
 import assignToTeam from "./assignSpecialistToTeamReducer";
 import removeFromTeam from "./removeSpecialistFromTeamReducer";
 import createChannel from "./createChannelReducer";
@@ -102,6 +103,7 @@ export default combineReducers({
   clientTeams,
   createCustomTeam,
   projectTeam,
+  customTeam,
   assignToTeam,
   removeFromTeam,
   createChannel,

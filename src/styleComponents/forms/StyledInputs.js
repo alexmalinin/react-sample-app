@@ -88,25 +88,63 @@ export default styled.div`
       width: 145px;
     }
 
-    .react-datepicker {
-      border: none;
-      ${boxShadow.dark};
-      border-radius: 0;
-      font-family: "Brix";
-      .react-datepicker__header {
-        border-bottom: none;
-        border-radius: inherit;
-      }
-      .react-datepicker__day {
-        &:hover {
-          border-radius: 0;
-        }
-        &.react-datepicker__day--selected {
-          border-radius: inherit;
-          background-color: ${colors.blue};
-        }
-      }
+    .react-datepicker-wrapper {
       .react-datepicker__input-container {
+        input {
+          padding-left: 1em;
+        }
+      }
+    }
+    .react-datepicker-popper {
+      .react-datepicker__triangle {
+        margin-top: -7px;
+        border-bottom-color: ${colors.darkBlue};
+        &::before {
+          border-bottom-color: inherit;
+        }
+      }
+      .react-datepicker {
+        border: none;
+        ${boxShadow.dark};
+        border-radius: 0;
+        font-family: "Brix";
+
+        .react-datepicker__navigation {
+          &.react-datepicker__navigation--previous {
+            border-right-color: #fff;
+          }
+          &.react-datepicker__navigation--next {
+            border-left-color: #fff;
+          }
+        }
+
+        .react-datepicker__header {
+          border-bottom: none;
+          border-radius: inherit;
+          background: ${colors.darkBlue};
+
+          .react-datepicker__current-month {
+            color: white;
+          }
+
+          .react-datepicker__day-names {
+            .react-datepicker__day-name {
+              color: white;
+              font-weight: 600;
+            }
+          }
+        }
+
+        .react-datepicker__day {
+          &:hover {
+            border-radius: 0;
+          }
+
+          &.react-datepicker__day--selected {
+            border-radius: inherit;
+            background-color: ${colors.blue};
+          }
+        }
       }
     }
   }
@@ -142,7 +180,11 @@ export default styled.div`
 
       .ui.input {
         input {
-          --inputbdcolor: ${primaryColors.lightGrey};
+          --inputbdcolor: rgba(32, 36, 38, 0.15);
+
+          &:hover {
+            --inputbdcolor: rgba(32, 36, 38, 0.4);
+          }
         }
       }
     }
@@ -189,6 +231,17 @@ export default styled.div`
           &:focus {
             --inputbdcolor: ${primaryColors.red};
           }
+        }
+      }
+    }
+
+    .ui.dropdown.selection {
+      &.disabled {
+        border-color: transparent;
+
+        i.dropdown.icon {
+          opacity: 0;
+          visibility: hidden;
         }
       }
     }
