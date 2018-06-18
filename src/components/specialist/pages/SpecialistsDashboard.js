@@ -37,9 +37,10 @@ import {
   setCookie,
   checkObjectPropertiesForValues,
   compareObjects,
-  getUserRole
+  getUserRole,
+  oneOfRoles
 } from "../../../helpers/functions";
-import { PORT, S_REDGUY, S_PASSIVE } from "../../../constans/constans";
+import { PORT, S_REDGUY, S_CORE, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
@@ -266,7 +267,7 @@ class SpecialistsDashboard extends Component {
       } else page = "forbidden";
     } else if (params["page"]) {
       if (params["page"] === "search") {
-        if (getUserRole() === S_REDGUY) {
+        if (oneOfRoles(S_CORE, S_REDGUY)) {
           page = params["page"];
         } else page = "forbidden";
       } else page = params["page"];
@@ -418,7 +419,7 @@ class SpecialistsDashboard extends Component {
       case "forbidden":
         return <NotFound />;
       case "search":
-        if (getUserRole() === S_REDGUY) {
+        if (oneOfRoles(S_CORE, S_REDGUY)) {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
         } else return <Redirect to="/404" />;

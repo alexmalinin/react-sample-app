@@ -6,6 +6,7 @@ import {
 } from "../../../styleComponents/layout/Container";
 import DashboardSubHeader from "../../layout/DashboardSubHeader";
 import SearchFilterForm from "../../client/forms/SearchFilterForm";
+import SearchFilterFormCore from "../../client/forms/SearchFilterFormCore";
 import SpecialistCard from "../../layout/SpecialistCard";
 import {
   assignSpecialistToTeam,
@@ -13,6 +14,8 @@ import {
 } from "../../../actions/actions";
 import { Grid, Message } from "semantic-ui-react";
 import { S_Message } from "../../../styleComponents/layout/S_Message";
+import { getUserRole } from "../../../helpers/functions";
+import { S_REDGUY } from "../../../constans/constans";
 
 class SearchSpecialist extends Component {
   state = {
@@ -76,12 +79,19 @@ class SearchSpecialist extends Component {
         <ContainerLarge indentTop>
           {/* <DashboardSubHeader /> */}
           <Container fluid indentTopXs sidebarCondition>
-            <SearchFilterForm
-              handleChange={this.handleChange}
-              handleChangeProject={this.handleChangeProject}
-              clearFilters={this.clearFilters}
-              filters={filters}
-            />
+            {getUserRole() === S_REDGUY ? (
+              <SearchFilterForm
+                handleChange={this.handleChange}
+                handleChangeProject={this.handleChangeProject}
+                clearFilters={this.clearFilters}
+                filters={filters}
+              />
+            ) : (
+              <SearchFilterFormCore
+                clearFilters={this.clearFilters}
+                filters={filters}
+              />
+            )}
           </Container>
           <Container sidebarCondition dashboardContainer>
             {searchResult && (
