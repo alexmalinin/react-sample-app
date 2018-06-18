@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
@@ -21,7 +21,7 @@ class ResetPage extends Component {
   render() {
     const { confirm, confirmAccount, signInReducer } = this.props;
     return (
-      <main>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <IntroContainer>
@@ -35,7 +35,7 @@ class ResetPage extends Component {
             {signInReducer && this.getUserRedirect()}
           </IntroContainer>
         </S_MainContainer>
-      </main>
+      </Fragment>
     );
   }
 

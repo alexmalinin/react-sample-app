@@ -113,12 +113,13 @@ export const Container = styled.div`
 export const IntroContainer = styled.div`
   position: relative;
   font-family: "Brix", sans-serif;
-  margin: 70px auto 0 auto;
   border-radius: 3px;
   padding: 30px 30px 60px 30px;
   width: 100%;
   max-width: 600px;
   background-color: #fff;
+  align-self: center;
+  margin-top: -87px;
 
   & .confirm-msg {
     font-family: Brix;

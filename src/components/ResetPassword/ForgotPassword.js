@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
@@ -20,7 +20,7 @@ class ForgotPassword extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <IntroContainer>
@@ -42,7 +42,7 @@ class ForgotPassword extends Component {
             </Grid>
           </IntroContainer>
         </S_MainContainer>
-      </div>
+      </Fragment>
     );
   }
 
