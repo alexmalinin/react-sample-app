@@ -20,7 +20,6 @@ class RenderProjectCards extends Component {
             projects.map((project, key) => (
               <div key={key}>
                 <p>{project.name}</p>
-                <progress value={(key + 1) * 20} max="100" />
               </div>
             ))}
         </div>

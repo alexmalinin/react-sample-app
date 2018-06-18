@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import HeaderIntro from "./layout/HeaderIntro";
 import { S_MainContainer } from "../styleComponents/layout/S_MainContainer";
-import { Grid, Tab } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import StyledFormHeader from "../styleComponents/StyledFormHeader";
-import { DvTitle } from "../styleComponents/layout/DvTitles";
 import confirm from "../decorators/confirm";
-import { Container, IntroContainer } from "../styleComponents/layout/Container";
+import { IntroContainer } from "../styleComponents/layout/Container";
 import { resetSignUpData } from "../actions/actions";
 
 class ConfirmEmail extends Component {
@@ -14,7 +13,7 @@ class ConfirmEmail extends Component {
     const { signUpData } = this.props;
 
     return (
-      <main>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <IntroContainer indentBot>
@@ -42,7 +41,7 @@ class ConfirmEmail extends Component {
             </Grid>
           </IntroContainer>
         </S_MainContainer>
-      </main>
+      </Fragment>
     );
   }
 

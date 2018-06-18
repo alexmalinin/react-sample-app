@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import HeaderIntro from "../layout/HeaderIntro";
@@ -30,7 +30,7 @@ class Verification extends Component {
   render() {
     const { confirm, confirmAccount, confirmPassword } = this.props;
     return (
-      <main>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <IntroContainer>
@@ -46,7 +46,7 @@ class Verification extends Component {
             {confirmPassword && this.getUserRedirect()}
           </IntroContainer>
         </S_MainContainer>
-      </main>
+      </Fragment>
     );
   }
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import HeaderIntro from "../layout/HeaderIntro";
 import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
 import StyledFormHeader from "../../styleComponents/StyledFormHeader";
@@ -13,7 +13,7 @@ class ResetPassword extends Component {
     const { signUpData } = this.props;
 
     return (
-      <main>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <IntroContainer>
@@ -27,7 +27,7 @@ class ResetPassword extends Component {
             </div>
           </IntroContainer>
         </S_MainContainer>
-      </main>
+      </Fragment>
     );
   }
 }

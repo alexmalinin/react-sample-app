@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Route, Redirect } from "react-router";
@@ -67,7 +67,7 @@ class SignUp extends Component {
     window.state = this.state;
 
     return (
-      <div>
+      <Fragment>
         <HeaderIntro />
         <S_MainContainer>
           <Loader loading={Loading} />
@@ -94,14 +94,9 @@ class SignUp extends Component {
             </div>
           </IntroContainer>
         </S_MainContainer>
-      </div>
+      </Fragment>
     );
   }
-
-  // redirect = ref => {
-  //     let a = ref ? ref.querySelector('a') : null;
-  //     a ? a.click() : null;
-  // };
 
   submit = userType => values => {
     this.props.postSignUpData(userType, values);

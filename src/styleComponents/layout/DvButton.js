@@ -246,7 +246,7 @@ export const SaveBtn = styled(Button)`
     font-family: "Brix";
     text-align: center;
     color: #fff;
-    z-index: 5;
+    /* z-index: 5; */
 
     span {
       position: absolute;

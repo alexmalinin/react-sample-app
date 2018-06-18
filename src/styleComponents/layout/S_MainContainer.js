@@ -6,6 +6,7 @@ export const S_MainContainer = styled.div`
   max-width: 1920px;
   margin: 0 auto;
   width: 100%;
+  height: 100%;
   padding-top: 87px;
   display: flex;
   justify-content: center;
