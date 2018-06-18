@@ -3,7 +3,7 @@ import { Field } from "redux-form";
 import RenderPhoneField from "./RenderPhoneField";
 import { required } from "../../../helpers/validate";
 
-const RenderPhone = ({ value }) => (
+const RenderPhone = ({ value, ...rest }) => (
   <Field
     name="phone_number"
     label="Phone"
@@ -12,6 +12,7 @@ const RenderPhone = ({ value }) => (
     value={value}
     validate={[required]}
     isRequired
+    {...rest}
   />
 );
 

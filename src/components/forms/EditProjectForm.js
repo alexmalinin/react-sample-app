@@ -4,6 +4,7 @@ import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid, Popup } from "semantic-ui-react";
 import {
+  showAllProjects,
   showProjectWithId,
   getProjectTypes,
   getSkills,
@@ -24,6 +25,8 @@ import Axios from "axios";
 import AssignTeamDropdown from "../layout/AssignTeamDropdown";
 import PersonTile from "../layout/PersonTile";
 import MembersDropdown from "../layout/dropdowns/MembersDropdown";
+import RenderImage from "../forms/renders/RenderImage";
+import InputField from "../forms/renders/InputField";
 
 class EditProjectForm extends Component {
   state = {
@@ -58,6 +61,7 @@ class EditProjectForm extends Component {
 
   handleSubmit = (name, value) => {
     const { projectId } = this.props;
+
     return Axios({
       method: "PUT",
       url: `${PORT}/api/v1/projects/${projectId}`,
@@ -230,22 +234,63 @@ class EditProjectForm extends Component {
                   </div>
                 </div>
                 <div className="projectMain">
-                  <div className="title">
-                    {logo.url ? (
-                      <img src={IMAGE_PORT + logo.url} alt={name} />
-                    ) : (
-                      <span className="projectNoLogo">{name[0]}</span>
-                    )}
-                    <p>
-                      {name} Project{" "}
-                      <span className="status">
-                        {state === "draft" && "Drafted"}
-                        {state === "reviewed_by_admin" && "On review"}
-                      </span>
-                    </p>
-                  </div>
+                  {oneOfRoles(CUSTOMER, S_REDGUY) ? (
+                    <div className="title">
+                      <div className="projectLogo">
+                        <Field
+                          name="logo"
+                          component={RenderImage}
+                          projectLogo
+                          type="file"
+                          logo={logo}
+                          projectId={projectId}
+                          placeholder="Choose project logo"
+                          onSelfSubmit={true}
+                        />
+                      </div>
+                      <div className="projectStatus">
+                        <p>
+                          {name} Project{" "}
+                          <span className="status">
+                            {state === "draft" && "Drafted"}
+                            {state === "reviewed_by_admin" && "On review"}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="title">
+                      {logo.url ? (
+                        <img src={IMAGE_PORT + logo.url} alt={name} />
+                      ) : (
+                        <span className="projectNoLogo">{name[0]}</span>
+                      )}
+                      <p>
+                        {name} Project{" "}
+                        <span className="status">
+                          {state === "draft" && "Drafted"}
+                          {state === "reviewed_by_admin" && "On review"}
+                        </span>
+                      </p>
+                    </div>
+                  )}
+
+                  <Field
+                    name="name"
+                    label="name"
+                    disabled={!hasPermission}
+                    component={RenderText}
+                    onSelfSubmit={this.handleSubmit}
+                    projectId={projectId}
+                    updateProjects
+                    className="transparent"
+                    autoHeight
+                    unhiddable
+                  />
+
                   <Field
                     name="description"
+                    label="Description"
                     placeholder="Type your description here"
                     disabled={!hasPermission}
                     component={RenderText}
@@ -387,6 +432,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
+  showAllProjects,
   showProjectWithId,
   getProjectTypes,
   getSkills,

@@ -19,7 +19,21 @@ class SignInForm extends Component {
     if (email) {
       this.props.dispatch(change("SignInForm", "email", email));
     }
+
+    document.addEventListener("keyup", this.handleFormSubmit);
   }
+
+  componentWillUnmount() {
+    document.removeEventListener("keyup", this.handleFormSubmit);
+  }
+
+  handleFormSubmit = event => {
+    let key = event.key || event.keyCode;
+
+    if (key === "Enter" || key === 13) {
+      this.props.handleSubmit();
+    }
+  };
 
   render() {
     const { handleSubmit, submitting, user } = this.props;

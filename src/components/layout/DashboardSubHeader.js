@@ -21,13 +21,13 @@ class DashboardSubHeader extends Component {
             <i className="fa fa-columns" />
           </SubHeaderLinkWrap>
 
-          <SubHeaderLinkWrap
+          {/* <SubHeaderLinkWrap
             label="The village"
             url="/dashboard/the_village"
             className="dashboard"
           >
             <i className="fas fa-newspaper" />
-          </SubHeaderLinkWrap>
+          </SubHeaderLinkWrap> */}
         </div>
         <div className="right">
           {specialistData &&

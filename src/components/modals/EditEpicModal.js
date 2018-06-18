@@ -16,9 +16,7 @@ class EditEpicModal extends Component {
   };
 
   open = () => {
-    if (oneOfRoles(CUSTOMER, S_CORE, S_REDGUY)) {
-      this.setState({ opened: true });
-    }
+    this.setState({ opened: true });
   };
 
   close = () => {
@@ -45,11 +43,11 @@ class EditEpicModal extends Component {
       <StyledModal
         open={opened}
         onClose={this.close}
-        trigger={
-          <div onClick={this.open} id={`editEpic${epic.id}`}>
-            Edit
-          </div>
-        }
+        // trigger={
+        //   <div onClick={this.open} id={`editEpic${epic.id}`}>
+        //     Edit
+        //   </div>
+        // }
       >
         <button className="close icon" onClick={this.close} />
         <Modal.Content>

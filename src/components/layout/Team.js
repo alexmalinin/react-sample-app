@@ -8,10 +8,9 @@ import {
   showChannels,
   showProjectTeam
 } from "../../actions/actions";
-import { S_REDGUY } from "../../constans/constans";
-
+import { S_REDGUY, S_CORE } from "../../constans/constans";
 import Channel from "./Channel";
-import { getUserRole } from "../../helpers/functions";
+import { getUserRole, oneOfRoles } from "../../helpers/functions";
 
 class Team extends Component {
   state = {
@@ -106,7 +105,10 @@ class Team extends Component {
   }
 
   renderToDashboard() {
-    const { team } = this.props;
+    const {
+      team,
+      team: { custom_team }
+    } = this.props;
     const { channels, specialistsList } = this.state;
 
     return (
@@ -117,7 +119,22 @@ class Team extends Component {
               {team.name} {team.project_id && "project"}
             </p>
           </Grid.Column>
-          <Grid.Column computer={2} textAlign="right" floated="right" />
+          {oneOfRoles(S_REDGUY, S_CORE) &&
+            custom_team && (
+              <Grid.Column
+                computer={6}
+                textAlign="right"
+                verticalAlign="bottom"
+                floated="right"
+              >
+                <div
+                  className="dv-btn"
+                  onClick={() => this.props.removeTeam(team)}
+                >
+                  <i className="fas fa-trash" />
+                </div>
+              </Grid.Column>
+            )}
         </Grid.Row>
         <Grid.Row className="channels">
           {channels.map((channel, key) => (

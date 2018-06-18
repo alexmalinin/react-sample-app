@@ -21,7 +21,8 @@ class RenderField extends React.Component {
       min,
       pattern,
       isRequired,
-      step
+      step,
+      ...rest
     } = this.props;
 
     const className = !error ? checkedClass : "";
@@ -42,6 +43,7 @@ class RenderField extends React.Component {
           min={min}
           pattern={pattern}
           step={step}
+          {...rest}
         />
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||

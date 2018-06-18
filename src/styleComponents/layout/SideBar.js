@@ -104,6 +104,12 @@ export const StyledBar = styled.aside`
           width: 80px;
           text-align: center;
 
+          .addProject-label {
+            color: #666;
+            text-align: center;
+            text-transform: uppercase;
+          }
+
           img,
           .projectNoLogo,
           .addProject {
@@ -147,6 +153,7 @@ export const StyledBar = styled.aside`
             .projectStatus {
               position: absolute;
               bottom: 0;
+              left: 15px;
               font-size: 12px;
               color: #ccc;
               text-transform: none;

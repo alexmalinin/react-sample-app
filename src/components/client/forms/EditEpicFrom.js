@@ -44,7 +44,7 @@ class EditEpicForm extends Component {
       epic: { eta }
     } = this.props;
 
-    const disabled = !oneOfRoles(CUSTOMER, S_REDGUY);
+    const disabled = !oneOfRoles(S_REDGUY);
 
     return (
       <Form onSubmit={handleSubmit} disabled={disabled}>

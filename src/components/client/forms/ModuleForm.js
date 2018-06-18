@@ -39,14 +39,14 @@ class ModuleForm extends Component {
           </Grid.Column>
           <Grid.Column computer={8}>
             <Grid>
-              <Grid.Column computer={6}>
+              {/* <Grid.Column computer={6}>
                 <Field
                   name="status"
                   component={RenderSelect}
                   label="status"
                   small
                 />
-              </Grid.Column>
+              </Grid.Column> */}
               <Grid.Column computer={6}>
                 <Field
                   name="eta"
