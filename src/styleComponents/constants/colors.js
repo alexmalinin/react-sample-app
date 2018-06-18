@@ -16,7 +16,8 @@ export const primaryColors = {
   accentGrey: "#989ea9",
   accentBackground: "#fff",
   backgroundColor: "#f4f9fa",
-  shadowColor: "#e2eff2"
+  shadowColor: "#e2eff2",
+  errorColor: "#db4538"
 };
 
 export const secondaryColors = {

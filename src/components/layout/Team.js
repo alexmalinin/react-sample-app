@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Grid, Form, Input } from "semantic-ui-react";
+import { Grid, Form, Input, Label } from "semantic-ui-react";
 
 import {
   showAllSpecialists,
@@ -16,7 +16,8 @@ class Team extends Component {
   state = {
     name: "",
     channels: [],
-    specialistsList: null
+    specialistsList: null,
+    error: false
   };
 
   componentWillMount() {
@@ -27,8 +28,16 @@ class Team extends Component {
   }
 
   handleChange = (e, { name, value }) => {
+    let validated = value.length > 16;
+
+    if (value.length <= 16) {
+      this.setState({
+        [name]: value
+      });
+    }
+
     this.setState({
-      [name]: value
+      error: validated
     });
   };
 
@@ -151,6 +160,11 @@ class Team extends Component {
             channels.length === 0 && <p>There is no channels yet :(</p>}
           {getUserRole() === S_REDGUY && (
             <Form className="addChannel" onSubmit={this.submit}>
+              {this.state.error && (
+                <span className="addChannel-label">
+                  Must be less then 16 characters
+                </span>
+              )}
               <Input
                 type="text"
                 placeholder="#Add channel"
@@ -158,6 +172,7 @@ class Team extends Component {
                 value={this.state.name}
                 onKeyUp={e => e.keyCode === 13 && e.target.blur()}
                 onChange={this.handleChange}
+                onBlur={() => this.setState({ error: false })}
               />
             </Form>
           )}
@@ -202,7 +217,7 @@ class Team extends Component {
       name: this.state.name
     };
     createTeamChannel(team.id, data);
-    this.setState({ name: "" });
+    this.setState({ name: "", error: false });
   };
 }
 

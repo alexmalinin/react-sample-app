@@ -23,7 +23,8 @@ import { getUserRole } from "../../helpers/functions";
 class Channel extends Component {
   state = {
     name: this.props.channel.name,
-    editFocused: false
+    editFocused: false,
+    error: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -41,8 +42,16 @@ class Channel extends Component {
   };
 
   handleEdit = (e, { name, value }) => {
+    let validated = value.length > 16;
+
+    if (value.length <= 16) {
+      this.setState({
+        [name]: value
+      });
+    }
+
     this.setState({
-      [name]: value
+      error: validated
     });
   };
 
@@ -75,6 +84,11 @@ class Channel extends Component {
       <div className="channel">
         <div className="title">
           <Form className="editChannel" onSubmit={this.submit}>
+            {this.state.error && (
+              <span className="channel-label_error">
+                Must be less then 16 characters
+              </span>
+            )}
             <Input
               type="text"
               placeholder="Channel name"
@@ -176,6 +190,8 @@ class Channel extends Component {
     if (!!this.state.name) {
       updateTeamChannel(channel.team_id, channel.id, data);
     } else this.openDeleteConfirmation();
+
+    this.setState({ error: false });
   };
 }
 
