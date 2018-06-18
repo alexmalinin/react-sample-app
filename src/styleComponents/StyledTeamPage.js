@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow } from "./constants/colors";
+import { boxShadow, primaryColors } from "./constants/colors";
 
 export default styled.div`
     color: #666;
@@ -256,6 +256,16 @@ export default styled.div`
                     }
                 }
             }
+
+            .channel-label_error {
+                position: absolute;
+                text-align: center;
+                color: ${primaryColors.errorColor};
+                width: 100%;
+                bottom: 100%;
+                font-size: 14px;
+                font-weight: 300;
+            }
         }
 
         .addChannel{
@@ -276,6 +286,15 @@ export default styled.div`
                         font-weight: 500;
                     }
                 }
+            }
+
+            .addChannel-label {
+                position: absolute;
+                text-align: center;
+                top: 100%;
+                color: ${primaryColors.errorColor};
+                font-size: 14px;
+                font-weight: 300;
             }
         }
 

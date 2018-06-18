@@ -44,7 +44,7 @@ class RenderFile extends Component {
 
   validateFileExtension = fld => {
     if (
-      !/(\.txt|\.rtf|\.doc|\.docx|\.html|\.pdf|\.odt|\.psd|\.jpg|\.zip|\.png|\.jpeg|\.xlsx)$/i.test(
+      !/(\.txt|\.rtf|\.doc|\.docx|\.html|\.pdf|\.odt|\.psd|\.jpg|\.zip|\.png|\.jpeg|\.xlsx|\.csv)$/i.test(
         fld
       )
     ) {
@@ -188,6 +188,7 @@ class RenderFile extends Component {
       case "pdf":
         return "-pdf";
       case "xlsx":
+      case "csv":
         return "-excel";
       default:
         return "-alt";
