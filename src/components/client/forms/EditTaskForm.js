@@ -136,17 +136,6 @@ class EditTaskForm extends Component {
                 disabled={disabled}
               />
               <Field
-                name="notes"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your solution design here"
-                label="Solution design"
-                large
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-              <Field
                 name="business_requirements"
                 component={RenderText}
                 autoHeight
@@ -164,6 +153,18 @@ class EditTaskForm extends Component {
                 className="transparent"
                 placeholder="Type your business rules here"
                 label="Business Rules"
+                onSelfSubmit={this.handleSubmit}
+                disabled={disabled}
+              />
+
+              <Field
+                name="notes"
+                component={RenderText}
+                autoHeight
+                className="transparent"
+                placeholder="Type your solution design here"
+                label="Solution design"
+                large
                 onSelfSubmit={this.handleSubmit}
                 disabled={disabled}
               />

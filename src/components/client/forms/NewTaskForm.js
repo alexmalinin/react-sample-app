@@ -254,6 +254,17 @@ class NewTaskForm extends Component {
 
               <Grid.Column computer={16}>
                 <Field
+                  name="notes"
+                  component={RenderTextArea}
+                  label="Solution Design"
+                  className="area"
+                  large
+                  padded
+                />
+              </Grid.Column>
+
+              <Grid.Column computer={16}>
+                <Field
                   name="attached_files"
                   type="text"
                   component={RenderFile}
