@@ -42,6 +42,7 @@ export default styled(Tab)`
   .ui.segment {
     border: none !important;
     box-shadow: none;
+    padding: 8px 0;
 
     .custom-select {
       .dropdown.icon {

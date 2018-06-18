@@ -263,7 +263,7 @@ class EditTaskForm extends Component {
                     allSpecialists={projectTeam.specialists}
                     handleAssign={this.handleAssign}
                     userType={[S_REDGUY]}
-                    closeOnChange={false}
+                    closeOnChange
                     renderToModal
                   />
                 )}

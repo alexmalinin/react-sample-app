@@ -20,26 +20,45 @@ export default class AssignDropdown extends Component {
     e.stopPropagation();
     let assignedIds = [];
     this.props.specialists.forEach(spec => assignedIds.push(spec.id));
-    this.setState({
-      options: this.props.allSpecialists,
-      assignedIds,
-      showDropdown: true
-    });
+    this.setState(
+      {
+        options: this.props.allSpecialists,
+        assignedIds,
+        showDropdown: true
+      },
+      () => {
+        document.addEventListener("click", this.closeDropdown);
+      }
+    );
     setTimeout(() => {
       this.searchInput && this.searchInput.focus();
     }, 10);
   };
 
   closeDropdown = e => {
-    setTimeout(() => {
-      this.setState({
+    if (this.dropList && !this.dropList.contains(e.target)) {
+      this.setState(
+        {
+          showDropdown: false,
+          fetch: false
+        },
+        () => {
+          document.removeEventListener("click", this.closeDropdown);
+        }
+      );
+    }
+  };
+
+  handleCloseButton = e => {
+    this.setState(
+      {
         showDropdown: false,
         fetch: false
-      });
-    }, 100);
-    if (e) {
-      e.target.value = "";
-    }
+      },
+      () => {
+        document.removeEventListener("click", this.closeDropdown);
+      }
+    );
   };
 
   componentDidUpdate() {
@@ -98,7 +117,7 @@ export default class AssignDropdown extends Component {
 
     this.props.handleAssign(type, specId);
 
-    this.props.closeOnChange && this.closeDropdown();
+    this.props.closeOnChange && this.handleCloseButton(e);
   };
 
   render() {
@@ -132,11 +151,11 @@ export default class AssignDropdown extends Component {
           </a>
           {showDropdown && (
             <div
-              className={`dropdown${showDropdown ? " visible" : ""}`}
+              className="dropdown"
               ref={div => (this.dropList = div)}
               onClick={e => e.stopPropagation()}
             >
-              <div className="close" onClick={this.closeDropdown} />
+              <div className="close" onClick={this.handleCloseButton} />
               <p className="dropdownTitle">Members</p>
               <Input
                 type="text"
@@ -144,7 +163,6 @@ export default class AssignDropdown extends Component {
                 name="searchSpec"
                 ref={input => (this.searchInput = input)}
                 onClick={e => e.target.focus()}
-                onBlur={this.closeDropdown}
                 onChange={this.handleSearch}
                 autoComplete="off"
               />

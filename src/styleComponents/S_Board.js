@@ -55,7 +55,7 @@ export const S_Board = styled.div`
       }
     }
 
-    h3 {
+    & > h3 {
       display: flex;
       flex-flow: row nowrap;
       position: relative;
@@ -186,7 +186,7 @@ export const S_Board = styled.div`
         font-size: 14px;
         padding-bottom: 15px;
         margin-bottom: 20px;
-        /* z-index: 900; */
+        z-index: 998;
         color: #666;
         padding-left: 0;
 

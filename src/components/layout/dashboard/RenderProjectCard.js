@@ -148,6 +148,7 @@ class RenderProjectCard extends Component {
                   countToShow={3}
                   position="bottom left"
                   removeText="project"
+                  hideDelete
                 />
               )}
           </div>

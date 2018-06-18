@@ -165,6 +165,7 @@ class Channel extends Component {
             position="bottom left"
             handleRemove={this.handleAssign}
             removeText="channel"
+            hideDelete={isGeneral}
           />
           {!isGeneral && (
             <AssignDropdown

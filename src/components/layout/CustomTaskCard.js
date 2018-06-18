@@ -77,28 +77,14 @@ class CustomCard extends Component {
             <span>{formatCurrency(cost)}</span>
           </div>
         )}
-        {/* <div className="line bell-line">
-          <span className="bell" />
-        </div> */}
         <div className="persons">
-          {/* {specialists.map((specialist, key) => (
-            <PersonTile
-              specialist={specialist}
-              key={key}
-              handleRemove={this.assignSpeciaist}
-              taskId={id}
-              removeTitle="task"
-              userType={userType}
-            />
-          ))} */}
           <MembersDropdown
             members={specialists}
             countToShow={3}
             position="bottom left"
-            handleRemove={this.handleAssign}
+            handleRemove={this.assignSpeciaist}
             removeText="epic"
           />
-
           <AssignDropdown
             specialists={specialists}
             allSpecialists={specialistList}

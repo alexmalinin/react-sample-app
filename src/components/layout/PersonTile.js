@@ -17,23 +17,49 @@ export default class PersonTile extends Component {
 
   openDropdown = e => {
     e.stopPropagation();
-    this.setState({
-      showDropdown: true
-    });
+
+    this.setState(
+      {
+        showDropdown: true
+      },
+      () => {
+        document.addEventListener("click", this.closeDropdown);
+      }
+    );
   };
 
-  closeDropdown = () => {
-    setTimeout(() => {
-      this.setState({
+  closeDropdown = e => {
+    if (
+      this.dropdown &&
+      this.dropdown.deleteTile &&
+      !this.dropdown.deleteTile.contains(e.target)
+    ) {
+      this.setState(
+        {
+          showDropdown: false
+        },
+        () => {
+          document.removeEventListener("click", this.closeDropdown);
+        }
+      );
+    }
+  };
+
+  handleCloseButton = e => {
+    this.setState(
+      {
         showDropdown: false
-      });
-    }, 100);
+      },
+      () => {
+        document.removeEventListener("click", this.closeDropdown);
+      }
+    );
   };
 
   removeSpecialist = (event, data) => {
     const { handleRemove, specialist } = this.props;
     handleRemove("remove", specialist.id);
-    this.closeDropdown();
+    this.handleCloseButton(event);
   };
 
   render() {
@@ -51,15 +77,7 @@ export default class PersonTile extends Component {
 
     return (
       <StyledPersonTile compressed={compressed}>
-        <a
-          tabIndex="-1"
-          onClick={e => {
-            e.stopPropagation();
-            e.target.focus();
-          }}
-          onFocus={this.openDropdown}
-          onBlur={this.closeDropdown}
-        >
+        <a onClick={this.openDropdown}>
           <Popup
             trigger={
               <div className="imgWrapper">
@@ -90,6 +108,7 @@ export default class PersonTile extends Component {
         </a>
         {showDropdown && (
           <DeleteTile
+            ref={el => (this.dropdown = el)}
             specialist={specialist}
             userType={userType}
             removeTitle={removeTitle}
