@@ -5,8 +5,8 @@ import { Dropdown, Popup } from "semantic-ui-react";
 
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 import { ContainerLarge } from "../../styleComponents/layout/Container";
-import { SPECIALIST, CLIENT, S_REDGUY } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constans/constans";
+import { oneOfRoles } from "../../helpers/functions";
 
 class Header extends Component {
   state = {
@@ -94,7 +94,7 @@ class Header extends Component {
                   content="Profile"
                 />
               </NavLink>
-              {getUserRole() === S_REDGUY && (
+              {oneOfRoles(S_CORE, S_REDGUY) && (
                 <NavLink
                   activeClassName="current"
                   className="item-link"

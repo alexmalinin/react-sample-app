@@ -6,8 +6,9 @@ import { required } from "../../helpers/validate";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import StyledTab from "../../styleComponents/StyledTab";
 import RenderSelect from "../forms/renders/RenderSelect";
-
 import RenderCustomSelect from "../forms/renders/RenderCustomSelect";
+import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY } from "../../constans/constans";
 
 class InviteSpecialistForm extends Component {
   componentWillMount() {
@@ -76,7 +77,17 @@ class InviteSpecialistForm extends Component {
         <Grid>
           <Grid.Row>
             <Grid.Column computer={16}>
-              <StyledTab panes={panes} onTabChange={() => this.props.reset()} />
+              {getUserRole() === S_REDGUY ? (
+                <StyledTab
+                  panes={panes}
+                  onTabChange={() => this.props.reset()}
+                />
+              ) : (
+                <Fragment>
+                  <div className="modalHeader centered">Team</div>
+                  {this.renderTeams()}
+                </Fragment>
+              )}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -100,10 +111,17 @@ InviteSpecialistForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(InviteSpecialistForm);
 
-const mapStateToProps = ({ specialistProjects, allCustomTeams }) => {
+const mapStateToProps = ({
+  specialistData,
+  specialistProjects,
+  allCustomTeams,
+  specialistTeams
+}) => {
   let projects = [],
     teams = [];
-  specialistProjects &&
+
+  getUserRole() === S_REDGUY &&
+    specialistProjects &&
     specialistProjects.map(project =>
       projects.push({
         text: project.name,
@@ -111,13 +129,27 @@ const mapStateToProps = ({ specialistProjects, allCustomTeams }) => {
         // team: project.team.id
       })
     );
-  allCustomTeams &&
-    allCustomTeams.map(team =>
-      teams.push({
-        text: team.name,
-        value: team.id
-      })
-    );
+
+  getUserRole() === S_REDGUY
+    ? allCustomTeams &&
+      allCustomTeams.map(team =>
+        teams.push({
+          text: team.name,
+          value: team.id
+        })
+      )
+    : specialistTeams &&
+      specialistData &&
+      specialistTeams
+        .filter(
+          team => team.custom_team && specialistData.id === team.specialist_id
+        )
+        .map(team =>
+          teams.push({
+            text: team.name,
+            value: team.id
+          })
+        );
   return {
     projects,
     teams

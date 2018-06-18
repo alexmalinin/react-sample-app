@@ -75,7 +75,12 @@ class Teams extends Component {
           <Container sidebarCondition>
             {teams && teams.length > 0 ? (
               teams.map((team, key) => (
-                <Team key={key} team={team} removeTeam={this.removeTeam} />
+                <Team
+                  key={key}
+                  team={team}
+                  removeTeam={this.removeTeam}
+                  specialistId={specialistData && specialistData.id}
+                />
               ))
             ) : (
               <div className="teamsPlaceholder">

@@ -107,7 +107,8 @@ class Team extends Component {
   renderToDashboard() {
     const {
       team,
-      team: { custom_team }
+      team: { custom_team, specialist_id },
+      specialistId
     } = this.props;
     const { channels, specialistsList } = this.state;
 
@@ -120,7 +121,8 @@ class Team extends Component {
             </p>
           </Grid.Column>
           {oneOfRoles(S_REDGUY, S_CORE) &&
-            custom_team && (
+            custom_team &&
+            +specialist_id === +specialistId && (
               <Grid.Column
                 computer={6}
                 textAlign="right"

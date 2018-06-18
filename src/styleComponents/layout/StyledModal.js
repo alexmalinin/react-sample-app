@@ -34,7 +34,12 @@ export default styled(Modal)`
       padding: 0 21px;
       text-transform: uppercase;
       color: ${primaryColors.darkGrey};
+
+      &.centered {
+        text-align: center;
+      }
     }
+
     form {
       .ui.grid.float {
         .row {
