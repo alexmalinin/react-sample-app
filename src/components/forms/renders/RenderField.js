@@ -63,11 +63,12 @@ class RenderField extends Component {
       step,
       autoComplete,
       onSelfSubmit,
+      className,
       ...rest
     } = this.props;
     const { loading, updError } = this.state;
 
-    const className = !error ? checkedClass : "";
+    const customClassName = !error ? checkedClass : "";
 
     return (
       <StyledInputs className={this.props.className} padded={padded}>
@@ -78,7 +79,7 @@ class RenderField extends Component {
           error={Boolean(touched && error) || updError}
           {...input}
           name={input.name}
-          className={className}
+          className={customClassName}
           disabled={disabled}
           placeholder={placeholder}
           type={type}
@@ -86,7 +87,7 @@ class RenderField extends Component {
           pattern={pattern}
           step={step}
           autoComplete={autoComplete || "off"}
-          onKeyDown={this.keyDown}
+          onKeyUp={this.keyDown}
           // onFocus={e => {
           //   this.setState({ updError: false });
           //   input.onFocus();

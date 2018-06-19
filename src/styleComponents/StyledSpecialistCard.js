@@ -35,7 +35,7 @@ export default styled.div`
         height: 70px;
         width: 70px;
         border-radius: 50%;
-        object-fit: contain;
+        object-fit: cover;
       }
 
       .detailed {

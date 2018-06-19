@@ -5,6 +5,7 @@ export const ContainerLarge = styled.div`
   margin: 0 auto;
   max-width: ${props => (props.containerHeader ? `94%` : `1280px`)};
   width: 100%;
+  transition: 0.4s ease-in-out;
 
   & > .ui.grid {
     margin: 0;

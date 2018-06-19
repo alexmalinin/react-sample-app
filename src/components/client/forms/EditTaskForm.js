@@ -13,7 +13,7 @@ import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import RenderSelectField from "../../forms/renders/RenderSelectField";
 import axios from "axios";
 import { PORT, S_REDGUY } from "../../../constans/constans";
-import { getUserRole } from "../../../helpers/functions";
+import { getUserRole, oneOfRoles } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { maxLength80 } from "../../../helpers/validate";
@@ -238,12 +238,14 @@ class EditTaskForm extends Component {
                 disabled={disabled}
               />
               <div className="specialistsWrapper">
-                <div className="totalCosts">
-                  <p className="label">Total costs</p>
-                  <span className="total">
-                    ${<span>{formatCurrency(totalCost)}</span>}
-                  </span>
-                </div>
+                {oneOfRoles(S_REDGUY) && (
+                  <div className="totalCosts">
+                    <p className="label">Total costs</p>
+                    <span className="total">
+                      ${<span>{formatCurrency(totalCost)}</span>}
+                    </span>
+                  </div>
+                )}
                 <div className="specialistsInnerWrapper">
                   {specialists.map((specialist, key) => (
                     <SpecialistTile

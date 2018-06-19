@@ -299,6 +299,7 @@ export default styled.div`
     width: 36px;
     background: rgba(152, 158, 169, 0.1);
     margin-bottom: 10px;
+    margin-left: 5px;
     cursor: pointer;
     border: none;
     border-radius: 3px;

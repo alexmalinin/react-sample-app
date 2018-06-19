@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { reduxForm, Field, change } from "redux-form";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { required, minLength8 } from "../../helpers/validate";
 import RenderField from "../forms/renders/RenderField";
 import DvButtonForm from "../../styleComponents/layout/DvButtonForm";
@@ -19,21 +19,7 @@ class SignInForm extends Component {
     if (email) {
       this.props.dispatch(change("SignInForm", "email", email));
     }
-
-    document.addEventListener("keyup", this.handleFormSubmit);
   }
-
-  componentWillUnmount() {
-    document.removeEventListener("keyup", this.handleFormSubmit);
-  }
-
-  handleFormSubmit = event => {
-    let key = event.key || event.keyCode;
-
-    if (key === "Enter" || key === 13) {
-      this.props.handleSubmit();
-    }
-  };
 
   render() {
     const { handleSubmit, submitting, user } = this.props;
@@ -57,9 +43,9 @@ class SignInForm extends Component {
           validate={[required, minLength8]}
         />
         <StyledFormHint>
-          <Link onClick={this.handleReset(user)} to="/forgot_password">
+          <NavLink onClick={this.handleReset(user)} to="/forgot_password">
             Forgot password?
-          </Link>
+          </NavLink>
         </StyledFormHint>
 
         {/*<DvButtonForm

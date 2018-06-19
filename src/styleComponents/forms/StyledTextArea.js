@@ -90,14 +90,15 @@ export const StyledTextArea = styled.div`
       letter-spacing: normal;
       color: ${primaryColors.accentGrey};
       font-weight: 400;
-      font-size: 0.9em;
+      font-size: 15px;
+      font-family: "Brix";
       line-height: 2em;
       border: 1px solid var(--bdcolor, transparent);
       border-radius: 5px;
       cursor: pointer;
 
       &::placeholder {
-        color: ${primaryColors.accentGrey};
+        color: ${primaryColors.lightGrey};
       }
 
       &.editing {

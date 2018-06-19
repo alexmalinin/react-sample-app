@@ -71,12 +71,13 @@ class CustomCard extends Component {
             </span>
           </div>
         )}
-        {!!cost && (
-          <div className="line">
-            <img src="/images/dollar.png" alt="dollar" />
-            <span>{formatCurrency(cost)}</span>
-          </div>
-        )}
+        {getUserRole() === S_REDGUY &&
+          !!cost && (
+            <div className="line">
+              <img src="/images/dollar.png" alt="dollar" />
+              <span>{formatCurrency(cost)}</span>
+            </div>
+          )}
         <div className="persons">
           <MembersDropdown
             members={specialists}

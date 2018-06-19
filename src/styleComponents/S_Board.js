@@ -6,7 +6,7 @@ export const S_Board = styled.div`
   margin: 0 auto;
   margin-top: 30px;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   justify-content: space-between;
   /* user-select: none; */
   transition: 0.4s ease-in-out;

@@ -134,6 +134,12 @@ export function detectSpecType(role) {
   }
 }
 
+/**
+ * @description Returns a user role as string
+ * @returns role as string
+ * @see constants
+ */
+
 export function getUserRole() {
   const token = localStorage.getItem("jwt_token");
   if (token) {
@@ -143,6 +149,11 @@ export function getUserRole() {
 
   return "";
 }
+
+/**
+ * @description Returns a user type as string
+ * @returns Client or Specialist
+ */
 
 export function getUserType() {
   if (getUserRole() === "customer") {
@@ -155,6 +166,10 @@ export function getUserType() {
     return SPECIALIST;
   }
 }
+
+/**
+ * @param  {} ...roles - gets Roles from arguments and returns true if current user approach with any of
+ */
 
 export function oneOfRoles(...roles) {
   return roles.some(role => role === getUserRole());

@@ -374,6 +374,7 @@ export const StyledPersonTile = styled.div`
       border: ${props =>
         props.compressed ? `1px solid ${colors.darkBlue}` : "none"};
       border-radius: 50%;
+      object-fit: cover;
     }
 
     &::before {
