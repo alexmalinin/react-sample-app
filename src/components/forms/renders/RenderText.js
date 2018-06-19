@@ -130,6 +130,7 @@ class RenderText extends Component {
           onKeyDown={this.keyDown}
           onFocus={this.focus}
           onBlur={this.blur}
+          disabled={disabled}
         />
         {editing && (
           <div className="controls">

@@ -3,11 +3,19 @@ import { SUCCESS, FAIL } from "../constans/constans";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
-  const { type, searchSpecialist, payload, ...rest } = action;
+  const { type, searchSpecialist, payload, id, ...rest } = action;
   if (!searchSpecialist) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let payloadQuery = payload ? `?query=${payload}` : "";
+  let payloadQuery = payload
+    ? `?query=${payload}`
+    : id
+      ? `?specialist_id=${id}`
+      : "";
+
+  if (payload && id) {
+    payloadQuery += `&specialist_id=${id}`;
+  }
 
   axios({
     method: "GET",

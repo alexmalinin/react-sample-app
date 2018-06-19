@@ -26,6 +26,10 @@ export const StyledTextArea = styled.div`
     outline: none;
     margin-bottom: 0;
     ${props => props.disabled && "pointer-events: none"};
+
+    &:disabled {
+      background-color: transparent;
+    }
   }
 
   @media (max-width: 1920px) {

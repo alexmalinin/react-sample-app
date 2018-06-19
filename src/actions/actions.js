@@ -1007,12 +1007,17 @@ export function removeFromChannel(team, channel, id) {
   return action;
 }
 
-// Search specialist by name\skill
+/**
+ * Search specialist by name\skill
+ *
+ * @param {number} id The id of the user. Optional parameter only for core specialist
+ */
 
-export function searchSpecialist(payload) {
+export function searchSpecialist(payload, id) {
   const action = {
     type: SEARCH_SPECIALIST,
     payload,
+    id,
     searchSpecialist: `${PORT}/api/v1/specialists/search`
   };
 

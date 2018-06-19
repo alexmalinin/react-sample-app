@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
+import { getUserRole } from "../../../helpers/functions";
+import { S_REDGUY } from "../../../constans/constans";
 
 export default class SearchForm extends Component {
   state = {
@@ -23,11 +25,19 @@ export default class SearchForm extends Component {
       currentProject,
       searchSpecialist,
       searchSpecialistForProject,
-      toggleProjectError
+      toggleProjectError,
+      specialistId
     } = this.props;
+
     const { search } = this.state;
 
-    !!search ? searchSpecialist(search) : searchSpecialist();
+    if (getUserRole() === S_REDGUY) {
+      !!search ? searchSpecialist(search) : searchSpecialist();
+    } else {
+      !!search
+        ? searchSpecialist(search, specialistId)
+        : searchSpecialist(null, specialistId);
+    }
   };
 
   clearForm = () => {
@@ -35,11 +45,17 @@ export default class SearchForm extends Component {
       currentProject,
       searchSpecialistForProject,
       clear,
-      searchSpecialist
+      searchSpecialist,
+      specialistId
     } = this.props;
     clear();
     this.handleClear();
-    searchSpecialist();
+
+    if (getUserRole() === S_REDGUY) {
+      searchSpecialist();
+    } else {
+      searchSpecialist(null, specialistId);
+    }
   };
 
   render() {
