@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { hasSubmitSucceeded } from "redux-form";
 import { Redirect } from "react-router";
-import HeaderBasic from "../layout/HeaderBasic";
-import { NavLink } from "react-router-dom";
 import SubHeader from "../layout/ProjectSubHeader";
-import { Grid } from "semantic-ui-react";
 import {
   Container,
   ContainerLarge
@@ -12,15 +10,14 @@ import {
 import { showClientData, saveCreatedProgect } from "../../actions/actions";
 import { S_Message } from "../../styleComponents/layout/S_Message";
 import { Message } from "semantic-ui-react";
-import { run } from "../../helpers/scrollToElement";
-import Navbar from "../layout/Navbar";
 import ClientProjectForm from "./forms/ClientProjectForm";
 
 class ClientProjects extends Component {
   state = {
     renderMessage: false,
     renderErrorMessage: false,
-    saved: false
+    saved: false,
+    loading: false
   };
 
   render() {
@@ -28,11 +25,16 @@ class ClientProjects extends Component {
 
     return (
       <ContainerLarge>
-        <SubHeader />
-        <Container indentBot sidebarCondition>
+        <SubHeader loading={this.state.loading} />
+        <Container
+          indentBot
+          sidebarCondition
+          className={this.state.loading && "loading"}
+        >
+          <i className="fa fa-spinner fa-3x fa-pulse preloader" />
           <S_Message positive profile="true" data-show={renderMessage}>
             <Message.Header>Success!</Message.Header>
-            <p>Form updated</p>
+            <p>Project was created</p>
           </S_Message>
           <S_Message negative profile="true" data-show={renderErrorMessage}>
             <Message.Header>Error!</Message.Header>
@@ -40,6 +42,7 @@ class ClientProjects extends Component {
           </S_Message>
 
           <ClientProjectForm onSubmit={this.submit} />
+
           {this.state.saved ? (
             <Redirect
               to={`/dashboard/project/${this.props.createProject.id}`}
@@ -53,12 +56,19 @@ class ClientProjects extends Component {
   componentWillReceiveProps(nextProps) {
     let createProject = nextProps.createProject;
 
-    if (createProject) {
+    if (createProject && nextProps.submitSucceeded) {
       if (createProject.id) {
-        this.setState({
-          saved: true
-        });
+        setTimeout(() => {
+          this.setState({
+            loading: false,
+            saved: true
+          });
+        }, 1000);
       }
+    }
+
+    if (nextProps.submitSucceeded) {
+      this.showMessage("success");
     }
   }
 
@@ -68,7 +78,7 @@ class ClientProjects extends Component {
         renderMessage: false,
         renderErrorMessage: false
       });
-    }, 2000);
+    }, 1000);
 
     status === "success"
       ? this.setState({
@@ -80,11 +90,27 @@ class ClientProjects extends Component {
   };
 
   submit = values => {
-    this.props.saveCreatedProgect(values);
+    this.setState({
+      loading: true
+    });
+
+    if (!this.props.submitSucceeded) {
+      this.props.saveCreatedProgect(values);
+    }
   };
 }
 
-export default connect(({ createProject }) => ({ createProject }), {
-  showClientData,
-  saveCreatedProgect
-})(ClientProjects);
+export default connect(
+  state => {
+    const { createProject } = state;
+
+    return {
+      createProject,
+      submitSucceeded: hasSubmitSucceeded("ClientProjectForm")(state)
+    };
+  },
+  {
+    showClientData,
+    saveCreatedProgect
+  }
+)(ClientProjects);

@@ -47,6 +47,7 @@ export default styled.div`
       text-decoration: none;
       transition: 0.2s;
       width: 90px;
+      ${props => props.disabled && "pointer-events: none"};
 
       i{
         font-size: 2em;
