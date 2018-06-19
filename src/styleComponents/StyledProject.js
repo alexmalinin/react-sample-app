@@ -42,7 +42,7 @@ export default styled.div`
         height: 80px;
         margin-right: 10px;
         border-radius: 50%;
-        object-fit: ${props => (props.projectLogo ? "contain" : "cover")};
+        object-fit: cover;
       }
     }
 
@@ -169,7 +169,7 @@ export default styled.div`
                 height: 80px;
                 border-radius: 50%;
                 margin-right: 10px;
-                object-fit: contain;
+                object-fit: cover;
               }
 
               img {

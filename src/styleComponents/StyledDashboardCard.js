@@ -45,7 +45,7 @@ export default styled.div`
       height: 80px;
       border-radius: 50%;
       margin-right: 10px;
-      object-fit: contain;
+      object-fit: cover;
     }
 
     img {

@@ -8,8 +8,22 @@ import { searchSpecialist } from "../../../actions/actions";
 import SearchForm from "./SearchForm";
 
 class SearchFilterFormCore extends Component {
+  state = {
+    fetch: true
+  };
+
   componentWillMount() {
-    this.props.searchSpecialist();
+    if (this.props.specialistData && this.state.fetch) {
+      this.props.searchSpecialist(null, this.props.specialistData.id);
+      this.setState({ fetch: false });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.specialistData && this.state.fetch) {
+      this.props.searchSpecialist(null, nextProps.specialistData.id);
+      this.setState({ fetch: false });
+    }
   }
 
   clear = () => {
@@ -17,7 +31,7 @@ class SearchFilterFormCore extends Component {
   };
 
   render() {
-    const { searchSpecialist } = this.props;
+    const { searchSpecialist, specialistData } = this.props;
 
     return (
       <StyledSearchFilter>
@@ -31,6 +45,7 @@ class SearchFilterFormCore extends Component {
           <Grid.Row>
             <SearchForm
               searchSpecialist={searchSpecialist}
+              specialistId={specialistData && specialistData.id}
               clear={this.clear}
               ref={el => (this.searchForm = el)}
             />
@@ -45,6 +60,9 @@ SearchFilterFormCore = reduxForm({
   form: "SearchFilterFormCore"
 })(SearchFilterFormCore);
 
-export default connect(({ searchResult }) => ({ searchResult }), {
-  searchSpecialist
-})(SearchFilterFormCore);
+export default connect(
+  ({ searchResult, specialistData }) => ({ searchResult, specialistData }),
+  {
+    searchSpecialist
+  }
+)(SearchFilterFormCore);

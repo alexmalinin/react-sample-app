@@ -119,7 +119,7 @@ export const StyledBar = styled.aside`
             border: 3px solid #ccc;
           }
           img {
-            object-fit: contain;
+            object-fit: cover;
             background: #fff;
           }
           .projectNoLogo {
