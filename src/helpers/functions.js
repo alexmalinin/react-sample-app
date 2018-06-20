@@ -168,7 +168,8 @@ export function getUserType() {
 }
 
 /**
- * @param  {} ...roles - gets Roles from arguments and returns true if current user approach with any of
+ * @param {...roles} - gets Roles from arguments
+ * @returns true if current user approach with any of
  */
 
 export function oneOfRoles(...roles) {
