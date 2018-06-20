@@ -90,7 +90,7 @@ class EditTaskForm extends Component {
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
       data: {
-        task: {
+        costs: {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
           project_id: projectWithId.id
         }
