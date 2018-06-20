@@ -22,7 +22,8 @@ export default styled.div`
   grid-row-end: span ${props => props.size.row};
   ${props => (props.village ? `grid-column-end: span ${props.size.col}` : ``)};
   ${boxShadow.light};
-  &::before {
+
+  /* &::before {
     content: "...";
     position: absolute;
     top: 5px;
@@ -31,7 +32,7 @@ export default styled.div`
     color: #7f7f7f;
     user-select: none;
     cursor: pointer;
-  }
+  } */
 
   .titleWrapper {
     display: flex;
