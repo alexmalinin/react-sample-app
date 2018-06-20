@@ -5,7 +5,7 @@ import CostField from "../../forms/renders/CostField";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderDate from "../../forms/renders/RenderDate";
 import RenderFile from "../../forms/renders/RenderFile";
-import { Grid, Select } from "semantic-ui-react";
+import { Grid, Loader } from "semantic-ui-react";
 import { showProjectTeam, updateEpicTask } from "../../../actions/actions";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
@@ -18,11 +18,16 @@ import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { maxLength80 } from "../../../helpers/validate";
 import { formatCurrency } from "../../../helpers/validate";
+import { Checkbox } from "react-semantic-redux-form/dist";
 
 class EditTaskForm extends Component {
   state = {
     specialists: this.props.epicTask.specialists,
-    totalCost: this.props.epicTask.cost
+    totalCost: this.props.epicTask.cost,
+    loadingFees: {
+      dv_fee: false,
+      sale_fee: false
+    }
   };
 
   handleEtaForm = date => {
@@ -90,14 +95,46 @@ class EditTaskForm extends Component {
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
       data: {
-        task: {
+        costs: {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
           project_id: projectWithId.id
         }
       }
-    }).then(resp => {
-      this.setState({ totalCost: resp.data.cost });
+    })
+      .then(resp => {
+        this.setState({ totalCost: resp.data.cost });
+      })
+      .catch(error => console.error(error));
+  };
+
+  handleFees = (event, newVal, prevVal, name) => {
+    const { change } = this.props;
+
+    this.setState({
+      loadingFees: {
+        [name]: true
+      }
     });
+
+    this.handleSubmit(name, newVal)
+      .then(resp => {
+        change(name, resp.data[name]);
+        this.setState({
+          totalCost: resp.data.cost,
+          loadingFees: {
+            [name]: false
+          }
+        });
+      })
+      .catch(error => {
+        console.error(error);
+        this.setState({
+          loadingFees: {
+            [name]: false
+          }
+        });
+        change(name, prevVal);
+      });
   };
 
   render() {
@@ -106,9 +143,22 @@ class EditTaskForm extends Component {
       projectTeam,
       epicTask: { attached_files, cost, specialist_tasks }
     } = this.props;
-    const { specialists, totalCost } = this.state;
+    const { specialists, totalCost, loadingFees } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
+
+    const fees = [
+      {
+        name: "sale_fee",
+        text: "Sales fee",
+        fee: 30
+      },
+      {
+        name: "dv_fee",
+        text: "DV fee",
+        fee: 20
+      }
+    ];
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -239,18 +289,36 @@ class EditTaskForm extends Component {
               />
               <div className="specialistsWrapper">
                 {oneOfRoles(S_REDGUY) && (
-                  <div className="totalCosts">
-                    <p className="label">Total costs</p>
-                    <span className="total">
-                      ${<span>{formatCurrency(totalCost)}</span>}
-                    </span>
+                  <div className="totalCostWrapper">
+                    <div className="totalCosts">
+                      <p className="label">Total costs</p>
+                      <span className="total">
+                        <i className="fas fa-dollar-sign" />
+                        <span>{formatCurrency(totalCost)}</span>
+                      </span>
+                    </div>
+                    <div className="fees">
+                      {fees.map(({ name, text, fee }, index) => (
+                        <Field
+                          name={name}
+                          component={Checkbox}
+                          label={
+                            <label>
+                              {text}&nbsp;
+                              <span>{fee}%</span>
+                            </label>
+                          }
+                          disabled={loadingFees[name]}
+                          onChange={this.handleFees}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )}
                 <div className="specialistsInnerWrapper">
                   {specialists.map((specialist, key) => (
                     <SpecialistTile
                       specialist={specialist}
-                      // cost={specialist_tasks}
                       key={key}
                       index={key}
                       remove={this.removeSpecialist}

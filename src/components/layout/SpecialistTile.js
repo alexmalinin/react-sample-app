@@ -26,7 +26,7 @@ export default class SpecialistTile extends Component {
   };
 
   render() {
-    const { specialist } = this.props;
+    const { specialist, hideCosts } = this.props;
     const allowed = oneOfRoles(S_REDGUY);
 
     return (
@@ -43,24 +43,25 @@ export default class SpecialistTile extends Component {
           {allowed && <button type="button" onClick={this.remove} />}
         </div>
         <p>{specialist.first_name + " " + specialist.last_name}</p>
-        {allowed && (
-          <Field
-            name={"cost_spec_" + specialist.id}
-            component={Input}
-            fluid
-            autoComplete="off"
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
-                this.submitCost(e);
-                e.target.blur();
-              }
-            }}
-            onBlur={e => this.submitCost(e)}
-            {...createNumberMask({
-              prefix: "$"
-            })}
-          />
-        )}
+        {allowed &&
+          !hideCosts && (
+            <Field
+              name={"cost_spec_" + specialist.id}
+              component={Input}
+              fluid
+              autoComplete="off"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  this.submitCost(e);
+                  e.target.blur();
+                }
+              }}
+              onBlur={e => this.submitCost(e)}
+              {...createNumberMask({
+                prefix: "$"
+              })}
+            />
+          )}
       </StyledSpecialist>
     );
   }

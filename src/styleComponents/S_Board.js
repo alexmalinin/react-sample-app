@@ -4,11 +4,9 @@ import { primaryColors, boxShadow } from "./constants/colors";
 export const S_Board = styled.div`
   width: 100%;
   margin: 0 auto;
-  margin-top: 30px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-  /* user-select: none; */
   transition: 0.4s ease-in-out;
 
   div.hidden.transition {
@@ -19,7 +17,6 @@ export const S_Board = styled.div`
     text-transform: uppercase;
     font-size: 14px;
     padding-bottom: 5px;
-    /* flex: 0 0 31.5%; */
 
     color: #666;
     border-width: 0px;

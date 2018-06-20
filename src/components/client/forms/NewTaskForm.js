@@ -102,10 +102,11 @@ class NewTaskForm extends Component {
       this.setState({
         specialists: [...this.state.specialists, spec]
       });
-    } else if (type === "remove") {
+    } else {
       let list = this.state.specialists;
+      list.splice(list.indexOf(spec), 1);
       this.setState({
-        specialists: list.splice(this.state.specialists.indexOf(spec), 1)
+        specialists: list
       });
     }
   };
@@ -289,15 +290,6 @@ class NewTaskForm extends Component {
                   padded
                 />
               </Grid.Column>
-
-              <Grid.Column computer={3}>
-                <CostField
-                  name="cost"
-                  label="Cost"
-                  onBlur={this.makeFloat}
-                  padded
-                />
-              </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column computer={9}>
@@ -307,7 +299,8 @@ class NewTaskForm extends Component {
                       specialist={specialist}
                       key={key}
                       index={key}
-                      remove={this.removeSpecialist}
+                      remove={this.handleAssign}
+                      hideCosts
                     />
                   ))}
                   {!!this.state.moduleList.length &&
@@ -318,20 +311,7 @@ class NewTaskForm extends Component {
                         allSpecialists={projectTeam.specialists}
                         handleAssign={this.handleAssign}
                         userType={[S_REDGUY]}
-                        closeOnChange={false}
-                        renderToModal
-                      />
-                    )}
-                  {!!this.state.moduleList.length &&
-                    projectTeam &&
-                    projectTeam[0] && (
-                      <AssignDropdown
-                        label="Assign member"
-                        specialists={specialists}
-                        allSpecialists={projectTeam[0].specialists}
-                        handleAssign={this.handleAssign}
-                        userType={[S_REDGUY]}
-                        closeOnChange={false}
+                        closeOnChange
                         renderToModal
                       />
                     )}
@@ -344,7 +324,7 @@ class NewTaskForm extends Component {
                   type="button"
                   onClick={this.closeModal}
                   primary
-                  static
+                  static="true"
                 >
                   <span>Cancel</span>
                 </CancelBtn>

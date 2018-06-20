@@ -92,6 +92,7 @@ export default styled.div`
       .react-datepicker__input-container {
         input {
           padding-left: 1em;
+          line-height: 24px;
         }
       }
     }
@@ -238,6 +239,12 @@ export default styled.div`
     }
 
     .ui.dropdown.selection {
+      &.active {
+        border-color: ${colors.darkBlue};
+        .menu {
+          border-color: inherit;
+        }
+      }
       &.disabled {
         border-color: transparent;
         padding-left: 0;

@@ -167,11 +167,10 @@ export default styled.div`
     display: flex;
     align-items: center;
     height: 40px;
-    margin-bottom: 10px;
-    padding: 5px;
-    padding-right: 15px;
+    min-width: 72px;
+    margin: 5px 5px 10px 5px;
+    padding-right: 10px;
     position: relative;
-    cursor: pointer;
 
     .fileIcon {
       display: flex;
@@ -181,6 +180,7 @@ export default styled.div`
       width: 36px;
       background: rgba(72, 97, 242, 0.1);
       border-radius: 3px;
+      cursor: pointer;
 
       i {
         font-size: 22px;
@@ -189,8 +189,12 @@ export default styled.div`
     }
 
     &.active {
-      .fileIcon:hover i:before {
-        content: "\f358";
+      &:hover {
+        .fileIcon {
+          i:before {
+            content: "\f358";
+          }
+        }
       }
     }
 
@@ -199,6 +203,7 @@ export default styled.div`
       flex-flow: column nowrap;
       justify-content: center;
       margin-left: 3px;
+      user-select: none;
 
       p {
         padding: 0;
@@ -275,17 +280,37 @@ export default styled.div`
       }
     }
 
-    &:hover .file-delete {
-      display: block;
+    &:hover {
+      .fileInfo {
+        filter: blur(1px);
+      }
+      .file-delete {
+        opacity: 1;
+        visibility: visible;
+      }
     }
 
-    & .file-delete {
+    .file-delete {
       position: absolute;
-      font-size: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 0;
+      top: 2px;
+      height: 36px;
+      width: 36px;
+      font-size: 20px;
       color: #666;
-      right: 5px;
-      top: 0;
-      display: none;
+      background: #fbc4c3;
+      border-radius: 3px;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.4s;
+      cursor: pointer;
+
+      i {
+        color: white;
+      }
     }
   }
 
@@ -297,7 +322,7 @@ export default styled.div`
     position: relative;
     height: 36px;
     width: 36px;
-    background: rgba(152, 158, 169, 0.1);
+    background: rgba(72, 97, 242, 0.1);
     margin-bottom: 10px;
     margin-left: 5px;
     cursor: pointer;
@@ -314,7 +339,8 @@ export default styled.div`
       left: calc(50% - 1px);
       height: 16px;
       width: 2px;
-      background-color: ${primaryColors.lightGrey};
+      background-color: ${colors.darkBlue};
+      border-radius: 2px;
       transition: inherit;
     }
 
@@ -323,11 +349,11 @@ export default styled.div`
     }
 
     &:hover {
-      background: rgba(152, 158, 169, 0.3);
+      background: rgba(72, 97, 242, 0.3);
 
       &::before,
       &::after {
-        background-color: ${primaryColors.accentBackground};
+        background-color: white;
       }
     }
   }

@@ -4,6 +4,7 @@ import { Modal } from "semantic-ui-react";
 import NewTaskForm from "../client/forms/NewTaskForm";
 import { createEpicTask } from "../../actions/actions";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+import StyledModal from "../../styleComponents/layout/StyledModal";
 
 class AddTaskModal extends Component {
   state = {
@@ -25,30 +26,28 @@ class AddTaskModal extends Component {
     const { content, epic, project } = this.props;
 
     return (
-      <Fragment>
-        <Modal
-          trigger={
-            <a className="button" onClick={() => this.setState({ open: true })}>
-              <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
-              <span>{content}</span>
-            </a>
-          }
-          className="hidden-icon"
-          closeIcon
-        >
-          <Modal.Header>Epic creation</Modal.Header>
-          <Modal.Content>
-            <Modal.Description>
-              <NewTaskForm
-                project={project}
-                epic={epic}
-                onSubmit={this.submit}
-                handleChangeState={this.handleChangeState}
-              />
-            </Modal.Description>
-          </Modal.Content>
-        </Modal>
-      </Fragment>
+      <StyledModal
+        trigger={
+          <a className="button" onClick={() => this.setState({ open: true })}>
+            <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
+            <span>{content}</span>
+          </a>
+        }
+        className="addTask hidden-icon"
+        closeIcon
+      >
+        <Modal.Header>Epic creation</Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+            <NewTaskForm
+              project={project}
+              epic={epic}
+              onSubmit={this.submit}
+              handleChangeState={this.handleChangeState}
+            />
+          </Modal.Description>
+        </Modal.Content>
+      </StyledModal>
     );
   }
 
