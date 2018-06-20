@@ -68,8 +68,27 @@ export const Container = styled.div`
     ${props => (props.indentTop ? `margin-top: 100px` : ``)};
     ${props => (props.indentTopXs ? `margin-top: 40px` : ``)};
     ${props => (props.relative ? `position: relative` : ``)};
-
     transition: .4s ease-in-out;
+
+    &.loading {
+    .preloader {
+      opacity: 1;
+      visibility: visible;
+    }
+    .ui.grid {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+  }
 
     & .navigation-wrap {
       position: relative;

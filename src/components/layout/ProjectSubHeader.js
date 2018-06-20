@@ -11,11 +11,15 @@ import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 
 class ProjectSubHeader extends Component {
   render() {
-    let { projectId, module, projectWithId } = this.props;
+    let { projectId, module, projectWithId, loading } = this.props;
     let form = module ? "ClientModuleForm" : "ClientProjectForm";
 
     return (
-      <StyledSubHeader sidebarCondition projectSubHeader="true">
+      <StyledSubHeader
+        sidebarCondition
+        projectSubHeader="true"
+        disabled={loading}
+      >
         {module ? (
           <div className="left moduleSubHeader">
             <StyledModuleLink className="moduleBreadcrumb">
