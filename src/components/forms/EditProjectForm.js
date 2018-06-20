@@ -30,16 +30,17 @@ import InputField from "../forms/renders/InputField";
 
 class EditProjectForm extends Component {
   state = {
-    fetch: true
+    fetch: true,
+    team: []
   };
 
   componentWillMount() {
-    const { projectWithId } = this.props;
+    const { projectId } = this.props;
 
     this.props.getProjectTypes();
 
-    if (projectWithId) {
-      this.props.showProjectTeam(projectWithId.id);
+    if (projectId) {
+      this.props.showProjectTeam(projectId);
     }
   }
 
@@ -56,6 +57,14 @@ class EditProjectForm extends Component {
       if (nextProps.projectWithId.id !== +nextProps.projectId) {
         this.props.showProjectWithId(nextProps.projectId);
       }
+    }
+
+    if (
+      nextProps.projectTeam &&
+      nextProps.projectId &&
+      nextProps.projectTeam.project_id === +nextProps.projectId
+    ) {
+      this.setState({ team: nextProps.projectTeam.specialists });
     }
   }
 
@@ -114,6 +123,8 @@ class EditProjectForm extends Component {
       handleAssignTeam
     } = this.props;
 
+    const { team } = this.state;
+
     const { logo = {}, name = "", customer = {}, project_type, state } =
       projectWithId || {};
 
@@ -138,8 +149,6 @@ class EditProjectForm extends Component {
     }
 
     // console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
-
-    const team = (projectTeam && projectTeam.specialists) || [];
 
     return (
       <StyledProject

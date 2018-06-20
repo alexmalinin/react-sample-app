@@ -112,6 +112,10 @@ export default styled(Modal)`
         &::-webkit-scrollbar-track {
           background: rgba(72, 97, 242, 0.1);
         }
+
+        &.expanded {
+          margin-bottom: 25px;
+        }
       }
     }
   }

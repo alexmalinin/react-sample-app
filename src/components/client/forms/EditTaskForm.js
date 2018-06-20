@@ -246,7 +246,11 @@ class EditTaskForm extends Component {
                     </span>
                   </div>
                 )}
-                <div className="specialistsInnerWrapper">
+                <div
+                  className={`specialistsInnerWrapper ${
+                    specialists.length > 4 ? "expanded" : ""
+                  }`}
+                >
                   {specialists.map((specialist, key) => (
                     <SpecialistTile
                       specialist={specialist}
