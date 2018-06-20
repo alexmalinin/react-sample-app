@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import HeaderBasic from "../layout/HeaderBasic";
-import SubHeader from "../layout/ClientSubHeader";
 import { Grid } from "semantic-ui-react";
 import { DvTitle, DvTitleSmall } from "../../styleComponents/layout/DvTitles";
 import RenderProfileForm from "../forms/RenderProfileForm";
@@ -12,11 +10,8 @@ import {
   ContainerLarge
 } from "../../styleComponents/layout/Container";
 import { showClientData, updateClientProfile } from "../../actions/actions";
-import { S_Message } from "../../styleComponents/layout/S_Message";
-import { Message } from "semantic-ui-react";
 import { run } from "../../helpers/scrollToElement";
 import { getAllUrlParams, compareObjects } from "../../helpers/functions";
-
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../modals/ConfirmationModal";
 
@@ -25,8 +20,6 @@ class ClientProfile extends Component {
     super();
 
     this.state = {
-      renderMessage: false,
-      renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
       isEdited: false
@@ -44,23 +37,10 @@ class ClientProfile extends Component {
   }
 
   render() {
-    const {
-      renderMessage,
-      renderErrorMessage,
-      isEditing,
-      isEdited
-    } = this.state;
+    const { isEditing, isEdited } = this.state;
 
     return (
       <div>
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Form updated</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
         <Grid>
           <Grid.Row>
             <Grid.Column mobile={16} tablet={12} computer={16}>
@@ -123,41 +103,19 @@ class ClientProfile extends Component {
     let password = nextProps.confirmPassword;
 
     if (client.successProfileId) {
-      this.showMessage("success");
-      run(0)();
-    } else if (client.errorProfileId) {
-      this.showMessage();
+      this.setState({
+        nextStep: true
+      });
+
       run(0)();
     } else if (password) {
       if (password.successPasswordId) {
-        this.showMessage("success");
         run(0)();
       } else if (password.errorPasswordId) {
-        this.showMessage();
         run(0)();
       }
     }
   }
-
-  showMessage = status => {
-    setTimeout(
-      () =>
-        this.setState({
-          renderMessage: false,
-          renderErrorMessage: false
-        }),
-      1500
-    );
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true,
-          nextStep: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   change = values => {
     this.props.calculatePagePercent("profilePercent", values);

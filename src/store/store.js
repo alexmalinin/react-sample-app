@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import reducer from "../reducers/rootReducer";
 
@@ -72,6 +73,7 @@ import searchSpecialist from "../middlewares/searchSpecialistApi";
 import searchSpecialistForProject from "../middlewares/searchSpecialistForProjectApi";
 
 const enhancer = applyMiddleware(
+  thunk,
   contactRequest,
   signUp,
   getUserIdByTokenConfirmation,

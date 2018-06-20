@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
 import SpecialistIndustryForm from "../forms/SpecialistIndustryForm";
 import {
   getProjectTypes,
@@ -12,11 +10,8 @@ import {
   updateSpecStep1,
   getSkills
 } from "../../../actions/actions";
-import { Message } from "semantic-ui-react";
-import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
-
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
 
@@ -25,8 +20,6 @@ class SpecialistIndustry extends Component {
     super();
 
     this.state = {
-      renderMessage: false,
-      renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
       isEdited: false,
@@ -56,12 +49,7 @@ class SpecialistIndustry extends Component {
   };
 
   render() {
-    const {
-      renderMessage,
-      renderErrorMessage,
-      isEditing,
-      isEdited
-    } = this.state;
+    const { isEditing, isEdited } = this.state;
     const {
       industries,
       projectTypes,
@@ -71,14 +59,6 @@ class SpecialistIndustry extends Component {
 
     return (
       <div>
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Form updated</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
         <SpecialistIndustryForm
           industries={industries}
           projectTypes={projectTypes}
@@ -139,32 +119,13 @@ class SpecialistIndustry extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successIndustryId) {
+        this.setState({
+          nextStep: true
+        });
         run(0)();
-        this.showMessage("success");
-      } else if (nextProps.specialistData.errorIndustryId) {
-        run(0)();
-        this.showMessage();
       }
     }
   }
-
-  showMessage = status => {
-    setTimeout(() => {
-      return this.setState({
-        renderMessage: false,
-        renderErrorMessage: false
-      });
-    }, 1500);
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true,
-          nextStep: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   change = values => {
     this.props.calculatePagePercent("industryPercent", values);

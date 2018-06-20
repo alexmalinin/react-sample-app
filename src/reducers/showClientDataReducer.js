@@ -16,15 +16,15 @@ export default (state = null, action) => {
     case UPDATE_CLIENT_PROFILE + SUCCESS:
       return data;
     case UPDATE_CLIENT_PROFILE + FAIL:
-      return data;
+      return state;
     case UPDATE_CLIENT_COMPANY + SUCCESS:
       return data;
     case UPDATE_CLIENT_COMPANY + FAIL:
-      return data;
+      return state;
     case UPDATE_CLIENT_BILLINGS + SUCCESS:
       return data;
     case UPDATE_CLIENT_BILLINGS + FAIL:
-      return data;
+      return state;
     default:
       return state;
   }

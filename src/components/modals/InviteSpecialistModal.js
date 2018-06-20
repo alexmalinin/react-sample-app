@@ -6,6 +6,7 @@ import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import StyledModal from "../../styleComponents/layout/StyledModal";
 import InviteSpecialistForm from "../forms/InviteSpecialistForm";
 import { PORT } from "../../constans/constans";
+import { createNotification } from "../../helpers/functions";
 
 class InviteSpecialistModal extends Component {
   state = {
@@ -21,7 +22,7 @@ class InviteSpecialistModal extends Component {
   };
 
   submit = ({ project, team }) => {
-    const { specialistId, specialistProjects, handleMessage } = this.props;
+    const { specialistId, specialistProjects } = this.props;
 
     this.close();
 
@@ -36,20 +37,23 @@ class InviteSpecialistModal extends Component {
         method: "POST",
         url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`
       })
-        .then(responce => {
-          handleMessage("renderMessage", true);
-          setTimeout(() => {
-            handleMessage("renderMessage", false);
-            handleMessage("renderErrorMessage", false);
-          }, 2500);
+        .then(response => {
+          createNotification({
+            type: "success",
+            text: "Specialist was invited to project"
+          });
         })
         .catch(error => {
-          console.log(error);
-          handleMessage("renderErrorMessage", true);
-          setTimeout(() => {
-            handleMessage("renderMessage", false);
-            handleMessage("renderErrorMessage", false);
-          }, 2500);
+          const {
+            response: { data }
+          } = error;
+
+          createNotification({
+            type: data && data.errors ? "warning" : "error",
+            text: data && data.errors
+          });
+
+          console.error(error);
         });
     }
 
@@ -58,20 +62,23 @@ class InviteSpecialistModal extends Component {
         method: "POST",
         url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`
       })
-        .then(respose => {
-          handleMessage("renderMessage", true);
-          setTimeout(() => {
-            handleMessage("renderMessage", false);
-            handleMessage("renderErrorMessage", false);
-          }, 2500);
+        .then(response => {
+          createNotification({
+            type: "success",
+            text: "Specialist was invited to team"
+          });
         })
         .catch(error => {
-          console.log(error);
-          handleMessage("renderErrorMessage", true);
-          setTimeout(() => {
-            handleMessage("renderMessage", false);
-            handleMessage("renderErrorMessage", false);
-          }, 2500);
+          const {
+            response: { data }
+          } = error;
+
+          createNotification({
+            type: data && data.errors ? "warning" : "error",
+            text: data && data.errors
+          });
+
+          console.error(error);
         });
     }
   };

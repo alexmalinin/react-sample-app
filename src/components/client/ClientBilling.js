@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import HeaderBasic from "../layout/HeaderBasic";
 import { NavLink } from "react-router-dom";
-import SubHeader from "../layout/ClientSubHeader";
-import { Grid } from "semantic-ui-react";
-import { DvTitle, DvTitleSmall } from "../../styleComponents/layout/DvTitles";
 import {
   Container,
   ContainerLarge
@@ -32,8 +28,6 @@ class ClientBilling extends Component {
     super();
 
     this.state = {
-      renderMessage: false,
-      renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
       isEdited: false,
@@ -86,24 +80,10 @@ class ClientBilling extends Component {
 
   render() {
     const { clientData } = this.props;
-    const {
-      renderErrorMessage,
-      renderMessage,
-      isEditing,
-      isEdited
-    } = this.state;
+    const { isEditing, isEdited } = this.state;
 
     return (
       <div>
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Form updated</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
-        {/* <DvTitleSmall fz='28' xsCenter>My Billing</DvTitleSmall> */}
         <ClientBillingForm
           onChange={this.change}
           clientData={clientData}
@@ -160,33 +140,12 @@ class ClientBilling extends Component {
     let client = nextProps.clientData;
 
     if (client && client.successBillingId) {
-      this.showMessage("success");
-      run(0)();
-    } else if (client && client.successBillingId) {
-      this.showMessage();
+      this.setState({
+        nextStep: true
+      });
       run(0)();
     }
   }
-
-  showMessage = status => {
-    setTimeout(
-      () =>
-        this.setState({
-          renderMessage: false,
-          renderErrorMessage: false,
-          nextStep: true
-        }),
-      1500
-    );
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   change = values => {
     if (!values.hasOwnProperty("billing_type")) {

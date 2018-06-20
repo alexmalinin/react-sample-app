@@ -9,7 +9,6 @@ import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
 import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
-import { S_Message } from "../../styleComponents/layout/S_Message";
 import { formatCurrency } from "../../helpers/validate";
 
 class Module extends Component {
@@ -91,43 +90,13 @@ class Module extends Component {
     }
   };
 
-  renderMessage = () => {
-    this.setState({ renderMessage: true });
-    setTimeout(
-      () =>
-        this.setState({
-          renderMessage: false,
-          renderErrorMessage: false
-        }),
-      2500
-    );
-  };
-
-  renderErrorMessage = () => {
-    this.setState({ renderErrorMessage: true });
-    setTimeout(
-      () =>
-        this.setState({
-          renderMessage: false,
-          renderErrorMessage: false
-        }),
-      2500
-    );
-  };
-
   openModal = () => {
     this.editEpicModal.open();
   };
 
   render() {
     const { epic, number, showAllEpics } = this.props;
-    const {
-      name,
-      editing,
-      dropdown,
-      renderMessage,
-      renderErrorMessage
-    } = this.state;
+    const { name, editing, dropdown } = this.state;
 
     return (
       <div className="dragContainer">
@@ -209,19 +178,8 @@ class Module extends Component {
             epic={epic}
             number={number}
             showAllEpics={showAllEpics}
-            renderMessage={this.renderMessage}
-            renderErrorMessage={this.renderErrorMessage}
             ref={ref => (this.editEpicModal = ref)}
           />
-
-          <S_Message positive data-show={renderMessage}>
-            <Message.Header>Success!</Message.Header>
-            <p>{epic.name} updated</p>
-          </S_Message>
-          <S_Message negative formodal="true" data-show={renderErrorMessage}>
-            <Message.Header>Error!</Message.Header>
-            <p>Something went wrong, please try again</p>
-          </S_Message>
         </div>
       </div>
     );

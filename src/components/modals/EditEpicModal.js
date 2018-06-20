@@ -1,16 +1,10 @@
-import React, { Component, Fragment } from "react";
-import { Modal, Message } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Modal } from "semantic-ui-react";
 import EditEpicForm from "../client/forms/EditEpicFrom";
-import axios from "axios";
-import { PORT, CUSTOMER, S_CORE, S_REDGUY } from "../../constans/constans";
-import { S_Message } from "../../styleComponents/layout/S_Message";
 import StyledModal from "../../styleComponents/layout/StyledModal";
-import { oneOfRoles } from "../../helpers/functions";
 
 class EditEpicModal extends Component {
   state = {
-    renderMessage: false,
-    renderErrorMessage: false,
     opened: false,
     edited: false
   };
@@ -37,7 +31,7 @@ class EditEpicModal extends Component {
 
   render() {
     const { epic, number } = this.props;
-    const { renderMessage, renderErrorMessage, opened } = this.state;
+    const { opened } = this.state;
 
     return (
       <StyledModal
@@ -64,48 +58,6 @@ class EditEpicModal extends Component {
       </StyledModal>
     );
   }
-
-  submit = data => {
-    let {
-      epic: { project_id, id },
-      showAllEpics,
-      renderMessage,
-      renderErrorMessage
-    } = this.props;
-
-    axios({
-      method: "PUT",
-      url: `${PORT}/api/v1/projects/${project_id}/epics/${id}`,
-      data: {
-        epic: {
-          name: data["name"],
-          user_story: data["user_story"],
-          business_requirements: data["business_requirements"],
-          business_rules: data["business_rules"],
-          deliverables: data["deliverables"],
-          description: data["description"],
-          notes: data["notes"],
-          eta: data["eta"]
-          // attached_files_attributes: files
-        }
-      }
-
-      // ,headers: {
-      //   Authorization: `Bearer ${token}`
-      // }
-    })
-      .then(response => {
-        showAllEpics(project_id);
-        renderMessage();
-        // toggle();
-      })
-      .catch(error => {
-        console.log(error);
-        renderErrorMessage();
-        // toggle();
-        // this.setState({ renderErrorMessage: true });
-      });
-  };
 }
 
 export default EditEpicModal;

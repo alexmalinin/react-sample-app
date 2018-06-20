@@ -7,16 +7,9 @@ import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
 import { PORT, CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
-import { getUserRole } from "../helpers/functions";
-import { Message } from "semantic-ui-react";
-import { S_Message } from "../styleComponents/layout/S_Message";
+import { getUserRole, createNotification } from "../helpers/functions";
 
 class Teams extends Component {
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false
-  };
-
   componentWillMount() {
     this.showTeams();
   }
@@ -45,25 +38,26 @@ class Teams extends Component {
     return axios
       .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
       .then(res => {
-        this.setState({ renderMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
+        let name = res.data.name;
+
+        createNotification({
+          type: "success",
+          text: `${name ? `${name} team ` : "Team"} was deleted`
+        });
 
         this.showTeams();
       })
       .catch(error => {
-        console.log(error);
-        this.setState({ renderErrorMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
       });
   };
 
   renderToDashboard() {
     const { teams, changeUserType, specialistData } = this.props;
-    const { renderMessage, renderErrorMessage } = this.state;
 
     return (
       <ContainerLarge>
@@ -89,15 +83,6 @@ class Teams extends Component {
             )}
           </Container>
         </StyledTeamPage>
-
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Team was deleted</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
       </ContainerLarge>
     );
   }

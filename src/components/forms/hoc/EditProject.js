@@ -1,19 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import EditProjectForm from "../EditProjectForm";
 import Axios from "axios";
 import { PORT } from "../../../constans/constans";
-import { S_Message } from "../../../styleComponents/layout/S_Message";
-import { Message } from "semantic-ui-react";
 // temporal
 import { showProjectWithId, showAllProjects } from "../../../actions/actions";
-import { connect } from "react-redux";
+import { createNotification } from "../../../helpers/functions";
 
 class EditProject extends Component {
-  state = {
-    renderMessage: false,
-    renderErrorMessage: false
-  };
-
   componentWillMount() {
     this.props.showProjectWithId(this.props.projectId);
   }
@@ -57,12 +51,24 @@ class EditProject extends Component {
         // attached_files_attributes: files,
       }
     })
-      .then(response => {
+      .then(({ data }) => {
         this.props.showProjectWithId(this.props.projectId);
         this.props.showAllProjects();
+
+        return data;
+      })
+      .then(({ name }) => {
+        createNotification({
+          type: "success",
+          text: `${name ? `${name} project ` : "Project"} was published`
+        });
       })
       .catch(error => {
-        console.log(error);
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
       });
   };
 
@@ -78,24 +84,23 @@ class EditProject extends Component {
         project_id: projectId
       }
     })
-      .then(response => {
-        this.setState({ renderMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
+      .then(() => {
+        createNotification({
+          type: "success",
+          text: "Team was invited"
+        });
       })
       .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
         console.error(error);
-        this.setState({ renderErrorMessage: true });
-        setTimeout(() => {
-          this.setState({ renderMessage: false, renderErrorMessage: false });
-        }, 2500);
       });
   };
 
   render() {
     const { projectId } = this.props;
-    const { renderMessage, renderErrorMessage } = this.state;
 
     return (
       <React.Fragment>
@@ -104,14 +109,6 @@ class EditProject extends Component {
           projectId={projectId}
           handleAssignTeam={this.handleAssignTeam}
         />
-        <S_Message positive profile="true" data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Team was invited</p>
-        </S_Message>
-        <S_Message negative profile="true" data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
       </React.Fragment>
     );
   }

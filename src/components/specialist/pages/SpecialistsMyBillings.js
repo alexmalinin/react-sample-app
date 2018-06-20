@@ -5,8 +5,6 @@ import {
   updateSpecialistBillings,
   showSpecialistData
 } from "../../../actions/actions";
-import { Message } from "semantic-ui-react";
-import { S_Message } from "../../../styleComponents/layout/S_Message";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistBillingForm from "../forms/SpecialistBillingForm";
 import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
@@ -18,8 +16,6 @@ class SpecialistsMyBillings extends Component {
     super();
 
     this.state = {
-      renderMessage: false,
-      renderErrorMessage: false,
       nextStep: false,
       isEditing: false,
       nextLocation: false
@@ -60,25 +56,10 @@ class SpecialistsMyBillings extends Component {
   }
 
   render() {
-    const {
-      renderMessage,
-      renderErrorMessage,
-      isEditing,
-      isEdited
-    } = this.state;
+    const { isEditing, isEdited } = this.state;
 
     return (
       <div>
-        <S_Message positive data-show={renderMessage}>
-          <Message.Header>Success!</Message.Header>
-          <p>Form updated</p>
-        </S_Message>
-        <S_Message negative data-show={renderErrorMessage}>
-          <Message.Header>Error!</Message.Header>
-          <p>Something went wrong, please try again</p>
-        </S_Message>
-        {/* <DvTitleSmall>My Billings</DvTitleSmall> */}
-
         <SpecialistBillingForm
           swichTab={this.swichTab}
           data={this.props.specialistData}
@@ -133,32 +114,14 @@ class SpecialistsMyBillings extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
+        this.setState({
+          nextStep: true
+        });
+
         run(0)();
-        this.showMessage("success");
-      } else if (nextProps.specialistData.errorUpdateId) {
-        run(0)();
-        this.showMessage();
       }
     }
   }
-
-  showMessage = status => {
-    setTimeout(() => {
-      return this.setState({
-        renderMessage: false,
-        renderErrorMessage: false,
-        nextStep: true
-      });
-    }, 1500);
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   change = values => {
     if (!values.hasOwnProperty("billing_type")) {

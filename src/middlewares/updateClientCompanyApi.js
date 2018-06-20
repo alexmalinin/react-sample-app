@@ -44,7 +44,7 @@ export default store => next => action => {
     })
     .catch(function() {
       let data = {};
-      data.successCompanyId = Math.random();
+      data.errorCompanyId = Math.random();
       return next({ ...rest, type: type + FAIL, data: data });
     });
 };

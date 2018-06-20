@@ -8,21 +8,15 @@ import {
   ContainerLarge
 } from "../../styleComponents/layout/Container";
 import { showClientData, saveCreatedProgect } from "../../actions/actions";
-import { S_Message } from "../../styleComponents/layout/S_Message";
-import { Message } from "semantic-ui-react";
 import ClientProjectForm from "./forms/ClientProjectForm";
 
 class ClientProjects extends Component {
   state = {
-    renderMessage: false,
-    renderErrorMessage: false,
     saved: false,
     loading: false
   };
 
   render() {
-    const { renderMessage, renderErrorMessage } = this.state;
-
     return (
       <ContainerLarge>
         <SubHeader loading={this.state.loading} />
@@ -32,14 +26,6 @@ class ClientProjects extends Component {
           className={this.state.loading && "loading"}
         >
           <i className="fa fa-spinner fa-3x fa-pulse preloader" />
-          <S_Message positive profile="true" data-show={renderMessage}>
-            <Message.Header>Success!</Message.Header>
-            <p>Project was created</p>
-          </S_Message>
-          <S_Message negative profile="true" data-show={renderErrorMessage}>
-            <Message.Header>Error!</Message.Header>
-            <p>Something went wrong, please try again</p>
-          </S_Message>
 
           <ClientProjectForm onSubmit={this.submit} />
 
@@ -66,28 +52,7 @@ class ClientProjects extends Component {
         }, 1000);
       }
     }
-
-    if (nextProps.submitSucceeded) {
-      this.showMessage("success");
-    }
   }
-
-  showMessage = status => {
-    setTimeout(() => {
-      return this.setState({
-        renderMessage: false,
-        renderErrorMessage: false
-      });
-    }, 1000);
-
-    status === "success"
-      ? this.setState({
-          renderMessage: true
-        })
-      : this.setState({
-          renderErrorMessage: true
-        });
-  };
 
   submit = values => {
     this.setState({
