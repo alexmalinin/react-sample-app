@@ -17,7 +17,7 @@ import { CUSTOMER } from "../../../constans/constans";
 
 class RenderText extends Component {
   state = {
-    editing: false,
+    // editing: false,
     loading: false,
     updError: false
   };
@@ -39,16 +39,18 @@ class RenderText extends Component {
 
   focus = e => {
     e.target.spellcheck = true;
-
-    if (this.props.onSelfSubmit) {
-      this.setState({ editing: true });
-    }
   };
 
   blur = e => {
+    const {
+      meta: { dirty },
+      onSelfSubmit
+    } = this.props;
+
     e.target.spellcheck = false;
-    if (this.props.meta.pristine) {
-      this.setState({ editing: false });
+
+    if (dirty) {
+      this.submit(e);
     }
   };
 
@@ -132,22 +134,6 @@ class RenderText extends Component {
           onBlur={this.blur}
           disabled={disabled}
         />
-        {editing && (
-          <div className="controls">
-            <Button
-              type="button"
-              className="save"
-              disabled={pristine}
-              loading={loading}
-              onClick={this.submit}
-            >
-              Save
-            </Button>
-            <Button type="button" className="cancel" onClick={this.clear}>
-              Cancel
-            </Button>
-          </div>
-        )}
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||
             (warning && <span>{warning}</span>))}

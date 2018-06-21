@@ -44,7 +44,7 @@ class EditEpicForm extends Component {
       epic: { eta }
     } = this.props;
 
-    const disabled = !oneOfRoles(S_REDGUY);
+    const disabled = !oneOfRoles(S_REDGUY, CUSTOMER);
 
     return (
       <Form onSubmit={handleSubmit} disabled={disabled}>
@@ -63,7 +63,6 @@ class EditEpicForm extends Component {
                 onSelfSubmit={this.handleSubmit}
                 disabled={disabled}
               />
-
               <Field
                 name="description"
                 label="Brief / Description"
@@ -130,18 +129,34 @@ class EditEpicForm extends Component {
               />
             </Grid.Column>
             <Grid.Column computer={6}>
-              <Field
-                name="eta"
-                component={RenderDate}
-                type="date"
-                label="Estimate"
-                className="transparent clear estimate"
-                validate={[required]}
-                required
-                initData={eta}
-                handleEtaForm={this.handleEtaForm}
-                disabled={disabled}
-              />
+              <Grid padded="vertically" className="float">
+                <Grid.Row columns={2}>
+                  <Grid.Column>
+                    <Field
+                      name="eta"
+                      component={RenderDate}
+                      type="date"
+                      label="Estimate"
+                      className="transparent clear estimate"
+                      validate={[required]}
+                      required
+                      initData={eta}
+                      handleEtaForm={this.handleEtaForm}
+                      disabled={disabled}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Field
+                      name="cost"
+                      placeholder="0"
+                      component={RenderField}
+                      label="Cost"
+                      className="transparent"
+                      disabled
+                    />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
               <Field
                 name="attached_files"
                 type="file"
@@ -154,15 +169,6 @@ class EditEpicForm extends Component {
                 small
                 disabled={disabled}
               />
-              {/* {oneOfRoles(CUSTOMER, S_REDGUY) && (
-                <DvBlueButton
-                  role="button"
-                  className="clear dv-blue"
-                  disabled={!dirty}
-                >
-                  {dirty ? "Save" : "Up to date"}
-                </DvBlueButton>
-              )} */}
             </Grid.Column>
           </Grid.Row>
         </Grid>

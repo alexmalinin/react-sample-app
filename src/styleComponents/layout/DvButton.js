@@ -12,7 +12,7 @@ export const DvButton = styled(Button)`
       props.smallbtn ? "25%" : props.midbtn ? "10%" : "0"};
     font-size: ${props =>
       props.smallbtn ? "18px" : props.midbtn ? "18px" : "24px"};
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
 
     &.verify-btn {
@@ -57,7 +57,7 @@ export const NewTeamBtn = styled.div`
   max-width: 1260px;
   margin-top: 100px;
   text-align: center;
-  font-family: "Brix";
+  font-family: "Roboto";
 
   a {
     display: inline-block;
@@ -174,7 +174,7 @@ export const AddNewBtn = styled(Button)`
     position: relative;
     padding-left: 50px;
     margin-top: 20px;
-    font-family: "Brix";
+    font-family: "Roboto";
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
@@ -243,7 +243,7 @@ export const SaveBtn = styled(Button)`
     bottom: ${props => (props.static ? `10px` : `-26px`)};
     right: ${props => (props.static ? `0` : `20px`)};
     ${props => (props.static ? "margin: 10px" : ``)};
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
     color: #fff;
     /* z-index: 5; */
@@ -322,7 +322,7 @@ export const BackBtn = styled(Button)`
     bottom: ${props => (props.static ? "10px" : "-26px")};
     left: ${props => (props.static ? "0" : "25px")};
     ${props => (props.static ? "margin: 10px" : ``)};
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
     color: #fff;
     z-index: 5;
@@ -411,7 +411,7 @@ export const CancelBtn = styled(Button)`
     left: ${props => (props.static ? "0" : "25px")};
     ${props => (props.positionleft ? `left: ${props.positionleft}` : ``)};
     ${props => (props.static ? "margin: 10px" : ``)};
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
     color: #fff;
     z-index: 5;
@@ -489,7 +489,7 @@ export const NextBtn = styled(Button)`
     position: absolute;
     bottom: -26px;
     right: 25px;
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
     color: #fff;
     z-index: 5;
@@ -581,7 +581,7 @@ export const SubmitBtn = styled(Button)`
     border: 1px solid #ccc;
     position: relative;
     margin-bottom: 10px;
-    font-family: "Brix";
+    font-family: "Roboto";
     text-align: center;
     color: #fff;
     z-index: 5;

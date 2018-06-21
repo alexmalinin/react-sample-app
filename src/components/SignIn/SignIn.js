@@ -92,25 +92,27 @@ class SignUp extends Component {
 
     let { isLogIn, data } = signInReducer;
     let status = data ? data["status"] : null;
-    if (isLogIn && status !== "logged") {
-      return <Redirect to={`/dashboard/profile`} />;
-    }
+    if (isLogIn) {
+      if (status !== "logged") {
+        return <Redirect to={`/dashboard/profile`} />;
+      }
 
-    if (status === "logged") {
-      if (getUserRole() === S_PASSIVE) {
-        return <Redirect to={`/dashboard/about`} />;
-      } else {
-        if (state && state.from) {
-          return (
-            <Redirect
-              to={{
-                pathname: state.from.pathname,
-                from: location
-              }}
-            />
-          );
+      if (status === "logged") {
+        if (getUserRole() === S_PASSIVE) {
+          return <Redirect to={`/dashboard/about`} />;
         } else {
-          return <Redirect to={`/dashboard/`} />;
+          if (state && state.from) {
+            return (
+              <Redirect
+                to={{
+                  pathname: state.from.pathname,
+                  from: location
+                }}
+              />
+            );
+          } else {
+            return <Redirect to={`/dashboard/`} />;
+          }
         }
       }
     }

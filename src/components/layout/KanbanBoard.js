@@ -173,7 +173,7 @@ class KanbanBoard extends Component {
           <Board
             data={{
               lanes: [
-                { id: "0", title: "Backlog", cards: backlogTasks },
+                { id: "0", title: `Backlog`, cards: backlogTasks },
                 { id: "1", title: "In progress", cards: progressTasks },
                 { id: "2", title: "Done", cards: completedTasks },
                 { id: "3", title: "Accepted", cards: acceptedTasks }

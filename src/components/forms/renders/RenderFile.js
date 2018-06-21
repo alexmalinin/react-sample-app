@@ -81,7 +81,6 @@ class RenderFile extends Component {
   }
 
   onDrop = files => {
-    console.log("onDrop");
     if (files.length < 1) {
       this.setState({ error: true });
     } else {
@@ -202,7 +201,7 @@ class RenderFile extends Component {
       .delete(`${PORT}/api/v1/attached_files/${file}`)
       .then(resp => this.setState({ loading: false }))
       .catch(error => {
-        console.log(error);
+        console.error(error);
         this.setState({ loading: false });
       });
   };
@@ -318,7 +317,11 @@ class RenderFile extends Component {
 
         {!dropzone &&
           !disabled && (
-            <button className="uploadFile" onClick={this.handleTrigger}>
+            <button
+              type="button"
+              className="uploadFile"
+              onClick={this.handleTrigger}
+            >
               {/* Upload */}
             </button>
           )}

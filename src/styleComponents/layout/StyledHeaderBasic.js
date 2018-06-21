@@ -60,7 +60,7 @@ export default styled.header`
 
         a {
             color: #666;
-            font-family: 'Brix', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 14px;
             font-weight: bold;
             line-height: 27px;
@@ -121,7 +121,7 @@ export default styled.header`
 
             text-transform: uppercase;
             color: #4d4d4d;
-            font-family: "Brix";
+            font-family: "Roboto";
             font-weight: 500;
             line-height: 23px;
             user-select: none;

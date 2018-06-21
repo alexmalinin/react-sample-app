@@ -39,7 +39,7 @@ export default styled.div`
       position: relative;
       color: #fff;
       opacity: 0.7;
-      font-family: "Brix", sans-serif;
+      font-family: "Roboto", sans-serif;
       font-size: 11px;
       font-weight: 600;
       line-height: 27px;
@@ -372,7 +372,7 @@ export default styled.div`
     position: relative;
     color: #fff;
     opacity: 0.7;
-    font-family: "Brix", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 11px;
     font-weight: 600;
     line-height: 27px;

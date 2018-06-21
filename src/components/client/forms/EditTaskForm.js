@@ -112,7 +112,7 @@ class EditTaskForm extends Component {
 
     this.setState({
       loadingFees: {
-        [name]: true
+        [name + "_loading"]: true
       }
     });
 
@@ -122,16 +122,14 @@ class EditTaskForm extends Component {
         this.setState({
           totalCost: resp.data.cost,
           loadingFees: {
-            [name]: false
+            [name + "_loading"]: false
           }
         });
       })
       .catch(error => {
         console.error(error);
         this.setState({
-          loadingFees: {
-            [name]: false
-          }
+          [name + "_loading"]: false
         });
         change(name, prevVal);
       });
@@ -143,7 +141,12 @@ class EditTaskForm extends Component {
       projectTeam,
       epicTask: { attached_files, cost, specialist_tasks }
     } = this.props;
-    const { specialists, totalCost, loadingFees } = this.state;
+    const {
+      specialists,
+      totalCost,
+      dv_fee_loading,
+      sale_fee_loading
+    } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
 
@@ -298,20 +301,28 @@ class EditTaskForm extends Component {
                       </span>
                     </div>
                     <div className="fees">
-                      {fees.map(({ name, text, fee }, index) => (
-                        <Field
-                          name={name}
-                          component={Checkbox}
-                          label={
-                            <label>
-                              {text}&nbsp;
-                              <span>{fee}%</span>
-                            </label>
-                          }
-                          disabled={loadingFees[name]}
-                          onChange={this.handleFees}
-                        />
-                      ))}
+                      <Field
+                        name="dv_fee"
+                        component={Checkbox}
+                        label={
+                          <label>
+                            DV Fee<span>20%</span>
+                          </label>
+                        }
+                        disabled={dv_fee_loading}
+                        onChange={this.handleFees}
+                      />
+                      <Field
+                        name="sale_fee"
+                        component={Checkbox}
+                        label={
+                          <label>
+                            Sales Fee<span>30%</span>
+                          </label>
+                        }
+                        disabled={sale_fee_loading}
+                        onChange={this.handleFees}
+                      />
                     </div>
                   </div>
                 )}

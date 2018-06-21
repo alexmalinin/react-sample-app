@@ -6,6 +6,7 @@ import { Dropdown, Popup } from "semantic-ui-react";
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 import { ContainerLarge } from "../../styleComponents/layout/Container";
 import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constans/constans";
+import { logOut } from "../../actions/actions";
 import { oneOfRoles } from "../../helpers/functions";
 
 class Header extends Component {
@@ -110,7 +111,7 @@ class Header extends Component {
                 activeClassName="current"
                 className="item-link"
                 onClick={this.logOut}
-                to="/sign_in"
+                to="#"
               >
                 <Popup
                   trigger={<i className="fas fa-sign-out-alt" />}
@@ -125,8 +126,7 @@ class Header extends Component {
   }
 
   logOut = () => {
-    localStorage.clear();
-    window.location.reload();
+    this.props.logOut();
   };
 }
 
@@ -136,5 +136,5 @@ export default connect(
     specialistData,
     clientData
   }),
-  null
+  { logOut }
 )(Header);

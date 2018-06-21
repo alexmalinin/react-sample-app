@@ -8,7 +8,8 @@ import {
   showEpicTasks,
   showClientData,
   showProjectTeam,
-  showClientTeams
+  showClientTeams,
+  logOut
 } from "../../actions/actions";
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
@@ -33,7 +34,6 @@ import TheVillage from "../TheVillage";
 import {
   getCookie,
   setCookie,
-  checkObjectPropertiesForValues,
   getUserRole,
   createNotification
 } from "../../helpers/functions";
@@ -59,7 +59,8 @@ class ClientDashboard extends Component {
       companyPercent: null,
       billingPercent: null,
       rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      isEdited: false
+      isEdited: false,
+      showRelog: true
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -398,14 +399,13 @@ class ClientDashboard extends Component {
       ) {
         this.calculatePercents();
       }
-      if (getUserRole() !== nextProps.clientData.role) {
+
+      if (this.state.showRelog && getUserRole() !== nextProps.clientData.role) {
         createNotification({
           type: "info",
           text: "Your role has been changed. Please relog"
         });
-
-        // localStorage.clear();
-        // window.location.reload();
+        this.setState({ showRelog: false });
       }
     }
 
@@ -426,12 +426,20 @@ class ClientDashboard extends Component {
 }
 
 export default connect(
-  ({ allProjects, projectWithId, allEpics, clientTeams, changeUserType }) => ({
+  ({
     allProjects,
     projectWithId,
     allEpics,
     clientTeams,
-    changeUserType
+    changeUserType,
+    signInReducer
+  }) => ({
+    allProjects,
+    projectWithId,
+    allEpics,
+    clientTeams,
+    changeUserType,
+    signInReducer
   }),
   {
     showClientData,
@@ -440,6 +448,7 @@ export default connect(
     showAllEpics,
     showEpicTasks,
     showProjectTeam,
-    showClientTeams
+    showClientTeams,
+    logOut
   }
 )(ClientDashboard);

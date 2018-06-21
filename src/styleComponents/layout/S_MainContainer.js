@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryColors } from "../constants/colors";
 
 export const S_MainContainer = styled.div`
   position: relative;
@@ -10,7 +9,6 @@ export const S_MainContainer = styled.div`
   padding-top: 87px;
   display: flex;
   justify-content: center;
-  transition: .4s ease-in-out;
 
   ${props => (props.indentBot ? `margin-bottom: 250px` : ``)};
   ${props => (props.indentTop ? `margin-top: 100px` : ``)};

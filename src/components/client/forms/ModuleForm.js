@@ -21,11 +21,11 @@ class ModuleForm extends Component {
     return (
       <Grid>
         <Grid.Row>
-          <Grid.Column computer={16}>
+          {/* <Grid.Column computer={16}>
             <StyledModuleLink className="moduleNumber">
               <NavLink to="#">Module number </NavLink>
             </StyledModuleLink>
-          </Grid.Column>
+          </Grid.Column> */}
           <Grid.Column computer={8}>
             <Field
               name="name"

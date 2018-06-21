@@ -43,7 +43,7 @@ export default styled.div`
     top: 0;
     left: ${props =>
       props.accountInput ? `0` : props.padded ? `30px` : `10px`};
-    font-family: "Brix";
+    font-family: "Roboto";
     font-size: ${props => (props.accountInput ? `10px` : `12px`)};
     text-transform: uppercase;
     color: ${props => (props.accountInput ? `#999` : `#666`)};
@@ -88,14 +88,6 @@ export default styled.div`
       width: 145px;
     }
 
-    .react-datepicker-wrapper {
-      .react-datepicker__input-container {
-        input {
-          padding-left: 1em;
-          line-height: 24px;
-        }
-      }
-    }
     .react-datepicker-popper {
       .react-datepicker__triangle {
         margin-top: -7px;
@@ -108,7 +100,7 @@ export default styled.div`
         border: none;
         ${boxShadow.dark};
         border-radius: 0;
-        font-family: "Brix";
+        font-family: "Roboto";
 
         .react-datepicker__navigation {
           &.react-datepicker__navigation--previous {
@@ -202,7 +194,7 @@ export default styled.div`
         font-weight: 400;
         font-size: 15px;
         line-height: 2em;
-        font-family: "Brix";
+        font-family: "Roboto";
         border: 1px solid var(--inputbdcolor, transparent);
         border-radius: 5px;
         cursor: pointer;
@@ -215,6 +207,10 @@ export default styled.div`
           --inputbdcolor: ${colors.darkBlue};
           box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
           cursor: text;
+        }
+
+        &:not(:disabled):hover {
+          background: rgba(0, 0, 0, 0.02);
         }
       }
 
@@ -233,6 +229,19 @@ export default styled.div`
         input {
           &:focus {
             --inputbdcolor: ${primaryColors.red};
+          }
+        }
+      }
+
+      .react-datepicker-wrapper {
+        .react-datepicker__input-container {
+          input {
+            padding-left: 1em;
+            line-height: 24px;
+
+            &:hover {
+              background: transparent;
+            }
           }
         }
       }

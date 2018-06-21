@@ -9,15 +9,14 @@ export const DvTitleBig = styled.h1`
     `};
 
   ${props => (props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`)};
-  font-family: "Brix";
+  font-family: "Roboto";
   ${props => (props.fz ? `font-size: ${props.fz}px` : `font-size: 324px`)};
   font-weight: 700;
   line-height: 300px;
 
   &:first-child {
-    ${props =>
-      props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    font-family: "Brix";
+    margin-top: ${props => (props.mTop ? `${props.mTop}px` : `0px`)};
+    font-family: "Roboto";
     ${props => (props.fz ? `font-size: ${props.fz}px` : `font-size: 324px`)};
     font-weight: 700;
     line-height: 300px;
@@ -88,7 +87,7 @@ export const DvTitleBig = styled.h1`
 `;
 
 export const DvTitle = styled.h1`
-  font-family: "Brix";
+  font-family: "Roboto";
   font-weight: 300;
 
   ${props => (props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`)};
@@ -96,7 +95,7 @@ export const DvTitle = styled.h1`
   ${props => (props.fz ? `font-size: ${props.fz}px` : `font-size: 84px`)};
 
   &:first-child {
-    font-family: "Brix";
+    font-family: "Roboto";
     font-weight: 300;
 
     ${props =>
@@ -122,7 +121,7 @@ export const DvTitle = styled.h1`
 `;
 
 export const DvTitleMedium = styled.h2`
-  font-family: "Brix";
+  font-family: "Roboto";
   font-size: 260px;
   line-height: 0.8;
 

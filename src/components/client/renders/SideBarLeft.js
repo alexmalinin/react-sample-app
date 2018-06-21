@@ -33,7 +33,6 @@ class SideBarLeft extends Component {
                     ) : (
                       <span className="projectNoLogo">{project.name[0]}</span>
                     )}
-                    {/* <p className="projectName">{project.name}</p> */}
 
                     <div className="projectName">
                       {project.name}
@@ -53,7 +52,8 @@ class SideBarLeft extends Component {
                               1}`}
                             key={key}
                           >
-                            Module {key + 1}
+                            <span className="moduleNumber">{key + 1}.0</span>&nbsp;
+                            {epic.name}
                           </NavLink>
                         ))
                       ) : (

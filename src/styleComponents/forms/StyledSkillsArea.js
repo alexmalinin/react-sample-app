@@ -76,7 +76,7 @@ export default styled.div`
 
   .Select-placeholder {
     color: #666;
-    font-family: "Brix";
+    font-family: "Roboto";
     font-weight: 400;
     cursor: text;
   }
@@ -176,6 +176,7 @@ export default styled.div`
 
         .Select-value-icon {
           padding: 0 5px 0 0;
+          line-height: 22px;
         }
       }
     }

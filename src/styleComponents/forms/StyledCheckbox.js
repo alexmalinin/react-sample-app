@@ -17,7 +17,7 @@ export default styled.div`
   }
 
   label {
-    font-family: "Brix";
+    font-family: "Roboto";
     font-size: 24px;
     font-weight: 400;
     color: #000;

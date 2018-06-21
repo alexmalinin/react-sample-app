@@ -35,8 +35,6 @@ import Teams from "../../Teams";
 import {
   getCookie,
   setCookie,
-  checkObjectPropertiesForValues,
-  compareObjects,
   getUserRole,
   oneOfRoles,
   createNotification
@@ -45,7 +43,6 @@ import { PORT, S_REDGUY, S_CORE, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
-import SpecialistMyTasks from "./SpecialistMyTasks";
 import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 import jwtDecode from "jwt-decode";
@@ -70,7 +67,8 @@ class SpecialistsDashboard extends Component {
       industryPercent: null,
       companyPercent: null,
       billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false
+      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+      showRelog: true
     };
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
@@ -446,14 +444,17 @@ class SpecialistsDashboard extends Component {
       ) {
         this.calculatePercents();
       }
-      if (getUserRole() !== nextProps.specialistData.role) {
+
+      if (
+        this.state.showRelog &&
+        getUserRole() !== nextProps.specialistData.role
+      ) {
         createNotification({
           type: "info",
           text: "Your role has been changed. Please relog"
         });
 
-        // localStorage.clear();
-        // window.location.reload();
+        this.setState({ showRelog: false });
       }
     }
 
@@ -485,7 +486,8 @@ export default connect(
     allTeams,
     specialistTeams,
     confirmationModal,
-    submitErrorModal
+    submitErrorModal,
+    signInReducer
   }) => ({
     changeUserType,
     specialistData,
@@ -498,7 +500,8 @@ export default connect(
     allTeams,
     specialistTeams,
     confirmationModal,
-    submitErrorModal
+    submitErrorModal,
+    signInReducer
   }),
   {
     showSpecialistData,

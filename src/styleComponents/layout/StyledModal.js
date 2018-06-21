@@ -100,7 +100,7 @@ export default styled(Modal)`
 
           .ui.checkbox {
             padding: 5px 0;
-            line-height: 24px;
+            line-height: 18px;
             transition: 0.2s;
 
             &:not(.checked) {
@@ -110,16 +110,16 @@ export default styled(Modal)`
             }
 
             label {
-              font-size: 20px;
+              font-size: 16px;
               color: ${primaryColors.darkGrey};
               opacity: 1;
 
               &::before,
               &::after {
-                height: 24px;
-                width: 24px;
+                height: 18px;
+                width: 18px;
                 color: ${colors.darkBlue};
-                font-size: 18px;
+                font-size: 16px;
               }
             }
           }

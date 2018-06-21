@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { primaryColors, secondaryColors } from "./constants/colors";
 
 export default styled.div`
-  font-family: "Brix", medium;
+  font-family: "Roboto", medium;
   margin-top: 10px;
   padding-bottom: 1rem;
 

@@ -63,18 +63,20 @@ class RenderDate extends React.Component {
           disabled={disabled}
           placeholder={placeholder}
           type={type}
+          input={
+            <DatePicker
+              {...input}
+              name={input.name}
+              selected={date}
+              value={date && date.format("DD/MM/YYYY")}
+              onChange={this.handleChange}
+              // onBlur={this.handleChange}
+              dateFormat="DD/MM/YYYY"
+              autoComplete="off"
+              readOnly
+            />
+          }
         >
-          <DatePicker
-            {...input}
-            name={input.name}
-            selected={date}
-            value={date && date.format("DD/MM/YYYY")}
-            onChange={this.handleChange}
-            // onBlur={this.handleChange}
-            dateFormat="DD/MM/YYYY"
-            autoComplete="off"
-            readOnly
-          />
           {/* <input
             {...input}
             type={type}
