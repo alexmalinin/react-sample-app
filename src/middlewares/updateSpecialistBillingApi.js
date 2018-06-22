@@ -27,8 +27,8 @@ export default store => next => action => {
           beneficiary_account: payload["beneficiary_account"],
           swift_code: payload["swift_code"],
           iban: payload["iban"],
-          user_type: 'Specialist',
-          user_id: id,
+          user_type: "Specialist",
+          user_id: id
         }
       }
     },

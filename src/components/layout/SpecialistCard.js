@@ -22,8 +22,7 @@ class SpecialistCard extends Component {
         experience_level_id
       },
       experienceLevels,
-      projectId,
-      handleMessage
+      projectId
     } = this.props;
 
     return (
@@ -69,11 +68,7 @@ class SpecialistCard extends Component {
           )}
         </div>
         <div className="row buttons">
-          <InviteSpecialistModal
-            specialistId={id}
-            projectId={projectId}
-            handleMessage={handleMessage}
-          />
+          <InviteSpecialistModal specialistId={id} projectId={projectId} />
           <NavLink
             className="ui button dv-blue inverted"
             to={`/dashboard/specialist/${id}`}

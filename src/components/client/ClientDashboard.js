@@ -34,11 +34,14 @@ import {
   getCookie,
   setCookie,
   checkObjectPropertiesForValues,
-  getUserRole
+  getUserRole,
+  createNotification
 } from "../../helpers/functions";
 import { PORT } from "../../constans/constans";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -312,6 +315,8 @@ class ClientDashboard extends Component {
             </Container>
           )}
         </S_MainContainer>
+
+        <NotificationContainer />
       </div>
     );
   }
@@ -394,8 +399,13 @@ class ClientDashboard extends Component {
         this.calculatePercents();
       }
       if (getUserRole() !== nextProps.clientData.role) {
-        localStorage.clear();
-        window.location.reload();
+        createNotification({
+          type: "info",
+          text: "Your role has been changed. Please relog"
+        });
+
+        // localStorage.clear();
+        // window.location.reload();
       }
     }
 

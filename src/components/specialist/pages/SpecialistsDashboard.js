@@ -38,7 +38,8 @@ import {
   checkObjectPropertiesForValues,
   compareObjects,
   getUserRole,
-  oneOfRoles
+  oneOfRoles,
+  createNotification
 } from "../../../helpers/functions";
 import { PORT, S_REDGUY, S_CORE, S_PASSIVE } from "../../../constans/constans";
 import ClientModule from "../../client/ClientModule";
@@ -49,6 +50,8 @@ import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const mapPageNameToFieldsCount = {
   profilePercent: 7,
@@ -330,6 +333,8 @@ class SpecialistsDashboard extends Component {
           )}
         </S_MainContainer>
 
+        <NotificationContainer />
+
         {this.props.confirmationModal && (
           <SavingConfirmationModal
             isOpen={true}
@@ -442,8 +447,13 @@ class SpecialistsDashboard extends Component {
         this.calculatePercents();
       }
       if (getUserRole() !== nextProps.specialistData.role) {
-        localStorage.clear();
-        window.location.reload();
+        createNotification({
+          type: "info",
+          text: "Your role has been changed. Please relog"
+        });
+
+        // localStorage.clear();
+        // window.location.reload();
       }
     }
 
