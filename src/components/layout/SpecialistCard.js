@@ -72,7 +72,7 @@ class SpecialistCard extends Component {
           <NavLink
             className="ui button dv-blue inverted"
             to={`/dashboard/specialist/${id}`}
-            target="blank"
+            target="_blank"
           >
             View profile
           </NavLink>
