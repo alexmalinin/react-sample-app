@@ -25,8 +25,12 @@ export default (state = null, action) => {
       localStorage.clear();
       result = { ...state, isLogIn: false };
       return result;
-    case GET_TOKEN_FOR_RESET_PASSWORD:
-      return data;
+    case GET_TOKEN_FOR_RESET_PASSWORD + SUCCESS:
+      result = { data, resetPassword: true };
+      return result;
+    case GET_TOKEN_FOR_RESET_PASSWORD + FAIL:
+      result = { data, failResetPassword: true };
+      return result;
     case GET_PASSWORDS_FOR_RESET_PASSWORD + SUCCESS:
       return data;
     default:

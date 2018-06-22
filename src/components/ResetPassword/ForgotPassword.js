@@ -12,13 +12,12 @@ import {
   IntroContainer
 } from "../../styleComponents/layout/Container";
 import { getTokenForResetPassword } from "../../actions/actions";
+import { Message } from "semantic-ui-react";
 
 class ForgotPassword extends Component {
-  state = {
-    confirm: false
-  };
-
   render() {
+    const { signInReducer } = this.props;
+
     return (
       <Fragment>
         <HeaderIntro />
@@ -34,9 +33,23 @@ class ForgotPassword extends Component {
                     </div>
                   </StyledFormHeader>
 
+                  {signInReducer &&
+                    signInReducer.failResetPassword && (
+                      <Message
+                        floating
+                        negative
+                        style={{ marginBottom: "25px" }}
+                      >
+                        {signInReducer && signInReducer.data}
+                      </Message>
+                    )}
+
                   <ForgotPasswordForm onSubmit={this.submit} />
 
-                  {this.state.confirm && <Redirect to="/reset_password" />}
+                  {signInReducer &&
+                    signInReducer.resetPassword && (
+                      <Redirect to="/reset_password" />
+                    )}
                 </Grid.Column>
               </Grid.Row>
             </Grid>
@@ -50,10 +63,9 @@ class ForgotPassword extends Component {
     let user = sessionStorage.getItem("user");
     localStorage.setItem("user_email", email["email"]);
     this.props.getTokenForResetPassword(email, user);
-    this.setState({
-      confirm: !this.state.confirm
-    });
   };
 }
 
-export default connect(null, { getTokenForResetPassword })(ForgotPassword);
+export default connect(({ signInReducer }) => ({ signInReducer }), {
+  getTokenForResetPassword
+})(ForgotPassword);
