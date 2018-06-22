@@ -179,7 +179,7 @@ class DeleteTile extends Component {
           <div>
             <NavLink
               className="profileLink"
-              target="blank"
+              target="_blank"
               to={
                 thisUser
                   ? "/dashboard/about"
