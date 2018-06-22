@@ -328,7 +328,7 @@ class EditTaskForm extends Component {
                 )}
                 <div
                   className={`specialistsInnerWrapper ${
-                    specialists.length > 4 ? "expanded" : ""
+                    specialists.length > 3 ? "expanded" : ""
                   }`}
                 >
                   {specialists.map((specialist, key) => (

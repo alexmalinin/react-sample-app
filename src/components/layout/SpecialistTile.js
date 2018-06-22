@@ -1,18 +1,22 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyledSpecialist } from "../../styleComponents/layout/StyledAssignDropdown";
 import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
-import { Field } from "redux-form";
+import { Field, change } from "redux-form";
 import { Input } from "react-semantic-redux-form";
 import { createNumberMask } from "redux-form-input-masks";
 import { oneOfRoles } from "../../helpers/functions";
 
-export default class SpecialistTile extends Component {
+class SpecialistTile extends Component {
   remove = () => {
     const {
       remove,
       specialist: { id }
     } = this.props;
+
     remove(id);
+
+    this.props.dispatch(change("EditTaskForm", `cost_spec_${id}`, null));
   };
 
   submitCost = e => {
@@ -66,3 +70,5 @@ export default class SpecialistTile extends Component {
     );
   }
 }
+
+export default connect()(SpecialistTile);
