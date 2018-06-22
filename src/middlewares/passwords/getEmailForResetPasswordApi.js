@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../../constans/constans";
+import { SUCCESS, FAIL } from "../../constans/constans";
 
 export default store => next => action => {
   const { type, getTokenForResetPassword, payload, ...rest } = action;
@@ -11,10 +11,18 @@ export default store => next => action => {
     data: payload
   })
     .then(function(response) {
-      console.log("sucess");
       return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
-    .catch(function(error) {
+    .catch(error => {
+      const {
+        response: { data }
+      } = error;
       console.log(error);
+
+      return next({
+        ...rest,
+        type: type + FAIL,
+        data: data && data.errors
+      });
     });
 };
