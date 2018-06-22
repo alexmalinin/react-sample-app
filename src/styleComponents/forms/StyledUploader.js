@@ -100,7 +100,7 @@ export default styled.div`
         align-items: center;
         position: absolute;
         text-transform: uppercase;
-        font-family: "Brix";
+        font-family: "Roboto";
         font-size: 1.6em;
         color: #666;
         top: 0;

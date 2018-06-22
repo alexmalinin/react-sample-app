@@ -8,7 +8,7 @@ export default styled(Button)`
     margin-left: -61px;
     margin-bottom: -14px;
     font-size: 24px;
-    font-family: Brix, sans-serif;
+    font-family: Roboto, sans-serif;
     text-align: center;
     color: #fff;
     ${props =>

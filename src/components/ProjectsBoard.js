@@ -174,7 +174,7 @@ class ProjectsBoard extends Component {
                     to={`/dashboard/project/${projectId}/module/new`}
                     className="addButton"
                   >
-                    <span className="plus">+</span>
+                    <span className="plus" />
                     <span className="add">Add module</span>
                   </NavLink>
                 </div>

@@ -80,7 +80,6 @@ export const StyledBar = styled.aside`
             text-transform: uppercase;
             color: #666;
             font-weight: 500;
-            letter-spacing: 1px;
             animation: fadeIn 0.2s 0.4s forwards;
             transition: max-height 0.5s;
             opacity: 0;
@@ -123,11 +122,12 @@ export const StyledBar = styled.aside`
             background: #fff;
           }
           .projectNoLogo {
-            display: inline-block;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             font-size: 40px;
             font-weight: 600;
             text-transform: uppercase;
-            line-height: 52px;
             letter-spacing: -1px;
             text-align: center;
             background: linear-gradient(to top left, #00a2ee 0%, #00e1ce 100%);

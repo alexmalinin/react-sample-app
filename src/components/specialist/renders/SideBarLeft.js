@@ -52,7 +52,10 @@ class SideBarLeft extends Component {
                               1}`}
                             key={key}
                           >
-                            Module {key + 1}
+                            <span className="moduleNumber">
+                              {String(key + 1).padStart(2, 0)}.
+                            </span>&nbsp;
+                            {epic.name}
                           </NavLink>
                         ))
                       ) : (

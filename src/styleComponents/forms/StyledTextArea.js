@@ -91,7 +91,7 @@ export const StyledTextArea = styled.div`
       color: ${primaryColors.accentGrey};
       font-weight: 400;
       font-size: 15px;
-      font-family: "Brix";
+      font-family: "Roboto";
       line-height: 2em;
       border: 1px solid var(--bdcolor, transparent);
       border-radius: 5px;
@@ -116,6 +116,10 @@ export const StyledTextArea = styled.div`
         border-color: ${colors.darkBlue};
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
         cursor: text;
+      }
+
+      &:not(:disabled):hover {
+        background: rgba(0, 0, 0, 0.02);
       }
     }
   }

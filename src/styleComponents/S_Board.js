@@ -175,8 +175,9 @@ export const S_Board = styled.div`
       height: 100%;
       overflow: visible;
       margin: 0;
-      padding: 0;
-      padding-bottom: 120px;
+      padding: 10px;
+      padding-bottom: 60px;
+      background: #dce0ee;
 
       & > header {
         text-transform: uppercase;
@@ -184,7 +185,7 @@ export const S_Board = styled.div`
         padding-bottom: 15px;
         margin-bottom: 20px;
         z-index: 998;
-        color: #666;
+        color: black;
         padding-left: 0;
 
         border-width: 0px;
@@ -253,7 +254,7 @@ export const S_Board = styled.div`
     align-items: flex-start;
     position: relative;
     padding: 5px 15px;
-    ${boxShadow.light};
+    ${boxShadow.dark};
     border-radius: 2px;
     color: #666;
     min-height: 160px;
@@ -308,7 +309,7 @@ export const S_Board = styled.div`
       flex-flow: row wrap;
       align-items: center;
       max-width: 80%;
-      font-family: "Brix";
+      font-family: "Roboto";
       margin-top: 10px;
       align-self: flex-end;
     }
@@ -527,6 +528,7 @@ export const S_Board = styled.div`
       text-align: center;
 
       .plus {
+        position: relative;
         height: 50px;
         width: 50px;
 
@@ -537,6 +539,23 @@ export const S_Board = styled.div`
         border: 2px solid #c8d8d7;
         border-radius: 50%;
         cursor: pointer;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          height: 24px;
+          width: 2px;
+          top: 50%;
+          left: 50%;
+          border-radius: 2px;
+          background: #c8d8d7;
+          transform: translate(-50%, -50%) rotate(var(--rotateCross, 0deg));
+        }
+
+        &::after {
+          --rotateCross: 90deg;
+        }
       }
 
       .add {

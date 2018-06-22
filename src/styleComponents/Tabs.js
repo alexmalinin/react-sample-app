@@ -46,7 +46,7 @@ export default styled.div`
         margin: 0 auto;
 
         .item {
-          font-family: 'Brix', medium;
+          font-family: 'Roboto', medium;
           width: 50%;
           letter-spacing: 1px;
           line-height: 73px;

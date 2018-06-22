@@ -179,11 +179,12 @@ export default styled.div`
               }
 
               .projectNoLogo {
-                display: inline-block;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
                 font-size: 64px;
                 font-weight: 600;
                 text-transform: uppercase;
-                line-height: 72px;
                 letter-spacing: -1px;
                 text-align: center;
                 background: linear-gradient(

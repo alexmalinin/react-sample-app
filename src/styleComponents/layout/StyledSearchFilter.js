@@ -3,7 +3,7 @@ import { colors } from "../constants/colors";
 
 export default styled.div`
   position: relative;
-  font-family: "Brix";
+  font-family: "Roboto";
   min-height: 0;
   transition: 0.5s;
   padding-bottom: 40px;

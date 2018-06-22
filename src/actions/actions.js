@@ -90,7 +90,8 @@ import {
   CLOSE_SUBMIT_ERROR_MODAL,
   SHOW_CUSTOM_TEAM,
   SUCCESS,
-  FAIL
+  FAIL,
+  LOG_OUT
 } from "../constans/constans";
 import Axios from "axios";
 
@@ -143,6 +144,14 @@ export function signIn(user, data) {
     type: SIGN_IN,
     payload: data,
     signIn: `${PORT}/api/v1/${user}_token`
+  };
+
+  return action;
+}
+
+export function logOut() {
+  const action = {
+    type: LOG_OUT
   };
 
   return action;

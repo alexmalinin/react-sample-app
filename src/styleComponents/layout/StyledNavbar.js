@@ -9,7 +9,7 @@ export default styled.div`
   a {
     color: #fff;
     font-size: 20px;
-    font-family: Brix;
+    font-family: Roboto;
     position: relative;
 
     &:after {
@@ -37,7 +37,7 @@ export default styled.div`
     }
 
     &.proxy {
-      font-family: Brix;
+      font-family: Roboto;
       text-transform: uppercase;
       font-weight: 600;
 
@@ -46,7 +46,7 @@ export default styled.div`
       }
 
       button {
-        font-family: Brix;
+        font-family: Roboto;
         text-transform: uppercase;
         font-weight: 600;
         font-size: 20px;

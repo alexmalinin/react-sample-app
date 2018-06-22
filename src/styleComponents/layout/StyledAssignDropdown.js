@@ -74,6 +74,7 @@ export const StyledAssignDropdown = styled.div`
 
       .label {
         color: #666;
+        font-weight: 400;
       }
     }
 
@@ -89,10 +90,10 @@ export const StyledAssignDropdown = styled.div`
       padding: ${props => (props.renderToModal ? "0" : "4px 0")};
       height: ${props => (props.renderToModal ? "48px" : "36px")};
       width: ${props => (props.renderToModal ? "48px" : "36px")};
-      color: ${props => (props.blue ? "white" : "#ccc")};
+      color: ${props => (props.blue ? colors.darkBlue : "#ccc")};
       border-radius: 50%;
       border: ${props => (props.blue ? "none" : "1px solid #ccc")};
-      background: ${props => (props.blue ? colors.darkBlue : "white")};
+      background: ${props => (props.blue ? "#eaeffa" : "white")};
 
       text-align: center;
       font-size: ${props => (props.renderToModal ? "36px" : "21px")};
@@ -110,7 +111,7 @@ export const StyledAssignDropdown = styled.div`
         height: ${props => (props.renderToModal ? "20px" : "12px")};
         width: 2px;
         border-radius: 2px;
-        background: ${props => (props.blue ? "white" : "#ccc")};
+        background: ${props => (props.blue ? colors.darkBlue : "#ccc")};
       }
 
       &::after {
@@ -216,7 +217,7 @@ export const StyledAssignDropdown = styled.div`
         top: calc(100% + 5px);
         overflow-y: hidden;
 
-        font-family: "Brix";
+        font-family: "Roboto";
         font-size: 16px;
         font-weight: 500;
         color: #666;
@@ -371,8 +372,6 @@ export const StyledPersonTile = styled.div`
       width: 100%;
       height: 100%;
       background: #fff;
-      border: ${props =>
-        props.compressed ? `1px solid ${colors.darkBlue}` : "none"};
       border-radius: 50%;
       object-fit: cover;
     }
@@ -427,7 +426,7 @@ export const StyledPersonTile = styled.div`
 
     background: #fff;
     border-radius: 5px;
-    font-family: "Brix";
+    font-family: "Roboto";
     white-space: nowrap;
     text-align: left;
     ${boxShadow.dark};
@@ -526,7 +525,7 @@ export const StyledSpecialist = styled.div`
     img {
       height: 100%;
       width: 100%;
-      object-fit: contain;
+      object-fit: cover;
       background: #fff;
     }
 
@@ -602,8 +601,8 @@ export const StyledMembersWrapper = styled.div`
       height: 36px;
       width: 36px;
       border-radius: 50%;
-      background: ${colors.darkBlue};
-      color: white;
+      background: #eaeffa;
+      color: ${colors.darkBlue};
       text-align: center;
       line-height: 36px;
       font-size: 18px;
@@ -635,7 +634,7 @@ export const StyledMembersWrapper = styled.div`
         padding-bottom: 5px;
         margin-bottom: 4px;
         font-weight: 600;
-        font-family: "Brix";
+        font-family: "Roboto";
         border-width: 0px;
         border-bottom-width: 3px;
         border-style: solid;

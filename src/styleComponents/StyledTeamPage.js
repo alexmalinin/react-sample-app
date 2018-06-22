@@ -426,7 +426,7 @@ export default styled.div`
                             align-items: center;
                             padding: 5px 15px;
 
-                            font-family: 'Brix';
+                            font-family: 'Roboto';
                             font-size: 16px;
                             font-weight: 500;
                             color: #666;

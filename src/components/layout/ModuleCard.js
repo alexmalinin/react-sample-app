@@ -102,7 +102,7 @@ class Module extends Component {
       <div className="dragContainer">
         <h3 onDoubleClick={getUserRole() === S_REDGUY ? this.toggleEdit : null}>
           <span className={`number${editing ? " hidden" : ""}`}>
-            {number > 9 ? number : "0" + number}:
+            {String(number).padStart(2, 0)}:
           </span>
           <Form className="editChannel" onSubmit={this.submit}>
             <Input
@@ -119,7 +119,7 @@ class Module extends Component {
               autoComplete="off"
               fluid
             />
-            {oneOfRoles(S_REDGUY) && (
+            {oneOfRoles(S_REDGUY, CUSTOMER) && (
               <button
                 className={`editModule${editing ? " hidden" : ""}`}
                 type="button"
