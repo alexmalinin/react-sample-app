@@ -65,7 +65,9 @@ export const StyledAssignDropdown = styled.div`
       margin: 0px;
       display: flex;
       align-items: center;
-    `} &:hover {
+    `};
+
+    &:hover {
       color: #999;
 
       .plus {
@@ -74,7 +76,6 @@ export const StyledAssignDropdown = styled.div`
 
       .label {
         color: #666;
-        font-weight: 400;
       }
     }
 
@@ -120,8 +121,9 @@ export const StyledAssignDropdown = styled.div`
     }
 
     .label {
-      font-size: ${props => (props.renderToModal ? "1.2em" : "18px")};
+      font-size: ${props => (props.renderToModal ? "1.2em" : "16px")};
       color: #999;
+      font-weight: 400;
 
       &.assignTeam {
         font-size: 14px;

@@ -55,11 +55,12 @@ import updateChannel from "./updateChannelReducer";
 import searchResult from "./searchSpecialistReducer";
 import confirmationModal from "./confirmationReducer";
 import submitErrorModal from "./submitErrorModalReducer";
+import { LOG_OUT } from "../constans/constans";
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
 
-export default combineReducers({
+const appReducer = combineReducers({
   hideFooter,
   sidebar,
   changeUserType,
@@ -117,3 +118,9 @@ export default combineReducers({
   submitErrorModal
   // contactRequest,
 });
+
+export default (state, action) => {
+  if (action.type === LOG_OUT) state = undefined;
+
+  return appReducer(state, action);
+};

@@ -304,22 +304,14 @@ class EditTaskForm extends Component {
                       <Field
                         name="dv_fee"
                         component={Checkbox}
-                        label={
-                          <label>
-                            DV Fee&nbsp;<span>20%</span>
-                          </label>
-                        }
+                        label={<label>DV Fee 20%</label>}
                         disabled={dv_fee_loading}
                         onChange={this.handleFees}
                       />
                       <Field
                         name="sale_fee"
                         component={Checkbox}
-                        label={
-                          <label>
-                            Sales Fee&nbsp;<span>30%</span>
-                          </label>
-                        }
+                        label={<label>Sales Fee 30%</label>}
                         disabled={sale_fee_loading}
                         onChange={this.handleFees}
                       />
