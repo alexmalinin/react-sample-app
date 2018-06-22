@@ -222,17 +222,6 @@ class NewTaskForm extends Component {
 
               <Grid.Column computer={16}>
                 <Field
-                  name="notes"
-                  component={RenderTextArea}
-                  label="Notes"
-                  className="area"
-                  large
-                  padded
-                />
-              </Grid.Column>
-
-              <Grid.Column computer={16}>
-                <Field
                   name="business_requirements"
                   component={RenderTextArea}
                   label="Business Requirements"
