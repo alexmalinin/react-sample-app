@@ -446,7 +446,7 @@ export function showChosenSkills() {
   return action;
 }
 
-// update data for specialists sign up step 3
+// update data for specialists sign up step 2
 
 export function updateSpecStep2(data) {
   return dispatch => {
@@ -1196,10 +1196,12 @@ export function showProjectWithId(id) {
 
 export function createProjectEpic(data, project) {
   let files = data.file
-    ? data["file"].map(file => {
+    ? data["file"].map(({document, title, size}) => {
         return {
-          document: file,
-          entity_type: "Project"
+          document,
+          title,
+          size,
+          entity_type: "Module"
         };
       })
     : [];
@@ -1353,9 +1355,11 @@ export function showAllEpicTasks() {
 
 export function createEpicTask(data, epic) {
   let files = data.file
-    ? data.file.map(file => {
+    ? data.file.map(({document, title, size}) => {
         return {
-          document: file,
+          document,
+          title,
+          size,
           entity_type: "Task"
         };
       })
@@ -1857,9 +1861,11 @@ export function closeSubmitErrorModal() {
 
 function postProject(payload, logo = null) {
   let files = payload.file
-    ? payload.file.map(file => {
+    ? payload.file.map(({document, title, size}) => {
         return {
-          document: file,
+          document,
+          title,
+          size,
           entity_type: "Project"
         };
       })
