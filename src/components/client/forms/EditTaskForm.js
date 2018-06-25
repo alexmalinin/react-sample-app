@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Field, reduxForm, change } from "redux-form";
-import CostField from "../../forms/renders/CostField";
-import RenderSelect from "../../forms/renders/RenderSelect";
 import RenderDate from "../../forms/renders/RenderDate";
 import RenderFile from "../../forms/renders/RenderFile";
-import { Grid, Loader } from "semantic-ui-react";
-import { showProjectTeam, updateEpicTask } from "../../../actions/actions";
+import { Grid } from "semantic-ui-react";
+import { showProjectTeam } from "../../../actions/actions";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
@@ -136,13 +134,7 @@ class EditTaskForm extends Component {
   };
 
   render() {
-    const {
-      handleSubmit,
-      projectTeam,
-      epicTask: { attached_files, cost, specialist_tasks },
-      specialistData,
-      ownCosts
-    } = this.props;
+    const { handleSubmit, projectTeam, specialistData, ownCosts } = this.props;
     const {
       specialists,
       totalCost,
@@ -151,20 +143,6 @@ class EditTaskForm extends Component {
     } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
-    // const specialistCosts =
-
-    const fees = [
-      {
-        name: "sale_fee",
-        text: "Sales fee",
-        fee: 30
-      },
-      {
-        name: "dv_fee",
-        text: "DV fee",
-        fee: 20
-      }
-    ];
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -299,7 +277,7 @@ class EditTaskForm extends Component {
                     <div className="totalCosts">
                       <p className="label">Total costs</p>
                       <span className="total">
-                        <i className="fas fa-dollar-sign" />
+                        <i className="icon-dollar-symbol" />
                         <span>{formatCurrency(totalCost)}</span>
                       </span>
                     </div>

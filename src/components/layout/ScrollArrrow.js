@@ -11,7 +11,7 @@ class ScrollArrow extends Component {
       <StyledScrollArrow>
         <ColoredSpan color={colors.green} />
         <ColoredSpan color={colors.purple} />
-        <ColoredSpan color={colors.blue} />
+        <ColoredSpan color={colors.lightBlue} />
       </StyledScrollArrow>
     );
   }

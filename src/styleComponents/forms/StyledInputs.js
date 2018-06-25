@@ -91,7 +91,7 @@ export default styled.div`
     .react-datepicker-popper {
       .react-datepicker__triangle {
         margin-top: -7px;
-        border-bottom-color: ${colors.darkBlue};
+        border-bottom-color: ${colors.blue};
         &::before {
           border-bottom-color: inherit;
         }
@@ -114,7 +114,7 @@ export default styled.div`
         .react-datepicker__header {
           border-bottom: none;
           border-radius: inherit;
-          background: ${colors.darkBlue};
+          background: ${colors.blue};
 
           .react-datepicker__current-month {
             color: white;
@@ -135,7 +135,7 @@ export default styled.div`
 
           &.react-datepicker__day--selected {
             border-radius: inherit;
-            background-color: ${colors.blue};
+            background-color: ${colors.lightBlue};
           }
         }
       }
@@ -218,7 +218,7 @@ export default styled.div`
         }
 
         &:focus {
-          --inputbdcolor: ${colors.darkBlue};
+          --inputbdcolor: ${colors.blue};
           box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
           cursor: text;
         }
@@ -263,7 +263,7 @@ export default styled.div`
 
     .ui.dropdown.selection {
       &.active {
-        border-color: ${colors.darkBlue};
+        border-color: ${colors.blue};
         .menu {
           border-color: inherit;
         }

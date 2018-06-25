@@ -87,7 +87,7 @@ export default styled(Modal)`
             font-weight: bold;
 
             i {
-              color: ${colors.darkBlue};
+              color: ${colors.blue};
               margin-right: 5px;
             }
           }
@@ -118,7 +118,7 @@ export default styled(Modal)`
               &::after {
                 height: 18px;
                 width: 18px;
-                color: ${colors.darkBlue};
+                color: ${colors.blue};
                 font-size: 16px;
               }
             }

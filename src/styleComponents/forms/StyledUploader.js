@@ -92,7 +92,7 @@ export default styled.div`
 
     &.active {
       border-style: solid;
-      border-color: ${colors.blue};
+      border-color: ${colors.lightBlue};
       &::after {
         content: "Drop here";
         display: flex;
@@ -184,7 +184,7 @@ export default styled.div`
 
       i {
         font-size: 22px;
-        color: ${colors.darkBlue};
+        color: ${colors.blue};
       }
     }
 
@@ -339,7 +339,7 @@ export default styled.div`
       left: calc(50% - 1px);
       height: 16px;
       width: 2px;
-      background-color: ${colors.darkBlue};
+      background-color: ${colors.blue};
       border-radius: 2px;
       transition: inherit;
     }

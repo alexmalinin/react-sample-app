@@ -2,10 +2,9 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
-import { Grid, Popup } from "semantic-ui-react";
+import { Grid, Dimmer } from "semantic-ui-react";
 import {
   showAllProjects,
-  showProjectWithId,
   getProjectTypes,
   getSkills,
   showProjectTeam,
@@ -23,10 +22,8 @@ import {
 import RenderFile from "./renders/RenderFile";
 import Axios from "axios";
 import AssignTeamDropdown from "../layout/AssignTeamDropdown";
-import PersonTile from "../layout/PersonTile";
 import MembersDropdown from "../layout/dropdowns/MembersDropdown";
 import RenderImage from "../forms/renders/RenderImage";
-import InputField from "../forms/renders/InputField";
 
 class EditProjectForm extends Component {
   state = {
@@ -53,12 +50,6 @@ class EditProjectForm extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.projectWithId && nextProps.projectId) {
-      if (nextProps.projectWithId.id !== +nextProps.projectId) {
-        this.props.showProjectWithId(nextProps.projectId);
-      }
-    }
-
     if (
       nextProps.projectTeam &&
       nextProps.projectId &&
@@ -117,9 +108,6 @@ class EditProjectForm extends Component {
       dirty,
       skills,
       submitSucceeded,
-      projectTeam,
-      showCustomTeams,
-      allCustomTeams,
       handleAssignTeam
     } = this.props;
 
@@ -152,13 +140,14 @@ class EditProjectForm extends Component {
 
     return (
       <StyledProject
-        className={
-          projectWithId && projectWithId.id === +projectId
-            ? "loaded"
-            : "loading"
-        }
+      // className={
+      //   projectWithId && projectWithId.id === +projectId
+      //     ? "loaded"
+      //     : "loading"
+      // }
       >
-        <i className="fa fa-spinner fa-3x fa-pulse preloader" />
+        {/* <i className="fa fa-spinner fa-3x fa-pulse preloader" /> */}
+        {/* <Dimmer active={} /> */}
         <Form onSubmit={handleSubmit}>
           <Grid>
             <Grid.Row columns={1}>
@@ -443,7 +432,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   showAllProjects,
-  showProjectWithId,
   getProjectTypes,
   getSkills,
   showProjectTeam,

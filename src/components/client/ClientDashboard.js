@@ -21,7 +21,7 @@ import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
 import ClientAbout from "./pages/ClientAbout";
 import ProjectsBoard from "../ProjectsBoard";
-import SideBarLeft from "./renders/SideBarLeft";
+import SideBarLeft from "./../layout/SideBarLeft";
 import SideBarRight from "../layout/SideBarRight";
 import { projects, days } from "../../helpers/sidebarDbEmulate";
 import ClientProjects from "./ClientProjects";
@@ -46,18 +46,14 @@ import "react-notifications/lib/notifications.css";
 const pagesToCalculate = ["profile", "company", "billing"];
 
 class ClientDashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      profilePercent: null,
-      companyPercent: null,
-      billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      isEdited: false,
-      showRelog: true
-    };
-    this.calculatePagePercent = this.calculatePagePercent.bind(this);
-  }
+  state = {
+    profilePercent: null,
+    companyPercent: null,
+    billingPercent: null,
+    rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+    isEdited: false,
+    showRelog: true
+  };
 
   componentWillMount() {
     const {
@@ -179,7 +175,7 @@ class ClientDashboard extends Component {
     }
   }
 
-  calculatePagePercent(percentName, data) {
+  calculatePagePercent = (percentName, data) => {
     if (!data) {
       return 0;
     }
@@ -217,7 +213,7 @@ class ClientDashboard extends Component {
         [percentName]: null
       });
     }
-  }
+  };
 
   calculatePercents() {
     const { clientData } = this.props;
@@ -246,7 +242,9 @@ class ClientDashboard extends Component {
 
   render() {
     const {
+      match,
       match: { params },
+      allProjects,
       clientTeams,
       changeUserType
     } = this.props;
@@ -268,7 +266,7 @@ class ClientDashboard extends Component {
 
     return (
       <div>
-        <HeaderBasic match={this.props.match} page={sidebarCondition} />
+        <HeaderBasic match={match} page={sidebarCondition} />
         <S_MainContainer
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
@@ -276,16 +274,15 @@ class ClientDashboard extends Component {
           {sidebarCondition ? (
             <Fragment>
               <SideBarLeft
-                // allProjects={this.props.allProjects}
                 currentProject={
                   params["projectId"] || params["projectNewModule"]
                 }
                 currentEpic={params["moduleId"]}
+                projects={allProjects}
               />
               {this.renderPage(page)}
               <SideBarRight
                 teams={clientTeams}
-                projects={projects}
                 days={days}
                 opened={rightSidebarOpened}
                 toggle={this.toggleRightSidebar}
@@ -415,42 +412,37 @@ class ClientDashboard extends Component {
 
     if (projectId && projectId !== "new" && nextProps.projectWithId) {
       if (nextProps.projectWithId.id !== +projectId) {
+        console.log("dsw");
+
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
         nextProps.showProjectTeam(projectId);
       }
     } else if (projectId && projectId !== "new") {
+      console.log("dsw");
       nextProps.showProjectWithId(projectId);
     }
   }
 }
 
-export default connect(
-  ({
-    clientData,
-    allProjects,
-    projectWithId,
-    allEpics,
-    clientTeams,
-    changeUserType,
-    signInReducer
-  }) => ({
-    clientData,
-    allProjects,
-    projectWithId,
-    allEpics,
-    clientTeams,
-    changeUserType,
-    signInReducer
-  }),
-  {
-    showClientData,
-    showAllProjects,
-    showProjectWithId,
-    showAllEpics,
-    showEpicTasks,
-    showProjectTeam,
-    showClientTeams,
-    logOut
-  }
-)(ClientDashboard);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    allProjects: state.allProjects,
+    projectWithId: state.projectWithId,
+    allEpics: state.allEpics,
+    clientTeams: state.clientTeams,
+    changeUserType: state.changeUserType,
+    signInReduce: state.signInReducer
+  };
+};
+
+export default connect(mapStateToProps, {
+  showClientData,
+  showAllProjects,
+  showProjectWithId,
+  showAllEpics,
+  showEpicTasks,
+  showProjectTeam,
+  showClientTeams,
+  logOut
+})(ClientDashboard);

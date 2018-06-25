@@ -91,7 +91,7 @@ export const StyledAssignDropdown = styled.div`
       padding: ${props => (props.renderToModal ? "0" : "4px 0")};
       height: ${props => (props.renderToModal ? "48px" : "36px")};
       width: ${props => (props.renderToModal ? "48px" : "36px")};
-      color: ${props => (props.blue ? colors.darkBlue : "#ccc")};
+      color: ${props => (props.blue ? colors.blue : "#ccc")};
       border-radius: 50%;
       border: ${props => (props.blue ? "none" : "1px solid #ccc")};
       background: ${props => (props.blue ? "#eaeffa" : "white")};
@@ -112,7 +112,7 @@ export const StyledAssignDropdown = styled.div`
         height: ${props => (props.renderToModal ? "20px" : "12px")};
         width: 2px;
         border-radius: 2px;
-        background: ${props => (props.blue ? colors.darkBlue : "#ccc")};
+        background: ${props => (props.blue ? colors.blue : "#ccc")};
       }
 
       &::after {
@@ -298,55 +298,36 @@ export const StyledAssignDropdown = styled.div`
 `;
 
 export const StyledDropdown = styled(Popup)`
-  .ui.attached.tabular.menu {
-    min-width: 240px;
-  }
+  &.ui.popup {
+    &.nav-profile-dropdown {
+      width: 180px;
+      border: none;
+      padding: 16px 0;
+      ${boxShadow.grey};
 
-  .dropdownTitle {
-    color: ${colors.darkBlue};
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .ui.attached.bottom {
-    padding: 0;
-    .ui.input {
-      font-size: 12px;
-      margin: 8px 16px 0;
-    }
-
-    .dropdown-list {
-      margin-top: 4px;
-      padding-bottom: 8px;
-      max-height: 160px;
-      overflow-y: auto;
-
-      & > div {
+      .inner-wrapper {
         display: flex;
-        align-items: center;
-        color: ${primaryColors.darkGrey};
-        padding: 8px 16px;
-        cursor: pointer;
+        flex-flow: column nowrap;
 
-        img {
-          height: 36px;
-          width: 36px;
-          background: white;
-          border-radius: 50%;
-          margin-right: 6px;
+        .nav-link {
+          padding: 0 20px;
+          color: black;
+          font-size: 16px;
+          line-height: 32px;
+
+          i {
+            width: 30px;
+            color: ${colors.blue};
+          }
+
+          &:hover {
+            background: ${colors.lightGreyBlue};
+          }
+
+          &.active {
+            color: ${colors.darkBlue};
+          }
         }
-
-        &:hover {
-          background: ${primaryColors.backgroundColor};
-        }
-      }
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
       }
     }
   }
@@ -385,7 +366,7 @@ export const StyledPersonTile = styled.div`
       left: 0;
       height: 100%;
       width: 100%;
-      background: ${colors.darkBlue};
+      background: ${colors.blue};
       opacity: 0;
     }
   }
@@ -604,8 +585,8 @@ export const StyledMembersWrapper = styled.div`
       height: 36px;
       width: 36px;
       border-radius: 50%;
-      background: #eaeffa;
-      color: ${colors.darkBlue};
+      background: ${primaryColors.accentBackground};
+      color: ${colors.blue};
       text-align: center;
       line-height: 36px;
       font-size: 18px;
@@ -633,7 +614,7 @@ export const StyledMembersWrapper = styled.div`
         flex: 0 0 100%;
         font-size: 0.8em;
         text-transform: uppercase;
-        color: ${colors.darkBlue};
+        color: ${colors.blue};
         padding-bottom: 5px;
         margin-bottom: 4px;
         font-weight: 600;

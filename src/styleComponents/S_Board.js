@@ -431,7 +431,7 @@ export const S_Board = styled.div`
     margin-top: 30px;
     padding: 30px;
     ${boxShadow.light};
-    background-color: ${primaryColors.accentBackground};
+    background-color: white;
     cursor: pointer;
 
     .dropdown {

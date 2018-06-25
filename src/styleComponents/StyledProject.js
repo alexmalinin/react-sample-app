@@ -110,7 +110,7 @@ export default styled.div`
                     height: 30px;
                     width: 30px;
                     border-radius: 50%;
-                    background: ${colors.darkBlue};
+                    background: ${colors.blue};
                     color: white;
                     cursor: pointer;
                     z-index: 1;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, secondaryColors } from "./constants/colors";
+import { primaryColors, secondaryColors, colors } from "./constants/colors";
 
 export default styled.div`
 
@@ -60,7 +60,7 @@ export default styled.div`
 
           &.active {
             color: ${primaryColors.darkGrey};
-            border-bottom: 4px solid ${secondaryColors.green};
+            border-bottom: 4px solid ${colors.blue};
             font-weight: bold;
 
             &:hover {

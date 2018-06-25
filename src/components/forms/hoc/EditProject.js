@@ -4,18 +4,34 @@ import EditProjectForm from "../EditProjectForm";
 import Axios from "axios";
 import { PORT } from "../../../constans/constans";
 // temporal
-import { showProjectWithId, showAllProjects } from "../../../actions/actions";
+import {
+  showProjectWithId,
+  showAllProjects,
+  showAllEpics
+} from "../../../actions/actions";
 import { createNotification } from "../../../helpers/functions";
 
 class EditProject extends Component {
-  componentWillMount() {
-    this.props.showProjectWithId(this.props.projectId);
+  componentDidMount() {
+    const {
+      projectWithId,
+      projectId,
+      showProjectWithId,
+      showAllEpics
+    } = this.props;
+    if (!projectWithId) {
+      showProjectWithId(projectId);
+      showAllEpics(projectId);
+      console.log("load");
+    }
   }
 
   //move all async to one file
 
   submit = values => {
-    values.project_id = this.props.projectId;
+    const { projectId, projectWithId } = this.props;
+
+    values.project_id = projectId;
     let skill_ids =
       values["skills"] &&
       values["skills"].map(skill => {
@@ -33,7 +49,7 @@ class EditProject extends Component {
 
     return Axios({
       method: "PUT",
-      url: `${PORT}/api/v1/projects/${this.props.projectId}`,
+      url: `${PORT}/api/v1/projects/${projectId}`,
       data: {
         project: {
           name: values["name"],
@@ -47,12 +63,11 @@ class EditProject extends Component {
           attached_files_attributes: files,
           skill_ids
         },
-        review: this.props.projectWithId.state === "reviewed_by_admin"
+        review: projectWithId.state === "reviewed_by_admin"
         // attached_files_attributes: files,
       }
     })
       .then(({ data }) => {
-        this.props.showProjectWithId(this.props.projectId);
         this.props.showAllProjects();
 
         return data;
@@ -121,5 +136,6 @@ class EditProject extends Component {
 
 export default connect(({ projectWithId }) => ({ projectWithId }), {
   showProjectWithId,
-  showAllProjects
+  showAllProjects,
+  showAllEpics
 })(EditProject);

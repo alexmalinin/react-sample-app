@@ -5,7 +5,7 @@ import Teams from "../Teams";
 
 class SideBarRight extends Component {
   render() {
-    let { days, teams, opened, toggle } = this.props;
+    let { teams, opened, toggle } = this.props;
 
     const panes = [
       {
@@ -20,7 +20,6 @@ class SideBarRight extends Component {
         menuItem: "ACTIVITY",
         render: () => (
           <Tab.Pane>
-            {/* <Activity days={days} /> */}
             <p>Coming soon</p>
           </Tab.Pane>
         )

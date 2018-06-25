@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RenderModuleInfo from "./RenderModuleInfo";
 import ProgressBars from "../ProgressBar";
 import StyledDashboardCard from "../../../styleComponents/StyledDashboardCard";
+import { colors } from "../../../styleComponents/constants/colors";
 
 class RenderInfo extends Component {
   getCompletedEpics(array) {
@@ -113,17 +114,17 @@ class RenderInfo extends Component {
           <div className="progress">
             <div className="progressItem">
               <div className="progressBar">{completedTasks}</div>
-              <ProgressBars percents={100} />
+              <ProgressBars percents={100} strokeColor={colors.blue} />
               <span>Epics</span>
             </div>
             <div className="progressItem">
               <div className="progressBar">{completedEpics}</div>
-              <ProgressBars percents={100} />
+              <ProgressBars percents={100} strokeColor={colors.blue} />
               <span>Modules</span>
             </div>
             <div className="progressItem">
               <div className="progressBar">0</div>
-              <ProgressBars percents={100} />
+              <ProgressBars percents={100} strokeColor={colors.blue} />
               <span>Projects</span>
             </div>
           </div>

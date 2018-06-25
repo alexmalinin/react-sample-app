@@ -153,7 +153,7 @@ export function getUserRole() {
 
 /**
  * @description Returns a user type as string
- * @returns Client or Specialist
+ * @returns CLIENT or SPECIALIST
  */
 
 export function getUserType() {

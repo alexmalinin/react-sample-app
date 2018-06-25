@@ -4,7 +4,7 @@ import HeaderBasic from "../../layout/HeaderBasic";
 import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
 import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
-import SideBarLeft from "../renders/SideBarLeft";
+import SideBarLeft from "../../layout/SideBarLeft";
 import SideBarRight from "../../layout/SideBarRight";
 import SpecialistsProfile from "./SpecialistsProfile";
 import SpecialistsCompany from "./SpecialistsCompany";
@@ -54,8 +54,8 @@ import "react-notifications/lib/notifications.css";
 const pagesToCalculate = ["profile", "industry", "company", "billings"];
 
 class SpecialistsDashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       profilePercent: null,
       industryPercent: null,
@@ -68,7 +68,6 @@ class SpecialistsDashboard extends Component {
   }
 
   componentWillMount() {
-    // this.props.showAllProjects();
     this.props.showSpecialistProjects();
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
@@ -104,8 +103,8 @@ class SpecialistsDashboard extends Component {
     }
 
     if (!this.props.specialistData) {
-      let token = localStorage.getItem("jwt_token"),
-        id = jwtDecode(token).id;
+      let token = localStorage.getItem("jwt_token");
+      const { id } = jwtDecode(token);
 
       if (id) {
         axios
@@ -290,6 +289,7 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
+      specialistProjects,
       specialistTeams,
       changeUserType,
       history,
@@ -353,6 +353,7 @@ class SpecialistsDashboard extends Component {
                 <SideBarLeft
                   currentProject={params["projectId"]}
                   currentEpic={params["moduleId"]}
+                  projects={specialistProjects}
                 />
               )}
               {this.renderPage(page)}
@@ -406,7 +407,6 @@ class SpecialistsDashboard extends Component {
     const {
       match: { params },
       history,
-      location,
       specialistTeams,
       specialistProjects
     } = this.props;
@@ -515,60 +515,47 @@ class SpecialistsDashboard extends Component {
       }
     }
 
-    let projectId = nextProps.match.params["projectId"];
+    const prevProjectId = this.props.match.params["projectId"];
+    const projectId = nextProps.match.params["projectId"];
+    console.log(projectId, prevProjectId);
 
-    if (projectId && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id != projectId) {
+    if (projectId && prevProjectId) {
+      if (projectId !== prevProjectId) {
+        console.log("load2");
+
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
-        nextProps.showProjectTeam(projectId);
       }
-    } else if (projectId) {
-      nextProps.showProjectWithId(projectId);
-      nextProps.showProjectTeam(projectId);
     }
   }
 }
 
-export default connect(
-  ({
-    changeUserType,
-    specialistData,
-    confirmPassword,
-    educations,
-    experiences,
-    allProjects,
-    projectWithId,
-    specialistProjects,
-    allTeams,
-    specialistTeams,
-    confirmationModal,
-    submitErrorModal,
-    signInReducer
-  }) => ({
-    changeUserType,
-    specialistData,
-    confirmPassword,
-    educations,
-    experiences,
-    allProjects,
-    projectWithId,
-    specialistProjects,
-    allTeams,
-    specialistTeams,
-    confirmationModal,
-    submitErrorModal,
-    signInReducer
-  }),
-  {
-    showSpecialistData,
-    updateSpecialistProfile,
-    showAllProjects,
-    showProjectWithId,
-    showAllEpics,
-    showSpecialistProjects,
-    showSpecialistTeams,
-    showProjectTeam,
-    showAllSpecialists
-  }
-)(SpecialistsDashboard);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    changeUserType: state.changeUserType,
+    specialistData: state.specialistData,
+    confirmPassword: state.confirmPassword,
+    educations: state.educations,
+    experiences: state.experiences,
+    allProjects: state.allProjects,
+    projectWithId: state.projectWithId,
+    specialistProjects: state.specialistProjects,
+    allTeams: state.allTeams,
+    specialistTeams: state.specialistTeams,
+    confirmationModal: state.confirmationModal,
+    submitErrorModal: state.submitErrorModal,
+    signInReduce: state.signInReducer
+  };
+};
+
+export default connect(mapStateToProps, {
+  showSpecialistData,
+  updateSpecialistProfile,
+  showAllProjects,
+  showProjectWithId,
+  showAllEpics,
+  showSpecialistProjects,
+  showSpecialistTeams,
+  showProjectTeam,
+  showAllSpecialists
+})(SpecialistsDashboard);

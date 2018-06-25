@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { boxShadow } from "../constants/colors";
+import {
+  boxShadow,
+  colors,
+  primaryColors,
+  fontColors
+} from "../constants/colors";
 
 export const StyledBar = styled.aside`
   position: fixed;
@@ -21,145 +26,105 @@ export const StyledBar = styled.aside`
   &.left {
     left: 0;
     overflow-y: auto;
-    display: flex;
     overflow-x: hidden;
+    display: flex;
+    flex-flow: column nowrap;
 
-    .innerWrapper {
-      display: grid;
-      grid-template-rows: 34px 1fr;
-      width: 100%;
+    .title {
+      z-index: 1;
+      flex: 0 0 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
 
-      .title {
-        z-index: 1;
-        padding: 10px 0;
-        text-align: center;
-        text-transform: uppercase;
-        color: #666;
-        border-bottom: 1px solid #f2f2f2;
+      text-transform: uppercase;
+      color: ${colors.darkBlue};
 
-        h4 {
-          font-size: 1em;
-          font-weight: 500;
-        }
+      h4 {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.88px;
       }
+    }
 
-      .projects {
+    .projects {
+      flex: 1 1 auto;
+      display: flex;
+      flex-flow: column nowrap;
+
+      transition: 0.3s ease-in-out;
+
+      .project-wrapper {
+        position: relative;
         display: flex;
         flex-flow: column nowrap;
-        align-items: flex-start;
-        min-height: 100%;
-        height: 100%;
-        width: 80px;
-        background: #f2f2f2;
-        transition: 0.3s ease-in-out;
-        padding-top: 5px;
 
-        &.opened {
-          /* width: 100%; */
-        }
-
-        .projectWrapper {
+        .project-link {
           position: relative;
           display: flex;
-          flex-wrap: wrap;
-          width: 80px;
+          flex-flow: row nowrap;
+          align-items: center;
 
-          &:hover {
-            .projectName {
-              color: #4f5bf0;
-            }
-          }
-          .modules {
-            position: relative;
-            top: 0;
-            left: calc(100% + 15px);
-            display: flex;
-            flex-flow: column nowrap;
-            min-width: 130px;
-            height: 100%;
-            text-transform: uppercase;
-            color: #666;
-            font-weight: 500;
-            animation: fadeIn 0.2s 0.4s forwards;
-            transition: max-height 0.5s;
-            opacity: 0;
-
-            a {
-              display: block;
-              color: inherit;
-              margin: 3px 0;
-
-              &.active {
-                color: #4f5bf0;
-                font-weight: 600;
-              }
-            }
-          }
-        }
-        .projectLink,
-        .addProject {
-          position: relative;
-          margin: 5px 0;
-          width: 80px;
           text-align: center;
 
-          .addProject-label {
+          .add-project-label {
+            position: absolute;
             color: #666;
             text-align: center;
             text-transform: uppercase;
           }
 
-          img,
-          .projectNoLogo,
-          .addProject {
-            height: 60px;
-            width: 60px;
+          .project-logo,
+          .add-project {
+            height: 50px;
+            width: 50px;
+            margin: 5px 12px;
+
             border-radius: 50%;
-            border: 3px solid #ccc;
+            border: 1px solid #ccc;
           }
+
           img {
             object-fit: cover;
             background: #fff;
           }
-          .projectNoLogo {
+
+          .project-logo.no-logo {
             display: inline-flex;
             justify-content: center;
             align-items: center;
+
             font-size: 40px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: -1px;
             text-align: center;
+
             background: linear-gradient(to top left, #00a2ee 0%, #00e1ce 100%);
             color: #fff;
           }
-          .projectName {
-            position: absolute;
-            display: inline-flex;
-            align-items: center;
-            top: 0;
-            left: 100%;
-            height: 100%;
-            width: 140px;
-            max-width: 140px;
-            padding-left: 15px;
-            text-align: left;
-            text-transform: uppercase;
-            color: #666;
-            font-weight: 900;
-            letter-spacing: 1px;
+
+          .project-name {
+            padding-left: 8px;
+
+            font-size: 18px;
+            color: ${fontColors.black};
+            font-weight: 500;
+
             transition: 0.4s;
 
             .projectStatus {
               position: absolute;
               bottom: 0;
               left: 15px;
+
               font-size: 12px;
               color: #ccc;
               text-transform: none;
             }
           }
-          .addProject {
+
+          .add-project {
             display: inline-block;
 
             &::before,
@@ -169,31 +134,78 @@ export const StyledBar = styled.aside`
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%);
+
               height: 26px;
               width: 2px;
+
               background: #ccc;
             }
+
             &::after {
               height: 2px;
               width: 26px;
             }
           }
 
-          &.active {
-            & > img,
-            .projectNoLogo {
-              border: 3px solid #4f5bf0;
-            }
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%) rotate(var(--rotate, 45deg));
+
+            height: 10px;
+            width: 10px;
+
+            border: solid ${colors.blue};
+            border-width: 0 0 2px 2px;
+
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+          }
+
+          &:hover {
             &::after {
-              content: "";
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-              right: 2px;
-              height: 5px;
-              width: 5px;
-              border-radius: 50%;
-              background: #4f5bf0;
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+
+          &.active {
+            background: ${primaryColors.accentBackground};
+
+            &::after {
+              opacity: 1;
+              visibility: visible;
+              --rotate: -45deg;
+            }
+
+            & + .modules {
+              display: flex;
+            }
+          }
+        }
+
+        .modules {
+          display: none;
+          flex-flow: column nowrap;
+          padding: 7px 7px 7px 36px;
+
+          color: ${fontColors.regular};
+          font-size: 16px;
+          font-weight: 400;
+
+          animation: fadeIn 0.2s forwards;
+          opacity: 0;
+
+          .project-epic {
+            display: block;
+            margin: 3px 0;
+            color: inherit;
+
+            &.active {
+              color: ${fontColors.blue.active};
             }
           }
         }
@@ -272,7 +284,6 @@ export const StyledBar = styled.aside`
       }
 
       &:hover {
-        /* transform: translate(65%, -50%); */
         right: calc(100% + 15px);
         opacity: 1;
 
@@ -306,7 +317,7 @@ export const StyledBar = styled.aside`
           &.active {
             color: #666;
             border-radius: 0px !important;
-            border-bottom: 4px solid #00ffc0;
+            border-bottom: 4px solid ${colors.blue};
           }
         }
       }

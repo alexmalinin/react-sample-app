@@ -17,6 +17,7 @@ import { getUserRole, getUserId } from "../../helpers/functions";
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
     const { allEpics } = this.props;
+
     return (
       allEpics &&
       allEpics.map((epic, key) => {
@@ -47,7 +48,7 @@ class ProjectSubHeader extends Component {
   };
 
   render() {
-    const { currentEpic, epicTasks, project, allEpics, myTasks } = this.props;
+    const { currentEpic, epicTasks, project, myTasks } = this.props;
 
     const allTasksCount = epicTasks && epicTasks.length;
     let completedTasksCount = 0,
@@ -73,7 +74,7 @@ class ProjectSubHeader extends Component {
             <span>All</span>
           </SubHeaderLinkWrap>
 
-          {allEpics && this.renderProgressBars()}
+          {this.renderProgressBars()}
           {(getUserRole() === CUSTOMER || getUserRole() === S_REDGUY) && (
             <SubHeaderLinkWrap
               label="Add module"
@@ -127,10 +128,9 @@ class ProjectSubHeader extends Component {
 }
 
 export default connect(
-  ({ updateTask, changeUserType, allEpics }) => ({
-    updateTask,
-    changeUserType,
-    allEpics
+  state => ({
+    updateTask: state.updateTask,
+    allEpics: state.allEpics
   }),
   null
 )(ProjectSubHeader);

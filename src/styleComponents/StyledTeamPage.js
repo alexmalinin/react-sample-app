@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow, primaryColors } from "./constants/colors";
+import { boxShadow, primaryColors, colors } from "./constants/colors";
 
 export default styled.div`
     color: #666;
@@ -24,7 +24,7 @@ export default styled.div`
         font-size: 12px;
         text-transform: uppercase;
         font-weight: 600;
-        border-bottom: 2px solid #00ffc0;
+        border-bottom: 2px solid ${colors.blue};
         display: flex;
         justify-content: space-between;
         width: 100%;

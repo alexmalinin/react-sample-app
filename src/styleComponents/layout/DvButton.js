@@ -650,13 +650,13 @@ export const DvBlueButton = styled(Button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${colors.darkBlue};
+    background: ${colors.blue};
     color: #fff;
     white-space: nowrap;
     width: 140px;
 
     &.inverted {
-      color: ${colors.darkBlue};
+      color: ${colors.blue};
       background: #fff;
     }
 

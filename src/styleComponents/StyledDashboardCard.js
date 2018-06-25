@@ -13,7 +13,7 @@ export default styled.div`
       ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${
           props.backgroundImg
         })`
-      : props.background || `${primaryColors.accentBackground}`};
+      : props.background || `white`};
   background-size: cover;
   text-transform: uppercase;
   font-size: 12px;

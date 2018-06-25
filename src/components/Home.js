@@ -22,7 +22,7 @@ class Home extends Component {
       <StyledHome>
         <Container>
           <ScrollArrow />
-          <FullScreen centered border={colors.blue}>
+          <FullScreen centered border={colors.lightBlue}>
             <img src="/images/logo-home.png" alt="" />
             <p className="limit-width">
               is a platform that brings specialist digital <br />
@@ -35,7 +35,7 @@ class Home extends Component {
               </ColoredLinks>{" "}
               that <br />
               deliver complex{" "}
-              <ColoredLinks to="/projects" color={colors.blue}>
+              <ColoredLinks to="/projects" color={colors.lightBlue}>
                 projects
               </ColoredLinks>.
             </p>
@@ -50,7 +50,7 @@ class Home extends Component {
                 <Grid.Column mobile={16} tablet={8} computer={8}>
                   <p>
                     The necessary{" "}
-                    <ColoredLinks to="/how_it_works" color={colors.blue}>
+                    <ColoredLinks to="/how_it_works" color={colors.lightBlue}>
                       skills
                     </ColoredLinks>{" "}
                     to complete  a digital project is ever-expanding and
@@ -74,7 +74,7 @@ class Home extends Component {
             </Grid>
           </FullScreen>
 
-          <FullScreen centered border={colors.blue}>
+          <FullScreen centered border={colors.lightBlue}>
             <Grid>
               <Grid.Row>
                 <Grid.Column mobile={16} tablet={8} computer={8}>
@@ -100,7 +100,7 @@ class Home extends Component {
                   <DvTitleMedium>vip/</DvTitleMedium>
                 </Grid.Column>
                 <Grid.Column mobile={16} tablet={8} computer={8}>
-                  <p className="bolder" color={colors.blue}>
+                  <p className="bolder" color={colors.lightBlue}>
                     This is an invitation only platform.
                   </p>
 
@@ -113,7 +113,7 @@ class Home extends Component {
             </Grid>
           </FullScreen>
 
-          <FullScreen centered border={colors.blue}>
+          <FullScreen centered border={colors.lightBlue}>
             <Grid>
               <Grid.Row>
                 <Grid.Column mobile={16} tablet={8} computer={7}>
@@ -234,7 +234,7 @@ class Home extends Component {
             </Grid>
           </FullScreen>
 
-          <FullScreen centered border={colors.blue}>
+          <FullScreen centered border={colors.lightBlue}>
             <SubscribeForm onSubmit={this.submit} />
           </FullScreen>
         </Container>

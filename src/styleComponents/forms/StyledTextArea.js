@@ -113,7 +113,7 @@ export const StyledTextArea = styled.div`
 
       &:focus,
       &.editing:focus {
-        border-color: ${colors.darkBlue};
+        border-color: ${colors.blue};
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
         cursor: text;
       }

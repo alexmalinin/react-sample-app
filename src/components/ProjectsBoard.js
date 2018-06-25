@@ -12,8 +12,7 @@ import {
   updateEpicTask,
   showAllSpecialists,
   showProjectTeam,
-  updateCreatedProject,
-  showProjectWithId
+  updateCreatedProject
 } from "../actions/actions";
 import { SubmissionError, initialize, reset } from "redux-form";
 import { CLIENT, SPECIALIST, S_REDGUY, PORT } from "../constans/constans";
@@ -133,7 +132,15 @@ class ProjectsBoard extends Component {
   };
 
   renderContent = () => {
-    const { projectId, allEpics, showAllEpics, currentEpic } = this.props;
+    const {
+      projectId,
+      allEpics,
+      showAllEpics,
+      currentEpic,
+      projectWithId
+    } = this.props;
+
+    const { epics } = projectWithId || {};
 
     const epicId =
       allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
@@ -156,8 +163,8 @@ class ProjectsBoard extends Component {
         <S_Board>
           <EditProject projectId={projectId} />
           <div className="moduleWrapper">
-            {allEpics &&
-              allEpics.map((epic, key) => (
+            {epics &&
+              epics.map((epic, key) => (
                 <ModuleCard
                   epic={epic}
                   key={key}
@@ -195,7 +202,7 @@ class ProjectsBoard extends Component {
 
   render() {
     const { projectId, allEpics, currentEpic, epicTasks } = this.props;
-    const { renderMessage, renderErrorMessage, myTasks } = this.state;
+    const { myTasks } = this.state;
 
     const epicId =
       allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
@@ -257,7 +264,6 @@ export default connect(
     showAllSpecialists,
     showProjectTeam,
     updateCreatedProject,
-    showProjectWithId,
     initialize,
     reset
   }

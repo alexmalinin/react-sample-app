@@ -128,18 +128,13 @@ export default class AssignDropdown extends Component {
       userType,
       blue
     } = this.props;
-    const { options, assignedIds, showDropdown, fetch } = this.state;
+    const { options, assignedIds, showDropdown } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
 
     return (
       renderCondition && (
-        <StyledAssignDropdown
-          renderToModal={renderToModal}
-          blue={blue}
-          // tabIndex="-1"
-        >
+        <StyledAssignDropdown renderToModal={renderToModal} blue={blue}>
           <a
-            tabIndex="-1"
             className="dropdownTrigger"
             onClick={this.openDropdown}
             ref={a => (this.trigger = a)}
