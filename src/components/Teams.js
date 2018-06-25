@@ -11,7 +11,9 @@ import { getUserRole, createNotification } from "../helpers/functions";
 
 class Teams extends Component {
   componentWillMount() {
-    this.showTeams();
+    if (!this.props.teams) {
+      this.showTeams();
+    }
   }
 
   showTeams = () => {
@@ -116,11 +118,18 @@ class Teams extends Component {
 }
 
 export default connect(
-  ({ specialistData, changeUserType, createCustomTeam, specialistTeams }) => ({
+  ({
     specialistData,
     changeUserType,
     createCustomTeam,
-    specialistTeams
+    specialistTeams,
+    allTeams
+  }) => ({
+    specialistData,
+    changeUserType,
+    createCustomTeam,
+    specialistTeams,
+    allTeams
   }),
   { showClientTeams, showSpecialistTeams }
 )(Teams);

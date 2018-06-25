@@ -130,6 +130,7 @@ class RenderText extends Component {
           rows="1"
           spellCheck="false"
           onKeyDown={this.keyDown}
+          onKeyPress={e => console.log(e.charCode, e.keyCode, e.ctrlKey)}
           onFocus={this.focus}
           onBlur={this.blur}
           disabled={disabled}

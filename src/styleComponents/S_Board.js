@@ -176,7 +176,7 @@ export const S_Board = styled.div`
       overflow: visible;
       margin: 0;
       padding: 10px;
-      padding-bottom: 60px;
+      padding-bottom: 20px;
       background: #dce0ee;
 
       & > header {

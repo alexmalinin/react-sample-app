@@ -20,7 +20,8 @@ class SideBarRight extends Component {
         menuItem: "ACTIVITY",
         render: () => (
           <Tab.Pane>
-            <Activity days={days} />
+            {/* <Activity days={days} /> */}
+            <p>Coming soon</p>
           </Tab.Pane>
         )
       }
