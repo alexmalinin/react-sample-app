@@ -306,7 +306,7 @@ class EditTaskForm extends Component {
                         component={Checkbox}
                         label={
                           <label>
-                            DV Fee<span>20%</span>
+                            DV Fee&nbsp;<span>20%</span>
                           </label>
                         }
                         disabled={dv_fee_loading}
@@ -317,7 +317,7 @@ class EditTaskForm extends Component {
                         component={Checkbox}
                         label={
                           <label>
-                            Sales Fee<span>30%</span>
+                            Sales Fee&nbsp;<span>30%</span>
                           </label>
                         }
                         disabled={sale_fee_loading}
