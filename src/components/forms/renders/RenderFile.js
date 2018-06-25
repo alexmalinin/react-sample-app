@@ -88,6 +88,7 @@ class RenderFile extends Component {
     }
 
     for (let file of files) {
+      console.log(file);
       const {
         onSelfSubmit,
         entity_type,
@@ -106,7 +107,7 @@ class RenderFile extends Component {
           onSelfSubmit(input.name + "_attributes", [
             {
               document: reader.result,
-              name: file.name,
+              title: file.name,
               size: file.size,
               entity_type
             }
@@ -118,7 +119,8 @@ class RenderFile extends Component {
             })
             .catch(error => console.log(error));
         } else {
-          this.fileHub = [...this.fileHub, reader.result];
+          this.fileHub = [...this.fileHub, {document: reader.result, title: file.name, size: file.size}];
+          console.log(this.fileHub);
           this.setState({
             files: [...this.state.files, file],
             loading: false
