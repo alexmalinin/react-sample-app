@@ -26,7 +26,7 @@ class RenderCircleCheckbox extends Component {
             {...input}
             disabled={disabled}
           />
-          <span className={`ownRadio`}>{label}</span>
+          <span className={`ownCheckbox`}>{label}</span>
         </label>
         {touched &&
           ((error && (
