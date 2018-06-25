@@ -139,7 +139,9 @@ class EditTaskForm extends Component {
     const {
       handleSubmit,
       projectTeam,
-      epicTask: { attached_files, cost, specialist_tasks }
+      epicTask: { attached_files, cost, specialist_tasks },
+      specialistData,
+      ownCosts
     } = this.props;
     const {
       specialists,
@@ -149,6 +151,7 @@ class EditTaskForm extends Component {
     } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
+    // const specialistCosts =
 
     const fees = [
       {
@@ -328,6 +331,8 @@ class EditTaskForm extends Component {
                       specialist={specialist}
                       key={key}
                       index={key}
+                      specialistId={specialistData && specialistData.id}
+                      ownCosts={ownCosts}
                       remove={this.removeSpecialist}
                       handleSubmit={this.handleCost}
                     />
@@ -359,29 +364,35 @@ const mapStateToProps = (state, ownProps) => {
     projectTeam,
     changeUserType,
     projectWithId,
-    allEpics
+    allEpics,
+    specialistData
   } = state;
   const { epicTask } = ownProps;
   const initialValues = { ...epicTask };
+  let ownCosts = null;
 
   initialValues.state = taskStatuses.find(
     status => status.enum === epicTask.state
   ).value;
 
   epicTask.specialist_tasks &&
-    epicTask.specialist_tasks.forEach(
-      ({ cost, specialist }) =>
-        (initialValues["cost_spec_" + specialist.id] = cost)
-    );
+    epicTask.specialist_tasks.forEach(({ cost, specialist }) => {
+      if (specialistData && specialistData.id === specialist.id) {
+        ownCosts = cost;
+      }
+      initialValues["cost_spec_" + specialist.id] = cost;
+    });
 
   return {
+    specialistData,
     allProjects,
     projectTeam,
     changeUserType,
     projectWithId,
     allEpics,
     initialValues,
-    formValues: state.form
+    formValues: state.form,
+    ownCosts
   };
 };
 

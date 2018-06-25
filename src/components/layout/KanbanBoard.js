@@ -92,6 +92,15 @@ class KanbanBoard extends Component {
         } else taskList = nextProps.epicTasks;
 
         taskList.forEach(task => {
+          const specId =
+            nextProps.specialistData && nextProps.specialistData.id;
+
+          const ownCosts =
+            task.specialist_tasks &&
+            task.specialist_tasks.find(
+              ({ cost, specialist }) => specId === specialist.id
+            );
+
           const taskObject = {
             id: `${task.id}`,
             assignSpecialist: this.assignSpecialist,
@@ -99,6 +108,7 @@ class KanbanBoard extends Component {
             title: task.name,
             eta: task.eta,
             cost: task.cost,
+            specialistCosts: ownCosts && ownCosts.cost,
             description: "Platform - Dashboard",
             specialists: task.specialists
           };
@@ -212,11 +222,18 @@ class KanbanBoard extends Component {
 }
 
 export default connect(
-  ({ epicTasks, allSpecialists, changeUserType, projectTeam }) => ({
+  ({
     epicTasks,
     allSpecialists,
     changeUserType,
-    projectTeam
+    projectTeam,
+    specialistData
+  }) => ({
+    epicTasks,
+    allSpecialists,
+    changeUserType,
+    projectTeam,
+    specialistData
   }),
   {
     showEpicTasks,

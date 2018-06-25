@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
-import { S_REDGUY } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constans/constans";
+import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 import { formatCurrency } from "../../helpers/validate";
 import MembersDropdown from "./dropdowns/MembersDropdown";
@@ -50,7 +50,8 @@ class CustomCard extends Component {
       eta,
       cost,
       deleteTask,
-      epic
+      epic,
+      specialistCosts
     } = this.props;
 
     return (
@@ -78,6 +79,15 @@ class CustomCard extends Component {
               <span>{formatCurrency(cost)}</span>
             </div>
           )}
+
+        {oneOfRoles(S_ACTIVE, S_CORE) &&
+          !!specialistCosts && (
+            <div className="line">
+              <img src="/images/dollar.png" alt="dollar" />
+              <span>{formatCurrency(specialistCosts)}</span>
+            </div>
+          )}
+
         <div className="persons">
           <MembersDropdown
             members={specialists}
