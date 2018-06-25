@@ -568,7 +568,8 @@ export const StyledSpecialist = styled.div`
     }
   }
 
-  p {
+  p,
+  .spec-costs {
     flex: 1 1 auto;
     margin-left: 10px;
     margin-bottom: 0;

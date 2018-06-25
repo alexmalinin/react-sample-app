@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StyledSpecialist } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY } from "../../constans/constans";
+import {
+  IMAGE_PORT,
+  S_REDGUY,
+  S_ACTIVE,
+  S_CORE
+} from "../../constans/constans";
 import { Field, change } from "redux-form";
 import { Input } from "react-semantic-redux-form";
 import { createNumberMask } from "redux-form-input-masks";
@@ -30,7 +35,7 @@ class SpecialistTile extends Component {
   };
 
   render() {
-    const { specialist, hideCosts } = this.props;
+    const { specialist, hideCosts, specialistId, ownCosts } = this.props;
     const allowed = oneOfRoles(S_REDGUY);
 
     return (
@@ -66,6 +71,9 @@ class SpecialistTile extends Component {
               })}
             />
           )}
+        {oneOfRoles(S_ACTIVE, S_CORE) &&
+          specialistId === specialist.id &&
+          ownCosts && <span className="spec-costs">{`$${ownCosts}`}</span>}
       </StyledSpecialist>
     );
   }
