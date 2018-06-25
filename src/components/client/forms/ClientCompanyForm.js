@@ -11,32 +11,15 @@ import LocationField from "../../forms/renders/LocationField";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
 import CompanyForm from "./CompanyForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
-import { checkObjectPropertiesForValues } from "../../../helpers/functions";
-
-let renderError = true;
 
 class ClientCompanyForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      formData: {},
-      fetchFormValues: true,
       fetchSubmitError: true,
       submitError: false
     };
-
-    this.initialFormValues = {};
-  }
-
-  componentWillMount() {
-    if (this.props.clientData) {
-      this.fillFields(this.props.clientData);
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.reset();
   }
 
   render() {
@@ -55,7 +38,6 @@ class ClientCompanyForm extends Component {
           clientData={clientData}
           submitting={submitting}
           isEditing={isEditing}
-          handleSelectChange={this.handleSelectChange}
           handleSubmitError={this.handleSubmitError}
         />
         <SubmitFormErrorModal
@@ -76,68 +58,8 @@ class ClientCompanyForm extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [e.target.name]: e.target.value === "" ? null : e.target.value
-      }
-    });
-  };
-
-  handleSelectChange = (e, name) => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [name]: e.value || null
-      }
-    });
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!this.props.isEditing) {
-      if (checkObjectPropertiesForValues(nextState.formData)) {
-        this.props.handleFormEdit(false);
-      } else {
-        this.props.handleFormEdit(true);
-      }
-    }
-
-    if (this.props.isEditing) {
-      if (!this.initialFormValues) {
-        if (checkObjectPropertiesForValues(nextState.formData)) {
-          this.props.handleFormEdit(false);
-        } else {
-          this.props.handleFormEdit(true);
-        }
-      } else {
-        this.props.handleFormChange(nextState.formData, this.initialFormValues);
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client) {
-      if (client.successId) {
-        if (renderError) {
-          this.fillFields(client);
-          renderError = false;
-        }
-      }
-    }
-
-    if (nextProps.formValues && this.props.isEditing) {
-      if (this.state.fetchFormValues) {
-        this.initialFormValues = nextProps.formValues;
-
-        this.setState({
-          formData: nextProps.formValues,
-          fetchFormValues: false
-        });
-      }
-    }
+    this.props.handleFormEdit(nextProps.dirty);
 
     if (
       (nextProps.submitFailed && this.state.fetchSubmitError) ||
@@ -146,32 +68,49 @@ class ClientCompanyForm extends Component {
       this.setState({ submitError: true });
     }
   }
-
-  fillFields = data => {
-    let { company } = data;
-
-    if (company) {
-      for (let key in company) {
-        this.props.dispatch(change("ClientCompanyForm", key, company[key]));
-      }
-      this.props.dispatch(
-        change("ClientCompanyForm", "industry", company.industry_area_id)
-      );
-    }
-  };
 }
 
 ClientCompanyForm = reduxForm({
   form: "ClientCompanyForm",
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(ClientCompanyForm);
-
-ClientCompanyForm = connect(state => ({
-  formValues: getFormValues("ClientCompanyForm")(state)
-}))(ClientCompanyForm);
 
 export default connect(state => {
   const { clientData } = state;
-  return { clientData };
+
+  const companyData = (clientData && clientData.company) || {};
+
+  const {
+    name,
+    city,
+    abn_acn,
+    tell_about,
+    company_address,
+    country,
+    industry_area_id,
+    number_of_employers,
+    segment,
+    website,
+    registered_name
+  } = companyData;
+
+  return {
+    clientData,
+    initialValues: {
+      name,
+      city,
+      abn_acn,
+      tell_about,
+      company_address,
+      country,
+      number_of_employers,
+      segment,
+      website,
+      registered_name,
+      industry: industry_area_id
+    }
+  };
 })(ClientCompanyForm);

@@ -58,7 +58,6 @@ class BillingForm extends Component {
       submitting,
       clientData,
       specialistData,
-      handleFormField,
       isEditing,
       handleSubmitError
     } = this.props;
@@ -77,7 +76,6 @@ class BillingForm extends Component {
                 <InputField
                   name="card_name"
                   label="Name on card"
-                  handleFormField={handleFormField}
                   validate={[required]}
                   disabled={disabled}
                   isRequired
@@ -87,7 +85,6 @@ class BillingForm extends Component {
                 <InputField
                   name="card_number"
                   label="Card number"
-                  handleFormField={handleFormField}
                   validate={[required]}
                   disabled={disabled}
                   isRequired

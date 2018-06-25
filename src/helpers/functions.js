@@ -186,6 +186,14 @@ export function getUserId() {
   }
 }
 
+/**
+ * Creates options for select
+ *
+ * @param  {number} start a start year
+ * @param  {number} end uses to identify the finish date
+ * @returns {array} an array of objects with label and value
+ */
+
 export function getYearsForSelect(start = 1960, end) {
   var startYear = start,
     years = [];

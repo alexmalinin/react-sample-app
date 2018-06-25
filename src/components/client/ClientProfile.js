@@ -50,7 +50,6 @@ class ClientProfile extends Component {
                 isEditing={isEditing}
                 isEdited={isEdited}
                 handleFormEdit={this.handleFormEdit}
-                handleFormChange={this.handleFormChange}
               />
 
               <NavigationPrompt
@@ -90,14 +89,6 @@ class ClientProfile extends Component {
     this.setState({ isEdited: value });
   };
 
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
-  };
-
   componentWillReceiveProps(nextProps) {
     let client = nextProps.clientData;
     let password = nextProps.confirmPassword;
@@ -118,7 +109,8 @@ class ClientProfile extends Component {
   }
 
   change = values => {
-    this.props.calculatePagePercent("profilePercent", values);
+    const data = this.props.collectPropfileData(values);
+    this.props.calculatePagePercent("profilePercent", data);
   };
 
   submit = values => {

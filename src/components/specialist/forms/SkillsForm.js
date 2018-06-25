@@ -40,9 +40,6 @@ class SkillsForm extends Component {
       clientData,
       specialistData,
       isEditing,
-      handleChange,
-      handleSelectChange,
-      handleCheckboxChange,
       skills
     } = this.props;
     let { avatar } = specialistData || clientData || false;
@@ -90,21 +87,15 @@ class SkillsForm extends Component {
                   label="I Am a"
                   placeholder="Select"
                   component={RenderSelect}
-                  onChange={e => this.props.handleSelectChange(e, "job_title")}
                   options={job_titles}
                   validate={[required]}
                   isRequired
                 />
               </div>
-              <InputField
-                name="position"
-                label="Position"
-                onChange={handleChange}
-              />
+              <InputField name="position" label="Position" />
               <InputField
                 name="industry_title"
                 label="What is your industry title?"
-                onChange={handleChange}
                 validate={[required]}
                 isRequired
               />
@@ -115,9 +106,6 @@ class SkillsForm extends Component {
                   component={RenderSelect}
                   placeholder="Select"
                   label="Experience Level"
-                  onChange={e =>
-                    this.props.handleSelectChange(e, "experience_level")
-                  }
                   options={experienceLevels}
                   validate={[required]}
                   isRequired
@@ -129,7 +117,6 @@ class SkillsForm extends Component {
                 component={RenderSelect}
                 placeholder="Select"
                 label="Select your area within the digital industry"
-                onChange={e => handleSelectChange(e, "industry")}
                 options={industries["industry"]}
                 validate={[required]}
                 isRequired
@@ -139,12 +126,11 @@ class SkillsForm extends Component {
                 <RenderSpecialityArea
                   speciality={industries["speciality"]}
                   industry_area_id={industry_area_id}
-                  specialities={specialistData.specialities}
+                  specialities={specialistData && specialistData.specialities}
                 />
               )}
               <RenderSkillsArea
                 options={skills}
-                handleSelectChange={handleSelectChange}
                 name="skills_attributes"
                 onOpen={this.getSkills}
                 label="Enter your skills here"
@@ -154,11 +140,7 @@ class SkillsForm extends Component {
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={5}>
-            <InputField
-              name="contact_number"
-              label="Best Contact Number"
-              onChange={handleChange}
-            />
+            <InputField name="contact_number" label="Best Contact Number" />
 
             <div id="project_type" className="half-column">
               <Field
@@ -166,7 +148,6 @@ class SkillsForm extends Component {
                 component={RenderSelect}
                 placeholder="Select"
                 label="Project Interest"
-                onChange={e => this.props.handleSelectChange(e, "project_type")}
                 options={projectTypes}
                 validate={[required]}
                 isRequired
@@ -179,7 +160,6 @@ class SkillsForm extends Component {
                   <Field
                     name="hourly_rate"
                     component={RenderField}
-                    onChange={handleChange}
                     type="number"
                     label="Hourly Rate"
                   />
@@ -187,9 +167,9 @@ class SkillsForm extends Component {
               </div>
             </div>
 
-            <Availability handleChange={handleChange} />
+            <Availability />
 
-            <Communication handleCheckboxChange={handleCheckboxChange} />
+            <Communication />
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">

@@ -24,8 +24,9 @@ export default styled.div`
       width: 50px;
       font-size: 36px;
       font-weight: 100;
+      text-align: center;
       color: #b7b7b7;
-      line-height: 40px;
+      line-height: 48px;
       border: 2px solid #b7b7b7;
       border-radius: 50%;
       cursor: pointer;

@@ -13,7 +13,7 @@ import Field from "redux-form/es/Field";
 
 class Availability extends Component {
   render() {
-    let { submitting, submitBtn, specialistData, handleChange } = this.props;
+    let { submitting, submitBtn, specialistData } = this.props;
     let { successId } = specialistData || false;
 
     return (
@@ -23,7 +23,6 @@ class Availability extends Component {
           <Field
             name="availability"
             component={RenderRadio}
-            onChange={handleChange}
             type="radio"
             label="Full Time"
             value="Full Time"
@@ -31,7 +30,6 @@ class Availability extends Component {
           <Field
             name="availability"
             component={RenderRadio}
-            onChange={handleChange}
             type="radio"
             label="Part Time"
             value="Part Time"
@@ -39,7 +37,6 @@ class Availability extends Component {
           <Field
             name="availability"
             component={RenderRadio}
-            onChange={handleChange}
             type="radio"
             label="Not available"
             value="Not available"

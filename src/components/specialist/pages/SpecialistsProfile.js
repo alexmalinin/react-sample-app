@@ -108,7 +108,6 @@ class SpecialistsProfile extends Component {
                 isEditing={isEditing}
                 isEdited={isEdited}
                 handleFormEdit={this.handleFormEdit}
-                handleFormChange={this.handleFormChange}
                 specialistModal
               />
 
@@ -168,30 +167,15 @@ class SpecialistsProfile extends Component {
         run(0)();
       }
     }
-
-    if (nextProps.formValues && this.props.isEditing) {
-      if (this.state.fetchFormValues) {
-        this.initialFormValues = nextProps.formValues;
-        this.setState({ fetchFormValues: false });
-      }
-      this.setState({ formData: nextProps.formValues });
-    }
   }
 
   handleFormEdit = value => {
     this.setState({ isEdited: value });
   };
 
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
-  };
-
   change = values => {
-    this.props.calculatePagePercent("profilePercent", values);
+    const data = this.props.collectPropfileData(values);
+    this.props.calculatePagePercent("profilePercent", data);
   };
 
   submit = values => {
