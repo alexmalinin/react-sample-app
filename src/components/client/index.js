@@ -220,6 +220,7 @@ class ClientDashboard extends Component {
     const {
       match,
       match: { params },
+      allProjects,
       clientTeams,
       changeUserType
     } = this.props;
@@ -253,6 +254,7 @@ class ClientDashboard extends Component {
                   params["projectId"] || params["projectNewModule"]
                 }
                 currentEpic={params["moduleId"]}
+                projects={allProjects}
               />
               {this.renderPage(page)}
               <SideBarRight
@@ -402,7 +404,7 @@ class ClientDashboard extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     allProjects: state.allProjects,
     projectWithId: state.projectWithId,

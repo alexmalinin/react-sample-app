@@ -293,6 +293,7 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
+      specialistProjects,
       specialistTeams,
       changeUserType,
       history,
@@ -352,6 +353,7 @@ class SpecialistsDashboard extends Component {
                 <SideBarLeft
                   currentProject={params["projectId"]}
                   currentEpic={params["moduleId"]}
+                  projects={specialistProjects}
                 />
               )}
               {this.renderPage(page)}
@@ -492,6 +494,18 @@ class SpecialistsDashboard extends Component {
       default:
         return <Redirect to="/404" />;
     }
+  };
+
+  renderConfirmModal = () => {
+    if (this.props.confirmationModal) {
+      return (
+        <SavingConfirmationModal
+          isOpen={true}
+          formId={this.props.confirmationModal.formId}
+        />
+      );
+    }
+    return;
   };
 
   componentWillReceiveProps(nextProps) {

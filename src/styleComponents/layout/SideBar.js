@@ -26,6 +26,25 @@ export const StyledBar = styled.aside`
     left: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .title {
+      z-index: 1;
+      flex: 0 0 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 22px;
+
+      text-transform: uppercase;
+      color: ${colors.darkBlue};
+
+      h4 {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.88px;
+      }
+    }
 
     .category:not(:first-of-type) {
       .title {

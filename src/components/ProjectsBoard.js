@@ -135,10 +135,13 @@ class ProjectsBoard extends Component {
   renderContent = () => {
     const {
       projectId,
-      allEpics: { epics },
+      allEpics,
       showAllEpics,
-      currentEpic
+      currentEpic,
+      projectWithId
     } = this.props;
+
+    const { epics } = projectWithId || {};
 
     const epicId =
       epics && currentEpic !== "all" && +currentEpic <= epics.length

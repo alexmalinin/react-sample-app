@@ -120,35 +120,8 @@ class EditProjectForm extends Component {
     const hasPermission =
       getUserRole() === CUSTOMER || getUserRole() === S_REDGUY;
 
-    let stateText;
-
-    switch (state) {
-      case "brief_submissions":
-        stateText = "Waiting for producer";
-        break;
-      case "review_by_admin":
-        stateText = "On review";
-        break;
-      case "discovery":
-        stateText = "";
-        break;
-      default:
-        stateText = "";
-        break;
-    }
-
-    // console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
-
     return (
-      <StyledProject
-      // className={
-      //   projectWithId && projectWithId.id === +projectId
-      //     ? "loaded"
-      //     : "loading"
-      // }
-      >
-        {/* <i className="fa fa-spinner fa-3x fa-pulse preloader" /> */}
-        {/* <Dimmer active={} /> */}
+      <StyledProject>
         <Form onSubmit={handleSubmit}>
           <Grid>
             <Grid.Row columns={1}>
