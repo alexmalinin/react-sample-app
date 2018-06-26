@@ -4,18 +4,14 @@ import {
   ContainerLarge,
   Container
 } from "../../../styleComponents/layout/Container";
-import DashboardSubHeader from "../../layout/DashboardSubHeader";
 import SearchFilterForm from "../../client/forms/SearchFilterForm";
 import SearchFilterFormCore from "../../client/forms/SearchFilterFormCore";
 import SpecialistCard from "../../layout/SpecialistCard";
-import {
-  assignSpecialistToTeam,
-  showCustomTeams
-} from "../../../actions/actions";
-import { Grid, Message } from "semantic-ui-react";
-import { S_Message } from "../../../styleComponents/layout/S_Message";
+import { showSpecialistCustomTeams } from "../../../actions/actions";
+import { Grid } from "semantic-ui-react";
 import { getUserRole } from "../../../helpers/functions";
 import { S_REDGUY } from "../../../constans/constans";
+import { getSpecialistId } from "../../../helpers/selectors";
 
 class SearchSpecialist extends Component {
   state = {
@@ -28,9 +24,10 @@ class SearchSpecialist extends Component {
     selectedProject: null
   };
 
-  componentWillMount() {
-    this.props.showCustomTeams();
-    // this.props.showAllSpecialists("passive", "active", "core", "red_guy");
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.specialistCustomTeams && nextProps.specialistId) {
+      this.props.showSpecialistCustomTeams(nextProps.specialistId);
+    }
   }
 
   handleChange = (event, data) => {
@@ -141,6 +138,19 @@ const FilteredList = ({ filters, specialists, projectId, handleMessage }) => {
   );
 };
 
-export default connect(({ searchResult }) => ({ searchResult }), {
-  showCustomTeams
+const mapStateToProps = () => {
+  const makeSpecialistId = getSpecialistId();
+
+  return state => {
+    const { searchResult, specialistData } = state;
+
+    return {
+      specialistId: makeSpecialistId(specialistData),
+      searchResult
+    };
+  };
+};
+
+export default connect(mapStateToProps, {
+  showSpecialistCustomTeams
 })(SearchSpecialist);

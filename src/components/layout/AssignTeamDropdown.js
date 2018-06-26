@@ -6,10 +6,14 @@ import {
   StyledDropdown
 } from "../../styleComponents/layout/StyledAssignDropdown";
 import { IMAGE_PORT, S_REDGUY, PORT } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
-import { showCustomTeams, searchSpecialist } from "../../actions/actions";
+import { getUserRole, createNotification } from "../../helpers/functions";
+import {
+  showSpecialistCustomTeams,
+  searchSpecialist
+} from "../../actions/actions";
 import StyledTab from "../../styleComponents/StyledTab";
 import Axios from "axios";
+import { getSpecialistId } from "../../helpers/selectors";
 
 class AssignTeamDropdown extends Component {
   state = {
@@ -61,8 +65,10 @@ class AssignTeamDropdown extends Component {
   };
 
   fetchTeams = () => {
-    if (!this.props.allCustomTeams) {
-      this.props.showCustomTeams();
+    const { specialistId } = this.props;
+
+    if (specialistId) {
+      this.props.showSpecialistCustomTeams(specialistId);
     }
   };
 
@@ -83,7 +89,7 @@ class AssignTeamDropdown extends Component {
         this.setState({ specialists: resp.data, searching: false });
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
         this.setState({ searching: false });
       });
   };
@@ -111,12 +117,30 @@ class AssignTeamDropdown extends Component {
       url: `${PORT}/api/v1/projects/${id}/teams/${
         team.id
       }/specialist_invitation/${specialistId}`
-    });
+    })
+      .then(response => {
+        createNotification({
+          type: "success",
+          text: "Specialist was invited"
+        });
+      })
+      .catch(error => {
+        const {
+          response: { data }
+        } = error;
+
+        createNotification({
+          type: data && data.errors ? "warning" : "error",
+          text: data && data.errors
+        });
+
+        console.error(error);
+      });
     this.handleCloseButton();
   };
 
   render() {
-    const { renderToModal, userType, allCustomTeams } = this.props;
+    const { renderToModal, userType, specialistCustomTeams } = this.props;
     const {
       assignedIds,
       teamInput,
@@ -193,8 +217,8 @@ class AssignTeamDropdown extends Component {
               onKeyDown={e => e.keyCode === 13 && e.preventDefault()}
             />
             <div className="dropdown-list">
-              {allCustomTeams ? (
-                allCustomTeams
+              {specialistCustomTeams ? (
+                specialistCustomTeams
                   .filter(team =>
                     team.name.match(new RegExp(`${teamInput}`, "i"))
                   )
@@ -240,12 +264,27 @@ class AssignTeamDropdown extends Component {
   }
 }
 
-const mapStateToProps = ({ allCustomTeams, searchResult, projectWithId }) => ({
-  allCustomTeams,
-  searchResult,
-  projectWithId
-});
+const mapStateToProps = () => {
+  const makeSpecialistId = getSpecialistId();
 
-export default connect(mapStateToProps, { showCustomTeams, searchSpecialist })(
-  AssignTeamDropdown
-);
+  return state => {
+    const {
+      specialistCustomTeams,
+      searchResult,
+      projectWithId,
+      specialistData
+    } = state;
+
+    return {
+      specialistId: makeSpecialistId(specialistData),
+      specialistCustomTeams,
+      searchResult,
+      projectWithId
+    };
+  };
+};
+
+export default connect(mapStateToProps, {
+  showSpecialistCustomTeams,
+  searchSpecialist
+})(AssignTeamDropdown);

@@ -82,6 +82,33 @@ class SpecialistsDashboard extends Component {
   }
 
   componentDidMount() {
+    const {
+      history: { location }
+    } = this.props;
+
+    let error = null;
+
+    if (location.state && location.state.errors) {
+      error = location.state && location.state.errors;
+    }
+
+    if (
+      location.from &&
+      location.from.state &&
+      location.from.state.from &&
+      location.from.state.from.state &&
+      location.from.state.from.state.errors
+    ) {
+      error = location.from.state.from.state.errors;
+    }
+
+    if (error) {
+      createNotification({
+        type: "warning",
+        text: error
+      });
+    }
+
     if (!this.props.specialistData) {
       let token = localStorage.getItem("jwt_token"),
         id = jwtDecode(token).id;

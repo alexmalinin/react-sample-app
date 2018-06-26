@@ -13,7 +13,7 @@ const checkAuth = () => {
   return true;
 };
 
-const handleRequset = props => {
+const handleRequset = (props, path) => {
   return axios({
     method: "PUT",
     url: PORT + props.match.url
@@ -22,7 +22,18 @@ const handleRequset = props => {
       return true;
     })
     .catch(error => {
-      console.log(error);
+      const {
+        response: { data }
+      } = error;
+
+      if (data) {
+        props.history.push({
+          pathname: path,
+          state: data
+        });
+      }
+
+      console.error(error);
       return false;
     });
 };
@@ -46,7 +57,7 @@ export default function AssignRoute({ assignPath, ...rest }) {
         }
 
         if (!props.location.from) {
-          result = handleRequset(props);
+          result = handleRequset(props, path);
         }
 
         result &&
