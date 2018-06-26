@@ -342,7 +342,7 @@ class EditTaskForm extends Component {
                   <AssignDropdown
                     label="Add assignee"
                     specialists={specialists}
-                    allSpecialists={projectTeam.specialists}
+                    allSpecialists={projectTeam.specialists.filter(spec => spec.role !== S_REDGUY)}
                     handleAssign={this.handleAssign}
                     userType={[S_REDGUY]}
                     closeOnChange
