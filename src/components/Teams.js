@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { showClientTeams, showSpecialistTeams } from "../actions/actions";
+import {
+  showClientTeams,
+  showSpecialistTeams,
+  showConfirmationModal
+} from "../actions/actions";
 import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
@@ -35,27 +39,35 @@ class Teams extends Component {
   }
 
   removeTeam = team => {
-    const { id, specialist_id } = team;
+    const { id, name, specialist_id } = team;
 
-    return axios
-      .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
-      .then(res => {
-        let name = res.data.name;
+    this.props.showConfirmationModal({
+      type: "delete",
+      message: `Are you sure you want to delete ${
+        name ? `${name} team?` : "this team?"
+      }`,
+      callback: () => {
+        axios
+          .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
+          .then(res => {
+            let name = res.data.name;
 
-        createNotification({
-          type: "success",
-          text: `${name ? `${name} team ` : "Team"} was deleted`
-        });
+            createNotification({
+              type: "success",
+              text: `${name ? `${name} team ` : "Team"} was deleted`
+            });
 
-        this.showTeams();
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
+            this.showTeams();
+          })
+          .catch(error => {
+            createNotification({
+              type: "error"
+            });
 
-        console.error(error);
-      });
+            console.error(error);
+          });
+      }
+    });
   };
 
   renderToDashboard() {
@@ -131,5 +143,5 @@ export default connect(
     specialistTeams,
     allTeams
   }),
-  { showClientTeams, showSpecialistTeams }
+  { showClientTeams, showSpecialistTeams, showConfirmationModal }
 )(Teams);

@@ -80,7 +80,7 @@ class EditingEducationCard extends Component {
     const { showConfirmationModal } = this.props;
 
     if (isEdited) {
-      showConfirmationModal({ formId: "EducationForm" });
+      showConfirmationModal({ type: "save", formId: "EducationForm" });
     } else {
       closeConfirmationModal();
       this.setState({ open: false });
