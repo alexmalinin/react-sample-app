@@ -10,6 +10,6 @@ export default styled.div`
   font-weight: bold;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 0 auto 8px;
   transition: inherit;
 `;

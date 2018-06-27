@@ -42,7 +42,7 @@ export default styled.div`
       font-family: "Roboto", sans-serif;
       font-size: 11px;
       font-weight: 600;
-      line-height: 27px;
+      line-height: normal;
       text-transform: uppercase;
       text-decoration: none;
       transition: 0.2s;
