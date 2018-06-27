@@ -134,7 +134,7 @@ class EditProjectForm extends Component {
     let stateText;
 
     switch (state) {
-      case "recent_created":
+      case "brief_submissions":
         stateText = "Waiting for producer";
         break;
       case "review_by_admin":
@@ -377,7 +377,7 @@ class EditProjectForm extends Component {
                               change(
                                 "EditProjectForm",
                                 "state",
-                                "recent_created"
+                                "brief_submissions"
                               )
                             )
                           }
