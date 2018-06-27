@@ -86,7 +86,9 @@ class SearchFilterForm extends Component {
       searchSpecialistForProject,
       filters: { industry_area_id, experience_level_id, project_type }
     } = this.props;
+
     const { opened, range, project, projectError } = this.state;
+
     industries &&
       industries["industry"] &&
       industries["industry"].forEach(industry =>
