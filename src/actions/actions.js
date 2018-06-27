@@ -1214,7 +1214,7 @@ export function showProjectWithId(id) {
 
 export function createProjectEpic(data, project) {
   let files = data.file
-    ? data["file"].map(({document, title, size}) => {
+    ? data["file"].map(({ document, title, size }) => {
         return {
           document,
           title,
@@ -1373,7 +1373,7 @@ export function showAllEpicTasks() {
 
 export function createEpicTask(data, epic) {
   let files = data.file
-    ? data.file.map(({document, title, size}) => {
+    ? data.file.map(({ document, title, size }) => {
         return {
           document,
           title,
@@ -1883,7 +1883,7 @@ function postProject(payload, logo = null) {
   const { id } = jwtDecode(token);
 
   let files = payload.file
-    ? payload.file.map(({document, title, size}) => {
+    ? payload.file.map(({ document, title, size }) => {
         return {
           document,
           title,

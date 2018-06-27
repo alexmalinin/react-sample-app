@@ -86,7 +86,7 @@ class EditingExperienceCard extends Component {
     const { showConfirmationModal } = this.props;
 
     if (isEdited) {
-      showConfirmationModal({ formId: "WorkExperienceForm" });
+      showConfirmationModal({ type: "save", formId: "WorkExperienceForm" });
     } else {
       closeConfirmationModal();
       this.setState({ open: false });

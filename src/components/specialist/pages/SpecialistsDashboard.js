@@ -44,6 +44,7 @@ import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
 import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
+import DeleteConfirmationModal from "../../modals/DeleteConfirmationModal";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
@@ -245,7 +246,8 @@ class SpecialistsDashboard extends Component {
       match: { params },
       specialistTeams,
       changeUserType,
-      history
+      history,
+      confirmationModal
     } = this.props;
 
     const { rightSidebarOpened, isEdited } = this.state;
@@ -330,15 +332,24 @@ class SpecialistsDashboard extends Component {
             </Container>
           )}
         </S_MainContainer>
-
         <NotificationContainer />
 
-        {this.props.confirmationModal && (
-          <SavingConfirmationModal
-            isOpen={true}
-            formId={this.props.confirmationModal.formId}
-          />
-        )}
+        {confirmationModal &&
+          confirmationModal.type === "save" && (
+            <SavingConfirmationModal
+              isOpen={true}
+              formId={confirmationModal.formId}
+            />
+          )}
+
+        {confirmationModal &&
+          confirmationModal.type === "delete" && (
+            <DeleteConfirmationModal
+              isOpen={true}
+              message={confirmationModal.message}
+              callback={confirmationModal.callback}
+            />
+          )}
 
         {this.props.submitErrorModal && <SubmitFormErrorModal isOpen={true} />}
       </div>
