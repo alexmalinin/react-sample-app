@@ -32,10 +32,15 @@ export default class SearchForm extends Component {
     const { search } = this.state;
     let roleController;
 
-    if (getUserRole() === S_REDGUY) roleController = specialistId;
+    if (getUserRole() === S_REDGUY) {
+      roleController = specialistId;
+    }
 
-    if (!!search) searchSpecialist(search, roleController);
-    else this.clearForm();
+    if (!!search || !currentProject) {
+      searchSpecialist(search, roleController);
+    } else if (currentProject) {
+      searchSpecialistForProject(currentProject);
+    }
   };
 
   clearForm = () => {
