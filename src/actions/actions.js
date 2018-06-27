@@ -385,6 +385,9 @@ export function updateSpecStep1(data) {
     ? Object.keys(data.speciality_ids).map(item => +item.match(/\d+/)[0])
     : null;
 
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return dispatch => {
     Axios({
       method: "put",
@@ -449,6 +452,9 @@ export function showChosenSkills() {
 // update data for specialists sign up step 2
 
 export function updateSpecStep2(data) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return dispatch => {
     Axios({
       method: "put",
@@ -618,6 +624,9 @@ export function showAllSpecialists(...roles) {
 export function updateSpecialistProfile(data, education, experience) {
   let reader = new FileReader(),
     image = data["person"] ? data["person"][0] : null;
+
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
 
   return dispatch => {
     if (image) {
@@ -815,6 +824,9 @@ export function deleteExperienceCardWithOutId(experience) {
 export function updateClientProfile(data) {
   let image = data["person"] ? data["person"][0] : null;
 
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return dispatch => {
     if (image) {
       let reader = new FileReader();
@@ -893,6 +905,9 @@ export function updateClientProfile(data) {
  */
 
 export function updateClientCompany(payload) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return async dispatch => {
     await Axios({
       method: "put",
@@ -957,6 +972,9 @@ export function updateClientCompany(payload) {
  */
 
 export function updateClientBilling(data) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return dispatch => {
     Axios({
       method: "put",
@@ -1860,6 +1878,10 @@ export function closeSubmitErrorModal() {
  */
 
 function postProject(payload, logo = null) {
+
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   let files = payload.file
     ? payload.file.map(({document, title, size}) => {
         return {
