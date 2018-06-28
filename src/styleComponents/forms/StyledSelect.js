@@ -7,8 +7,12 @@ export default styled(Select)`
     border-bottom: 5px solid red;
   }
 
+  .Select-control:hover {
+    box-shadow: none;
+  }
+
   .Select-control .Select-value {
-    padding-right: 0 !important;
+    padding-right: 30px !important;
   }
 
   .Select-arrow {
@@ -20,7 +24,8 @@ export default styled(Select)`
   }
 
   &.is-focused:not(.is-open) .Select-control {
-    border: none;
+    border-bottom: 2px solid #85b7d9;
+    box-shadow: none;
   }
 
   &.has-value .Select-value-label {

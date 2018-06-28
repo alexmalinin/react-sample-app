@@ -88,7 +88,7 @@ export default styled.div`
       }
     }
     .Select-multi-value-wrapper {
-      border-top-color: #ccc;
+      border-top-color: #85b7d9;
     }
   }
 

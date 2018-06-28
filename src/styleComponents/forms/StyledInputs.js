@@ -157,8 +157,22 @@ export default styled.div`
     max-width: 90%;
   }
 
+  .Select-placeholder,
+  .Select-value-label {
+    line-height: 42px;
+  }
+
   .Select-value-label {
     color: #ccc !important;
+  }
+
+  .Select-input > input {
+    padding: 0;
+    line-height: 41px;
+  }
+
+  .Select-arrow-zone {
+    vertical-align: unset;
   }
 
   &.transparent {
