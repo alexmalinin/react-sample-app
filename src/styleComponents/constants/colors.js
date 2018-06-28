@@ -6,7 +6,8 @@ export const colors = {
   lightBlue: "#1991fa",
   blue: "#4861f2",
   darkBlue: "#002C93",
-  lightGreyBlue: "#dae1ee"
+  lightGreyBlue: "#dae1ee",
+  lightBorder: "#f1f1f5"
 };
 
 export const fontColors = {

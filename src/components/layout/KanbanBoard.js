@@ -221,26 +221,21 @@ class KanbanBoard extends Component {
   }
 }
 
-export default connect(
-  ({
-    epicTasks,
-    allSpecialists,
-    changeUserType,
-    projectTeam,
-    specialistData
-  }) => ({
-    epicTasks,
-    allSpecialists,
-    changeUserType,
-    projectTeam,
-    specialistData
-  }),
-  {
-    showEpicTasks,
-    updateEpicTask,
-    deleteEpicTask,
-    assignSpecialistToTask,
-    removeSpecialistFromTask,
-    showAllEpics
-  }
-)(KanbanBoard);
+const mapStateToProps = state => {
+  return {
+    epicTasks: state.epicTasks,
+    allSpecialist: state.allSpecialists,
+    changeUserTyp: state.changeUserType,
+    projectTeam: state.projectTeam,
+    specialistDat: state.specialistData
+  };
+};
+
+export default connect(mapStateToProps, {
+  showEpicTasks,
+  updateEpicTask,
+  deleteEpicTask,
+  assignSpecialistToTask,
+  removeSpecialistFromTask,
+  showAllEpics
+})(KanbanBoard);

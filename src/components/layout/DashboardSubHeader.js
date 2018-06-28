@@ -39,7 +39,7 @@ class DashboardSubHeader extends Component {
             <SubHeaderLinkWrap
               url="/dashboard/project/new"
               label="Add project"
-              className="rightLink dahsboard addButton"
+              className="right-link dahsboard addButton"
             />
           )}
         </div>

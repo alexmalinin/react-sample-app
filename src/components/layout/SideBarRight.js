@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StyledBar } from "../../styleComponents/layout/SideBar";
 import { Tab } from "semantic-ui-react";
 import Teams from "../Teams";
+import classNames from "classnames";
 
 class SideBarRight extends Component {
   render() {
@@ -26,45 +27,22 @@ class SideBarRight extends Component {
       }
     ];
 
+    const sidebarClass = classNames({
+      right: true,
+      open: opened
+    });
+
     return (
-      <StyledBar
-        className={`right${opened ? " open" : ""}`}
-        ref={bar => (this.sideBar = bar)}
-      >
+      <StyledBar className={sidebarClass}>
         <button
           className="trigger"
           ref={button => (this.toggleBtn = button)}
           onClick={toggle}
         />
-        <Tab panes={panes} />
+        <Tab className="tabs-wrapper" panes={panes} />
       </StyledBar>
     );
   }
-}
-
-function Activity({ days }) {
-  return (
-    <div>
-      {days.map((day, key) => (
-        <div key={key} className="activity-tab-item">
-          <h4>{day.day}</h4>
-          {day.activity.map((value, key) => (
-            <div className="activity-item" key={key}>
-              <h5>{value.time}</h5>
-              <div className="person">
-                <img src="/images/uploadImg.png" alt="" />
-              </div>
-              <div className="text">
-                <span>{value.action}</span> <br />
-                <span>{value.project}</span> <br />
-                <span>{value.description}</span> <br />
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 export default SideBarRight;

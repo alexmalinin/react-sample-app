@@ -56,7 +56,7 @@ class SubHeader extends Component {
               //       : "/dashboard/"
               //   }
               //   label="Complete Later"
-              //   className="rightLink arrow"
+              //   className="right-link arrow"
               // />
               <NavLink
                 exact
@@ -67,7 +67,7 @@ class SubHeader extends Component {
                     : "/dashboard/"
                 }
               >
-                <StyledSubHeaderLink className="rightLink arrow" />
+                <StyledSubHeaderLink className="right-link arrow" />
                 Complete Later
                 <span />
               </NavLink>

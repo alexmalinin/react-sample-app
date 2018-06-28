@@ -14,7 +14,7 @@ import {
   showSpecialistWithId,
   getExperienceLevels
 } from "../../../actions/actions";
-import { IMAGE_PORT } from "../../../constants/constants";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../../constants/constants";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 import { run } from "../../../helpers/scrollToElement";
 
@@ -210,7 +210,7 @@ class SpecialistsWithId extends Component {
                         src={
                           avatar && avatar.url
                             ? IMAGE_PORT + avatar.url
-                            : "/images/undefUser.png"
+                            : BLANK_AVATAR
                         }
                         alt="avatar"
                       />

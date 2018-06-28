@@ -1,30 +1,25 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
-import {
-  showSortedProjects,
-  showAllProjects,
-  showProjectWithId,
-  showAllEpics,
-  showEpicTasks,
-  showClientData,
-  showProjectTeam,
-  showClientTeams,
-  logOut
-} from "../../actions/actions";
+import { NotificationContainer } from "react-notifications";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+
+import "react-notifications/lib/notifications.css";
+
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
-import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
-import { Container } from "../../styleComponents/layout/Container";
+
 import Dashboard from "../Dashboard";
 import ClientProfile from "./ClientProfile";
 import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
+import EditProfile from "../profile/EditProfile";
 import ClientAbout from "./pages/ClientAbout";
 import ProjectsBoard from "../ProjectsBoard";
 import SideBarLeft from "./../layout/SideBarLeft";
 import SideBarRight from "../layout/SideBarRight";
-import { projects, days } from "../../helpers/sidebarDbEmulate";
+import { days } from "../../helpers/sidebarDbEmulate";
 import ClientProjects from "./ClientProjects";
 import ClientModule from "./ClientModule";
 import Teams from "../Teams";
@@ -32,18 +27,13 @@ import ClientAccount from "./pages/ClientAccount";
 import ClientYTD from "./pages/ClientYTD";
 import ClientStatement from "./pages/ClientStatement";
 import TheVillage from "../TheVillage";
-import {
-  getCookie,
-  setCookie,
-  getUserRole,
-  createNotification
-} from "../../helpers/functions";
+
+import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
+import { Container } from "../../styleComponents/layout/Container";
+
+import { getCookie, setCookie } from "../../helpers/functions";
 import { PORT } from "../../constants/constants";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { NotificationContainer } from "react-notifications";
-import "react-notifications/lib/notifications.css";
-import EditProfile from "../profile/EditProfile";
+import * as actions from "../../actions/actions";
 
 const pagesToCalculate = ["profile", "company", "billing"];
 
@@ -423,13 +413,13 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-  showClientData,
-  showSortedProjects,
-  showAllProjects,
-  showProjectWithId,
-  showAllEpics,
-  showEpicTasks,
-  showProjectTeam,
-  showClientTeams,
-  logOut
+  showClientData: actions.showClientData,
+  showSortedProjects: actions.showSortedProjects,
+  showAllProjects: actions.showAllProjects,
+  showProjectWithId: actions.showProjectWithId,
+  showAllEpics: actions.showAllEpics,
+  showEpicTasks: actions.showEpicTasks,
+  showProjectTeam: actions.showProjectTeam,
+  showClientTeams: actions.showClientTeams,
+  logOut: actions.logOut
 })(ClientDashboard);

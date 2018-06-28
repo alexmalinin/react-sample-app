@@ -137,8 +137,7 @@ class ProjectsBoard extends Component {
       projectId,
       allEpics: { epics },
       showAllEpics,
-      currentEpic,
-      projectWithId
+      currentEpic
     } = this.props;
 
     const epicId =

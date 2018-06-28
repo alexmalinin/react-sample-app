@@ -3,7 +3,7 @@ import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import { IMAGE_PORT } from "../../constants/constants";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { getUserRole } from "../../helpers/functions";
 
 export default class AssignDropdown extends Component {
@@ -179,7 +179,7 @@ export default class AssignDropdown extends Component {
                         src={
                           specialist.avatar.url
                             ? IMAGE_PORT + specialist.avatar.url
-                            : "/images/uploadImg.png"
+                            : BLANK_AVATAR
                         }
                         alt="member"
                       />

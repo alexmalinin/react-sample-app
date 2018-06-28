@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
-import { IMAGE_PORT } from "../../constants/constants";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constants/user";
 import { logOut } from "../../actions/actions";
 import { oneOfRoles, getUserType } from "../../helpers/functions";
@@ -64,7 +64,7 @@ class Header extends Component {
             src={
               user && user.avatar.url
                 ? IMAGE_PORT + user.avatar.url
-                : "/images/uploadImg.png"
+                : BLANK_AVATAR
             }
             alt={user && user.first_name + " " + user.last_name}
             className="user-avatar"

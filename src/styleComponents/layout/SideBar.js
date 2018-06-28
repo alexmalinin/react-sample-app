@@ -9,7 +9,6 @@ import {
 export const StyledBar = styled.aside`
   position: fixed;
   z-index: 998;
-  display: flex;
   top: 87px;
 
   width: 100%;
@@ -27,17 +26,15 @@ export const StyledBar = styled.aside`
     left: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    display: flex;
-    flex-flow: column nowrap;
 
-    .category {
-      display: flex;
-      flex-flow: column nowrap;
+    .category:not(:first-of-type) {
+      .title {
+        border-top: 1px solid ${colors.lightBorder};
+      }
     }
 
     .title {
       z-index: 1;
-      flex: 0 0 60px;
       height: 60px;
       display: flex;
       align-items: center;
@@ -54,168 +51,170 @@ export const StyledBar = styled.aside`
     }
 
     .projects {
-      flex: 1 1 auto;
+      padding-bottom: 26px;
+    }
+
+    .project-link {
+      position: relative;
       display: flex;
-      flex-flow: column nowrap;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding-right: 30px;
 
-      transition: 0.3s ease-in-out;
+      text-align: center;
 
-      .project-wrapper {
+      .project-logo,
+      .add-project-button {
+        flex: 0 0 50px;
+        height: 50px;
+        width: 50px;
+        margin: 5px 12px;
+
+        border-radius: 50%;
+        border: 1px solid #ccc;
+      }
+
+      img {
+        object-fit: cover;
+        background: #fff;
+      }
+
+      .project-logo.no-logo {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 40px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+        text-align: center;
+
+        background: linear-gradient(to top left, #00a2ee 0%, #00e1ce 100%);
+        color: #fff;
+      }
+
+      .project-name {
+        padding: 8px;
+
+        font-size: 18px;
+        color: ${fontColors.black};
+        font-weight: 500;
+        text-align: left;
+
+        transition: 0.4s;
+
+        .projectStatus {
+          position: absolute;
+          bottom: 0;
+          left: 15px;
+
+          font-size: 12px;
+          color: #ccc;
+          text-transform: none;
+        }
+      }
+
+      .add-project-button {
+        display: inline-block;
         position: relative;
-        display: flex;
-        flex-flow: column nowrap;
+        background: ${primaryColors.accentBackground};
 
-        .project-link {
-          position: relative;
-          display: flex;
-          flex-flow: row nowrap;
-          align-items: center;
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
 
-          text-align: center;
+          height: 12px;
+          width: 2px;
 
-          .project-logo,
-          .add-project {
-            height: 50px;
-            width: 50px;
-            margin: 5px 12px;
+          background: ${colors.blue};
+        }
 
-            border-radius: 50%;
-            border: 1px solid #ccc;
-          }
+        &::after {
+          height: 2px;
+          width: 12px;
+        }
+      }
 
-          img {
-            object-fit: cover;
-            background: #fff;
-          }
+      .add-project-label {
+        position: absolute;
+        top: 100%;
+        max-width: 70px;
 
-          .project-logo.no-logo {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
+        color: ${fontColors.light};
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: normal;
+      }
 
-            font-size: 40px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            text-align: center;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%) rotate(var(--rotate, 45deg));
 
-            background: linear-gradient(to top left, #00a2ee 0%, #00e1ce 100%);
-            color: #fff;
-          }
+        height: 10px;
+        width: 10px;
 
-          .project-name {
-            padding-left: 8px;
+        border: solid ${colors.blue};
+        border-width: 0 0 2px 2px;
 
-            font-size: 18px;
-            color: ${fontColors.black};
-            font-weight: 500;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.4s;
+      }
 
-            transition: 0.4s;
-
-            .projectStatus {
-              position: absolute;
-              bottom: 0;
-              left: 15px;
-
-              font-size: 12px;
-              color: #ccc;
-              text-transform: none;
-            }
-          }
-
-          .add-project {
-            display: inline-block;
-            position: relative;
-
-            &::before,
-            &::after {
-              content: "";
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-
-              height: 26px;
-              width: 2px;
-
-              background: #ccc;
-            }
-
-            &::after {
-              height: 2px;
-              width: 26px;
-            }
-          }
-
-          .add-project-label {
-            color: #666;
-            text-align: center;
-            text-transform: uppercase;
-          }
-
+      &:not(.add-project) {
+        &:hover {
           &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%) rotate(var(--rotate, 45deg));
-
-            height: 10px;
-            width: 10px;
-
-            border: solid ${colors.blue};
-            border-width: 0 0 2px 2px;
-
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s;
-          }
-
-          &:hover {
-            &::after {
-              opacity: 1;
-              visibility: visible;
-            }
-          }
-
-          &.active {
-            background: ${primaryColors.accentBackground};
-
-            &::after {
-              opacity: 1;
-              visibility: visible;
-              --rotate: -45deg;
-            }
-
-            & + .modules {
-              display: flex;
-            }
+            opacity: 1;
+            visibility: visible;
           }
         }
 
-        .modules {
-          display: none;
-          position: relative;
-          flex-flow: column nowrap;
-          padding: 7px 7px 7px 36px;
-          min-height: 60px;
+        &.active {
+          background: ${primaryColors.accentBackground};
 
-          color: ${fontColors.regular};
-          font-size: 16px;
-          font-weight: 400;
-
-          animation: fadeIn 0.2s forwards;
-          opacity: 0;
-
-          .project-module {
-            display: block;
-            padding: 6px 0;
-            color: inherit;
-
-            &.active {
-              color: ${fontColors.blue.active};
-            }
+          &::after {
+            opacity: 1;
+            visibility: visible;
+            --rotate: -45deg;
           }
+
+          & + .modules {
+            display: flex;
+          }
+        }
+      }
+    }
+
+    .modules {
+      display: none;
+      position: relative;
+      flex-flow: column nowrap;
+      padding: 7px 7px 7px 36px;
+      min-height: 60px;
+
+      color: ${fontColors.regular};
+      font-size: 16px;
+      font-weight: 400;
+
+      animation: fadeIn 0.2s forwards;
+      opacity: 0;
+
+      .project-module {
+        display: block;
+        padding: 6px 0;
+        color: inherit;
+
+        &.active {
+          color: ${fontColors.blue.active};
         }
       }
     }
@@ -302,30 +301,33 @@ export const StyledBar = styled.aside`
       }
     }
 
-    & > div {
+    .tabs-wrapper {
       width: 100%;
+      height: 100%;
+
       .ui.attached.tabular.menu {
         border: none;
 
         .item {
-          display: inline-block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           width: 50%;
-          font-size: 14px;
-          color: #b3b3b3;
+          height: 60px;
 
           border: none;
-          border-bottom: 2px solid #f2f2f2;
+          border-bottom: 1px solid ${colors.lightBorder};
+          border-radius: 0px !important;
 
+          font-size: 14px;
+          font-weight: 600;
+          color: ${fontColors.blue.inert};
           text-align: center;
 
-          &:first-of-type {
-            border-right: 2px solid #f2f2f2;
-          }
-
           &.active {
-            color: #666;
-            border-radius: 0px !important;
-            border-bottom: 4px solid ${colors.blue};
+            color: ${fontColors.blue.active};
+            font-weight: 600;
+            border-bottom: 2px solid ${colors.blue};
           }
         }
       }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Grid, Form, Input, Label } from "semantic-ui-react";
+import { Grid, Form, Input } from "semantic-ui-react";
 
 import {
   showAllSpecialists,
@@ -170,9 +170,7 @@ class Team extends Component {
               specialists={""}
             />
           ))}
-          {getUserRole() !== S_REDGUY &&
-            channels.length === 0 && <p>There is no channels yet :(</p>}
-          {getUserRole() === S_REDGUY && (
+          {getUserRole() === S_REDGUY ? (
             <Form className="addChannel" onSubmit={this.submit}>
               {this.state.error && (
                 <span className="addChannel-label">
@@ -190,6 +188,8 @@ class Team extends Component {
                 autoComplete="off"
               />
             </Form>
+          ) : (
+            channels.length === 0 && <p>There is no channels yet :(</p>
           )}
         </Grid.Row>
       </Grid>
@@ -236,35 +236,23 @@ class Team extends Component {
   };
 }
 
-export default connect(
-  ({
-    allSpecialists,
-    createChannel,
-    allChannels,
-    addMember,
-    removeMember,
-    updateChannel,
-    deleteChannel,
-    changeUserType,
-    projectTeam,
-    customTeam
-  }) => ({
-    allSpecialists,
-    createChannel,
-    allChannels,
-    addMember,
-    removeMember,
-    updateChannel,
-    deleteChannel,
-    changeUserType,
-    projectTeam,
-    customTeam
-  }),
-  {
-    showAllSpecialists,
-    createTeamChannel,
-    showChannels,
-    showProjectTeam,
-    showCustomTeam
-  }
-)(Team);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    createChannel: state.createChannel,
+    allChannels: state.allChannels,
+    addMember: state.addMember,
+    removeMember: state.removeMember,
+    updateChannel: state.updateChannel,
+    deleteChannel: state.deleteChannel,
+    projectTeam: state.projectTeam,
+    customTea: state.customTeam
+  };
+};
+
+export default connect(mapStateToProps, {
+  showAllSpecialists,
+  createTeamChannel,
+  showChannels,
+  showProjectTeam,
+  showCustomTeam
+})(Team);

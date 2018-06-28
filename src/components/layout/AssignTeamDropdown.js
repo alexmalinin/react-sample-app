@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Input, Tab, Loader } from "semantic-ui-react";
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, PORT } from "../../constants/constants";
+import { IMAGE_PORT, PORT, BLANK_AVATAR } from "../../constants/constants";
 import { getUserRole, createNotification } from "../../helpers/functions";
 import {
   searchSpecialist,
@@ -182,7 +182,7 @@ class AssignTeamDropdown extends Component {
                       src={
                         specialist.avatar.url
                           ? IMAGE_PORT + specialist.avatar.url
-                          : "/images/uploadImg.png"
+                          : BLANK_AVATAR
                       }
                       alt="member"
                     />

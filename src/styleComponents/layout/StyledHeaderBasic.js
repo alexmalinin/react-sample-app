@@ -18,7 +18,7 @@ export default styled.header`
     flex: 0 0 240px;
     border-width: 0px;
     border-style: solid;
-    border-color: #f1f1f5;
+    border-color: ${colors.lightBorder};
     box-sizing: content-box;
   }
 

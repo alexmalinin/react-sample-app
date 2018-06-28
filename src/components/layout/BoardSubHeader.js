@@ -84,12 +84,12 @@ class ProjectSubHeader extends Component {
           duration={400}
           visible={currentEpic !== "all"}
         >
-          <div className="right boardProgressBars">
+          <div className="right board-progress-bars">
             {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
               <SubHeaderLinkWrap
                 label="Assigned to me"
                 url="#"
-                className={`rightLink myTasks${
+                className={`right-link my-tasks${
                   myTasks ? " active" : " unactive"
                 }`}
                 onClick={this.props.toggleMyTasks}
@@ -105,13 +105,13 @@ class ProjectSubHeader extends Component {
                 className="addTask"
               />
             )}
-            <SubHeaderLinkWrap label="Epics" url="#" className="rightLink">
+            <SubHeaderLinkWrap label="Epics" url="#" className="right-link">
               {`${completedTasksCount}/${allTasksCount}`}
             </SubHeaderLinkWrap>
             <SubHeaderLinkWrap
               label="Module progress"
               url="#"
-              className="rightLink"
+              className="right-link"
             >
               {percents}%
               <ProgressBars percents={percents} />

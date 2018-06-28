@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ClassNames from "classnames";
 import { StyledSpecialist } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT } from "../../constants/constants";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constants/user";
 import { Field, change } from "redux-form";
 import { Input } from "react-semantic-redux-form";
@@ -33,15 +34,21 @@ class SpecialistTile extends Component {
     const { specialist, hideCosts, specialistId, ownCosts } = this.props;
     const allowed = oneOfRoles(S_REDGUY);
 
+    const avatarClass = ClassNames({
+      "user-avatar": true,
+      blank: !specialist.avatar.url
+    });
+
     return (
       <StyledSpecialist>
-        <div className="avatar">
+        <div className="avatar-wrapper">
           <img
             src={
               specialist.avatar.url
                 ? IMAGE_PORT + specialist.avatar.url
-                : "/images/uploadImg.png"
+                : BLANK_AVATAR
             }
+            className={avatarClass}
             alt={specialist.first_name + " " + specialist.last_name}
           />
           {allowed && <button type="button" onClick={this.remove} />}

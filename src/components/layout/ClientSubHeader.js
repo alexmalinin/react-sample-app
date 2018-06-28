@@ -45,10 +45,10 @@ class SubHeader extends Component {
               // <SubHeaderLinkWrap
               //   url="/dashboard/"
               //   label="Complete Later"
-              //   className="rightLink arrow"
+              //   className="right-link arrow"
               // />
               <NavLink exact className="button" to="/dashboard/">
-                <StyledSubHeaderLink className="rightLink arrow" />
+                <StyledSubHeaderLink className="right-link arrow" />
                 Complete Later
                 <span />
               </NavLink>

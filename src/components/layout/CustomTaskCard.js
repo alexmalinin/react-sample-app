@@ -31,22 +31,12 @@ class CustomCard extends Component {
     open.click();
   };
 
-  // renderTitle = () => {
-  //   const { title } = this.props;
-
-  //   if (title.length > 70) {
-  //     return title.slice(0, 70) + "...";
-  //   } else return title;
-  // };
-
   render() {
     const {
       title,
-      description,
       id,
       specialists,
       specialistList,
-      userType,
       eta,
       cost,
       deleteTask,

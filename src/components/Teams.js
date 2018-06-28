@@ -130,19 +130,18 @@ class Teams extends Component {
   }
 }
 
-export default connect(
-  ({
-    specialistData,
-    changeUserType,
-    createCustomTeam,
-    specialistTeams,
-    allTeams
-  }) => ({
-    specialistData,
-    changeUserType,
-    createCustomTeam,
-    specialistTeams,
-    allTeams
-  }),
-  { showClientTeams, showSpecialistTeams, showConfirmationModal }
-)(Teams);
+const mapStateToProps = state => {
+  return {
+    specialistData: state.specialistData,
+    changeUserType: state.changeUserType,
+    createCustomTeam: state.createCustomTeam,
+    specialistTeams: state.specialistTeams,
+    allTeam: state.allTeams
+  };
+};
+
+export default connect(mapStateToProps, {
+  showClientTeams,
+  showSpecialistTeams,
+  showConfirmationModal
+})(Teams);

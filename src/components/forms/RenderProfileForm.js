@@ -20,7 +20,7 @@ import EdicationModal from "../modals/EdicationModal";
 import WorkExperienceModal from "../modals/WorkExperienceModal";
 import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
 import { getUserRole } from "../../helpers/functions";
-import { CUSTOMER } from "../../constans/constans";
+import { CUSTOMER } from "../../constants/user";
 
 import { Grid } from "semantic-ui-react";
 

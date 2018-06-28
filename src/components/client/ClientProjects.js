@@ -40,7 +40,7 @@ class ClientProjects extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let createProject = nextProps.createProject;
+    const { createProject } = nextProps;
 
     if (createProject && nextProps.submitSucceeded) {
       if (createProject.id) {
@@ -65,17 +65,14 @@ class ClientProjects extends Component {
   };
 }
 
-export default connect(
-  state => {
-    const { createProject } = state;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    createProject: state.createProject,
+    submitSucceeded: hasSubmitSucceeded("ClientProjectForm")(state)
+  };
+};
 
-    return {
-      createProject,
-      submitSucceeded: hasSubmitSucceeded("ClientProjectForm")(state)
-    };
-  },
-  {
-    showClientData,
-    saveCreatedProgect
-  }
-)(ClientProjects);
+export default connect(mapStateToProps, {
+  showClientData,
+  saveCreatedProgect
+})(ClientProjects);

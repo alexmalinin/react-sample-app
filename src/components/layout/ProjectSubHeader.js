@@ -43,7 +43,7 @@ class ProjectSubHeader extends Component {
               className="saveBtn"
               onClick={() => this.props.dispatch(submit(form))}
             >
-              <StyledSubHeaderLink className="rightLink arrow" />
+              <StyledSubHeaderLink className="right-link arrow" />
               Save
               <span />
             </button>
@@ -61,7 +61,7 @@ class ProjectSubHeader extends Component {
                 }}
                 className="saveBtn"
               >
-                <StyledSubHeaderLink className="rightLink arrow-down" />
+                <StyledSubHeaderLink className="right-link arrow-down" />
                 Save
                 <span />
               </button>
@@ -78,7 +78,7 @@ class ProjectSubHeader extends Component {
                 }}
                 className="saveBtn"
               >
-                <StyledSubHeaderLink className="rightLink arrow" />
+                <StyledSubHeaderLink className="right-link arrow" />
                 Submit
                 <span />
               </button>
@@ -88,7 +88,7 @@ class ProjectSubHeader extends Component {
           <SubHeaderLinkWrap
             url={module ? `/dashboard/project/${projectId}` : "/dashboard/"}
             label="Cancel"
-            className="rightLink close"
+            className="right-link close"
           />
         </div>
       </StyledSubHeader>

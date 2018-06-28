@@ -81,14 +81,13 @@ class SideBarLeft extends Component {
         {this.renderCategory(discovery, "Projects")}
         {this.renderCategory(draft, "Projects on drafts")}
         {getUserType() === CLIENT && (
-          <div className="projects">
-            <div className="project-wrapper">
-              <NavLink className="project-link" to="/dashboard/project/new">
-                <span className="add-project" />
-                <div className="add-project-label">Add project</div>
-              </NavLink>
-            </div>
-          </div>
+          <NavLink
+            className="project-link add-project"
+            to="/dashboard/project/new"
+          >
+            <div className="add-project-button" />
+            <div className="add-project-label">Add project</div>
+          </NavLink>
         )}
       </StyledBar>
     );

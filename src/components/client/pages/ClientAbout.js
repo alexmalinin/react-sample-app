@@ -8,7 +8,7 @@ import {
 } from "../../../styleComponents/layout/Container";
 import StyledProfile from "../../../styleComponents/StyledProfile";
 import { showClientData } from "../../../actions/actions";
-import { IMAGE_PORT } from "../../../constants/constants";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../../constants/constants";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 
 class ClientAbout extends Component {
@@ -138,7 +138,7 @@ class ClientAbout extends Component {
                         src={
                           avatar && avatar.url
                             ? IMAGE_PORT + avatar.url
-                            : "/images/undefUser.png"
+                            : BLANK_AVATAR
                         }
                         alt="avatar"
                       />

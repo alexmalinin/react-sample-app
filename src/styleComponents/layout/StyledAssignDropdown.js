@@ -343,7 +343,7 @@ export const StyledPersonTile = styled.div`
   font-weight: 400;
   margin-right: ${props => (props.compressed ? "-8px" : "0")};
 
-  .imgWrapper {
+  .img-wrapper {
     position: relative;
     width: 36px;
     height: 36px;
@@ -351,12 +351,18 @@ export const StyledPersonTile = styled.div`
     overflow: hidden;
     margin-right: ${props => (props.compressed ? "0 " : "5px")};
 
-    img {
+    .user-avatar {
       width: 100%;
       height: 100%;
       background: #fff;
       border-radius: 50%;
       object-fit: cover;
+
+      &.blank {
+        /* background: ${primaryColors.accentBackground}; */
+        border: 2px solid ${colors.blue};
+        object-fit: contain;
+      }
     }
 
     &::before {
@@ -381,7 +387,7 @@ export const StyledPersonTile = styled.div`
     outline: none;
 
     &:focus {
-      .imgWrapper {
+      .img-wrapper {
         &::before {
           opacity: 0.15;
         }
@@ -497,7 +503,7 @@ export const StyledSpecialist = styled.div`
     }
   }
 
-  .avatar {
+  .avatar-wrapper {
     position: relative;
     height: 48px;
     width: 48px;
@@ -505,11 +511,16 @@ export const StyledSpecialist = styled.div`
     border-radius: 50%;
     overflow: hidden;
 
-    img {
+    .user-avatar {
       height: 100%;
       width: 100%;
       object-fit: cover;
       background: #fff;
+
+      &.blank {
+        background: ${primaryColors.accentBackground};
+        object-fit: contain;
+      }
     }
 
     button {

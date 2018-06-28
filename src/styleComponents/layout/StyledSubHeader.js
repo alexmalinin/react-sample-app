@@ -146,7 +146,7 @@ export default styled.div`
       }
     }
 
-    &.boardProgressBars {
+    &.board-progress-bars {
       a {
         opacity: 1;
 
@@ -188,14 +188,14 @@ export default styled.div`
     cursor: pointer;
   }
 
-  .rightLink {
+  .right-link {
     font-size: 15px;
 
     & + span {
       transition: inherit;
     }
 
-    &.myTasks {
+    &.my-tasks {
       &.active {
         border-color: ${secondaryColors.green};
         box-shadow: 0 0 0 1px ${secondaryColors.green};

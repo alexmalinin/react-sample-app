@@ -29,7 +29,7 @@ class AddTaskModal extends Component {
       <StyledModal
         trigger={
           <a className="button" onClick={() => this.setState({ open: true })}>
-            <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
+            <StyledSubHeaderLink className="right-link addButton modalTrigger" />
             <span>{content}</span>
           </a>
         }
