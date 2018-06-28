@@ -91,8 +91,13 @@ class EditProject extends Component {
         });
       })
       .catch(error => {
+        const {
+          response: { data }
+        } = error;
+
         createNotification({
-          type: "error"
+          type: data && data.errors ? "warning" : "error",
+          text: data && data.errors
         });
 
         console.error(error);

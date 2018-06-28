@@ -114,8 +114,7 @@ InviteSpecialistForm = reduxForm({
 const mapStateToProps = ({
   specialistData,
   specialistProjects,
-  allCustomTeams,
-  specialistTeams
+  specialistCustomTeams
 }) => {
   let projects = [],
     teams = [];
@@ -130,30 +129,17 @@ const mapStateToProps = ({
       })
     );
 
-  getUserRole() === S_REDGUY
-    ? allCustomTeams &&
-      allCustomTeams.map(team =>
-        teams.push({
-          text: team.name,
-          value: team.id
-        })
-      )
-    : specialistTeams &&
-      specialistData &&
-      specialistTeams
-        .filter(
-          team => team.custom_team && specialistData.id === team.specialist_id
-        )
-        .map(team =>
-          teams.push({
-            text: team.name,
-            value: team.id
-          })
-        );
+  specialistCustomTeams &&
+    specialistCustomTeams.map(team =>
+      teams.push({
+        text: team.name,
+        value: team.id
+      })
+    );
   return {
     projects,
     teams
   };
 };
 
-export default connect(mapStateToProps, {})(InviteSpecialistForm);
+export default connect(mapStateToProps, null)(InviteSpecialistForm);

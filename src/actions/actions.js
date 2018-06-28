@@ -77,6 +77,7 @@ import {
   SHOW_SPECIALIST_PROJECTS,
   SHOW_SPECIALIST_TEAMS,
   SHOW_CUSTOM_TEAMS,
+  SHOW_SPECIALIST_CUSTOM_TEAMS,
   CREATE_CUSTOM_TEAM,
   GET_SKILLS,
   SEARCH_SPECIALIST,
@@ -1182,6 +1183,31 @@ export function showCustomTeams() {
   return action;
 }
 
+/**
+ * get all specialist custom teams by id
+ *
+ * @param  {number} id id of specialist
+ *
+ */
+
+export function showSpecialistCustomTeams(id) {
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `${PORT}/api/v1/specialists/${id}/custom_teams`
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: SHOW_SPECIALIST_CUSTOM_TEAMS + SUCCESS,
+          data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+}
+
 // get array of all tasks, specialist assigned on
 
 export function showSpecialistTasks() {
@@ -1254,6 +1280,14 @@ export function createProjectEpic(data, project) {
         dispatch({
           type: CREATE_PROJECT_EPIC + SUCCESS,
           data
+        });
+
+        return data;
+      })
+      .then(({ name }) => {
+        createNotification({
+          type: "success",
+          text: `${name ? `${name} module ` : "Module"} was created`
         });
       })
       .catch(error => {
@@ -1424,6 +1458,14 @@ export function createEpicTask(data, epic) {
           type: CREATE_EPIC_TASK + SUCCESS,
           data
         });
+
+        return data;
+      })
+      .then(({ name }) => {
+        createNotification({
+          type: "success",
+          text: `${name ? `${name} epic ` : "Epic"} was created`
+        });
       })
       .catch(error => {
         createNotification({
@@ -1593,8 +1635,8 @@ export function removeSpecialistFromTeam(project, team, specialist) {
  */
 
 export function createCustomTeam(data, specialistId) {
-  return async dispatch => {
-    await Axios({
+  return dispatch => {
+    Axios({
       method: "post",
       url: `${PORT}/api/v1/teams`,
       data: {

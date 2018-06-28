@@ -25,6 +25,7 @@ import allProjects from "./showAllProjectsReducer";
 import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
 import allCustomTeams from "./showCustomTeamsReducer";
+import specialistCustomTeams from "./showSpecialistCustomTeamsReducer";
 import specialistTasks from "./showSpecialistTasksReducer";
 import projectWithId from "./showProjectWithIdReducer";
 import createEpic from "./createProjectEpicReducer";
@@ -86,6 +87,7 @@ const appReducer = combineReducers({
   specialistProjects,
   specialistTeams,
   allCustomTeams,
+  specialistCustomTeams,
   specialistTasks,
   projectWithId,
   createEpic,
