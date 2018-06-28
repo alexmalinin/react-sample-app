@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+
 import { StyledBar } from "../../styleComponents/layout/SideBar";
+import { Loader } from "semantic-ui-react";
+
 import { IMAGE_PORT } from "../../constants/constants";
 import { CLIENT } from "../../constants/user";
 import { getUserType } from "../../helpers/functions";
 
 class SideBarLeft extends Component {
   renderCategory = (projects, title) => {
-    const { allEpics } = this.props;
+    const {
+      allEpics: { loading, loaded, epics }
+    } = this.props;
 
     return (
       !!projects.length && (
@@ -40,23 +45,24 @@ class SideBarLeft extends Component {
                     <div className="project-name">{project.name}</div>
                   </NavLink>
                   <div className="modules">
-                    {allEpics.loaded &&
-                      allEpics.projectId === project.id &&
-                      allEpics.data.map((epic, key) => (
+                    {loaded &&
+                      epics.projectId === project.id &&
+                      epics.map((epic, key) => (
                         <NavLink
                           className="project-module"
                           to={`/dashboard/project/${project.id}/module/${key +
                             1}`}
                           key={key}
                         >
-                          <span className="module-number">{key + 1}.0</span>&nbsp;
+                          <span className="module-number">
+                            {String(key + 1).padStart(2, 0)}.
+                          </span>&nbsp;
                           {epic.name}
                         </NavLink>
                       ))}
-                    {allEpics &&
-                      !allEpics.length && (
-                        <p className="no-epics">No modules</p>
-                      )}
+                    {loaded &&
+                      !epics.length && <p className="no-epics">No modules</p>}
+                    {loading && <Loader active />}
                   </div>
                 </div>
               ))}
@@ -75,11 +81,13 @@ class SideBarLeft extends Component {
         {this.renderCategory(discovery, "Projects")}
         {this.renderCategory(draft, "Projects on drafts")}
         {getUserType() === CLIENT && (
-          <div className="project-wrapper">
-            <NavLink className="project-link" to="/dashboard/project/new">
-              <span className="add-project" />
-              <div className="add-project-label">Add project</div>
-            </NavLink>
+          <div className="projects">
+            <div className="project-wrapper">
+              <NavLink className="project-link" to="/dashboard/project/new">
+                <span className="add-project" />
+                <div className="add-project-label">Add project</div>
+              </NavLink>
+            </div>
           </div>
         )}
       </StyledBar>

@@ -5,22 +5,18 @@ import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
 import { Transition } from "semantic-ui-react";
-import {
-  CLIENT,
-  S_REDGUY,
-  CUSTOMER,
-  S_ACTIVE,
-  S_CORE
-} from "../../constants/user";
+import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "../../constants/user";
 import { getUserRole, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
-    const { allEpics } = this.props;
+    const {
+      allEpics: { loaded, epics }
+    } = this.props;
 
     return (
-      allEpics.loaded &&
-      allEpics.data.map((epic, key) => {
+      loaded &&
+      epics.map((epic, key) => {
         let subheaderCompletedTasks = 0;
         epic.tasks.forEach(
           task =>
@@ -127,10 +123,11 @@ class ProjectSubHeader extends Component {
   }
 }
 
-export default connect(
-  state => ({
+const mapStateToProps = (state, ownProps) => {
+  return {
     updateTask: state.updateTask,
     allEpics: state.allEpics
-  }),
-  null
-)(ProjectSubHeader);
+  };
+};
+
+export default connect(mapStateToProps)(ProjectSubHeader);

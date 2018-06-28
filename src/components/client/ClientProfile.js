@@ -2,13 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { Grid } from "semantic-ui-react";
-import { DvTitle, DvTitleSmall } from "../../styleComponents/layout/DvTitles";
 import RenderProfileForm from "../forms/RenderProfileForm";
 import RenderResetPasswordForm from "../forms/RenderResetPasswordForm";
-import {
-  Container,
-  ContainerLarge
-} from "../../styleComponents/layout/Container";
 import { showClientData, updateClientProfile } from "../../actions/actions";
 import { run } from "../../helpers/scrollToElement";
 import { getAllUrlParams, compareObjects } from "../../helpers/functions";
@@ -16,15 +11,11 @@ import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../modals/ConfirmationModal";
 
 class ClientProfile extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      nextStep: false,
-      isEditing: false,
-      isEdited: false
-    };
-  }
+  state = {
+    nextStep: false,
+    isEditing: false,
+    isEdited: false
+  };
 
   componentWillMount() {
     sessionStorage.removeItem("client_step");

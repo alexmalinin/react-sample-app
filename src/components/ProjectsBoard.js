@@ -38,16 +38,17 @@ class ProjectsBoard extends Component {
   componentWillReceiveProps(nextProps) {
     let epicId;
     if (
-      nextProps.allEpics &&
+      nextProps.allEpics.epics &&
       nextProps.currentEpic !== "all" &&
       nextProps.projectWithId
     ) {
-      if (+nextProps.currentEpic > nextProps.allEpics.length) {
-        epicId = nextProps.allEpics[nextProps.allEpics.length - 1].id;
+      if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
+        epicId =
+          nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
         nextProps.history.push(
           `/dashboard/project/${nextProps.projectWithId.id}/module/all`
         );
-      } else epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
+      } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
     }
 
     if (nextProps.projectWithId) {
@@ -134,17 +135,15 @@ class ProjectsBoard extends Component {
   renderContent = () => {
     const {
       projectId,
-      allEpics,
+      allEpics: { epics },
       showAllEpics,
       currentEpic,
       projectWithId
     } = this.props;
 
-    const { epics } = projectWithId || {};
-
     const epicId =
-      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
-        ? allEpics[currentEpic - 1].id
+      epics && currentEpic !== "all" && +currentEpic <= epics.length
+        ? epics[currentEpic - 1].id
         : null;
 
     if (currentEpic !== "all") {
@@ -188,8 +187,8 @@ class ProjectsBoard extends Component {
               </div>
             )}
             {getUserType() === SPECIALIST &&
-              allEpics &&
-              allEpics.length === 0 && (
+              epics &&
+              epics.length === 0 && (
                 <div className="noModules">
                   <p>No modules yet</p>
                 </div>
@@ -201,12 +200,17 @@ class ProjectsBoard extends Component {
   };
 
   render() {
-    const { projectId, allEpics, currentEpic, epicTasks } = this.props;
+    const {
+      projectId,
+      allEpics: { epics },
+      currentEpic,
+      epicTasks
+    } = this.props;
     const { myTasks } = this.state;
 
     const epicId =
-      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
-        ? allEpics[currentEpic - 1].id
+      epics && currentEpic !== "all" && +currentEpic <= epics.length
+        ? epics[currentEpic - 1].id
         : null;
 
     return (

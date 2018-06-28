@@ -43,6 +43,7 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import EditProfile from "../profile/EditProfile";
 
 const pagesToCalculate = ["profile", "company", "billing"];
 
@@ -321,6 +322,9 @@ class ClientDashboard extends Component {
             collectBillingData={this.collectBillingData}
           />
         );
+      case "edit":
+        document.title = "Edit profile | Digital Village";
+        return <EditProfile />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <ClientAbout />;
@@ -402,7 +406,7 @@ class ClientDashboard extends Component {
         nextProps.showProjectTeam(projectId);
       }
     } else if (projectId && projectId !== "new") {
-      console.log("dsw");
+      console.log("dsw2");
       nextProps.showProjectWithId(projectId);
     }
   }
@@ -412,7 +416,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     allProjects: state.allProjects,
     projectWithId: state.projectWithId,
-    allEpics: state.allEpics,
     clientTeams: state.clientTeams,
     changeUserType: state.changeUserType,
     signInReduce: state.signInReducer

@@ -19,8 +19,8 @@ import Verification from "./Verification/Verification";
 import ResetPage from "./ResetPassword/ResetPage";
 import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
-import ClientDashboard from "./client/ClientDashboard";
-import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
+import ClientIndex from "./client/index";
+import SpecialistIndex from "./specialist/index";
 import { getUserType, getUserRole } from "../helpers/functions";
 import { S_PASSIVE } from "../constants/user";
 import PrivateRoute from "../decorators/PrivateRoute";
@@ -32,10 +32,10 @@ class App extends Component {
 
     switch (getUserType()) {
       case "Specialist":
-        Dashboard = SpecialistDashboard;
+        Dashboard = SpecialistIndex;
         break;
       case "Client":
-        Dashboard = ClientDashboard;
+        Dashboard = ClientIndex;
         break;
       default:
         Dashboard = SignIn;
@@ -101,6 +101,10 @@ class App extends Component {
               />
               <PrivateRoute
                 path="/dashboard/specialist/:specialistId"
+                component={Dashboard}
+              />
+              <PrivateRoute
+                path="/profile/:profilePage"
                 component={Dashboard}
               />
               <PrivateRoute path="/dashboard/:page" component={Dashboard} />

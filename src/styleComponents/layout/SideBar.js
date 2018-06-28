@@ -30,9 +30,15 @@ export const StyledBar = styled.aside`
     display: flex;
     flex-flow: column nowrap;
 
+    .category {
+      display: flex;
+      flex-flow: column nowrap;
+    }
+
     .title {
       z-index: 1;
       flex: 0 0 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       padding: 0 22px;
@@ -66,13 +72,6 @@ export const StyledBar = styled.aside`
           align-items: center;
 
           text-align: center;
-
-          .add-project-label {
-            position: absolute;
-            color: #666;
-            text-align: center;
-            text-transform: uppercase;
-          }
 
           .project-logo,
           .add-project {
@@ -126,6 +125,7 @@ export const StyledBar = styled.aside`
 
           .add-project {
             display: inline-block;
+            position: relative;
 
             &::before,
             &::after {
@@ -145,6 +145,12 @@ export const StyledBar = styled.aside`
               height: 2px;
               width: 26px;
             }
+          }
+
+          .add-project-label {
+            color: #666;
+            text-align: center;
+            text-transform: uppercase;
           }
 
           &::after {
@@ -189,8 +195,10 @@ export const StyledBar = styled.aside`
 
         .modules {
           display: none;
+          position: relative;
           flex-flow: column nowrap;
           padding: 7px 7px 7px 36px;
+          min-height: 60px;
 
           color: ${fontColors.regular};
           font-size: 16px;
@@ -201,7 +209,7 @@ export const StyledBar = styled.aside`
 
           .project-module {
             display: block;
-            padding: 3px 0;
+            padding: 6px 0;
             color: inherit;
 
             &.active {

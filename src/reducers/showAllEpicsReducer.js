@@ -12,7 +12,7 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case SHOW_ALL_EPICS:
-      return { ...state, loading: true };
+      return { ...state, loading: true, loaded: false };
     case SHOW_ALL_EPICS + SUCCESS:
       return { ...state, epics: data, loading: false, loaded: true };
     case SHOW_ALL_EPICS + FAIL:

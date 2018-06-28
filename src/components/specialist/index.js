@@ -1,25 +1,40 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
-import SideBarLeft from "../../layout/SideBarLeft";
-import SideBarRight from "../../layout/SideBarRight";
-import SpecialistsProfile from "./SpecialistsProfile";
-import SpecialistsCompany from "./SpecialistsCompany";
-import SpecialistIndustry from "./SpecialistIndustry";
-import SpecialistsAbout from "./SpecialistsAbout";
-import SpecialistsTest from "./SpecialistsTest";
-import SpecialistsMyBillings from "./SpecialistsMyBillings";
-import SpecialistAccount from "./SpecialistAccount";
-import SpecialistYTD from "./SpecialistYTD";
-import SpecialistStatement from "./SpecialistStatement";
-import TheVillage from "../../TheVillage";
-import { projects, days } from "../../../helpers/sidebarDbEmulate";
-import ProjectsBoard from "../../ProjectsBoard";
-import Dashboard from "../../Dashboard";
-import { Container } from "../../../styleComponents/layout/Container";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+import { NotificationContainer } from "react-notifications";
+
+import "react-notifications/lib/notifications.css";
+
+import HeaderBasic from "../layout/HeaderBasic";
+import SubHeader from "../layout/SpecialistsSubHeader";
+import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
+import SideBarLeft from "../layout/SideBarLeft";
+import SideBarRight from "../layout/SideBarRight";
+import SpecialistsProfile from "./pages/SpecialistsProfile";
+import SpecialistsCompany from "./pages/SpecialistsCompany";
+import SpecialistIndustry from "./pages/SpecialistIndustry";
+import EditProfile from "../profile/EditProfile";
+import SpecialistsAbout from "./pages/SpecialistsAbout";
+import SpecialistsTest from "./pages/SpecialistsTest";
+import SpecialistsMyBillings from "./pages/SpecialistsMyBillings";
+import SpecialistAccount from "./pages/SpecialistAccount";
+import SpecialistYTD from "./pages/SpecialistYTD";
+import SpecialistStatement from "./pages/SpecialistStatement";
+import TheVillage from "../TheVillage";
+import { projects, days } from "../../helpers/sidebarDbEmulate";
+import ProjectsBoard from "../ProjectsBoard";
+import Dashboard from "../Dashboard";
+import { Container } from "../../styleComponents/layout/Container";
+import Teams from "../Teams";
+import ClientModule from "../client/ClientModule";
+import SearchSpecialist from "./pages/SearchSpecialist";
+import NotFound from "../NotFound";
+import SavingConfirmationModal from "../modals/SavingConfirmationModal";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
+import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
+
 import {
   showSpecialistData,
   updateSpecialistProfile,
@@ -29,27 +44,18 @@ import {
   showSpecialistTeams,
   showProjectTeam,
   showAllSpecialists
-} from "../../../actions/actions";
-import Teams from "../../Teams";
+} from "../../actions/actions";
+
 import {
   getCookie,
   setCookie,
   getUserRole,
   oneOfRoles,
   createNotification
-} from "../../../helpers/functions";
-import { PORT } from "../../../constants/constants";
-import { S_REDGUY, S_CORE, S_PASSIVE } from "../../../constants/user";
-import ClientModule from "../../client/ClientModule";
-import SearchSpecialist from "./SearchSpecialist";
-import NotFound from "../../NotFound";
-import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
-import DeleteConfirmationModal from "../../modals/DeleteConfirmationModal";
-import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { NotificationContainer } from "react-notifications";
-import "react-notifications/lib/notifications.css";
+} from "../../helpers/functions";
+
+import { PORT } from "../../constants/constants";
+import { S_REDGUY, S_CORE, S_PASSIVE } from "../../constants/user";
 
 const pagesToCalculate = ["profile", "industry", "company", "billings"];
 
@@ -297,13 +303,7 @@ class SpecialistsDashboard extends Component {
     let page;
 
     const passive = getUserRole() === S_PASSIVE;
-    const allowedPages = [
-      "about",
-      "profile",
-      "industry",
-      "company",
-      "billings"
-    ];
+    const allowedPages = ["about"];
 
     if (passive) {
       if (params["page"]) {
@@ -317,6 +317,8 @@ class SpecialistsDashboard extends Component {
           page = params["page"];
         } else page = "forbidden";
       } else page = params["page"];
+    } else if (params["profilePage"]) {
+      page = params["profilePage"];
     } else if (params["projectId"] && params["projectId"] !== "new") {
       page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
@@ -326,7 +328,7 @@ class SpecialistsDashboard extends Component {
     } else page = "dashboard";
 
     let sidebarCondition =
-      page !== "profile" &&
+      page !== "new" &&
       page !== "industry" &&
       page !== "company" &&
       page !== "billings" &&
@@ -408,7 +410,7 @@ class SpecialistsDashboard extends Component {
     } = this.props;
 
     switch (page) {
-      case "profile":
+      case "new":
         document.title = "Profile | Digital Village";
         return (
           <SpecialistsProfile
@@ -440,6 +442,9 @@ class SpecialistsDashboard extends Component {
             collectBillingData={this.collectBillingData}
           />
         );
+      case "edit":
+        document.title = "Edit profile | Digital Village";
+        return <EditProfile />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
