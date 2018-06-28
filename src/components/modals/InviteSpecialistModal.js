@@ -96,6 +96,8 @@ class InviteSpecialistModal extends Component {
             onClick={this.open}
             role="button"
             className="dv-blue"
+            uppercase="true"
+            fontSize={14}
             fluid
           >
             Invite

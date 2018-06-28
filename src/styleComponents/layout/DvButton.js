@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { Button } from "semantic-ui-react";
-import { primaryColors, secondaryColors, colors } from "../constants/colors";
+import {
+  primaryColors,
+  secondaryColors,
+  colors,
+  buttonColors
+} from "../constants/colors";
 
 export const DvButton = styled(Button)`
   &.ui.button {
@@ -645,7 +650,7 @@ export const SubmitBtn = styled(Button)`
 `;
 
 export const DvBlueButton = styled(Button)`
-  &.ui.button.dv-blue {
+  /* &.ui.button.dv-blue {
     text-transform: uppercase;
     display: flex;
     justify-content: center;
@@ -662,6 +667,111 @@ export const DvBlueButton = styled(Button)`
 
     &.fluid {
       width: 100%;
+    }
+  } */
+
+  &.ui.button.dv-blue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: ${props => (props.fontSize ? `${props.fontSize}px` : "18px")};
+    text-transform: ${props => (props.uppercase ? "uppercase" : "none")};
+    font-weight: 500;
+    border-radius: 3px;
+    background-color: ${colors.blue};
+    color: #fff;
+    white-space: nowrap;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 20px;
+    width: ${props => (props.fixed ? "140px" : "auto")};
+
+    &:hover {
+      background-color: #487ef2;
+    }
+
+    &:active {
+      background-color: #3650e7;
+    }
+
+    &.inverted {
+      background-color: #fff;
+      color: ${colors.blue};
+      border: 1px solid ${colors.blue};
+
+      &:hover {
+        color: ${colors.blue};
+        box-shadow: unset !important;
+        background-color: rgba(72, 126, 242, 0.1);
+      }
+
+      &:active {
+        box-shadow: inset 0px 1px 3px 0px rgba(54, 80, 231, 0.5) !important;
+        background-color: rgba(72, 126, 242, 0.15);
+      }
+    }
+
+    &.fluid {
+      width: 100%;
+    }
+
+    &:disabled {
+      color: #fff;
+      background-color: #dbdbdb;
+      border: none;
+    }
+  }
+`;
+
+export const DvButtonBlue = styled(Button)`
+  &.ui.button.dv-blue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    border-radius: 3px;
+    background-color: ${colors.blue};
+    color: #fff;
+    white-space: nowrap;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 20px;
+
+    &:hover {
+      background-color: #487ef2;
+    }
+
+    &:active {
+      background-color: #3650e7;
+    }
+
+    &.inverted {
+      background-color: #fff;
+      color: ${colors.blue};
+      border: 1px solid ${colors.blue};
+
+      &:hover {
+        color: ${colors.blue};
+        box-shadow: unset !important;
+        background-color: rgba(72, 126, 242, 0.1);
+      }
+
+      &:active {
+        box-shadow: inset 0px 1px 3px 0px rgba(54, 80, 231, 0.5) !important;
+        background-color: rgba(72, 126, 242, 0.15);
+      }
+    }
+
+    &.fluid {
+      width: 100%;
+    }
+
+    &:disabled {
+      color: #fff;
+      background-color: #dbdbdb;
+      border: none;
     }
   }
 `;

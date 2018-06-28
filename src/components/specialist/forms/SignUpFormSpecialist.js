@@ -25,7 +25,7 @@ class SignUpFormSpecialist extends Component {
 
 SignUpFormSpecialist = reduxForm({
   form: "SignUpFormSpecialist",
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true
 })(SignUpFormSpecialist);
 

@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { boxShadow, primaryColors, colors } from "./constants/colors";
+import {
+  boxShadow,
+  primaryColors,
+  fontColors,
+  colors
+} from "./constants/colors";
 
 export default styled.div`
     color: #666;
@@ -21,19 +26,34 @@ export default styled.div`
     }
 
     .section-header {
-        font-size: 12px;
-        text-transform: uppercase;
-        font-weight: 600;
-        border-bottom: 2px solid ${colors.blue};
         display: flex;
         justify-content: space-between;
         width: 100%;
+        border-bottom: 2px solid ${colors.blue};
+        
 
         .title{
+            font-size: 20px;
             margin-top: 28px;
-            color: #999;
-            letter-spacing: 2px;
         }
+    }
+
+    .team-wrap {
+        margin-bottom: 20px;
+    }
+
+    .team-name {
+        color: ${fontColors.black};
+        font-weight: 500;
+    }
+
+    .team-channel {
+        color: ${fontColors.blue.inert};
+        font-size: 14px;
+    }
+
+    .team-channel {
+        margin: 10px 0;
     }
 
     .buttonAdd {
@@ -71,13 +91,8 @@ export default styled.div`
         font-size: 12px;
         display: flex;
         margin-top: 15px;
-
-        img {
-            width: 23px;
-            height: 23px;
-            margin-right: 20px;
-        }
     }
+
     .teamsPlaceholder{
         display: flex;
         justify-content: center;
@@ -161,8 +176,8 @@ export default styled.div`
                         border-radius: 5px;
 
                         &::before{
-                            content: '# ';
-                            color: #999;
+                            content: '#';
+                            color: ${fontColors.blue.inert};
                             line-height: 24px;
                             font-weight: 600;
                         }
@@ -173,9 +188,9 @@ export default styled.div`
                             left: 0;
                             height: 100%;
                             width: 100%;
-                            padding: 0 16px;
+                            padding: 0 13px;
+                            color: ${fontColors.blue.inert};
                             border: none;
-                            color: #999;
                             font-weight: 600;
                             background: none;
                             cursor: pointer;
@@ -189,6 +204,10 @@ export default styled.div`
                             &::placeholder{
                                 color: inherit;
                             }
+                        }
+
+                        &.disabled {
+                            opacity: 1;
                         }
                     }
 
@@ -273,17 +292,16 @@ export default styled.div`
             .ui.input{
                 input{
                     width: 150px;
-
-                    color: #c3c3c3;
+                    color: ${fontColors.blue.inert};
                     font-size: 14px;
                     font-weight: 500;
                     border: none;
                     border-radius: 5px;
-                    background: rgba(216, 216, 216, .18);
+                    background: ${primaryColors.accentBackground};
 
                     &::placeholder{
-                        color: #c3c3c3;
-                        font-weight: 500;
+                        color: ${fontColors.blue.inert};
+                        font-weight: 600;
                     }
                 }
             }

@@ -3,14 +3,16 @@ import {
   secondaryColors,
   colors,
   boxShadow,
-  primaryColors
+  primaryColors,
+  fontColors
 } from "../constants/colors";
 
 export default styled.div`
   border-radius: 0 !important;
   position: relative;
-  margin-bottom: ${props => (props.small ? `7px` : `20px`)};
-  padding-top: 20px;
+  margin-bottom: ${props => (props.small ? `7px` : `10px`)};
+  padding-top: 28px;
+  padding-bottom: 20px;
 
   ${props => (props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``)};
   ${props =>
@@ -31,8 +33,8 @@ export default styled.div`
     position: absolute;
     right: 15px;
     top: calc(50% - 15px);
-    border-right: 2px solid ${secondaryColors.green};
-    border-bottom: 2px solid ${secondaryColors.green};
+    border-right: 2px solid ${colors.blue};
+    border-bottom: 2px solid ${colors.blue};
     height: 20px;
     width: 12px;
     transform: rotate(45deg);
@@ -41,13 +43,12 @@ export default styled.div`
   label {
     position: absolute;
     top: 0;
-    left: ${props =>
-      props.accountInput ? `0` : props.padded ? `30px` : `10px`};
+    left: ${props => (props.accountInput ? `0` : props.padded ? `30px` : `0`)};
     font-family: "Roboto";
-    font-size: ${props => (props.accountInput ? `10px` : `12px`)};
-    text-transform: uppercase;
-    color: ${props => (props.accountInput ? `#999` : `#666`)};
-    font-weight: ${props => (props.accountInput ? `normal` : `600`)};
+    font-size: ${props => (props.accountInput ? `10px` : `18px`)};
+    text-transform: none;
+    color: ${props => (props.accountInput ? `#999` : fontColors.black)};
+    font-weight: ${props => (props.accountInput ? `normal` : `500`)};
   }
 
   &.moduleName {
@@ -58,23 +59,42 @@ export default styled.div`
     width: 100%;
     input {
       border: none;
-      border-bottom: 2px solid #f2f2f2;
-      font-size: 16px;
+      font-size: 18px;
       color: #666;
       letter-spacing: 1.5px;
       padding-left: 10px;
-      border-radius: 0;
+      border-radius: 6px;
+      border: 1px solid #dce0ee;
 
       &.shadowInput {
         display: none;
       }
     }
+
+    &.error {
+      input {
+        background-color: transparent;
+        border-color: ${primaryColors.red};
+      }
+    }
+
     input[type="number"] {
       -moz-appearance: textfield;
     }
 
     input[name="cost"] {
       text-align: right;
+    }
+
+    input::placeholder {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+      color: ${fontColors.light};
+    }
+
+    input:focus {
+      border-color: ${colors.blue};
     }
 
     input::-webkit-outer-spin-button,

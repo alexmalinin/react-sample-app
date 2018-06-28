@@ -134,6 +134,7 @@ export const IntroContainer = styled.div`
       color: #666;
       text-transform: uppercase;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
 
     & > div {
@@ -144,6 +145,11 @@ export const IntroContainer = styled.div`
       color: #666;
       padding-bottom: 10px;
     }
+  }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
   }
 
   @media (max-width: 600px) {

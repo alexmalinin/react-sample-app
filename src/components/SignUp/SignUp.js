@@ -79,7 +79,7 @@ class SignUp extends Component {
                   Enter your email and start using Digital Village
                 </div>
               </StyledFormHeader>
-              <Tabs mTop="180" widthAuto action="">
+              <Tabs widthAuto action="">
                 <Tab
                   className={
                     Loading ? "loading content-loading" : "loading content-load"

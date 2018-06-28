@@ -67,6 +67,7 @@ export default styled.div`
 
         .ui.input {
           border-color: ${colors.lightGreyBlue};
+          height: 40px;
 
           input:focus {
             border-color: ${colors.blue};

@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import RenderField from "../forms/renders/RenderField";
 import StyledVerificationForm from "../../styleComponents/StyledVerificationForm";
-import { SaveBtn } from "../../styleComponents/layout/DvButton";
+import { DvButtonBlue } from "../../styleComponents/layout/DvButton";
 
 const validate = values => {
   const errors = {};
@@ -33,10 +33,11 @@ const VerificationForm = props => {
       <Field
         component={RenderField}
         name="password"
-        label="password"
+        label="Password"
         type="password"
         checkedClass="checked"
       />
+
       <Field
         component={RenderField}
         name="password_confirmation"
@@ -44,16 +45,16 @@ const VerificationForm = props => {
         type="password"
         checkedClass="checked"
       />
-      <div className="btn-wrap">
-        <SaveBtn
+
+      <div className="controls">
+        <DvButtonBlue
           type="submit"
+          className="dv-blue"
           disabled={submitting}
           onClick={this.postRequest}
-          static="true"
-          primary
         >
-          <span>Continue</span>
-        </SaveBtn>
+          Continue
+        </DvButtonBlue>
       </div>
     </StyledVerificationForm>
   );

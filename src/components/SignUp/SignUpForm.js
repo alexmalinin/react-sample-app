@@ -5,7 +5,7 @@ import RenderSelect from "../forms/renders/RenderSelect";
 import RenderPhone from "../forms/renders/RenderPhone";
 import RenderCheckbox from "../forms/renders/RenderCheckbox";
 import DvButtonForm from "../../styleComponents/layout/DvButtonForm";
-import { SaveBtn } from "../../styleComponents/layout/DvButton";
+import { DvButtonBlue } from "../../styleComponents/layout/DvButton";
 import StyledPhoneField from "../../styleComponents/forms/StyledPhoneField";
 import StyledRequireBox from "../../styleComponents/forms/StyledRequireBox";
 import InputField from "../forms/renders/InputField";
@@ -50,22 +50,11 @@ class SignUpForm extends Component {
           </span>
         </StyledRequireBox>
 
-        {/* <DvButtonForm
-                    type='submit'
-                    disabled={submitting}
-                    content='Continue'
-                    primary
-                /> */}
-
-        <SaveBtn
-          type="submit"
-          className="login-button"
-          disabled={submitting}
-          // content=''
-          primary
-        >
-          <span>Continue</span>
-        </SaveBtn>
+        <div className="controls">
+          <DvButtonBlue type="submit" className="dv-blue" disabled={submitting}>
+            Continue
+          </DvButtonBlue>
+        </div>
       </form>
     );
   }

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { required, minLength8 } from "../../helpers/validate";
 import RenderField from "../forms/renders/RenderField";
 import DvButtonForm from "../../styleComponents/layout/DvButtonForm";
-import { SaveBtn } from "../../styleComponents/layout/DvButton";
+import { DvButtonBlue } from "../../styleComponents/layout/DvButton";
 import StyledFormHint from "../../styleComponents/forms/StyledFormHint";
 import EmailField from "../forms/renders/EmailField";
 import { Message } from "semantic-ui-react";
@@ -48,21 +48,11 @@ class SignInForm extends Component {
           </NavLink>
         </StyledFormHint>
 
-        {/*<DvButtonForm
-                    type="submit"
-                    disabled={submitting}
-                    content='Login'
-                    primary
-                /> */}
-        <SaveBtn
-          type="submit"
-          className="login-button"
-          disabled={submitting}
-          // content=''
-          primary
-        >
-          <span>Sign In</span>
-        </SaveBtn>
+        <div className="controls">
+          <DvButtonBlue type="submit" className="dv-blue" disabled={submitting}>
+            Sign In
+          </DvButtonBlue>
+        </div>
       </form>
     );
   }
@@ -84,6 +74,6 @@ class SignInForm extends Component {
 
 export default reduxForm({
   form: "SignInForm",
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true
 })(SignInForm);

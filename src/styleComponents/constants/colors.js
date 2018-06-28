@@ -14,7 +14,8 @@ export const fontColors = {
   light: "#6F7084",
   regular: "#232323",
   black: "#000333",
-  blue: { active: "#002C93", inert: "#5E6181" }
+  blue: { active: "#002C93", inert: "#5E6181" },
+  red: "#c65c5c"
 };
 
 export const primaryColors = {
@@ -29,7 +30,7 @@ export const primaryColors = {
   transparentBlue: "#989ea9",
   strokeDarkBlue: "#002c93",
   errorColor: "#db4538",
-  red: "#e8433e"
+  red: "#c65c5c"
 };
 
 export const secondaryColors = {

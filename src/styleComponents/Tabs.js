@@ -7,7 +7,6 @@ export default styled.div`
       props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
     ${props => (props.widthAuto ? `width: 100%` : `width: 850px`)};
 
-    margin-top: 40px;
     font-size: 28px;
     font-family: Roboto, sans-serif;
     font-weight: 400;
@@ -48,20 +47,20 @@ export default styled.div`
         .item {
           font-family: 'Roboto', medium;
           width: 50%;
+          font-size: 16px;
+          font-weight: 500;
           letter-spacing: 1px;
-          line-height: 73px;
           text-align: center;
           display: inline-block;
           text-transform: uppercase;
-          padding: 0;
+          padding: 20px 0;
           color: ${primaryColors.darkGrey};
-          background-color: #fff;
-          border-bottom: 4px solid #f2f2f2;
+          border-bottom: 1px solid #dcdcdc;
 
           &.active {
-            color: ${primaryColors.darkGrey};
-            border-bottom: 4px solid ${colors.blue};
-            font-weight: bold;
+            color: ${colors.darkBlue};
+            font-weight: 500;
+            border-bottom: 1px solid ${colors.blue};
 
             &:hover {
 
@@ -153,17 +152,7 @@ export default styled.div`
     }
 
     @media (max-width: 1920px) {
-
      ${props => (props.widthAuto ? `width: 100%` : `width: 650px`)};
-
-      .ui {
-        &.text.menu {
-          .item {
-            line-height: 60px;
-            font-size: 1rem;
-          }
-        }
-      }
     }
 
     @media (max-width: 1499px) {

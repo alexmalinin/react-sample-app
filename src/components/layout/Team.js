@@ -139,7 +139,7 @@ class Team extends Component {
       <Grid>
         <Grid.Row className="section-header">
           <Grid.Column computer={6} textAlign="left" floated="left">
-            <p className="title">
+            <p className="title team-name">
               {team.name} {team.project_id && "project"}
             </p>
           </Grid.Column>
@@ -202,18 +202,20 @@ class Team extends Component {
 
     return (
       <Fragment>
-        <h4>{team.name}</h4>
+        <div className="team-wrap">
+          <div className="team-name">{team.name}</div>
 
-        {channels && channels.length !== 0
-          ? channels.map((channel, key) => (
-              <Channel
-                channel={channel}
-                key={key}
-                allSpecialists={specialistsList}
-                renderToRightSidebar
-              />
-            ))
-          : "There is no channels"}
+          {channels && channels.length !== 0
+            ? channels.map((channel, key) => (
+                <Channel
+                  channel={channel}
+                  key={key}
+                  allSpecialists={specialistsList}
+                  renderToRightSidebar
+                />
+              ))
+            : "There is no channels"}
+        </div>
       </Fragment>
     );
   }

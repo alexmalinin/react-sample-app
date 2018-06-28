@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { reduxForm } from "redux-form";
 import StyledVerificationForm from "../../styleComponents/StyledVerificationForm";
-import { SaveBtn } from "../../styleComponents/layout/DvButton";
+import { DvButtonBlue } from "../../styleComponents/layout/DvButton";
 import EmailField from "../forms/renders/EmailField";
 
 class ForgotPasswordForm extends Component {
@@ -12,10 +12,10 @@ class ForgotPasswordForm extends Component {
       <StyledVerificationForm onSubmit={handleSubmit}>
         <EmailField name="email" label="Your Email" checkedClass="checked" />
 
-        <div className="btn-wrap">
-          <SaveBtn type="submit" disabled={submitting} primary>
-            <span>Submit</span>
-          </SaveBtn>
+        <div className="controls">
+          <DvButtonBlue type="submit" className="dv-blue" disabled={submitting}>
+            Submit
+          </DvButtonBlue>
         </div>
       </StyledVerificationForm>
     );

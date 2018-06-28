@@ -361,16 +361,6 @@ export const StyledBar = styled.aside`
         .team-tab-project {
           margin-bottom: 30px;
 
-          h4 {
-            color: #666;
-            margin-bottom: 0;
-          }
-
-          h5 {
-            margin-top: 10px;
-            margin-bottom: 10px;
-          }
-
           .persons {
             display: flex;
             flex-flow: row wrap;

@@ -353,6 +353,7 @@ class EditProjectForm extends Component {
                           loading={submitting}
                           role="button"
                           className="clear dv-blue"
+                          fixed="true"
                           disabled={state === "discovery" && !dirty}
                         >
                           {state === "discovery"

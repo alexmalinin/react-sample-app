@@ -90,6 +90,7 @@ class Channel extends Component {
               type="text"
               placeholder="Channel name"
               name="name"
+              className="channel-name"
               disabled={getUserRole() !== S_REDGUY || isGeneral}
               value={name}
               ref={Input => (this.editInput = Input)}
@@ -151,7 +152,7 @@ class Channel extends Component {
 
     return (
       <Fragment>
-        <h5>#{channel.name}</h5>
+        <div className="team-channel">#{channel.name}</div>
 
         <div className="persons team">
           <MembersDropdown

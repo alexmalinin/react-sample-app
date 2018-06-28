@@ -106,18 +106,20 @@ class Teams extends Component {
     const { teams } = this.props;
 
     return (
-      <div className="team-tab-project">
-        {teams && teams.length > 0 ? (
-          teams.map(
-            (team, key) =>
-              team && <Team key={key} team={team} renderToRightSidebar />
-          )
-        ) : (
-          <div className="teamsPlaceholder">
-            <p>No teams for now</p>
-          </div>
-        )}
-      </div>
+      <StyledTeamPage>
+        <div className="team-tab-project">
+          {teams && teams.length > 0 ? (
+            teams.map(
+              (team, key) =>
+                team && <Team key={key} team={team} renderToRightSidebar />
+            )
+          ) : (
+            <div className="teamsPlaceholder">
+              <p>No teams for now</p>
+            </div>
+          )}
+        </div>
+      </StyledTeamPage>
     );
   }
 
