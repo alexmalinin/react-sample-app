@@ -3,31 +3,15 @@ import { connect } from "react-redux";
 import { reduxForm, change, getFormValues } from "redux-form";
 import BillingForm from "./BillingForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
-import { checkObjectPropertiesForValues } from "../../../helpers/functions";
-
-let renderError = true;
 
 class ClientBillingForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      formData: {},
-      fetchFormValues: true,
       fetchSubmitError: true,
       submitError: false
     };
-
-    this.initialFormValues = {};
-  }
-
-  componentWillMount() {
-    if (this.props.clientData) {
-      this.fillFields(this.props.clientData);
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.reset();
   }
 
   render() {
@@ -35,7 +19,6 @@ class ClientBillingForm extends Component {
       handleSubmit,
       submitting,
       clientData,
-      handleFormField,
       swichTab,
       isEditing
     } = this.props;
@@ -45,8 +28,6 @@ class ClientBillingForm extends Component {
         <BillingForm
           clientData={clientData}
           submitting={submitting}
-          handleFormField={handleFormField}
-          handleEtaForm={this.handleEtaForm}
           swichTab={swichTab}
           isEditing={isEditing}
           handleSubmitError={this.handleSubmitError}
@@ -69,71 +50,8 @@ class ClientBillingForm extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [e.target.name]: e.target.value === "" ? null : e.target.value
-      }
-    });
-  };
-
-  handleEtaChange = date => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        expiry_date: date
-      }
-    });
-  };
-
-  handleEtaForm = date => {
-    this.handleEtaChange(date);
-    this.props.dispatch(change("ClientBillingForm", "expiry_date", date));
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!this.props.isEditing) {
-      if (checkObjectPropertiesForValues(nextState.formData)) {
-        this.props.handleFormEdit(false);
-      } else {
-        this.props.handleFormEdit(true);
-      }
-    }
-
-    if (this.props.isEditing) {
-      if (!this.initialFormValues) {
-        if (checkObjectPropertiesForValues(nextState.formData)) {
-          this.props.handleFormEdit(false);
-        } else {
-          this.props.handleFormEdit(true);
-        }
-      } else {
-        this.props.handleFormChange(nextState.formData, this.initialFormValues);
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client) {
-      if (client.successId) {
-        if (renderError) {
-          this.fillFields(client);
-          renderError = false;
-        }
-      }
-    }
-
-    if (nextProps.formValues && this.props.isEditing) {
-      if (this.state.fetchFormValues) {
-        this.setState({
-          formData: nextProps.formValues,
-          fetchFormValues: false
-        });
-      }
-    }
+    this.props.handleFormEdit(nextProps.dirty);
 
     if (
       (nextProps.submitFailed && this.state.fetchSubmitError) ||
@@ -142,32 +60,34 @@ class ClientBillingForm extends Component {
       this.setState({ submitError: true });
     }
   }
-
-  fillFields = data => {
-    let { billing } = data;
-
-    if (billing) {
-      this.initialFormValues = billing;
-    } else {
-      this.initialFormValues = null;
-    }
-
-    for (let key in billing) {
-      this.props.dispatch(change("ClientBillingForm", key, billing[key]));
-    }
-  };
 }
 
 ClientBillingForm = reduxForm({
   form: "ClientBillingForm",
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(ClientBillingForm);
 
 export default connect(state => {
   const { clientData } = state;
+
+  const billingData = (clientData && clientData.billing) || {};
+
   return {
     clientData,
-    formValues: getFormValues("ClientBillingForm")(state)
+    initialValues: {
+      billing_type: billingData && billingData.billing_type,
+      card_name: billingData && billingData.card_name,
+      card_number: billingData && billingData.card_number,
+      beneficiary_account: billingData && billingData.beneficiary_account,
+      beneficiary_bank: billingData && billingData.beneficiary_bank,
+      beneficiary_name: billingData && billingData.beneficiary_name,
+      correspondent_bank: billingData && billingData.correspondent_bank,
+      iban: billingData && billingData.iban,
+      purpose_of_payment: billingData && billingData.purpose_of_payment,
+      swift_code: billingData && billingData.swift_code
+    }
   };
 })(ClientBillingForm);

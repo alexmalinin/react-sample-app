@@ -1,44 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Field,
-  reduxForm,
-  change,
-  getFormValues,
-  getFormInitialValues
-} from "redux-form";
+import { Field, reduxForm } from "redux-form";
 import BillingForm from "./BillingForm";
 import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
-import { checkObjectPropertiesForValues } from "../../../helpers/functions";
-
-let renderError = true;
 
 class SpecialistBillingForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: {},
-      fetchFormValues: true,
       fetchSubmitError: true,
       submitError: false
     };
-
-    this.initialFormValues = {};
-  }
-
-  componentWillMount() {
-    if (this.props.specialistData && this.props.specialistData.billing) {
-      this.fillFields(this.props.specialistData.billing);
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.reset();
   }
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit} onChange={this.handleChange}>
+      <form onSubmit={this.props.handleSubmit}>
         <BillingForm
           {...this.props}
           handleFormField={this.handleFormField}
@@ -64,69 +41,8 @@ class SpecialistBillingForm extends Component {
     }
   };
 
-  handleChange = e => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [e.target.name]: e.target.value === "" ? null : e.target.value
-      }
-    });
-  };
-
-  handleEtaChange = date => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        expiry_date: date
-      }
-    });
-  };
-
-  handleEtaForm = date => {
-    this.handleEtaChange(date);
-    this.props.dispatch(change("SpecialistBillingForm", "expiry_date", date));
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!this.props.isEditing) {
-      if (checkObjectPropertiesForValues(nextState.formData)) {
-        this.props.handleFormEdit(false);
-      } else {
-        this.props.handleFormEdit(true);
-      }
-    }
-
-    if (this.props.isEditing) {
-      if (!this.initialFormValues) {
-        if (checkObjectPropertiesForValues(nextState.formData)) {
-          this.props.handleFormEdit(false);
-        } else {
-          this.props.handleFormEdit(true);
-        }
-      } else {
-        this.props.handleFormChange(nextState.formData, this.initialFormValues);
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.specialistData && nextProps.specialistData.billing) {
-      if (renderError) {
-        this.fillFields(nextProps.specialistData.billing);
-        renderError = false;
-      }
-    }
-
-    if (nextProps.formValues) {
-      if (this.state.fetchFormValues) {
-        if (this.props.isEditing) {
-          this.setState({
-            formData: nextProps.formValues,
-            fetchFormValues: false
-          });
-        }
-      }
-    }
+    this.props.handleFormEdit(nextProps.dirty);
 
     if (
       (nextProps.submitFailed && this.state.fetchSubmitError) ||
@@ -135,28 +51,34 @@ class SpecialistBillingForm extends Component {
       this.setState({ submitError: true });
     }
   }
-
-  fillFields = data => {
-    this.initialFormValues = data;
-
-    for (var key in data) {
-      this.props.dispatch(change("SpecialistBillingForm", key, data[key]));
-    }
-  };
 }
 
 SpecialistBillingForm = reduxForm({
   form: "SpecialistBillingForm",
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: true
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false
 })(SpecialistBillingForm);
-
-SpecialistBillingForm = connect(state => ({
-  formValues: getFormValues("SpecialistBillingForm")(state),
-  formInitialValues: getFormInitialValues("SpecialistBillingForm")(state)
-}))(SpecialistBillingForm);
 
 export default connect(state => {
   const { specialistData } = state;
-  return { specialistData };
+
+  const billingData = (specialistData && specialistData.billing) || {};
+
+  return {
+    specialistData,
+    initialValues: {
+      billing_type: billingData && billingData.billing_type,
+      card_name: billingData && billingData.card_name,
+      card_number: billingData && billingData.card_number,
+      beneficiary_account: billingData && billingData.beneficiary_account,
+      beneficiary_bank: billingData && billingData.beneficiary_bank,
+      beneficiary_name: billingData && billingData.beneficiary_name,
+      correspondent_bank: billingData && billingData.correspondent_bank,
+      iban: billingData && billingData.iban,
+      purpose_of_payment: billingData && billingData.purpose_of_payment,
+      swift_code: billingData && billingData.swift_code
+    }
+  };
 })(SpecialistBillingForm);

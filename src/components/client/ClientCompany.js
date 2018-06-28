@@ -61,7 +61,6 @@ class ClientCompany extends Component {
           isEditing={isEditing}
           isEdited={isEdited}
           handleFormEdit={this.handleFormEdit}
-          handleFormChange={this.handleFormChange}
           onSubmit={this.submit}
         />
 
@@ -99,14 +98,6 @@ class ClientCompany extends Component {
     this.setState({ isEdited: value });
   };
 
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
-  };
-
   componentWillReceiveProps(nextProps) {
     let client = nextProps.clientData;
 
@@ -119,7 +110,8 @@ class ClientCompany extends Component {
   }
 
   change = values => {
-    this.props.calculatePagePercent("companyPercent", values);
+    const data = this.props.collectCompanyData(values);
+    this.props.calculatePagePercent("companyPercent", data);
   };
 
   submit = values => {

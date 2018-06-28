@@ -50,7 +50,7 @@ class SpecialistCompany extends Component {
   }
 
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing } = this.state;
 
     const { industries } = this.props;
 
@@ -59,9 +59,7 @@ class SpecialistCompany extends Component {
         <SpecialistCompanyForm
           industries={industries}
           isEditing={isEditing}
-          isEdited={isEdited}
           handleFormEdit={this.handleFormEdit}
-          handleFormChange={this.handleFormChange}
           onSubmit={this.submit}
           onChange={this.change}
         />
@@ -110,14 +108,6 @@ class SpecialistCompany extends Component {
 
   handleFormEdit = value => {
     this.setState({ isEdited: value });
-  };
-
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
   };
 
   change = values => {

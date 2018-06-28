@@ -13,7 +13,7 @@ import Field from "redux-form/es/Field";
 
 class Communication extends Component {
   render() {
-    let { specialistData, handleCheckboxChange } = this.props;
+    let { specialistData } = this.props;
     let { successId } = specialistData || false;
 
     return (
@@ -21,7 +21,7 @@ class Communication extends Component {
         {/* <DropdownAvailability customPadd>
           <SlideTogle rerender={successId} height={0}> */}
         <label>Preferred method of communication</label>
-        <CommunicationType handleCheckboxChange={handleCheckboxChange} />
+        <CommunicationType />
         {/* </SlideTogle>
         </DropdownAvailability> */}
       </StyledAvailabilityForm>

@@ -67,7 +67,6 @@ class SpecialistIndustry extends Component {
           isEditing={isEditing}
           isEdited={isEdited}
           handleFormEdit={this.handleFormEdit}
-          handleFormChange={this.handleFormChange}
           onChange={this.change}
           onSubmit={this.submit}
           getSkills={this.props.getSkills}
@@ -106,14 +105,6 @@ class SpecialistIndustry extends Component {
 
   handleFormEdit = value => {
     this.setState({ isEdited: value });
-  };
-
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
   };
 
   componentWillReceiveProps(nextProps) {

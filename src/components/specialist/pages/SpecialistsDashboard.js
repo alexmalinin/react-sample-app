@@ -51,13 +51,6 @@ import axios from "axios";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
-const mapPageNameToFieldsCount = {
-  profilePercent: 7,
-  industryPercent: 10,
-  companyPercent: 8,
-  billingPercent: 2
-};
-
 const pagesToCalculate = ["profile", "industry", "company", "billings"];
 
 class SpecialistsDashboard extends Component {
@@ -95,28 +88,30 @@ class SpecialistsDashboard extends Component {
     }
   }
 
-  collectPropfileData() {
+  collectPropfileData(data) {
     const {
       first_name,
       last_name,
       email,
       address,
-      phone_number
-    } = this.props.specialistData;
-    const { city, country } = address ? address : {};
-    const data = {
-      first_name,
-      last_name,
-      email,
       city,
       country,
       phone_number,
-      additionalField: "additionalField"
+      professional_experience_info
+    } = data;
+
+    return {
+      first_name,
+      last_name,
+      email,
+      city: city || (address && address.city),
+      country: country || (address && address.country),
+      phone_number,
+      professional_experience_info
     };
-    return data;
   }
 
-  collectIndustryData() {
+  collectIndustryData(data) {
     const {
       job_title,
       position,
@@ -124,31 +119,29 @@ class SpecialistsDashboard extends Component {
       communication_type,
       contact_number,
       hourly_rate,
-      experience_level_id,
-      project_type,
       available,
-      skills: skills_attributes
-    } = this.props.specialistData;
+      experience_level_id,
+      industry_area_id,
+      project_type,
+      skills
+    } = data;
 
-    const data = {
+    return {
       job_title,
       position,
       industry_title,
-      industry: {},
       experience_level_id,
+      industry_area_id,
       contact_number,
       project_type,
       hourly_rate,
       available,
-      skills_attributes,
+      skills,
       communication_type
     };
-
-    return data;
   }
 
-  collectCompanyData() {
-    const { company } = this.props.specialistData;
+  collectCompanyData(data) {
     const {
       name,
       city,
@@ -158,9 +151,9 @@ class SpecialistsDashboard extends Component {
       number_of_employers,
       segment,
       website
-    } = company ? company : {};
+    } = data ? data : {};
 
-    const data = {
+    return {
       name,
       city,
       company_address,
@@ -170,58 +163,84 @@ class SpecialistsDashboard extends Component {
       segment,
       website
     };
-    return data;
   }
 
-  collectBillingData() {
-    const { billing } = this.props.specialistData;
+  collectBillingData(data) {
     const {
       billing_type,
-      bank_account_details,
+      card_name,
+      card_number,
+      correspondent_bank,
+      beneficiary_bank,
+      beneficiary_name,
+      iban,
       swift_code,
-      company_name,
-      manager
-    } = billing ? billing : {};
+      purpose_of_payment,
+      beneficiary_account
+    } = data ? data : {};
 
-    if (billing_type === 0) {
-      const data = {
-        bank_account_details,
-        swift_code
+    if (+billing_type === 1) {
+      return {
+        correspondent_bank,
+        beneficiary_bank,
+        beneficiary_name,
+        iban,
+        swift_code,
+        purpose_of_payment,
+        beneficiary_account
       };
-      return data;
-    }
-
-    if (billing_type === 1) {
-      const data = {
-        company_name,
-        manager
+    } else {
+      return {
+        card_name,
+        card_number
       };
-      return data;
     }
-
-    return {};
   }
 
   calculatePagePercent(percentName, data) {
-    const fieldsCount = mapPageNameToFieldsCount[percentName];
+    let fieldsCount = data && Object.keys(data).length;
 
-    const keys = Object.keys(data);
-    const filledFields = keys.filter(key => data[key]).length;
+    if (percentName && Object.keys(data).length > 0) {
+      let filledFields = 0;
 
-    let percents = Math.round(filledFields / fieldsCount * 100);
-    percents = percents > 100 ? 100 : percents;
+      for (let key in data) {
+        if (data[key]) {
+          switch (typeof data[key]) {
+            case "number":
+              filledFields++;
+              break;
+            case "object":
+              Object.values(data[key]).length > 0 &&
+                Object.values(data[key]).some(x => !!x) &&
+                filledFields++;
+              break;
+            default:
+              data[key].length > 0 && filledFields++;
+          }
+        }
+      }
 
-    this.setState({
-      [percentName]: percents
-    });
+      let percents = Math.round(filledFields / fieldsCount * 100);
+      percents = percents > 100 ? 100 : percents;
+
+      this.setState({
+        [percentName]: percents
+      });
+    } else {
+      this.setState({
+        [percentName]: null
+      });
+    }
   }
 
   calculatePercents() {
-    if (this.props.specialistData) {
-      const profileData = this.collectPropfileData();
-      const industryData = this.collectIndustryData();
-      const companyData = this.collectCompanyData();
-      const billingData = this.collectBillingData();
+    const { specialistData } = this.props;
+
+    if (specialistData) {
+      const profileData = this.collectPropfileData(specialistData);
+      const industryData = this.collectIndustryData(specialistData);
+      const companyData = this.collectCompanyData(specialistData.company);
+      const billingData = this.collectBillingData(specialistData.billing);
 
       this.calculatePagePercent("profilePercent", profileData);
       this.calculatePagePercent("industryPercent", industryData);
@@ -379,7 +398,7 @@ class SpecialistsDashboard extends Component {
         return (
           <SpecialistIndustry
             calculatePagePercent={this.calculatePagePercent}
-            collectPropfileData={this.collectPropfileData}
+            collectIndustryData={this.collectIndustryData}
           />
         );
       case "company":
@@ -387,7 +406,7 @@ class SpecialistsDashboard extends Component {
         return (
           <SpecialistsCompany
             calculatePagePercent={this.calculatePagePercent}
-            collectPropfileData={this.collectPropfileData}
+            collectCompanyData={this.collectCompanyData}
           />
         );
       case "billings":
@@ -395,7 +414,7 @@ class SpecialistsDashboard extends Component {
         return (
           <SpecialistsMyBillings
             calculatePagePercent={this.calculatePagePercent}
-            collectPropfileData={this.collectPropfileData}
+            collectBillingData={this.collectBillingData}
           />
         );
       case "about":

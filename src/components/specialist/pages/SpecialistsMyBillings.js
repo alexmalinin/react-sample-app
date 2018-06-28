@@ -18,7 +18,8 @@ class SpecialistsMyBillings extends Component {
     this.state = {
       nextStep: false,
       isEditing: false,
-      nextLocation: false
+      nextLocation: false,
+      isEdited: false
     };
   }
 
@@ -40,23 +41,8 @@ class SpecialistsMyBillings extends Component {
     this.props.showSpecialistData();
   }
 
-  collectData(values) {
-    const {
-      billing_type,
-      company_name,
-      manager,
-      bank_account_details,
-      swift_code
-    } = values;
-
-    if (billing_type == "1") {
-      return { company_name, manager };
-    }
-    return { bank_account_details, swift_code };
-  }
-
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing } = this.state;
 
     return (
       <div>
@@ -64,9 +50,7 @@ class SpecialistsMyBillings extends Component {
           swichTab={this.swichTab}
           data={this.props.specialistData}
           isEditing={isEditing}
-          isEdited={isEdited}
           handleFormEdit={this.handleFormEdit}
-          handleFormChange={this.handleFormChange}
           onChange={this.change}
           onSubmit={this.submit}
         />
@@ -103,14 +87,6 @@ class SpecialistsMyBillings extends Component {
     this.setState({ isEdited: value });
   };
 
-  handleFormChange = (a, b) => {
-    if (compareObjects(a, b)) {
-      this.setState({ isEdited: false });
-    } else {
-      this.setState({ isEdited: true });
-    }
-  };
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.specialistData) {
       if (nextProps.specialistData.successUpdateId) {
@@ -124,14 +100,14 @@ class SpecialistsMyBillings extends Component {
   }
 
   change = values => {
-    if (!values.hasOwnProperty("billing_type")) {
-      values.billing_type = 0;
-    }
-    const data = this.collectData(values);
+    const data = this.props.collectBillingData(values);
     this.props.calculatePagePercent("billingPercent", data);
   };
 
   submit = values => {
+    if (!values.hasOwnProperty("billing_type")) {
+      values.billing_type = 0;
+    }
     this.props.updateSpecialistBillings(values);
   };
 }

@@ -43,13 +43,7 @@ import axios from "axios";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
-const mapPageNameToFieldsCount = {
-  profilePercent: 7,
-  companyPercent: 11,
-  billingPercent: null
-};
-
-const pagesToCalculate = ["profile", "industry", "company", "billings"];
+const pagesToCalculate = ["profile", "company", "billing"];
 
 class ClientDashboard extends Component {
   constructor() {
@@ -99,96 +93,89 @@ class ClientDashboard extends Component {
     }
   }
 
-  collectPropfileData() {
+  collectPropfileData(data) {
     const {
       first_name,
       last_name,
       email,
       address,
-      phone_number
-    } = this.props.clientData;
-    const { city, country } = address ? address : {};
-    const data = {
-      first_name,
-      last_name,
-      email,
       city,
       country,
       phone_number,
-      additionalField: "additionalField"
+      description
+    } = data;
+
+    return {
+      first_name,
+      last_name,
+      email,
+      city: city || (address && address.city),
+      country: country || (address && address.country),
+      phone_number,
+      description
     };
-    return data;
   }
 
-  collectCompanyData() {
-    const { company } = this.props.clientData;
+  collectCompanyData(data) {
     const {
       name,
       city,
       abn_acn,
       tell_about,
-      register_name,
       company_address,
       country,
       industry_area_id,
+      industry,
       number_of_employers,
       segment,
-      website
-    } = company ? company : {};
+      website,
+      registered_name
+    } = data ? data : {};
 
-    const data = {
+    return {
       abn_acn,
       name,
       company_address,
       city,
       country,
-      industry_area_id,
+      industry: industry || industry_area_id,
       number_of_employers,
-      register_name,
       segment,
       website,
       tell_about,
-      ololo: {}
+      registered_name
     };
-    return data;
   }
 
-  collectBillingData() {
-    const { billing } = this.props.clientData;
+  collectBillingData(data) {
     const {
       billing_type,
-      account_number,
-      password,
       card_name,
       card_number,
-      expiry_date,
-      ccv,
-      account_details
-    } = billing ? billing : {};
+      correspondent_bank,
+      beneficiary_bank,
+      beneficiary_name,
+      iban,
+      swift_code,
+      purpose_of_payment,
+      beneficiary_account
+    } = data ? data : {};
 
-    if (billing_type === 0) {
-      const data = {
-        account_number,
-        password
+    if (+billing_type === 1) {
+      return {
+        correspondent_bank,
+        beneficiary_bank,
+        beneficiary_name,
+        iban,
+        swift_code,
+        purpose_of_payment,
+        beneficiary_account
       };
-      return data;
-    }
-
-    if (billing_type === 1) {
-      const data = {
+    } else {
+      return {
         card_name,
-        card_number,
-        expiry_date,
-        ccv
+        card_number
       };
-      return data;
-    }
-
-    if (billing_type === 2) {
-      const data = {
-        account_details
-      };
-      return data;
     }
   }
 
@@ -197,16 +184,27 @@ class ClientDashboard extends Component {
       return 0;
     }
 
-    if (percentName === "billingPercent") {
-      let fieldsCount = data.count;
-      let mydata = data.data;
+    let fieldsCount = data && Object.keys(data).length;
 
-      if (!mydata) {
-        return 0;
+    if (percentName && Object.keys(data).length > 0) {
+      let filledFields = 0;
+
+      for (let key in data) {
+        if (data[key]) {
+          switch (typeof data[key]) {
+            case "number":
+              filledFields++;
+              break;
+            case "object":
+              Object.values(data[key]).length > 0 &&
+                Object.values(data[key]).some(x => !!x) &&
+                filledFields++;
+              break;
+            default:
+              data[key].length > 0 && filledFields++;
+          }
+        }
       }
-
-      const keys = Object.keys(mydata);
-      const filledFields = keys.filter(key => mydata[key]).length;
 
       let percents = Math.round(filledFields / fieldsCount * 100);
       percents = percents > 100 ? 100 : percents;
@@ -214,27 +212,20 @@ class ClientDashboard extends Component {
       this.setState({
         [percentName]: percents
       });
-      return;
+    } else {
+      this.setState({
+        [percentName]: null
+      });
     }
-
-    let fieldsCount = mapPageNameToFieldsCount[percentName];
-
-    const keys = Object.keys(data);
-    const filledFields = keys.filter(key => data[key]).length;
-
-    let percents = Math.round(filledFields / fieldsCount * 100);
-    percents = percents > 100 ? 100 : percents;
-
-    this.setState({
-      [percentName]: percents
-    });
   }
 
   calculatePercents() {
-    if (this.props.clientData) {
-      const profileData = this.collectPropfileData();
-      const companyData = this.collectCompanyData();
-      const billingData = this.collectBillingData();
+    const { clientData } = this.props;
+
+    if (clientData) {
+      const profileData = this.collectPropfileData(clientData);
+      const companyData = this.collectCompanyData(clientData.company);
+      const billingData = this.collectBillingData(clientData.billing);
 
       this.calculatePagePercent("profilePercent", profileData);
       this.calculatePagePercent("companyPercent", companyData);
@@ -329,17 +320,26 @@ class ClientDashboard extends Component {
       case "profile":
         document.title = "Profile | Digital Village";
         return (
-          <ClientProfile calculatePagePercent={this.calculatePagePercent} />
+          <ClientProfile
+            calculatePagePercent={this.calculatePagePercent}
+            collectPropfileData={this.collectPropfileData}
+          />
         );
       case "company":
         document.title = "Company | Digital Village";
         return (
-          <ClientCompany calculatePagePercent={this.calculatePagePercent} />
+          <ClientCompany
+            calculatePagePercent={this.calculatePagePercent}
+            collectCompanyData={this.collectCompanyData}
+          />
         );
       case "billing":
         document.title = "Billing | Digital Village";
         return (
-          <ClientBilling calculatePagePercent={this.calculatePagePercent} />
+          <ClientBilling
+            calculatePagePercent={this.calculatePagePercent}
+            collectBillingData={this.collectBillingData}
+          />
         );
       case "about":
         document.title = "Your profile | Digital Village";
@@ -394,19 +394,19 @@ class ClientDashboard extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData) {
       if (
-        nextProps.specialistData.email &&
+        nextProps.clientData.email &&
         pagesToCalculate.some(page => page === nextProps.match.params["page"])
       ) {
         this.calculatePercents();
       }
 
-      if (this.state.showRelog && getUserRole() !== nextProps.clientData.role) {
-        createNotification({
-          type: "info",
-          text: "Your role has been changed. Please relog"
-        });
-        this.setState({ showRelog: false });
-      }
+      // if (this.state.showRelog && getUserRole() !== nextProps.clientData.role) {
+      //   createNotification({
+      //     type: "info",
+      //     text: "Your role has been changed. Please relog"
+      //   });
+      //   this.setState({ showRelog: false });
+      // }
     }
 
     let projectId =
@@ -427,6 +427,7 @@ class ClientDashboard extends Component {
 
 export default connect(
   ({
+    clientData,
     allProjects,
     projectWithId,
     allEpics,
@@ -434,6 +435,7 @@ export default connect(
     changeUserType,
     signInReducer
   }) => ({
+    clientData,
     allProjects,
     projectWithId,
     allEpics,

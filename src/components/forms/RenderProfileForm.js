@@ -19,43 +19,23 @@ import RenderCards from "../specialist/renders/RenderCards";
 import EdicationModal from "../modals/EdicationModal";
 import WorkExperienceModal from "../modals/WorkExperienceModal";
 import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
+import { getUserRole } from "../../helpers/functions";
+import { CUSTOMER } from "../../constans/constans";
 
 import { Grid } from "semantic-ui-react";
-
-window.change = change;
 
 class RenderProfileForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      fetch: true,
-      formData: {},
-      fetchFormValues: true,
       fetchSubmitError: true,
       confirmation: false,
       submitError: false
     };
-
-    this.initialFormValues = {};
-  }
-
-  componentWillMount() {
-    if (this.props.specialistData) {
-      // this.fillFields(this.props.specialistData);
-    }
-    if (this.props.clientData) {
-      // this.fillFields(this.props.clientData);
-    }
   }
 
   componentWillUnmount() {
-    if (this.props.specialistData) {
-      // this.fillFields(this.props.specialistData);
-    }
-    if (this.props.clientData) {
-      // this.fillFields(this.props.clientData);
-    }
-
     this.props.reset();
   }
 
@@ -69,8 +49,6 @@ class RenderProfileForm extends Component {
       specialistData,
       isEditing
     } = this.props;
-
-    // console.log("props", this.props);
 
     let { avatar } = specialistData || clientData || false;
 
@@ -88,11 +66,7 @@ class RenderProfileForm extends Component {
 
     return (
       <Fragment>
-        <form
-          name="account"
-          onSubmit={handleSubmit}
-          onChange={this.handleChange}
-        >
+        <form name="account" onSubmit={handleSubmit}>
           <Grid>
             <Grid.Row>
               <Grid.Column computer={3}>
@@ -158,17 +132,17 @@ class RenderProfileForm extends Component {
                     <Grid.Column computer={16}>
                       <div
                         id={
-                          specialistData
-                            ? "professional_experience_info"
-                            : "description"
+                          getUserRole() === CUSTOMER
+                            ? "description"
+                            : "professional_experience_info"
                         }
                         className="text-area-group"
                       >
                         <Field
                           name={
-                            specialistData
-                              ? "professional_experience_info"
-                              : "description"
+                            getUserRole() === CUSTOMER
+                              ? "description"
+                              : "professional_experience_info"
                           }
                           label={
                             "Write a paragraph or two about your professional experience "
@@ -250,42 +224,8 @@ class RenderProfileForm extends Component {
     );
   }
 
-  handleChange = e => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        [e.target.name]: e.target.value === "" ? null : e.target.value
-      }
-    });
-  };
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextProps.clientData && this.state.fetch) {
-      // this.fillFields(nextProps.clientData);
-      this.setState({
-        fetch: false
-      });
-    } else if (nextProps.specialistData && this.state.fetch) {
-      // this.fillFields(nextProps.specialistData);
-      this.setState({
-        fetch: false
-      });
-    }
-
-    this.props.handleFormChange(nextState.formData, this.initialFormValues);
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (nextProps.formValues) {
-      if (this.state.fetchFormValues) {
-        this.initialFormValues = nextProps.formValues;
-
-        this.setState({
-          formData: nextProps.formValues,
-          fetchFormValues: false
-        });
-      }
-    }
+    this.props.handleFormEdit(nextProps.dirty);
 
     if (
       (nextProps.submitFailed && this.state.fetchSubmitError) ||
@@ -304,41 +244,6 @@ class RenderProfileForm extends Component {
   closeErrorModal = () => {
     this.setState({ submitError: false, fetchSubmitError: false });
   };
-
-  // fillFields = data => {
-  //   let {
-  //     first_name,
-  //     last_name,
-  //     email,
-  //     address,
-  //     phone_number,
-  //     professional_experience_info,
-  //     description
-  //   } = data;
-
-  //   this.props.dispatch(change("RenderProfileForm", "first_name", first_name));
-  //   this.props.dispatch(change("RenderProfileForm", "last_name", last_name));
-  //   this.props.dispatch(change("RenderProfileForm", "email", email));
-  //   this.props.dispatch(
-  //     change("RenderProfileForm", "phone_number", phone_number)
-  //   );
-  //   this.props.dispatch(
-  //     change("RenderProfileForm", "country", address ? address.country : null)
-  //   );
-  //   this.props.dispatch(
-  //     change("RenderProfileForm", "city", address ? address.city : null)
-  //   );
-  //   this.props.dispatch(
-  //     change("RenderProfileForm", "description", description)
-  //   );
-  //   this.props.dispatch(
-  //     change(
-  //       "RenderProfileForm",
-  //       "professional_experience_info",
-  //       professional_experience_info
-  //     )
-  //   );
-  // };
 }
 
 RenderProfileForm = reduxForm({
@@ -353,29 +258,31 @@ const mapStateToProps = (state, ownProps) => {
   const { specialistData, clientData, percents } = state;
   let initialValues = {};
 
-  if (specialistData) {
-    initialValues = {
-      first_name: specialistData.first_name,
-      last_name: specialistData.last_name,
-      email: specialistData.email,
-      country: specialistData.address ? specialistData.address.country : null,
-      city: specialistData.address ? specialistData.address.city : null,
-      phone_number: specialistData.phone_number,
-      professional_experience_info: specialistData.professional_experience_info,
-      description: specialistData.description
-    };
-  }
+  if (getUserRole() === CUSTOMER) {
+    const data = clientData ? clientData : {};
 
-  if (clientData) {
     initialValues = {
-      first_name: clientData.first_name,
-      last_name: clientData.last_name,
-      email: clientData.email,
-      country: clientData.address ? clientData.address.country : null,
-      city: clientData.address ? clientData.address.city : null,
-      phone_number: clientData.phone_number,
-      professional_experience_info: clientData.professional_experience_info,
-      description: clientData.description
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      country: data.address ? data.address.country : null,
+      city: data.address ? data.address.city : null,
+      phone_number: data.phone_number,
+      description: data.description || null,
+      professional_experience_info: null
+    };
+  } else {
+    const data = specialistData ? specialistData : {};
+
+    initialValues = {
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      country: data.address ? data.address.country : null,
+      city: data.address ? data.address.city : null,
+      phone_number: data.phone_number,
+      professional_experience_info: data.professional_experience_info,
+      description: null
     };
   }
 
