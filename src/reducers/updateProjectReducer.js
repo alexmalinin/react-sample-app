@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, UPDATE_PROJECT } from "../constans/constans";
+import { SUCCESS, FAIL, UPDATE_PROJECT } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

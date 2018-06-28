@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditProjectForm from "../EditProjectForm";
 import Axios from "axios";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 // temporal
 import {
   showProjectWithId,

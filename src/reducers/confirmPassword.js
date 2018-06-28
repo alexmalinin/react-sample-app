@@ -3,7 +3,7 @@ import {
   CHANGE_PASSWORD,
   SUCCESS,
   FAIL
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

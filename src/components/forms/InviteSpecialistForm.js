@@ -8,7 +8,7 @@ import StyledTab from "../../styleComponents/StyledTab";
 import RenderSelect from "../forms/renders/RenderSelect";
 import RenderCustomSelect from "../forms/renders/RenderCustomSelect";
 import { getUserRole } from "../../helpers/functions";
-import { S_REDGUY } from "../../constans/constans";
+import { S_REDGUY } from "../../constants/user";
 
 class InviteSpecialistForm extends Component {
   componentWillMount() {

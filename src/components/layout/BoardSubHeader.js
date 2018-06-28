@@ -11,7 +11,7 @@ import {
   CUSTOMER,
   S_ACTIVE,
   S_CORE
-} from "../../constans/constans";
+} from "../../constants/user";
 import { getUserRole, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
@@ -19,8 +19,8 @@ class ProjectSubHeader extends Component {
     const { allEpics } = this.props;
 
     return (
-      allEpics &&
-      allEpics.map((epic, key) => {
+      allEpics.loaded &&
+      allEpics.data.map((epic, key) => {
         let subheaderCompletedTasks = 0;
         epic.tasks.forEach(
           task =>

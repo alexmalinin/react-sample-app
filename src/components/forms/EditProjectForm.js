@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
-import { Grid, Dimmer } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import {
   showAllProjects,
   getProjectTypes,
@@ -10,7 +10,8 @@ import {
   showProjectTeam,
   showCustomTeams
 } from "../../actions/actions";
-import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
+import { IMAGE_PORT, PORT } from "../../constants/constants";
+import { CUSTOMER, S_REDGUY } from "../../constants/user";
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";

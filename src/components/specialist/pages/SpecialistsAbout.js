@@ -14,7 +14,7 @@ import {
   showSpecialistWithId,
   getExperienceLevels
 } from "../../../actions/actions";
-import { IMAGE_PORT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constants/constants";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 import { run } from "../../../helpers/scrollToElement";
 

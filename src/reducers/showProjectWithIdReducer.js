@@ -1,4 +1,4 @@
-import { SHOW_PROJECT_WITH_ID, SUCCESS } from "../constans/constans";
+import { SHOW_PROJECT_WITH_ID, SUCCESS } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

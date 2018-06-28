@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, CREATE_EPIC_TASK } from "../constans/constans";
+import { SUCCESS, FAIL, CREATE_EPIC_TASK } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

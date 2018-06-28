@@ -10,7 +10,7 @@ import SpecialistCard from "../../layout/SpecialistCard";
 import { showSpecialistCustomTeams } from "../../../actions/actions";
 import { Grid } from "semantic-ui-react";
 import { getUserRole } from "../../../helpers/functions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY } from "../../../constants/user";
 import { getSpecialistId } from "../../../helpers/selectors";
 
 class SearchSpecialist extends Component {

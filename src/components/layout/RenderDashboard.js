@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
-import RenderCard from "./RenderCard";
 import RenderProjectCards from "./dashboard/RenderProjectCards";
 import RenderDueTasks from "./dashboard/RenderDueTasks";
 import RenderInfo from "./dashboard/RenderInfo";
@@ -14,7 +13,8 @@ import {
   showAllEpicTasks
 } from "../../actions/actions";
 import { getUserRole } from "../../helpers/functions";
-import { PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { PORT } from "../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../constants/user";
 
 class RenderDashboard extends Component {
   state = {

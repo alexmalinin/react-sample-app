@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 import { renameObjPropNames } from "../helpers/functions";
 
 export default store => next => action => {

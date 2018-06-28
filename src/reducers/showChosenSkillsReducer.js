@@ -1,4 +1,4 @@
-import { SHOW_CHOSEN_SKILLS, SUCCESS } from "../constans/constans";
+import { SHOW_CHOSEN_SKILLS, SUCCESS } from "../actions/types";
 
 export default (state = [], action) => {
   const { type, data } = action;

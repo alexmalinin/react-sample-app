@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, CREATE_CUSTOM_TEAM } from "../constans/constans";
+import { SUCCESS, FAIL, CREATE_CUSTOM_TEAM } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

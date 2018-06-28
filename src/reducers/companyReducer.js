@@ -4,7 +4,7 @@ import {
   EDIT_COMPANY_WITH_ID,
   UPDATE_SPECIALIST_STEP_1,
   SUCCESS
-} from "../constans/constans";
+} from "../constants/constants";
 
 export default (state = [], action) => {
   const { type, payload, id } = action;

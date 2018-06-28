@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Form, Input, Grid, Button } from "semantic-ui-react";
 import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
 import { getUserRole } from "../../../helpers/functions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY } from "../../../constants/user";
 
 export default class SearchForm extends Component {
   state = {

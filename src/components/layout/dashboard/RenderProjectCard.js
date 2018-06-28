@@ -1,16 +1,10 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProgressBars from "../ProgressBar";
-import AssignDropdown from "../AssignDropdown";
-import PersonTile from "../PersonTile";
 import SubHeaderLinkWrap from "../../forms/renders/SubHeaderLinkWrap";
 import StyledDashboardCard from "../../../styleComponents/StyledDashboardCard";
-import {
-  IMAGE_PORT,
-  CLIENT,
-  S_REDGUY,
-  CUSTOMER
-} from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../../constants/user";
 import { getUserRole } from "../../../helpers/functions";
 import { showProjectTeam } from "../../../actions/actions";
 import MembersDropdown from "../dropdowns/MembersDropdown";
@@ -113,7 +107,7 @@ class RenderProjectCard extends Component {
 
   render() {
     const {
-      data: { id, epics, name, logo },
+      data: { epics, name, logo },
       getCurrentEpic
     } = this.props;
 

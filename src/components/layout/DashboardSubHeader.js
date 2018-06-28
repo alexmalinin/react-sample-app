@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
-import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constants/user";
 
 class DashboardSubHeader extends Component {
   render() {

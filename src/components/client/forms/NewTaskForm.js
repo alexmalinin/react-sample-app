@@ -2,13 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, change, getFormValues } from "redux-form";
 import { isEqual } from "lodash";
-import {
-  required,
-  date,
-  maxLength260,
-  maxLength80
-} from "../../../helpers/validate";
-import CostField from "../../forms/renders/CostField";
+import { required, date, maxLength80 } from "../../../helpers/validate";
 import { CancelBtn, SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import RenderSelect from "../../forms/renders/RenderSelect";
@@ -19,7 +13,7 @@ import RenderTextArea from "../../forms/renders/RenderTextArea";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 import { showProjectTeam } from "../../../actions/actions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY } from "../../../constants/user";
 
 class NewTaskForm extends Component {
   constructor(props) {
@@ -297,7 +291,9 @@ class NewTaskForm extends Component {
                       <AssignDropdown
                         label="Assign member"
                         specialists={specialists}
-                        allSpecialists={projectTeam.specialists.filter(spec => spec.role !== S_REDGUY)}
+                        allSpecialists={projectTeam.specialists.filter(
+                          spec => spec.role !== S_REDGUY
+                        )}
                         handleAssign={this.handleAssign}
                         userType={[S_REDGUY]}
                         closeOnChange

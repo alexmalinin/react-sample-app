@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { submit } from "redux-form";
 import { Header, Modal } from "semantic-ui-react";
 import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
-import { closeConfirmationModal } from "../../actions/actions";
-import { CLOSE_CONFIRMATION_MODAL } from "../../constans/constans";
+import { CLOSE_CONFIRMATION_MODAL } from "../../actions/types";
 
 class SavingConfirmationModal extends Component {
   confirmModal = ev => {

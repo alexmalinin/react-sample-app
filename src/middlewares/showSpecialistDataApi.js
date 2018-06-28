@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 
 export default store => next => action => {
   const { type, showSpecialistData, ...rest } = action;

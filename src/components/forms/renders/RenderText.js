@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reset, change, initialize } from "redux-form";
+import { change } from "redux-form";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import { TextArea } from "react-semantic-redux-form/dist";
-import { Button } from "semantic-ui-react";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import {
   showProjectWithId,
@@ -13,7 +12,7 @@ import {
   showSpecialistProjects
 } from "../../../actions/actions";
 import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constans/constans";
+import { CUSTOMER } from "../../../constants/user";
 
 class RenderText extends Component {
   state = {

@@ -10,7 +10,8 @@ import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { PORT, CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
+import { PORT } from "../constants/constants";
+import { CUSTOMER, S_CORE, S_REDGUY } from "../constants/user";
 import { getUserRole, createNotification } from "../helpers/functions";
 
 class Teams extends Component {

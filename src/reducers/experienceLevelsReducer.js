@@ -1,4 +1,4 @@
-import { GET_EXPERIENCE_LEVELS, SUCCESS } from "../constans/constans";
+import { GET_EXPERIENCE_LEVELS, SUCCESS } from "../actions/types";
 
 export default (state = [], action) => {
   const { type, data } = action;

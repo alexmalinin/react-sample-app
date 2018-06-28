@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 
 export default store => next => action => {
   const { type, showAllEpicsWithoutProject, ...rest } = action;

@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import { reducer as reduxFormReducer } from "redux-form";
 
+import { LOG_OUT } from "../actions/types";
+
 import hideFooter from "./hideFooter";
 import sidebar from "./sidebar";
 import changeUserType from "./changeUserTypeReducer";
@@ -22,6 +24,7 @@ import allSpecialists from "./showAllSpecialistsReducer";
 import createProject from "./createProjectReducer";
 import updateProject from "./updateProjectReducer";
 import allProjects from "./showAllProjectsReducer";
+import sortedProjects from "./showSortedProjectsReduser";
 import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
 import allCustomTeams from "./showCustomTeamsReducer";
@@ -56,7 +59,6 @@ import updateChannel from "./updateChannelReducer";
 import searchResult from "./searchSpecialistReducer";
 import confirmationModal from "./confirmationReducer";
 import submitErrorModal from "./submitErrorModalReducer";
-import { LOG_OUT } from "../constans/constans";
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
@@ -84,6 +86,7 @@ const appReducer = combineReducers({
   createProject,
   updateProject,
   allProjects,
+  sortedProjects,
   specialistProjects,
   specialistTeams,
   allCustomTeams,

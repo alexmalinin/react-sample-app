@@ -1,4 +1,4 @@
-import { GET_INDUSTRIES, SUCCESS } from "../constans/constans";
+import { GET_INDUSTRIES, SUCCESS } from "../actions/types";
 
 export default (state = [], action) => {
   const { type, payload } = action;

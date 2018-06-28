@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
-import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constans/constans";
+import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constants/user";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 import { formatCurrency } from "../../helpers/validate";
@@ -98,7 +98,9 @@ class CustomCard extends Component {
           />
           <AssignDropdown
             specialists={specialists}
-            allSpecialists={specialistList.filter(spec => spec.role !== S_REDGUY)}
+            allSpecialists={specialistList.filter(
+              spec => spec.role !== S_REDGUY
+            )}
             handleAssign={this.assignSpeciaist}
             userType={[S_REDGUY]}
             closeOnChange={true}

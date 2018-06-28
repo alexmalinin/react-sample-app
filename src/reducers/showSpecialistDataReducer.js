@@ -10,7 +10,7 @@ import {
   DELETE_EXPERIENCE_CARD_WITH_ID,
   UPDATE_SPECIALIST_BILLINGS,
   EDIT_EXPERIENCE_CARD_WITH_ID
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

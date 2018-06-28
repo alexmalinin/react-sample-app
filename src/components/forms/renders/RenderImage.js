@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import { Button } from "semantic-ui-react";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
-import { PORT, IMAGE_PORT } from "../../../constans/constans";
+import { PORT, IMAGE_PORT } from "../../../constants/constants";
 import {
   showAllProjects,
   showSpecialistProjects
 } from "../../../actions/actions";
 import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constans/constans";
+import { CUSTOMER } from "../../../constants/user";
 
 class RenderImage extends Component {
   state = { file: "", imagePreviewUrl: "" };

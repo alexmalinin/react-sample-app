@@ -7,7 +7,7 @@ import {
   UPDATE_SPECIALIST_STEP_2,
   SUCCESS,
   FAIL
-} from "../constans/constans";
+} from "../actions/types";
 
 let result;
 

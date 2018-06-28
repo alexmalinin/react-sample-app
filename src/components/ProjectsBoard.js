@@ -14,8 +14,8 @@ import {
   showProjectTeam,
   updateCreatedProject
 } from "../actions/actions";
-import { SubmissionError, initialize, reset } from "redux-form";
-import { CLIENT, SPECIALIST, S_REDGUY, PORT } from "../constans/constans";
+import { initialize, reset } from "redux-form";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";

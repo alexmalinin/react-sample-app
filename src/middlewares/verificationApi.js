@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CONFIRM_PASSWORDS, SUCCESS } from "../constans/constans";
+import { CONFIRM_PASSWORDS, SUCCESS } from "../actions/types";
 
 export default store => next => action => {
   const { type, verification, user, payload, ...rest } = action;

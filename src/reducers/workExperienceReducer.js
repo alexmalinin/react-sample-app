@@ -5,7 +5,7 @@ import {
   EDIT_EXPERIENCE_CARD_WITHOUT_ID,
   DELETE_EXPERIENCE_CARD_WITHOUT_ID,
   SUCCESS
-} from "../constans/constans";
+} from "../actions/types";
 import { isEqual } from "lodash";
 
 export default (state = [], action) => {

@@ -8,7 +8,8 @@ import RenderFile from "../../forms/renders/RenderFile";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
 import axios from "axios";
-import { PORT, S_REDGUY, CUSTOMER } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../../constants/user";
 import { getUserRole, oneOfRoles } from "../../../helpers/functions";
 
 class EditEpicForm extends Component {

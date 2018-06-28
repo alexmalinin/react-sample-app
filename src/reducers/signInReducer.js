@@ -5,7 +5,7 @@ import {
   GET_TOKEN_FOR_RESET_PASSWORD,
   GET_PASSWORDS_FOR_RESET_PASSWORD,
   LOG_OUT
-} from "../constans/constans";
+} from "../actions/types";
 
 let result;
 

@@ -1,4 +1,4 @@
-import { SIDEBAR } from "../constans/constans";
+import { SIDEBAR } from "../actions/types";
 
 export default (state = false, action) => {
   const { type, payload } = action;

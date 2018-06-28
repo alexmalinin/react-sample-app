@@ -3,7 +3,7 @@ import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import { IMAGE_PORT } from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
 import { getUserRole } from "../../helpers/functions";
 
 export default class AssignDropdown extends Component {

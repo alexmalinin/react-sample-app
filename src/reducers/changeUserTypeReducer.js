@@ -1,4 +1,4 @@
-import { SPECIALIST } from "../constans/constans";
+import { SPECIALIST } from "../constants/user";
 
 export default (state = SPECIALIST, action) => {
   const { type, user } = action;

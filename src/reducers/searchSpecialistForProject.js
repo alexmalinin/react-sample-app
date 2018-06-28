@@ -3,7 +3,7 @@ import {
   FAIL,
   SEARCH_SPECIALIST,
   SEARCH_SPECIALIST_FOR_PROJECT
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

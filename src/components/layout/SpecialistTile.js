@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StyledSpecialist } from "../../styleComponents/layout/StyledAssignDropdown";
-import {
-  IMAGE_PORT,
-  S_REDGUY,
-  S_ACTIVE,
-  S_CORE
-} from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
+import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constants/user";
 import { Field, change } from "redux-form";
 import { Input } from "react-semantic-redux-form";
 import { createNumberMask } from "redux-form-input-masks";
@@ -27,8 +23,7 @@ class SpecialistTile extends Component {
   submitCost = e => {
     const {
       handleSubmit,
-      specialist: { id },
-      input
+      specialist: { id }
     } = this.props;
 
     handleSubmit(id);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import StyledSpecialistCard from "../../styleComponents/StyledSpecialistCard";
 import { Button, Popup } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import { IMAGE_PORT } from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
 import { assignSpecialistToTeam } from "../../actions/actions";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import InviteSpecialistModal from "../modals/InviteSpecialistModal";

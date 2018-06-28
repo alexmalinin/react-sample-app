@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import {
+  showSortedProjects,
   showAllProjects,
   showProjectWithId,
   showAllEpics,
@@ -37,7 +38,7 @@ import {
   getUserRole,
   createNotification
 } from "../../helpers/functions";
-import { PORT } from "../../constans/constans";
+import { PORT } from "../../constants/constants";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { NotificationContainer } from "react-notifications";
@@ -55,28 +56,12 @@ class ClientDashboard extends Component {
     showRelog: true
   };
 
-  componentWillMount() {
-    const {
-      match: { params },
-      projectWithId,
-      showAllProjects,
-      showProjectWithId,
-      showClientData,
-      showClientTeams
-    } = this.props;
-    showAllProjects();
-    showClientData();
-    showClientTeams();
+  componentDidMount() {
+    this.props.showSortedProjects("customers");
+    this.props.showClientData();
+    this.props.showClientTeams();
     localStorage.removeItem("user_email");
 
-    let projectId = params["projectId"] || params["projectNewModule"];
-
-    if (projectId && projectId !== "new" && !projectWithId) {
-      showProjectWithId(projectId);
-    }
-  }
-
-  componentDidMount() {
     if (!this.props.specialistData) {
       let token = localStorage.getItem("jwt_token"),
         id = jwtDecode(token).id;
@@ -244,7 +229,6 @@ class ClientDashboard extends Component {
     const {
       match,
       match: { params },
-      allProjects,
       clientTeams,
       changeUserType
     } = this.props;
@@ -278,7 +262,6 @@ class ClientDashboard extends Component {
                   params["projectId"] || params["projectNewModule"]
                 }
                 currentEpic={params["moduleId"]}
-                projects={allProjects}
               />
               {this.renderPage(page)}
               <SideBarRight
@@ -438,6 +421,7 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   showClientData,
+  showSortedProjects,
   showAllProjects,
   showProjectWithId,
   showAllEpics,

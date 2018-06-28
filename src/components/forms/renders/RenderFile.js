@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { initialize, change } from "redux-form";
 import axios from "axios";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 
 import Dropzone from "react-dropzone";
 import { Loader } from "semantic-ui-react";

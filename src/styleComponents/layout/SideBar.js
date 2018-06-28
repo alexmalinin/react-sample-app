@@ -199,9 +199,9 @@ export const StyledBar = styled.aside`
           animation: fadeIn 0.2s forwards;
           opacity: 0;
 
-          .project-epic {
+          .project-module {
             display: block;
-            margin: 3px 0;
+            padding: 3px 0;
             color: inherit;
 
             &.active {

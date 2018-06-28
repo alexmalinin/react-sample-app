@@ -1,7 +1,7 @@
 import {
   SHOW_CONFIRMATION_MODAL,
   CLOSE_CONFIRMATION_MODAL
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, payload } = action;

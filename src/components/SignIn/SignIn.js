@@ -12,7 +12,7 @@ import Tabs from "../../styleComponents/Tabs";
 import SignInForm from "./SignInForm";
 import { signIn, userType } from "../../actions/actions";
 import { getUserRole } from "../../helpers/functions";
-import { S_PASSIVE } from "../../constans/constans";
+import { S_PASSIVE } from "../../constants/user";
 
 class SignUp extends Component {
   componentWillMount() {

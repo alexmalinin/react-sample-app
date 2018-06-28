@@ -9,7 +9,7 @@ import {
   showProjectTeam,
   showCustomTeam
 } from "../../actions/actions";
-import { S_REDGUY, S_CORE } from "../../constans/constans";
+import { S_REDGUY, S_CORE } from "../../constants/user";
 import Channel from "./Channel";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 

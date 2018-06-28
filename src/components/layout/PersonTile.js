@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../constants/user";
 import { getUserRole } from "../../helpers/functions";
 import jwtDecode from "jwt-decode";
 import { Popup } from "semantic-ui-react";

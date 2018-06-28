@@ -8,7 +8,7 @@ import {
 } from "../../../styleComponents/layout/Container";
 import StyledProfile from "../../../styleComponents/StyledProfile";
 import { showClientData } from "../../../actions/actions";
-import { IMAGE_PORT } from "../../../constans/constans";
+import { IMAGE_PORT } from "../../../constants/constants";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 
 class ClientAbout extends Component {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 
 export default store => next => action => {
   const {

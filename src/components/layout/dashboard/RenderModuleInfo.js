@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 import ProgressBars from "../ProgressBar";
 import StyledDashboardCard from "../../../styleComponents/StyledDashboardCard";
 

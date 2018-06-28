@@ -5,7 +5,7 @@ import { Modal, Tab, Grid } from "semantic-ui-react";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import StyledModal from "../../styleComponents/layout/StyledModal";
 import InviteSpecialistForm from "../forms/InviteSpecialistForm";
-import { PORT } from "../../constans/constans";
+import { PORT } from "../../constants/constants";
 import { createNotification } from "../../helpers/functions";
 
 class InviteSpecialistModal extends Component {

@@ -23,10 +23,9 @@ import { Container } from "../../../styleComponents/layout/Container";
 import {
   showSpecialistData,
   updateSpecialistProfile,
-  showAllProjects,
+  showSortedProjects,
   showProjectWithId,
   showAllEpics,
-  showSpecialistProjects,
   showSpecialistTeams,
   showProjectTeam,
   showAllSpecialists
@@ -39,7 +38,8 @@ import {
   oneOfRoles,
   createNotification
 } from "../../../helpers/functions";
-import { PORT, S_REDGUY, S_CORE, S_PASSIVE } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
+import { S_REDGUY, S_CORE, S_PASSIVE } from "../../../constants/user";
 import ClientModule from "../../client/ClientModule";
 import SearchSpecialist from "./SearchSpecialist";
 import NotFound from "../../NotFound";
@@ -67,14 +67,12 @@ class SpecialistsDashboard extends Component {
     this.calculatePagePercent = this.calculatePagePercent.bind(this);
   }
 
-  componentWillMount() {
-    this.props.showSpecialistProjects();
+  componentDidMount() {
+    this.props.showSortedProjects("specialists");
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
     localStorage.removeItem("user_email");
-  }
 
-  componentDidMount() {
     const {
       history: { location }
     } = this.props;
@@ -289,7 +287,6 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
-      specialistProjects,
       specialistTeams,
       changeUserType,
       history,
@@ -353,7 +350,6 @@ class SpecialistsDashboard extends Component {
                 <SideBarLeft
                   currentProject={params["projectId"]}
                   currentEpic={params["moduleId"]}
-                  projects={specialistProjects}
                 />
               )}
               {this.renderPage(page)}
@@ -551,10 +547,9 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(mapStateToProps, {
   showSpecialistData,
   updateSpecialistProfile,
-  showAllProjects,
+  showSortedProjects,
   showProjectWithId,
   showAllEpics,
-  showSpecialistProjects,
   showSpecialistTeams,
   showProjectTeam,
   showAllSpecialists

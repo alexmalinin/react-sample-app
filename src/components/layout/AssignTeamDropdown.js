@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Input, Tab, Loader, Form } from "semantic-ui-react";
-import {
-  StyledAssignDropdown,
-  StyledDropdown
-} from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY, PORT } from "../../constans/constans";
+import { Input, Tab, Loader } from "semantic-ui-react";
+import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
+import { IMAGE_PORT, PORT } from "../../constants/constants";
 import { getUserRole, createNotification } from "../../helpers/functions";
 import {
-  showSpecialistCustomTeams,
-  searchSpecialist
+  searchSpecialist,
+  showSpecialistCustomTeams
 } from "../../actions/actions";
 import StyledTab from "../../styleComponents/StyledTab";
 import Axios from "axios";

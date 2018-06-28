@@ -5,7 +5,7 @@ import {
   SUCCESS,
   FAIL,
   UPDATE_CLIENT_BILLINGS
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

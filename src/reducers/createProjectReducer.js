@@ -1,4 +1,4 @@
-import { SAVE_CREATED_PROJECT, SUCCESS, FAIL } from "../constans/constans";
+import { SAVE_CREATED_PROJECT, SUCCESS, FAIL } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

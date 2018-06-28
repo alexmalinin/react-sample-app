@@ -6,12 +6,7 @@ import { Form, Input } from "semantic-ui-react";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
 
-import {
-  IMAGE_PORT,
-  CLIENT,
-  SPECIALIST,
-  S_REDGUY
-} from "../../constans/constans";
+import { IMAGE_PORT, CLIENT, SPECIALIST, S_REDGUY } from "../../constants/user";
 import {
   addToChannel,
   removeFromChannel,

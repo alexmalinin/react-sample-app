@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, DELETE_PROJECT_EPIC } from "../constans/constans";
+import { SUCCESS, FAIL, DELETE_PROJECT_EPIC } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

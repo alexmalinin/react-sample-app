@@ -22,7 +22,7 @@ import ConfirmEmail from "./ConfirmEmail";
 import ClientDashboard from "./client/ClientDashboard";
 import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
 import { getUserType, getUserRole } from "../helpers/functions";
-import { S_PASSIVE } from "../constans/constans";
+import { S_PASSIVE } from "../constants/user";
 import PrivateRoute from "../decorators/PrivateRoute";
 import AssignRoute from "../decorators/AssignRoute";
 

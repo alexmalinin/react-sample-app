@@ -5,10 +5,9 @@ import {
   S_REDGUY,
   CLIENT,
   SPECIALIST
-} from "../constans/constans";
+} from "../constants/user";
 import jwtDecode from "jwt-decode";
 import { NotificationManager } from "react-notifications";
-import { deleteAttachedFile } from "../actions/actions";
 
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window

@@ -1,15 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Popup } from "semantic-ui-react";
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
-import {
-  SPECIALIST,
-  CLIENT,
-  S_CORE,
-  S_REDGUY,
-  IMAGE_PORT
-} from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
+import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constants/user";
 import { logOut } from "../../actions/actions";
 import { oneOfRoles, getUserType } from "../../helpers/functions";
 import { StyledDropdown } from "../../styleComponents/layout/StyledAssignDropdown";

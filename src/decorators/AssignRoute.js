@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import axios from "axios";
-import { PORT } from "../constans/constans";
+import { PORT } from "../constants/constants";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwt_token");

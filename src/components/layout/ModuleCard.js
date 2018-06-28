@@ -7,7 +7,7 @@ import {
 } from "../../actions/actions";
 import { Form, Input, Message } from "semantic-ui-react";
 import EditEpicModal from "../modals/EditEpicModal";
-import { S_CORE, S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { S_CORE, S_REDGUY, CUSTOMER } from "../../constants/user";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import { formatCurrency } from "../../helpers/validate";
 

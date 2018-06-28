@@ -3,7 +3,7 @@ import {
   SUCCESS,
   FAIL,
   UPDATE_PROJECT_EPIC
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

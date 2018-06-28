@@ -11,7 +11,7 @@ import {
   removeSpecialistFromTask,
   showAllEpics
 } from "../../actions/actions";
-import { S_REDGUY } from "../../constans/constans";
+import { S_REDGUY } from "../../constants/user";
 import {
   getUserRole,
   getUserId,

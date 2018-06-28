@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 import { industries } from "../helpers/selects/industries";
 
 export default store => next => action => {
