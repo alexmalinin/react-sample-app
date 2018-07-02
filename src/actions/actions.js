@@ -1610,6 +1610,14 @@ export function createCustomTeam(data, specialistId) {
           type: CREATE_CUSTOM_TEAM + SUCCESS,
           data: data
         });
+
+        return data;
+      })
+      .then(({ name }) => {
+        createNotification({
+          type: "success",
+          text: `${name ? `${name} team ` : "Team"} was created`
+        });
       })
       .catch(error => {
         createNotification({
@@ -1878,7 +1886,6 @@ export function closeSubmitErrorModal() {
  */
 
 function postProject(payload, logo = null) {
-
   const token = localStorage.getItem("jwt_token");
   const { id } = jwtDecode(token);
 
