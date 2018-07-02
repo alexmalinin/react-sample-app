@@ -6,10 +6,11 @@ import { PORT } from "../../../constants/constants";
 // temporal
 import {
   showProjectWithId,
-  showAllProjects,
+  showSortedProjects,
   showAllEpics
 } from "../../../actions/actions";
-import { createNotification } from "../../../helpers/functions";
+import { createNotification, getUserType } from "../../../helpers/functions";
+import { CLIENT, SPECIALIST } from "../../../constants/user";
 
 class EditProject extends Component {
   componentDidMount() {
@@ -68,7 +69,9 @@ class EditProject extends Component {
       }
     })
       .then(({ data }) => {
-        this.props.showAllProjects();
+        const userType = getUserType();
+        if (userType === CLIENT) showSortedProjects("customers");
+        else if (userType === SPECIALIST) showSortedProjects("specialists");
 
         return data;
       })
@@ -123,19 +126,17 @@ class EditProject extends Component {
     const { projectId } = this.props;
 
     return (
-      <React.Fragment>
-        <EditProjectForm
-          onSubmit={this.submit}
-          projectId={projectId}
-          handleAssignTeam={this.handleAssignTeam}
-        />
-      </React.Fragment>
+      <EditProjectForm
+        onSubmit={this.submit}
+        projectId={projectId}
+        handleAssignTeam={this.handleAssignTeam}
+      />
     );
   }
 }
 
 export default connect(({ projectWithId }) => ({ projectWithId }), {
   showProjectWithId,
-  showAllProjects,
+  showSortedProjects,
   showAllEpics
 })(EditProject);

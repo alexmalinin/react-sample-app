@@ -11,7 +11,7 @@ export default styled(Tab.Pane)`
     }
 
     @media (max-width: 1920px) {
-      padding: 60px 0 14px;
+      padding: 40px 0 14px;
     }
 
     @media (max-width: 1024px) {

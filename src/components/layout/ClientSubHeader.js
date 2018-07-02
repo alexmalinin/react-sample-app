@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
-import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import ProgressBars from "../layout/ProgressBar";

@@ -6,8 +6,7 @@ export const colors = {
   lightBlue: "#1991fa",
   blue: "#4861f2",
   darkBlue: "#002C93",
-  lightGreyBlue: "#dae1ee",
-  lightBorder: "#f1f1f5"
+  lightGreyBlue: "#dae1ee"
 };
 
 export const fontColors = {
@@ -31,6 +30,10 @@ export const primaryColors = {
   strokeDarkBlue: "#002c93",
   errorColor: "#db4538",
   red: "#c65c5c"
+};
+
+export const miscellaneous = {
+  lightBorder: "#f1f1f5"
 };
 
 export const secondaryColors = {

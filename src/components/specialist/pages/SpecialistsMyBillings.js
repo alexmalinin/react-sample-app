@@ -7,7 +7,7 @@ import {
 } from "../../../actions/actions";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistBillingForm from "../forms/SpecialistBillingForm";
-import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import { getAllUrlParams } from "../../../helpers/functions";
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
 
@@ -35,10 +35,6 @@ class SpecialistsMyBillings extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
-  }
-
-  componentWillUnmount() {
-    this.props.showSpecialistData();
   }
 
   render() {

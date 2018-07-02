@@ -180,7 +180,7 @@ class SkillsForm extends Component {
                   </CancelBtn>
                 </NavLink>
               ) : (
-                <NavLink exact to="/dashboard/profile">
+                <NavLink exact to="/profile/info">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>

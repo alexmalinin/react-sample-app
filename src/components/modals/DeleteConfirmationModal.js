@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Header, Modal } from "semantic-ui-react";
-import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
+import {
+  SaveBtn,
+  CancelBtn,
+  DvBlueButton
+} from "../../styleComponents/layout/DvButton";
 import { closeConfirmationModal } from "../../actions/actions";
 
 class DeleteConfirmationModal extends Component {
+  static propTypes = {
+    message: PropTypes.string,
+    callback: PropTypes.func.isRequired
+  };
+
   closeModal = ev => {
     const { closeConfirmationModal } = this.props;
 
@@ -36,7 +45,7 @@ class DeleteConfirmationModal extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <CancelBtn primary static="true" onClick={this.closeModal}>
+          {/* <CancelBtn primary static="true" onClick={this.closeModal}>
             <span>Cancel</span>
           </CancelBtn>
           <SaveBtn
@@ -48,17 +57,26 @@ class DeleteConfirmationModal extends Component {
             static="true"
           >
             <span>Yes</span>
-          </SaveBtn>
+          </SaveBtn> */}
+          <DvBlueButton
+            type="button"
+            className="dv-blue inverted"
+            onClick={this.closeModal}
+          >
+            Cancel
+          </DvBlueButton>
+          <DvBlueButton
+            type="submit"
+            className="dv-blue"
+            onClick={this.submitModal}
+          >
+            Yes
+          </DvBlueButton>
         </Modal.Actions>
       </Modal>
     );
   }
 }
-
-DeleteConfirmationModal.propTypes = {
-  message: PropTypes.string,
-  callback: PropTypes.func.isRequired
-};
 
 export default connect(null, { closeConfirmationModal })(
   DeleteConfirmationModal

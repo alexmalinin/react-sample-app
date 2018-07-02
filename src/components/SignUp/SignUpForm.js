@@ -45,9 +45,9 @@ class SignUpForm extends Component {
             component={RenderCheckbox}
             validate={[required, minLength2]}
           />
-          <span>
+          <p className="privacy">
             I have read and I agree to the <ModalTerms /> and <PrivacyPolicy />
-          </span>
+          </p>
         </StyledRequireBox>
 
         <div className="controls">

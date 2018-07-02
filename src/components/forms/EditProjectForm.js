@@ -4,7 +4,6 @@ import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid } from "semantic-ui-react";
 import {
-  showAllProjects,
   getProjectTypes,
   getSkills,
   showProjectTeam,
@@ -106,7 +105,6 @@ class EditProjectForm extends Component {
       projectTypes,
       handleSubmit,
       submitting,
-      dirty,
       skills,
       submitSucceeded,
       handleAssignTeam
@@ -334,7 +332,6 @@ class EditProjectForm extends Component {
                           loading={submitting}
                           role="button"
                           className="clear dv-blue"
-                          disabled={state === "discovery" && !dirty}
                           onClick={() =>
                             this.props.dispatch(
                               change(
@@ -348,23 +345,17 @@ class EditProjectForm extends Component {
                           Publish
                         </DvBlueButton>
                       )}
-                      {state === "reviewed_by_admin" && (
-                        <DvBlueButton
-                          loading={submitting}
-                          role="button"
-                          className="clear dv-blue"
-                          fixed="true"
-                          disabled={state === "discovery" && !dirty}
-                        >
-                          {state === "discovery"
-                            ? dirty
-                              ? "Save"
-                              : submitSucceeded
-                                ? "Saved"
-                                : "Up to date"
-                            : "Submit"}
-                        </DvBlueButton>
-                      )}
+                      {state === "reviewed_by_admin" &&
+                        getUserRole() === S_REDGUY && (
+                          <DvBlueButton
+                            loading={submitting}
+                            role="button"
+                            className="clear dv-blue"
+                            fixed="true"
+                          >
+                            Submit
+                          </DvBlueButton>
+                        )}
                     </div>
                   )}
                 </div>
@@ -385,28 +376,19 @@ EditProjectForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(EditProjectForm);
 
-const mapStateToProps = (state, ownProps) => {
-  const {
-    projectWithId,
-    updateProject,
-    projectTypes,
-    skills,
-    allCustomTeams,
-    projectTeam
-  } = state;
+const mapStateToProps = state => {
   return {
-    projectWithId,
-    updateProject,
-    projectTypes,
-    skills,
-    projectTeam,
-    allCustomTeams,
-    initialValues: projectWithId
+    projectWithId: state.projectWithId,
+    updateProject: state.updateProject,
+    projectTypes: state.projectTypes,
+    skills: state.skills,
+    projectTeam: state.projectTeam,
+    allCustomTeams: state.allCustomTeams,
+    initialValues: state.projectWithId
   };
 };
 
 export default connect(mapStateToProps, {
-  showAllProjects,
   getProjectTypes,
   getSkills,
   showProjectTeam,

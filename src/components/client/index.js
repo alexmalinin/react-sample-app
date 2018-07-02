@@ -33,9 +33,16 @@ import { Container } from "../../styleComponents/layout/Container";
 
 import { getCookie, setCookie } from "../../helpers/functions";
 import { PORT } from "../../constants/constants";
-import * as actions from "../../actions/actions";
+import {
+  showClientData,
+  showSortedProjects,
+  showProjectWithId,
+  showAllEpics,
+  showProjectTeam,
+  showClientTeams
+} from "../../actions/actions";
 
-const pagesToCalculate = ["profile", "company", "billing"];
+const pagesToCalculate = ["info", "company", "billing"];
 
 class ClientDashboard extends Component {
   state = {
@@ -54,8 +61,12 @@ class ClientDashboard extends Component {
     localStorage.removeItem("user_email");
 
     if (!this.props.specialistData) {
-      let token = localStorage.getItem("jwt_token"),
+      let token = localStorage.getItem("jwt_token");
+      let id;
+
+      if (token) {
         id = jwtDecode(token).id;
+      }
 
       if (id) {
         axios
@@ -221,14 +232,15 @@ class ClientDashboard extends Component {
       match,
       match: { params },
       allProjects,
-      clientTeams,
-      changeUserType
+      clientTeams
     } = this.props;
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
     if (params["page"] && params["page"] !== "projects") {
       page = params["page"];
+    } else if (params["profilePage"]) {
+      page = params["profilePage"];
     } else if (params["projectId"] && params["moduleId"] !== "new") {
       if (params["projectId"] === "new") {
         page = "projects";
@@ -238,7 +250,7 @@ class ClientDashboard extends Component {
     } else page = "root";
 
     let sidebarCondition =
-      page !== "profile" && page !== "company" && page !== "billing";
+      page !== "info" && page !== "company" && page !== "billing";
 
     return (
       <div>
@@ -273,7 +285,6 @@ class ClientDashboard extends Component {
                 percents={this.state}
                 sidebarCondition={sidebarCondition}
                 isEdited={isEdited}
-                user={changeUserType}
                 page={page}
               />
               {this.renderPage(page)}
@@ -287,10 +298,15 @@ class ClientDashboard extends Component {
   }
 
   renderPage = page => {
-    const { clientTeams } = this.props;
+    const {
+      clientTeams,
+      allProjects,
+      history,
+      match: { params }
+    } = this.props;
 
     switch (page) {
-      case "profile":
+      case "info":
         document.title = "Profile | Digital Village";
         return (
           <ClientProfile
@@ -325,17 +341,13 @@ class ClientDashboard extends Component {
         return <ClientProjects />;
       case "module":
         document.title = "Add Module | Digital Village";
-        return (
-          <ClientModule
-            projectId={this.props.match.params["projectNewModule"]}
-          />
-        );
+        return <ClientModule projectId={params["projectNewModule"]} />;
       case "board":
         return (
           <ProjectsBoard
-            projectId={this.props.match.params["projectId"]}
-            currentEpic={this.props.match.params["moduleId"] || "all"}
-            history={this.props.history}
+            projectId={params["projectId"]}
+            currentEpic={params["moduleId"] || "all"}
+            history={history}
           />
         );
       case "teams":
@@ -355,14 +367,9 @@ class ClientDashboard extends Component {
         return <TheVillage />;
       case "root":
         document.title = "Dashboard | Digital Village";
-        return (
-          <Dashboard
-            projects={this.props.allProjects}
-            history={this.props.history}
-          />
-        );
+        return <Dashboard projects={allProjects} history={history} />;
       default:
-        document.title = "Dashboard | Digital Village";
+        document.title = "Not found | Digital Village";
         return <Redirect to="/404" />;
     }
   };
@@ -415,13 +422,10 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  showClientData: actions.showClientData,
-  showSortedProjects: actions.showSortedProjects,
-  showAllProjects: actions.showAllProjects,
-  showProjectWithId: actions.showProjectWithId,
-  showAllEpics: actions.showAllEpics,
-  showEpicTasks: actions.showEpicTasks,
-  showProjectTeam: actions.showProjectTeam,
-  showClientTeams: actions.showClientTeams,
-  logOut: actions.logOut
+  showClientData,
+  showSortedProjects,
+  showProjectWithId,
+  showAllEpics,
+  showProjectTeam,
+  showClientTeams
 })(ClientDashboard);

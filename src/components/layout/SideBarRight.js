@@ -21,7 +21,9 @@ class SideBarRight extends Component {
         menuItem: "ACTIVITY",
         render: () => (
           <Tab.Pane>
-            <p>Coming soon</p>
+            <div className="activity-placeholder">
+              <p>Coming soon</p>
+            </div>
           </Tab.Pane>
         )
       }

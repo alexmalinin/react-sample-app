@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  colors,
-  secondaryColors,
-  boxShadow,
-  primaryColors
-} from "../constants/colors";
+import { colors, boxShadow, primaryColors } from "../constants/colors";
 
 export default styled.div`
   position: relative;
@@ -48,6 +43,7 @@ export default styled.div`
       height: 120px;
       border-radius: 50%;
       object-fit: ${props => (props.projectLogo ? "contain" : "cover")};
+      background: ${primaryColors.accentBackground};
     }
   }
 
@@ -139,7 +135,7 @@ export default styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #00ffc0;
+    background-color: white;
     position: absolute;
     opacity: 0;
   }

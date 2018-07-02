@@ -8,11 +8,10 @@ import { TextArea } from "react-semantic-redux-form/dist";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import {
   showProjectWithId,
-  showAllProjects,
-  showSpecialistProjects
+  showSortedProjects
 } from "../../../actions/actions";
-import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constants/user";
+import { getUserRole, getUserType } from "../../../helpers/functions";
+import { CUSTOMER, CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderText extends Component {
   state = {
@@ -81,15 +80,13 @@ class RenderText extends Component {
         }
 
         if (updateProjects) {
-          if (getUserRole() === CUSTOMER) {
-            this.props.showAllProjects();
-          } else {
-            this.props.showSpecialistProjects();
-          }
+          const userType = getUserType();
+          if (userType === CLIENT) showSortedProjects("customers");
+          else if (userType === SPECIALIST) showSortedProjects("specialists");
         }
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
         this.setState({ loading: false, updError: true });
       });
   };
@@ -98,7 +95,7 @@ class RenderText extends Component {
     const {
       input,
       label,
-      meta: { touched, error, warning, pristine },
+      meta: { touched, error, warning },
       meta,
       placeholder,
       className,
@@ -144,8 +141,7 @@ class RenderText extends Component {
 
 export default connect(null, {
   showProjectWithId,
-  showAllProjects,
-  showSpecialistProjects
+  showSortedProjects
 })(RenderText);
 
 // export default RenderText;

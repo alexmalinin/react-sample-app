@@ -243,7 +243,6 @@ export default styled.div`
     background: ${colors.blue};
     border-radius: 18px;
     color: #fff;
-    font-family: inherit;
     text-transform: none;
 
     .arrow {

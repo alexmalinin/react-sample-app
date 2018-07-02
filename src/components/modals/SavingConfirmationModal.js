@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { submit } from "redux-form";
 import { Header, Modal } from "semantic-ui-react";
-import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
+import {
+  SaveBtn,
+  CancelBtn,
+  DvBlueButton
+} from "../../styleComponents/layout/DvButton";
 import { CLOSE_CONFIRMATION_MODAL } from "../../actions/types";
 
 class SavingConfirmationModal extends Component {
@@ -70,6 +74,11 @@ class SavingConfirmationModal extends Component {
           >
             <span>Save</span>
           </SaveBtn>
+          {/* <DvBlueButton className="dv-blue inverted transparent">
+            Don't save
+          </DvBlueButton>
+          <DvBlueButton className="dv-blue inverted">Cancel</DvBlueButton>
+          <DvBlueButton className="dv-blue">Save</DvBlueButton> */}
         </Modal.Actions>
       </Modal>
     );

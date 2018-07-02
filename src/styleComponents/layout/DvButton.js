@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { Button } from "semantic-ui-react";
-import {
-  primaryColors,
-  secondaryColors,
-  colors,
-  buttonColors
-} from "../constants/colors";
+import { primaryColors, secondaryColors, colors } from "../constants/colors";
 
 export const DvButton = styled(Button)`
   &.ui.button {
@@ -293,11 +288,10 @@ export const SaveBtn = styled(Button)`
   &.ui.primary.button:focus {
     color: #666;
     border-width: 1px;
-    border-color: ${props =>
-      props.updatebtn ? secondaryColors.green : "#666"};
+    border-color: ${props => (props.updatebtn ? colors.blue : "#666")};
     ${props =>
       props.updatebtn &&
-      `box-shadow: 0 0 0 3px ${secondaryColors.green};`} border-style: solid;
+      `box-shadow: 0 0 0 3px ${colors.blue};`} border-style: solid;
     background-color: #fff !important;
 
     span {
@@ -307,9 +301,7 @@ export const SaveBtn = styled(Button)`
     &::after {
       background-color: ${props =>
         props.updatebtn
-          ? `${secondaryColors.green}; box-shadow: 0 0 0 1px ${
-              secondaryColors.green
-            };`
+          ? `${colors.blue}; box-shadow: 0 0 0 1px ${colors.blue};`
           : "#666"};
     }
   }
@@ -555,9 +547,9 @@ export const NextBtn = styled(Button)`
 
   &.ui.primary.button:hover,
   &.ui.primary.button:focus {
-    color: ${secondaryColors.green};
-    border: 1px solid ${secondaryColors.green};
-    box-shadow: 0 0 0 3px ${secondaryColors.green};
+    color: ${colors.blue};
+    border: 1px solid ${colors.blue};
+    box-shadow: 0 0 0 3px ${colors.blue};
     background-color: transparent;
 
     span {
@@ -566,7 +558,7 @@ export const NextBtn = styled(Button)`
     &::before,
     &::after {
       height: 3px;
-      background-color: ${secondaryColors.green};
+      background-color: ${colors.blue};
     }
     &::before {
     }
@@ -650,41 +642,25 @@ export const SubmitBtn = styled(Button)`
 `;
 
 export const DvBlueButton = styled(Button)`
-  /* &.ui.button.dv-blue {
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: ${colors.blue};
-    color: #fff;
-    white-space: nowrap;
-    width: 140px;
-
-    &.inverted {
-      color: ${colors.blue};
-      background: #fff;
-    }
-
-    &.fluid {
-      width: 100%;
-    }
-  } */
-
   &.ui.button.dv-blue {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: ${props => (props.fontSize ? `${props.fontSize}px` : "18px")};
-    text-transform: ${props => (props.uppercase ? "uppercase" : "none")};
-    font-weight: 500;
-    border-radius: 3px;
-    background-color: ${colors.blue};
-    color: #fff;
-    white-space: nowrap;
+
     box-sizing: border-box;
     height: 40px;
     padding: 0 20px;
     width: ${props => (props.fixed ? "140px" : "auto")};
+
+    border-radius: 3px;
+
+    background-color: ${colors.blue};
+
+    color: #fff;
+    font-size: ${props => (props.fontSize ? `${props.fontSize}px` : "18px")};
+    text-transform: ${props => (props.uppercase ? "uppercase" : "none")};
+    font-weight: 700;
+    white-space: nowrap;
 
     &:hover {
       background-color: #487ef2;
@@ -695,14 +671,17 @@ export const DvBlueButton = styled(Button)`
     }
 
     &.inverted {
-      background-color: #fff;
-      color: ${colors.blue};
       border: 1px solid ${colors.blue};
+      background-color: #fff;
+
+      color: ${colors.blue};
+      font-weight: 500;
 
       &:hover {
-        color: ${colors.blue};
         box-shadow: unset !important;
         background-color: rgba(72, 126, 242, 0.1);
+
+        color: ${colors.blue};
       }
 
       &:active {
@@ -711,14 +690,17 @@ export const DvBlueButton = styled(Button)`
       }
     }
 
+    &.transparent {
+    }
+
     &.fluid {
       width: 100%;
     }
 
     &:disabled {
-      color: #fff;
       background-color: #dbdbdb;
       border: none;
+      color: #fff;
     }
   }
 `;

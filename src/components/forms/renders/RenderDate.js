@@ -15,10 +15,6 @@ class RenderDate extends React.Component {
       : moment()
   };
 
-  componentWillMount() {
-    this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
-  }
-
   handleChange = date => {
     if (date && date._isAMomentObject) {
       this.setState({

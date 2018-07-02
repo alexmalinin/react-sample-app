@@ -5,16 +5,9 @@ import { ContainerLarge } from "../styleComponents/layout/Container";
 import {
   showAllProjects,
   showAllEpics,
-  deleteProjectEpic,
-  updateProjectEpic,
-  createEpicTask,
   showEpicTasks,
-  updateEpicTask,
-  showAllSpecialists,
-  showProjectTeam,
-  updateCreatedProject
+  showProjectTeam
 } from "../actions/actions";
-import { initialize, reset } from "redux-form";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
@@ -38,15 +31,15 @@ class ProjectsBoard extends Component {
   componentWillReceiveProps(nextProps) {
     let epicId;
     if (
-      nextProps.allEpics.epics &&
+      nextProps.allEpics.epics.length &&
       nextProps.currentEpic !== "all" &&
-      nextProps.projectWithId
+      nextProps.projectId
     ) {
       if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
         epicId =
           nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
         nextProps.history.push(
-          `/dashboard/project/${nextProps.projectWithId.id}/module/all`
+          `/dashboard/project/${nextProps.projectId}/module/all`
         );
       } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
     }
@@ -73,7 +66,7 @@ class ProjectsBoard extends Component {
     }
 
     if (epicId) {
-      if (this.props.epicTasks) {
+      if (this.props.epicTasks.loaded) {
         if (this.props.currentEpic !== nextProps.currentEpic) {
           nextProps.showEpicTasks(epicId);
         }
@@ -133,20 +126,9 @@ class ProjectsBoard extends Component {
   };
 
   renderContent = () => {
-    const {
-      projectId,
-      allEpics,
-      showAllEpics,
-      currentEpic,
-      projectWithId
-    } = this.props;
+    const { projectId, showAllEpics, currentEpic, projectWithId } = this.props;
 
     const { epics } = projectWithId || {};
-
-    const epicId =
-      epics && currentEpic !== "all" && +currentEpic <= epics.length
-        ? epics[currentEpic - 1].id
-        : null;
 
     if (currentEpic !== "all") {
       return (
@@ -154,7 +136,6 @@ class ProjectsBoard extends Component {
           <KanbanBoard
             currentProject={projectId}
             currentEpic={currentEpic}
-            epicId={epicId}
             myTasks={this.state.myTasks}
           />
         </S_Board>
@@ -202,26 +183,14 @@ class ProjectsBoard extends Component {
   };
 
   render() {
-    const {
-      projectId,
-      allEpics: { epics },
-      currentEpic,
-      epicTasks
-    } = this.props;
+    const { projectId, currentEpic } = this.props;
     const { myTasks } = this.state;
-
-    const epicId =
-      epics && currentEpic !== "all" && +currentEpic <= epics.length
-        ? epics[currentEpic - 1].id
-        : null;
 
     return (
       <ContainerLarge indentBot>
         <BoardSubHeader
           project={projectId}
           currentEpic={currentEpic}
-          epicId={epicId}
-          epicTasks={epicTasks}
           toggleMyTasks={this.toggleMyTasks}
           myTasks={myTasks}
         />
@@ -231,46 +200,24 @@ class ProjectsBoard extends Component {
   }
 }
 
-export default connect(
-  ({
-    allProjects,
-    allEpics,
-    deleteEpic,
-    createEpic,
-    createTask,
-    epicTasks,
-    updateTask,
-    deleteTask,
-    allSpecialists,
-    assignSpecialist,
-    removeSpecialist,
-    projectWithId
-  }) => ({
-    allProjects,
-    allEpics,
-    deleteEpic,
-    createEpic,
-    createTask,
-    epicTasks,
-    updateTask,
-    deleteTask,
-    allSpecialists,
-    assignSpecialist,
-    removeSpecialist,
-    projectWithId
-  }),
-  {
-    showAllProjects,
-    showAllEpics,
-    deleteProjectEpic,
-    updateProjectEpic,
-    createEpicTask,
-    showEpicTasks,
-    updateEpicTask,
-    showAllSpecialists,
-    showProjectTeam,
-    updateCreatedProject,
-    initialize,
-    reset
-  }
-)(ProjectsBoard);
+const mapStateToProps = state => {
+  return {
+    allEpics: state.allEpics,
+    deleteEpic: state.deleteEpic,
+    createEpic: state.createEpic,
+    createTask: state.createTask,
+    epicTasks: state.epicTasks,
+    updateTask: state.updateTask,
+    deleteTask: state.deleteTask,
+    assignSpecialist: state.assignSpecialist,
+    removeSpecialist: state.removeSpecialist,
+    projectWithId: state.projectWithId
+  };
+};
+
+export default connect(mapStateToProps, {
+  showAllProjects,
+  showAllEpics,
+  showEpicTasks,
+  showProjectTeam
+})(ProjectsBoard);

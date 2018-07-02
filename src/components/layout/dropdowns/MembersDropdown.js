@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Popup } from "semantic-ui-react";
 import PersonTile from "../PersonTile";
 import { StyledMembersWrapper } from "../../../styleComponents/layout/StyledAssignDropdown";
 

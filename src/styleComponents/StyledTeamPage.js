@@ -91,7 +91,7 @@ export default styled.div`
     margin-top: 15px;
   }
 
-  .teamsPlaceholder {
+  .teams-placeholder {
     display: flex;
     justify-content: center;
     align-items: center;

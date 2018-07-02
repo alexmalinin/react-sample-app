@@ -60,7 +60,6 @@ class SearchSpecialist extends Component {
 
     return (
       <ContainerLarge indentTop>
-        {/* <DashboardSubHeader /> */}
         <Container fluid indentTopXs sidebarCondition>
           {getUserRole() === S_REDGUY ? (
             <SearchFilterForm

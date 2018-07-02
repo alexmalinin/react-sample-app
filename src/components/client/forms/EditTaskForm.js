@@ -42,6 +42,7 @@ class EditTaskForm extends Component {
   //TODO: apply thunk here
 
   handleSubmit = (name, value) => {
+    debugger;
     const { epic, epicTask } = this.props;
     return axios({
       method: "PUT",
@@ -55,6 +56,7 @@ class EditTaskForm extends Component {
   };
 
   handleAssign = (type, specialist_id) => {
+    debugger;
     const {
       epicTask: { id, epic_id }
     } = this.props;
@@ -85,6 +87,7 @@ class EditTaskForm extends Component {
   };
 
   handleCost = specId => {
+    debugger;
     const {
       epicTask: { id, epic_id },
       projectWithId,
@@ -321,7 +324,9 @@ class EditTaskForm extends Component {
                   <AssignDropdown
                     label="Add assignee"
                     specialists={specialists}
-                    allSpecialists={projectTeam.specialists.filter(spec => spec.role !== S_REDGUY)}
+                    allSpecialists={projectTeam.specialists.filter(
+                      spec => spec.role !== S_REDGUY
+                    )}
                     handleAssign={this.handleAssign}
                     userType={[S_REDGUY]}
                     closeOnChange

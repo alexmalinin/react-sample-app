@@ -12,9 +12,9 @@ import {
   showSpecialistProjects,
   showAllEpicTasks
 } from "../../actions/actions";
-import { getUserRole } from "../../helpers/functions";
+import { getUserRole, getUserType } from "../../helpers/functions";
 import { PORT } from "../../constants/constants";
-import { S_REDGUY, CUSTOMER } from "../../constants/user";
+import { S_REDGUY, CUSTOMER, CLIENT, SPECIALIST } from "../../constants/user";
 
 class RenderDashboard extends Component {
   state = {
@@ -29,11 +29,11 @@ class RenderDashboard extends Component {
       this.props.showAllSpecialists("active", "core");
     }
 
-    if (this.props.changeUserType === "Client") {
+    if (getUserType() === CLIENT) {
       this.props.showAllProjects();
     }
 
-    if (this.props.changeUserType === "Specialist") {
+    if (getUserType() === SPECIALIST) {
       this.props.showSpecialistProjects();
     }
 
@@ -187,18 +187,11 @@ class RenderDashboard extends Component {
 }
 
 export default connect(
-  ({
-    clientData,
-    specialistData,
-    changeUserType,
-    allEpicTasks,
-    changeUsertype
-  }) => ({
-    clientData,
-    specialistData,
-    changeUserType,
-    allEpicTasks,
-    changeUsertype
+  state => ({
+    clientData: state.clientData,
+    specialistData: state.specialistData,
+    changeUserType: state.changeUserType,
+    allEpicTasks: state.allEpicTasks
   }),
   {
     showAllProjects,

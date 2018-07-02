@@ -119,7 +119,10 @@ class RenderFile extends Component {
             })
             .catch(error => console.log(error));
         } else {
-          this.fileHub = [...this.fileHub, {document: reader.result, title: file.name, size: file.size}];
+          this.fileHub = [
+            ...this.fileHub,
+            { document: reader.result, title: file.name, size: file.size }
+          ];
           console.log(this.fileHub);
           this.setState({
             files: [...this.state.files, file],

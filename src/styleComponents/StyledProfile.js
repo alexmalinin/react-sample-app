@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors, primaryColors } from "./constants/colors";
 
 export default styled.div`
   color: #666666;
@@ -99,7 +100,7 @@ export default styled.div`
       align-items: center;
       width: 120px;
       height: 120px;
-      border: 4px solid #e5e5e5;
+      background: ${primaryColors.accentBackground};
       align-self: flex-end;
 
       .image-wrapper {

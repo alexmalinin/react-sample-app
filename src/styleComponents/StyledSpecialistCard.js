@@ -36,6 +36,7 @@ export default styled.div`
         width: 70px;
         border-radius: 50%;
         object-fit: cover;
+        background: ${primaryColors.accentBackground};
       }
 
       .detailed {

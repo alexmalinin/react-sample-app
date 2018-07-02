@@ -93,7 +93,7 @@ export const StyledAssignDropdown = styled.div`
       width: ${props => (props.renderToModal ? "48px" : "36px")};
       color: ${props => (props.blue ? colors.blue : "#ccc")};
       border-radius: 50%;
-      border: ${props => (props.blue ? "none" : "1px solid #ccc")};
+      border: 1px solid ${props => (props.blue ? colors.lightGreyBlue : "#ccc")};
       background: ${props => (props.blue ? "#eaeffa" : "white")};
 
       text-align: center;
@@ -359,8 +359,8 @@ export const StyledPersonTile = styled.div`
       object-fit: cover;
 
       &.blank {
-        /* background: ${primaryColors.accentBackground}; */
-        border: 2px solid ${colors.blue};
+        background: ${primaryColors.accentBackground};
+        border: 1px solid ${colors.lightGreyBlue};
         object-fit: contain;
       }
     }
@@ -597,6 +597,7 @@ export const StyledMembersWrapper = styled.div`
       width: 36px;
       border-radius: 50%;
       background: ${primaryColors.accentBackground};
+      border: 1px solid ${colors.lightGreyBlue};
       color: ${colors.blue};
       text-align: center;
       line-height: 36px;

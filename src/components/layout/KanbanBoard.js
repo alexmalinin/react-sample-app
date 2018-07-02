@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Board from "react-trello";
+import ClassNames from "classnames";
 import CustomCard from "./CustomTaskCard";
-import { Transition } from "semantic-ui-react";
+import { Dimmer } from "semantic-ui-react";
 import {
   showEpicTasks,
   updateEpicTask,
@@ -12,28 +13,20 @@ import {
   showAllEpics
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
-import {
-  getUserRole,
-  getUserId,
-  getCookie,
-  setCookie
-} from "../../helpers/functions";
+import { getUserRole, getUserId } from "../../helpers/functions";
 import EditTaskModal from "../modals/EditTaskModal";
 
 class KanbanBoard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      backlogTasks: [],
-      progressTasks: [],
-      completedTasks: [],
-      acceptedTasks: [],
-      showBoard: false,
-      editingTask: {},
-      currentProjectTeam: [],
-      editModal: false
-    };
-  }
+  state = {
+    backlogTasks: [],
+    progressTasks: [],
+    completedTasks: [],
+    acceptedTasks: [],
+    showBoard: false,
+    editingTask: {},
+    currentProjectTeam: [],
+    editModal: false
+  };
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     this.props.updateEpicTask(
@@ -76,7 +69,6 @@ class KanbanBoard extends Component {
     ) {
       if (
         this.props.epicTasks !== nextProps.epicTasks ||
-        nextProps.allSpecialists ||
         nextProps.myTasks !== this.props.myTasks
       ) {
         let backlog = [],
@@ -86,10 +78,10 @@ class KanbanBoard extends Component {
           taskList = [];
 
         if (nextProps.myTasks) {
-          taskList = nextProps.epicTasks.filter(task =>
+          taskList = nextProps.epicTasks.tasks.filter(task =>
             task.specialists.some(spec => spec.id === getUserId())
           );
-        } else taskList = nextProps.epicTasks;
+        } else taskList = nextProps.epicTasks.tasks;
 
         taskList.forEach(task => {
           const specId =
@@ -144,7 +136,7 @@ class KanbanBoard extends Component {
     const { epicTasks } = this.props;
 
     if (id && epicTasks) {
-      let epicTask = epicTasks.find(task => task.id === Number(id));
+      let epicTask = epicTasks.tasks.find(task => task.id === Number(id));
       this.setState({ editingTask: epicTask, editModal: true });
     }
   };
@@ -163,7 +155,11 @@ class KanbanBoard extends Component {
   };
 
   render() {
-    const { changeUserType, currentEpic, epicId, epicTasks } = this.props;
+    const {
+      epicId,
+      epicTasks: { loading, loaded }
+    } = this.props;
+
     const {
       backlogTasks,
       progressTasks,
@@ -173,50 +169,49 @@ class KanbanBoard extends Component {
       editModal
     } = this.state;
 
-    return (
-      currentEpic !== "all" &&
-      (backlogTasks.length !== 0 ||
+    const kanbanClass = ClassNames("kanban", {
+      show: loaded,
+      fade: loading
+    });
+
+    return backlogTasks.length !== 0 ||
       progressTasks.length !== 0 ||
       completedTasks.length !== 0 ||
       acceptedTasks.length !== 0 ? (
-        <Fragment>
-          <Board
-            data={{
-              lanes: [
-                { id: "0", title: `Backlog`, cards: backlogTasks },
-                { id: "1", title: "In progress", cards: progressTasks },
-                { id: "2", title: "Done", cards: completedTasks },
-                { id: "3", title: "Accepted", cards: acceptedTasks }
-              ]
-            }}
-            className={`kanban${
-              epicId !== epicTasks.epicId ? " fade" : " show"
-            }`}
-            draggable={getUserRole() === S_REDGUY}
-            customCardLayout
-            handleDragEnd={this.handleDragEnd}
-            onCardClick={this.handleEditTask}
-          >
-            <CustomCard
-              userType={changeUserType}
-              epic={epicId}
-              handleEditTask={this.handleEditTask}
-              deleteTask={this.deleteTask}
-              specialistList={this.state.currentProjectTeam}
-            />
-          </Board>
-          <EditTaskModal
-            open={editModal}
-            close={this.closeModal}
+      <Fragment>
+        <Board
+          data={{
+            lanes: [
+              { id: "0", title: `Backlog`, cards: backlogTasks },
+              { id: "1", title: "In progress", cards: progressTasks },
+              { id: "2", title: "Done", cards: completedTasks },
+              { id: "3", title: "Accepted", cards: acceptedTasks }
+            ]
+          }}
+          className={kanbanClass}
+          draggable={getUserRole() === S_REDGUY}
+          customCardLayout
+          handleDragEnd={this.handleDragEnd}
+          onCardClick={this.handleEditTask}
+        >
+          <CustomCard
             epic={epicId}
-            epicTask={editingTask}
-            assignSpecialist={this.assignSpecialist}
-            removeSpecialist={this.removeSpecialist}
+            handleEditTask={this.handleEditTask}
+            deleteTask={this.deleteTask}
+            specialistList={this.state.currentProjectTeam}
           />
-        </Fragment>
-      ) : (
-        <div className="noTasks">No tasks for now</div>
-      ))
+        </Board>
+        <EditTaskModal
+          open={editModal}
+          close={this.closeModal}
+          epic={epicId}
+          epicTask={editingTask}
+          assignSpecialist={this.assignSpecialist}
+          removeSpecialist={this.removeSpecialist}
+        />
+      </Fragment>
+    ) : (
+      <div className="noTasks">No tasks for now</div>
     );
   }
 }
@@ -224,8 +219,6 @@ class KanbanBoard extends Component {
 const mapStateToProps = state => {
   return {
     epicTasks: state.epicTasks,
-    allSpecialist: state.allSpecialists,
-    changeUserTyp: state.changeUserType,
     projectTeam: state.projectTeam,
     specialistDat: state.specialistData
   };

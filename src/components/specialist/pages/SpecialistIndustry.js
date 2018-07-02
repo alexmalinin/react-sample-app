@@ -93,7 +93,7 @@ class SpecialistIndustry extends Component {
         {this.state.nextStep ? (
           isEditing ? (
             <Redirect to="about" />
-          ) : this.state.nextLocation === "/dashboard/profile" ? (
+          ) : this.state.nextLocation === "/profile/info" ? (
             <Redirect to="profile" />
           ) : (
             <Redirect to="company" />

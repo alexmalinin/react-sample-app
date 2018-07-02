@@ -6,14 +6,9 @@ import {
   updateSpecStep2,
   showSpecialistData
 } from "../../../actions/actions";
-import {
-  Container,
-  ContainerLarge
-} from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
-import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
@@ -43,10 +38,6 @@ class SpecialistCompany extends Component {
     let param = getAllUrlParams().edit;
     let isEditing = param ? param : false;
     this.setState({ isEditing });
-  }
-
-  componentWillUnmount() {
-    this.props.showSpecialistData();
   }
 
   render() {

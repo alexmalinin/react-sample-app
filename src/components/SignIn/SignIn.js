@@ -94,7 +94,7 @@ class SignUp extends Component {
     let status = data ? data["status"] : null;
     if (isLogIn) {
       if (status !== "logged") {
-        return <Redirect to={`/dashboard/profile`} />;
+        return <Redirect to={`/profile/info`} />;
       }
 
       if (status === "logged") {

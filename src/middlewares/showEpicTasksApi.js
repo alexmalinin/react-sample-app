@@ -6,6 +6,8 @@ export default store => next => action => {
   const { type, showEpicTasks, epic, ...rest } = action;
   if (!showEpicTasks) return next(action);
 
+  next({ ...rest, type });
+
   // let token = localStorage.getItem('jwt_token');
   // let { id } = jwtDecode(token);
 

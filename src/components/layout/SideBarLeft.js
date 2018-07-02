@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import ClassNames from "classnames";
 
 import { StyledBar } from "../../styleComponents/layout/SideBar";
 import { Loader } from "semantic-ui-react";
@@ -10,23 +11,29 @@ import { CLIENT } from "../../constants/user";
 import { getUserType } from "../../helpers/functions";
 
 class SideBarLeft extends Component {
-  renderCategory = (projects, title) => {
+  renderCategory = (projects, title, withEpics = false) => {
     const {
       allEpics: { loading, loaded, epics }
     } = this.props;
 
+    const linkClass = ClassNames("project-link", {
+      "with-epics": withEpics
+    });
+
     return (
       !!projects.length && (
-        <div className="category">
-          <div className="title">
-            <h4>{title}</h4>
-          </div>
+        <Fragment>
+          {title && (
+            <div className="title">
+              <h4>{title}</h4>
+            </div>
+          )}
           <div className="projects">
             {projects &&
               projects.map(project => (
                 <div className="project-wrapper" key={project.id}>
                   <NavLink
-                    className="project-link"
+                    className={linkClass}
                     to={`/dashboard/project/${project.id}`}
                     key={project.id}
                   >
@@ -44,41 +51,51 @@ class SideBarLeft extends Component {
 
                     <div className="project-name">{project.name}</div>
                   </NavLink>
-                  <div className="modules">
-                    {loaded &&
-                      epics.projectId === project.id &&
-                      epics.map((epic, key) => (
-                        <NavLink
-                          className="project-module"
-                          to={`/dashboard/project/${project.id}/module/${key +
-                            1}`}
-                          key={key}
-                        >
-                          <span className="module-number">
-                            {String(key + 1).padStart(2, 0)}.
-                          </span>&nbsp;
-                          {epic.name}
-                        </NavLink>
-                      ))}
-                    {loaded &&
-                      !epics.length && <p className="no-epics">No modules</p>}
-                    {loading && <Loader active />}
-                  </div>
+                  {withEpics && (
+                    <div className="modules">
+                      {loaded &&
+                        epics.projectId === project.id &&
+                        epics.map((epic, key) => (
+                          <NavLink
+                            className="project-module"
+                            to={`/dashboard/project/${project.id}/module/${key +
+                              1}`}
+                            key={key}
+                          >
+                            <span className="module-number">
+                              {String(key + 1).padStart(2, 0)}.
+                            </span>&nbsp;
+                            {epic.name}
+                          </NavLink>
+                        ))}
+                      {loaded &&
+                        !epics.length && <p className="no-epics">No modules</p>}
+                      {loading && <Loader active />}
+                    </div>
+                  )}
                 </div>
               ))}
           </div>
-        </div>
+        </Fragment>
       )
     );
   };
 
   render() {
-    const { sortedProjects } = this.props;
-    const { draft = [], discovery = [] } = sortedProjects || {};
+    const {
+      sortedProjects: { draft, discovery, brief_submissions, reviewed_by_admin }
+    } = this.props;
 
     return (
       <StyledBar className="left">
-        {this.renderCategory(discovery, "Projects")}
+        <div className="title">
+          <h4>Projects</h4>
+        </div>
+        {this.renderCategory(discovery, null, true)}
+        {this.renderCategory(
+          [...brief_submissions, ...reviewed_by_admin],
+          "Projects on review"
+        )}
         {this.renderCategory(draft, "Projects on drafts")}
         {getUserType() === CLIENT && (
           <NavLink
@@ -95,6 +112,6 @@ class SideBarLeft extends Component {
 }
 
 export default connect(state => ({
-  allEpics: state.allEpics,
-  sortedProjects: state.sortedProjects
+  sortedProjects: state.sortedProjects,
+  allEpics: state.allEpics
 }))(SideBarLeft);

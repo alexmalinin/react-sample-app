@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { colors, boxShadow, fontColors } from "../constants/colors";
+import {
+  colors,
+  boxShadow,
+  fontColors,
+  miscellaneous,
+  primaryColors
+} from "../constants/colors";
 
 export default styled.header`
   position: fixed;
@@ -18,7 +24,7 @@ export default styled.header`
     flex: 0 0 240px;
     border-width: 0px;
     border-style: solid;
-    border-color: ${colors.lightBorder};
+    border-color: ${miscellaneous.lightBorder};
     box-sizing: content-box;
   }
 
@@ -76,6 +82,7 @@ export default styled.header`
       width: 40px;
       border-radius: 50%;
       object-fit: cover;
+      /* background: ${primaryColors.accentBackground}; */
     }
 
     .user-name {

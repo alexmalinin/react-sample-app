@@ -1,14 +1,17 @@
 import styled from "styled-components";
-import { primaryColors, secondaryColors, colors } from "./constants/colors";
+import {
+  primaryColors,
+  colors,
+  fontColors,
+  miscellaneous
+} from "./constants/colors";
 
 export default styled.div`
-
-    ${props =>
-      props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    ${props => (props.widthAuto ? `width: 100%` : `width: 850px`)};
+    margin-top: ${props => props.mTop || "0px"};
+    width: ${props => (props.widthAuto ? "100%" : "850px")};
 
     font-size: 28px;
-    font-family: Roboto, sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
 
     .form-header {
@@ -54,13 +57,13 @@ export default styled.div`
           display: inline-block;
           text-transform: uppercase;
           padding: 20px 0;
-          color: ${primaryColors.darkGrey};
-          border-bottom: 1px solid #dcdcdc;
+          color: ${fontColors.blue.inert};
+          border-bottom: 1px solid ${miscellaneous.lightBorder};
 
           &.active {
-            color: ${colors.darkBlue};
+            color: ${fontColors.blue.active};
             font-weight: 500;
-            border-bottom: 1px solid ${colors.blue};
+            border-bottom: 2px solid ${colors.blue};
 
             &:hover {
 
@@ -127,28 +130,26 @@ export default styled.div`
     }
 
     @media(min-width: 1921px) {
-
-        .ui.segment {
-            .radio-group {
-                font-size: 28px;
-                padding-left: 40px;
-                margin-bottom: 40px;
-            }
+      .ui.segment {
+        .radio-group {
+          font-size: 28px;
+          padding-left: 40px;
+          margin-bottom: 40px;
         }
+      }
 
-        .ownRadio::before {
-            height: 30px;
-            width: 30px;
-            left: -55px;
+      .ownRadio::before {
+          height: 30px;
+          width: 30px;
+          left: -55px;
+      }
 
-        }
-
-        .ownInput:checked + .ownRadio::after {
-            width: 20px;
-            height: 20px;
-            top: 5px;
-            left: -50px;
-        }
+      .ownInput:checked + .ownRadio::after {
+          width: 20px;
+          height: 20px;
+          top: 5px;
+          left: -50px;
+      }
     }
 
     @media (max-width: 1920px) {

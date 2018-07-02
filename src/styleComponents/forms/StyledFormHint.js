@@ -5,7 +5,7 @@ export default styled.div`
   font-size: 18px;
   color: ${fontColors.light};
   font-weight: 400;
-  margin: 40px 0 30px;
+  margin-bottom: 30px;
 
   & > a {
     color: ${fontColors.light};

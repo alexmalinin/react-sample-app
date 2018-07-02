@@ -7,7 +7,7 @@ import {
   Container,
   ContainerLarge
 } from "../../styleComponents/layout/Container";
-import { showClientData, saveCreatedProgect } from "../../actions/actions";
+import { saveCreatedProgect, showSortedProjects } from "../../actions/actions";
 import ClientProjectForm from "./forms/ClientProjectForm";
 
 class ClientProjects extends Component {
@@ -43,6 +43,7 @@ class ClientProjects extends Component {
     const { createProject } = nextProps;
 
     if (createProject && nextProps.submitSucceeded) {
+      this.props.showSortedProjects("customers");
       if (createProject.id) {
         setTimeout(() => {
           this.setState({
@@ -73,6 +74,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-  showClientData,
+  showSortedProjects,
   saveCreatedProgect
 })(ClientProjects);

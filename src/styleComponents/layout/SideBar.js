@@ -3,7 +3,8 @@ import {
   boxShadow,
   colors,
   primaryColors,
-  fontColors
+  fontColors,
+  miscellaneous
 } from "../constants/colors";
 
 export const StyledBar = styled.aside`
@@ -26,8 +27,6 @@ export const StyledBar = styled.aside`
     left: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    display: flex;
-    flex-flow: column nowrap;
 
     .title {
       z-index: 1;
@@ -46,10 +45,8 @@ export const StyledBar = styled.aside`
       }
     }
 
-    .category:not(:first-of-type) {
-      .title {
-        border-top: 1px solid ${colors.lightBorder};
-      }
+    .title:not(:first-of-type) {
+      border-top: 1px solid ${miscellaneous.lightBorder};
     }
 
     .title {
@@ -69,8 +66,8 @@ export const StyledBar = styled.aside`
       }
     }
 
-    .projects {
-      padding-bottom: 26px;
+    .projects:not(:last-of-type) {
+      margin-bottom: 20px;
     }
 
     .project-link {
@@ -90,7 +87,7 @@ export const StyledBar = styled.aside`
         margin: 5px 12px;
 
         border-radius: 50%;
-        border: 1px solid #ccc;
+        border: 1px solid ${colors.lightGreyBlue};
       }
 
       img {
@@ -122,16 +119,6 @@ export const StyledBar = styled.aside`
         text-align: left;
 
         transition: 0.4s;
-
-        .projectStatus {
-          position: absolute;
-          bottom: 0;
-          left: 15px;
-
-          font-size: 12px;
-          color: #ccc;
-          text-transform: none;
-        }
       }
 
       .add-project-button {
@@ -171,7 +158,7 @@ export const StyledBar = styled.aside`
         line-height: normal;
       }
 
-      &::after {
+      &.with-epics::after {
         content: "";
         position: absolute;
         top: 50%;
@@ -186,7 +173,7 @@ export const StyledBar = styled.aside`
 
         opacity: 0;
         visibility: hidden;
-        transition: 0.4s;
+        transition: 0.2s;
       }
 
       &:not(.add-project) {
@@ -200,7 +187,7 @@ export const StyledBar = styled.aside`
         &.active {
           background: ${primaryColors.accentBackground};
 
-          &::after {
+          &.with-epics::after {
             opacity: 1;
             visibility: visible;
             --rotate: -45deg;
@@ -335,7 +322,7 @@ export const StyledBar = styled.aside`
           height: 60px;
 
           border: none;
-          border-bottom: 1px solid ${colors.lightBorder};
+          border-bottom: 1px solid ${miscellaneous.lightBorder};
           border-radius: 0px !important;
 
           font-size: 14px;
@@ -361,161 +348,19 @@ export const StyledBar = styled.aside`
         .team-tab-project {
           margin-bottom: 30px;
 
-          .persons {
-            display: flex;
-            flex-flow: row wrap;
-            align-items: center;
-
-            h5 {
-              flex-basis: 100%;
-            }
-
-            .delete,
-            .dropdown {
-              max-width: 220px;
-              min-width: 220px;
-            }
-
-            .attached.segment.tab {
-              position: relative;
-              padding: 20px;
-              border: none;
-              height: 100%;
-              overflow-y: auto;
-              max-height: calc(100% - 44px);
-
-              &.locked {
-                overflow-x: hidden;
-                overflow-y: auto;
-              }
-
-              .team-tab-project {
-                margin-bottom: 30px;
-
-                h4 {
-                  color: #666;
-                  margin-bottom: 0;
-                }
-
-                h5 {
-                  margin-top: 10px;
-                  margin-bottom: 10px;
-                }
-
-                .persons {
-                  display: flex;
-                  flex-flow: row wrap;
-                  align-items: center;
-
-                  h5 {
-                    flex-basis: 100%;
-                  }
-
-                  .person {
-                    flex-basis: 20%;
-                    text-align: center;
-
-                    img,
-                    span {
-                      display: inline-block;
-                      width: 30px;
-                      height: 30px;
-                      border: 1px solid #e5e5e5;
-                      border-radius: 50%;
-                    }
-                    span {
-                      text-align: center;
-                      font-size: 24px;
-                      line-height: 22px;
-                      cursor: pointer;
-                    }
-                  }
-                }
-              }
-
-              .activity-tab-item {
-                text-transform: uppercase;
-                margin-bottom: 60px;
-
-                h4 {
-                  font-size: 15px;
-                  color: #666;
-                }
-
-                .activity-item {
-                  display: flex;
-                  flex-flow: row wrap;
-                  align-items: center;
-                  margin-bottom: 20px;
-
-                  h5 {
-                    flex-basis: 100%;
-                  }
-
-                  .person {
-                    flex-basis: 20%;
-
-                    img {
-                      height: 30px;
-                      width: 30px;
-                      border: 1px solid #e5e5e5;
-                      border-radius: 50%;
-                    }
-                  }
-
-                  .text {
-                    flex-basis: 80%;
-                    font-size: 12px;
-
-                    span:last-of-type {
-                      text-transform: none;
-                    }
-                  }
-                }
-              }
-            }
+          .teams-placeholder {
+            font-size: inherit;
           }
         }
 
-        .activity-tab-item {
-          text-transform: uppercase;
-          margin-bottom: 60px;
-
-          h4 {
-            font-size: 15px;
-            color: #666;
-          }
-
-          .activity-item {
-            display: flex;
-            flex-flow: row wrap;
-            align-items: center;
-            margin-bottom: 20px;
-
-            h5 {
-              flex-basis: 100%;
-            }
-
-            .person {
-              flex-basis: 20%;
-
-              img {
-                height: 30px;
-                width: 30px;
-                border: 1px solid #e5e5e5;
-                border-radius: 50%;
-              }
-            }
-
-            .text {
-              flex-basis: 80%;
-              font-size: 12px;
-
-              span:last-of-type {
-                text-transform: none;
-              }
-            }
-          }
+        .activity-placeholder {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 460px;
+          font-size: 16px;
+          font-weight: 500;
+          color: #dbdbdb;
         }
       }
     }

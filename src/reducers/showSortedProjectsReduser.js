@@ -1,6 +1,13 @@
 import { SHOW_SORTED_PROJECTS, SUCCESS } from "../actions/types";
 
-export default (state = null, action) => {
+const initialState = {
+  draft: [],
+  discovery: [],
+  brief_submissions: [],
+  reviewed_by_admin: []
+};
+
+export default (state = initialState, action) => {
   const { type, data } = action;
 
   switch (type) {

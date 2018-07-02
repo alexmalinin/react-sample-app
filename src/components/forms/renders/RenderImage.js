@@ -3,13 +3,10 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import { Button } from "semantic-ui-react";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
-import { PORT, IMAGE_PORT } from "../../../constants/constants";
-import {
-  showAllProjects,
-  showSpecialistProjects
-} from "../../../actions/actions";
-import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constants/user";
+import { PORT, IMAGE_PORT, BLANK_AVATAR } from "../../../constants/constants";
+import { showSortedProjects } from "../../../actions/actions";
+import { getUserRole, getUserType } from "../../../helpers/functions";
+import { CUSTOMER, CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderImage extends Component {
   state = { file: "", imagePreviewUrl: "" };
@@ -25,7 +22,7 @@ class RenderImage extends Component {
   }
 
   _handleImageChange(e) {
-    const { projectId } = this.props;
+    const { projectId, showSortedProjects } = this.props;
 
     e.preventDefault();
 
@@ -51,11 +48,9 @@ class RenderImage extends Component {
           }
         })
           .then(res => {
-            if (getUserRole() === CUSTOMER) {
-              this.props.showAllProjects();
-            } else {
-              this.props.showSpecialistProjects();
-            }
+            const userType = getUserType();
+            if (userType === CLIENT) showSortedProjects("customers");
+            else if (userType === SPECIALIST) showSortedProjects("specialists");
           })
           .catch(error => {
             console.log(error);
@@ -81,11 +76,11 @@ class RenderImage extends Component {
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
     if (avatar && avatar.url && !imagePreviewUrl) {
-      $imagePreview = <img src={IMAGE_PORT + avatar.url} />;
+      $imagePreview = <img src={IMAGE_PORT + avatar.url} alt="" />;
     } else if (logo && logo.url && !imagePreviewUrl) {
-      $imagePreview = <img src={IMAGE_PORT + logo.url} />;
+      $imagePreview = <img src={IMAGE_PORT + logo.url} alt="" />;
     } else if (imagePreviewUrl) {
-      $imagePreview = <img src={imagePreviewUrl} />;
+      $imagePreview = <img src={imagePreviewUrl} alt="" />;
     } else {
       if (projectLogo) {
         $imagePreview = (
@@ -96,7 +91,7 @@ class RenderImage extends Component {
       } else {
         $imagePreview = (
           <div className="image-preloader">
-            <img src="../../images/uploadImg.png" alt="" />
+            <img src="../../images/icon-avatar.svg" alt="" />
           </div>
         );
       }
@@ -131,9 +126,7 @@ class RenderImage extends Component {
   };
 }
 
-export default connect(null, { showAllProjects, showSpecialistProjects })(
-  RenderImage
-);
+export default connect(null, { showSortedProjects })(RenderImage);
 
 // if (avatar && !imagePreviewUrl) {
 //     $imagePreview = (<img src={PORT + avatar.url}/>);

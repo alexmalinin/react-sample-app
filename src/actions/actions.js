@@ -7,13 +7,6 @@ import jwtDecode from "jwt-decode";
 import { createNotification } from "../helpers/functions";
 import Axios from "axios";
 
-let token = localStorage.getItem("jwt_token"),
-  id = null;
-
-if (token) {
-  id = jwtDecode(token).id;
-}
-
 export function hideFooter() {
   const action = {
     type: types.HIDE_FOOTER
@@ -425,6 +418,9 @@ export function updateSpecStep2(data) {
  */
 
 export function updateSpecialistBillings(data) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return dispatch => {
     Axios({
       method: "put",
@@ -951,6 +947,8 @@ export function saveCreatedProgect(data) {
   let reader = new FileReader();
   let logo = data["logo"] ? data["logo"][0] : null;
 
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     if (logo) {
       reader.readAsDataURL(logo);
@@ -1196,7 +1194,7 @@ export function createProjectEpic(data, project) {
       },
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(response => {
@@ -1373,7 +1371,7 @@ export function createEpicTask(data, epic) {
       },
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}}`
       }
     })
       .then(response => {
@@ -1732,7 +1730,7 @@ export function addToChannel(team, channel, data) {
       },
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}}`
       }
     })
       .then(({ data }) => {
@@ -1766,7 +1764,7 @@ export function removeFromChannel(team, channel, id) {
       method: "DELETE",
       url: `${PORT}/api/v1/teams/${team}/channels/${channel}/remove/${id}`,
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}}`
       }
     })
       .then(({ data }) => {
@@ -1905,6 +1903,9 @@ function postProject(payload, logo = null) {
  */
 
 function clientProfile(data, image = null) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   return {
     avatar: image,
     first_name: data["first_name"],
@@ -1932,6 +1933,9 @@ function clientProfile(data, image = null) {
  */
 
 function specialistProfile(data, education, experience, image) {
+  const token = localStorage.getItem("jwt_token");
+  const { id } = jwtDecode(token);
+
   const educationData = education.map(item => {
     return {
       name: item["name"],

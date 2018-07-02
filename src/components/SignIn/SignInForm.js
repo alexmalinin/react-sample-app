@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { reduxForm, Field, change } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required, minLength8 } from "../../helpers/validate";
+import { Message } from "semantic-ui-react";
+
 import RenderField from "../forms/renders/RenderField";
-import DvButtonForm from "../../styleComponents/layout/DvButtonForm";
 import { DvButtonBlue } from "../../styleComponents/layout/DvButton";
 import StyledFormHint from "../../styleComponents/forms/StyledFormHint";
 import EmailField from "../forms/renders/EmailField";
-import { Message } from "semantic-ui-react";
+
+import { required, minLength8 } from "../../helpers/validate";
 
 class SignInForm extends Component {
   state = {
@@ -30,7 +31,6 @@ class SignInForm extends Component {
         {visibleError && (
           <Message floating negative style={{ marginBottom: "25px" }}>
             Incorrect email or password.
-            {/*<S_DeleteCard color='red' className="remove icon" onClick={this.renderError(false)}/>*/}
           </Message>
         )}
         <EmailField name="email" label="Your email" checkedClass="checked" />

@@ -48,7 +48,7 @@ class SubHeader extends Component {
         </div>
         <div>
           {!this.state.isEditing ? (
-            page === "profile" || page === "industry" ? null : (
+            page === "info" || page === "industry" ? null : (
               // <SubHeaderLinkWrap
               //   url={
               //     getUserRole() === S_PASSIVE

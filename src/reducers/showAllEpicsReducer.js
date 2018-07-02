@@ -3,7 +3,7 @@ import { SUCCESS, FAIL, SHOW_ALL_EPICS } from "../actions/types";
 const initialState = {
   loading: false,
   loaded: false,
-  data: [],
+  epics: [],
   error: null
 };
 
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case SHOW_ALL_EPICS + SUCCESS:
       return { ...state, epics: data, loading: false, loaded: true };
     case SHOW_ALL_EPICS + FAIL:
-      return { ...state, epics: data, loading: false, error: data };
+      return { ...state, loading: false, loaded: true, error: data };
     default:
       return state;
   }

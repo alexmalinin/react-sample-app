@@ -13,7 +13,7 @@ class RenderCheckbox extends Component {
     let { onFocus, onBlur } = input;
 
     return (
-      <div>
+      <div className="dv-checkbox">
         <Checkbox
           onFocus={onFocus}
           onBlur={onBlur}

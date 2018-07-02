@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "../constants/colors";
+import { primaryColors, boxShadow, fontColors } from "../constants/colors";
 
 export const ContainerLarge = styled.div`
   margin: 0 auto;
@@ -93,6 +93,7 @@ export const Container = styled.div`
     min-height: 300px;
     font-size: 30px;
     text-transform: uppercase;
+    color: ${fontColors.black};
   }
 
   @media (max-width: 1920px) {

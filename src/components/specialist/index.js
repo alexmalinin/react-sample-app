@@ -37,13 +37,10 @@ import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
 
 import {
   showSpecialistData,
-  updateSpecialistProfile,
   showSortedProjects,
   showProjectWithId,
   showAllEpics,
-  showSpecialistTeams,
-  showProjectTeam,
-  showAllSpecialists
+  showSpecialistTeams
 } from "../../actions/actions";
 
 import {
@@ -57,21 +54,17 @@ import {
 import { PORT } from "../../constants/constants";
 import { S_REDGUY, S_CORE, S_PASSIVE } from "../../constants/user";
 
-const pagesToCalculate = ["profile", "industry", "company", "billings"];
+const pagesToCalculate = ["info", "industry", "company", "billings"];
 
 class SpecialistsDashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      profilePercent: null,
-      industryPercent: null,
-      companyPercent: null,
-      billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      showRelog: true
-    };
-    this.calculatePagePercent = this.calculatePagePercent.bind(this);
-  }
+  state = {
+    profilePercent: null,
+    industryPercent: null,
+    companyPercent: null,
+    billingPercent: null,
+    rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+    showRelog: true
+  };
 
   componentDidMount() {
     this.props.showSortedProjects("specialists");
@@ -108,7 +101,11 @@ class SpecialistsDashboard extends Component {
 
     if (!this.props.specialistData) {
       let token = localStorage.getItem("jwt_token");
-      const { id } = jwtDecode(token);
+      let id;
+
+      if (token) {
+        id = jwtDecode(token).id;
+      }
 
       if (id) {
         axios
@@ -227,7 +224,7 @@ class SpecialistsDashboard extends Component {
     }
   }
 
-  calculatePagePercent(percentName, data) {
+  calculatePagePercent = (percentName, data) => {
     let fieldsCount = data && Object.keys(data).length;
 
     if (percentName && Object.keys(data).length > 0) {
@@ -261,7 +258,7 @@ class SpecialistsDashboard extends Component {
         [percentName]: null
       });
     }
-  }
+  };
 
   calculatePercents() {
     const { specialistData } = this.props;
@@ -295,8 +292,6 @@ class SpecialistsDashboard extends Component {
       match: { params },
       specialistProjects,
       specialistTeams,
-      changeUserType,
-      history,
       confirmationModal
     } = this.props;
 
@@ -311,6 +306,8 @@ class SpecialistsDashboard extends Component {
         if (allowedPages.some(page => params["page"] === page)) {
           page = params["page"];
         } else page = "forbidden";
+      } else if (params["profilePage"]) {
+        page = params["profilePage"];
       } else page = "forbidden";
     } else if (params["page"]) {
       if (params["page"] === "search") {
@@ -320,7 +317,7 @@ class SpecialistsDashboard extends Component {
       } else page = params["page"];
     } else if (params["profilePage"]) {
       page = params["profilePage"];
-    } else if (params["projectId"] && params["projectId"] !== "new") {
+    } else if (params["projectId"] && params["projectId"] !== "info") {
       page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
       page = "module";
@@ -329,7 +326,7 @@ class SpecialistsDashboard extends Component {
     } else page = "dashboard";
 
     let sidebarCondition =
-      page !== "new" &&
+      page !== "info" &&
       page !== "industry" &&
       page !== "company" &&
       page !== "billings" &&
@@ -373,7 +370,6 @@ class SpecialistsDashboard extends Component {
                 percents={this.state}
                 isEdited={isEdited}
                 page={page}
-                user={changeUserType}
               />
               {this.renderPage(page)}
             </Container>
@@ -412,7 +408,7 @@ class SpecialistsDashboard extends Component {
     } = this.props;
 
     switch (page) {
-      case "new":
+      case "info":
         document.title = "Profile | Digital Village";
         return (
           <SpecialistsProfile
@@ -545,31 +541,21 @@ class SpecialistsDashboard extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     changeUserType: state.changeUserType,
     specialistData: state.specialistData,
-    confirmPassword: state.confirmPassword,
-    educations: state.educations,
-    experiences: state.experiences,
-    allProjects: state.allProjects,
-    projectWithId: state.projectWithId,
     specialistProjects: state.specialistProjects,
-    allTeams: state.allTeams,
     specialistTeams: state.specialistTeams,
     confirmationModal: state.confirmationModal,
-    submitErrorModal: state.submitErrorModal,
-    signInReduce: state.signInReducer
+    submitErrorModal: state.submitErrorModal
   };
 };
 
 export default connect(mapStateToProps, {
   showSpecialistData,
-  updateSpecialistProfile,
   showSortedProjects,
   showProjectWithId,
   showAllEpics,
-  showSpecialistTeams,
-  showProjectTeam,
-  showAllSpecialists
+  showSpecialistTeams
 })(SpecialistsDashboard);

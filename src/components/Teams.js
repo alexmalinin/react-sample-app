@@ -92,7 +92,7 @@ class Teams extends Component {
                 />
               ))
             ) : (
-              <div className="teamsPlaceholder">
+              <div className="teams-placeholder">
                 <p>No teams for now</p>
               </div>
             )}
@@ -114,7 +114,7 @@ class Teams extends Component {
                 team && <Team key={key} team={team} renderToRightSidebar />
             )
           ) : (
-            <div className="teamsPlaceholder">
+            <div className="teams-placeholder">
               <p>No teams for now</p>
             </div>
           )}
@@ -132,12 +132,11 @@ class Teams extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     specialistData: state.specialistData,
     changeUserType: state.changeUserType,
     createCustomTeam: state.createCustomTeam,
-    specialistTeams: state.specialistTeams,
     allTeam: state.allTeams
   };
 };

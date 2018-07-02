@@ -201,7 +201,7 @@ class SpecialistsWithId extends Component {
         <Container indentBot sidebarCondition>
           <StyledProfile>
             <Grid>
-              <SectionHeader page="profile" editCondition={!specialistId} />
+              <SectionHeader page="info" editCondition={!specialistId} />
               <Grid.Row className="main-info">
                 <Grid.Column computer={8} textAlign="right">
                   <div className="profile-image">
@@ -343,7 +343,7 @@ class SpecialistsWithId extends Component {
               <SectionHeader
                 content="Work / Proffesional experience"
                 editCondition={!specialistId}
-                page="profile"
+                page="info"
               />
               <Grid.Row>
                 <Grid.Column computer={8}>
@@ -372,7 +372,7 @@ class SpecialistsWithId extends Component {
 
               <SectionHeader
                 content="Education"
-                page="profile"
+                page="info"
                 editCondition={!specialistId}
               />
               <Grid.Row className="educations">
@@ -497,7 +497,7 @@ function SectionHeader({ content, page, editCondition }) {
       </Grid.Column>
       {editCondition && (
         <Grid.Column computer={2} textAlign="right" floated="right">
-          <NavLink to={`/dashboard/${page}?edit`}>
+          <NavLink to={`/profile/${page}?edit`}>
             <Dots />
           </NavLink>
         </Grid.Column>
@@ -514,17 +514,18 @@ function Dots() {
   );
 }
 
-export default connect(
-  ({ specialistData, industries, specialistWithId, experienceLevels }) => ({
-    specialistWithId,
-    industries,
-    specialistData,
-    experienceLevels
-  }),
-  {
-    showSpecialistData,
-    getIndustries,
-    showSpecialistWithId,
-    getExperienceLevels
-  }
-)(SpecialistsWithId);
+const mapStateToProps = state => {
+  return {
+    specialistWithId: state.specialistWithId,
+    industries: state.industries,
+    specialistData: state.specialistData,
+    experienceLevels: state.experienceLevels
+  };
+};
+
+export default connect(mapStateToProps, {
+  showSpecialistData,
+  getIndustries,
+  showSpecialistWithId,
+  getExperienceLevels
+})(SpecialistsWithId);

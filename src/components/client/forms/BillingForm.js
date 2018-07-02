@@ -25,20 +25,16 @@ import InputRadio from "../../forms/renders/InputRadio";
 import RenderImage from "../../forms/renders/RenderImage";
 
 class BillingForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tab: "0",
-      fetch: true
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+  state = {
+    tab: "0",
+    fetch: true
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.setState({
       tab: event.target.value
     });
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.clientData && this.state.fetch) {
@@ -49,6 +45,8 @@ class BillingForm extends Component {
             fetch: false
           });
         }
+      } else {
+        this.props.change("billing_type", 0);
       }
     }
   }

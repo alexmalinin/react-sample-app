@@ -129,7 +129,7 @@ class ClientAbout extends Component {
         <Container indentBot sidebarCondition>
           <StyledProfile>
             <Grid>
-              <SectionHeader page="profile" />
+              <SectionHeader page="info" />
               <Grid.Row className="main-info">
                 <Grid.Column computer={8} textAlign="right">
                   <div className="profile-image">
@@ -173,7 +173,7 @@ class ClientAbout extends Component {
                 </Grid.Column>
               </Grid.Row>
 
-              <SectionHeader content="Address" page="profile" />
+              <SectionHeader content="Address" page="info" />
               <Grid.Row className="Address">
                 <Grid.Column computer={16}>
                   <span>
@@ -285,7 +285,7 @@ function SectionHeader({ content, page }) {
         <span className="title">{content}</span>
       </Grid.Column>
       <Grid.Column computer={2} textAlign="right" floated="right">
-        <NavLink to={`/dashboard/${page}?edit`}>
+        <NavLink to={`/profile/${page}?edit`}>
           <Dots />
         </NavLink>
       </Grid.Column>

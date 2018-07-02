@@ -238,7 +238,7 @@ class Team extends Component {
   };
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     createChannel: state.createChannel,
     allChannels: state.allChannels,

@@ -254,7 +254,7 @@ RenderProfileForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(RenderProfileForm);
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const { specialistData, clientData, percents } = state;
   let initialValues = {};
 

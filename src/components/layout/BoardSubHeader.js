@@ -44,13 +44,18 @@ class ProjectSubHeader extends Component {
   };
 
   render() {
-    const { currentEpic, epicTasks, project, myTasks } = this.props;
+    const {
+      currentEpic,
+      epicTasks: { loaded, tasks },
+      project,
+      myTasks
+    } = this.props;
 
-    const allTasksCount = epicTasks && epicTasks.length;
+    const allTasksCount = tasks.length;
     let completedTasksCount = 0,
       myTasksCount = 0;
-    epicTasks &&
-      epicTasks.forEach(task => {
+    loaded &&
+      tasks.forEach(task => {
         (task.state === "done" || task.state === "accepted") &&
           completedTasksCount++;
         task.specialists.some(
@@ -123,10 +128,11 @@ class ProjectSubHeader extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     updateTask: state.updateTask,
-    allEpics: state.allEpics
+    allEpics: state.allEpics,
+    epicTasks: state.epicTasks
   };
 };
 

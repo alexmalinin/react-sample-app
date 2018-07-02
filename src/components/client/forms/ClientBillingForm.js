@@ -26,6 +26,7 @@ class ClientBillingForm extends Component {
     return (
       <form onSubmit={handleSubmit} onChange={this.handleChange}>
         <BillingForm
+          {...this.props}
           clientData={clientData}
           submitting={submitting}
           swichTab={swichTab}
@@ -73,21 +74,12 @@ ClientBillingForm = reduxForm({
 export default connect(state => {
   const { clientData } = state;
 
-  const billingData = (clientData && clientData.billing) || {};
+  const { billing } = clientData || {};
 
   return {
     clientData,
     initialValues: {
-      billing_type: billingData && billingData.billing_type,
-      card_name: billingData && billingData.card_name,
-      card_number: billingData && billingData.card_number,
-      beneficiary_account: billingData && billingData.beneficiary_account,
-      beneficiary_bank: billingData && billingData.beneficiary_bank,
-      beneficiary_name: billingData && billingData.beneficiary_name,
-      correspondent_bank: billingData && billingData.correspondent_bank,
-      iban: billingData && billingData.iban,
-      purpose_of_payment: billingData && billingData.purpose_of_payment,
-      swift_code: billingData && billingData.swift_code
+      ...billing
     }
   };
 })(ClientBillingForm);

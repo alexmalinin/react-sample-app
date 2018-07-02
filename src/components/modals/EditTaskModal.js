@@ -21,7 +21,6 @@ class EditTaskModal extends Component {
 
   render() {
     const { epic, epicTask, open, close } = this.props;
-    const { opened } = this.state;
 
     return (
       <StyledModal
