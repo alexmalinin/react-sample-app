@@ -8,6 +8,8 @@ import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import StyledModuleLink from "../../styleComponents/StyledModuleLink";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY } from "../../constants/user";
 
 class ProjectSubHeader extends Component {
   render() {
@@ -17,7 +19,7 @@ class ProjectSubHeader extends Component {
     return (
       <StyledSubHeader
         sidebarCondition
-        projectSubHeader="true"
+        // projectSubHeader="true"
         disabled={loading}
       >
         {module ? (
@@ -68,8 +70,10 @@ class ProjectSubHeader extends Component {
 
               <button
                 onClick={() => {
+                  let state = getUserRole() === S_REDGUY ? "discovery" : null;
+
                   this.props.dispatch(
-                    change("ClientProjectForm", "state", null)
+                    change("ClientProjectForm", "state", state)
                   );
 
                   setTimeout(() => {

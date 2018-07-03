@@ -7,8 +7,8 @@ import { StyledBar } from "../../styleComponents/layout/SideBar";
 import { Loader } from "semantic-ui-react";
 
 import { IMAGE_PORT } from "../../constants/constants";
-import { CLIENT } from "../../constants/user";
-import { getUserType } from "../../helpers/functions";
+import { CUSTOMER, S_REDGUY } from "../../constants/user";
+import { oneOfRoles } from "../../helpers/functions";
 
 class SideBarLeft extends Component {
   renderCategory = (projects, title, withEpics = false) => {
@@ -97,7 +97,7 @@ class SideBarLeft extends Component {
           "Projects on review"
         )}
         {this.renderCategory(draft, "Projects on drafts")}
-        {getUserType() === CLIENT && (
+        {oneOfRoles(CUSTOMER, S_REDGUY) && (
           <NavLink
             className="project-link add-project"
             to="/dashboard/project/new"

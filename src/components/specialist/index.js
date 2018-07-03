@@ -21,6 +21,7 @@ import SpecialistsTest from "./pages/SpecialistsTest";
 import SpecialistsMyBillings from "./pages/SpecialistsMyBillings";
 import SpecialistAccount from "./pages/SpecialistAccount";
 import SpecialistYTD from "./pages/SpecialistYTD";
+import ClientProjects from "../client/ClientProjects";
 import SpecialistStatement from "./pages/SpecialistStatement";
 import TheVillage from "../TheVillage";
 import { projects, days } from "../../helpers/sidebarDbEmulate";
@@ -318,7 +319,9 @@ class SpecialistsDashboard extends Component {
     } else if (params["profilePage"]) {
       page = params["profilePage"];
     } else if (params["projectId"] && params["projectId"] !== "info") {
-      page = "board";
+      if (params["projectId"] === "new") {
+        page = "projects";
+      } else page = "board";
     } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
       page = "module";
     } else if (params["specialistId"]) {
@@ -439,6 +442,9 @@ class SpecialistsDashboard extends Component {
       case "edit":
         document.title = "Edit profile | Digital Village";
         return <EditProfile />;
+      case "projects":
+        document.title = "Add Project | Digital Village";
+        return <ClientProjects />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
@@ -525,7 +531,7 @@ class SpecialistsDashboard extends Component {
     const prevProjectId = this.props.match.params["projectId"];
     const projectId = nextProps.match.params["projectId"];
 
-    if (projectId && prevProjectId) {
+    if (projectId && projectId !== "new" && prevProjectId) {
       if (projectId !== prevProjectId) {
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);

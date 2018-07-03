@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import Select from "react-select";
-import { primaryColors } from "../constants/colors";
+import { fontColors, colors, primaryColors } from "../constants/colors";
 
 export default styled(Select)`
   .Select-control:focus {
@@ -24,29 +24,30 @@ export default styled(Select)`
   }
 
   &.is-focused:not(.is-open) .Select-control {
-    border-bottom: 2px solid #85b7d9;
     box-shadow: none;
   }
 
-  &.has-value .Select-value-label {
-    color: #666 !important;
-  }
-
-  .Select-arrow::before,
   .Select-arrow::after {
     content: "";
-    width: 12px;
-    height: 2px;
     position: absolute;
     top: 50%;
-    right: 0;
-    background: #ccc;
-    transform: rotate(45deg);
-    transform-origin: 0;
+    right: 10px;
+    transform: translateY(-50%) rotate(var(--rotate, 45deg));
+    height: 10px;
+    width: 10px;
+    border: solid ${colors.blue};
+    border-width: 0 0 2px 2px;
+    transition: 0.4s;
   }
 
-  &.is-open .Select-arrow {
-    transform: rotate(-90deg);
+  &.is-open {
+    .Select-arrow:after {
+      --rotate: -45deg;
+    }
+
+    .Select-control {
+      border-color: ${colors.blue};
+    }
   }
 
   .Select-arrow::before {
@@ -54,24 +55,32 @@ export default styled(Select)`
   }
 
   & .Select-control {
-    border-radius: 0;
-    border: none;
-    ${props =>
-      props.formodal
-        ? "border: 1px solid #dae1ee; border-radius: 3px"
-        : "border-bottom: 2px solid #f2f2f2;"};
+    border: 1px solid ${colors.lightGreyBlue};
+    border-radius: 6px;
   }
 
   ${props =>
     props.error &&
     css`
       & .Select-control {
-        border-color: #e0b4b4;
-        background-color: #fff6f6;
-      }
-
-      & .Select-placeholder {
-        color: #e7bdbc;
+        border-color: ${primaryColors.red};
       }
     `};
+
+  .Select-menu-outer {
+    border: 1px solid ${colors.blue};
+
+    .Select-option {
+      font-size: 16px;
+      color: ${fontColors.regular};
+
+      &.is-focused {
+        background-color: ${colors.lightGreyBlue};
+      }
+
+      &:hover {
+        background-color: ${colors.lightGreyBlue};
+      }
+    }
+  }
 `;

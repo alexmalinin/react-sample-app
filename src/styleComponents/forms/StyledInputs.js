@@ -10,7 +10,7 @@ export default styled.div`
   border-radius: 0 !important;
   position: relative;
   margin-bottom: ${props => (props.small ? `7px` : `10px`)};
-  padding-top: 28px;
+  /* padding-top: 28px; */
   padding-bottom: 20px;
 
   ${props => (props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``)};
@@ -40,10 +40,6 @@ export default styled.div`
   }
 
   label {
-    position: absolute;
-    top: 0;
-    left: ${props => (props.accountInput ? `0` : props.padded ? `30px` : `0`)};
-    font-family: "Roboto";
     font-size: ${props => (props.accountInput ? `10px` : `18px`)};
     text-transform: none;
     color: ${props => (props.accountInput ? `#999` : fontColors.black)};
@@ -57,14 +53,6 @@ export default styled.div`
   .ui.input {
     width: 100%;
     input {
-      border: none;
-      font-size: 18px;
-      color: #666;
-      letter-spacing: 1.5px;
-      padding-left: 10px;
-      border-radius: 6px;
-      border: 1px solid #dce0ee;
-
       &.shadowInput {
         display: none;
       }
@@ -72,8 +60,13 @@ export default styled.div`
 
     &.error {
       input {
+        color: ${fontColors.light};
         background-color: transparent;
         border-color: ${primaryColors.red};
+
+        &::placeholder {
+          color: ${fontColors.light};
+        }
       }
     }
 
@@ -83,17 +76,6 @@ export default styled.div`
 
     input[name="cost"] {
       text-align: right;
-    }
-
-    input::placeholder {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 22px;
-      color: ${fontColors.light};
-    }
-
-    input:focus {
-      border-color: ${colors.blue};
     }
 
     input::-webkit-outer-spin-button,
@@ -162,32 +144,34 @@ export default styled.div`
   }
 
   .Select-input {
-    height: 41px;
+    height: 38px;
     ${props => (props.small ? `width: 200px;` : ``)};
   }
 
   .Select-placeholder,
   .Select-value {
-    color: ${props => (props.accountInput ? `#666` : `#ccc !important`)};
+    color: ${props => (props.accountInput ? `#666` : fontColors.light)};
     padding-left: ${props => (props.accountInput ? `0px` : `10px`)};
     text-transform: none;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.5px;
     font-size: 16px;
     max-width: 90%;
   }
 
   .Select-placeholder,
   .Select-value-label {
-    line-height: 42px;
+    line-height: 38px;
   }
 
   .Select-value-label {
-    color: #ccc !important;
+    color: ${fontColors.regular};
   }
 
   .Select-input > input {
+    font-size: 16px;
     padding: 0;
-    line-height: 41px;
+    line-height: 38px;
+    color: ${fontColors.regular};
   }
 
   .Select-arrow-zone {
@@ -217,24 +201,13 @@ export default styled.div`
 
     .ui.input {
       input {
-        padding: 6px;
         margin-bottom: 15px;
         overflow: hidden;
         resize: none;
         min-height: auto;
         letter-spacing: normal;
-        color: ${primaryColors.accentGrey};
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 2em;
-        font-family: "Roboto";
         border: 1px solid var(--inputbdcolor, transparent);
-        border-radius: 5px;
         cursor: pointer;
-
-        &::placeholder {
-          color: ${primaryColors.accentGrey};
-        }
 
         &:focus {
           --inputbdcolor: ${colors.blue};

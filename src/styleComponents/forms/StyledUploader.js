@@ -1,12 +1,17 @@
 import styled from "styled-components";
-import { colors, boxShadow, primaryColors } from "../constants/colors";
+import {
+  colors,
+  secondaryColors,
+  fontColors,
+  boxShadow,
+  primaryColors
+} from "../constants/colors";
 
 export default styled.div`
   position: relative;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  margin-bottom: 20px;
 
   &.projectFiles {
     .ui.loader {
@@ -39,10 +44,10 @@ export default styled.div`
     margin-left: ${props => (props.projectLogo ? "0" : "30px")};
 
     & img {
-      width: 120px;
-      height: 120px;
+      width: ${props => (props.projectLogo ? "70px" : "120px")};
+      height: ${props => (props.projectLogo ? "70px" : "120px")};
       border-radius: 50%;
-      object-fit: ${props => (props.projectLogo ? "contain" : "cover")};
+      object-fit: cover;
       background: ${primaryColors.accentBackground};
     }
   }
@@ -55,28 +60,46 @@ export default styled.div`
     }
   }
 
+  .upload {
+    display: flex;
+    align-items: center;
+
+    .upload-image {
+      position: relative;
+    }
+
+    .upload-label {
+      font-size: 14px;
+      padding: 15px;
+      color: ${fontColors.light};
+      line-height: 20px;
+      font-weight: 400;
+    }
+  }
+
   .dropzone {
     width: 100%;
-    height: ${props => (props.small ? "60px" : "100px")};
+    height: ${props => (props.small ? "60px" : "50px")};
     display: flex;
     flex-flow: row wrap;
     position: relative;
-    border-color: #ccc;
+    border-color: rgba(0, 3, 51, 0.4);
     border-style: dashed;
     border-width: ${props => (props.small ? "2px" : "2px")};
-    border-radius: ${props => (props.small ? "0px" : "0")};
+    border-radius: ${props => (props.small ? "0px" : "3px")};
     justify-content: center;
     align-items: center;
     cursor: pointer;
     transition: color 0.3s, border-color 0.3s;
     margin-bottom: 14px;
 
-    p {
+    .dropzone-label {
+      display: block;
+      width: 100%;
       text-align: center;
-      font-size: 1.2em;
+      font-size: 14px;
       font-weight: 500;
-      margin-bottom: 0;
-      color: #ccc;
+      color: ${fontColors.light};
       transition: inherit;
     }
 
@@ -109,39 +132,43 @@ export default styled.div`
     }
 
     &:hover {
-      border-color: #666;
-      p,
+      border-color: ${colors.blue};
+
+      .dropzone-label,
       i {
-        color: #666;
+        color: ${colors.blue};
       }
     }
   }
 
   .ui.button {
-    ${props =>
-      props.disabled ? "display: none;" : ""} padding: 60px !important;
-    border-radius: 50%;
-    position: relative;
-    background-color: transparent !important;
+    display: ${props => (props.disabled ? "none" : "inline-block")};
     position: absolute;
-    top: 0px;
+    top: 0;
+    left: 0;
+    width: ${props => (props.projectLogo ? "70px" : "120px")};
+    height: ${props => (props.projectLogo ? "70px" : "120px")};
+    padding: 0;
+    border-radius: 50%;
+    background-color: transparent !important;
     ${props => (props.projectLogo ? null : "left: 30px;")};
   }
+
   .ui.button::after,
   .ui.button::before {
     content: "";
-    width: 35px;
-    height: 5px;
+    position: absolute;
     top: 50%;
     left: 50%;
+    width: 14px;
+    height: 2px;
     transform: translate(-50%, -50%);
-    background-color: white;
-    position: absolute;
+    background-color: ${colors.blue};
     opacity: 0;
   }
   .ui.button::after {
-    height: 35px;
-    width: 5px;
+    height: 14px;
+    width: 2px;
   }
 
   .ui.button:hover.ui.button::after,
@@ -355,6 +382,7 @@ export default styled.div`
   }
 
   .errorMessage {
+    font-size: 14px;
     color: #db4538;
     width: 100%;
     padding: 5px;

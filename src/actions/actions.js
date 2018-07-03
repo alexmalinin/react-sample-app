@@ -1,7 +1,7 @@
 import * as types from "./types";
 import { SUCCESS, FAIL } from "./types";
 import { PORT } from "../constants/constants";
-import { SPECIALIST, CUSTOMER } from "../constants/user";
+import { SPECIALIST, CUSTOMER, S_REDGUY } from "../constants/user";
 
 import jwtDecode from "jwt-decode";
 import { createNotification } from "../helpers/functions";
@@ -470,6 +470,28 @@ export function updateSpecialistBillings(data) {
           type: "error"
         });
 
+        console.error(error);
+      });
+  };
+}
+
+/**
+ * Get all clients
+ */
+
+export function showAllClients() {
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `${PORT}/api/v1/customers/`
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: types.SHOW_ALL_CLIENTS + SUCCESS,
+          data
+        });
+      })
+      .catch(error => {
         console.error(error);
       });
   };
@@ -1853,7 +1875,7 @@ export function closeSubmitErrorModal() {
 
 function postProject(payload, logo = null) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { id, role } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.map(({ document, title, size }) => {
@@ -1872,9 +1894,16 @@ function postProject(payload, logo = null) {
       return skill.value;
     });
 
+  let specialistId = role === S_REDGUY ? id : null;
+
   return {
     name: payload["name"],
-    customer_id: id,
+    customer_id:
+      (payload["customer_id"] && payload["customer_id"]["value"]) || id,
+    project_type_id:
+      (payload["project_type_id"] && payload["project_type_id"]["value"]) ||
+      null,
+    specialist_id: specialistId,
     description: payload["description"],
     user_story: payload["user_story"],
     state: payload["state"],

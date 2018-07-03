@@ -51,9 +51,8 @@ export const Container = styled.div`
 
   max-width: 1280px;
   margin-top: 0;
-  background-color: ${props =>
-    props.dashboardContainer ? `transparent` : `white`};
-  ${props => (props.dashboardContainer ? `` : boxShadow.light)};
+  background-color: ${props => (props.transparent ? `transparent` : `#fff`)};
+  ${props => (props.transparent ? `` : boxShadow.light)};
   ${props => (props.indentTop ? `margin-top: 100px` : ``)};
   ${props => (props.indentTopXs ? `margin-top: 40px` : ``)};
   ${props => (props.relative ? `position: relative` : ``)};

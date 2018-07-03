@@ -107,7 +107,9 @@ class EditProjectForm extends Component {
       submitting,
       skills,
       submitSucceeded,
-      handleAssignTeam
+      handleAssignTeam,
+      projectTypeId,
+      projectName
     } = this.props;
 
     const { team } = this.state;
@@ -118,6 +120,16 @@ class EditProjectForm extends Component {
     const hasPermission =
       getUserRole() === CUSTOMER || getUserRole() === S_REDGUY;
 
+    let projectType = null;
+
+    if (projectTypes && projectTypeId) {
+      projectTypes.forEach(type => {
+        if (type.value === projectTypeId) {
+          projectType = type.label;
+        }
+      });
+    }
+
     return (
       <StyledProject>
         <Form onSubmit={handleSubmit}>
@@ -126,23 +138,19 @@ class EditProjectForm extends Component {
               <Grid.Column>
                 <div className="projectAside">
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Customer:</span>&nbsp;
+                    <div className="label">Customer</div>
+                    <div className="text">
                       {customer.first_name + " " + customer.last_name}
-                    </p>
+                    </div>
                   </div>
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Project type:</span>&nbsp;
-                      {projectTypes && project_type
-                        ? projectTypes[project_type - 1]
-                        : "Any project type"}
-                    </p>
+                    <div className="label">Project type</div>
+                    <div className="text">
+                      {projectType ? projectType : "Any project type"}
+                    </div>
                   </div>
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Attached files:</span>
-                    </p>
+                    <div className="label">Attached files:</div>
                     <Field
                       name="attached_files"
                       type="text"
@@ -166,9 +174,7 @@ class EditProjectForm extends Component {
                       />
                     ) : (
                       <React.Fragment>
-                        <p>
-                          <span className="label">Technologies:</span>
-                        </p>
+                        <div className="label">Technologies:</div>
                         <div className="skillsWrapper">
                           {projectWithId &&
                             projectWithId.skills.map((skill, key) => (
@@ -187,7 +193,7 @@ class EditProjectForm extends Component {
                     <div className="teamWrapper">
                       <MembersDropdown
                         members={team}
-                        countToShow={3}
+                        countToShow={5}
                         position="bottom left"
                         handleRemove={this.handleAssign}
                         removeText="project"
@@ -206,7 +212,7 @@ class EditProjectForm extends Component {
                 </div>
                 <div className="projectMain">
                   {oneOfRoles(CUSTOMER, S_REDGUY) ? (
-                    <div className="title">
+                    <div className="projectHeader">
                       <div className="projectLogo">
                         <Field
                           name="logo"
@@ -215,6 +221,7 @@ class EditProjectForm extends Component {
                           type="file"
                           logo={logo}
                           projectId={projectId}
+                          projectName={projectName}
                           placeholder="Choose project logo"
                           onSelfSubmit={true}
                         />
@@ -230,11 +237,19 @@ class EditProjectForm extends Component {
                       </div>
                     </div>
                   ) : (
-                    <div className="title">
+                    <div className="projectHeader">
                       {logo.url ? (
-                        <img src={IMAGE_PORT + logo.url} alt={name} />
+                        <div className="projectLogo">
+                          <div className="imgPreview">
+                            <img src={IMAGE_PORT + logo.url} alt={name} />
+                          </div>
+                        </div>
                       ) : (
-                        <span className="projectNoLogo">{name[0]}</span>
+                        <div className="projectLogo">
+                          <div className="imgPreview">
+                            <span className="projectNoLogo">{name[0]}</span>
+                          </div>
+                        </div>
                       )}
                       <p>
                         {name} Project{" "}
@@ -248,7 +263,7 @@ class EditProjectForm extends Component {
 
                   <Field
                     name="name"
-                    label="name"
+                    label="Name"
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -384,7 +399,9 @@ const mapStateToProps = state => {
     skills: state.skills,
     projectTeam: state.projectTeam,
     allCustomTeams: state.allCustomTeams,
-    initialValues: state.projectWithId
+    initialValues: state.projectWithId,
+    projectTypeId: state.projectWithId && state.projectWithId.project_type_id,
+    projectName: state.projectWithId && state.projectWithId.name
   };
 };
 

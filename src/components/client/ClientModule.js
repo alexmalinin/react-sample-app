@@ -6,7 +6,7 @@ import {
   Container,
   ContainerLarge
 } from "../../styleComponents/layout/Container";
-import { createProjectEpic, showProjectWithId } from "../../actions/actions";
+import { createProjectEpic } from "../../actions/actions";
 import { run } from "../../helpers/scrollToElement";
 import ClientModuleForm from "./forms/ClientModuleForm";
 
@@ -51,11 +51,6 @@ class ClientProjects extends Component {
   }
 }
 
-export default connect(
-  ({ projectWithId, createEpic, allEpics }) => ({
-    projectWithId,
-    createEpic,
-    allEpics
-  }),
-  { createProjectEpic, showProjectWithId }
-)(ClientProjects);
+export default connect(({ createEpic }) => ({ createEpic }), {
+  createProjectEpic
+})(ClientProjects);

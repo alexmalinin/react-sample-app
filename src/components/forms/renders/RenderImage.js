@@ -70,7 +70,10 @@ class RenderImage extends Component {
       name,
       type,
       disabled,
-      projectLogo
+      projectLogo,
+      label,
+      createProject,
+      projectName
     } = this.props;
 
     let { imagePreviewUrl } = this.state;
@@ -84,9 +87,7 @@ class RenderImage extends Component {
     } else {
       if (projectLogo) {
         $imagePreview = (
-          <div className="image-preloader">
-            <img src="../../images/placeholder.png" alt="" />
-          </div>
+          <div className="projectNoLogo">{projectName && projectName[0]}</div>
         );
       } else {
         $imagePreview = (
@@ -99,10 +100,23 @@ class RenderImage extends Component {
 
     return (
       <StyledUploader projectLogo={projectLogo} disabled={disabled}>
-        <div className="imgPreview">{$imagePreview}</div>
-        <Button primary onClick={this.handleTrigger}>
-          {/* Upload */}
-        </Button>
+        {label && <label htmlFor={name}>{label}</label>}
+
+        <div className="upload">
+          <div className="upload-image">
+            <div className="imgPreview">{$imagePreview}</div>
+            <Button primary onClick={this.handleTrigger}>
+              {/* Upload */}
+            </Button>
+          </div>
+
+          {createProject && (
+            <div className="upload-label">
+              Add your company&rsquo;s logo. The file size must not exceed 5 Mb
+            </div>
+          )}
+        </div>
+
         <input
           ref={this.triggerRef}
           name={name}
