@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "./constants/colors";
+import { boxShadow, miscellaneous } from "./constants/colors";
 
 export const S_Board = styled.div`
   width: 100%;
@@ -22,19 +22,7 @@ export const S_Board = styled.div`
     border-width: 0px;
     border-bottom-width: 3px;
     border-style: solid;
-    -webkit-border-image: -webkit-gradient(left, #2d68ee 0%, #7439e3 100%) 100%
-      2 stretch;
-    -webkit-border-image: -webkit-linear-gradient(
-        left,
-        #2d68ee 0%,
-        #7439e3 100%
-      )
-      100% 2 stretch;
-    -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100%
-      2 stretch;
-    -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2
-      stretch;
-    border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    ${miscellaneous.gradientBorder};
   }
 
   .dragContainer {

@@ -33,7 +33,13 @@ export const primaryColors = {
 };
 
 export const miscellaneous = {
-  lightBorder: "#f1f1f5"
+  lightBorder: "#f1f1f5",
+  gradientBorder: `-webkit-border-image: -webkit-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -webkit-border-image: -webkit-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    border-color: ${colors.blue};`
 };
 
 export const secondaryColors = {

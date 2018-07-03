@@ -8,7 +8,6 @@ export default store => next => action => {
 
   let token = localStorage.getItem("jwt_token");
   // let { id } = jwtDecode(token);
-  console.log(epic);
 
   let files = payload.file
     ? payload.file.split("||").map(file => {
@@ -43,12 +42,12 @@ export default store => next => action => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then(function(response) {
+    .then(response => {
       let data = response.data;
       data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
-    .catch(function() {
+    .catch(error => {
       let data = {};
       data.successId = Math.random();
       return next({ ...rest, type: type + FAIL, data: data });

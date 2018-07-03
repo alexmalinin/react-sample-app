@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { colors, primaryColors } from "./constants/colors";
+import { colors, primaryColors, miscellaneous } from "./constants/colors";
 
 export default styled.div`
   color: #666666;
 
   .section-header {
-    border-bottom: 2px solid #00ffc0;
+    border-width: 0px;
+    border-bottom-width: 3px;
+    border-style: solid;
+    ${miscellaneous.gradientBorder};
     display: flex;
     justify-content: space-between;
     width: 100%;

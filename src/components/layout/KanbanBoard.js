@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Board from "react-trello";
 import ClassNames from "classnames";
 import CustomCard from "./CustomTaskCard";
-import { Dimmer } from "semantic-ui-react";
 import {
   showEpicTasks,
   updateEpicTask,
@@ -29,9 +28,11 @@ class KanbanBoard extends Component {
   };
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    this.props.updateEpicTask(
+    const { updateEpicTask, allEpics, currentEpic } = this.props;
+
+    updateEpicTask(
       { state: +targetLaneId },
-      this.props.epicId,
+      allEpics.epics[currentEpic - 1].id,
       cardId
     );
   };
@@ -218,9 +219,10 @@ class KanbanBoard extends Component {
 
 const mapStateToProps = state => {
   return {
+    allEpics: state.allEpics,
     epicTasks: state.epicTasks,
     projectTeam: state.projectTeam,
-    specialistDat: state.specialistData
+    specialistData: state.specialistData
   };
 };
 

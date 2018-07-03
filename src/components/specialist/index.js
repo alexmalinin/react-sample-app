@@ -295,7 +295,7 @@ class SpecialistsDashboard extends Component {
       confirmationModal
     } = this.props;
 
-    const { rightSidebarOpened, isEdited } = this.state;
+    const { rightSidebarOpened } = this.state;
     let page;
 
     const passive = getUserRole() === S_PASSIVE;
@@ -366,11 +366,7 @@ class SpecialistsDashboard extends Component {
             </Fragment>
           ) : (
             <Container sidebarCondition={sidebarCondition}>
-              <SubHeader
-                percents={this.state}
-                isEdited={isEdited}
-                page={page}
-              />
+              <SubHeader percents={this.state} page={page} />
               {this.renderPage(page)}
             </Container>
           )}
@@ -528,12 +524,9 @@ class SpecialistsDashboard extends Component {
 
     const prevProjectId = this.props.match.params["projectId"];
     const projectId = nextProps.match.params["projectId"];
-    console.log(projectId, prevProjectId);
 
     if (projectId && prevProjectId) {
       if (projectId !== prevProjectId) {
-        console.log("load2");
-
         nextProps.showProjectWithId(projectId);
         nextProps.showAllEpics(projectId);
       }
