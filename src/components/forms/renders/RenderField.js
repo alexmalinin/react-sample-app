@@ -42,7 +42,10 @@ class RenderField extends Component {
           this.setState({ loading: false, updError: false });
           dispatch(initialize(form, data));
         })
-        .catch(error => this.setState({ loading: false, updError: true }));
+        .catch(error => {
+          console.error(error);
+          this.setState({ loading: false, updError: true });
+        });
     }
   };
 
@@ -88,10 +91,6 @@ class RenderField extends Component {
           step={step}
           autoComplete={autoComplete || "off"}
           onKeyUp={this.keyDown}
-          // onFocus={e => {
-          //   this.setState({ updError: false });
-          //   input.onFocus();
-          // }}
           onBlur={this.submit}
           loading={loading}
           {...rest}

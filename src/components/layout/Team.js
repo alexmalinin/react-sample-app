@@ -70,12 +70,7 @@ class Team extends Component {
 
     if (nextProps.customTeam) {
       if (nextProps.customTeam.id === nextProps.team.id) {
-        this.setState(
-          state =>
-            state.specialistsList === nextProps.customTeam.specialists
-              ? null
-              : { specialistsList: nextProps.customTeam.specialists }
-        );
+        this.setState({ specialistsList: nextProps.customTeam.specialists });
       }
     }
 

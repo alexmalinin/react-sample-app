@@ -20,27 +20,27 @@ class EditTaskModal extends Component {
   };
 
   render() {
-    const { epic, epicTask, open, close } = this.props;
+    const { epic, epicTask, open, currentProjectTeam } = this.props;
 
     return (
       <StyledModal
         open={open}
         onClose={this.close}
         trigger={<div id="editTask" />}
-        closeIcon={<button className="close icon" onClick={close} />}
+        // closeIcon={<button className="close icon" onClick={close} />}
+        size="large"
       >
-        <Modal.Content>
-          <Modal.Description>
-            <EditTaskForm
-              epic={epic}
-              initialValues={epicTask}
-              epicTask={epicTask}
-              onSubmit={this.submit}
-              setUpdated={this.setUpdated}
-              handleAssign={this.handleAssign}
-            />
-          </Modal.Description>
-        </Modal.Content>
+        <Modal.Header className="ui">{epicTask.name}</Modal.Header>
+        <EditTaskForm
+          epic={epic}
+          currentProjectTeam={currentProjectTeam}
+          initialValues={epicTask}
+          epicTask={epicTask}
+          onSubmit={this.submit}
+          setUpdated={this.setUpdated}
+          handleAssign={this.handleAssign}
+          close={this.close}
+        />
       </StyledModal>
     );
   }

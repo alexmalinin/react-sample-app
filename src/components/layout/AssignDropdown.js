@@ -186,7 +186,9 @@ export default class AssignDropdown extends Component {
                       {specialist.first_name + " " + specialist.last_name}
                     </div>
                   ))}
-                {options.length === 0 && <div>No available specialists</div>}
+                {options.length === 0 && (
+                  <div className="no-specs">No available specialists</div>
+                )}
               </div>
             </div>
           )}

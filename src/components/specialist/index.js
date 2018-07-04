@@ -40,6 +40,7 @@ import {
   showSpecialistData,
   showSortedProjects,
   showProjectWithId,
+  showProjectTeam,
   showAllEpics,
   showSpecialistTeams
 } from "../../actions/actions";
@@ -534,6 +535,7 @@ class SpecialistsDashboard extends Component {
     if (projectId && projectId !== "new" && prevProjectId) {
       if (projectId !== prevProjectId) {
         nextProps.showProjectWithId(projectId);
+        nextProps.showProjectTeam(projectId);
         nextProps.showAllEpics(projectId);
       }
     }
@@ -555,6 +557,7 @@ export default connect(mapStateToProps, {
   showSpecialistData,
   showSortedProjects,
   showProjectWithId,
+  showProjectTeam,
   showAllEpics,
   showSpecialistTeams
 })(SpecialistsDashboard);

@@ -91,11 +91,11 @@ class KanbanBoard extends Component {
           const ownCosts =
             task.specialist_tasks &&
             task.specialist_tasks.find(
-              ({ cost, specialist }) => specId === specialist.id
+              ({ specialist }) => specId === specialist.id
             );
-
           const taskObject = {
             id: `${task.id}`,
+            epic_id: task.epic_id,
             assignSpecialist: this.assignSpecialist,
             removeSpecialist: this.removeSpecialist,
             title: task.name,
@@ -158,7 +158,6 @@ class KanbanBoard extends Component {
   render() {
     const {
       currentEpic,
-      epicId,
       epicTasks: { loading, loaded },
       allEpics: { epics }
     } = this.props;
@@ -169,7 +168,8 @@ class KanbanBoard extends Component {
       completedTasks,
       acceptedTasks,
       editingTask,
-      editModal
+      editModal,
+      currentProjectTeam
     } = this.state;
 
     const kanbanClass = ClassNames("kanban", {
@@ -198,10 +198,9 @@ class KanbanBoard extends Component {
           onCardClick={this.handleEditTask}
         >
           <CustomCard
-            epic={epicId}
             handleEditTask={this.handleEditTask}
             deleteTask={this.deleteTask}
-            specialistList={this.state.currentProjectTeam}
+            specialistList={currentProjectTeam}
           />
         </Board>
         <EditTaskModal
@@ -209,6 +208,7 @@ class KanbanBoard extends Component {
           close={this.closeModal}
           epic={epics[currentEpic - 1]}
           epicTask={editingTask}
+          currentProjectTeam={currentProjectTeam}
           assignSpecialist={this.assignSpecialist}
           removeSpecialist={this.removeSpecialist}
         />

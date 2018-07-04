@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { change } from "redux-form";
+import classNames from "classnames";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
@@ -10,8 +11,8 @@ import {
   showProjectWithId,
   showSortedProjects
 } from "../../../actions/actions";
-import { getUserRole, getUserType } from "../../../helpers/functions";
-import { CUSTOMER, CLIENT, SPECIALIST } from "../../../constants/user";
+import { getUserType } from "../../../helpers/functions";
+import { CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderText extends Component {
   state = {
@@ -41,8 +42,7 @@ class RenderText extends Component {
 
   blur = e => {
     const {
-      meta: { dirty },
-      onSelfSubmit
+      meta: { dirty }
     } = this.props;
 
     e.target.spellcheck = false;
@@ -108,9 +108,11 @@ class RenderText extends Component {
     } = this.props;
     const { editing, loading, updError } = this.state;
 
+    const textareaClass = classNames(className, { error: !!error });
+
     return (
       <StyledTextArea
-        className={className}
+        className={textareaClass}
         large={large}
         padded={padded}
         disabled={disabled}

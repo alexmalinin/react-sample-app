@@ -16,12 +16,12 @@ export default store => next => action => {
     .then(function(response) {
       let data = response.data;
       data.team = team;
-      data.successProjectId = Math.random();
+      data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function() {
       let data = {};
-      data.successProjectId = Math.random();
+      data.successId = Math.random();
       return next({ ...rest, type: type + FAIL, data: data });
     });
 };

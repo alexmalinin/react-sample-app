@@ -193,8 +193,8 @@ class DeleteTile extends Component {
                   : `/dashboard/specialist/${specialist.id}`
               }
             >
-              {fullName}&nbsp;
-              {thisUser && "(you)"}
+              {fullName}
+              {thisUser && " (you)"}
             </NavLink>
 
             {!hideDelete &&

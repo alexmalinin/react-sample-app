@@ -38,6 +38,9 @@ export default styled.div`
   input {
     display: none;
   }
+  label {
+    width: 100%;
+  }
 
   .imgPreview {
     display: inline-block;
@@ -85,7 +88,7 @@ export default styled.div`
     position: relative;
     border-color: rgba(0, 3, 51, 0.4);
     border-style: dashed;
-    border-width: ${props => (props.small ? "2px" : "2px")};
+    border-width: ${props => (props.small ? "1px" : "1px")};
     border-radius: ${props => (props.small ? "0px" : "3px")};
     justify-content: center;
     align-items: center;

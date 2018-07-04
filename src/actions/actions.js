@@ -1348,10 +1348,11 @@ export function showAllEpicTasks() {
  *
  * @param  {object} data task data
  * @param  {number} epic epic id
+ * @param  {function} callback callback, called on success
  *
  */
 
-export function createEpicTask(data, epic) {
+export function createEpicTask(data, epic, callback) {
   let files = data.file
     ? data.file.map(({ document, title, size }) => {
         return {
@@ -1405,6 +1406,7 @@ export function createEpicTask(data, epic) {
           data
         });
 
+        callback();
         return data;
       })
       .then(({ name }) => {
@@ -1416,6 +1418,11 @@ export function createEpicTask(data, epic) {
       .catch(error => {
         createNotification({
           type: "error"
+        });
+
+        dispatch({
+          type: types.CREATE_EPIC_TASK + FAIL,
+          data
         });
 
         console.error(error);

@@ -35,29 +35,27 @@ class Header extends Component {
         <div className="nav-logo bordered">
           <a className="logo" href="/">
             <img src="/images/dv-logo.png" alt="digital village" />
-            {/* <span>Digital Village</span> */}
           </a>
         </div>
         <div className="nav-links">
-          {(page || isNavMenu) &&
-            !passive && (
-              <Fragment>
-                {oneOfRoles(S_CORE, S_REDGUY) && (
-                  <NavLink className="nav-link" to="/dashboard/search">
-                    <i className="fas fa-search" />
-                    Search
-                  </NavLink>
-                )}
-                <NavLink className="nav-link" to="/dashboard/teams">
-                  <i className="fas fa-users" />
-                  Teams
+          {!passive && (
+            <Fragment>
+              {oneOfRoles(S_CORE, S_REDGUY) && (
+                <NavLink className="nav-link" to="/dashboard/search">
+                  <i className="fas fa-search" />
+                  Search
                 </NavLink>
-                <NavLink className="nav-link" exact to="/dashboard/">
-                  <i className="fas fa-columns" />
-                  Dashboard
-                </NavLink>
-              </Fragment>
-            )}
+              )}
+              <NavLink className="nav-link" to="/dashboard/teams">
+                <i className="fas fa-users" />
+                Teams
+              </NavLink>
+              <NavLink className="nav-link" exact to="/dashboard/">
+                <i className="fas fa-columns" />
+                Dashboard
+              </NavLink>
+            </Fragment>
+          )}
         </div>
         <div className="nav-profile">
           <img

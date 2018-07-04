@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow, colors, secondaryColors } from "../constants/colors";
+import { boxShadow, secondaryColors, miscellaneous } from "../constants/colors";
 
 export default styled.div`
   height: 131px;
@@ -12,7 +12,7 @@ export default styled.div`
       ? "linear-gradient(to right, #00a2ee 0%,#00e1ce 100%)"
       : "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"}; */
 
-  background: linear-gradient(to right, #2d68ee 0%,#7439e3 100%);
+  background: ${miscellaneous.gradient.blue};
 
   margin-bottom: ${props =>
     props.profileForm
@@ -147,8 +147,16 @@ export default styled.div`
     }
 
     &.board-progress-bars {
+      transition: .2s;
+
+      &.fade{
+        opacity: 0;
+        visibility: hidden;
+      }
       a {
-        opacity: 1;
+        &:not(.add-epic){
+          opacity: 1;
+        }
 
         div {
           border: 2px solid #fff;

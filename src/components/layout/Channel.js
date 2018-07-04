@@ -147,7 +147,7 @@ class Channel extends Component {
   }
 
   renderToRightSidebar() {
-    const { channel, changeUserType, allSpecialists } = this.props;
+    const { channel, allSpecialists } = this.props;
     const isGeneral = channel.name === "General";
 
     return (
@@ -200,7 +200,7 @@ class Channel extends Component {
   };
 }
 
-export default connect(({ changeUserType }) => ({ changeUserType }), {
+export default connect(null, {
   addToChannel,
   removeFromChannel,
   updateTeamChannel,

@@ -66,6 +66,10 @@ textarea:focus {
   border-color: #4861f2;
 }
 
+textarea.error {
+  border-color: #c65c5c;
+}
+
 /*________RESET SEMANTIC________*/
 
 .ui.input input[type="text"],

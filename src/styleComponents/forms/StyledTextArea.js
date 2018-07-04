@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  colors,
-  primaryColors,
-  fontColors,
-  boxShadow
-} from "../constants/colors";
+import { colors, primaryColors, fontColors } from "../constants/colors";
 
 export const StyledTextArea = styled.div`
   position: relative;
@@ -27,10 +22,6 @@ export const StyledTextArea = styled.div`
     resize: vertical;
     outline: none;
     ${props => props.disabled && "pointer-events: none"};
-
-    &::placeholder {
-      ${props => props.disabled && "opacity: 0"};
-    }
 
     &:disabled {
       background-color: transparent;
@@ -58,7 +49,6 @@ export const StyledTextArea = styled.div`
 
       &.error {
         --bdcolor: ${primaryColors.red};
-        --inputbdcolor: ${primaryColors.red};
       }
 
       &:focus,
@@ -66,6 +56,10 @@ export const StyledTextArea = styled.div`
         border-color: ${colors.blue};
         box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
         cursor: text;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.02);
       }
 
       &:not(:disabled):hover {

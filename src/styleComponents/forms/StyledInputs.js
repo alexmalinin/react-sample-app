@@ -13,10 +13,11 @@ export default styled.div`
   /* padding-top: 28px; */
   padding-bottom: 20px;
 
-  ${props => (props.padded ? `padding-left: 20px; padding-right: 20px; ` : ``)};
+  ${props =>
+    props.padded === true ? `padding-left: 20px; padding-right: 20px; ` : ``};
   ${props =>
     props.small ? `display: inline-block; margin: 20px 40px 0 0` : ``};
-  & > div.checkedd:after {
+  & > div.checked:after {
     content: "";
     position: absolute;
     right: 15px;
@@ -52,10 +53,9 @@ export default styled.div`
 
   .ui.input {
     width: 100%;
-    input {
-      &.shadowInput {
-        display: none;
-      }
+
+    .shadowInput {
+      display: none;
     }
 
     &.error {
@@ -86,7 +86,7 @@ export default styled.div`
     input[name="eta"],
     input[name="expiry_date"] {
       cursor: pointer;
-      width: 145px;
+      /* width: 145px; */
     }
 
     .react-datepicker-popper {
@@ -178,9 +178,121 @@ export default styled.div`
     vertical-align: unset;
   }
 
+  &.estimate {
+    .ui.input {
+      input {
+        padding-left: 28px;
+        padding-right: 10px !important;
+      }
+    }
+
+    i[class*="fa-calendar-"] {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      z-index: 1;
+      transform: translateY(-50%);
+
+      color: ${colors.blue};
+      cursor: pointer;
+    }
+  }
+
+  &.inline-in-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+
+    label {
+      position: relative;
+      top: auto;
+      left: auto;
+      margin-bottom: 0;
+    }
+
+    .ui.input input,
+    .ui.dropdown {
+      width: 120px;
+      min-width: 120px;
+      min-height: auto;
+      border: none;
+      background: ${primaryColors.accentBackground};
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: inherit;
+    }
+
+    &.estimate {
+      .ui.input {
+        width: 120px;
+        min-width: 120px;
+
+        &.disabled {
+          opacity: 1;
+
+          i {
+            cursor: default;
+          }
+        }
+
+        input::placeholder {
+          font-weight: 500;
+          color: ${fontColors.black};
+          font-size: 14px;
+        }
+      }
+    }
+
+    &.status {
+      .ui.dropdown {
+        padding-left: 10px;
+        border: 1px solid ${primaryColors.accentBackground};
+        box-shadow: none;
+
+        .default.text,
+        .search {
+          color: ${fontColors.black};
+          font-weight: inherit;
+
+          input {
+            cursor: pointer;
+            padding-left: 10px;
+          }
+        }
+
+        &.active {
+          border-color: ${primaryColors.accentBackground};
+          .menu {
+            border: none;
+            background: ${primaryColors.accentBackground};
+            box-shadow: none;
+
+            .item {
+              border: none;
+
+              &.active.selected {
+                background: ${colors.lightBlue};
+                color: white;
+              }
+            }
+          }
+        }
+
+        &.disabled {
+          opacity: 1;
+        }
+
+        i.dropdown.icon {
+          display: none;
+        }
+      }
+    }
+  }
+
   &.transparent {
     label {
-      left: 7px;
+      padding-left: 10px;
     }
 
     &.clear {
@@ -233,9 +345,7 @@ export default styled.div`
 
       &.error {
         input {
-          &:focus {
-            --inputbdcolor: ${primaryColors.red};
-          }
+          --inputbdcolor: ${primaryColors.red};
         }
       }
 
@@ -256,6 +366,7 @@ export default styled.div`
     .ui.dropdown.selection {
       &.active {
         border-color: ${colors.blue};
+
         .menu {
           border-color: inherit;
         }

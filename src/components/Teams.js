@@ -72,15 +72,12 @@ class Teams extends Component {
   };
 
   renderToDashboard() {
-    const { teams, changeUserType, specialistData } = this.props;
+    const { teams, specialistData } = this.props;
 
     return (
       <ContainerLarge>
         <StyledTeamPage>
-          <TeamSubHeader
-            userType={changeUserType}
-            specialistId={specialistData && specialistData.id}
-          />
+          <TeamSubHeader specialistId={specialistData && specialistData.id} />
           <Container sidebarCondition>
             {teams && teams.length > 0 ? (
               teams.map((team, key) => (
@@ -132,12 +129,11 @@ class Teams extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     specialistData: state.specialistData,
     changeUserType: state.changeUserType,
-    createCustomTeam: state.createCustomTeam,
-    allTeams: state.allTeams
+    createCustomTeam: state.createCustomTeam
   };
 };
 
