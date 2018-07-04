@@ -137,7 +137,7 @@ const mapStateToProps = (state, ownProps) => {
     specialistData: state.specialistData,
     changeUserType: state.changeUserType,
     createCustomTeam: state.createCustomTeam,
-    allTeam: state.allTeams
+    allTeams: state.allTeams
   };
 };
 

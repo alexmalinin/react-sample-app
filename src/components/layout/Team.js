@@ -247,7 +247,7 @@ const mapStateToProps = state => {
     updateChannel: state.updateChannel,
     deleteChannel: state.deleteChannel,
     projectTeam: state.projectTeam,
-    customTea: state.customTeam
+    customTeam: state.customTeam
   };
 };
 
