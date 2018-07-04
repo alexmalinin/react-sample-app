@@ -42,11 +42,12 @@ class EditTaskForm extends Component {
   //TODO: apply thunk here
 
   handleSubmit = (name, value) => {
-    debugger;
-    const { epic, epicTask } = this.props;
+    const {
+      epicTask: { id, epic_id }
+    } = this.props;
     return axios({
       method: "PUT",
-      url: `${PORT}/api/v1/epics/${epic}/tasks/${epicTask.id}`,
+      url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}`,
       data: {
         task: {
           [name]: value
@@ -56,7 +57,6 @@ class EditTaskForm extends Component {
   };
 
   handleAssign = (type, specialist_id) => {
-    debugger;
     const {
       epicTask: { id, epic_id }
     } = this.props;
@@ -87,10 +87,9 @@ class EditTaskForm extends Component {
   };
 
   handleCost = specId => {
-    debugger;
     const {
       epicTask: { id, epic_id },
-      projectWithId,
+      epic: { project_id },
       formValues
     } = this.props;
     axios({
@@ -99,7 +98,7 @@ class EditTaskForm extends Component {
       data: {
         costs: {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
-          project_id: projectWithId.id
+          project_id
         }
       }
     })
@@ -343,14 +342,7 @@ class EditTaskForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    allProjects,
-    projectTeam,
-    changeUserType,
-    projectWithId,
-    allEpics,
-    specialistData
-  } = state;
+  const { projectTeam, projectWithId, specialistData } = state;
   const { epicTask } = ownProps;
   const initialValues = { ...epicTask };
   let ownCosts = null;
@@ -369,11 +361,8 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     specialistData,
-    allProjects,
     projectTeam,
-    changeUserType,
     projectWithId,
-    allEpics,
     initialValues,
     formValues: state.form,
     ownCosts

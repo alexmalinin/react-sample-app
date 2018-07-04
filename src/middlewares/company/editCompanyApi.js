@@ -12,7 +12,6 @@ export default store => next => action => {
   console.log({
     company: payload
   });
-  debugger;
   axios({
     method: "put",
     url: updateSpecStep2 + id,

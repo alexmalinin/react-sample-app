@@ -28,13 +28,13 @@ class KanbanBoard extends Component {
   };
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    const { updateEpicTask, allEpics, currentEpic } = this.props;
+    const {
+      updateEpicTask,
+      allEpics: { epics },
+      currentEpic
+    } = this.props;
 
-    updateEpicTask(
-      { state: +targetLaneId },
-      allEpics.epics[currentEpic - 1].id,
-      cardId
-    );
+    updateEpicTask({ state: +targetLaneId }, epics[currentEpic - 1].id, cardId);
   };
 
   assignSpecialist = (task, specialist) => {
@@ -157,8 +157,10 @@ class KanbanBoard extends Component {
 
   render() {
     const {
+      currentEpic,
       epicId,
-      epicTasks: { loading, loaded }
+      epicTasks: { loading, loaded },
+      allEpics: { epics }
     } = this.props;
 
     const {
@@ -205,7 +207,7 @@ class KanbanBoard extends Component {
         <EditTaskModal
           open={editModal}
           close={this.closeModal}
-          epic={epicId}
+          epic={epics[currentEpic - 1]}
           epicTask={editingTask}
           assignSpecialist={this.assignSpecialist}
           removeSpecialist={this.removeSpecialist}

@@ -23,7 +23,6 @@ class EditProject extends Component {
     if (!projectWithId) {
       showProjectWithId(projectId);
       showAllEpics(projectId);
-      console.log("load");
     }
   }
 
