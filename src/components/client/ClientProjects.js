@@ -9,6 +9,8 @@ import {
 } from "../../styleComponents/layout/Container";
 import { saveCreatedProgect, showSortedProjects } from "../../actions/actions";
 import ClientProjectForm from "./forms/ClientProjectForm";
+import { CLIENT, SPECIALIST } from "../../constants/user";
+import { getUserType } from "../../helpers/functions";
 
 class ClientProjects extends Component {
   state = {
@@ -23,6 +25,8 @@ class ClientProjects extends Component {
         <Container
           indentBot
           sidebarCondition
+          transparent
+          dashboardContainer
           className={this.state.loading && "loading"}
         >
           <i className="fa fa-spinner fa-3x fa-pulse preloader" />
@@ -43,7 +47,12 @@ class ClientProjects extends Component {
     const { createProject } = nextProps;
 
     if (createProject && nextProps.submitSucceeded) {
-      this.props.showSortedProjects("customers");
+      const userType = getUserType();
+      console.log("userType - client", userType);
+
+      if (userType === CLIENT) this.props.showSortedProjects("customers");
+      else if (userType === SPECIALIST)
+        this.props.showSortedProjects("specialists");
       if (createProject.id) {
         setTimeout(() => {
           this.setState({

@@ -1,34 +1,12 @@
 import styled from "styled-components";
+import { colors, fontColors, primaryColors } from "../constants/colors";
 
 export default styled.div`
   margin: ${props => props.padded && `20px`};
-  & > span {
-    display: inline-block;
-    width: 100%;
-    padding-left: 10px;
-    font-size: 12px;
-    line-height: 1;
-    border-bottom: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #666;
-  }
 
-  .Select {
-    margin-bottom: 100px;
-  }
-
-  .Select-arrow-zone {
-    display: none;
-  }
-
-  .Select-menu-outer {
-    border-radius: none;
-    position: absolute;
-    top: 42px;
-
-    .Select-menu {
-      max-height: 140px;
+  .Select--multi.is-open {
+    .Select-multi-value-wrapper:after {
+      --rotate: -45deg;
     }
   }
 
@@ -36,7 +14,6 @@ export default styled.div`
     width: 5px;
     padding: 8px 0px;
     margin-top: 27px;
-    margin-left: 15px;
   }
 
   .Select-input {
@@ -45,12 +22,22 @@ export default styled.div`
   }
 
   .Select-input > input {
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    color: #666;
     position: absolute;
     top: -15px;
     left: 0;
+    width: calc(100% - 22px) !important;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    line-height: 22px;
+    color: ${fontColors.regular};
+    border: 1px solid ${colors.lightGreyBlue};
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-top: 16px;
+
+    &:focus {
+      border-color: ${colors.blue};
+    }
   }
 
   .Select-control {
@@ -75,53 +62,59 @@ export default styled.div`
   }
 
   .Select-placeholder {
-    color: #666;
     font-family: "Roboto";
+    font-size: 16px;
+    color: ${fontColors.light};
     font-weight: 400;
+    letter-spacing: .5px;
     cursor: text;
-  }
-
-  .is-focused {
-    .Select-control {
-      &::before {
-        content: "";
-      }
-    }
-    .Select-multi-value-wrapper {
-      border-top-color: #85b7d9;
-    }
+    line-height: 38px;
   }
 
   .Select-multi-value-wrapper {
     font-size: 14px;
-    padding-bottom: 20px;
     margin-top: ${props => (props.padded ? "34px" : "40px")};
     width: 100%;
-    border-top: 2px solid #f2f2f2;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: calc(38px / 2);
+      right: 20px;
+      transform: translateY(-50%) rotate(var(--rotate,45deg));
+      height: 10px;
+      width: 10px;
+      border: solid #4861f2;
+      border-width: 0 0 2px 2px;
+      transition: 0.4s;
+    }
+
 
     .Select-value {
       position: relative;
       display: inline-block;
-      color: #666;
+      color: ${fontColors.blue.inert};
+      margin: 10px 10px 0 5px;
       font-size: 14px;
       letter-spacing: 1.2px;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 0 25px 0 5px;
-      border-radius: 25px;
-      margin-left: 30px;
-      margin-top: 20px;
+      background: ${primaryColors.accentBackground};
+      border: 1px solid #edeff6;
+      padding: 0 15px;
+      border-radius: 20px;
+
+      &:hover .Select-value-icon {
+        opacity: 1;
+      }
 
       .Select-value-icon {
         position: absolute;
+        transition: opacity ease .5s;
+        opacity: 0;
         top: 0;
         right: 0;
-        padding: 0 10px 0 0;
-        color: #ccc;
-      }
-
-      .Select-value-icon:hover {
-        color: #666;
+        color: ${colors.blue};
+        padding: 0 5px 0 0;
+        line-height: 22px;
       }
     }
   }
@@ -136,7 +129,42 @@ export default styled.div`
 
   .is-focused:not(.is-open) > .Select-control {
     box-shadow: none;
-    border-color: #1991fa;
+  }
+
+  .Select-menu-outer {
+    border-radius: none;
+    position: absolute;
+    border: none;
+    border: 1px solid ${colors.blue};
+    top: 42px;
+    z-index: 2;
+
+    .Select-option {
+      font-size: 16px;
+      color: ${fontColors.regular};
+
+      &.is-focused {
+        background-color: ${colors.lightGreyBlue};
+      }
+
+      &:hover {
+        background-color: ${colors.lightGreyBlue};
+      }
+    }
+
+    .Select-menu {
+      max-height: 140px;
+    }
+  }
+
+  .is-focused {
+    .Select-control {
+      border-color: ${colors.blue};
+
+      &::before {
+        content: "";
+      }
+    }
   }
 
   .skillsField {
@@ -153,39 +181,8 @@ export default styled.div`
     border-radius: 25px;
   }
 
-  @media (max-width: 1920px) {
-    & > span {
-      font-size: 12px;
-    }
-
-    .Select {
-      margin-bottom: 20px;
-    }
-
-    .Select-control {
-      min-height: 20px;
-    }
-
-    .Select-multi-value-wrapper {
-      font-size: 14px;
-      padding-bottom: 15px;
-
-      .Select-value {
-        /* padding: 4px 15px 4px 10px; */
-        margin: 10px 8px 0 3px;
-
-        .Select-value-icon {
-          padding: 0 5px 0 0;
-          line-height: 22px;
-        }
-      }
-    }
-
-    .Select-input > input {
-      padding: 8px 0px;
-      margin-top: 16px;
-      margin-left: 10px;
-    }
+  .Select-arrow-zone {
+    display: none;
   }
 
   @media (max-width: 767px) {

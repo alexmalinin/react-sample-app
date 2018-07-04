@@ -256,7 +256,7 @@ class RenderFile extends Component {
         className={className}
         {...rest}
       >
-        <p>{label}</p>
+        <label htmlFor={input.name + "2"}>{label}</label>
         <span />
 
         {dropzone &&
@@ -267,8 +267,10 @@ class RenderFile extends Component {
               onDrop={this.onDrop}
               accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
             >
-              <p>Drop file here or click to select</p>
-              {!rest.small && <i className="fa fa-cloud-download-alt" />}
+              <span className="dropzone-label">
+                Drag and drop or choose your files
+              </span>
+              {/* {!rest.small && <i className="fa fa-cloud-download-alt" />} */}
             </Dropzone>
           )}
 

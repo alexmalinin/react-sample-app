@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fontColors } from "../constants/colors";
 
 export default styled.div`
   position: relative;
@@ -30,6 +31,8 @@ export default styled.div`
   .ownCheckbox {
     position: relative;
     padding-left: 20px;
+    font-size: 14px;
+    color: ${fontColors.regular};
   }
 
   .ownInput {

@@ -8,7 +8,7 @@ class Dashboard extends Component {
     return (
       <ContainerLarge>
         <DashboardSubHeader dashboard />
-        <Container sidebarCondition dashboardContainer>
+        <Container sidebarCondition dashboardContainer transparent>
           <RenderDashboard
             projects={this.props.projects}
             history={this.props.history}

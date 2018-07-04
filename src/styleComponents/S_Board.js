@@ -49,7 +49,11 @@ export const S_Board = styled.div`
         position: absolute;
         top: 10px;
         left: 5px;
+        line-height: 22px;
+        font-family: "Roboto";
+        font-weight: 700;
         transition: 0.3s;
+
         &.hidden {
           opacity: 0;
           visibility: hidden;

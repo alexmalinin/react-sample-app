@@ -59,7 +59,8 @@ class RenderText extends Component {
       input: { name, value },
       meta: { dispatch, form },
       projectId,
-      updateProjects
+      updateProjects,
+      showSortedProjects
     } = this.props;
 
     this.setState({ loading: true });

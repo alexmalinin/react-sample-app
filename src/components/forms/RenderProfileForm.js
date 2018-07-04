@@ -148,7 +148,6 @@ class RenderProfileForm extends Component {
                             "Write a paragraph or two about your professional experience "
                           }
                           component={RenderTextArea}
-                          className="area"
                           tabIndex="7"
                         />
                       </div>

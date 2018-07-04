@@ -17,6 +17,7 @@ import educations from "./educationsReducer";
 import experiences from "./workExperienceReducer";
 import skills from "./skillsReducer";
 import chosenSkills from "./showChosenSkillsReducer";
+import allClients from "./showAllClientsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
 import specialistWithId from "./showSpecialistWithIdReducer";
@@ -78,6 +79,7 @@ const appReducer = combineReducers({
   experienceLevels,
   skills,
   chosenSkills,
+  allClients,
   clientData,
   specialistData,
   specialistWithId,

@@ -5,7 +5,8 @@ export default styled.span`
   color: ${fontColors.red};
   position: absolute;
   bottom: ${props => (props.bottom ? `${props.bottom}px` : "0px")};
-  left: ${props => (props.paddedError ? "35px" : "0px")};
+  left: ${props => (props.paddedError ? "20px" : "0px")};
+  padding-left: inherit;
   font-size: 14px;
   font-weight: 400;
 
