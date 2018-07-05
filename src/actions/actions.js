@@ -1903,7 +1903,7 @@ function postProject(payload, logo = null) {
     project_type_id:
       (payload["project_type_id"] && payload["project_type_id"]["value"]) ||
       null,
-    specialist_id: specialistId,
+    red_guy_id: specialistId,
     description: payload["description"],
     user_story: payload["user_story"],
     state: payload["state"],
