@@ -75,7 +75,7 @@ class SearchSpecialist extends Component {
             />
           )}
         </Container>
-        <Container sidebarCondition dashboardContainer>
+        <Container sidebarCondition dashboardContainer transparent>
           {searchResult && (
             <FilteredList
               filters={filters}
