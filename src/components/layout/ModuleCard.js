@@ -32,11 +32,11 @@ class Module extends Component {
     });
   }
 
-  deleteEpic = e => {
-    e.stopPropagation();
-    const { epic, project, deleteProjectEpic } = this.props;
-    deleteProjectEpic(project, epic.id);
-  };
+  // deleteEpic = e => {
+  //   e.stopPropagation();
+  //   const { epic, project, deleteProjectEpic } = this.props;
+  //   deleteProjectEpic(project, epic.id);
+  // };
 
   handleEdit = (e, data) => {
     if (data) {
@@ -95,7 +95,7 @@ class Module extends Component {
   };
 
   render() {
-    const { epic, number, showAllEpics } = this.props;
+    const { epic, number, history, project } = this.props;
     const { name, editing, dropdown } = this.state;
 
     return (
@@ -130,7 +130,14 @@ class Module extends Component {
             )}
           </Form>
         </h3>
-        <div className="module" onClick={this.openModal}>
+        <div
+          className="module"
+          onClick={() => {
+            history.push(
+              `/dashboard/project/${project}/module/${epic.id}/edit`
+            );
+          }}
+        >
           <h4>{this.renderDescription()}</h4>
           <p>{this.renderStory()}</p>
           <div>
@@ -150,36 +157,6 @@ class Module extends Component {
               <span>{formatCurrency(epic.cost)}</span>
             </div>
           </div>
-          {oneOfRoles(S_REDGUY) && (
-            <div className="dropdown">
-              <a
-                tabIndex="-1"
-                className="trigger"
-                onClick={e => {
-                  e.stopPropagation();
-                  this.setState({ dropdown: !this.state.dropdown });
-                }}
-                onBlur={e => this.setState({ dropdown: false })}
-              >
-                ...
-              </a>
-              <div className={`menu${dropdown ? " open" : ""}`}>
-                <div className="item">
-                  <div>Edit</div>
-                </div>
-                <div className="item">
-                  <div onClick={this.deleteEpic}>Delete</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <EditEpicModal
-            epic={epic}
-            number={number}
-            showAllEpics={showAllEpics}
-            ref={ref => (this.editEpicModal = ref)}
-          />
         </div>
       </div>
     );

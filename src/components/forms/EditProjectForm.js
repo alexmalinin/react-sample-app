@@ -57,6 +57,10 @@ class EditProjectForm extends Component {
     ) {
       this.setState({ team: nextProps.projectTeam.specialists });
     }
+
+    if (nextProps.submitSucceeded) {
+      this.props.projectUpdate(this.props.projectId);
+    }
   }
 
   handleSubmit = (name, value) => {
@@ -106,7 +110,6 @@ class EditProjectForm extends Component {
       handleSubmit,
       submitting,
       skills,
-      submitSucceeded,
       handleAssignTeam,
       projectTypeId,
       projectName
@@ -227,13 +230,7 @@ class EditProjectForm extends Component {
                         />
                       </div>
                       <div className="projectStatus">
-                        <p>
-                          {name} Project{" "}
-                          <span className="status">
-                            {state === "draft" && "Drafted"}
-                            {state === "reviewed_by_admin" && "On review"}
-                          </span>
-                        </p>
+                        <p>{name} Project </p>
                       </div>
                     </div>
                   ) : (
@@ -251,13 +248,7 @@ class EditProjectForm extends Component {
                           </div>
                         </div>
                       )}
-                      <p>
-                        {name} Project{" "}
-                        <span className="status">
-                          {state === "draft" && "Drafted"}
-                          {state === "reviewed_by_admin" && "On review"}
-                        </span>
-                      </p>
+                      <p>{name} Project </p>
                     </div>
                   )}
 
@@ -269,6 +260,11 @@ class EditProjectForm extends Component {
                     onSelfSubmit={this.handleSubmit}
                     projectId={projectId}
                     updateProjects
+                    placeholder={
+                      hasPermission
+                        ? "Type your project name here"
+                        : "No project name"
+                    }
                     className="transparent"
                     autoHeight
                     unhiddable
@@ -277,7 +273,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="description"
                     label="Description"
-                    placeholder="Type your description here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your description here"
+                        : "No description"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -288,7 +288,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="user_story"
                     label="User story"
-                    placeholder="Write your story here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your user story here"
+                        : "No user story"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -299,7 +303,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="deliverables"
                     label="Acceptance criteria"
-                    placeholder="Write some acceptance criterea"
+                    placeholder={
+                      hasPermission
+                        ? "Type your acceptance criterea here"
+                        : "No acceptance criterea"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -310,7 +318,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="business_requirements"
                     label="Business requirements"
-                    placeholder="Write some business requirements"
+                    placeholder={
+                      hasPermission
+                        ? "Type your business requirements here"
+                        : "No business requirements"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -321,7 +333,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="business_rules"
                     label="Business rules"
-                    placeholder="Write some business rules"
+                    placeholder={
+                      hasPermission
+                        ? "Type your business rules here"
+                        : "No business rules"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -332,7 +348,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="further_notes"
                     label="Solution design"
-                    placeholder="Write your solution design here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your solution design here"
+                        : "No solution design"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}

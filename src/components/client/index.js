@@ -347,6 +347,7 @@ class ClientDashboard extends Component {
           <ProjectsBoard
             projectId={params["projectId"]}
             currentEpic={params["moduleId"] || "all"}
+            status={params["status"]}
             history={history}
           />
         );

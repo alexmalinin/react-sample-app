@@ -33,6 +33,10 @@ export default styled.div`
   & > div {
     display: flex;
 
+    &.moduleSubHeader {
+      padding-left: 25px;
+    }
+
     a.button,
     section,
     button {
@@ -51,6 +55,10 @@ export default styled.div`
 
       i{
         font-size: 2em;
+
+        &.small {
+          font-size: 1.2em;
+        }
       }
 
       .container {
@@ -161,23 +169,9 @@ export default styled.div`
         div {
           border: 2px solid #fff;
         }
-        /* flex: 33%;
-        text-align: center;
-        &:not(:first-of-type) {
-          margin-left: 32px;
-        } */
       }
       &.visible {
         display: flex !important;
-      }
-    }
-
-    &.moduleSubHeader{
-      .moduleBreadcrumb{
-        a{
-          color: #fff;
-          font-weight: 400;
-        }
       }
     }
   }

@@ -99,7 +99,11 @@ class RenderImage extends Component {
     }
 
     return (
-      <StyledUploader projectLogo={projectLogo} disabled={disabled}>
+      <StyledUploader
+        projectLogo={projectLogo}
+        disabled={disabled}
+        createProject={createProject}
+      >
         {label && <label htmlFor={name}>{label}</label>}
 
         <div className="upload">

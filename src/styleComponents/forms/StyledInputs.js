@@ -10,23 +10,12 @@ export default styled.div`
   border-radius: 0 !important;
   position: relative;
   margin-bottom: ${props => (props.small ? `7px` : `10px`)};
-  /* padding-top: 28px; */
   padding-bottom: 20px;
 
   ${props =>
     props.padded === true ? `padding-left: 20px; padding-right: 20px; ` : ``};
   ${props =>
     props.small ? `display: inline-block; margin: 20px 40px 0 0` : ``};
-  & > div.checked:after {
-    content: "";
-    position: absolute;
-    right: 15px;
-    top: calc(50% - 5px);
-    width: 18px;
-    height: 18px;
-    background: url("../../images/tick.png");
-    background-size: cover;
-  }
 
   & > div.checked:after {
     content: "";
@@ -45,10 +34,6 @@ export default styled.div`
     text-transform: none;
     color: ${props => (props.accountInput ? `#999` : fontColors.black)};
     font-weight: ${props => (props.accountInput ? `normal` : `500`)};
-  }
-
-  &.moduleName {
-    margin-top: 20px;
   }
 
   .ui.input {
@@ -143,6 +128,10 @@ export default styled.div`
     }
   }
 
+  &.estimate {
+    padding-bottom: 0;
+  }
+
   .Select-input {
     height: 38px;
     ${props => (props.small ? `width: 200px;` : ``)};
@@ -198,11 +187,13 @@ export default styled.div`
     }
   }
 
-  &.inline-in-modal {
+  &.inline-in-modal,
+  &.inline-in-module {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    font-size: 14px;
 
     label {
       position: relative;
@@ -213,8 +204,8 @@ export default styled.div`
 
     .ui.input input,
     .ui.dropdown {
-      width: 120px;
-      min-width: 120px;
+      width: 130px;
+      min-width: 130px;
       min-height: auto;
       border: none;
       background: ${primaryColors.accentBackground};
@@ -225,8 +216,8 @@ export default styled.div`
 
     &.estimate {
       .ui.input {
-        width: 120px;
-        min-width: 120px;
+        width: 130px;
+        min-width: 130px;
 
         &.disabled {
           opacity: 1;

@@ -167,7 +167,7 @@ export default styled.div`
     height: 2px;
     transform: translate(-50%, -50%);
     background-color: ${colors.blue};
-    opacity: 0;
+    opacity: ${props => (props.createProject ? "1" : "0")};
   }
   .ui.button::after {
     height: 14px;

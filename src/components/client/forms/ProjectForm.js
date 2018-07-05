@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change } from "redux-form";
+import { connect } from "react-redux";
+import { Field, submit, change } from "redux-form";
+import { NavLink } from "react-router-dom";
 import { required } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import InputField from "../../forms/renders/InputField";
@@ -10,6 +12,7 @@ import RenderFile from "../../forms/renders/RenderFile";
 import RenderSkillsArea from "../../forms/renders/RenderSkillsArea";
 import { renameObjPropNames, getUserRole } from "../../../helpers/functions";
 import { S_REDGUY } from "../../../constants/user";
+import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
 
 class ProjectForm extends Component {
   render() {
@@ -152,6 +155,39 @@ class ProjectForm extends Component {
                 label="Business rules"
                 placeholder="Type your business rules here"
               />
+
+              <div className="controls">
+                <DvBlueButton
+                  // type="submit"
+                  className="dv-blue inverted draft"
+                  disabled={submitting}
+                  onClick={() => {
+                    this.props.dispatch(
+                      change("ClientProjectForm", "state", "draft")
+                    );
+
+                    setTimeout(() => {
+                      this.props.dispatch(submit("ClientProjectForm"));
+                    }, 0);
+                  }}
+                >
+                  Draft
+                </DvBlueButton>
+
+                <DvBlueButton
+                  type="submit"
+                  className="dv-blue"
+                  disabled={submitting}
+                >
+                  Create
+                </DvBlueButton>
+
+                <NavLink exact to={`/dashboard/`}>
+                  <DvBlueButton className="dv-blue inverted transparent">
+                    Cancel
+                  </DvBlueButton>
+                </NavLink>
+              </div>
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -160,4 +196,4 @@ class ProjectForm extends Component {
   }
 }
 
-export default ProjectForm;
+export default connect()(ProjectForm);

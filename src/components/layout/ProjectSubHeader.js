@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { submit, change, registerField } from "redux-form";
+import { submit, change } from "redux-form";
 import { NavLink } from "react-router-dom";
 
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
@@ -13,7 +13,7 @@ import { S_REDGUY } from "../../constants/user";
 
 class ProjectSubHeader extends Component {
   render() {
-    let { projectId, module, projectWithId, loading } = this.props;
+    let { projectId, module, loading } = this.props;
     let form = module ? "ClientModuleForm" : "ClientProjectForm";
 
     return (
@@ -25,76 +25,31 @@ class ProjectSubHeader extends Component {
         {module ? (
           <div className="left moduleSubHeader">
             <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to="#">New module</NavLink>
-            </StyledModuleLink>
-            <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to={`/dashboard/project/${projectId}`}>
-                Project {projectWithId ? projectWithId.name : ""}
+              <NavLink exact to="/dashboard/">
+                Dashboard
               </NavLink>
             </StyledModuleLink>
             <StyledModuleLink className="moduleBreadcrumb">
-              <NavLink to="#">Root module</NavLink>
+              <NavLink exact to={`/dashboard/project/${projectId}/module/new`}>
+                Create module
+              </NavLink>
             </StyledModuleLink>
           </div>
         ) : (
-          <div className="left" />
+          <div className="left moduleSubHeader">
+            <StyledModuleLink className="moduleBreadcrumb">
+              <NavLink exact to="/dashboard/">
+                Dashboard
+              </NavLink>
+            </StyledModuleLink>
+            <StyledModuleLink className="moduleBreadcrumb">
+              <NavLink exact to={`/dashboard/project/new`}>
+                Create project
+              </NavLink>
+            </StyledModuleLink>
+          </div>
         )}
-        <div className="right">
-          {module ? (
-            <button
-              className="saveBtn"
-              onClick={() => this.props.dispatch(submit(form))}
-            >
-              <StyledSubHeaderLink className="right-link arrow" />
-              Save
-              <span />
-            </button>
-          ) : (
-            <Fragment>
-              <button
-                onClick={() => {
-                  this.props.dispatch(
-                    change("ClientProjectForm", "state", "draft")
-                  );
-
-                  setTimeout(() => {
-                    this.props.dispatch(submit(form));
-                  }, 0);
-                }}
-                className="saveBtn"
-              >
-                <StyledSubHeaderLink className="right-link arrow-down" />
-                Save
-                <span />
-              </button>
-
-              <button
-                onClick={() => {
-                  let state = getUserRole() === S_REDGUY ? "discovery" : null;
-
-                  this.props.dispatch(
-                    change("ClientProjectForm", "state", state)
-                  );
-
-                  setTimeout(() => {
-                    this.props.dispatch(submit(form));
-                  }, 0);
-                }}
-                className="saveBtn"
-              >
-                <StyledSubHeaderLink className="right-link arrow" />
-                Submit
-                <span />
-              </button>
-            </Fragment>
-          )}
-
-          <SubHeaderLinkWrap
-            url={module ? `/dashboard/project/${projectId}` : "/dashboard/"}
-            label="Cancel"
-            className="right-link close"
-          />
-        </div>
+        <div className="right" />
       </StyledSubHeader>
     );
   }

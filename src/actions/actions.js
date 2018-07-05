@@ -1263,9 +1263,10 @@ export function updateProjectEpic(data) {
  *
  * @param  {number} project project id
  * @param  {number} id epic id
+ * @param  {function} callback a function that gets fired after successful response
  */
 
-export function deleteProjectEpic(project, id) {
+export function deleteProjectEpic(project, id, callback) {
   return dispatch => {
     Axios({
       method: "delete",
@@ -1279,6 +1280,8 @@ export function deleteProjectEpic(project, id) {
           type: types.DELETE_PROJECT_EPIC + SUCCESS,
           data
         });
+
+        callback();
 
         return data;
       })
@@ -1901,7 +1904,14 @@ function postProject(payload, logo = null) {
       return skill.value;
     });
 
-  let specialistId = role === S_REDGUY ? id : null;
+  let specialistId = role === S_REDGUY ? id : null,
+    status = null;
+
+  if (payload["state"] === "draft") {
+    status = payload["state"];
+  } else if (specialistId) {
+    status = "discovery";
+  }
 
   return {
     name: payload["name"],
@@ -1913,7 +1923,7 @@ function postProject(payload, logo = null) {
     red_guy_id: specialistId,
     description: payload["description"],
     user_story: payload["user_story"],
-    state: payload["state"],
+    state: status,
     business_requirements: payload["requirements"],
     business_rules: payload["rules"],
     deliverables: payload["criteria"],

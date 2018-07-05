@@ -18,6 +18,7 @@ export default class RenderSelect extends Component {
           onChange={onChange}
           // placeholder={placeholder}
           multi={true}
+          openOnFocus={true}
           {...rest}
         />
         {touched &&
