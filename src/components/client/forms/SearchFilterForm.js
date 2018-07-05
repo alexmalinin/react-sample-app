@@ -11,7 +11,8 @@ import {
   getProjectTypes,
   searchSpecialist,
   searchSpecialistForProject,
-  showProjectWithId
+  showProjectWithId,
+  showSpecialistProjects
 } from "../../../actions/actions";
 import SearchForm from "./SearchForm";
 import { renameObjPropNames } from "../../../helpers/functions";
@@ -32,6 +33,7 @@ class SearchFilterForm extends Component {
     this.props.getExperienceLevels();
     this.props.getProjectTypes();
     this.props.searchSpecialist();
+    this.props.showSpecialistProjects();
   }
 
   toggleFilters = () => {
@@ -330,5 +332,6 @@ export default connect(mapStateToProps, {
   getProjectTypes,
   searchSpecialist,
   searchSpecialistForProject,
-  showProjectWithId
+  showProjectWithId,
+  showSpecialistProjects
 })(SearchFilterForm);
