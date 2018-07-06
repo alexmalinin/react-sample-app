@@ -16,6 +16,8 @@ import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType } from "../helpers/functions";
 import EditProject from "./forms/hoc/EditProject";
+import EditModule from "./EditModule";
+import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
   state = {
@@ -36,23 +38,27 @@ class ProjectsBoard extends Component {
     if (!projectWithId && projectId) {
       showProjectWithId(projectId);
     }
+    run(0)();
+    // this.props.showAllProjects();
+    // this.props.showAllEpics(this.props.projectId);
+    // this.props.showProjectTeam(this.props.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
-    let epicId;
-    if (
-      nextProps.allEpics.epics.length &&
-      nextProps.currentEpic !== "all" &&
-      nextProps.projectId
-    ) {
-      if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
-        epicId =
-          nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
-        nextProps.history.push(
-          `/dashboard/project/${nextProps.projectId}/module/all`
-        );
-      } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
-    }
+    let epicId = nextProps.currentEpic;
+    // if (
+    //   nextProps.allEpics.epics.length &&
+    //   nextProps.currentEpic !== "all" &&
+    //   nextProps.projectId
+    // ) {
+    //   if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
+    //     epicId =
+    //       nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
+    //     nextProps.history.push(
+    //       `/dashboard/project/${nextProps.projectId}/module/all`
+    //     );
+    //   } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
+    // }
 
     if (nextProps.projectWithId) {
       document.title = `${nextProps.projectWithId.name} | Digital Village`;
@@ -135,8 +141,30 @@ class ProjectsBoard extends Component {
     this.setState({ myTasks: !this.state.myTasks });
   };
 
-  renderContent = () => {
-    const { projectId, showAllEpics, currentEpic, projectWithId } = this.props;
+  renderProjectbBoard() {
+    const { projectId, currentEpic, status } = this.props;
+
+    return (
+      <S_Board>
+        <KanbanBoard
+          currentProject={projectId}
+          currentEpic={currentEpic}
+          myTasks={this.state.myTasks}
+          status={status}
+        />
+      </S_Board>
+    );
+  }
+
+  renderProjectPage = () => {
+    const {
+      projectId,
+      showAllEpics,
+      currentEpic,
+      projectWithId,
+      history
+    } = this.props;
+
     const { epics } = projectWithId || {};
 
     if (currentEpic !== "all") {
@@ -162,6 +190,7 @@ class ProjectsBoard extends Component {
                   number={key + 1}
                   project={projectId}
                   updateEpicList={showAllEpics}
+                  history={history}
                 />
               ))}
             {(getUserType() === CLIENT || getUserRole() === S_REDGUY) && (
@@ -191,8 +220,31 @@ class ProjectsBoard extends Component {
     }
   };
 
+  renderModulePage = () => {
+    const { projectId, currentEpic, history } = this.props;
+
+    return (
+      <EditModule
+        projectId={+projectId}
+        currentEpic={+currentEpic}
+        history={history}
+      />
+    );
+  };
+
+  renderContent = status => {
+    switch (status) {
+      case "view":
+        return this.renderProjectbBoard();
+      case "edit":
+        return this.renderModulePage();
+      default:
+        return this.renderProjectPage();
+    }
+  };
+
   render() {
-    const { projectId, currentEpic } = this.props;
+    const { projectId, currentEpic, status } = this.props;
     const { myTasks } = this.state;
 
     return (
@@ -202,8 +254,10 @@ class ProjectsBoard extends Component {
           currentEpic={currentEpic}
           toggleMyTasks={this.toggleMyTasks}
           myTasks={myTasks}
+          status={status}
         />
-        {this.renderContent()}
+
+        {this.renderContent(status)}
       </ContainerLarge>
     );
   }

@@ -641,23 +641,20 @@ export const SubmitBtn = styled(Button)`
   }
 `;
 
-export const DvBlueButton = styled(Button)`
-  &.ui.button.dv-blue {
+const DvBtn = styled(Button)`
+  &.ui.button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-
     box-sizing: border-box;
     height: 40px;
     padding: 0 20px;
     width: ${props => (props.fixed ? "140px" : "auto")};
-
     border-radius: 3px;
     border-width: 1px;
     border-style: solid;
 
     background-color: ${colors.blue};
-
     color: #fff;
     font-size: ${props => (props.fontSize ? `${props.fontSize}px` : "18px")};
     text-transform: ${props => (props.uppercase ? "uppercase" : "none")};
@@ -693,8 +690,98 @@ export const DvBlueButton = styled(Button)`
     }
 
     &.transparent {
-      border-color: transparent;
-      background: transparent;
+      border: none;
+    }
+
+    &.fluid {
+      width: 100%;
+    }
+
+    &:disabled {
+      background-color: #dbdbdb;
+      border: none;
+      color: #fff;
+    }
+  }
+`;
+
+export const DvBlueButton = DvBtn.extend`
+  &.ui.button.dv-blue {
+    background-color: ${colors.blue};
+    color: #fff;
+
+    &:hover {
+      background-color: #487ef2;
+    }
+
+    &:active {
+      background-color: #3650e7;
+    }
+
+    &.inverted {
+      border: 1px solid ${colors.blue};
+      background-color: #fff;
+      color: ${colors.blue};
+
+      &:hover {
+        box-shadow: unset !important;
+        background-color: rgba(72, 126, 242, 0.1);
+
+        color: ${colors.blue};
+      }
+
+      &:active {
+        box-shadow: inset 0px 1px 3px 0px rgba(54, 80, 231, 0.5) !important;
+        background-color: rgba(72, 126, 242, 0.15);
+      }
+    }
+
+    &.transparent {
+      border: none;
+    }
+
+    &:disabled {
+      background-color: #dbdbdb;
+      border: none;
+      color: #fff;
+    }
+  }
+`;
+
+export const DvButtonRed = DvBtn.extend`
+  &.ui.button.dv-red {
+    background-color: ${primaryColors.red};
+    color: #fff;
+
+    &:hover {
+      background-color: #ee5c5c;
+      color: #fff;
+    }
+
+    &:active {
+      background-color: #ee5c5c;
+      box-shadow: inset 0px 1px 3px 0px rgba(54, 80, 231, 0.5) !important;
+    }
+
+    &.inverted {
+      border: 1px solid ${primaryColors.red};
+      background-color: transparent;
+
+      color: ${primaryColors.red};
+
+      &:hover {
+        box-shadow: unset !important;
+        background-color: #ee5c5c;
+        color: #fff;
+      }
+
+      &:active {
+        box-shadow: inset 0px 1px 3px 0px rgba(54, 80, 231, 0.5) !important;
+      }
+    }
+
+    &.transparent {
+      border: none;
     }
 
     &.fluid {

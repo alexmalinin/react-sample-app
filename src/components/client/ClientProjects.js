@@ -48,7 +48,6 @@ class ClientProjects extends Component {
 
     if (createProject && nextProps.submitSucceeded) {
       const userType = getUserType();
-      console.log("userType - client", userType);
 
       if (userType === CLIENT) this.props.showSortedProjects("customers");
       else if (userType === SPECIALIST)

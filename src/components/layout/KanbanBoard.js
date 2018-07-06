@@ -27,6 +27,10 @@ class KanbanBoard extends Component {
     editModal: false
   };
 
+  componentDidMount() {
+    this.fetchTasks(this.props);
+  }
+
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     const {
       updateEpicTask,
@@ -45,6 +49,61 @@ class KanbanBoard extends Component {
   removeSpecialist = (task, specialist) => {
     const { removeSpecialistFromTask, epicId } = this.props;
     removeSpecialistFromTask(epicId, +task, specialist);
+  };
+
+  fetchTasks = props => {
+    let backlog = [],
+      completed = [],
+      progress = [],
+      accepted = [],
+      taskList = [];
+
+    if (props.myTasks) {
+      taskList = props.epicTasks.tasks.filter(task =>
+        task.specialists.some(spec => spec.id === getUserId())
+      );
+    } else taskList = props.epicTasks.tasks;
+
+    taskList.forEach(task => {
+      const specId = props.specialistData && props.specialistData.id;
+
+      const ownCosts =
+        task.specialist_tasks &&
+        task.specialist_tasks.find(
+          ({ cost, specialist }) => specId === specialist.id
+        );
+
+      const taskObject = {
+        id: `${task.id}`,
+        assignSpecialist: this.assignSpecialist,
+        removeSpecialist: this.removeSpecialist,
+        title: task.name,
+        eta: task.eta,
+        cost: task.cost,
+        specialistCosts: ownCosts && ownCosts.cost,
+        description: "Platform - Dashboard",
+        specialists: task.specialists
+      };
+      if (task.state === "backlog") {
+        backlog.push(taskObject);
+      }
+      if (task.state === "in_progress") {
+        progress.push(taskObject);
+      }
+      if (task.state === "done") {
+        completed.push(taskObject);
+      }
+      if (task.state === "accepted") {
+        accepted.push(taskObject);
+      }
+    });
+    this.setState({
+      backlogTasks: backlog,
+      progressTasks: progress,
+      completedTasks: completed,
+      acceptedTasks: accepted,
+      showBoard: true
+    });
   };
 
   componentWillReceiveProps(nextProps) {
@@ -72,59 +131,7 @@ class KanbanBoard extends Component {
         this.props.epicTasks !== nextProps.epicTasks ||
         nextProps.myTasks !== this.props.myTasks
       ) {
-        let backlog = [],
-          completed = [],
-          progress = [],
-          accepted = [],
-          taskList = [];
-
-        if (nextProps.myTasks) {
-          taskList = nextProps.epicTasks.tasks.filter(task =>
-            task.specialists.some(spec => spec.id === getUserId())
-          );
-        } else taskList = nextProps.epicTasks.tasks;
-
-        taskList.forEach(task => {
-          const specId =
-            nextProps.specialistData && nextProps.specialistData.id;
-
-          const ownCosts =
-            task.specialist_tasks &&
-            task.specialist_tasks.find(
-              ({ specialist }) => specId === specialist.id
-            );
-          const taskObject = {
-            id: `${task.id}`,
-            epic_id: task.epic_id,
-            assignSpecialist: this.assignSpecialist,
-            removeSpecialist: this.removeSpecialist,
-            title: task.name,
-            eta: task.eta,
-            cost: task.cost,
-            specialistCosts: ownCosts && ownCosts.cost,
-            description: "Platform - Dashboard",
-            specialists: task.specialists
-          };
-          if (task.state === "backlog") {
-            backlog.push(taskObject);
-          }
-          if (task.state === "in_progress") {
-            progress.push(taskObject);
-          }
-          if (task.state === "done") {
-            completed.push(taskObject);
-          }
-          if (task.state === "accepted") {
-            accepted.push(taskObject);
-          }
-        });
-        this.setState({
-          backlogTasks: backlog,
-          progressTasks: progress,
-          completedTasks: completed,
-          acceptedTasks: accepted,
-          showBoard: true
-        });
+        this.fetchTasks(nextProps);
       }
     } else {
       this.setState({

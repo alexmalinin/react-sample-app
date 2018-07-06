@@ -92,7 +92,7 @@ class App extends Component {
                 component={Dashboard}
               />
               <PrivateRoute
-                path="/dashboard/project/:projectId/module/:moduleId"
+                path="/dashboard/project/:projectId/module/:moduleId/:status"
                 component={Dashboard}
               />
               <PrivateRoute

@@ -42,9 +42,7 @@ export default styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid ${colors.lightGreyBlue};
       border-radius: 50%;
-      /* padding: 10px; */
 
       .image-preloader {
         padding: 0;
@@ -227,6 +225,10 @@ export default styled.div`
             .controls {
               display: flex;
               justify-content: flex-end;
+
+              button.draft {
+                margin-right: 20px;
+              }
             }
           }
 

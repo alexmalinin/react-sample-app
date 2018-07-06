@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, change, reset } from "redux-form";
 import { connect } from "react-redux";
 import ModuleForm from "./ModuleForm";
+import StyledEpicPage from "../../../styleComponents/StyledEpicPage";
 
 class ClientModuleForm extends Component {
   componentWillMount() {
@@ -17,15 +18,18 @@ class ClientModuleForm extends Component {
   };
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, submitting, projectId } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
-        <ModuleForm
-          submitting={submitting}
-          handleEtaForm={this.handleEtaForm}
-        />
-      </form>
+      <StyledEpicPage>
+        <form onSubmit={handleSubmit}>
+          <ModuleForm
+            projectId={projectId}
+            submitting={submitting}
+            handleEtaForm={this.handleEtaForm}
+          />
+        </form>
+      </StyledEpicPage>
     );
   }
 }

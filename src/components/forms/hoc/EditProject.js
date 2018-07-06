@@ -11,17 +11,13 @@ import {
 } from "../../../actions/actions";
 import { createNotification, getUserType } from "../../../helpers/functions";
 import { CLIENT, SPECIALIST } from "../../../constants/user";
+import { run } from "../../../helpers/scrollToElement";
 
 class EditProject extends Component {
   componentDidMount() {
-    const {
-      projectWithId,
-      projectId,
-      showProjectWithId,
-      showAllEpics
-    } = this.props;
+    const { projectWithId, projectId, showAllEpics } = this.props;
     if (!projectWithId) {
-      showProjectWithId(projectId);
+      this.projectUpdate(projectId);
       showAllEpics(projectId);
     }
   }
@@ -29,7 +25,7 @@ class EditProject extends Component {
   //move all async to one file
 
   submit = values => {
-    const { projectId, projectWithId } = this.props;
+    const { projectId, projectWithId, showSortedProjects } = this.props;
 
     values.project_id = projectId;
     let skill_ids =
@@ -75,6 +71,7 @@ class EditProject extends Component {
         return data;
       })
       .then(({ name }) => {
+        run(0)();
         createNotification({
           type: "success",
           text: `${name ? `${name} project ` : "Project"} was published`
@@ -121,6 +118,12 @@ class EditProject extends Component {
       });
   };
 
+  projectUpdate = projectId => {
+    if (projectId) {
+      this.props.showProjectWithId(projectId);
+    }
+  };
+
   render() {
     const { projectId } = this.props;
 
@@ -129,6 +132,7 @@ class EditProject extends Component {
         onSubmit={this.submit}
         projectId={projectId}
         handleAssignTeam={this.handleAssignTeam}
+        projectUpdate={this.projectUpdate}
       />
     );
   }
