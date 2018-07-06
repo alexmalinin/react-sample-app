@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { ContainerLarge } from "../styleComponents/layout/Container";
 import {
@@ -21,17 +22,20 @@ import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
   state = {
+    specialists: [],
     fetchEpicTasks: true,
     myTasks: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       showAllEpics,
       showProjectTeam,
       showProjectWithId,
       projectWithId,
-      projectId
+      match: {
+        params: { projectId }
+      }
     } = this.props;
     showAllEpics(projectId);
     showProjectTeam(projectId);
@@ -39,25 +43,21 @@ class ProjectsBoard extends Component {
       showProjectWithId(projectId);
     }
     run(0)();
-    // this.props.showAllProjects();
-    // this.props.showAllEpics(this.props.projectId);
-    // this.props.showProjectTeam(this.props.projectId);
   }
 
   componentWillReceiveProps(nextProps) {
-    let epicId = null;
-    if (
-      nextProps.allEpics.epics.length &&
-      nextProps.currentEpic !== "all" &&
-      nextProps.projectId
-    ) {
-      if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
-        epicId =
-          nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
-        nextProps.history.push(
-          `/dashboard/project/${nextProps.projectId}/module/all`
-        );
-      } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
+    const {
+      match: {
+        params: { moduleId: currentEpic, projectId }
+      },
+      allEpics: { epics, loaded }
+    } = nextProps;
+    let epicId;
+
+    if (loaded && currentEpic && Number.isInteger(+currentEpic) && projectId) {
+      if (+currentEpic > epics.length) {
+        nextProps.history.push(`/dashboard/project/${projectId}/module/all`);
+      } else epicId = epics[currentEpic - 1].id;
     }
 
     if (nextProps.projectWithId) {
@@ -83,29 +83,13 @@ class ProjectsBoard extends Component {
 
     if (epicId) {
       if (this.props.epicTasks.loaded) {
-        if (this.props.currentEpic !== nextProps.currentEpic) {
+        if (this.props.match.params.moduleId !== currentEpic) {
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
         nextProps.showEpicTasks(epicId);
         this.setState({ fetchEpicTasks: false });
       }
-    }
-
-    if (nextProps.createTask && nextProps.createTask.successId) {
-      if (this.props.createTask) {
-        if (this.props.createTask !== nextProps.createTask) {
-          nextProps.showEpicTasks(epicId);
-        }
-      } else nextProps.showEpicTasks(epicId);
-    }
-
-    if (nextProps.deleteTask && nextProps.deleteTask.successId) {
-      if (this.props.deleteTask) {
-        if (this.props.deleteTask !== nextProps.deleteTask) {
-          nextProps.showEpicTasks(epicId);
-        }
-      } else nextProps.showEpicTasks(epicId);
     }
 
     if (nextProps.assignSpecialist) {
@@ -124,15 +108,9 @@ class ProjectsBoard extends Component {
       } else nextProps.showEpicTasks(epicId);
     }
 
-    if (nextProps.updateTask && epicId) {
-      if (this.props.updateTask) {
-        if (this.props.updateTask != nextProps.updateTask) {
-          // nextProps.showEpicTasks(epicId);
-          // nextProps.showAllEpics(nextProps.projectId);
-        }
-      } else {
-        // nextProps.showEpicTasks(epicId);
-        // nextProps.showAllEpics(nextProps.projectId);
+    if (nextProps.projectTeam) {
+      if (nextProps.projectTeam.project_id === +projectId) {
+        this.setState({ specialists: nextProps.projectTeam.specialists });
       }
     }
   }
@@ -142,15 +120,18 @@ class ProjectsBoard extends Component {
   };
 
   renderProjectbBoard() {
-    const { projectId, currentEpic, status } = this.props;
+    const {
+      match: {
+        params: { status }
+      }
+    } = this.props;
 
     return (
       <S_Board>
         <KanbanBoard
-          currentProject={projectId}
-          currentEpic={currentEpic}
           myTasks={this.state.myTasks}
           status={status}
+          specialists={this.state.specialists}
         />
       </S_Board>
     );
@@ -160,20 +141,17 @@ class ProjectsBoard extends Component {
     const {
       projectId,
       showAllEpics,
+      allEpics: { loaded, epics },
       currentEpic,
-      projectWithId,
       history
     } = this.props;
 
-    const { epics } = projectWithId || {};
-
-    if (currentEpic !== "all") {
+    if (currentEpic) {
       return (
         <S_Board>
           <KanbanBoard
-            currentProject={projectId}
-            currentEpic={currentEpic}
             myTasks={this.state.myTasks}
+            specialists={this.state.specialists}
           />
         </S_Board>
       );
@@ -182,7 +160,7 @@ class ProjectsBoard extends Component {
         <S_Board>
           <EditProject projectId={projectId} />
           <div className="moduleWrapper">
-            {epics &&
+            {loaded &&
               epics.map((epic, key) => (
                 <ModuleCard
                   epic={epic}
@@ -208,7 +186,7 @@ class ProjectsBoard extends Component {
               </div>
             )}
             {getUserType() === SPECIALIST &&
-              epics &&
+              loaded &&
               epics.length === 0 && (
                 <div className="noModules">
                   <p>No modules yet</p>
@@ -221,14 +199,22 @@ class ProjectsBoard extends Component {
   };
 
   renderModulePage = () => {
-    const { projectId, currentEpic, history } = this.props;
-
+    const {
+      allEpics: { epics, loaded },
+      match: {
+        params: { moduleId, projectId }
+      },
+      history
+    } = this.props;
     return (
-      <EditModule
-        projectId={+projectId}
-        currentEpic={+currentEpic}
-        history={history}
-      />
+      loaded && (
+        <EditModule
+          epicId={epics[moduleId - 1].id}
+          currentEpic={moduleId}
+          projectId={projectId}
+          history={history}
+        />
+      )
     );
   };
 
@@ -244,17 +230,17 @@ class ProjectsBoard extends Component {
   };
 
   render() {
-    const { projectId, currentEpic, status } = this.props;
-    const { myTasks } = this.state;
+    const {
+      match: {
+        params: { status }
+      }
+    } = this.props;
 
     return (
       <ContainerLarge indentBot>
         <BoardSubHeader
-          project={projectId}
-          currentEpic={currentEpic}
           toggleMyTasks={this.toggleMyTasks}
-          myTasks={myTasks}
-          status={status}
+          myTasks={this.state.myTasks}
         />
 
         {this.renderContent(status)}
@@ -268,20 +254,20 @@ const mapStateToProps = state => {
     allEpics: state.allEpics,
     deleteEpic: state.deleteEpic,
     createEpic: state.createEpic,
-    createTask: state.createTask,
     epicTasks: state.epicTasks,
-    updateTask: state.updateTask,
-    deleteTask: state.deleteTask,
     assignSpecialist: state.assignSpecialist,
     removeSpecialist: state.removeSpecialist,
-    projectWithId: state.projectWithId
+    projectWithId: state.projectWithId,
+    projectTeam: state.projectTeam
   };
 };
 
-export default connect(mapStateToProps, {
-  showAllProjects,
-  showAllEpics,
-  showEpicTasks,
-  showProjectTeam,
-  showProjectWithId
-})(ProjectsBoard);
+export default withRouter(
+  connect(mapStateToProps, {
+    showAllProjects,
+    showAllEpics,
+    showEpicTasks,
+    showProjectTeam,
+    showProjectWithId
+  })(ProjectsBoard)
+);

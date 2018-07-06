@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -9,27 +7,25 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="35"
+   height="35"
+   viewBox="0 0 35 35.000001"
    version="1.1"
-   id="svg885"
-   width="266.66666"
-   height="266.66666"
-   viewBox="0 0 266.66666 266.66666"
+   id="svg1007"
    sodipodi:docname="icon-avatar.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
-     id="metadata891">
+     id="metadata1011">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title>Shape</dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <defs
-     id="defs889" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -40,19 +36,50 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1053"
-     id="namedview887"
+     inkscape:window-height="1052"
+     id="namedview1009"
      showgrid="false"
-     inkscape:zoom="2.3175426"
-     inkscape:cx="159.65635"
-     inkscape:cy="128.73424"
-     inkscape:window-x="1920"
-     inkscape:window-y="27"
+     inkscape:zoom="22.47619"
+     inkscape:cx="20.441337"
+     inkscape:cy="20.915782"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg885" />
-  <path
-     style="fill:#4762f2;fill-opacity:1;stroke-width:0.90028632"
-     d="M 112.93734,199.60468 C 93.7333,195.23767 84.931096,188.2105 85.00773,177.30728 c 0.08917,-12.68676 5.970904,-26.82998 15.23932,-36.64447 3.37523,-3.5741 8.00453,-7.53875 10.28734,-8.81036 2.2828,-1.27161 4.15055,-2.75262 4.15055,-3.29113 0,-0.5385 -1.34246,-2.36033 -2.98325,-4.04852 -6.66144,-6.85383 -9.99993,-21.43483 -7.48184,-32.677273 2.7701,-12.367624 13.40709,-22.548128 26.06894,-24.950173 13.72742,-2.604193 27.51006,4.441886 33.97087,17.366888 6.91835,13.840318 5.62066,27.273318 -3.85216,39.875678 -1.59845,2.12651 -2.90625,4.27806 -2.90625,4.7812 0,0.50315 2.06435,2.16769 4.58745,3.69897 5.13023,3.11356 12.03295,10.34126 16.55632,17.33577 6.38103,9.86705 9.59604,27.92462 6.28893,35.32269 -2.94099,6.5791 -13.31443,11.88418 -28.86795,14.7634 -10.77222,1.99411 -33.47375,1.77028 -43.12866,-0.42527 z"
-     id="path913"
-     inkscape:connector-curvature="0" />
+     inkscape:current-layer="svg1007" />
+  <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title994">Shape</title>
+  <desc
+     id="desc996">Created with Sketch.</desc>
+  <defs
+     id="defs998" />
+  <g
+     id="Page-1"
+     style="fill:none;fill-opacity:0.6;fill-rule:evenodd;stroke:none;stroke-width:1"
+     transform="translate(9.765485,8.1055394)">
+    <g
+       id="Epic-edit-and-view"
+       transform="translate(-287,-581)"
+       style="fill:#4762f2;fill-rule:nonzero">
+      <g
+         id="Group-18"
+         transform="translate(277,486)">
+        <g
+           id="Group-19-Copy-13"
+           transform="translate(0,88)">
+          <g
+             id="502734204">
+            <g
+               id="profile-user"
+               transform="translate(10,7)">
+              <path
+                 d="m 7.6596,0.4848 c 2.496,0 4.5186,2.0232 4.5186,4.518 0,2.4954 -2.0226,4.518 -4.5186,4.518 -2.4948,0 -4.5174,-2.0226 -4.5174,-4.518 0,-2.4948 2.0226,-4.518 4.5174,-4.518 z m -0.003,19.6626 c -2.4894,0 -4.7694,-0.9066 -6.528,-2.4072 C 0.7002,17.3748 0.453,16.839 0.453,16.2768 c 0,-2.5302 2.0478,-4.5552 4.5786,-4.5552 h 5.2572 c 2.5314,0 4.5714,2.025 4.5714,4.5552 0,0.5628 -0.246,1.0974 -0.675,1.4628 -1.758,1.5012 -4.0386,2.4078 -6.5286,2.4078 z"
+                 id="Shape"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>

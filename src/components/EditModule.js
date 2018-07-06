@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { reduxForm, change, reset } from "redux-form";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import Axios from "axios";
 import EditEpicForm from "./forms/EditEpicForm";
@@ -14,27 +14,22 @@ import { PORT } from "../constants/constants";
 import { run } from "../helpers/scrollToElement";
 
 class EditModule extends Component {
-  static propTypes = {
-    projectId: PropTypes.number.isRequired,
-    currentEpic: PropTypes.number.isRequired
-  };
-
   componentWillMount() {
     this.clearFileds();
     run(0)();
   }
 
   componentDidMount() {
-    const { projectId, epicId } = this.props;
+    const { projectId, epicId, showProjectEpic } = this.props;
 
     if (projectId && epicId) {
-      this.updateEpic(+projectId, +epicId);
+      showProjectEpic(+projectId, +epicId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (+this.props.currentEpic !== +nextProps.currentEpic) {
-      this.updateEpic(nextProps.projectId, nextProps.epicId);
+    if (this.props.currentEpic !== nextProps.currentEpic) {
+      nextProps.showProjectEpic(nextProps.projectId, nextProps.epicId);
     }
   }
 
@@ -59,12 +54,6 @@ class EditModule extends Component {
         }
       }
     });
-  };
-
-  updateEpic = (project, epic) => {
-    const { showProjectEpic } = this.props;
-
-    showProjectEpic(project, epic);
   };
 
   deleteEpic = () => {

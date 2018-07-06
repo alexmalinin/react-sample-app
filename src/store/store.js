@@ -53,7 +53,6 @@ import showAllEpicTasks from "../middlewares/showAllEpicTasksApi";
 import createEpicTask from "../middlewares/createTaskApi";
 import showEpicTasks from "../middlewares/showEpicTasksApi";
 import updateEpicTask from "../middlewares/updateEpicTaskApi";
-import deleteEpicTask from "../middlewares/deleteEpicTaskApi";
 import showAllSpecialists from "../middlewares/showAllSpecialistsApi";
 import assignSpecialistToTask from "../middlewares/assignSpecialistToTaskApi";
 import removeSpecialistFromTask from "../middlewares/removeSpecialistFromTaskApi";
@@ -126,7 +125,6 @@ const enhancer = applyMiddleware(
   createEpicTask,
   showEpicTasks,
   updateEpicTask,
-  deleteEpicTask,
   assignSpecialistToTask,
   removeSpecialistFromTask,
   showAllTeams,

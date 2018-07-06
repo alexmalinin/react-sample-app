@@ -136,7 +136,7 @@ export const S_Board = styled.div`
     height: auto;
     overflow-y: visible;
     transition: 0.4s;
-    opacity: 0;
+    opacity: 1;
     z-index: 10;
 
     &.visible {
@@ -144,18 +144,30 @@ export const S_Board = styled.div`
     }
 
     &.show {
-      animation: fade 0.4s forwards;
+      /* animation: fadeIn 0.4s forwards; */
     }
 
     &.fade {
+      /* animation: fade 0.4s forwards; */
+      opacity: 0.5;
+      pointer-events: none;
     }
 
-    @keyframes fade {
+    @keyframes fadeIn {
       from {
         opacity: 0;
       }
       to {
         opacity: 1;
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0.8;
       }
     }
 

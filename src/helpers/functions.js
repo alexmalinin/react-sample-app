@@ -8,6 +8,7 @@ import {
 } from "../constants/user";
 import jwtDecode from "jwt-decode";
 import { NotificationManager } from "react-notifications";
+import _ from "lodash";
 
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window
@@ -262,3 +263,23 @@ export const createNotification = ({ type, text }) => {
       break;
   }
 };
+
+/**
+ * Deep diff between two object, using lodash
+ * @param  {Object} object Object compared
+ * @param  {Object} base   Object to compare with
+ * @return {Object}        Return a new object who represent the diff
+ */
+export function difference(object, base) {
+  function changes(object, base) {
+    return _.transform(object, function(result, value, key) {
+      if (!_.isEqual(value, base[key])) {
+        result[key] =
+          _.isObject(value) && _.isObject(base[key])
+            ? changes(value, base[key])
+            : value;
+      }
+    });
+  }
+  return changes(object, base);
+}

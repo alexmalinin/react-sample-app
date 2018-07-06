@@ -3,8 +3,6 @@ import { reducer as reduxFormReducer } from "redux-form";
 
 import { LOG_OUT } from "../actions/types";
 
-import hideFooter from "./hideFooter";
-import sidebar from "./sidebar";
 import changeUserType from "./changeUserTypeReducer";
 import signUpData from "./signUpReducer";
 import signInReducer from "./signInReducer";
@@ -16,7 +14,6 @@ import experienceLevels from "./experienceLevelsReducer";
 import educations from "./educationsReducer";
 import experiences from "./workExperienceReducer";
 import skills from "./skillsReducer";
-import chosenSkills from "./showChosenSkillsReducer";
 import allClients from "./showAllClientsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
@@ -41,7 +38,6 @@ import createTask from "./createTaskReducer";
 import showEpic from "./showProjectEpicReducer";
 import epicTasks from "./showTasksReducer";
 import updateTask from "./updateEpicTaksReducer";
-import deleteTask from "./deleteEpicTaskReducer";
 import assignSpecialist from "./assignSpecialistToTaskReducer";
 import removeSpecialist from "./removeSpecialistFromTaskReducer";
 import allTeams from "./showAllTeamsReducer";
@@ -101,7 +97,6 @@ const appReducer = combineReducers({
   showEpic,
   epicTasks,
   updateTask,
-  deleteTask,
   assignSpecialist,
   removeSpecialist,
   allTeams,

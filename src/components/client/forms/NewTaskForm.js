@@ -198,7 +198,6 @@ class NewTaskForm extends Component {
                           userType={[S_REDGUY]}
                           closeOnChange
                           renderToModal
-                          blue
                         />
                       )}
                   </div>

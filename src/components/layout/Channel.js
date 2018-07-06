@@ -171,7 +171,7 @@ class Channel extends Component {
               handleAssign={this.handleAssign}
               userType={[S_REDGUY]}
               closeOnChange={true}
-              blue
+              bordered
             />
           )}
         </div>

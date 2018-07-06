@@ -402,7 +402,6 @@ class SpecialistsDashboard extends Component {
   renderPage = page => {
     const {
       match: { params },
-      history,
       specialistTeams,
       specialistProjects
     } = this.props;
@@ -452,10 +451,10 @@ class SpecialistsDashboard extends Component {
       case "board":
         return (
           <ProjectsBoard
-            projectId={params["projectId"]}
-            currentEpic={params["moduleId"] || "all"}
-            status={params["status"]}
-            history={history}
+          // projectId={params["projectId"]}
+          // currentEpic={params["moduleId"] || "all"}
+          // status={params["status"]}
+          // history={this.props.history}
           />
         );
       case "teams":
@@ -490,22 +489,10 @@ class SpecialistsDashboard extends Component {
         return <SpecialistsAbout specialistId={params["specialistId"]} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
-        return <Dashboard projects={specialistProjects} history={history} />;
+        return <Dashboard projects={specialistProjects} />;
       default:
         return <Redirect to="/404" />;
     }
-  };
-
-  renderConfirmModal = () => {
-    if (this.props.confirmationModal) {
-      return (
-        <SavingConfirmationModal
-          isOpen={true}
-          formId={this.props.confirmationModal.formId}
-        />
-      );
-    }
-    return;
   };
 
   componentWillReceiveProps(nextProps) {
