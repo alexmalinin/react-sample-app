@@ -133,9 +133,7 @@ class Module extends Component {
         <div
           className="module"
           onClick={() => {
-            history.push(
-              `/dashboard/project/${project}/module/${epic.id}/edit`
-            );
+            history.push(`/dashboard/project/${project}/module/${number}/edit`);
           }}
         >
           <h4>{this.renderDescription()}</h4>

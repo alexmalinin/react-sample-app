@@ -43,14 +43,13 @@ class EditEpicForm extends Component {
               name="eta"
               component={RenderDate}
               type="date"
-              label="ETA"
+              label="ETA:"
               placeholder="Due date"
               className="estimate inline-in-module"
-              validate={[required, date]}
+              validate={[date]}
               initData={eta}
               handleEtaForm={this.props.handleEtaForm}
               disabled={!hasPermission}
-              isRequired
             />
 
             <div className="module-costs">
@@ -102,6 +101,7 @@ class EditEpicForm extends Component {
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
             validate={[required, minLength2, maxLength80]}
+            autoHeight
             isRequired
           />
 
@@ -116,6 +116,7 @@ class EditEpicForm extends Component {
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
             validate={[required]}
+            autoHeight
             isRequired
           />
 
@@ -129,6 +130,7 @@ class EditEpicForm extends Component {
             className="transparent"
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
+            autoHeight
             large
           />
 
@@ -144,6 +146,7 @@ class EditEpicForm extends Component {
             className="transparent"
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
+            autoHeight
             large
           />
 
@@ -159,6 +162,7 @@ class EditEpicForm extends Component {
             className="transparent"
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
+            autoHeight
             large
           />
 
@@ -174,6 +178,7 @@ class EditEpicForm extends Component {
             className="transparent"
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
+            autoHeight
             large
           />
 
@@ -189,6 +194,7 @@ class EditEpicForm extends Component {
             className="transparent"
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
+            autoHeight
           />
         </section>
       </div>

@@ -25,12 +25,11 @@ class ModuleForm extends Component {
               name="eta"
               component={RenderDate}
               type="date"
-              label="ETA"
+              label="ETA:"
               placeholder="Due date"
               className="estimate inline-in-module"
-              validate={[required, date]}
+              validate={[date]}
               handleEtaForm={this.props.handleEtaForm}
-              isRequired
             />
           </div>
 
@@ -39,7 +38,7 @@ class ModuleForm extends Component {
               name="attached_files"
               type="file"
               component={RenderFile}
-              label="Attach files"
+              label="Attach files:"
               dropzone
             />
           </div>

@@ -28,7 +28,7 @@ class ProjectSubHeader extends Component {
         return (
           <SubHeaderLinkWrap
             key={key}
-            url={`/dashboard/project/${this.props.project}/module/${epic.id}/${
+            url={`/dashboard/project/${this.props.project}/module/${key + 1}/${
               status ? status : "view"
             }`}
             className="module"

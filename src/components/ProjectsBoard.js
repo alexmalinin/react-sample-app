@@ -45,20 +45,20 @@ class ProjectsBoard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let epicId = nextProps.currentEpic;
-    // if (
-    //   nextProps.allEpics.epics.length &&
-    //   nextProps.currentEpic !== "all" &&
-    //   nextProps.projectId
-    // ) {
-    //   if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
-    //     epicId =
-    //       nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
-    //     nextProps.history.push(
-    //       `/dashboard/project/${nextProps.projectId}/module/all`
-    //     );
-    //   } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
-    // }
+    let epicId = null;
+    if (
+      nextProps.allEpics.epics.length &&
+      nextProps.currentEpic !== "all" &&
+      nextProps.projectId
+    ) {
+      if (+nextProps.currentEpic > nextProps.allEpics.epics.length) {
+        epicId =
+          nextProps.allEpics.epics[nextProps.allEpics.epics.length - 1].id;
+        nextProps.history.push(
+          `/dashboard/project/${nextProps.projectId}/module/all`
+        );
+      } else epicId = nextProps.allEpics.epics[nextProps.currentEpic - 1].id;
+    }
 
     if (nextProps.projectWithId) {
       document.title = `${nextProps.projectWithId.name} | Digital Village`;

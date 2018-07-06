@@ -24,20 +24,6 @@ class EditModule extends Component {
     run(0)();
   }
 
-  componentDidMount() {
-    const { projectId, currentEpic, showProjectEpic } = this.props;
-
-    if (projectId && currentEpic) {
-      showProjectEpic(+projectId, +currentEpic);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (+this.props.currentEpic !== +nextProps.currentEpic) {
-      this.props.showProjectEpic(nextProps.projectId, nextProps.currentEpic);
-    }
-  }
-
   clearFileds = () => {
     this.props.dispatch(reset("EditModuleForm"));
   };
@@ -62,7 +48,7 @@ class EditModule extends Component {
   };
 
   deleteEpic = () => {
-    const { projectId, currentEpic, epicName, history } = this.props;
+    const { projectId, epicId, epicName, history } = this.props;
 
     this.props.showConfirmationModal({
       type: "delete",
@@ -70,7 +56,7 @@ class EditModule extends Component {
         epicName ? `${epicName} module?` : "this module?"
       }`,
       callback: () => {
-        this.props.deleteProjectEpic(projectId, currentEpic, () =>
+        this.props.deleteProjectEpic(projectId, epicId, () =>
           history.push(`/dashboard/project/${projectId}`)
         );
       }
@@ -115,15 +101,20 @@ EditModule = reduxForm({
 })(EditModule);
 
 const mapStateToProps = (state, ownProps) => {
-  const { showEpic } = state;
+  const {
+    allEpics: { epics }
+  } = state;
+  const { currentEpic } = ownProps;
+  const epic = epics && epics[currentEpic - 1];
 
   return {
     projectId: ownProps.projectId,
     currentEpic: ownProps.currentEpic,
-    eta: showEpic && showEpic.eta,
-    costs: showEpic && showEpic.cost,
-    epicName: showEpic && showEpic.name,
-    initialValues: showEpic
+    epicId: epic && epic.id,
+    epicName: epic && epic.name,
+    eta: epic && epic.eta,
+    costs: epic && epic.cost,
+    initialValues: epic
   };
 };
 

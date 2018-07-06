@@ -59,7 +59,7 @@ class SideBarLeft extends Component {
                           <NavLink
                             className="project-module"
                             to={`/dashboard/project/${project.id}/module/${key +
-                              1}`}
+                              1}/view`}
                             key={key}
                           >
                             <span className="module-number">
