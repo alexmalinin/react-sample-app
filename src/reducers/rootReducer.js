@@ -65,8 +65,7 @@ import submitErrorModal from "./submitErrorModalReducer";
 // import contactRequest from './contactRequestReducer';
 
 const appReducer = combineReducers({
-  hideFooter,
-  sidebar,
+  form: reduxFormReducer,
   changeUserType,
   signUpData,
   signInReducer,
@@ -78,13 +77,11 @@ const appReducer = combineReducers({
   projectTypes,
   experienceLevels,
   skills,
-  chosenSkills,
   allClients,
   clientData,
   specialistData,
   specialistWithId,
   allSpecialists,
-  form: reduxFormReducer,
   createProject,
   updateProject,
   allProjects,

@@ -209,6 +209,10 @@ export const StyledAssignDropdown = styled.div`
         background: transparent;
       }
 
+      .no-specs:hover {
+        background: none;
+      }
+
       div {
         position: relative;
         display: flex;
@@ -431,6 +435,8 @@ export const StyledPersonTile = styled.div`
       font-weight: 500;
       font-size: 16px;
       color: ${primaryColors.darkGrey};
+      white-space: normal;
+
       &:hover {
         text-decoration: underline;
       }

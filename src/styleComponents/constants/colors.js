@@ -39,7 +39,10 @@ export const miscellaneous = {
   -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
   -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
     border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
-    border-color: ${colors.blue};`
+    border-color: ${colors.blue};`,
+  gradient: {
+    blue: "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"
+  }
 };
 
 export const secondaryColors = {

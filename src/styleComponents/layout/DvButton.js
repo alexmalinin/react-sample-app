@@ -653,6 +653,8 @@ export const DvBlueButton = styled(Button)`
     width: ${props => (props.fixed ? "140px" : "auto")};
 
     border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
 
     background-color: ${colors.blue};
 
@@ -671,7 +673,7 @@ export const DvBlueButton = styled(Button)`
     }
 
     &.inverted {
-      border: 1px solid ${colors.blue};
+      border-color: ${colors.blue};
       background-color: #fff;
 
       color: ${colors.blue};
@@ -691,6 +693,8 @@ export const DvBlueButton = styled(Button)`
     }
 
     &.transparent {
+      border-color: transparent;
+      background: transparent;
     }
 
     &.fluid {

@@ -81,9 +81,11 @@ export const StyledBar = styled.aside`
 
       .project-logo,
       .add-project-button {
-        flex: 0 0 50px;
         height: 50px;
         width: 50px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex-basis: 50px;
         margin: 5px 12px;
 
         border-radius: 50%;

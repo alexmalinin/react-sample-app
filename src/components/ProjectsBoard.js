@@ -6,7 +6,8 @@ import {
   showAllProjects,
   showAllEpics,
   showEpicTasks,
-  showProjectTeam
+  showProjectTeam,
+  showProjectWithId
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
 import { S_Board } from "../styleComponents/S_Board";
@@ -23,9 +24,18 @@ class ProjectsBoard extends Component {
   };
 
   componentWillMount() {
-    this.props.showAllProjects();
-    this.props.showAllEpics(this.props.projectId);
-    this.props.showProjectTeam(this.props.projectId);
+    const {
+      showAllEpics,
+      showProjectTeam,
+      showProjectWithId,
+      projectWithId,
+      projectId
+    } = this.props;
+    showAllEpics(projectId);
+    showProjectTeam(projectId);
+    if (!projectWithId && projectId) {
+      showProjectWithId(projectId);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,7 +137,6 @@ class ProjectsBoard extends Component {
 
   renderContent = () => {
     const { projectId, showAllEpics, currentEpic, projectWithId } = this.props;
-
     const { epics } = projectWithId || {};
 
     if (currentEpic !== "all") {
@@ -219,5 +228,6 @@ export default connect(mapStateToProps, {
   showAllProjects,
   showAllEpics,
   showEpicTasks,
-  showProjectTeam
+  showProjectTeam,
+  showProjectWithId
 })(ProjectsBoard);

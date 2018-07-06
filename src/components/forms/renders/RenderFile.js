@@ -88,7 +88,6 @@ class RenderFile extends Component {
     }
 
     for (let file of files) {
-      console.log(file);
       const {
         onSelfSubmit,
         entity_type,
@@ -117,13 +116,12 @@ class RenderFile extends Component {
               dispatch(change(form, input.name, data[input.name]));
               this.setState({ loading: false });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
         } else {
           this.fileHub = [
             ...this.fileHub,
             { document: reader.result, title: file.name, size: file.size }
           ];
-          console.log(this.fileHub);
           this.setState({
             files: [...this.state.files, file],
             loading: false
@@ -256,7 +254,7 @@ class RenderFile extends Component {
         className={className}
         {...rest}
       >
-        <label htmlFor={input.name + "2"}>{label}</label>
+        <label>{label}</label>
         <span />
 
         {dropzone &&
