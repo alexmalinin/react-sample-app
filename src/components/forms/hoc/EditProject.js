@@ -9,8 +9,17 @@ import {
   showSortedProjects,
   showAllEpics
 } from "../../../actions/actions";
-import { createNotification, getUserType } from "../../../helpers/functions";
-import { CLIENT, SPECIALIST } from "../../../constants/user";
+import {
+  createNotification,
+  getUserType,
+  getUserRole
+} from "../../../helpers/functions";
+import {
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY,
+  CUSTOMER
+} from "../../../constants/user";
 import { run } from "../../../helpers/scrollToElement";
 
 class EditProject extends Component {
@@ -43,6 +52,19 @@ class EditProject extends Component {
         })
       : [];
 
+    let status = null,
+      redGuyId = values["red_guy_id"];
+
+    if (getUserRole() === S_REDGUY) {
+      status = "discovery";
+    } else {
+      if (redGuyId) {
+        status = "reviewed_by_admin";
+      } else {
+        status = values["state"];
+      }
+    }
+
     return Axios({
       method: "PUT",
       url: `${PORT}/api/v1/projects/${projectId}`,
@@ -51,7 +73,7 @@ class EditProject extends Component {
           name: values["name"],
           description: values["description"],
           user_story: values["user_story"],
-          state: values["state"],
+          state: status,
           business_requirements: values["business_requirements"],
           business_rules: values["business_rules"],
           deliverables: values["deliverables"],

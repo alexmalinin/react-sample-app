@@ -136,7 +136,7 @@ const mapStateToProps = (state, ownProps) => {
     currentEpic: ownProps.currentEpic,
     epicId: epic && epic.id,
     epicName: (showEpic && showEpic.name) || (epic && epic.name),
-    eta: showEpic && showEpic.eta,
+    eta: (showEpic && showEpic.eta) || (epic && epic.eta),
     costs: showEpic && showEpic.cost,
     initialValues: showEpic || epic
   };
