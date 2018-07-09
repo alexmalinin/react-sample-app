@@ -4,6 +4,16 @@ import { colors, primaryColors, miscellaneous } from "./constants/colors";
 export default styled.div`
   color: #666666;
 
+  .profile-main {
+    background-color: #fff;
+    padding: 15px;
+
+    .pfofile-title {
+      font-size: 14px;
+      border-bottom: 1px solid ${colors.lightGreyBlue};
+    }
+  }
+
   .section-header {
     border-width: 0px;
     border-bottom-width: 3px;

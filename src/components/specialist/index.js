@@ -16,7 +16,7 @@ import SpecialistsProfile from "./pages/SpecialistsProfile";
 import SpecialistsCompany from "./pages/SpecialistsCompany";
 import SpecialistIndustry from "./pages/SpecialistIndustry";
 import EditProfile from "../profile/EditProfile";
-import SpecialistsAbout from "./pages/SpecialistsAbout";
+import SpecialistsAbout from "../dashboard/pages/About";
 import SpecialistsTest from "./pages/SpecialistsTest";
 import SpecialistsMyBillings from "./pages/SpecialistsMyBillings";
 import SpecialistAccount from "./pages/SpecialistAccount";
