@@ -1,10 +1,18 @@
-import { Input } from "semantic-ui-react";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { initialize } from "redux-form";
+import { Input } from "semantic-ui-react";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
+import {
+  showProjectWithId,
+  showProjectEpic,
+  showSortedProjects
+} from "../../../actions/actions";
+import { getUserType } from "../../../helpers/functions";
+import { CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderField extends Component {
   state = {
@@ -27,8 +35,16 @@ class RenderField extends Component {
     const {
       meta: { dirty, dispatch, form, error },
       onSelfSubmit,
-      input
+      input,
+      updateProject,
+      projectId,
+      updateEpic,
+      epicId,
+      updateProjects
     } = this.props;
+
+    input.onBlur(input.value);
+
     if (dirty && onSelfSubmit && !error) {
       this.setState({ loading: true });
       onSelfSubmit(input.name, e.target.value)
@@ -37,10 +53,27 @@ class RenderField extends Component {
           if (data.state) {
             data.state = taskStatuses.find(
               status => status.enum === data.state
-            ).value;
+            );
+
+            data.state = data.state && data.state.value;
           }
           this.setState({ loading: false, updError: false });
           dispatch(initialize(form, data));
+
+          if (updateProject && projectId) {
+            this.props.showProjectWithId(projectId);
+          }
+
+          if (updateEpic && projectId && epicId) {
+            this.props.showProjectEpic(projectId, epicId);
+          }
+
+          if (updateProjects) {
+            const userType = getUserType();
+            if (userType === CLIENT) this.props.showSortedProjects("customers");
+            else if (userType === SPECIALIST)
+              this.props.showSortedProjects("specialists");
+          }
         })
         .catch(error => {
           console.error(error);
@@ -92,6 +125,7 @@ class RenderField extends Component {
           autoComplete={autoComplete || "off"}
           onKeyUp={this.keyDown}
           onBlur={this.submit}
+          // onBlur={() => input.onBlur(input.value)}
           loading={loading}
           {...rest}
         />
@@ -103,4 +137,8 @@ class RenderField extends Component {
   }
 }
 
-export default RenderField;
+export default connect(null, {
+  showProjectWithId,
+  showProjectEpic,
+  showSortedProjects
+})(RenderField);

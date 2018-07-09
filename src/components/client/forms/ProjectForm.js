@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, submit, change } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required } from "../../../helpers/validate";
+import { required, maxLength30 } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import InputField from "../../forms/renders/InputField";
 import RenderImage from "../../forms/renders/RenderImage";
@@ -84,7 +84,7 @@ class ProjectForm extends Component {
                 name="name"
                 label="Project name"
                 placeholder="Type you project name here"
-                validate={[required]}
+                validate={[required, maxLength30]}
                 isRequired
               />
 

@@ -57,8 +57,9 @@ class RenderText extends Component {
   submit = e => {
     const {
       onSelfSubmit,
+      input,
       input: { name, value },
-      meta: { dispatch, form },
+      meta: { dispatch, form, error },
       projectId,
       updateProject,
       updateProjects,
@@ -69,35 +70,38 @@ class RenderText extends Component {
 
     this.setState({ loading: true });
 
-    onSelfSubmit(name, value)
-      .then(resp => {
-        const { data } = resp;
-        if (data.state && typeof data.state === "number") {
-          data.state = taskStatuses.find(
-            status => status.enum === data.state
-          ).value;
-        }
-        this.setState({ loading: false, updError: false, editing: false });
-        dispatch(change(form, name, data[name]));
+    input.onBlur(input.value);
 
-        if (updateProject && projectId) {
-          this.props.showProjectWithId(projectId);
-        }
+    !error &&
+      onSelfSubmit(name, value)
+        .then(resp => {
+          const { data } = resp;
+          if (data.state && typeof data.state === "number") {
+            data.state = taskStatuses.find(
+              status => status.enum === data.state
+            ).value;
+          }
+          this.setState({ loading: false, updError: false, editing: false });
+          dispatch(change(form, name, data[name]));
 
-        if (updateEpic && projectId && epicId) {
-          this.props.showProjectEpic(projectId, epicId);
-        }
+          if (updateProject && projectId) {
+            this.props.showProjectWithId(projectId);
+          }
 
-        if (updateProjects) {
-          const userType = getUserType();
-          if (userType === CLIENT) showSortedProjects("customers");
-          else if (userType === SPECIALIST) showSortedProjects("specialists");
-        }
-      })
-      .catch(error => {
-        console.error(error);
-        this.setState({ loading: false, updError: true });
-      });
+          if (updateEpic && projectId && epicId) {
+            this.props.showProjectEpic(projectId, epicId);
+          }
+
+          if (updateProjects) {
+            const userType = getUserType();
+            if (userType === CLIENT) showSortedProjects("customers");
+            else if (userType === SPECIALIST) showSortedProjects("specialists");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({ loading: false, updError: true });
+        });
   };
 
   render() {

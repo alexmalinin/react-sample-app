@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { reduxForm, change, Form, Field } from "redux-form";
 import StyledProject from "../../styleComponents/StyledProject";
 import { Grid } from "semantic-ui-react";
+import { required, maxLength30 } from "../../helpers/validate";
 import {
   getProjectTypes,
   getSkills,
@@ -20,6 +21,7 @@ import {
   renameObjPropNames
 } from "../../helpers/functions";
 import RenderFile from "./renders/RenderFile";
+import RenderField from "./renders//RenderField";
 import Axios from "axios";
 import AssignTeamDropdown from "../layout/AssignTeamDropdown";
 import MembersDropdown from "../layout/dropdowns/MembersDropdown";
@@ -256,9 +258,10 @@ class EditProjectForm extends Component {
                     name="name"
                     label="Name"
                     disabled={!hasPermission}
-                    component={RenderText}
+                    component={RenderField}
                     onSelfSubmit={this.handleSubmit}
                     projectId={projectId}
+                    validate={[maxLength30]}
                     updateProject
                     updateProjects
                     placeholder={
@@ -267,8 +270,8 @@ class EditProjectForm extends Component {
                         : "No project name"
                     }
                     className="transparent"
-                    autoHeight
-                    unhiddable
+                    // autoHeight
+                    // unhiddable
                   />
 
                   <Field
