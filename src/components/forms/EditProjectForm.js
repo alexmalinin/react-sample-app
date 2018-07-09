@@ -368,15 +368,15 @@ class EditProjectForm extends Component {
                           loading={submitting}
                           role="button"
                           className="clear dv-blue"
-                          onClick={() =>
+                          onClick={() => {
                             this.props.dispatch(
                               change(
                                 "EditProjectForm",
                                 "state",
                                 "brief_submissions"
                               )
-                            )
-                          }
+                            );
+                          }}
                         >
                           Publish
                         </DvBlueButton>

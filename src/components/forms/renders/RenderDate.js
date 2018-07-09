@@ -12,9 +12,26 @@ class RenderDate extends React.Component {
   state = {
     date: moment(this.props.initData, "YYYY-MM-DD").isValid()
       ? moment(this.props.initData)
-      : // : moment()
-        null
+      : null,
+    fetchDate: true
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.epicId !== nextProps.epicId) {
+      this.setState({
+        fetchDate: true
+      });
+    }
+
+    if (nextProps.initData && this.state.fetchDate) {
+      this.setState({
+        date: moment(nextProps.initData, "YYYY-MM-DD").isValid()
+          ? moment(nextProps.initData)
+          : null,
+        fetchDate: false
+      });
+    }
+  }
 
   handleChange = date => {
     if (date && date._isAMomentObject) {

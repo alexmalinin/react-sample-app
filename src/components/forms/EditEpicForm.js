@@ -48,6 +48,7 @@ class EditEpicForm extends Component {
               className="estimate inline-in-module"
               validate={[date]}
               initData={eta}
+              epicId={epicId}
               handleEtaForm={this.props.handleEtaForm}
               disabled={!hasPermission}
             />
