@@ -23,8 +23,8 @@ import { CUSTOMER, S_REDGUY } from "../../constants/user";
 class EditEpicForm extends Component {
   render() {
     const {
-      submitting,
       projectId,
+      epicId,
       epicName,
       handleSubmit,
       eta,
@@ -101,6 +101,9 @@ class EditEpicForm extends Component {
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
             validate={[required, minLength2, maxLength80]}
+            projectId={projectId}
+            epicId={epicId}
+            updateEpic
             autoHeight
             isRequired
           />
@@ -135,7 +138,7 @@ class EditEpicForm extends Component {
           />
 
           <Field
-            name="criteria"
+            name="deliverables"
             component={RenderText}
             label="Acceptance criteria"
             placeholder={
@@ -151,9 +154,9 @@ class EditEpicForm extends Component {
           />
 
           <Field
-            name="requirements"
+            name="business_requirements"
             component={RenderText}
-            label="Business Requirements"
+            label="Business requirements"
             placeholder={
               hasPermission
                 ? "Type your business requirements here"
@@ -167,25 +170,9 @@ class EditEpicForm extends Component {
           />
 
           <Field
-            name="solution"
+            name="business_rules"
             component={RenderText}
-            label="Solution design"
-            placeholder={
-              hasPermission
-                ? "Type your solution design here"
-                : "No solution design"
-            }
-            className="transparent"
-            disabled={!hasPermission}
-            onSelfSubmit={handleSubmit}
-            autoHeight
-            large
-          />
-
-          <Field
-            name="rules"
-            component={RenderText}
-            label="Business Rules"
+            label="Business rules"
             placeholder={
               hasPermission
                 ? "Type your business rules here"
@@ -195,6 +182,22 @@ class EditEpicForm extends Component {
             disabled={!hasPermission}
             onSelfSubmit={handleSubmit}
             autoHeight
+          />
+
+          <Field
+            name="notes"
+            component={RenderText}
+            className="transparent"
+            placeholder={
+              hasPermission
+                ? "Type your solution design here"
+                : "No solution design"
+            }
+            label="Solution design"
+            disabled={!hasPermission}
+            onSelfSubmit={handleSubmit}
+            autoHeight
+            large
           />
         </section>
       </div>

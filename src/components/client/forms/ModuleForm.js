@@ -68,40 +68,38 @@ class ModuleForm extends Component {
           <Field
             name="user_story"
             component={RenderTextArea}
-            label="User Story"
+            label="User story"
             placeholder="Type your user Story here"
             large
           />
 
           <Field
-            name="criteria"
+            name="deliverables"
             component={RenderTextArea}
             label="Acceptance criteria"
             placeholder="Type your acceptance criteria here"
-            large
           />
 
           <Field
-            name="requirements"
+            name="business_requirements"
             component={RenderTextArea}
-            label="Business Requirements"
+            label="Business requirements"
             placeholder="Type your business requirements here"
             large
           />
 
           <Field
-            name="solution"
+            name="business_rules"
             component={RenderTextArea}
-            label="Solution design"
-            placeholder="Type your solution design here"
-            large
+            label="Business rules"
+            placeholder="Type your business rules here"
           />
 
           <Field
-            name="rules"
+            name="notes"
             component={RenderTextArea}
-            label="Business Rules"
-            placeholder="Type your business rules here"
+            label="Solution design"
+            placeholder="Type your solution design here"
           />
 
           <div className="controls">

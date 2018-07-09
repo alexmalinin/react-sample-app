@@ -1205,11 +1205,11 @@ export function createProjectEpic(data, project) {
           name: data["name"],
           project_id: project,
           user_story: data["user_story"],
-          business_requirements: data["requirements"],
-          business_rules: data["rules"],
-          deliverables: data["criteria"],
+          business_requirements: data["business_requirements"],
+          business_rules: data["business_rules"],
+          deliverables: data["deliverables"],
           description: data["description"],
-          notes: data["solution"],
+          notes: data["notes"],
           eta: data["eta"],
           attached_files_attributes: files
         }

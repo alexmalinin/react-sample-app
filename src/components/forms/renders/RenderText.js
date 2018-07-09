@@ -9,6 +9,7 @@ import { TextArea } from "react-semantic-redux-form/dist";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import {
   showProjectWithId,
+  showProjectEpic,
   showSortedProjects
 } from "../../../actions/actions";
 import { getUserType } from "../../../helpers/functions";
@@ -59,8 +60,11 @@ class RenderText extends Component {
       input: { name, value },
       meta: { dispatch, form },
       projectId,
+      updateProject,
       updateProjects,
-      showSortedProjects
+      showSortedProjects,
+      epicId,
+      updateEpic
     } = this.props;
 
     this.setState({ loading: true });
@@ -76,8 +80,12 @@ class RenderText extends Component {
         this.setState({ loading: false, updError: false, editing: false });
         dispatch(change(form, name, data[name]));
 
-        if (projectId) {
+        if (updateProject && projectId) {
           this.props.showProjectWithId(projectId);
+        }
+
+        if (updateEpic && projectId && epicId) {
+          this.props.showProjectEpic(projectId, epicId);
         }
 
         if (updateProjects) {
@@ -144,6 +152,7 @@ class RenderText extends Component {
 
 export default connect(null, {
   showProjectWithId,
+  showProjectEpic,
   showSortedProjects
 })(RenderText);
 

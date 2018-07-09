@@ -76,7 +76,7 @@ export default styled.div`
 
       span {
         color: ${fontColors.black};
-        width: 120px;
+        width: 130px;
       }
 
       i {

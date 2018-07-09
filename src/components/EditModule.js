@@ -24,6 +24,20 @@ class EditModule extends Component {
     run(0)();
   }
 
+  componentDidMount() {
+    const { projectId, epicId } = this.props;
+
+    if (projectId && epicId) {
+      this.updateEpic(+projectId, +epicId);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (+this.props.currentEpic !== +nextProps.currentEpic) {
+      this.updateEpic(nextProps.projectId, nextProps.epicId);
+    }
+  }
+
   clearFileds = () => {
     this.props.dispatch(reset("EditModuleForm"));
   };
@@ -34,17 +48,23 @@ class EditModule extends Component {
   };
 
   handleSubmit = (name, value) => {
-    const { projectId, currentEpic } = this.props;
+    const { projectId, epicId } = this.props;
 
     return Axios({
       method: "PUT",
-      url: `${PORT}/api/v1/projects/${projectId}/epics/${currentEpic}`,
+      url: `${PORT}/api/v1/projects/${projectId}/epics/${epicId}`,
       data: {
         epic: {
           [name]: value
         }
       }
     });
+  };
+
+  updateEpic = (project, epic) => {
+    const { showProjectEpic } = this.props;
+
+    showProjectEpic(project, epic);
   };
 
   deleteEpic = () => {
@@ -68,6 +88,7 @@ class EditModule extends Component {
       handleSubmit,
       submitting,
       projectId,
+      epicId,
       epicName,
       eta,
       costs
@@ -78,6 +99,7 @@ class EditModule extends Component {
         <form onSubmit={handleSubmit}>
           <EditEpicForm
             projectId={projectId}
+            epicId={epicId}
             epicName={epicName}
             submitting={submitting}
             handleSubmit={this.handleSubmit}
@@ -85,6 +107,7 @@ class EditModule extends Component {
             deleteEpic={this.deleteEpic}
             handleEtaForm={this.handleEtaForm}
             eta={eta}
+            updateEpic={this.updateEpic}
           />
         </form>
       </StyledEpicPage>
@@ -102,6 +125,7 @@ EditModule = reduxForm({
 
 const mapStateToProps = (state, ownProps) => {
   const {
+    showEpic,
     allEpics: { epics }
   } = state;
   const { currentEpic } = ownProps;
@@ -111,10 +135,10 @@ const mapStateToProps = (state, ownProps) => {
     projectId: ownProps.projectId,
     currentEpic: ownProps.currentEpic,
     epicId: epic && epic.id,
-    epicName: epic && epic.name,
-    eta: epic && epic.eta,
-    costs: epic && epic.cost,
-    initialValues: epic
+    epicName: (showEpic && showEpic.name) || (epic && epic.name),
+    eta: showEpic && showEpic.eta,
+    costs: showEpic && showEpic.cost,
+    initialValues: showEpic || epic
   };
 };
 

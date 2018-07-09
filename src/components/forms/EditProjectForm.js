@@ -259,6 +259,7 @@ class EditProjectForm extends Component {
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
                     projectId={projectId}
+                    updateProject
                     updateProjects
                     placeholder={
                       hasPermission
