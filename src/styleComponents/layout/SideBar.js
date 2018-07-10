@@ -149,11 +149,16 @@ export const StyledBar = styled.aside`
       }
 
       .add-project-label {
+        padding: 8px;
         color: ${fontColors.light};
-        text-transform: uppercase;
-        font-size: 12px;
-        font-weight: 600;
+        /* text-transform: uppercase; */
+        font-size: 18px;
+        font-weight: 500;
         line-height: normal;
+
+        &:hover {
+          color: ${fontColors.black};
+        }
       }
 
       &.with-epics::after {
