@@ -71,9 +71,9 @@ export const Container = styled.div`
 
   .preloader {
     position: absolute;
-    top: 50%;
+    top: 500px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     opacity: 0;
     visibility: hidden;
   }

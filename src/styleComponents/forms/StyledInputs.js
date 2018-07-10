@@ -304,7 +304,7 @@ export default styled.div`
 
     .ui.input {
       input {
-        margin-bottom: 15px;
+        /* margin-bottom: 15px; */
         overflow: hidden;
         resize: none;
         min-height: auto;

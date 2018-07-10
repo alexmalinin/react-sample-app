@@ -149,10 +149,6 @@ export const StyledBar = styled.aside`
       }
 
       .add-project-label {
-        position: absolute;
-        top: 100%;
-        max-width: 70px;
-
         color: ${fontColors.light};
         text-transform: uppercase;
         font-size: 12px;
