@@ -44,6 +44,7 @@ class EditModule extends Component {
 
   handleSubmit = (name, value) => {
     const { projectId, epicId } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     return Axios({
       method: "PUT",
@@ -52,6 +53,10 @@ class EditModule extends Component {
         epic: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
