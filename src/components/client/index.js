@@ -76,7 +76,7 @@ class ClientDashboard extends Component {
           headers: {
             Authorization: `Bearer ${token}`
           }
-        }).catch(error => this.props.history.push("/sign_in"));
+        });
       }
     }
   }
@@ -257,7 +257,7 @@ class ClientDashboard extends Component {
     } else page = "root";
 
     let sidebarCondition =
-      page !== "info" && page !== "company" && page !== "billing";
+      page !== "info" && page !== "company" && page !== "billings";
 
     return (
       <div>
@@ -329,7 +329,7 @@ class ClientDashboard extends Component {
             collectCompanyData={this.collectCompanyData}
           />
         );
-      case "billing":
+      case "billings":
         document.title = "Billing | Digital Village";
         return (
           <ClientBilling
@@ -350,14 +350,7 @@ class ClientDashboard extends Component {
         document.title = "Add Module | Digital Village";
         return <ClientModule projectId={params["projectNewModule"]} />;
       case "board":
-        return (
-          <ProjectsBoard
-            projectId={params["projectId"]}
-            currentEpic={params["moduleId"] || "all"}
-            status={params["status"]}
-            history={history}
-          />
-        );
+        return <ProjectsBoard />;
       case "teams":
         document.title = "Teams | Digital Village";
         return <Teams teams={clientTeams} />;
@@ -392,31 +385,17 @@ class ClientDashboard extends Component {
       ) {
         this.calculatePercents();
       }
-
-      // if (this.state.showRelog && getUserRole() !== nextProps.clientData.role) {
-      //   createNotification({
-      //     type: "info",
-      //     text: "Your role has been changed. Please relog"
-      //   });
-      //   this.setState({ showRelog: false });
-      // }
     }
 
-    let projectId =
-      nextProps.match.params["projectId"] ||
-      nextProps.match.params["projectNewModule"];
+    const prevProjectId = this.props.match.params.projectId;
+    const projectId = nextProps.match.params.projectId;
 
-    if (projectId && projectId !== "new" && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id !== +projectId) {
-        console.log("dsw");
-
+    if (projectId && projectId !== "new" && prevProjectId) {
+      if (projectId !== prevProjectId) {
         nextProps.showProjectWithId(projectId);
-        nextProps.showAllEpics(projectId);
         nextProps.showProjectTeam(projectId);
+        nextProps.showAllEpics(projectId);
       }
-    } else if (projectId && projectId !== "new") {
-      console.log("dsw2");
-      nextProps.showProjectWithId(projectId);
     }
   }
 }

@@ -48,8 +48,13 @@ class Teams extends Component {
         name ? `${name} team?` : "this team?"
       }`,
       callback: () => {
-        axios
-          .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
+        axios({
+          method: "DELETE",
+          url: `${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+          }
+        })
           .then(res => {
             let name = res.data.name;
 

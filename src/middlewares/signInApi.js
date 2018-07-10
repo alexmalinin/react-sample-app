@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import { SUCCESS, FAIL } from "../constants/constants";
 
 export default store => next => action => {
@@ -22,12 +23,14 @@ export default store => next => action => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then(response => {
-      localStorage.setItem("jwt_token", response.data.access_token);
+    .then(({ data }) => {
+      localStorage.setItem("jwt_token", data.access_token);
+      data.status = jwtDecode(data.access_token).status;
+
       return next({
         ...rest,
         type: type + SUCCESS,
-        data: response.data,
+        data: data,
         firstLogin: firstLogin
       });
     })

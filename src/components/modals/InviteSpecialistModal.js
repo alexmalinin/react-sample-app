@@ -23,6 +23,7 @@ class InviteSpecialistModal extends Component {
 
   submit = ({ project, team }) => {
     const { specialistId, specialistProjects } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     this.close();
 
@@ -35,7 +36,10 @@ class InviteSpecialistModal extends Component {
 
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`
+        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
         .then(response => {
           createNotification({
@@ -60,7 +64,10 @@ class InviteSpecialistModal extends Component {
     if (team) {
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`
+        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
         .then(response => {
           createNotification({

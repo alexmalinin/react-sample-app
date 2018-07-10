@@ -75,7 +75,7 @@ class ProjectSubHeader extends Component {
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
-      fade: moduleId === "all" || !loaded
+      fade: !moduleId || !loaded
     });
 
     return (

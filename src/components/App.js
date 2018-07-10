@@ -53,7 +53,7 @@ class App extends Component {
                 exact
                 path="/"
                 render={() =>
-                  token && passive ? (
+                  token ? (
                     <Redirect to="/dashboard/" />
                   ) : (
                     <Redirect to="/sign_in" />

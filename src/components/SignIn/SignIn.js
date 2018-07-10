@@ -16,6 +16,7 @@ import { S_PASSIVE } from "../../constants/user";
 
 class SignUp extends Component {
   componentWillMount() {
+    document.title = "Sign In | Digital Village";
     this.userEmail = localStorage.getItem("user_email");
   }
 
@@ -92,6 +93,7 @@ class SignUp extends Component {
 
     let { isLogIn, data } = signInReducer;
     let status = data ? data["status"] : null;
+
     if (isLogIn) {
       if (status !== "logged") {
         return <Redirect to={`/profile/info`} />;

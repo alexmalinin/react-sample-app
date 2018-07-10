@@ -11,13 +11,17 @@ export default styled.div`
   margin-bottom: 80px;
 
   &.loading {
-    .preloader {
-      opacity: 1;
-      visibility: visible;
-    }
-    .ui.grid {
-      opacity: 0;
-    }
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .resp-error {
+    min-height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: ${fontColors.black};
   }
 
   .preloader {

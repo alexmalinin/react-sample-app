@@ -1,11 +1,13 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constants/constants";
+import { SUCCESS, FAIL } from "../constants/constants";
 import { renameObjPropNames } from "../helpers/functions";
 
 export default store => next => action => {
   const { type, showProjectWithId, id, ...rest } = action;
   if (!showProjectWithId) return next(action);
+
+  next({ ...rest, type });
 
   const token = localStorage.getItem("jwt_token");
 
@@ -17,7 +19,7 @@ export default store => next => action => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then(function(response) {
+    .then(response => {
       let data = response.data;
       data.skills.forEach(skill => {
         renameObjPropNames(skill, "id", "value");
@@ -26,7 +28,8 @@ export default store => next => action => {
       data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
-    .catch(function(error) {
-      console.log(error);
+    .catch(error => {
+      console.error(error);
+      return next({ ...rest, type: type + FAIL, data: error });
     });
 };

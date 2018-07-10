@@ -8,14 +8,15 @@ import {
   showAllEpics,
   showEpicTasks,
   showProjectTeam,
-  showProjectWithId
+  showProjectWithId,
+  showProjectEpic
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
-import { getUserRole, getUserType } from "../helpers/functions";
+import { getUserRole, getUserType, difference } from "../helpers/functions";
 import EditProject from "./forms/hoc/EditProject";
 import EditModule from "./EditModule";
 import { run } from "../helpers/scrollToElement";
@@ -56,12 +57,16 @@ class ProjectsBoard extends Component {
 
     if (loaded && currentEpic && Number.isInteger(+currentEpic) && projectId) {
       if (+currentEpic > epics.length) {
-        nextProps.history.push(`/dashboard/project/${projectId}/module/all`);
+        nextProps.history.push(
+          `/dashboard/project/${projectId}/module/${epics.length}/view`
+        );
       } else epicId = epics[currentEpic - 1].id;
     }
 
     if (nextProps.projectWithId) {
-      document.title = `${nextProps.projectWithId.name} | Digital Village`;
+      document.title = `${
+        nextProps.projectWithId.project.name
+      } | Digital Village`;
     }
 
     if (nextProps.deleteEpic) {
@@ -84,10 +89,12 @@ class ProjectsBoard extends Component {
     if (epicId) {
       if (this.props.epicTasks.loaded) {
         if (this.props.match.params.moduleId !== currentEpic) {
+          nextProps.showProjectEpic(projectId, epicId);
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
         nextProps.showEpicTasks(epicId);
+        nextProps.showProjectEpic(projectId, epicId);
         this.setState({ fetchEpicTasks: false });
       }
     }
@@ -119,7 +126,7 @@ class ProjectsBoard extends Component {
     this.setState({ myTasks: !this.state.myTasks });
   };
 
-  renderProjectbBoard() {
+  renderProjectBoard() {
     const {
       match: {
         params: { status }
@@ -201,17 +208,18 @@ class ProjectsBoard extends Component {
 
   renderModulePage = () => {
     const {
-      allEpics: { epics, loaded },
       match: {
         params: { moduleId, projectId }
       },
+      allEpics: { epics, loaded },
       history
     } = this.props;
+    //make edit module dependent on show epic
     return (
       loaded && (
         <EditModule
-          epicId={epics[moduleId - 1].id}
           currentEpic={moduleId}
+          epicId={epics[moduleId - 1].id}
           projectId={projectId}
           history={history}
         />
@@ -222,7 +230,7 @@ class ProjectsBoard extends Component {
   renderContent = status => {
     switch (status) {
       case "view":
-        return this.renderProjectbBoard();
+        return this.renderProjectBoard();
       case "edit":
         return this.renderModulePage();
       default:
@@ -252,6 +260,7 @@ class ProjectsBoard extends Component {
 
 const mapStateToProps = state => {
   return {
+    showEpic: state.showEpic,
     allEpics: state.allEpics,
     deleteEpic: state.deleteEpic,
     createEpic: state.createEpic,
@@ -267,6 +276,7 @@ export default withRouter(
   connect(mapStateToProps, {
     showAllProjects,
     showAllEpics,
+    showProjectEpic,
     showEpicTasks,
     showProjectTeam,
     showProjectWithId

@@ -14,18 +14,17 @@ import {
   getUserType,
   getUserRole
 } from "../../../helpers/functions";
-import {
-  CLIENT,
-  SPECIALIST,
-  S_REDGUY,
-  CUSTOMER
-} from "../../../constants/user";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../../../constants/user";
 import { run } from "../../../helpers/scrollToElement";
 
 class EditProject extends Component {
   componentDidMount() {
-    const { projectWithId, projectId, showAllEpics } = this.props;
-    if (!projectWithId) {
+    const {
+      projectWithId: { project, loaded, loading },
+      projectId,
+      showAllEpics
+    } = this.props;
+    if (!loaded) {
       this.projectUpdate(projectId);
       showAllEpics(projectId);
     }
@@ -34,7 +33,11 @@ class EditProject extends Component {
   //move all async to one file
 
   submit = values => {
-    const { projectId, projectWithId, showSortedProjects } = this.props;
+    const {
+      projectId,
+      projectWithId: { project },
+      showSortedProjects
+    } = this.props;
 
     values.project_id = projectId;
     let skill_ids =
@@ -81,7 +84,7 @@ class EditProject extends Component {
           attached_files_attributes: files,
           skill_ids
         },
-        review: projectWithId.state === "reviewed_by_admin"
+        review: project.state === "reviewed_by_admin"
         // attached_files_attributes: files,
       }
     })
@@ -118,6 +121,9 @@ class EditProject extends Component {
       url: `${PORT}/api/v1/teams/${id}/invite_team_members`,
       data: {
         project_id: projectId
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(() => {

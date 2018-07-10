@@ -23,6 +23,6 @@ export default store => next => action => {
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 };

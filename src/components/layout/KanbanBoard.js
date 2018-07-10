@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import Board from "react-trello";
 import ClassNames from "classnames";
+import Axios from "axios";
 
 import CustomCard from "./CustomTaskCard";
 import EditTaskModal from "../modals/EditTaskModal";
@@ -12,18 +13,15 @@ import {
   updateEpicTask,
   deleteEpicTask,
   assignSpecialistToTask,
-  removeSpecialistFromTask,
-  showAllEpics
+  removeSpecialistFromTask
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
-import { getUserRole } from "../../helpers/functions";
+import { getUserRole, difference } from "../../helpers/functions";
+import { PORT } from "../../constants/constants";
 
 class KanbanBoard extends PureComponent {
   state = {
-    backlogTasks: [],
-    progressTasks: [],
-    completedTasks: [],
-    acceptedTasks: [],
+    tasks: [],
     showBoard: false,
     editingTask: {},
     currentProjectTeam: [],
@@ -33,13 +31,11 @@ class KanbanBoard extends PureComponent {
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     const {
       updateEpicTask,
-      allEpics: { epics },
-      match: {
-        params: { moduleId }
-      }
+      showEpicTasks,
+      showEpic: { epic }
     } = this.props;
 
-    updateEpicTask({ state: +targetLaneId }, epics[moduleId - 1].id, cardId);
+    updateEpicTask({ state: +targetLaneId }, epic.id, cardId);
   };
 
   assignSpecialist = (task, specialist) => {
@@ -97,23 +93,20 @@ class KanbanBoard extends PureComponent {
       match: {
         params: { moduleId }
       },
-      allEpics: { epics },
+      showEpic: { epic },
       showEpicTasks
     } = this.props;
-    showEpicTasks(epics[+moduleId - 1].id);
+    showEpicTasks(epic.id);
   };
 
   render() {
     const {
-      match: {
-        params: { moduleId }
-      },
       epicTasks: { tasks, loading, loaded, error },
-      allEpics: { epics },
+      showEpic: { epic },
       specialists
     } = this.props;
 
-    const { editingTask, currentProjectTeam } = this.state;
+    const { editingTask } = this.state;
 
     const kanbanClass = ClassNames("kanban", {
       show: loaded,
@@ -173,7 +166,7 @@ class KanbanBoard extends PureComponent {
           <EditTaskModal
             ref={modal => (this.modal = modal)}
             close={this.closeModal}
-            epic={epics[moduleId - 1]}
+            epic={epic}
             epicTask={editingTask}
             currentProjectTeam={specialists}
             assignSpecialist={this.assignSpecialist}
@@ -186,7 +179,8 @@ class KanbanBoard extends PureComponent {
 
 const mapStateToProps = state => {
   return {
-    allEpics: state.allEpics,
+    // allEpics: state.allEpics,
+    showEpic: state.showEpic,
     createTask: state.createTask,
     epicTasks: state.epicTasks
     // projectTeam: state.projectTeam
@@ -199,7 +193,6 @@ export default withRouter(
     updateEpicTask,
     deleteEpicTask,
     assignSpecialistToTask,
-    removeSpecialistFromTask,
-    showAllEpics
+    removeSpecialistFromTask
   })(KanbanBoard)
 );

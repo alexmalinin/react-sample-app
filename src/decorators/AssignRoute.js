@@ -5,18 +5,19 @@ import { PORT } from "../constants/constants";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwt_token");
-
-  if (!token) {
-    return false;
-  }
+  if (!token) return false;
 
   return true;
 };
 
 const handleRequset = (props, path) => {
+  const token = localStorage.getItem("jwt_token");
   return axios({
     method: "PUT",
-    url: PORT + props.match.url
+    url: PORT + props.match.url,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(res => {
       return true;

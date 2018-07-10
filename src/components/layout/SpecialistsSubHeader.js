@@ -54,6 +54,7 @@ class SubHeader extends Component {
               key={key}
               url={`/profile/${url}${isEditing ? "?edit" : ""}`}
               label={label}
+              noExact
             >
               {key + 1}
               <ProgressBars percents={percents} />

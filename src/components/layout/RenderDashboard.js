@@ -63,8 +63,13 @@ class RenderDashboard extends Component {
       user = "specialists";
     }
 
-    await axios
-      .get(`${PORT}/api/v1/${user}/${id}/dashboard`)
+    await axios({
+      method: "GET",
+      url: `${PORT}/api/v1/${user}/${id}/dashboard`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
+    })
       .then(response => {
         this.setState({
           summary: response.data
@@ -154,11 +159,7 @@ class RenderDashboard extends Component {
           assignProjectName={this.assignProjectName}
         />
 
-        <RenderProjectCards
-          projects={projects}
-          history={history}
-          summary={this.state.summary}
-        />
+        <RenderProjectCards projects={projects} summary={this.state.summary} />
 
         {/* <div className="projects">
           {projects && (

@@ -36,19 +36,19 @@ class NewTaskForm extends Component {
     const {
       project,
       epic,
-      projectWithId,
+      projectWithId: { project: projectData, loaded },
       allEpics,
       specialistProjects
     } = this.props;
 
-    if (project && epic && epic !== "all" && projectWithId && allEpics.loaded) {
+    if (project && epic && epic !== "all" && loaded && allEpics.loaded) {
       this.props.dispatch(
         change("CreateTaskForm", "project", {
-          value: projectWithId.id,
-          label: projectWithId.name
+          value: projectData.id,
+          label: projectData.name
         })
       );
-      this.selectProject(projectWithId);
+      this.selectProject(projectData);
       this.props.dispatch(
         change("CreateTaskForm", "epic", {
           value: allEpics.epics[epic - 1].id,

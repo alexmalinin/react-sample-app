@@ -7,35 +7,14 @@ export default store => next => action => {
 
   const token = localStorage.getItem("jwt_token");
 
-  // Client
-
-  if (user === "customer") {
-    return axios({
-      method: "get",
-      url: userConfirmationToken,
-
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+  return axios({
+    method: "get",
+    url: userConfirmationToken
+  })
+    .then(function(response) {
+      return next({ ...rest, type: type + SUCCESS, id: response.data["id"] });
     })
-      .then(function(response) {
-        return next({ ...rest, type: type + SUCCESS, id: response.data["id"] });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-    // Specialists
-  } else {
-    return axios({
-      method: "get",
-      url: userConfirmationToken
-    })
-      .then(function(response) {
-        return next({ ...rest, type: type + SUCCESS, id: response.data["id"] });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
+    .catch(function(error) {
+      console.log(error);
+    });
 };

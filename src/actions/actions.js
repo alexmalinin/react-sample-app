@@ -69,7 +69,7 @@ export function postSignUpData(user, data) {
     type: types.SIGN_UP_STEP_1,
     user,
     payload: data,
-    signUp: `${PORT}/api/v1/${user}`
+    signUp: `${PORT}/api/v1/${user}/auth/register`
   };
 
   return action;
@@ -137,7 +137,7 @@ export function verifyPassword(user, id, data) {
     type: types.VERIFICATION,
     user,
     payload: data,
-    verification: `${PORT}/api/v1/${user}/${id}`
+    verification: `${PORT}/api/v1/${user}s/${id}`
   };
 
   return action;
@@ -333,7 +333,7 @@ export function updateSpecStep1(data) {
       .then(() => {
         createNotification({
           type: "success",
-          text: "Form updated"
+          text: "Changes was saved"
         });
       })
       .catch(error => {
@@ -397,7 +397,7 @@ export function updateSpecStep2(data) {
       .then(() => {
         createNotification({
           type: "success",
-          text: "Form updated"
+          text: "Changes was saved"
         });
       })
       .catch(error => {
@@ -462,7 +462,7 @@ export function updateSpecialistBillings(data) {
       .then(() => {
         createNotification({
           type: "success",
-          text: "Form updated"
+          text: "Changes was saved"
         });
       })
       .catch(error => {
@@ -597,7 +597,7 @@ export function updateSpecialistProfile(data, education, experience) {
           .then(() => {
             createNotification({
               type: "success",
-              text: "Form updated"
+              text: "Changes was saved"
             });
           })
           .catch(error => {
@@ -632,7 +632,7 @@ export function updateSpecialistProfile(data, education, experience) {
         .then(() => {
           createNotification({
             type: "success",
-            text: "Form updated"
+            text: "Changes was saved"
           });
         })
         .catch(error => {
@@ -800,7 +800,7 @@ export function updateClientProfile(data) {
           .then(() => {
             createNotification({
               type: "success",
-              text: "Form updated"
+              text: "Changes was saved"
             });
           })
           .catch(error => {
@@ -835,7 +835,7 @@ export function updateClientProfile(data) {
         .then(() => {
           createNotification({
             type: "success",
-            text: "Form updated"
+            text: "Changes was saved"
           });
         })
         .catch(error => {
@@ -903,7 +903,7 @@ export function updateClientCompany(payload) {
       .then(({ name }) => {
         createNotification({
           type: "success",
-          text: "Form updated"
+          text: "Changes was saved"
         });
       })
       .catch(error => {
@@ -968,7 +968,7 @@ export function updateClientBilling(data) {
       .then(() => {
         createNotification({
           type: "success",
-          text: "Form updated"
+          text: "Changes was saved"
         });
       })
       .catch(error => {
@@ -1618,10 +1618,10 @@ export function assignSpecialistToTeam(project, team, data) {
 
 // Remove specialist from team
 
-export function removeSpecialistFromTeam(project, team, specialist) {
+export function removeSpecialistFromTeam(team, specialist) {
   const action = {
     type: types.REMOVE_SPECIALIST_FROM_TEAM,
-    removeSpecialistFromTeam: `${PORT}/api/v1/projects/${project}/teams/${team}/remove/${specialist}`
+    removeSpecialistFromTeam: `${PORT}/api/v1/teams/${team}/remove/${specialist}`
   };
 
   return action;
