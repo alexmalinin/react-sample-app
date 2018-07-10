@@ -67,6 +67,7 @@ class EditProjectForm extends Component {
 
   handleSubmit = (name, value) => {
     const { projectId } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     return Axios({
       method: "PUT",
@@ -75,6 +76,10 @@ class EditProjectForm extends Component {
         project: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
