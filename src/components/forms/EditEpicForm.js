@@ -22,13 +22,18 @@ export default ({
   handleEtaForm,
   eta,
   deleteEpic,
+<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
   cost
+=======
+  costs
+>>>>>>> [Refactor] JWT refactor to new api
 }) => {
   const hasPermission = oneOfRoles(CUSTOMER, S_REDGUY);
   return (
     <div className="module">
       <section className="module-aside">
         <div className="module-info">
+<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
           <Field
             name="eta"
             component={RenderDate}
@@ -62,9 +67,24 @@ export default ({
             onSelfSubmit={handleSubmit}
             disabled={!hasPermission}
             dropzone
+=======
+          <Field
+            name="eta"
+            component={RenderDate}
+            type="date"
+            label="ETA:"
+            placeholder="Due date"
+            className="estimate inline-in-module"
+            validate={[date]}
+            initData={eta}
+            epicId={epicId}
+            handleEtaForm={handleEtaForm}
+            disabled={!hasPermission}
+>>>>>>> [Refactor] JWT refactor to new api
           />
         </div>
 
+<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
         {hasPermission && (
           <div className="controls">
             <DvButtonRed
@@ -117,6 +137,79 @@ export default ({
           isRequired
         />
 
+=======
+          <div className="module-costs">
+            <label>Total costs:</label>
+            <span>
+              <i className="fas fa-dollar-sign" /> {formatCurrency(costs)}
+            </span>
+          </div>
+        </div>
+
+        <div className="module-info">
+          <div className="label">Attached files:</div>
+          <Field
+            name="attached_files"
+            type="file"
+            component={RenderFile}
+            onSelfSubmit={handleSubmit}
+            disabled={!hasPermission}
+            dropzone
+          />
+        </div>
+
+        {hasPermission && (
+          <div className="controls">
+            <DvButtonRed
+              type="button"
+              className="dv-red"
+              onClick={() => deleteEpic()}
+            >
+              Delete module
+            </DvButtonRed>
+          </div>
+        )}
+      </section>
+
+      <section className="module-main">
+        <div className="module-title">
+          {epicName ? epicName : "Edit module"}
+        </div>
+
+        <Field
+          name="name"
+          component={RenderText}
+          label="Module name"
+          placeholder={
+            hasPermission ? "Type your module name here" : "No module name"
+          }
+          className="transparent"
+          disabled={!hasPermission}
+          onSelfSubmit={handleSubmit}
+          validate={[required, minLength2, maxLength80]}
+          projectId={projectId}
+          epicId={epicId}
+          updateEpic
+          autoHeight
+          isRequired
+        />
+
+        <Field
+          name="description"
+          component={RenderText}
+          label="Brief / Description"
+          placeholder={
+            hasPermission ? "Type your description here" : "No description"
+          }
+          className="transparent"
+          disabled={!hasPermission}
+          onSelfSubmit={handleSubmit}
+          validate={[required]}
+          autoHeight
+          isRequired
+        />
+
+>>>>>>> [Refactor] JWT refactor to new api
         <Field
           name="user_story"
           component={RenderText}

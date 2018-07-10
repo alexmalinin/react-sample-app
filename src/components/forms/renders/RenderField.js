@@ -97,9 +97,15 @@ class RenderField extends Component {
       pattern,
       isRequired,
       step,
+<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
       autoComplete,
       onSelfSubmit,
       className
+=======
+      autoComplete
+      //to prevent warning => they r in ...rest
+      //not sure to use connect on render field => may b should use callbacks
+>>>>>>> [Refactor] JWT refactor to new api
     } = this.props;
 
     const { loading, updError } = this.state;
