@@ -47,6 +47,9 @@ class EditTaskForm extends Component {
       epicTask: { id, epic_id }
     } = this.props;
     this.props.setUpdated();
+
+    const token = localStorage.getItem("jwt_token");
+
     return axios({
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}`,
@@ -54,6 +57,10 @@ class EditTaskForm extends Component {
         task: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
@@ -64,18 +71,28 @@ class EditTaskForm extends Component {
     } = this.props;
     let payload = {};
 
+    const token = localStorage.getItem("jwt_token");
+
     if (type === "assign") {
       payload = {
         method: "PUT",
         url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/assign`,
         data: {
           specialist_id
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       };
     } else
       payload = {
         method: "DELETE",
-        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`
+        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`,
+
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
 
     this.props.setUpdated();
@@ -90,6 +107,7 @@ class EditTaskForm extends Component {
   };
 
   handleCost = specId => {
+    const token = localStorage.getItem("jwt_token");
     const {
       epicTask: { id, epic_id },
       epic: { project_id },
@@ -103,6 +121,10 @@ class EditTaskForm extends Component {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
           project_id
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(resp => {

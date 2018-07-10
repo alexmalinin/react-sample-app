@@ -107,7 +107,7 @@ class RenderField extends Component {
     const customClassName = !error ? checkedClass : "";
 
     return (
-      <StyledInputs className={this.props.className} padded={padded}>
+      <StyledInputs className={className} padded={padded}>
         <label htmlFor={name}>
           {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
         </label>

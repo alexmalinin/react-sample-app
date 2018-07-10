@@ -13,11 +13,11 @@ export default store => next => action => {
   if (!editExperienceCard1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: editExperienceCard1 + id + editExperienceCard2,
+    url: editExperienceCard1 + user_id + editExperienceCard2,
     data: {
       work_experience: {
         name: payload["name"],

@@ -12,11 +12,11 @@ export default store => next => action => {
   if (!deleteExperienceCard1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "delete",
-    url: deleteExperienceCard1 + id + deleteExperienceCard2,
+    url: deleteExperienceCard1 + user_id + deleteExperienceCard2,
     headers: {
       Authorization: `Bearer ${token}`
     }

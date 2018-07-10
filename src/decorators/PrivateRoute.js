@@ -3,7 +3,6 @@ import { Route, Redirect } from "react-router-dom";
 
 const checkAuth = () => {
   const token = localStorage.getItem("jwt_token");
-
   if (!token) {
     return false;
   }

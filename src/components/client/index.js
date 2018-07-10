@@ -62,16 +62,21 @@ class ClientDashboard extends Component {
 
     if (!this.props.specialistData) {
       let token = localStorage.getItem("jwt_token");
-      let id;
+      let user_id;
 
       if (token) {
-        id = jwtDecode(token).id;
+        user_id = jwtDecode(token).user_id;
       }
 
-      if (id) {
-        axios
-          .get(`${PORT}/api/v1/customers/${id}`)
-          .catch(error => this.props.history.push("/sign_in"));
+      if (user_id) {
+        axios({
+          method: "GET",
+          url: `${PORT}/api/v1/customers/${user_id}`,
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).catch(error => this.props.history.push("/sign_in"));
       }
     }
   }

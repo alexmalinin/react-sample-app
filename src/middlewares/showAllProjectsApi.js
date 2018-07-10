@@ -6,12 +6,16 @@ export default store => next => action => {
   const { type, showAllProjects, ...rest } = action;
   if (!showAllProjects) return next(action);
 
-  let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
+  const { user_id } = jwtDecode(token);
 
   axios({
     method: "get",
-    url: showAllProjects + id
+    url: showAllProjects + user_id,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

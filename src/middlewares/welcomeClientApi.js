@@ -7,23 +7,24 @@ export default store => next => action => {
   if (!welcomeClient) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: welcomeClient + id,
+    url: welcomeClient + user_id,
     data: {
       customer: {
         we_are: `${payload["we_are"]["label"]}`,
         address_attributes: {
           country: `${payload["country"]}`,
           city: `${payload["city"]}`,
-          user_id: id
+          user_id
         },
         industry: `${payload["industry"]}`,
         description: `${payload["description"]}`
       }
     },
+
     headers: {
       Authorization: `Bearer ${token}`
     }

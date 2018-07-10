@@ -7,6 +7,8 @@ export default store => next => action => {
 
   // Client
 
+  const token = localStorage.getItem("jwt_token");
+
   if (user === "customers") {
     return axios({
       method: "put",
@@ -16,6 +18,10 @@ export default store => next => action => {
           password: `${payload["password"]}`,
           password_confirmation: `${payload["password_confirmation"]}`
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(function(response) {
@@ -45,6 +51,10 @@ export default store => next => action => {
           password: `${payload["password"]}`,
           password_confirmation: `${payload["password_confirmation"]}`
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(function(response) {

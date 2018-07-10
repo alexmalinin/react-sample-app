@@ -30,7 +30,7 @@ class SignUp extends Component {
         render: () => (
           <StyledSignUpForm attached={false}>
             <SignInForm
-              user="specialists"
+              user="specialist"
               email={this.userEmail}
               failSignIn={failSignIn}
               onSubmit={this.submit}
@@ -43,7 +43,7 @@ class SignUp extends Component {
         render: () => (
           <StyledSignUpForm attached={false}>
             <SignInForm
-              user="customers"
+              user="customer"
               email={this.userEmail}
               failSignIn={failSignIn}
               onSubmit={this.submit}

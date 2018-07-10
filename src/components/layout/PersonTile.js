@@ -162,8 +162,8 @@ class DeleteTile extends Component {
       removeSpecialist,
       hideDelete
     } = this.props;
-    const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
-    const thisUser = specialist.id === id && role !== CUSTOMER;
+    const { user_id, role } = jwtDecode(localStorage.getItem("jwt_token"));
+    const thisUser = specialist.id === user_id && role !== CUSTOMER;
     const fullName = specialist.first_name + " " + specialist.last_name;
 
     return (

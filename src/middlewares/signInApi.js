@@ -8,19 +8,22 @@ export default store => next => action => {
   next({ ...rest, type: type, data: payload });
 
   let firstLogin;
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "post",
     url: signIn,
     data: {
-      auth: {
-        email: payload["email"],
-        password: payload["password"]
-      }
+      email: payload["email"],
+      password: payload["password"]
+    },
+
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   })
-    .then(function(response) {
-      localStorage.setItem("jwt_token", response.data["jwt"]);
+    .then(response => {
+      localStorage.setItem("jwt_token", response.data.access_token);
       return next({
         ...rest,
         type: type + SUCCESS,

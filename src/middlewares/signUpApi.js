@@ -7,6 +7,8 @@ export default store => next => action => {
 
   next({ ...rest, type: type, data: payload });
 
+  const token = localStorage.getItem("jwt_token");
+
   // Client
 
   if (user === "customers") {
@@ -18,6 +20,10 @@ export default store => next => action => {
           email: payload["email"],
           terms: true
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(function(response) {
@@ -38,6 +44,10 @@ export default store => next => action => {
           email: payload["email"],
           terms: true
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(function(response) {

@@ -10,7 +10,11 @@ export default store => next => action => {
 
   axios({
     method: "delete",
-    url: deleteProjectEpic
+    url: deleteProjectEpic,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

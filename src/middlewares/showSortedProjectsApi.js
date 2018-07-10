@@ -7,11 +7,12 @@ export default store => next => action => {
   if (!showSortedProjects) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "get",
-    url: showSortedProjects + id + "/ordered_projects",
+    url: showSortedProjects + user_id + "/ordered_projects",
+
     headers: {
       Authorization: `Bearer ${token}`
     }

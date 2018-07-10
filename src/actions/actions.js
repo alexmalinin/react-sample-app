@@ -48,7 +48,7 @@ export function signIn(user, data) {
   const action = {
     type: types.SIGN_IN,
     payload: data,
-    signIn: `${PORT}/api/v1/${user}_token`
+    signIn: `${PORT}/api/v1/${user}/auth/login`
   };
 
   return action;
@@ -291,12 +291,12 @@ export function updateSpecStep1(data) {
     : null;
 
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     Axios({
       method: "put",
-      url: `${PORT}/api/v1/specialists/${id}`,
+      url: `${PORT}/api/v1/specialists/${user_id}`,
       data: {
         specialist: {
           job_title: data["job_title"]["value"],
@@ -358,12 +358,12 @@ export function showChosenSkills() {
 
 export function updateSpecStep2(data) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     Axios({
       method: "put",
-      url: `${PORT}/api/v1/specialists/${id}`,
+      url: `${PORT}/api/v1/specialists/${user_id}`,
       data: {
         specialist: {
           company_attributes: {
@@ -419,12 +419,12 @@ export function updateSpecStep2(data) {
 
 export function updateSpecialistBillings(data) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     Axios({
       method: "put",
-      url: `${PORT}/api/v1/specialists/${id}`,
+      url: `${PORT}/api/v1/specialists/${user_id}`,
       data: {
         specialist: {
           billing_attributes: {
@@ -441,7 +441,7 @@ export function updateSpecialistBillings(data) {
             swift_code: data["swift_code"],
             iban: data["iban"],
             user_type: SPECIALIST,
-            user_id: id
+            user_id
           }
         }
       },
@@ -480,10 +480,16 @@ export function updateSpecialistBillings(data) {
  */
 
 export function showAllClients() {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "get",
-      url: `${PORT}/api/v1/customers/`
+      url: `${PORT}/api/v1/customers/`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(({ data }) => {
         dispatch({
@@ -556,7 +562,7 @@ export function updateSpecialistProfile(data, education, experience) {
     image = data["person"] ? data["person"][0] : null;
 
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     if (image) {
@@ -565,7 +571,7 @@ export function updateSpecialistProfile(data, education, experience) {
       reader.onload = () => {
         Axios({
           method: "put",
-          url: `${PORT}/api/v1/specialists/${id}/dashboard/profile`,
+          url: `${PORT}/api/v1/specialists/${user_id}/dashboard/profile`,
           data: {
             profile: specialistProfile(
               data,
@@ -573,6 +579,10 @@ export function updateSpecialistProfile(data, education, experience) {
               experience,
               reader.result
             )
+          },
+
+          headers: {
+            Authorization: `Bearer ${token}`
           }
         })
           .then(response => {
@@ -601,9 +611,13 @@ export function updateSpecialistProfile(data, education, experience) {
     } else {
       Axios({
         method: "put",
-        url: `${PORT}/api/v1/specialists/${id}/dashboard/profile`,
+        url: `${PORT}/api/v1/specialists/${user_id}/dashboard/profile`,
         data: {
           profile: specialistProfile(data, education, experience)
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
         .then(response => {
@@ -755,7 +769,7 @@ export function updateClientProfile(data) {
   let image = data["person"] ? data["person"][0] : null;
 
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     if (image) {
@@ -765,9 +779,13 @@ export function updateClientProfile(data) {
       reader.onload = () => {
         Axios({
           method: "put",
-          url: `${PORT}/api/v1/customers/${id}/dashboard/profile`,
+          url: `${PORT}/api/v1/customers/${user_id}/dashboard/profile`,
           data: {
             profile: clientProfile(data, reader.result)
+          },
+
+          headers: {
+            Authorization: `Bearer ${token}`
           }
         })
           .then(response => {
@@ -796,9 +814,13 @@ export function updateClientProfile(data) {
     } else {
       Axios({
         method: "put",
-        url: `${PORT}/api/v1/customers/${id}/dashboard/profile`,
+        url: `${PORT}/api/v1/customers/${user_id}/dashboard/profile`,
         data: {
           profile: clientProfile(data)
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
         .then(response => {
@@ -836,12 +858,12 @@ export function updateClientProfile(data) {
 
 export function updateClientCompany(payload) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return async dispatch => {
     await Axios({
       method: "put",
-      url: `${PORT}/api/v1/customers/${id}`,
+      url: `${PORT}/api/v1/customers/${user_id}`,
       data: {
         customer: {
           company_attributes: {
@@ -857,7 +879,7 @@ export function updateClientCompany(payload) {
             number_of_employers:
               payload["number_of_employers"]["value"] ||
               payload["number_of_employers"],
-            user_id: id,
+            user_id,
             industry_area_id:
               payload["industry"]["value"] || payload["industry"]
           }
@@ -903,12 +925,12 @@ export function updateClientCompany(payload) {
 
 export function updateClientBilling(data) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return dispatch => {
     Axios({
       method: "put",
-      url: `${PORT}/api/v1/customers/${id}`,
+      url: `${PORT}/api/v1/customers/${user_id}`,
       data: {
         customer: {
           billing_attributes: {
@@ -925,7 +947,7 @@ export function updateClientBilling(data) {
             swift_code: data["swift_code"],
             iban: data["iban"],
             user_type: CUSTOMER,
-            user_id: id
+            user_id
           }
         }
       },
@@ -1122,10 +1144,16 @@ export function showCustomTeams() {
  */
 
 export function showSpecialistCustomTeams(id) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "get",
-      url: `${PORT}/api/v1/specialists/${id}/custom_teams`
+      url: `${PORT}/api/v1/specialists/${id}/custom_teams`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(({ data }) => {
         dispatch({
@@ -1267,10 +1295,16 @@ export function updateProjectEpic(data) {
  */
 
 export function deleteProjectEpic(project, id, callback) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "delete",
-      url: `${PORT}/api/v1/projects/${project}/epics/${id}`
+      url: `${PORT}/api/v1/projects/${project}/epics/${id}`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(response => {
         let data = response.data;
@@ -1454,10 +1488,16 @@ export function updateEpicTask(data, epic, task) {
  */
 
 export function deleteEpicTask(epic, task, callback) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "delete",
-      url: `${PORT}/api/v1/epics/${epic}/tasks/${task}`
+      url: `${PORT}/api/v1/epics/${epic}/tasks/${task}`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(response => {
         let data = response.data;
@@ -1595,6 +1635,8 @@ export function removeSpecialistFromTeam(project, team, specialist) {
  */
 
 export function createCustomTeam(data, specialistId) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "post",
@@ -1605,6 +1647,10 @@ export function createCustomTeam(data, specialistId) {
           specialist_id: specialistId,
           custom_team: true
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(({ data }) => {
@@ -1639,12 +1685,18 @@ export function createCustomTeam(data, specialistId) {
  */
 
 export function createTeamChannel(team, data) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "post",
       url: `${PORT}/api/v1/teams/${team}/channels`,
       data: {
         name: data["name"]
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(({ data }) => {
@@ -1672,10 +1724,16 @@ export function createTeamChannel(team, data) {
  */
 
 export function deleteTeamChannel(team, channel) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "delete",
-      url: `${PORT}/api/v1/teams/${team}/channels/${channel}`
+      url: `${PORT}/api/v1/teams/${team}/channels/${channel}`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then(({ data }) => {
         dispatch({
@@ -1711,12 +1769,18 @@ export function deleteTeamChannel(team, channel) {
  */
 
 export function updateTeamChannel(team, channel, data) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "put",
       url: `${PORT}/api/v1/teams/${team}/channels/${channel}`,
       data: {
         name: data["name"]
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(({ data }) => {
@@ -1757,6 +1821,8 @@ export function showChannels(team) {
  */
 
 export function addToChannel(team, channel, data) {
+  const token = localStorage.getItem("jwt_token");
+
   return dispatch => {
     Axios({
       method: "PUT",
@@ -1766,7 +1832,7 @@ export function addToChannel(team, channel, data) {
       },
 
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt_token")}}`
+        Authorization: `Bearer ${token}`
       }
     })
       .then(({ data }) => {
@@ -1795,12 +1861,13 @@ export function addToChannel(team, channel, data) {
  */
 
 export function removeFromChannel(team, channel, id) {
+  const token = localStorage.getItem("jwt_token");
   return dispatch => {
     Axios({
       method: "DELETE",
       url: `${PORT}/api/v1/teams/${team}/channels/${channel}/remove/${id}`,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt_token")}}`
+        Authorization: `Bearer ${token}`
       }
     })
       .then(({ data }) => {
@@ -1889,7 +1956,7 @@ export function closeSubmitErrorModal() {
 
 function postProject(payload, logo = null) {
   const token = localStorage.getItem("jwt_token");
-  const { id, role } = jwtDecode(token);
+  const { user_id, role } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.map(({ document, title, size }) => {
@@ -1908,7 +1975,7 @@ function postProject(payload, logo = null) {
       return skill.value;
     });
 
-  let specialistId = role === S_REDGUY ? id : null,
+  let specialistId = role === S_REDGUY ? user_id : null,
     status = null;
 
   if (payload["state"] === "draft") {
@@ -1920,7 +1987,7 @@ function postProject(payload, logo = null) {
   return {
     name: payload["name"],
     customer_id:
-      (payload["customer_id"] && payload["customer_id"]["value"]) || id,
+      (payload["customer_id"] && payload["customer_id"]["value"]) || user_id,
     project_type_id:
       (payload["project_type_id"] && payload["project_type_id"]["value"]) ||
       null,
@@ -1954,7 +2021,7 @@ function postProject(payload, logo = null) {
 
 function clientProfile(data, image = null) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   return {
     avatar: image,
@@ -1966,7 +2033,7 @@ function clientProfile(data, image = null) {
     address_attributes: {
       city: data["city"],
       country: data["country"],
-      user_id: id
+      user_id
     }
   };
 }
@@ -1984,7 +2051,7 @@ function clientProfile(data, image = null) {
 
 function specialistProfile(data, education, experience, image) {
   const token = localStorage.getItem("jwt_token");
-  const { id } = jwtDecode(token);
+  const { user_id } = jwtDecode(token);
 
   const educationData = education.map(item => {
     return {
@@ -2021,7 +2088,7 @@ function specialistProfile(data, education, experience, image) {
     address_attributes: {
       city: data["city"],
       country: data["country"],
-      user_id: id
+      user_id
     }
   };
 }

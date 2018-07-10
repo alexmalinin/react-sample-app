@@ -6,9 +6,15 @@ export default store => next => action => {
   const { type, deleteTeamChannel, payload, ...rest } = action;
   if (!deleteTeamChannel) return next(action);
 
+  let token = localStorage.getItem("jwt_token");
+
   axios({
     method: "delete",
-    url: deleteTeamChannel
+    url: deleteTeamChannel,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

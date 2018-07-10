@@ -144,8 +144,8 @@ export function detectSpecType(role) {
 export function getUserRole() {
   const token = localStorage.getItem("jwt_token");
   if (token) {
-    const { role } = jwtDecode(token);
-    return role;
+    const { aud } = jwtDecode(token);
+    return aud;
   }
 
   return "";
@@ -181,8 +181,8 @@ export function getUserId() {
   let token = localStorage.getItem("jwt_token");
 
   if (token) {
-    const { id } = jwtDecode(token);
-    return id;
+    const { user_id } = jwtDecode(token);
+    return user_id;
   }
 }
 

@@ -7,8 +7,6 @@ export default store => next => action => {
   if (!addToChannel) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
-  console.log(jwtDecode(token));
 
   axios({
     method: "PUT",

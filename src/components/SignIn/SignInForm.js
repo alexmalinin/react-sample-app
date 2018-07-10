@@ -11,10 +11,6 @@ import EmailField from "../forms/renders/EmailField";
 import { required, minLength8 } from "../../helpers/validate";
 
 class SignInForm extends Component {
-  state = {
-    visibleError: false
-  };
-
   componentWillMount() {
     let { email } = this.props;
     if (email) {
@@ -23,12 +19,11 @@ class SignInForm extends Component {
   }
 
   render() {
-    const { handleSubmit, submitting, user } = this.props;
-    const { visibleError } = this.state;
+    const { handleSubmit, submitting, user, failSignIn } = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        {visibleError && (
+        {failSignIn && (
           <Message floating negative style={{ marginBottom: "25px" }}>
             Incorrect email or password.
           </Message>
@@ -60,16 +55,6 @@ class SignInForm extends Component {
   handleReset = user => () => {
     sessionStorage.setItem("user", user);
   };
-
-  renderError = visible => () => {
-    this.setState({ visibleError: visible });
-  };
-
-  componentWillReceiveProps(nextState) {
-    if (nextState.failSignIn) {
-      this.renderError(true)();
-    }
-  }
 }
 
 export default reduxForm({

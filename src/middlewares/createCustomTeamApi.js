@@ -6,6 +6,8 @@ export default store => next => action => {
   const { type, createCustomTeam, payload, specialistId, ...rest } = action;
   if (!createCustomTeam) return next(action);
 
+  const token = localStorage.getItem("jwt_token");
+
   axios({
     method: "post",
     url: createCustomTeam,
@@ -15,6 +17,10 @@ export default store => next => action => {
         specialist_id: specialistId,
         custom_team: true
       }
+    },
+
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   })
     .then(function(response) {

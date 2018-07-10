@@ -7,7 +7,6 @@ export default store => next => action => {
   if (!createEpicTask) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.map(file => {
