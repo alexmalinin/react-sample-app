@@ -12,9 +12,9 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case SHOW_EPIC_TASKS:
-      return { ...state, loading: true, loaded: false };
+      return { ...state, loading: true };
     case SHOW_EPIC_TASKS + SUCCESS:
-      return { ...state, tasks: data, loading: false, loaded: true };
+      return { loading: false, loaded: true, tasks: data, error: null };
     case SHOW_EPIC_TASKS + FAIL:
       return { ...state, loading: false, loaded: true, error: data };
     default:

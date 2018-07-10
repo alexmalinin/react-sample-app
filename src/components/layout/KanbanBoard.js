@@ -1,8 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, PureComponent, Fragment } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import Board from "react-trello";
 import ClassNames from "classnames";
+
 import CustomCard from "./CustomTaskCard";
+import EditTaskModal from "../modals/EditTaskModal";
+
 import {
   showEpicTasks,
   updateEpicTask,
@@ -12,10 +16,9 @@ import {
   showAllEpics
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
-import { getUserRole, getUserId } from "../../helpers/functions";
-import EditTaskModal from "../modals/EditTaskModal";
+import { getUserRole } from "../../helpers/functions";
 
-class KanbanBoard extends Component {
+class KanbanBoard extends PureComponent {
   state = {
     backlogTasks: [],
     progressTasks: [],
@@ -27,18 +30,16 @@ class KanbanBoard extends Component {
     editModal: false
   };
 
-  componentDidMount() {
-    this.fetchTasks(this.props);
-  }
-
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
     const {
       updateEpicTask,
       allEpics: { epics },
-      currentEpic
+      match: {
+        params: { moduleId }
+      }
     } = this.props;
 
-    updateEpicTask({ state: +targetLaneId }, epics[currentEpic - 1].id, cardId);
+    updateEpicTask({ state: +targetLaneId }, epics[moduleId - 1].id, cardId);
   };
 
   assignSpecialist = (task, specialist) => {
@@ -51,195 +52,154 @@ class KanbanBoard extends Component {
     removeSpecialistFromTask(epicId, +task, specialist);
   };
 
-  fetchTasks = props => {
-    let backlog = [],
-      completed = [],
-      progress = [],
-      accepted = [],
-      taskList = [];
-
-    if (props.myTasks) {
-      taskList = props.epicTasks.tasks.filter(task =>
-        task.specialists.some(spec => spec.id === getUserId())
-      );
-    } else taskList = props.epicTasks.tasks;
-
-    taskList.forEach(task => {
-      const specId = props.specialistData && props.specialistData.id;
-
-      const ownCosts =
-        task.specialist_tasks &&
-        task.specialist_tasks.find(
-          ({ cost, specialist }) => specId === specialist.id
-        );
-
-      const taskObject = {
-        id: `${task.id}`,
-        assignSpecialist: this.assignSpecialist,
-        removeSpecialist: this.removeSpecialist,
-        title: task.name,
-        eta: task.eta,
-        cost: task.cost,
-        specialistCosts: ownCosts && ownCosts.cost,
-        description: "Platform - Dashboard",
-        specialists: task.specialists
-      };
-      if (task.state === "backlog") {
-        backlog.push(taskObject);
-      }
-      if (task.state === "in_progress") {
-        progress.push(taskObject);
-      }
-      if (task.state === "done") {
-        completed.push(taskObject);
-      }
-      if (task.state === "accepted") {
-        accepted.push(taskObject);
-      }
-    });
-    this.setState({
-      backlogTasks: backlog,
-      progressTasks: progress,
-      completedTasks: completed,
-      acceptedTasks: accepted,
-      showBoard: true
-    });
-  };
-
   componentWillReceiveProps(nextProps) {
-    //TODO request a specialists list from back on dropdown open
-    if (nextProps.projectTeam) {
-      if (nextProps.projectTeam.project_id === +nextProps.currentProject) {
-        this.setState({
-          currentProjectTeam: nextProps.projectTeam.specialists
-        });
-      } else this.setState({ currentProjectTeam: [] });
-    }
+    // console.log(difference(this.props, nextProps));
 
-    if (this.props.currentEpic !== nextProps.currentEpic) {
-      this.setState({
-        showBoard: false
-      });
-    }
-
-    if (
-      nextProps.epicTasks &&
-      nextProps.projectTeam &&
-      nextProps.currentEpic !== "all"
-    ) {
-      if (
-        this.props.epicTasks !== nextProps.epicTasks ||
-        nextProps.myTasks !== this.props.myTasks
-      ) {
-        this.fetchTasks(nextProps);
-      }
-    } else {
-      this.setState({
-        showBoard: false
-      });
+    if (nextProps.createTask) {
+      if (this.props.createTask) {
+        if (this.props.createTask !== nextProps.createTask) {
+          this.loadTasks();
+        }
+      } else this.loadTasks();
     }
   }
 
-  handleEditTask = id => {
-    const { epicTasks } = this.props;
+  handleCardClick = id => {
+    const {
+      epicTasks: { tasks, loaded }
+    } = this.props;
 
-    if (id && epicTasks) {
-      let epicTask = epicTasks.tasks.find(task => task.id === Number(id));
-      this.setState({ editingTask: epicTask, editModal: true });
+    if (id && loaded) {
+      let editTask = tasks.find(task => task.id === +id);
+      this.modal.open(editTask);
     }
   };
 
   closeModal = updated => {
     if (updated) {
-      this.props.showEpicTasks(this.props.epicId);
-      this.props.showAllEpics(this.props.currentProject);
+      this.loadTasks();
     }
-    this.setState({ editModal: false });
   };
 
-  deleteTask = (epic, id) => {
-    const { deleteEpicTask } = this.props;
-    deleteEpicTask(epic, Number(id));
+  deleteTask = (epic, id, laneId) => {
+    this.props.deleteEpicTask(epic, +id, () =>
+      this.kanbanEvent.publish({
+        type: "REMOVE_CARD",
+        laneId,
+        cardId: id
+      })
+    );
+  };
+
+  loadTasks = () => {
+    //krunch
+    const {
+      match: {
+        params: { moduleId }
+      },
+      allEpics: { epics },
+      showEpicTasks
+    } = this.props;
+    showEpicTasks(epics[+moduleId - 1].id);
   };
 
   render() {
     const {
-      currentEpic,
-      epicTasks: { loading, loaded },
-      allEpics: { epics }
+      match: {
+        params: { moduleId }
+      },
+      epicTasks: { tasks, loading, loaded, error },
+      allEpics: { epics },
+      specialists
     } = this.props;
 
-    const {
-      backlogTasks,
-      progressTasks,
-      completedTasks,
-      acceptedTasks,
-      editingTask,
-      editModal,
-      currentProjectTeam
-    } = this.state;
+    const { editingTask, currentProjectTeam } = this.state;
 
     const kanbanClass = ClassNames("kanban", {
       show: loaded,
       fade: loading
     });
 
-    return backlogTasks.length !== 0 ||
-      progressTasks.length !== 0 ||
-      completedTasks.length !== 0 ||
-      acceptedTasks.length !== 0 ? (
-      <Fragment>
-        <Board
-          data={{
-            lanes: [
-              { id: "0", title: `Backlog`, cards: backlogTasks },
-              { id: "1", title: "In progress", cards: progressTasks },
-              { id: "2", title: "Done", cards: completedTasks },
-              { id: "3", title: "Accepted", cards: acceptedTasks }
-            ]
-          }}
-          className={kanbanClass}
-          draggable={getUserRole() === S_REDGUY}
-          customCardLayout
-          handleDragEnd={this.handleDragEnd}
-          onCardClick={this.handleEditTask}
-        >
-          <CustomCard
-            handleEditTask={this.handleEditTask}
-            deleteTask={this.deleteTask}
-            specialistList={currentProjectTeam}
+    if (error)
+      return <div className="noTasks">Something went wrong, pelase reload</div>;
+
+    if (!loaded && loading) return <div className="noTasks">Loading</div>;
+
+    if (loaded && !tasks.length)
+      return <div className="noTasks">No tasks for now</div>;
+    else
+      return (
+        <Fragment>
+          <Board
+            data={{
+              lanes: [
+                {
+                  id: "0",
+                  title: "Backlog",
+                  cards: tasks.filter(task => task.state === "backlog")
+                },
+                {
+                  id: "1",
+                  title: "In progress",
+                  cards: tasks.filter(task => task.state === "in_progress")
+                },
+                {
+                  id: "2",
+                  title: "Done",
+                  cards: tasks.filter(task => task.state === "done")
+                },
+                {
+                  id: "3",
+                  title: "Accepted",
+                  cards: tasks.filter(task => task.state === "accepted")
+                }
+              ]
+            }}
+            eventBusHandle={handle => (this.kanbanEvent = handle)}
+            className={kanbanClass}
+            draggable={getUserRole() === S_REDGUY}
+            customCardLayout
+            handleDragEnd={this.handleDragEnd}
+            onCardClick={this.handleCardClick}
+          >
+            <CustomCard
+              handleEditTask={this.handleCardClick}
+              deleteTask={this.deleteTask}
+              specialistList={specialists}
+              assignSpecialist={this.assignSpecialist}
+              removeSpecialist={this.removeSpecialist}
+            />
+          </Board>
+          <EditTaskModal
+            ref={modal => (this.modal = modal)}
+            close={this.closeModal}
+            epic={epics[moduleId - 1]}
+            epicTask={editingTask}
+            currentProjectTeam={specialists}
+            assignSpecialist={this.assignSpecialist}
+            removeSpecialist={this.removeSpecialist}
           />
-        </Board>
-        <EditTaskModal
-          open={editModal}
-          close={this.closeModal}
-          epic={epics[currentEpic - 1]}
-          epicTask={editingTask}
-          currentProjectTeam={currentProjectTeam}
-          assignSpecialist={this.assignSpecialist}
-          removeSpecialist={this.removeSpecialist}
-        />
-      </Fragment>
-    ) : (
-      <div className="noTasks">No tasks for now</div>
-    );
+        </Fragment>
+      );
   }
 }
 
 const mapStateToProps = state => {
   return {
     allEpics: state.allEpics,
-    epicTasks: state.epicTasks,
-    projectTeam: state.projectTeam,
-    specialistData: state.specialistData
+    createTask: state.createTask,
+    epicTasks: state.epicTasks
+    // projectTeam: state.projectTeam
   };
 };
 
-export default connect(mapStateToProps, {
-  showEpicTasks,
-  updateEpicTask,
-  deleteEpicTask,
-  assignSpecialistToTask,
-  removeSpecialistFromTask,
-  showAllEpics
-})(KanbanBoard);
+export default withRouter(
+  connect(mapStateToProps, {
+    showEpicTasks,
+    updateEpicTask,
+    deleteEpicTask,
+    assignSpecialistToTask,
+    removeSpecialistFromTask,
+    showAllEpics
+  })(KanbanBoard)
+);

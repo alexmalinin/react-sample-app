@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import { ContainerLarge, Container } from "../styleComponents/layout/Container";
 import RenderDashboard from "./layout/RenderDashboard";
 import DashboardSubHeader from "./layout/DashboardSubHeader";
@@ -19,4 +20,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

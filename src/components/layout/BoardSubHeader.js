@@ -1,19 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import ClassNames from "classnames";
+
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
-import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "../../constants/user";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+
+import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "../../constants/user";
 import { getUserRole, oneOfRoles, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
     const {
       allEpics: { loaded, epics },
-      status
+      match: {
+        params: { status, projectId }
+      }
     } = this.props;
 
     return (
@@ -28,7 +33,7 @@ class ProjectSubHeader extends Component {
         return (
           <SubHeaderLinkWrap
             key={key}
-            url={`/dashboard/project/${this.props.project}/module/${key + 1}/${
+            url={`/dashboard/project/${projectId}/module/${key + 1}/${
               status ? status : "view"
             }`}
             className="module"
@@ -49,11 +54,11 @@ class ProjectSubHeader extends Component {
 
   render() {
     const {
-      currentEpic,
+      match: {
+        params: { projectId, moduleId, status }
+      },
       epicTasks: { loaded, tasks, loading },
-      project,
-      myTasks,
-      status
+      myTasks
     } = this.props;
 
     const allTasksCount = tasks.length;
@@ -70,7 +75,7 @@ class ProjectSubHeader extends Component {
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
-      fade: currentEpic === "all" || !loaded
+      fade: moduleId === "all" || !loaded
     });
 
     return (
@@ -78,7 +83,7 @@ class ProjectSubHeader extends Component {
         <div className="left kanbanSubHeader">
           <SubHeaderLinkWrap
             label={<span>&nbsp;</span>}
-            url={`/dashboard/project/${this.props.project}`}
+            url={`/dashboard/project/${projectId}`}
             className="allModules"
           >
             <span>All</span>
@@ -88,7 +93,7 @@ class ProjectSubHeader extends Component {
           {(getUserRole() === CUSTOMER || getUserRole() === S_REDGUY) && (
             <SubHeaderLinkWrap
               label="Add module"
-              url={`/dashboard/project/${this.props.project}/module/new`}
+              url={`/dashboard/project/${projectId}/module/new`}
               className="addButton"
             />
           )}
@@ -109,8 +114,8 @@ class ProjectSubHeader extends Component {
             )}
           {getUserRole() === S_REDGUY && (
             <AddTaskModal
-              epic={currentEpic}
-              project={project}
+              epic={moduleId}
+              project={projectId}
               className="addTask"
               trigger={
                 <a className="button add-epic">
@@ -124,26 +129,22 @@ class ProjectSubHeader extends Component {
           {oneOfRoles(S_ACTIVE, S_CORE, S_REDGUY) &&
             status === "view" && (
               <SubHeaderLinkWrap
-                label="edit"
-                url={`/dashboard/project/${
-                  this.props.project
-                }/module/${currentEpic}/edit`}
+                label="Info"
+                url={`/dashboard/project/${projectId}/module/${moduleId}/edit`}
                 className="boldLink"
               >
-                <i className="fas fa-pencil-alt small" />
+                <i className="fas fa-eye small" />
               </SubHeaderLinkWrap>
             )}
 
           {oneOfRoles(S_ACTIVE, S_CORE, S_REDGUY) &&
             status === "edit" && (
               <SubHeaderLinkWrap
-                label="view"
-                url={`/dashboard/project/${
-                  this.props.project
-                }/module/${currentEpic}/view`}
+                label="Board"
+                url={`/dashboard/project/${projectId}/module/${moduleId}/view`}
                 className="boldLink"
               >
-                <i className="far fa-eye small" />
+                <i className="fas fa-tasks small" />
               </SubHeaderLinkWrap>
             )}
 
@@ -168,4 +169,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ProjectSubHeader);
+export default withRouter(connect(mapStateToProps)(ProjectSubHeader));

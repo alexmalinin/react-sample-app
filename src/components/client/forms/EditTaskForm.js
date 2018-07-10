@@ -37,6 +37,7 @@ class EditTaskForm extends Component {
 
   removeSpecialist = id => {
     this.handleAssign("remove", id);
+    this.props.setUpdated();
   };
 
   //TODO: apply thunk here
@@ -45,6 +46,7 @@ class EditTaskForm extends Component {
     const {
       epicTask: { id, epic_id }
     } = this.props;
+    this.props.setUpdated();
     return axios({
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}`,
@@ -76,6 +78,7 @@ class EditTaskForm extends Component {
         url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`
       };
 
+    this.props.setUpdated();
     axios(payload)
       .then(response => {
         this.setState({
@@ -104,12 +107,14 @@ class EditTaskForm extends Component {
     })
       .then(resp => {
         this.setState({ totalCost: resp.data.cost });
+        this.props.setUpdated();
       })
       .catch(error => console.error(error));
   };
 
   handleFees = (event, newVal, prevVal, name) => {
     const { change } = this.props;
+    this.props.setUpdated();
 
     this.setState({
       loadingFees: {
@@ -249,7 +254,9 @@ class EditTaskForm extends Component {
                       <AssignDropdown
                         label="Add assignee"
                         specialists={specialists}
-                        allSpecialists={currentProjectTeam}
+                        allSpecialists={currentProjectTeam.filter(
+                          spec => spec.role !== S_REDGUY
+                        )}
                         handleAssign={this.handleAssign}
                         userType={[S_REDGUY]}
                         closeOnChange

@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constants/constants";
+import { FAIL, SUCCESS } from "../actions/types";
 
 export default store => next => action => {
   const { type, showEpicTasks, epic, ...rest } = action;
@@ -22,6 +22,7 @@ export default store => next => action => {
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
+      return next({ ...rest, type: type + FAIL, data: error });
     });
 };

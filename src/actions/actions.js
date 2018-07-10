@@ -1450,9 +1450,10 @@ export function updateEpicTask(data, epic, task) {
  *
  * @param  {number} epic epic id
  * @param  {number} task task id
+ * @param  {function} callback delete card from board
  */
 
-export function deleteEpicTask(epic, task) {
+export function deleteEpicTask(epic, task, callback) {
   return dispatch => {
     Axios({
       method: "delete",
@@ -1470,6 +1471,7 @@ export function deleteEpicTask(epic, task) {
         return data;
       })
       .then(({ name }) => {
+        callback();
         createNotification({
           type: "success",
           text: `${name ? `${name} epic ` : "Epic"} was deleted`
@@ -1548,6 +1550,8 @@ export function showProjectTeam(project) {
 
   return action;
 }
+
+// Async show projectTeam
 
 // Show Custom Team
 

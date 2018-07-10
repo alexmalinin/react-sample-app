@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AssignDropdown from "./AssignDropdown";
 import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constants/user";
-import { getUserRole, oneOfRoles } from "../../helpers/functions";
+import { getUserRole, oneOfRoles, getUserId } from "../../helpers/functions";
 import { formatCurrency } from "../../helpers/validate";
 import MembersDropdown from "./dropdowns/MembersDropdown";
 
@@ -31,16 +31,21 @@ class CustomCard extends Component {
 
   render() {
     const {
-      title,
+      name,
       id,
       specialists,
       specialistList,
+      specialist_tasks,
       eta,
       cost,
       deleteTask,
       epic_id,
-      specialistCosts
+      laneId
     } = this.props;
+
+    const specialistCosts = specialist_tasks.find(
+      ({ specialist }) => getUserId() === specialist.id
+    );
 
     return (
       <div
@@ -48,7 +53,7 @@ class CustomCard extends Component {
         style={{ backgroundColor: "#fff" }}
         onMouseLeave={() => this.setState({ showDropdown: false })}
       >
-        <h4 className="title">{title}</h4>
+        <h4 className="title">{name}</h4>
         {eta && (
           <div className="line">
             <img src="/images/calendar.png" alt="calendar" />
@@ -86,14 +91,16 @@ class CustomCard extends Component {
           />
           <AssignDropdown
             specialists={specialists}
-            allSpecialists={specialistList}
+            allSpecialists={specialistList.filter(
+              spec => spec.role !== S_REDGUY
+            )}
             handleAssign={this.assignSpeciaist}
             userType={[S_REDGUY]}
             closeOnChange={true}
-            blue
+            bordered
           />
         </div>
-        <span className="ddtw">DDTW-{id}</span>
+        {/* <span className="ddtw">DDTW-{id}</span> */}
         {getUserRole() === S_REDGUY ? (
           <div className="dropdown">
             <a
@@ -112,7 +119,9 @@ class CustomCard extends Component {
                   <div onClick={this.showEditTaskModal}>Edit</div>
                 </div>
                 <div className="item">
-                  <div onClick={() => deleteTask(epic_id, id)}>Delete</div>
+                  <div onClick={() => deleteTask(epic_id, id, laneId)}>
+                    Delete
+                  </div>
                 </div>
               </div>
             ) : null}

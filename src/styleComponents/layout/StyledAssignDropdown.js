@@ -91,10 +91,10 @@ export const StyledAssignDropdown = styled.div`
       padding: ${props => (props.renderToModal ? "0" : "4px 0")};
       height: ${props => (props.renderToModal ? "48px" : "36px")};
       width: ${props => (props.renderToModal ? "48px" : "36px")};
-      color: ${props => (props.blue ? colors.blue : "#ccc")};
+      color: ${colors.blue};
       border-radius: 50%;
-      border: 1px solid ${props => (props.blue ? colors.lightGreyBlue : "#ccc")};
-      background: ${props => (props.blue ? "#eaeffa" : "white")};
+      ${props => props.bordered && `border: 1px solid ${colors.lightGreyBlue}`};
+      background: ${primaryColors.accentBackground};
 
       text-align: center;
       font-size: ${props => (props.renderToModal ? "36px" : "21px")};
@@ -112,7 +112,7 @@ export const StyledAssignDropdown = styled.div`
         height: ${props => (props.renderToModal ? "20px" : "12px")};
         width: 2px;
         border-radius: 2px;
-        background: ${props => (props.blue ? colors.blue : "#ccc")};
+        background: ${colors.blue};
       }
 
       &::after {
@@ -364,7 +364,8 @@ export const StyledPersonTile = styled.div`
 
       &.blank {
         background: ${primaryColors.accentBackground};
-        border: 1px solid ${colors.lightGreyBlue};
+        ${props =>
+          props.compressed ? `border: 1px solid ${colors.lightGreyBlue}` : ""};
         object-fit: contain;
       }
     }

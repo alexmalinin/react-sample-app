@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Field } from "redux-form";
-import { NavLink } from "react-router-dom";
 import {
   required,
   date,
@@ -8,14 +7,9 @@ import {
   minLength2
 } from "../../helpers/validate";
 import RenderDate from "./renders/RenderDate";
-import RenderTextArea from "./renders/RenderTextArea";
 import RenderText from "./renders/RenderText";
 import RenderFile from "./renders/RenderFile";
-import RenderField from "./renders/RenderField";
-import {
-  DvBlueButton,
-  DvButtonRed
-} from "../../styleComponents/layout/DvButton";
+import { DvButtonRed } from "../../styleComponents/layout/DvButton";
 import { getUserRole } from "../../helpers/functions";
 import { formatCurrency } from "../../helpers/validate";
 import { CUSTOMER, S_REDGUY } from "../../constants/user";

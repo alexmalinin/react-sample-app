@@ -5,6 +5,7 @@ import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignD
 
 import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY } from "../../constants/user";
 
 export default class AssignDropdown extends Component {
   state = {
@@ -30,6 +31,7 @@ export default class AssignDropdown extends Component {
         document.addEventListener("click", this.closeDropdown);
       }
     );
+
     setTimeout(() => {
       this.searchInput && this.searchInput.focus();
     }, 10);
@@ -126,14 +128,14 @@ export default class AssignDropdown extends Component {
       renderToDashboard,
       renderToModal,
       userType,
-      blue
+      bordered
     } = this.props;
     const { options, assignedIds, showDropdown } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
 
     return (
       renderCondition && (
-        <StyledAssignDropdown renderToModal={renderToModal} blue={blue}>
+        <StyledAssignDropdown renderToModal={renderToModal} bordered={bordered}>
           <a
             className="dropdownTrigger"
             onClick={this.openDropdown}

@@ -175,7 +175,7 @@ export default styled.div`
             &::before {
               content: "#";
               color: ${fontColors.blue.inert};
-              line-height: 24px;
+              line-height: 22px;
               font-weight: 600;
             }
 
