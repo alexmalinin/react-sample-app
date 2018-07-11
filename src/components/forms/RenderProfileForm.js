@@ -19,8 +19,9 @@ import RenderCards from "../specialist/renders/RenderCards";
 import EdicationModal from "../modals/EdicationModal";
 import WorkExperienceModal from "../modals/WorkExperienceModal";
 import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
-import { getUserRole } from "../../helpers/functions";
+import { getUserRole, getAllUrlParams } from "../../helpers/functions";
 import { CUSTOMER } from "../../constants/user";
+import { run } from "../../helpers/scrollToElement";
 
 import { Grid } from "semantic-ui-react";
 
@@ -33,6 +34,21 @@ class RenderProfileForm extends Component {
       confirmation: false,
       submitError: false
     };
+  }
+
+  componentDidMount() {
+    let param = getAllUrlParams().hash;
+
+    switch (param) {
+      case "education":
+        run(this.refs.education, 10, 120)();
+        break;
+      case "experience":
+        run(this.refs.experience, 10, 180)();
+        break;
+      default:
+        run(0)();
+    }
   }
 
   componentWillUnmount() {
@@ -159,7 +175,7 @@ class RenderProfileForm extends Component {
                     <Grid.Column computer={16}>
                       <StyledExperienceCards>
                         {this.props.specialistModal ? (
-                          <div className="experience-section">
+                          <div ref="education" className="experience-section">
                             <h3>Education</h3>
                             <RenderCards educations={educationData} />
                           </div>
@@ -169,7 +185,7 @@ class RenderProfileForm extends Component {
                     <Grid.Column computer={16}>
                       <StyledExperienceCards>
                         {this.props.specialistModal ? (
-                          <div className="experience-section">
+                          <div ref="experience" className="experience-section">
                             <h3>Work experience</h3>
                             <RenderCards experiences={experienceData} />
                           </div>
