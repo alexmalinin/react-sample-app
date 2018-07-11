@@ -38,6 +38,7 @@ export default styled.div`
 
   .ui.input {
     width: 100%;
+    font-size: 16px;
 
     .shadowInput {
       display: none;

@@ -15,7 +15,7 @@ import ClientProfile from "./ClientProfile";
 import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
 import EditProfile from "../profile/EditProfile";
-import ClientAbout from "./pages/ClientAbout";
+import ClientAbout from "../dashboard/pages/About";
 import ProjectsBoard from "../ProjectsBoard";
 import SideBarLeft from "./../layout/SideBarLeft";
 import SideBarRight from "../layout/SideBarRight";
