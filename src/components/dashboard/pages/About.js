@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import {
   Container,
   ContainerLarge
@@ -23,7 +22,7 @@ import { SPECIALIST } from "../../../constants/user";
 class About extends Component {
   componentDidMount() {
     const {
-      match: { params },
+      specialistId,
       getIndustries,
       getExperienceLevels,
       showSpecialistData,
@@ -31,15 +30,12 @@ class About extends Component {
       showClientData
     } = this.props;
 
-    const { specialistId } = params;
-
+    getIndustries();
+    getExperienceLevels();
     if (getUserType() === SPECIALIST) {
-      getIndustries();
-      getExperienceLevels();
       specialistId ? showSpecialistWithId(specialistId) : showSpecialistData();
     } else {
-      showClientData();
-      getIndustries();
+      specialistId ? showSpecialistWithId(specialistId) : showClientData();
     }
   }
 
@@ -61,7 +57,7 @@ class About extends Component {
     return experienceLevels && user
       ? experienceLevels[user.experience_level_id - 1]
         ? experienceLevels[user.experience_level_id - 1]["label"]
-        : "No  exp lvl"
+        : "No experience level"
       : null;
   };
 
@@ -104,7 +100,7 @@ class About extends Component {
         },
         {
           label: "Experience level:",
-          value: this.renderExperienceLevel() || "No experience level"
+          value: this.renderExperienceLevel()
         },
         {
           label: "Best contact number",
@@ -255,13 +251,7 @@ class About extends Component {
   };
 
   render() {
-    const {
-      match: { params },
-      user,
-      specialistWithId
-    } = this.props;
-
-    const { specialistId } = params;
+    const { specialistId, user, specialistWithId } = this.props;
 
     const activeUser = specialistId ? specialistWithId : user;
 
@@ -321,18 +311,22 @@ class About extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const data = {
+    specialistId: ownProps.specialistId,
+    specialistWithId: state.specialistWithId,
+    industries: state.industries,
+    experienceLevels: state.experienceLevels
+  };
+
   if (getUserType() === SPECIALIST) {
     return {
-      specialistId: state.specialistId,
-      specialistWithId: state.specialistWithId,
-      industries: state.industries,
-      user: state.specialistData,
-      experienceLevels: state.experienceLevels
+      ...data,
+      user: state.specialistData
     };
   } else {
     return {
-      industries: state.industries,
+      ...data,
       user: state.clientData
     };
   }
@@ -344,4 +338,4 @@ export default connect(mapStateToProps, {
   getIndustries,
   showSpecialistWithId,
   getExperienceLevels
-})(withRouter(About));
+})(About);

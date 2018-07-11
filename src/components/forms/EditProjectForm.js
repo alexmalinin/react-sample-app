@@ -135,8 +135,6 @@ class EditProjectForm extends Component {
       });
     }
 
-    console.log(this.props);
-
     return (
       <StyledProject>
         <Form onSubmit={handleSubmit}>

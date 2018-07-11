@@ -10,7 +10,7 @@ export default styled.div`
     margin-top: ${props => props.mTop || "0px"};
     width: ${props => (props.widthAuto ? "100%" : "850px")};
 
-    font-size: 28px;
+    /* font-size: 28px; */
     font-family: "Roboto", sans-serif;
     font-weight: 400;
 

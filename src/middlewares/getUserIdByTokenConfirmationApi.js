@@ -26,7 +26,6 @@ export default store => next => action => {
       url: userConfirmationToken
     })
       .then(function(response) {
-        debugger;
         return next({ ...rest, type: type + SUCCESS, id: response.data["id"] });
       })
       .catch(function(error) {

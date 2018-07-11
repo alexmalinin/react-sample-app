@@ -113,7 +113,9 @@ const RenderProfile = ({
 
                 <div className="profile-item">
                   <div className="profile-label">Phone number:</div>
-                  <span className="profile-description">{data.phone}</span>
+                  <span className="profile-description">
+                    {data.phone || "No phone number"}
+                  </span>
                 </div>
 
                 <div className="profile-item">
@@ -123,7 +125,9 @@ const RenderProfile = ({
 
                 <div className="profile-item">
                   <div className="profile-label">Address:</div>
-                  <span className="profile-description">{data.address}</span>
+                  <span className="profile-description">
+                    {data.address || "No address"}
+                  </span>
                 </div>
               </div>
 

@@ -247,6 +247,8 @@ class ClientDashboard extends Component {
       } else page = "board";
     } else if (params["projectNewModule"]) {
       page = "module";
+    } else if (params["specialistId"]) {
+      page = "specialist";
     } else page = "root";
 
     let sidebarCondition =
@@ -366,6 +368,8 @@ class ClientDashboard extends Component {
       case "the_village":
         document.title = "The Village | Digital Village";
         return <TheVillage />;
+      case "specialist":
+        return <ClientAbout specialistId={params["specialistId"]} />;
       case "root":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={allProjects} history={history} />;

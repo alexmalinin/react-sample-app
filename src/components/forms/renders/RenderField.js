@@ -99,9 +99,9 @@ class RenderField extends Component {
       step,
       autoComplete,
       onSelfSubmit,
-      className,
-      ...rest
+      className
     } = this.props;
+
     const { loading, updError } = this.state;
 
     const customClassName = !error ? checkedClass : "";
@@ -127,7 +127,6 @@ class RenderField extends Component {
           onBlur={this.submit}
           // onBlur={() => input.onBlur(input.value)}
           loading={loading}
-          {...rest}
         />
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||
