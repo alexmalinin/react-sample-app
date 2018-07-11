@@ -139,14 +139,15 @@ class ProjectsBoard extends Component {
 
   renderProjectPage = () => {
     const {
-      projectId,
       showAllEpics,
       allEpics: { loaded, epics },
-      currentEpic,
+      match: {
+        params: { projectId, moduleId }
+      },
       history
     } = this.props;
 
-    if (currentEpic) {
+    if (moduleId) {
       return (
         <S_Board>
           <KanbanBoard

@@ -11,12 +11,17 @@ import { saveCreatedProgect, showSortedProjects } from "../../actions/actions";
 import ClientProjectForm from "./forms/ClientProjectForm";
 import { CLIENT, SPECIALIST } from "../../constants/user";
 import { getUserType } from "../../helpers/functions";
+import { run } from "../../helpers/scrollToElement";
 
 class ClientProjects extends Component {
   state = {
     saved: false,
     loading: false
   };
+
+  componentDidMount() {
+    run(0)();
+  }
 
   render() {
     return (
@@ -69,6 +74,7 @@ class ClientProjects extends Component {
     });
 
     if (!this.props.submitSucceeded) {
+      run(0)();
       this.props.saveCreatedProgect(values);
     }
   };
