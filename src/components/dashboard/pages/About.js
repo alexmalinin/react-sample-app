@@ -68,7 +68,7 @@ class About extends Component {
 
     return {
       title: "Services",
-      link: "/dashboard/industry?edit",
+      link: "/profile/industry?edit",
       fields: [
         {
           label: "I am a:",
@@ -130,7 +130,7 @@ class About extends Component {
 
     return {
       title: "Company",
-      link: "/dashboard/company?edit",
+      link: "/profile/company?edit",
       fields: [
         {
           label: "Company name:",
@@ -189,7 +189,7 @@ class About extends Component {
         return {
           title: "Billings",
           subtitle: "Credit card",
-          link: `/dashboard/${
+          link: `/profile/${
             getUserType() === SPECIALIST ? "billings" : "billing"
           }?edit`,
           fields: [

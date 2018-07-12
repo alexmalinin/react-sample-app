@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "./constants/colors";
+import { primaryColors, boxShadow, fontColors } from "./constants/colors";
 
 export default styled.div`
   display: flex;
@@ -18,21 +18,10 @@ export default styled.div`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
-  color: ${props => props.titleColor || `#666`};
+  color: ${props => props.titleColor || `${fontColors.regular}`};
   grid-row-end: span ${props => props.size.row};
   ${props => (props.village ? `grid-column-end: span ${props.size.col}` : ``)};
   ${boxShadow.light};
-
-  /* &::before {
-    content: "...";
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    font-size: 20px;
-    color: #7f7f7f;
-    user-select: none;
-    cursor: pointer;
-  } */
 
   .titleWrapper {
     display: flex;

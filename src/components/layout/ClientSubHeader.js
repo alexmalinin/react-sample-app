@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
-import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import ProgressBars from "../layout/ProgressBar";
 import { getAllUrlParams } from "../../helpers/functions";
 
@@ -17,26 +17,41 @@ class SubHeader extends Component {
     this.setState({ isEditing });
   }
 
+  navLinks = [
+    {
+      url: "info",
+      label: "My Profile",
+      percents: this.props.percents.profilePercent
+    },
+    {
+      url: "company",
+      label: "My Company",
+      percents: this.props.percents.companyPercent
+    },
+    {
+      url: "billing",
+      label: "My Billings",
+      percents: this.props.percents.billingPercent
+    }
+  ];
+
   render() {
-    const { user, page, isEdited } = this.props;
+    const { page } = this.props;
+    const { isEditing } = this.state;
 
     return (
       <StyledSubHeader profileForm="true" greenGradient>
         <div className="progressBarsLink">
-          <SubHeaderItemWrap content="1" path="profile">
-            My Profile
-            <ProgressBars percents={this.props.percents.profilePercent} />
-          </SubHeaderItemWrap>
-
-          <SubHeaderItemWrap content="2" path="company">
-            My Company
-            <ProgressBars percents={this.props.percents.companyPercent} />
-          </SubHeaderItemWrap>
-
-          <SubHeaderItemWrap content="3" path="billing">
-            My Billings
-            <ProgressBars percents={this.props.percents.billingPercent} />
-          </SubHeaderItemWrap>
+          {this.navLinks.map(({ url, label, percents }, key) => (
+            <SubHeaderLinkWrap
+              key={key}
+              url={`/profile/${url}${isEditing ? "?edit" : ""}`}
+              label={label}
+            >
+              {key + 1}
+              <ProgressBars percents={percents} />
+            </SubHeaderLinkWrap>
+          ))}
         </div>
         <div>
           {page !== "profile" ? (

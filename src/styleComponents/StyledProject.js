@@ -74,7 +74,7 @@ export default styled.div`
           padding: 20px;
           background: #fff;
           border-radius: 3px;
-          box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+          ${boxShadow.light};
 
           &.projectAside {
             flex: 0 0 350px;

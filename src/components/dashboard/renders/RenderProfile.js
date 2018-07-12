@@ -100,7 +100,7 @@ const RenderProfile = ({
                 <div className="profile-name">{data.name}</div>
                 <div className="profile-label">{data.position}</div>
                 {editCondition && (
-                  <NavLink to="/dashboard/info?edit">
+                  <NavLink to="/profile/info?edit">
                     <div className="dv-btn edit-btn">
                       <i className="fas fa-edit" />
                     </div>
@@ -186,7 +186,7 @@ const RenderProfile = ({
                     <div className="pfofile-title">Educations</div>
 
                     {editCondition && (
-                      <NavLink to="/dashboard/info?hash=education&edit">
+                      <NavLink to="/profile/info?hash=education&edit">
                         <div className="dv-btn edit-btn">
                           <i className="fas fa-edit" />
                         </div>
@@ -203,7 +203,7 @@ const RenderProfile = ({
                   <div className="profile-header">
                     <div className="pfofile-title">Experience</div>
                     {editCondition && (
-                      <NavLink to="/dashboard/info?hash=experience&edit">
+                      <NavLink to="/profile/info?hash=experience&edit">
                         <div className="dv-btn edit-btn">
                           <i className="fas fa-edit" />
                         </div>

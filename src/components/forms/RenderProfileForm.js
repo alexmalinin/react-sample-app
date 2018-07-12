@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Field, reduxForm, change, getFormValues } from "redux-form";
+import { Field, reduxForm, getFormValues } from "redux-form";
 import { required } from "../../helpers/validate";
 import {
   NextBtn,
@@ -16,8 +16,6 @@ import RenderImage from "../forms/renders/RenderImage";
 import RenderTextArea from "../forms/renders/RenderTextArea";
 import StyledExperienceCards from "../../styleComponents/StyledExperienceCards";
 import RenderCards from "../specialist/renders/RenderCards";
-import EdicationModal from "../modals/EdicationModal";
-import WorkExperienceModal from "../modals/WorkExperienceModal";
 import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
 import { getUserRole, getAllUrlParams } from "../../helpers/functions";
 import { CUSTOMER } from "../../constants/user";

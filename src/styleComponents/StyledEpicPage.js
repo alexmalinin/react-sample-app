@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontColors, colors } from "./constants/colors";
+import { fontColors, colors, boxShadow } from "./constants/colors";
 
 export default styled.div`
   .module {
@@ -13,7 +13,7 @@ export default styled.div`
       padding: 30px;
       background: #fff;
       border-radius: 3px;
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+      ${boxShadow.light};
 
       .module-title {
         font-size: 24px;

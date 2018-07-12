@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { Header, Modal } from "semantic-ui-react";
-import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
-import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
-import { getFormIdByPageName } from "../../helpers/functions";
-
 import { connect } from "react-redux";
 import { submit } from "redux-form";
+import { Header, Modal } from "semantic-ui-react";
+import { SaveBtn, CancelBtn } from "../../styleComponents/layout/DvButton";
 
 class ConfirmationModal extends Component {
   confirmModal = () => {

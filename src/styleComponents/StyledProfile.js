@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { colors, primaryColors, fontColors } from "./constants/colors";
+import {
+  colors,
+  primaryColors,
+  fontColors,
+  boxShadow
+} from "./constants/colors";
 
 export default styled.div`
   font-size: 16px;
@@ -72,6 +77,8 @@ export default styled.div`
     background-color: #fff;
     padding: 20px 20px 0;
     margin-bottom: 20px;
+    border-radius: 3px;
+    ${boxShadow.light};
   }
 
   .profile-header {

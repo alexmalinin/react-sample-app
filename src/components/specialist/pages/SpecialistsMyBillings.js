@@ -53,7 +53,9 @@ class SpecialistsMyBillings extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -69,8 +71,8 @@ class SpecialistsMyBillings extends Component {
         </NavigationPrompt>
 
         {this.state.nextStep ? (
-          this.state.nextLocation === "/dashboard/company" ? (
-            <Redirect to="company" />
+          this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
             <Redirect to="about" />
           )
