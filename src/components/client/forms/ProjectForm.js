@@ -157,6 +157,12 @@ class ProjectForm extends Component {
               />
 
               <div className="controls">
+                <NavLink exact to={`/dashboard/`}>
+                  <DvBlueButton className="dv-blue inverted transparent">
+                    Cancel
+                  </DvBlueButton>
+                </NavLink>
+
                 <DvBlueButton
                   // type="submit"
                   className="dv-blue inverted draft"
@@ -181,12 +187,6 @@ class ProjectForm extends Component {
                 >
                   Create
                 </DvBlueButton>
-
-                <NavLink exact to={`/dashboard/`}>
-                  <DvBlueButton className="dv-blue inverted transparent">
-                    Cancel
-                  </DvBlueButton>
-                </NavLink>
               </div>
             </div>
           </Grid.Column>

@@ -119,6 +119,8 @@ export const StyledBar = styled.aside`
         color: ${fontColors.black};
         font-weight: 500;
         text-align: left;
+        max-width: 120px;
+        word-wrap: break-word;
 
         transition: 0.4s;
       }
@@ -221,6 +223,7 @@ export const StyledBar = styled.aside`
         display: block;
         padding: 6px 0;
         color: inherit;
+        word-wrap: break-word;
 
         &.active {
           color: ${fontColors.blue.active};

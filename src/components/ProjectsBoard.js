@@ -2,7 +2,17 @@ import React, { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { Dimmer } from "semantic-ui-react";
+
 import { ContainerLarge } from "../styleComponents/layout/Container";
+import { S_Board } from "../styleComponents/S_Board";
+import BoardSubHeader from "./layout/BoardSubHeader";
+import ModuleCard from "./layout/ModuleCard";
+import KanbanBoard from "./layout/KanbanBoard";
+import EditProject from "./forms/hoc/EditProject";
+import EditModule from "./EditModule";
+import NotFound from "./NotFound";
+
 import {
   showAllProjects,
   showAllEpics,
@@ -12,13 +22,7 @@ import {
   showProjectEpic
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
-import { S_Board } from "../styleComponents/S_Board";
-import BoardSubHeader from "./layout/BoardSubHeader";
-import ModuleCard from "./layout/ModuleCard";
-import KanbanBoard from "./layout/KanbanBoard";
 import { getUserRole, getUserType, difference } from "../helpers/functions";
-import EditProject from "./forms/hoc/EditProject";
-import EditModule from "./EditModule";
 import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
@@ -51,7 +55,8 @@ class ProjectsBoard extends Component {
       match: {
         params: { moduleId: currentEpic, projectId }
       },
-      allEpics: { epics, loaded }
+      allEpics: { epics, loaded },
+      projectWithId: { project, loaded: projLoaded, projError }
     } = nextProps;
     let epicId;
 
@@ -63,10 +68,17 @@ class ProjectsBoard extends Component {
       } else epicId = epics[currentEpic - 1].id;
     }
 
-    if (nextProps.projectWithId) {
-      document.title = `${
-        nextProps.projectWithId.project.name
-      } | Digital Village`;
+    if (projLoaded) {
+      if (!projError) {
+        document.title = `${project.name} | Digital Village`;
+      } else {
+        if (projError.response.status === 404) {
+          document.title = `Not found | Digital Village`;
+        }
+        if (projError.response.status === 500) {
+          document.title = `No access | Digital Village`;
+        }
+      }
     }
 
     if (nextProps.deleteEpic) {
@@ -93,8 +105,8 @@ class ProjectsBoard extends Component {
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
-        nextProps.showEpicTasks(epicId);
         nextProps.showProjectEpic(projectId, epicId);
+        nextProps.showEpicTasks(epicId);
         this.setState({ fetchEpicTasks: false });
       }
     }
@@ -128,18 +140,22 @@ class ProjectsBoard extends Component {
 
   renderProjectBoard() {
     const {
+      epicTasks: { tasks, loaded, loading },
       match: {
         params: { status }
       }
     } = this.props;
 
     return (
-      <S_Board>
-        <KanbanBoard
-          myTasks={this.state.myTasks}
-          status={status}
-          specialists={this.state.specialists}
-        />
+      <S_Board className={loading ? "loading" : ""}>
+        {!loaded && loading && <p className="noTasks">Loading</p>}
+        {loaded && (
+          <KanbanBoard
+            tasks={tasks}
+            myTasks={this.state.myTasks}
+            specialists={this.state.specialists}
+          />
+        )}
       </S_Board>
     );
   }
@@ -155,14 +171,7 @@ class ProjectsBoard extends Component {
     } = this.props;
 
     if (moduleId) {
-      return (
-        <S_Board>
-          <KanbanBoard
-            myTasks={this.state.myTasks}
-            specialists={this.state.specialists}
-          />
-        </S_Board>
-      );
+      this.renderProjectBoard();
     } else {
       return (
         <S_Board>
@@ -240,10 +249,28 @@ class ProjectsBoard extends Component {
 
   render() {
     const {
+      projectWithId: { error },
       match: {
         params: { status }
       }
     } = this.props;
+
+    if (error) {
+      switch (error.response.status) {
+        case 404:
+          return <NotFound />;
+        case 500:
+          return (
+            <S_Board>
+              <p className="resp-error">
+                You are not authorized to access this page
+              </p>
+            </S_Board>
+          );
+        default:
+          return <NotFound />;
+      }
+    }
 
     return (
       <ContainerLarge indentBot>

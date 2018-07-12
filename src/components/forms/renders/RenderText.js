@@ -10,7 +10,8 @@ import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import {
   showProjectWithId,
   showProjectEpic,
-  showSortedProjects
+  showSortedProjects,
+  showAllEpics
 } from "../../../actions/actions";
 import { getUserType } from "../../../helpers/functions";
 import { CLIENT, SPECIALIST } from "../../../constants/user";
@@ -65,7 +66,8 @@ class RenderText extends Component {
       updateProjects,
       showSortedProjects,
       epicId,
-      updateEpic
+      updateEpic,
+      updateEpicName
     } = this.props;
 
     this.setState({ loading: true });
@@ -90,6 +92,10 @@ class RenderText extends Component {
 
           if (updateEpic && projectId && epicId) {
             this.props.showProjectEpic(projectId, epicId);
+          }
+
+          if (updateEpicName) {
+            this.props.showAllEpics(projectId);
           }
 
           if (updateProjects) {
@@ -157,7 +163,8 @@ class RenderText extends Component {
 export default connect(null, {
   showProjectWithId,
   showProjectEpic,
-  showSortedProjects
+  showSortedProjects,
+  showAllEpics
 })(RenderText);
 
 // export default RenderText;

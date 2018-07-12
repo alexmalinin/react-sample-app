@@ -45,6 +45,9 @@ class RenderImage extends Component {
             project: {
               logo: reader.result
             }
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
           }
         })
           .then(res => {

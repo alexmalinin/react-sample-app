@@ -15,15 +15,6 @@ export default styled.div`
     pointer-events: none;
   }
 
-  .resp-error {
-    min-height: 480px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: ${fontColors.black};
-  }
-
   .preloader {
     position: absolute;
     top: 50%;
@@ -231,7 +222,8 @@ export default styled.div`
               justify-content: flex-end;
 
               button.draft {
-                margin-right: 20px;
+                margin-right: 10px;
+                margin-left: 10px;
               }
             }
           }

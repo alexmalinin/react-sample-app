@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Field } from "redux-form";
 import {
   required,
@@ -43,12 +43,14 @@ export default ({
             disabled={!hasPermission}
           />
 
-          <div className="module-costs">
-            <label>Total costs:</label>
-            <span>
-              <i className="fas fa-dollar-sign" /> {formatCurrency(costs)}
-            </span>
-          </div>
+          {hasPermission && (
+            <div className="module-costs">
+              <label>Total costs:</label>
+              <span>
+                <i className="fas fa-dollar-sign" /> {formatCurrency(costs)}
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="module-info">
@@ -95,6 +97,7 @@ export default ({
           projectId={projectId}
           epicId={epicId}
           updateEpic
+          updateEpicName
           autoHeight
           isRequired
         />

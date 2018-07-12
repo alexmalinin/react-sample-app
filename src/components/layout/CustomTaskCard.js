@@ -56,7 +56,7 @@ class CustomCard extends Component {
         <h4 className="title">{name}</h4>
         {eta && (
           <div className="line">
-            <img src="/images/calendar.png" alt="calendar" />
+            <i className="fas fa-calendar-alt" />
             <span>
               {eta
                 .split("-")
@@ -68,7 +68,7 @@ class CustomCard extends Component {
         {getUserRole() === S_REDGUY &&
           !!cost && (
             <div className="line">
-              <img src="/images/dollar.png" alt="dollar" />
+              <i className="fas fa-dollar-sign" />
               <span>{formatCurrency(cost)}</span>
             </div>
           )}
@@ -76,7 +76,7 @@ class CustomCard extends Component {
         {oneOfRoles(S_ACTIVE, S_CORE) &&
           !!specialistCosts && (
             <div className="line">
-              <img src="/images/dollar.png" alt="dollar" />
+              <i className="fas fa-dollar-sign" />
               <span>{formatCurrency(specialistCosts)}</span>
             </div>
           )}

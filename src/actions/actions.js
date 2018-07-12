@@ -1956,7 +1956,7 @@ export function closeSubmitErrorModal() {
 
 function postProject(payload, logo = null) {
   const token = localStorage.getItem("jwt_token");
-  const { user_id, role } = jwtDecode(token);
+  const { user_id, aud } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.map(({ document, title, size }) => {
@@ -1975,7 +1975,7 @@ function postProject(payload, logo = null) {
       return skill.value;
     });
 
-  let specialistId = role === S_REDGUY ? user_id : null,
+  let specialistId = aud === S_REDGUY ? user_id : null,
     status = null;
 
   if (payload["state"] === "draft") {

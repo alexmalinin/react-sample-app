@@ -86,6 +86,10 @@ class EditProject extends Component {
         },
         review: project.state === "reviewed_by_admin"
         // attached_files_attributes: files,
+      },
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(({ data }) => {
