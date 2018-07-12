@@ -7,11 +7,15 @@ export default store => next => action => {
   if (!showSpecialistTeams) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "get",
-    url: showSpecialistTeams + id + "/teams"
+    url: showSpecialistTeams + user_id + "/teams",
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

@@ -2,22 +2,27 @@ import React, { Component } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { Dimmer } from "semantic-ui-react";
+
 import { ContainerLarge } from "../styleComponents/layout/Container";
+import { S_Board } from "../styleComponents/S_Board";
+import BoardSubHeader from "./layout/BoardSubHeader";
+import ModuleCard from "./layout/ModuleCard";
+import KanbanBoard from "./layout/KanbanBoard";
+import EditProject from "./forms/hoc/EditProject";
+import EditModule from "./EditModule";
+import NotFound from "./NotFound";
+
 import {
   showAllProjects,
   showAllEpics,
   showEpicTasks,
   showProjectTeam,
-  showProjectWithId
+  showProjectWithId,
+  showProjectEpic
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
-import { S_Board } from "../styleComponents/S_Board";
-import BoardSubHeader from "./layout/BoardSubHeader";
-import ModuleCard from "./layout/ModuleCard";
-import KanbanBoard from "./layout/KanbanBoard";
-import { getUserRole, getUserType } from "../helpers/functions";
-import EditProject from "./forms/hoc/EditProject";
-import EditModule from "./EditModule";
+import { getUserRole, getUserType, difference } from "../helpers/functions";
 import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
@@ -50,18 +55,30 @@ class ProjectsBoard extends Component {
       match: {
         params: { moduleId: currentEpic, projectId }
       },
-      allEpics: { epics, loaded }
+      allEpics: { epics, loaded },
+      projectWithId: { project, loaded: projLoaded, projError }
     } = nextProps;
     let epicId;
 
     if (loaded && currentEpic && Number.isInteger(+currentEpic) && projectId) {
       if (+currentEpic > epics.length) {
-        nextProps.history.push(`/dashboard/project/${projectId}/module/all`);
+        nextProps.history.push(
+          `/dashboard/project/${projectId}/module/${epics.length}/view`
+        );
       } else epicId = epics[currentEpic - 1].id;
     }
 
-    if (nextProps.projectWithId) {
-      document.title = `${nextProps.projectWithId.name} | Digital Village`;
+    if (projLoaded) {
+      if (!projError) {
+        document.title = `${project.name} | Digital Village`;
+      } else {
+        if (projError.response.status === 404) {
+          document.title = `Not found | Digital Village`;
+        }
+        if (projError.response.status === 500) {
+          document.title = `No access | Digital Village`;
+        }
+      }
     }
 
     if (nextProps.deleteEpic) {
@@ -84,9 +101,11 @@ class ProjectsBoard extends Component {
     if (epicId) {
       if (this.props.epicTasks.loaded) {
         if (this.props.match.params.moduleId !== currentEpic) {
+          nextProps.showProjectEpic(projectId, epicId);
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
+        nextProps.showProjectEpic(projectId, epicId);
         nextProps.showEpicTasks(epicId);
         this.setState({ fetchEpicTasks: false });
       }
@@ -119,20 +138,26 @@ class ProjectsBoard extends Component {
     this.setState({ myTasks: !this.state.myTasks });
   };
 
-  renderProjectbBoard() {
+  renderProjectBoard() {
     const {
+      epicTasks: { tasks, loaded, loading },
       match: {
         params: { status }
       }
     } = this.props;
 
     return (
-      <S_Board>
-        <KanbanBoard
-          myTasks={this.state.myTasks}
-          status={status}
-          specialists={this.state.specialists}
-        />
+      <S_Board className={loading ? "loading" : ""}>
+        {!loaded && loading && <p className="noTasks">Loading</p>}
+        {loaded && !!tasks.length ? (
+          <KanbanBoard
+            tasks={tasks}
+            myTasks={this.state.myTasks}
+            specialists={this.state.specialists}
+          />
+        ) : (
+          <p className="noTasks">There is no tasks yet</p>
+        )}
       </S_Board>
     );
   }
@@ -148,14 +173,7 @@ class ProjectsBoard extends Component {
     } = this.props;
 
     if (moduleId) {
-      return (
-        <S_Board>
-          <KanbanBoard
-            myTasks={this.state.myTasks}
-            specialists={this.state.specialists}
-          />
-        </S_Board>
-      );
+      this.renderProjectBoard();
     } else {
       return (
         <S_Board>
@@ -201,17 +219,19 @@ class ProjectsBoard extends Component {
 
   renderModulePage = () => {
     const {
-      allEpics: { epics, loaded },
       match: {
         params: { moduleId, projectId }
       },
+      allEpics: { epics, loaded },
       history
     } = this.props;
+
+    //make edit module dependent on show epic
     return (
       loaded && (
         <EditModule
-          epicId={epics[moduleId - 1].id}
           currentEpic={moduleId}
+          epicId={epics[+moduleId - 1].id}
           projectId={projectId}
           history={history}
         />
@@ -222,7 +242,7 @@ class ProjectsBoard extends Component {
   renderContent = status => {
     switch (status) {
       case "view":
-        return this.renderProjectbBoard();
+        return this.renderProjectBoard();
       case "edit":
         return this.renderModulePage();
       default:
@@ -232,10 +252,28 @@ class ProjectsBoard extends Component {
 
   render() {
     const {
+      projectWithId: { error },
       match: {
         params: { status }
       }
     } = this.props;
+
+    if (error) {
+      switch (error.response.status) {
+        case 404:
+          return <NotFound />;
+        case 500:
+          return (
+            <S_Board>
+              <p className="resp-error">
+                You are not authorized to access this page
+              </p>
+            </S_Board>
+          );
+        default:
+          return <NotFound />;
+      }
+    }
 
     return (
       <ContainerLarge indentBot>
@@ -252,6 +290,7 @@ class ProjectsBoard extends Component {
 
 const mapStateToProps = state => {
   return {
+    showEpic: state.showEpic,
     allEpics: state.allEpics,
     deleteEpic: state.deleteEpic,
     createEpic: state.createEpic,
@@ -267,6 +306,7 @@ export default withRouter(
   connect(mapStateToProps, {
     showAllProjects,
     showAllEpics,
+    showProjectEpic,
     showEpicTasks,
     showProjectTeam,
     showProjectWithId

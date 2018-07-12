@@ -54,20 +54,14 @@ class SubHeader extends Component {
           ))}
         </div>
         <div>
-          {page !== "profile" ? (
-            !this.state.isEditing ? (
-              // <SubHeaderLinkWrap
-              //   url="/dashboard/"
-              //   label="Complete Later"
-              //   className="right-link arrow"
-              // />
+          {page !== "profile" &&
+            !this.state.isEditing && (
               <NavLink exact className="button" to="/dashboard/">
                 <StyledSubHeaderLink className="right-link arrow" />
                 Complete Later
                 <span />
               </NavLink>
-            ) : null
-          ) : null}
+            )}
         </div>
       </StyledSubHeader>
     );

@@ -7,7 +7,7 @@ export default store => next => action => {
   if (!editBilling) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   console.log({
     billing: payload
@@ -15,7 +15,7 @@ export default store => next => action => {
 
   axios({
     method: "put",
-    url: editBilling + id,
+    url: editBilling + user_id,
     data: {
       billing: payload
     },

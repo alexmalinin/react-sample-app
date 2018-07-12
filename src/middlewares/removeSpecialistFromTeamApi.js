@@ -6,8 +6,7 @@ export default store => next => action => {
   const { type, removeSpecialistFromTeam, payload, ...rest } = action;
   if (!removeSpecialistFromTeam) return next(action);
 
-  let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "DELETE",

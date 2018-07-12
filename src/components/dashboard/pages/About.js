@@ -189,9 +189,7 @@ class About extends Component {
         return {
           title: "Billings",
           subtitle: "Credit card",
-          link: `/profile/${
-            getUserType() === SPECIALIST ? "billings" : "billing"
-          }?edit`,
+          link: `/profile/billing?edit`,
           fields: [
             {
               label: "Name on card:",
@@ -199,7 +197,7 @@ class About extends Component {
             },
             {
               label: "Card number:",
-              value: card_number || "No card number"
+              value: card_number.replace(/(\d{4})/g, "$1 ") || "No card number"
             }
           ]
         };
@@ -208,9 +206,7 @@ class About extends Component {
         return {
           title: "Billings",
           subtitle: "Direct Payment",
-          link: `/dashboard/${
-            getUserType() === SPECIALIST ? "billings" : "billing"
-          }?edit`,
+          link: `/profile/billing?edit`,
           fields: [
             {
               label: "Correspond bank:",

@@ -6,11 +6,17 @@ export default store => next => action => {
   const { type, updateTeamChannel, payload, ...rest } = action;
   if (!updateTeamChannel) return next(action);
 
+  const token = localStorage.getItem("jwt_token");
+
   axios({
     method: "put",
     url: updateTeamChannel,
     data: {
       name: payload["name"]
+    },
+
+    headers: {
+      Authorization: `Bearer ${token}`
     }
   })
     .then(function(response) {

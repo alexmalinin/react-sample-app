@@ -14,7 +14,11 @@ import RenderSelectField from "../../forms/renders/RenderSelectField";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
 
-import { minLength2, formatCurrency } from "../../../helpers/validate";
+import {
+  minLength2,
+  maxLength50,
+  formatCurrency
+} from "../../../helpers/validate";
 import { PORT } from "../../../constants/constants";
 import { S_REDGUY } from "../../../constants/user";
 import { getUserRole, oneOfRoles } from "../../../helpers/functions";
@@ -47,6 +51,9 @@ class EditTaskForm extends Component {
       epicTask: { id, epic_id }
     } = this.props;
     this.props.setUpdated();
+
+    const token = localStorage.getItem("jwt_token");
+
     return axios({
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}`,
@@ -54,6 +61,10 @@ class EditTaskForm extends Component {
         task: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
@@ -64,18 +75,28 @@ class EditTaskForm extends Component {
     } = this.props;
     let payload = {};
 
+    const token = localStorage.getItem("jwt_token");
+
     if (type === "assign") {
       payload = {
         method: "PUT",
         url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/assign`,
         data: {
           specialist_id
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       };
     } else
       payload = {
         method: "DELETE",
-        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`
+        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`,
+
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
 
     this.props.setUpdated();
@@ -86,15 +107,17 @@ class EditTaskForm extends Component {
           totalCost: response.data.cost
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   };
 
   handleCost = specId => {
+    const token = localStorage.getItem("jwt_token");
     const {
       epicTask: { id, epic_id },
       epic: { project_id },
       formValues
     } = this.props;
+
     axios({
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
@@ -103,6 +126,10 @@ class EditTaskForm extends Component {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
           project_id
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(resp => {
@@ -281,7 +308,7 @@ class EditTaskForm extends Component {
                     component={RenderField}
                     className="transparent area"
                     onSelfSubmit={this.handleSubmit}
-                    validate={[minLength2]}
+                    validate={[minLength2, maxLength50]}
                     disabled={disabled}
                     padded
                   />
@@ -406,7 +433,7 @@ class EditTaskForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { projectTeam, projectWithId, specialistData } = state;
+  const { projectTeam, specialistData } = state;
   const { epicTask } = ownProps;
   const initialValues = { ...epicTask };
   let ownCosts = null;
@@ -426,7 +453,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     specialistData,
     projectTeam,
-    projectWithId,
     initialValues,
     formValues: state.form,
     ownCosts

@@ -87,8 +87,7 @@ class SpecialistCard extends Component {
 }
 
 export default connect(
-  ({ projectWithId, experienceLevels }) => ({
-    projectWithId,
+  ({ experienceLevels }) => ({
     experienceLevels
   }),
   {

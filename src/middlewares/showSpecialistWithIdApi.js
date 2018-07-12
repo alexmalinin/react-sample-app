@@ -6,9 +6,15 @@ export default store => next => action => {
   const { type, showSpecialistWithId, ...rest } = action;
   if (!showSpecialistWithId) return next(action);
 
+  const token = localStorage.getItem("jwt_token");
+
   axios({
     method: "get",
-    url: showSpecialistWithId
+    url: showSpecialistWithId,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

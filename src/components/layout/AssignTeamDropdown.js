@@ -80,7 +80,10 @@ class AssignTeamDropdown extends Component {
     this.setState({ searching: true });
     Axios({
       method: "GET",
-      url: `${PORT}/api/v1/specialists/search?query=${this.state.specInput}`
+      url: `${PORT}/api/v1/specialists/search?query=${this.state.specInput}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
     })
       .then(resp => {
         this.setState({ specialists: resp.data, searching: false });
@@ -93,11 +96,6 @@ class AssignTeamDropdown extends Component {
 
   handleAssignTeam = e => {
     const teamId = e.target.getAttribute("data");
-    let type;
-
-    if (e.target.className === "assigned") {
-      type = "remove";
-    } else type = "assign";
 
     this.props.handleAssignTeam(teamId);
     this.handleCloseButton();
@@ -107,13 +105,19 @@ class AssignTeamDropdown extends Component {
     const specialistId = e.target.getAttribute("data");
 
     const {
-      projectWithId: { id, team }
+      projectWithId: {
+        project: { id, team }
+      }
     } = this.props;
     Axios({
       method: "POST",
       url: `${PORT}/api/v1/projects/${id}/teams/${
         team.id
-      }/specialist_invitation/${specialistId}`
+      }/specialist_invitation/${specialistId}`,
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
     })
       .then(response => {
         createNotification({

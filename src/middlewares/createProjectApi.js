@@ -7,7 +7,7 @@ export default store => next => action => {
   if (!saveCreatedProgect) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.map(file => {
@@ -38,7 +38,7 @@ export default store => next => action => {
         data: {
           project: {
             name: payload["name"],
-            customer_id: id,
+            customer_id: user_id,
             description: payload["description"],
             user_story: payload["user_story"],
             state: payload["state"],
@@ -79,7 +79,7 @@ export default store => next => action => {
       data: {
         project: {
           name: payload["name"],
-          customer_id: id,
+          customer_id: user_id,
           description: payload["description"],
           user_story: payload["user_story"],
           state: payload["state"],

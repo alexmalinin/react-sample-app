@@ -102,17 +102,22 @@ class SpecialistsDashboard extends Component {
     }
 
     if (!this.props.specialistData) {
-      let token = localStorage.getItem("jwt_token");
-      let id;
+      const token = localStorage.getItem("jwt_token");
+      let user_id;
 
       if (token) {
-        id = jwtDecode(token).id;
+        user_id = jwtDecode(token).user_id;
       }
 
-      if (id) {
-        axios
-          .get(`${PORT}/api/v1/specialists/${id}`)
-          .catch(error => this.props.history.push("/sign_in"));
+      if (user_id) {
+        axios({
+          method: "GET",
+          url: `${PORT}/api/v1/specialists/${user_id}`,
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
       }
     }
   }
@@ -180,7 +185,8 @@ class SpecialistsDashboard extends Component {
       number_of_employers,
       segment,
       website
-    } = data ? data : {};
+    } =
+      data || {};
 
     return {
       name,
@@ -206,7 +212,8 @@ class SpecialistsDashboard extends Component {
       swift_code,
       purpose_of_payment,
       beneficiary_account
-    } = data ? data : {};
+    } =
+      data || {};
 
     if (+billing_type === 1) {
       return {
@@ -218,21 +225,20 @@ class SpecialistsDashboard extends Component {
         purpose_of_payment,
         beneficiary_account
       };
-    } else {
-      return {
-        card_name,
-        card_number
-      };
     }
+    return {
+      card_name,
+      card_number
+    };
   }
 
   calculatePagePercent = (percentName, data) => {
-    let fieldsCount = data && Object.keys(data).length;
+    const fieldsCount = data && Object.keys(data).length;
 
     if (percentName && Object.keys(data).length > 0) {
       let filledFields = 0;
 
-      for (let key in data) {
+      for (const key in data) {
         if (data[key]) {
           switch (typeof data[key]) {
             case "number":
@@ -304,32 +310,32 @@ class SpecialistsDashboard extends Component {
     const allowedPages = ["about"];
 
     if (passive) {
-      if (params["page"]) {
-        if (allowedPages.some(page => params["page"] === page)) {
-          page = params["page"];
+      if (params.page) {
+        if (allowedPages.some(page => params.page === page)) {
+          page = params.page;
         } else page = "forbidden";
-      } else if (params["profilePage"]) {
-        page = params["profilePage"];
+      } else if (params.profilePage) {
+        page = params.profilePage;
       } else page = "forbidden";
-    } else if (params["page"]) {
-      if (params["page"] === "search") {
+    } else if (params.page) {
+      if (params.page === "search") {
         if (oneOfRoles(S_CORE, S_REDGUY)) {
-          page = params["page"];
+          page = params.page;
         } else page = "forbidden";
-      } else page = params["page"];
-    } else if (params["profilePage"]) {
-      page = params["profilePage"];
-    } else if (params["projectId"] && params["projectId"] !== "info") {
-      if (params["projectId"] === "new") {
+      } else page = params.page;
+    } else if (params.profilePage) {
+      page = params.profilePage;
+    } else if (params.projectId && params.projectId !== "info") {
+      if (params.projectId === "new") {
         page = "projects";
       } else page = "board";
-    } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
+    } else if (params.projectNewModule && getUserRole() === S_REDGUY) {
       page = "module";
-    } else if (params["specialistId"]) {
+    } else if (params.specialistId) {
       page = "specialist";
     } else page = "dashboard";
 
-    let sidebarCondition =
+    const sidebarCondition =
       page !== "info" &&
       page !== "industry" &&
       page !== "company" &&
@@ -352,8 +358,8 @@ class SpecialistsDashboard extends Component {
             <Fragment>
               {!passive && (
                 <SideBarLeft
-                  currentProject={params["projectId"]}
-                  currentEpic={params["moduleId"]}
+                  currentProject={params.projectId}
+                  currentEpic={params.moduleId}
                   projects={specialistProjects}
                 />
               )}
@@ -379,22 +385,19 @@ class SpecialistsDashboard extends Component {
 
         {confirmationModal &&
           confirmationModal.type === "save" && (
-            <SavingConfirmationModal
-              isOpen={true}
-              formId={confirmationModal.formId}
-            />
+            <SavingConfirmationModal isOpen formId={confirmationModal.formId} />
           )}
 
         {confirmationModal &&
           confirmationModal.type === "delete" && (
             <DeleteConfirmationModal
-              isOpen={true}
+              isOpen
               message={confirmationModal.message}
               callback={confirmationModal.callback}
             />
           )}
 
-        {this.props.submitErrorModal && <SubmitFormErrorModal isOpen={true} />}
+        {this.props.submitErrorModal && <SubmitFormErrorModal isOpen />}
       </div>
     );
   }
@@ -449,14 +452,7 @@ class SpecialistsDashboard extends Component {
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
       case "board":
-        return (
-          <ProjectsBoard
-          // projectId={params["projectId"]}
-          // currentEpic={params["moduleId"] || "all"}
-          // status={params["status"]}
-          // history={this.props.history}
-          />
-        );
+        return <ProjectsBoard />;
       case "teams":
         document.title = "Teams | Digital Village";
         return <Teams teams={specialistTeams} />;
@@ -465,7 +461,7 @@ class SpecialistsDashboard extends Component {
         return <SpecialistsTest />;
       case "module":
         document.title = "Add module | Digital Village";
-        return <ClientModule projectId={params["projectNewModule"]} />;
+        return <ClientModule projectId={params.projectNewModule} />;
       case "account":
         document.title = "Billings | Digital Village";
         return <SpecialistAccount />;
@@ -484,9 +480,10 @@ class SpecialistsDashboard extends Component {
         if (oneOfRoles(S_CORE, S_REDGUY)) {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
-        } else return <Redirect to="/404" />;
+        }
+        return <Redirect to="/404" />;
       case "specialist":
-        return <SpecialistsAbout specialistId={params["specialistId"]} />;
+        return <SpecialistsAbout specialistId={params.specialistId} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
         return <Dashboard projects={specialistProjects} />;
@@ -499,7 +496,7 @@ class SpecialistsDashboard extends Component {
     if (nextProps.specialistData) {
       if (
         nextProps.specialistData.email &&
-        pagesToCalculate.some(page => page === nextProps.match.params["page"])
+        pagesToCalculate.some(page => page === nextProps.match.params.page)
       ) {
         this.calculatePercents();
       }
@@ -517,8 +514,8 @@ class SpecialistsDashboard extends Component {
       }
     }
 
-    const prevProjectId = this.props.match.params["projectId"];
-    const projectId = nextProps.match.params["projectId"];
+    const prevProjectId = this.props.match.params.projectId;
+    const projectId = nextProps.match.params.projectId;
 
     if (projectId && projectId !== "new" && prevProjectId) {
       if (projectId !== prevProjectId) {
@@ -530,16 +527,14 @@ class SpecialistsDashboard extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    changeUserType: state.changeUserType,
-    specialistData: state.specialistData,
-    specialistProjects: state.specialistProjects,
-    specialistTeams: state.specialistTeams,
-    confirmationModal: state.confirmationModal,
-    submitErrorModal: state.submitErrorModal
-  };
-};
+const mapStateToProps = state => ({
+  changeUserType: state.changeUserType,
+  specialistData: state.specialistData,
+  specialistProjects: state.specialistProjects,
+  specialistTeams: state.specialistTeams,
+  confirmationModal: state.confirmationModal,
+  submitErrorModal: state.submitErrorModal
+});
 
 export default connect(mapStateToProps, {
   showSpecialistData,

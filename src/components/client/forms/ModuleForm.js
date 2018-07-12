@@ -103,6 +103,11 @@ class ModuleForm extends Component {
           />
 
           <div className="controls">
+            <NavLink exact to={`/dashboard/project/${projectId}`}>
+              <DvBlueButton className="dv-blue inverted transparent">
+                Cancel
+              </DvBlueButton>
+            </NavLink>
             <DvBlueButton
               type="submit"
               className="dv-blue"
@@ -110,12 +115,6 @@ class ModuleForm extends Component {
             >
               Create
             </DvBlueButton>
-
-            <NavLink exact to={`/dashboard/project/${projectId}`}>
-              <DvBlueButton className="dv-blue inverted transparent">
-                Cancel
-              </DvBlueButton>
-            </NavLink>
           </div>
         </section>
       </div>

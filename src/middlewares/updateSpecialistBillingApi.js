@@ -7,11 +7,11 @@ export default store => next => action => {
   if (!updateSpecialistBillings) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: updateSpecialistBillings + id,
+    url: updateSpecialistBillings + user_id,
     data: {
       specialist: {
         billing_attributes: {
@@ -28,7 +28,7 @@ export default store => next => action => {
           swift_code: payload["swift_code"],
           iban: payload["iban"],
           user_type: "Specialist",
-          user_id: id
+          user_id
         }
       }
     },

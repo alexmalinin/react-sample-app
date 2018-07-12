@@ -12,7 +12,11 @@ export default store => next => action => {
 
   axios({
     method: "get",
-    url: showAllEpics
+    url: showAllEpics,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

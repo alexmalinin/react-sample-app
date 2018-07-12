@@ -6,9 +6,9 @@ import Axios from "axios";
 import EditEpicForm from "./forms/EditEpicForm";
 import StyledEpicPage from "../styleComponents/StyledEpicPage";
 import {
-  showProjectEpic,
   deleteProjectEpic,
-  showConfirmationModal
+  showConfirmationModal,
+  showProjectEpic
 } from "../actions/actions";
 import { PORT } from "../constants/constants";
 import { run } from "../helpers/scrollToElement";
@@ -17,20 +17,7 @@ class EditModule extends Component {
   componentWillMount() {
     this.clearFileds();
     run(0)();
-  }
-
-  componentDidMount() {
-    const { projectId, epicId, showProjectEpic } = this.props;
-
-    if (projectId && epicId) {
-      showProjectEpic(+projectId, +epicId);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.currentEpic !== nextProps.currentEpic) {
-      nextProps.showProjectEpic(nextProps.projectId, nextProps.epicId);
-    }
+    this.props.showProjectEpic(this.props.projectId, this.props.epicId);
   }
 
   clearFileds = () => {
@@ -44,6 +31,7 @@ class EditModule extends Component {
 
   handleSubmit = (name, value) => {
     const { projectId, epicId } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     return Axios({
       method: "PUT",
@@ -52,6 +40,10 @@ class EditModule extends Component {
         epic: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
@@ -78,28 +70,31 @@ class EditModule extends Component {
       submitting,
       projectId,
       epicId,
-      epicName,
-      eta,
-      costs
+      showEpic: {
+        epic: { name, cost, eta },
+        loaded
+      }
     } = this.props;
 
     return (
-      <StyledEpicPage edit>
-        <form onSubmit={handleSubmit}>
-          <EditEpicForm
-            projectId={projectId}
-            epicId={epicId}
-            epicName={epicName}
-            submitting={submitting}
-            handleSubmit={this.handleSubmit}
-            costs={costs}
-            deleteEpic={this.deleteEpic}
-            handleEtaForm={this.handleEtaForm}
-            eta={eta}
-            updateEpic={this.updateEpic}
-          />
-        </form>
-      </StyledEpicPage>
+      loaded && (
+        <StyledEpicPage edit>
+          <form onSubmit={handleSubmit}>
+            <EditEpicForm
+              projectId={projectId}
+              epicId={epicId}
+              epicName={name}
+              submitting={submitting}
+              handleSubmit={this.handleSubmit}
+              cost={cost}
+              deleteEpic={this.deleteEpic}
+              handleEtaForm={this.handleEtaForm}
+              eta={eta}
+              updateEpic={this.updateEpic}
+            />
+          </form>
+        </StyledEpicPage>
+      )
     );
   }
 }
@@ -112,27 +107,15 @@ EditModule = reduxForm({
   keepDirtyOnReinitialize: false
 })(EditModule);
 
-const mapStateToProps = (state, ownProps) => {
-  const {
-    showEpic,
-    allEpics: { epics }
-  } = state;
-  const { currentEpic } = ownProps;
-  const epic = epics && epics[currentEpic - 1];
-
+const mapStateToProps = state => {
   return {
-    projectId: ownProps.projectId,
-    currentEpic: ownProps.currentEpic,
-    epicId: epic && epic.id,
-    epicName: (showEpic && showEpic.name) || (epic && epic.name),
-    eta: (showEpic && showEpic.eta) || (epic && epic.eta),
-    costs: showEpic && showEpic.cost,
-    initialValues: showEpic || epic
+    showEpic: state.showEpic,
+    initialValues: state.showEpic.epic
   };
 };
 
 export default connect(mapStateToProps, {
-  showProjectEpic,
   deleteProjectEpic,
-  showConfirmationModal
+  showConfirmationModal,
+  showProjectEpic
 })(EditModule);

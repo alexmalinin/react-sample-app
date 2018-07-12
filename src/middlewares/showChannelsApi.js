@@ -6,12 +6,15 @@ export default store => next => action => {
   const { type, showChannels, team, ...rest } = action;
   if (!showChannels) return next(action);
 
-  // let token = localStorage.getItem('jwt_token');
-  // let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "get",
-    url: showChannels
+    url: showChannels,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

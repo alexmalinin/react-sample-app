@@ -11,13 +11,8 @@ export default styled.div`
   margin-bottom: 80px;
 
   &.loading {
-    .preloader {
-      opacity: 1;
-      visibility: visible;
-    }
-    .ui.grid {
-      opacity: 0;
-    }
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .preloader {
@@ -227,7 +222,8 @@ export default styled.div`
               justify-content: flex-end;
 
               button.draft {
-                margin-right: 20px;
+                margin-right: 10px;
+                margin-left: 10px;
               }
             }
           }

@@ -18,6 +18,7 @@ export const minLength8 = minLength(8);
 export const maxLength4 = maxLength(4);
 export const maxLength20 = maxLength(20);
 export const maxLength30 = maxLength(30);
+export const maxLength50 = maxLength(50);
 export const maxLength80 = maxLength(80);
 export const maxLength260 = maxLength(260);
 export const creditCard = value =>

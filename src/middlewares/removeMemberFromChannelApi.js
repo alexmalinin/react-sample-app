@@ -7,7 +7,6 @@ export default store => next => action => {
   if (!removeFromChannel) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
 
   axios({
     method: "DELETE",

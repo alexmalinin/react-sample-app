@@ -13,11 +13,11 @@ export default store => next => action => {
   if (!editEducationCard1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: editEducationCard1 + id + editEducationCard2,
+    url: editEducationCard1 + user_id + editEducationCard2,
     data: {
       education: {
         name: payload["name"],

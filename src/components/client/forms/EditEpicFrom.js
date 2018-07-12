@@ -25,6 +25,8 @@ class EditEpicForm extends Component {
       setEdited
     } = this.props;
 
+    const token = localStorage.getItem("jwt_token");
+
     setEdited();
 
     return axios({
@@ -34,6 +36,10 @@ class EditEpicForm extends Component {
         epic: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };

@@ -7,11 +7,15 @@ export default store => next => action => {
   if (!showSpecialistData) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "get",
-    url: showSpecialistData + id
+    url: showSpecialistData + user_id,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;
@@ -19,6 +23,6 @@ export default store => next => action => {
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 };

@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { boxShadow, miscellaneous } from "./constants/colors";
+import {
+  boxShadow,
+  miscellaneous,
+  fontColors,
+  colors
+} from "./constants/colors";
 
 export const S_Board = styled.div`
   width: 100%;
@@ -8,6 +13,21 @@ export const S_Board = styled.div`
   flex-flow: column nowrap;
   justify-content: space-between;
   transition: 0.4s ease-in-out;
+  position: relative;
+
+  .resp-error {
+    min-height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: ${fontColors.black};
+  }
+
+  &.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 
   div.hidden.transition {
     display: none;
@@ -291,23 +311,6 @@ export const S_Board = styled.div`
       max-width: calc(100% - 30px);
     }
 
-    .platform {
-      font-size: 13px;
-
-      &.purple {
-        color: #8a2be0;
-      }
-      &.blue {
-        color: #4469e1;
-      }
-      &.lightblue {
-        color: #00abdf;
-      }
-      &.cyan {
-        color: #1db6bd;
-      }
-    }
-
     .persons {
       display: flex;
       flex-flow: row wrap;
@@ -324,8 +327,11 @@ export const S_Board = styled.div`
       /* margin-top: 5px;
       margin-bottom: 5px; */
 
-      img {
+      i {
         margin-right: 10px;
+        width: 16px;
+        color: ${colors.blue};
+        text-align: center;
       }
 
       span {

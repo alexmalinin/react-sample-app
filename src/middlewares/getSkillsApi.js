@@ -6,9 +6,15 @@ export default store => next => action => {
   const { type, getSkills, ...rest } = action;
   if (!getSkills) return next(action);
 
+  const token = localStorage.getItem("jwt_token");
+
   axios({
     method: "get",
-    url: getSkills
+    url: getSkills,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(response => {
       let data = response.data;
