@@ -213,7 +213,7 @@ class EditProjectForm extends Component {
                       <React.Fragment>
                         <div className="label">Technologies:</div>
                         <div className="skillsWrapper">
-                          {project &&
+                          {loaded &&
                             project.skills.map((skill, key) => (
                               <div className="skill" key={key}>
                                 {skill.label}

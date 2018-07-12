@@ -149,12 +149,14 @@ class ProjectsBoard extends Component {
     return (
       <S_Board className={loading ? "loading" : ""}>
         {!loaded && loading && <p className="noTasks">Loading</p>}
-        {loaded && (
+        {loaded && !!tasks.length ? (
           <KanbanBoard
             tasks={tasks}
             myTasks={this.state.myTasks}
             specialists={this.state.specialists}
           />
+        ) : (
+          <p className="noTasks">There is no tasks yet</p>
         )}
       </S_Board>
     );

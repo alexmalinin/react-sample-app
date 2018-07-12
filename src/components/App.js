@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -7,11 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 import FlexDirection from "../styleComponents/FlexDirection";
-import Home from "./Home";
 import NotFound from "./NotFound";
-import Contact from "./Contact/Contact";
-import PostProject from "./PostProject/PostProject";
-import OverviewPostedProject from "./OverviewPostedProject";
 import SignUp from "./SignUp/SignUp";
 import SignIn from "./SignIn/SignIn";
 import ForgotPassword from "./ResetPassword/ForgotPassword";
@@ -69,14 +65,6 @@ class App extends Component {
                     <Redirect to="/sign_in" />
                   )
                 }
-              />
-
-              <Route path="/home" component={Home} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/post_project" component={PostProject} />
-              <Route
-                path="/project_overview"
-                component={OverviewPostedProject}
               />
               <Route path="/sign_in" component={SignIn} />
               <Route path="/forgot_password" component={ForgotPassword} />

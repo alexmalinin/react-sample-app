@@ -10,19 +10,17 @@ const checkAuth = () => {
   return true;
 };
 
-export default function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        checkAuth() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/sign_in", state: { from: props.location } }}
-          />
-        )
-      }
-    />
-  );
-}
+export default ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      checkAuth() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: "/sign_in", state: { from: props.location } }}
+        />
+      )
+    }
+  />
+);
