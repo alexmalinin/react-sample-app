@@ -22,7 +22,7 @@ export default ({
   handleEtaForm,
   eta,
   deleteEpic,
-  costs
+  cost
 }) => {
   const hasPermission = oneOfRoles(CUSTOMER, S_REDGUY);
   return (
@@ -47,7 +47,7 @@ export default ({
             <div className="module-costs">
               <label>Total costs:</label>
               <span>
-                <i className="fas fa-dollar-sign" /> {formatCurrency(costs)}
+                <i className="fas fa-dollar-sign" /> {formatCurrency(cost)}
               </span>
             </div>
           )}

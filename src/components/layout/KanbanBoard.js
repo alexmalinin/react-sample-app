@@ -14,7 +14,8 @@ import {
   deleteEpicTask,
   showAllEpics,
   assignSpecialistToTask,
-  removeSpecialistFromTask
+  removeSpecialistFromTask,
+  showProjectEpic
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
 import { getUserRole, difference, getUserId } from "../../helpers/functions";
@@ -198,6 +199,7 @@ const mapStateToProps = (state, { tasks, myTasks }) => {
 
 export default withRouter(
   connect(mapStateToProps, {
+    showProjectEpic,
     showEpicTasks,
     updateEpicTask,
     deleteEpicTask,

@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import EditEpicForm from "./forms/EditEpicForm";
 import StyledEpicPage from "../styleComponents/StyledEpicPage";
-import { deleteProjectEpic, showConfirmationModal } from "../actions/actions";
+import {
+  deleteProjectEpic,
+  showConfirmationModal,
+  showProjectEpic
+} from "../actions/actions";
 import { PORT } from "../constants/constants";
 import { run } from "../helpers/scrollToElement";
 
@@ -13,6 +17,7 @@ class EditModule extends Component {
   componentWillMount() {
     this.clearFileds();
     run(0)();
+    this.props.showProjectEpic(this.props.projectId, this.props.epicId);
   }
 
   clearFileds = () => {
@@ -66,7 +71,7 @@ class EditModule extends Component {
       projectId,
       epicId,
       showEpic: {
-        epic: { name, costs, eta },
+        epic: { name, cost, eta },
         loaded
       }
     } = this.props;
@@ -81,7 +86,7 @@ class EditModule extends Component {
               epicName={name}
               submitting={submitting}
               handleSubmit={this.handleSubmit}
-              costs={costs}
+              cost={cost}
               deleteEpic={this.deleteEpic}
               handleEtaForm={this.handleEtaForm}
               eta={eta}
@@ -111,5 +116,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   deleteProjectEpic,
-  showConfirmationModal
+  showConfirmationModal,
+  showProjectEpic
 })(EditModule);

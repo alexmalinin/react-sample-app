@@ -225,12 +225,13 @@ class ProjectsBoard extends Component {
       allEpics: { epics, loaded },
       history
     } = this.props;
+
     //make edit module dependent on show epic
     return (
       loaded && (
         <EditModule
           currentEpic={moduleId}
-          epicId={epics[moduleId - 1].id}
+          epicId={epics[+moduleId - 1].id}
           projectId={projectId}
           history={history}
         />
