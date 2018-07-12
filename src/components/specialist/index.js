@@ -42,7 +42,8 @@ import {
   showProjectWithId,
   showProjectTeam,
   showAllEpics,
-  showSpecialistTeams
+  showSpecialistTeams,
+  showSpecialistProjects
 } from "../../actions/actions";
 
 import {
@@ -72,6 +73,7 @@ class SpecialistsDashboard extends Component {
     this.props.showSortedProjects("specialists");
     this.props.showSpecialistTeams();
     this.props.showSpecialistData();
+    this.props.showSpecialistProjects();
     localStorage.removeItem("user_email");
 
     const {
@@ -542,5 +544,6 @@ export default connect(mapStateToProps, {
   showProjectWithId,
   showProjectTeam,
   showAllEpics,
-  showSpecialistTeams
+  showSpecialistTeams,
+  showSpecialistProjects
 })(SpecialistsDashboard);

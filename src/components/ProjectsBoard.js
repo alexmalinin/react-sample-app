@@ -44,7 +44,7 @@ class ProjectsBoard extends Component {
     } = this.props;
     showAllEpics(projectId);
     showProjectTeam(projectId);
-    if (!projectWithId && projectId) {
+    if (!projectWithId.loaded && projectId) {
       showProjectWithId(projectId);
     }
     run(0)();
@@ -83,7 +83,7 @@ class ProjectsBoard extends Component {
 
     if (nextProps.deleteEpic) {
       if (this.props.deleteEpic !== nextProps.deleteEpic) {
-        nextProps.showAllEpics(nextProps.projectId);
+        nextProps.showAllEpics(projectId);
       }
     }
 
@@ -131,6 +131,14 @@ class ProjectsBoard extends Component {
       if (nextProps.projectTeam.project_id === +projectId) {
         this.setState({ specialists: nextProps.projectTeam.specialists });
       }
+    }
+
+    if (nextProps.createTask) {
+      if (this.props.createTask) {
+        if (this.props.createTask !== nextProps.createTask) {
+          nextProps.showEpicTasks(epicId);
+        }
+      } else nextProps.showEpicTasks(epicId);
     }
   }
 
@@ -295,6 +303,7 @@ const mapStateToProps = state => {
     deleteEpic: state.deleteEpic,
     createEpic: state.createEpic,
     epicTasks: state.epicTasks,
+    createTask: state.createTask,
     assignSpecialist: state.assignSpecialist,
     removeSpecialist: state.removeSpecialist,
     projectWithId: state.projectWithId,

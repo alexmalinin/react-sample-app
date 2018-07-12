@@ -21,7 +21,7 @@ import { S_REDGUY } from "../../constants/user";
 import { getUserRole, difference, getUserId } from "../../helpers/functions";
 import { PORT } from "../../constants/constants";
 
-class KanbanBoard extends PureComponent {
+class KanbanBoard extends Component {
   state = {
     tasks: [],
     showBoard: false,
@@ -71,14 +71,6 @@ class KanbanBoard extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     // console.log(difference(this.props, nextProps));
-
-    if (nextProps.createTask) {
-      if (this.props.createTask) {
-        if (this.props.createTask !== nextProps.createTask) {
-          this.loadTasks();
-        }
-      } else this.loadTasks();
-    }
   }
 
   handleCardClick = id => {
@@ -97,13 +89,7 @@ class KanbanBoard extends PureComponent {
   };
 
   deleteTask = (epic, id, laneId) => {
-    this.props.deleteEpicTask(epic, +id, () =>
-      this.kanbanEvent.publish({
-        type: "REMOVE_CARD",
-        laneId,
-        cardId: id
-      })
-    );
+    this.props.deleteEpicTask(epic, +id, this.loadTasks);
   };
 
   loadTasks = () => {
@@ -193,7 +179,7 @@ const mapStateToProps = (state, { tasks, myTasks }) => {
   return {
     tasks,
     showEpic: state.showEpic,
-    createTask: state.createTask
+    deleteTask: state.deleteTask
   };
 };
 
