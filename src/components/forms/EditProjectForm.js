@@ -167,24 +167,6 @@ class EditProjectForm extends Component {
       });
     }
 
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
-=======
-    if (error) {
-      console.log({ ...error });
-
-      if (error.response.status === 404) return <NotFound />;
-
-      if (error.response.status === 500)
-        return (
-          <StyledProject>
-            <p className="resp-error">
-              You are not authorized to access this page
-            </p>
-          </StyledProject>
-        );
-    }
-
->>>>>>> [Refactor] JWT refactor to new api
     return (
       <StyledProject className={loading ? "loading" : ""}>
         <Form onSubmit={handleSubmit}>
@@ -231,11 +213,8 @@ class EditProjectForm extends Component {
                       <React.Fragment>
                         <div className="label">Technologies:</div>
                         <div className="skillsWrapper">
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
                           {loaded &&
-=======
-                          {project &&
->>>>>>> [Refactor] JWT refactor to new api
+                            project.skills &&
                             project.skills.map((skill, key) => (
                               <div className="skill" key={key}>
                                 {skill.label}
