@@ -5,15 +5,11 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import EditEpicForm from "./forms/EditEpicForm";
 import StyledEpicPage from "../styleComponents/StyledEpicPage";
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
 import {
   deleteProjectEpic,
   showConfirmationModal,
   showProjectEpic
 } from "../actions/actions";
-=======
-import { deleteProjectEpic, showConfirmationModal } from "../actions/actions";
->>>>>>> [Refactor] JWT refactor to new api
 import { PORT } from "../constants/constants";
 import { run } from "../helpers/scrollToElement";
 
@@ -21,10 +17,7 @@ class EditModule extends Component {
   componentWillMount() {
     this.clearFileds();
     run(0)();
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
     this.props.showProjectEpic(this.props.projectId, this.props.epicId);
-=======
->>>>>>> [Refactor] JWT refactor to new api
   }
 
   clearFileds = () => {
@@ -78,11 +71,7 @@ class EditModule extends Component {
       projectId,
       epicId,
       showEpic: {
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
         epic: { name, cost, eta },
-=======
-        epic: { name, costs, eta },
->>>>>>> [Refactor] JWT refactor to new api
         loaded
       }
     } = this.props;
@@ -97,11 +86,7 @@ class EditModule extends Component {
               epicName={name}
               submitting={submitting}
               handleSubmit={this.handleSubmit}
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
               cost={cost}
-=======
-              costs={costs}
->>>>>>> [Refactor] JWT refactor to new api
               deleteEpic={this.deleteEpic}
               handleEtaForm={this.handleEtaForm}
               eta={eta}

@@ -14,18 +14,11 @@ import {
   deleteEpicTask,
   showAllEpics,
   assignSpecialistToTask,
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
   removeSpecialistFromTask,
   showProjectEpic
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
 import { getUserRole, difference, getUserId } from "../../helpers/functions";
-=======
-  removeSpecialistFromTask
-} from "../../actions/actions";
-import { S_REDGUY } from "../../constants/user";
-import { getUserRole, difference } from "../../helpers/functions";
->>>>>>> [Refactor] JWT refactor to new api
 import { PORT } from "../../constants/constants";
 
 class KanbanBoard extends Component {
@@ -41,7 +34,6 @@ class KanbanBoard extends Component {
     const {
       updateEpicTask,
       showEpicTasks,
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
       showAllEpics,
       showEpic: { epic }
     } = this.props;
@@ -65,12 +57,6 @@ class KanbanBoard extends Component {
         console.error(error);
         this.loadTasks();
       });
-=======
-      showEpic: { epic }
-    } = this.props;
-
-    updateEpicTask({ state: +targetLaneId }, epic.id, cardId);
->>>>>>> [Refactor] JWT refactor to new api
   };
 
   assignSpecialist = (task, specialist) => {
@@ -120,18 +106,13 @@ class KanbanBoard extends Component {
 
   render() {
     const {
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
       tasks,
-=======
-      epicTasks: { tasks, loading, loaded, error },
->>>>>>> [Refactor] JWT refactor to new api
       showEpic: { epic },
       specialists
     } = this.props;
 
     const { editingTask } = this.state;
 
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
     return (
       <Fragment>
         <Board
@@ -171,69 +152,6 @@ class KanbanBoard extends Component {
             handleEditTask={this.handleCardClick}
             deleteTask={this.deleteTask}
             specialistList={specialists}
-=======
-    const kanbanClass = ClassNames("kanban", {
-      show: loaded,
-      fade: loading
-    });
-
-    if (error)
-      return <div className="noTasks">Something went wrong, pelase reload</div>;
-
-    if (!loaded && loading) return <div className="noTasks">Loading</div>;
-
-    if (loaded && !tasks.length)
-      return <div className="noTasks">No tasks for now</div>;
-    else
-      return (
-        <Fragment>
-          <Board
-            data={{
-              lanes: [
-                {
-                  id: "0",
-                  title: "Backlog",
-                  cards: tasks.filter(task => task.state === "backlog")
-                },
-                {
-                  id: "1",
-                  title: "In progress",
-                  cards: tasks.filter(task => task.state === "in_progress")
-                },
-                {
-                  id: "2",
-                  title: "Done",
-                  cards: tasks.filter(task => task.state === "done")
-                },
-                {
-                  id: "3",
-                  title: "Accepted",
-                  cards: tasks.filter(task => task.state === "accepted")
-                }
-              ]
-            }}
-            eventBusHandle={handle => (this.kanbanEvent = handle)}
-            className={kanbanClass}
-            draggable={getUserRole() === S_REDGUY}
-            customCardLayout
-            handleDragEnd={this.handleDragEnd}
-            onCardClick={this.handleCardClick}
-          >
-            <CustomCard
-              handleEditTask={this.handleCardClick}
-              deleteTask={this.deleteTask}
-              specialistList={specialists}
-              assignSpecialist={this.assignSpecialist}
-              removeSpecialist={this.removeSpecialist}
-            />
-          </Board>
-          <EditTaskModal
-            ref={modal => (this.modal = modal)}
-            close={this.closeModal}
-            epic={epic}
-            epicTask={editingTask}
-            currentProjectTeam={specialists}
->>>>>>> [Refactor] JWT refactor to new api
             assignSpecialist={this.assignSpecialist}
             removeSpecialist={this.removeSpecialist}
           />
@@ -259,17 +177,9 @@ const mapStateToProps = (state, { tasks, myTasks }) => {
     );
   }
   return {
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
     tasks,
     showEpic: state.showEpic,
     deleteTask: state.deleteTask
-=======
-    // allEpics: state.allEpics,
-    showEpic: state.showEpic,
-    createTask: state.createTask,
-    epicTasks: state.epicTasks
-    // projectTeam: state.projectTeam
->>>>>>> [Refactor] JWT refactor to new api
   };
 };
 

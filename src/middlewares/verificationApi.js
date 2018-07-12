@@ -16,7 +16,6 @@ export default store => next => action => {
     }
   })
     .then(response => {
-      console.log("response", response);
       return next({ ...rest, type: type + SUCCESS, data: response.data });
     })
     .then(() => {

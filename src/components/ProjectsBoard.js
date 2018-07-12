@@ -22,17 +22,7 @@ import {
   showProjectEpic
 } from "../actions/actions";
 import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
 import { getUserRole, getUserType, difference } from "../helpers/functions";
-=======
-import { S_Board } from "../styleComponents/S_Board";
-import BoardSubHeader from "./layout/BoardSubHeader";
-import ModuleCard from "./layout/ModuleCard";
-import KanbanBoard from "./layout/KanbanBoard";
-import { getUserRole, getUserType, difference } from "../helpers/functions";
-import EditProject from "./forms/hoc/EditProject";
-import EditModule from "./EditModule";
->>>>>>> [Refactor] JWT refactor to new api
 import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
@@ -78,7 +68,6 @@ class ProjectsBoard extends Component {
       } else epicId = epics[currentEpic - 1].id;
     }
 
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
     if (projLoaded) {
       if (!projError) {
         document.title = `${project.name} | Digital Village`;
@@ -90,12 +79,6 @@ class ProjectsBoard extends Component {
           document.title = `No access | Digital Village`;
         }
       }
-=======
-    if (nextProps.projectWithId) {
-      document.title = `${
-        nextProps.projectWithId.project.name
-      } | Digital Village`;
->>>>>>> [Refactor] JWT refactor to new api
     }
 
     if (nextProps.deleteEpic) {
@@ -251,20 +234,12 @@ class ProjectsBoard extends Component {
       allEpics: { epics, loaded },
       history
     } = this.props;
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
-
-=======
->>>>>>> [Refactor] JWT refactor to new api
     //make edit module dependent on show epic
     return (
       loaded && (
         <EditModule
           currentEpic={moduleId}
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
           epicId={epics[+moduleId - 1].id}
-=======
-          epicId={epics[moduleId - 1].id}
->>>>>>> [Refactor] JWT refactor to new api
           projectId={projectId}
           history={history}
         />

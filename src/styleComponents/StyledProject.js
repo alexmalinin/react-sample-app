@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { colors, primaryColors, fontColors } from "./constants/colors";
+import {
+  colors,
+  primaryColors,
+  fontColors,
+  boxShadow
+} from "./constants/colors";
 
 export default styled.div`
   transition: 0.6s;
@@ -8,18 +13,6 @@ export default styled.div`
   &.loading {
     opacity: 0.5;
     pointer-events: none;
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
-=======
-  }
-
-  .resp-error {
-    min-height: 480px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    color: ${fontColors.black};
->>>>>>> [Refactor] JWT refactor to new api
   }
 
   .preloader {

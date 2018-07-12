@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
+import { NotificationContainer } from "react-notifications";
 import HeaderIntro from "../layout/HeaderIntro";
 import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
 import StyledFormHeader from "../../styleComponents/StyledFormHeader";
@@ -42,6 +43,7 @@ class Verification extends Component {
             {confirmPassword && this.getUserRedirect()}
           </IntroContainer>
         </S_MainContainer>
+        <NotificationContainer />
       </Fragment>
     );
   }

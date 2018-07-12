@@ -29,11 +29,7 @@ class SubHeader extends Component {
       percents: this.props.percents.companyPercent
     },
     {
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
       url: "billing",
-=======
-      url: "billings",
->>>>>>> [Refactor] JWT refactor to new api
       label: "My Billings",
       percents: this.props.percents.billingPercent
     }
@@ -51,10 +47,6 @@ class SubHeader extends Component {
               key={key}
               url={`/profile/${url}${isEditing ? "?edit" : ""}`}
               label={label}
-<<<<<<< cffb0315402d21ed6bd9ab6f9fccde4609ce3012
-=======
-              noExact
->>>>>>> [Refactor] JWT refactor to new api
             >
               {key + 1}
               <ProgressBars percents={percents} />
