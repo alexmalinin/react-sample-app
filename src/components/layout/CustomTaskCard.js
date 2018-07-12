@@ -77,7 +77,7 @@ class CustomCard extends Component {
           !!specialistCosts && (
             <div className="line">
               <i className="fas fa-dollar-sign" />
-              <span>{formatCurrency(specialistCosts)}</span>
+              <span>{formatCurrency(specialistCosts.cost)}</span>
             </div>
           )}
 
