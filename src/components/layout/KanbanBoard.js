@@ -17,7 +17,7 @@ import {
   removeSpecialistFromTask
 } from "../../actions/actions";
 import { S_REDGUY } from "../../constants/user";
-import { getUserRole, difference } from "../../helpers/functions";
+import { getUserRole, difference, getUserId } from "../../helpers/functions";
 import { PORT } from "../../constants/constants";
 
 class KanbanBoard extends PureComponent {
@@ -126,19 +126,6 @@ class KanbanBoard extends PureComponent {
 
     const { editingTask } = this.state;
 
-    // const kanbanClass = ClassNames("kanban", {
-    //   show: loaded,
-    //   fade: loading
-    // });
-
-    // if (error)
-    //   return <div className="noTasks">Something went wrong, pelase reload</div>;
-
-    // if (!loaded && loading) return <div className="noTasks">Loading</div>;
-
-    // if (loaded && !tasks.length)
-    //   return <div className="noTasks">No tasks for now</div>;
-    // else
     return (
       <Fragment>
         <Board
@@ -196,13 +183,16 @@ class KanbanBoard extends PureComponent {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { tasks, myTasks }) => {
+  if (myTasks) {
+    tasks = tasks.filter(task =>
+      task.specialists.some(spec => spec.id === getUserId())
+    );
+  }
   return {
-    // allEpics: state.allEpics,
+    tasks,
     showEpic: state.showEpic,
     createTask: state.createTask
-    // epicTasks: state.epicTasks
-    // projectTeam: state.projectTeam
   };
 };
 
