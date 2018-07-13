@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontColors } from "../constants/colors";
+import { fontColors, colors } from "../constants/colors";
 
 export default styled.div`
   position: relative;
@@ -52,7 +52,7 @@ export default styled.div`
         border-radius: 50%;
         width: 9px;
         height: 9px;
-        background-color: #85b7d9;
+        background-color: ${colors.blue};
         top: 3px;
         left: 3px;
         /* box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2); */
@@ -65,7 +65,7 @@ export default styled.div`
         top: 1px;
         width: 6px;
         height: 10px;
-        border: solid #85b7d9;
+        border: solid ${colors.blue};
         border-width: 0 2px 2px 0;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);

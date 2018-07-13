@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button } from "semantic-ui-react";
-import { primaryColors, secondaryColors, colors } from "../constants/colors";
+import { primaryColors, colors } from "../constants/colors";
 
 export const DvButton = styled(Button)`
   &.ui.button {
@@ -802,7 +802,7 @@ export const DvButtonBlue = styled(Button)`
     justify-content: center;
     align-items: center;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 27px;
     border-radius: 3px;
     background-color: ${colors.blue};
@@ -824,6 +824,7 @@ export const DvButtonBlue = styled(Button)`
       background-color: #fff;
       color: ${colors.blue};
       border: 1px solid ${colors.blue};
+      font-weight: 500;
 
       &:hover {
         color: ${colors.blue};

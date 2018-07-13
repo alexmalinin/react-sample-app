@@ -8,7 +8,6 @@ import {
 
 export default styled.div`
   font-size: 16px;
-  letter-spacing: 1.1px;
 
   .ui.grid {
     margin-left: 0;
@@ -67,7 +66,7 @@ export default styled.div`
   }
 
   .pfofile-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: ${fontColors.black};
     padding-bottom: 10px;
@@ -91,8 +90,10 @@ export default styled.div`
     padding: 15px 0;
 
     .profile-subtitle {
-      color: ${fontColors.regular};
-      margin-bottom: 10px;
+      font-size: 18px;
+      color: ${fontColors.black};
+      font-weight: 500;
+      margin-bottom: 16px;
     }
 
     .profile-block {
@@ -127,8 +128,9 @@ export default styled.div`
 
   .profile-label {
     width: 100%;
-    color: ${fontColors.light};
-    margin-bottom: 5px;
+    color: ${fontColors.black};
+    font-weight: 500;
+    margin-bottom: 3px;
   }
 
   .profile-description {
@@ -142,9 +144,8 @@ export default styled.div`
 
     & > span {
       font-size: 14px;
-      margin: 10px 10px 0 5px;
+      margin: 4px 10px 6px 5px;
       padding: 0 15px;
-      letter-spacing: 1.2px;
       border-radius: 20px;
     }
   }

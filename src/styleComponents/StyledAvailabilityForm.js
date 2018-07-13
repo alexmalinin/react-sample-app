@@ -8,7 +8,6 @@ export default styled.div`
     justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 25px;
-    padding: 0 10px;
   }
 
   /* .Select {

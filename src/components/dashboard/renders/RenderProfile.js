@@ -14,7 +14,7 @@ const RenderProfile = ({
   editCondition
 }) => {
   const renderInfo = data => {
-    if (!data) return null;
+    if (!data) return;
 
     const { title, subtitle, link, fields } = data;
 
@@ -68,7 +68,7 @@ const RenderProfile = ({
   };
 
   const renderExperience = (data, index) => {
-    if (!data) return null;
+    if (!data) return;
 
     return (
       <div key={data.id} className="profile-content">
@@ -136,7 +136,9 @@ const RenderProfile = ({
                   <div className="profile-subtitle">
                     Professional experience
                   </div>
-                  <span className="profile-label">{data.experience}</span>
+                  <span className="profile-descrtiption">
+                    {data.experience}
+                  </span>
                 </div>
               )}
 

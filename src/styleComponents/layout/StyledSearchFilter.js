@@ -243,7 +243,7 @@ export default styled.div`
     background: ${colors.blue};
     border-radius: 18px;
     color: #fff;
-    text-transform: none;
+    font-size: 12px;
 
     .arrow {
       position: absolute;

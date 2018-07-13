@@ -111,8 +111,6 @@ export const S_Board = styled.div`
 
             &:focus {
               padding-left: 10px;
-              /* background: #d5e9ea; */
-              /* background: rgba(0, 0, 0, 0.05); */
               background: rgba(216, 216, 216, 0.18);
             }
           }
@@ -164,11 +162,9 @@ export const S_Board = styled.div`
     }
 
     &.show {
-      /* animation: fadeIn 0.4s forwards; */
     }
 
     &.fade {
-      /* animation: fade 0.4s forwards; */
       opacity: 0.5;
       pointer-events: none;
     }
@@ -234,7 +230,6 @@ export const S_Board = styled.div`
       & > div {
         width: 100%;
         overflow: visible;
-        /* z-index: 901; */
         min-width: auto;
 
         article {
@@ -313,8 +308,6 @@ export const S_Board = styled.div`
     .line {
       display: flex;
       align-items: center;
-      /* margin-top: 5px;
-      margin-bottom: 5px; */
 
       i {
         margin-right: 10px;
@@ -403,20 +396,12 @@ export const S_Board = styled.div`
             color: #666;
           }
         }
-
-        /* &:hover {
-          display: block;
-        } */
       }
 
       .trigger {
         color: #666;
         outline: none;
         cursor: pointer;
-
-        /* &:focus + .menu {
-          display: block;
-        } */
       }
     }
   }

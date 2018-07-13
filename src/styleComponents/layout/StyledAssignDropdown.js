@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { boxShadow, colors, primaryColors } from "../constants/colors";
+import {
+  boxShadow,
+  colors,
+  primaryColors,
+  fontColors
+} from "../constants/colors";
 import { Popup } from "semantic-ui-react";
 
 export const StyledAssignDropdown = styled.div`
@@ -70,12 +75,8 @@ export const StyledAssignDropdown = styled.div`
     &:hover {
       color: #999;
 
-      .plus {
-        color: #ddd;
-      }
-
       .label {
-        color: #666;
+        color: ${fontColors.regular};
       }
     }
 
@@ -153,7 +154,7 @@ export const StyledAssignDropdown = styled.div`
 
     top: calc(100% + 5px);
     left: 10px;
-    min-width: 240px;
+    min-width: 220px;
 
     border-radius: 3px;
     background: #fff;
@@ -338,7 +339,6 @@ export const StyledDropdown = styled(Popup)`
 `;
 
 export const StyledPersonTile = styled.div`
-  color: #999;
   font-size: 500;
   padding: 4px 0;
   position: relative;
@@ -388,7 +388,7 @@ export const StyledPersonTile = styled.div`
     flex-flow: row nowrap;
     align-items: center;
     text-decoration: none;
-    color: inherit;
+    color: ${fontColors.regular};
     outline: none;
 
     &:focus {
@@ -397,10 +397,6 @@ export const StyledPersonTile = styled.div`
           opacity: 0.15;
         }
       }
-    }
-
-    &:hover {
-      color: inherit;
     }
   }
 

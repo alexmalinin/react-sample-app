@@ -10,14 +10,8 @@ import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 
 class SubHeader extends Component {
   state = {
-    isEditing: false
+    isEditing: !!getAllUrlParams().edit
   };
-
-  componentWillMount() {
-    let param = getAllUrlParams().edit;
-    let isEditing = param ? param : false;
-    this.setState({ isEditing });
-  }
 
   navLinks = [
     {

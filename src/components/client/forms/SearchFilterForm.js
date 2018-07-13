@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, change, reset } from "redux-form";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import StyledSearchFilter from "../../../styleComponents/layout/StyledSearchFilter";
 import { Grid, Button, Dropdown, Popup } from "semantic-ui-react";
@@ -173,7 +173,6 @@ class SearchFilterForm extends Component {
                 placeholder="Any industry"
                 fluid
                 search
-                // multiple
                 selectOnBlur={false}
                 options={industries["industry"] || []}
                 onChange={handleChange}
@@ -205,7 +204,6 @@ class SearchFilterForm extends Component {
                 name="experience_level_id"
                 fluid
                 search
-                // multiple
                 selectOnBlur={false}
                 options={experienceLevels || []}
                 onChange={handleChange}
