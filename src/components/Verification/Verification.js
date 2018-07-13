@@ -24,6 +24,11 @@ class Verification extends Component {
     this.props.getUserId(this.user, this.token);
   }
 
+  componentDidMount() {
+    let tab = this.user === "customer" ? "Client" : "Specialist";
+    this.props.userType(tab);
+  }
+
   render() {
     const { confirmPassword } = this.props;
     return (
@@ -40,26 +45,13 @@ class Verification extends Component {
               <VerificationForm onSubmit={this.submit} />
             </DvForm>
 
-            {confirmPassword && this.getUserRedirect()}
+            {confirmPassword && <Redirect to="/sign_in" />}
           </IntroContainer>
         </S_MainContainer>
         <NotificationContainer />
       </Fragment>
     );
   }
-
-  componentDidMount() {
-    let tab = this.user === "customer" ? "Client" : "Specialist";
-    this.props.userType(tab);
-  }
-
-  getUserRedirect = () => {
-    return (
-      <div>
-        <Redirect to="/sign_in" />
-      </div>
-    );
-  };
 
   submit = values => {
     const { UserId, verifyPassword } = this.props;

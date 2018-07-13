@@ -188,11 +188,13 @@ export default styled.div`
               padding: 0 13px;
               color: ${fontColors.blue.inert};
               border: none;
-              font-weight: 600;
+              font-weight: 500;
               background: none;
               cursor: pointer;
               border: 1px solid transparent;
+              letter-spacing: normal;
               transition: 0.2s;
+
               &:hover,
               &:focus {
                 background: rgba(216, 216, 216, 0.18);

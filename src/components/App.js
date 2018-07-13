@@ -23,6 +23,14 @@ import PrivateRoute from "../decorators/PrivateRoute";
 import AssignRoute from "../decorators/AssignRoute";
 
 class App extends Component {
+  defaultPath = ({ page: Component }) => {
+    const token = localStorage.getItem("jwt_token");
+
+    if (token) return <Redirect to="/dashboard/" />;
+    else if (Component) return Component;
+    else return <Redirect to="/sign_in" />;
+  };
+
   render() {
     let Dashboard;
 
@@ -34,10 +42,9 @@ class App extends Component {
         Dashboard = ClientIndex;
         break;
       default:
-        Dashboard = SignIn;
+        Dashboard = <Redirect to="/sign_in" />;
     }
 
-    const token = localStorage.getItem("jwt_token");
     const passive = getUserRole() !== S_PASSIVE;
 
     return (
@@ -45,30 +52,15 @@ class App extends Component {
         <div>
           <FlexDirection>
             <Switch>
+              <Route exact path="/" render={this.defaultPath} />
+              <Route path="/index.html" render={this.defaultPath} />
+              <Route path="/sign_in" page={SignIn} render={this.defaultPath} />
               <Route
-                exact
-                path="/"
-                render={() =>
-                  token ? (
-                    <Redirect to="/dashboard/" />
-                  ) : (
-                    <Redirect to="/sign_in" />
-                  )
-                }
+                path="/forgot_password"
+                page={ForgotPassword}
+                render={this.defaultPath}
               />
-              <Route
-                path="/index.html"
-                render={() =>
-                  token ? (
-                    <Redirect to="/dashboard/" />
-                  ) : (
-                    <Redirect to="/sign_in" />
-                  )
-                }
-              />
-              <Route path="/sign_in" component={SignIn} />
-              <Route path="/forgot_password" component={ForgotPassword} />
-              <Route path="/sign_up" component={SignUp} />
+              <Route path="/sign_up" page={SignUp} render={this.defaultPath} />
               {this.renderToken()}
               {this.resetPassword()}
               <Route path="/confirm_email" component={ConfirmEmail} />
