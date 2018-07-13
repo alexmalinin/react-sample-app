@@ -214,6 +214,7 @@ class EditProjectForm extends Component {
                         <div className="label">Technologies:</div>
                         <div className="skillsWrapper">
                           {loaded &&
+                            project.skills &&
                             project.skills.map((skill, key) => (
                               <div className="skill" key={key}>
                                 {skill.label}

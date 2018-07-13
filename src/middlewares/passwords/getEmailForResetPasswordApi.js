@@ -17,7 +17,8 @@ export default store => next => action => {
       const {
         response: { data }
       } = error;
-      console.log(error);
+
+      console.error(error);
 
       return next({
         ...rest,

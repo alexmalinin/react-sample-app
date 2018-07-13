@@ -12,6 +12,7 @@ const checkAuth = () => {
 
 const handleRequset = (props, path) => {
   const token = localStorage.getItem("jwt_token");
+
   return axios({
     method: "PUT",
     url: PORT + props.match.url,

@@ -91,32 +91,62 @@ export function getTokenForResetPassword(email, user) {
   const action = {
     type: types.GET_TOKEN_FOR_RESET_PASSWORD,
     payload: email,
-    getTokenForResetPassword: `${PORT}/api/v1/${user}/password_request`
+    getTokenForResetPassword: `${PORT}/api/v1/${user}s/password_request`
   };
 
   return action;
 }
 
 export function getPasswordsForResetPassword(passwords, user, token) {
-  const action = {
-    type: types.GET_PASSWORDS_FOR_RESET_PASSWORD,
-    payload: passwords,
-    getPasswordsForResetPassword: `${PORT}/api/v1/${user}/password_reset/${token}`
+  return dispatch => {
+    Axios({
+      method: "put",
+      url: `${PORT}/api/v1/${user}/password_reset/${token}`,
+      data: {
+        reset_password: passwords
+      }
+    })
+      .then(() => {
+        dispatch({
+          type: types.GET_PASSWORDS_FOR_RESET_PASSWORD + SUCCESS,
+          data: { reset: "sucess" }
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error",
+          text: "Link has expired"
+        });
+        console.error(error);
+      });
   };
-
-  return action;
 }
 
 // Get User Id by confirmation token
 
 export function getUserId(user, token) {
-  const action = {
-    type: types.GET_USER_ID,
-    user,
-    userConfirmationToken: `${PORT}/api/v1/${user}/${token}`
-  };
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `${PORT}/api/v1/${user}/${token}`
+    })
+      .then(({ data }) => {
+        if (!data) {
+          createNotification({
+            type: "warning",
+            text: "You have already created a password"
+          });
+        }
 
-  return action;
+        dispatch({
+          type: types.GET_USER_ID + SUCCESS,
+          id: data && data["id"]
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 }
 
 // Client and Specialist get request to API for deleting confirmation token
@@ -132,15 +162,38 @@ export function deleteConfirmationToken(user, token) {
 
 // Client and Specialist Verification
 
-export function verifyPassword(user, id, data) {
-  const action = {
-    type: types.VERIFICATION,
-    user,
-    payload: data,
-    verification: `${PORT}/api/v1/${user}s/${id}`
+export function verifyPassword(user, id, payload) {
+  return dispatch => {
+    Axios({
+      method: "put",
+      url: `${PORT}/api/v1/${user}s/${id}`,
+      data: {
+        [user]: {
+          password: `${payload["password"]}`,
+          password_confirmation: `${payload["password_confirmation"]}`
+        }
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: types.VERIFICATION + SUCCESS,
+          data
+        });
+      })
+      .then(() => {
+        dispatch({
+          type: types.CONFIRM_PASSWORDS + SUCCESS,
+          data: true
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error",
+          text: "Link has expired"
+        });
+        console.error(error);
+      });
   };
-
-  return action;
 }
 
 // Client and Specialist change password

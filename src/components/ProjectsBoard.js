@@ -107,6 +107,7 @@ class ProjectsBoard extends Component {
       } else if (this.state.fetchEpicTasks) {
         nextProps.showProjectEpic(projectId, epicId);
         nextProps.showEpicTasks(epicId);
+        nextProps.showProjectEpic(projectId, epicId);
         this.setState({ fetchEpicTasks: false });
       }
     }
@@ -233,7 +234,6 @@ class ProjectsBoard extends Component {
       allEpics: { epics, loaded },
       history
     } = this.props;
-
     //make edit module dependent on show epic
     return (
       loaded && (
