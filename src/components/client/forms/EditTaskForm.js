@@ -174,6 +174,7 @@ class EditTaskForm extends Component {
       projectTeam,
       specialistData,
       ownCosts,
+      eta,
       currentProjectTeam
     } = this.props;
 
@@ -201,6 +202,7 @@ class EditTaskForm extends Component {
                     placeholder="Due date"
                     className="estimate inline-in-modal"
                     handleEtaForm={this.handleEtaForm}
+                    initData={eta}
                     disabled={disabled}
                   />
                 </Grid.Column>
@@ -454,6 +456,7 @@ const mapStateToProps = (state, ownProps) => {
     specialistData,
     projectTeam,
     initialValues,
+    eta: epicTask && epicTask.eta,
     formValues: state.form,
     ownCosts
   };

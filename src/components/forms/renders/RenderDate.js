@@ -23,12 +23,11 @@ class RenderDate extends React.Component {
       });
     }
 
-    if (nextProps.initData && this.state.fetchDate) {
+    if (this.state.fetchDate) {
       this.setState({
         date: moment(nextProps.initData, "YYYY-MM-DD").isValid()
           ? moment(nextProps.initData)
-          : null,
-        fetchDate: false
+          : null
       });
     }
   }
@@ -36,7 +35,8 @@ class RenderDate extends React.Component {
   handleChange = date => {
     if (date && date._isAMomentObject) {
       this.setState({
-        date
+        date,
+        fetchDate: false
       });
     }
   };

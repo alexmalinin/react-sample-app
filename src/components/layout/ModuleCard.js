@@ -5,9 +5,8 @@ import {
   showAllEpics,
   updateProjectEpic
 } from "../../actions/actions";
-import { Form, Input, Message } from "semantic-ui-react";
-import EditEpicModal from "../modals/EditEpicModal";
-import { S_CORE, S_REDGUY, CUSTOMER } from "../../constants/user";
+import { Form, Input } from "semantic-ui-react";
+import { S_REDGUY, CUSTOMER } from "../../constants/user";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 import { formatCurrency } from "../../helpers/validate";
 
@@ -31,12 +30,6 @@ class Module extends Component {
       name: nextProps.epic.name
     });
   }
-
-  // deleteEpic = e => {
-  //   e.stopPropagation();
-  //   const { epic, project, deleteProjectEpic } = this.props;
-  //   deleteProjectEpic(project, epic.id);
-  // };
 
   handleEdit = (e, data) => {
     if (data) {
@@ -90,13 +83,9 @@ class Module extends Component {
     }
   };
 
-  openModal = () => {
-    this.editEpicModal.open();
-  };
-
   render() {
     const { epic, number, history, project } = this.props;
-    const { name, editing, dropdown } = this.state;
+    const { name, editing } = this.state;
 
     return (
       <div className="dragContainer">
@@ -141,7 +130,9 @@ class Module extends Component {
           <div>
             {epic.eta && (
               <div className="subline">
-                <img src="/images/calendar.png" alt="calendar" />
+                <div className="subline-icon">
+                  <i className="fas fa-calendar-alt" />
+                </div>
                 <span>
                   {epic.eta
                     .split("-")
@@ -150,10 +141,14 @@ class Module extends Component {
                 </span>
               </div>
             )}
-            <div className="subline">
-              <img src="/images/dollar.png" alt="dollar" />
-              <span>{formatCurrency(epic.cost)}</span>
-            </div>
+            {oneOfRoles(S_REDGUY, CUSTOMER) && (
+              <div className="subline">
+                <div className="subline-icon">
+                  <i className="fas fa-dollar-sign" />
+                </div>
+                <span>{formatCurrency(epic.cost)}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

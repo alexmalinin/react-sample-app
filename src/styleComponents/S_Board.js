@@ -291,17 +291,6 @@ export const S_Board = styled.div`
       flex: 0 0 100%;
     }
 
-    /* &::before {
-      content: "...";
-      position: absolute;
-      top: 5px;
-      right: 20px;
-      font-size: 20px;
-      color: #7f7f7f;
-      user-select: none;
-      cursor: pointer;
-    } */
-
     h4 {
       margin-top: 10px;
       margin-bottom: 10px;
@@ -520,8 +509,11 @@ export const S_Board = styled.div`
       margin-top: 5px;
       margin-bottom: 5px;
 
-      img {
+      .subline-icon {
+        width: 15px;
         margin-right: 10px;
+        text-align: center;
+        color: ${colors.blue};
       }
 
       span {
