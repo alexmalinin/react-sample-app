@@ -54,13 +54,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={this.defaultPath} />
               <Route path="/index.html" render={this.defaultPath} />
-              <Route path="/sign_in" page={SignIn} render={this.defaultPath} />
-              <Route
-                path="/forgot_password"
-                page={ForgotPassword}
-                render={this.defaultPath}
-              />
-              <Route path="/sign_up" page={SignUp} render={this.defaultPath} />
+              <Route path="/sign_in" component={SignIn} />
+              <Route path="/forgot_password" component={ForgotPassword} />
+              <Route path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
               <Route path="/confirm_email" component={ConfirmEmail} />

@@ -29,7 +29,7 @@ class SubHeader extends Component {
       percents: this.props.percents.companyPercent
     },
     {
-      url: "billing",
+      url: "billings",
       label: "My Billings",
       percents: this.props.percents.billingPercent
     }

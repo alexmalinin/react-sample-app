@@ -189,7 +189,7 @@ class About extends Component {
         return {
           title: "Billings",
           subtitle: "Credit card",
-          link: `/profile/billing?edit`,
+          link: `/profile/billings?edit`,
           fields: [
             {
               label: "Name on card:",
@@ -206,7 +206,7 @@ class About extends Component {
         return {
           title: "Billings",
           subtitle: "Direct Payment",
-          link: `/profile/billing?edit`,
+          link: `/profile/billings?edit`,
           fields: [
             {
               label: "Correspond bank:",
