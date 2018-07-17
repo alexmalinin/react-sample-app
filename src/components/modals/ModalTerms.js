@@ -2,7 +2,7 @@ import React from "react";
 import { Header, Modal } from "semantic-ui-react";
 
 const ModalTerms = () => (
-  <Modal trigger={<b>terms of use</b>} closeIcon>
+  <Modal trigger={<span className="privacy-bold">terms of use</span>} closeIcon>
     <Modal.Header>Terms of Use</Modal.Header>
     <Modal.Content image>
       <Modal.Description>

@@ -7,14 +7,21 @@ import {
   Container,
   ContainerLarge
 } from "../../styleComponents/layout/Container";
-import { showClientData, saveCreatedProgect } from "../../actions/actions";
+import { saveCreatedProgect, showSortedProjects } from "../../actions/actions";
 import ClientProjectForm from "./forms/ClientProjectForm";
+import { CLIENT, SPECIALIST } from "../../constants/user";
+import { getUserType } from "../../helpers/functions";
+import { run } from "../../helpers/scrollToElement";
 
 class ClientProjects extends Component {
   state = {
     saved: false,
     loading: false
   };
+
+  componentDidMount() {
+    run(0)();
+  }
 
   render() {
     return (
@@ -23,6 +30,8 @@ class ClientProjects extends Component {
         <Container
           indentBot
           sidebarCondition
+          transparent
+          dashboardContainer
           className={this.state.loading && "loading"}
         >
           <i className="fa fa-spinner fa-3x fa-pulse preloader" />
@@ -40,9 +49,14 @@ class ClientProjects extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let createProject = nextProps.createProject;
+    const { createProject } = nextProps;
 
     if (createProject && nextProps.submitSucceeded) {
+      const userType = getUserType();
+
+      if (userType === CLIENT) this.props.showSortedProjects("customers");
+      else if (userType === SPECIALIST)
+        this.props.showSortedProjects("specialists");
       if (createProject.id) {
         setTimeout(() => {
           this.setState({
@@ -60,22 +74,20 @@ class ClientProjects extends Component {
     });
 
     if (!this.props.submitSucceeded) {
+      run(0)();
       this.props.saveCreatedProgect(values);
     }
   };
 }
 
-export default connect(
-  state => {
-    const { createProject } = state;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    createProject: state.createProject,
+    submitSucceeded: hasSubmitSucceeded("ClientProjectForm")(state)
+  };
+};
 
-    return {
-      createProject,
-      submitSucceeded: hasSubmitSucceeded("ClientProjectForm")(state)
-    };
-  },
-  {
-    showClientData,
-    saveCreatedProgect
-  }
-)(ClientProjects);
+export default connect(mapStateToProps, {
+  showSortedProjects,
+  saveCreatedProgect
+})(ClientProjects);

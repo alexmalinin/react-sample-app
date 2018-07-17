@@ -1,17 +1,20 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 
 export default store => next => action => {
   const { type, showAllTeams, ...rest } = action;
   if (!showAllTeams) return next(action);
 
-  let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "GET",
-    url: showAllTeams
+    url: showAllTeams,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

@@ -5,7 +5,7 @@ import { Modal, Tab, Grid } from "semantic-ui-react";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import StyledModal from "../../styleComponents/layout/StyledModal";
 import InviteSpecialistForm from "../forms/InviteSpecialistForm";
-import { PORT } from "../../constans/constans";
+import { PORT } from "../../constants/constants";
 import { createNotification } from "../../helpers/functions";
 
 class InviteSpecialistModal extends Component {
@@ -23,6 +23,7 @@ class InviteSpecialistModal extends Component {
 
   submit = ({ project, team }) => {
     const { specialistId, specialistProjects } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     this.close();
 
@@ -35,7 +36,10 @@ class InviteSpecialistModal extends Component {
 
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`
+        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
         .then(response => {
           createNotification({
@@ -60,7 +64,10 @@ class InviteSpecialistModal extends Component {
     if (team) {
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`
+        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
         .then(response => {
           createNotification({
@@ -96,6 +103,8 @@ class InviteSpecialistModal extends Component {
             onClick={this.open}
             role="button"
             className="dv-blue"
+            uppercase="true"
+            fontSize={14}
             fluid
           >
             Invite

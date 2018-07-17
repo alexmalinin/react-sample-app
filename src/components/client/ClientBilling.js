@@ -1,23 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import { NavLink } from "react-router-dom";
-import {
-  Container,
-  ContainerLarge
-} from "../../styleComponents/layout/Container";
-import { S_Message } from "../../styleComponents/layout/S_Message";
-import RenderProjectCard from "./renders/RenderProjectCard";
 import ClientBillingForm from "./forms/ClientBillingForm";
 import {
   showClientData,
   getIndustries,
   updateClientBilling
 } from "../../actions/actions";
-import { NewTeamBtn } from "../../styleComponents/layout/DvButton";
-import StyledClientTeam from "../../styleComponents/StyledClientTeam";
-import Navbar from "../layout/Navbar";
-import { Message } from "semantic-ui-react";
 import { run } from "../../helpers/scrollToElement";
 import { getAllUrlParams } from "../../helpers/functions";
 import NavigationPrompt from "react-router-navigation-prompt";
@@ -65,7 +54,9 @@ class ClientBilling extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -81,12 +72,10 @@ class ClientBilling extends Component {
         </NavigationPrompt>
 
         {this.state.nextStep ? (
-          isEditing ? (
-            <Redirect to="about" />
-          ) : this.state.nextLocation === "/dashboard/company" ? (
-            <Redirect to="company" />
+          this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
-            <Redirect to="/dashboard/" />
+            <Redirect to="about" />
           )
         ) : null}
       </div>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "../constants/colors";
+import { primaryColors, boxShadow, fontColors } from "../constants/colors";
 
 export const ContainerLarge = styled.div`
   margin: 0 auto;
@@ -51,11 +51,8 @@ export const Container = styled.div`
 
   max-width: 1280px;
   margin-top: 0;
-  background-color: ${props =>
-    props.dashboardContainer
-      ? `transparent`
-      : `${primaryColors.accentBackground}`};
-  ${props => (props.dashboardContainer ? `` : boxShadow.light)};
+  background-color: ${props => (props.transparent ? `transparent` : `#fff`)};
+  ${props => (props.transparent ? `` : boxShadow.light)};
   ${props => (props.indentTop ? `margin-top: 100px` : ``)};
   ${props => (props.indentTopXs ? `margin-top: 40px` : ``)};
   ${props => (props.relative ? `position: relative` : ``)};
@@ -74,9 +71,9 @@ export const Container = styled.div`
 
   .preloader {
     position: absolute;
-    top: 50%;
+    top: 500px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     opacity: 0;
     visibility: hidden;
   }
@@ -95,6 +92,7 @@ export const Container = styled.div`
     min-height: 300px;
     font-size: 30px;
     text-transform: uppercase;
+    color: ${fontColors.black};
   }
 
   @media (max-width: 1920px) {
@@ -136,6 +134,7 @@ export const IntroContainer = styled.div`
       color: #666;
       text-transform: uppercase;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
 
     & > div {
@@ -146,6 +145,11 @@ export const IntroContainer = styled.div`
       color: #666;
       padding-bottom: 10px;
     }
+  }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
   }
 
   @media (max-width: 600px) {

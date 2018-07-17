@@ -1,15 +1,17 @@
 import styled from "styled-components";
-import { primaryColors, secondaryColors } from "./constants/colors";
+import {
+  primaryColors,
+  colors,
+  fontColors,
+  miscellaneous
+} from "./constants/colors";
 
 export default styled.div`
+    margin-top: ${props => props.mTop || "0px"};
+    width: ${props => (props.widthAuto ? "100%" : "850px")};
 
-    ${props =>
-      props.mTop ? `margin-top: ${props.mTop}px` : `margin-top: 0px`};
-    ${props => (props.widthAuto ? `width: 100%` : `width: 850px`)};
-
-    margin-top: 40px;
-    font-size: 28px;
-    font-family: Roboto, sans-serif;
+    /* font-size: 28px; */
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
 
     .form-header {
@@ -48,20 +50,20 @@ export default styled.div`
         .item {
           font-family: 'Roboto', medium;
           width: 50%;
+          font-size: 16px;
+          font-weight: 500;
           letter-spacing: 1px;
-          line-height: 73px;
           text-align: center;
           display: inline-block;
           text-transform: uppercase;
-          padding: 0;
-          color: ${primaryColors.darkGrey};
-          background-color: #fff;
-          border-bottom: 4px solid #f2f2f2;
+          padding: 20px 0;
+          color: ${fontColors.blue.inert};
+          border-bottom: 1px solid ${miscellaneous.lightBorder};
 
           &.active {
-            color: ${primaryColors.darkGrey};
-            border-bottom: 4px solid ${secondaryColors.green};
-            font-weight: bold;
+            color: ${fontColors.blue.active};
+            font-weight: 500;
+            border-bottom: 2px solid ${colors.blue};
 
             &:hover {
 
@@ -128,42 +130,30 @@ export default styled.div`
     }
 
     @media(min-width: 1921px) {
-
-        .ui.segment {
-            .radio-group {
-                font-size: 28px;
-                padding-left: 40px;
-                margin-bottom: 40px;
-            }
+      .ui.segment {
+        .radio-group {
+          font-size: 28px;
+          padding-left: 40px;
+          margin-bottom: 40px;
         }
+      }
 
-        .ownRadio::before {
-            height: 30px;
-            width: 30px;
-            left: -55px;
+      .ownRadio::before {
+          height: 30px;
+          width: 30px;
+          left: -55px;
+      }
 
-        }
-
-        .ownInput:checked + .ownRadio::after {
-            width: 20px;
-            height: 20px;
-            top: 5px;
-            left: -50px;
-        }
+      .ownInput:checked + .ownRadio::after {
+          width: 20px;
+          height: 20px;
+          top: 5px;
+          left: -50px;
+      }
     }
 
     @media (max-width: 1920px) {
-
      ${props => (props.widthAuto ? `width: 100%` : `width: 650px`)};
-
-      .ui {
-        &.text.menu {
-          .item {
-            line-height: 60px;
-            font-size: 1rem;
-          }
-        }
-      }
     }
 
     @media (max-width: 1499px) {

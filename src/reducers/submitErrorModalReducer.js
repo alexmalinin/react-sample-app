@@ -1,7 +1,7 @@
 import {
   SHOW_SUBMIT_ERROR_MODAL,
   CLOSE_SUBMIT_ERROR_MODAL
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type } = action;

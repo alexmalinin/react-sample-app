@@ -6,12 +6,7 @@ import { Form, Input } from "semantic-ui-react";
 import AssignDropdown from "./AssignDropdown";
 import PersonTile from "./PersonTile";
 
-import {
-  IMAGE_PORT,
-  CLIENT,
-  SPECIALIST,
-  S_REDGUY
-} from "../../constans/constans";
+import { IMAGE_PORT, CLIENT, SPECIALIST, S_REDGUY } from "../../constants/user";
 import {
   addToChannel,
   removeFromChannel,
@@ -95,6 +90,7 @@ class Channel extends Component {
               type="text"
               placeholder="Channel name"
               name="name"
+              className="channel-name"
               disabled={getUserRole() !== S_REDGUY || isGeneral}
               value={name}
               ref={Input => (this.editInput = Input)}
@@ -151,12 +147,12 @@ class Channel extends Component {
   }
 
   renderToRightSidebar() {
-    const { channel, changeUserType, allSpecialists } = this.props;
+    const { channel, allSpecialists } = this.props;
     const isGeneral = channel.name === "General";
 
     return (
       <Fragment>
-        <h5>#{channel.name}</h5>
+        <div className="team-channel">#{channel.name}</div>
 
         <div className="persons team">
           <MembersDropdown
@@ -175,7 +171,7 @@ class Channel extends Component {
               handleAssign={this.handleAssign}
               userType={[S_REDGUY]}
               closeOnChange={true}
-              blue
+              bordered
             />
           )}
         </div>
@@ -204,7 +200,7 @@ class Channel extends Component {
   };
 }
 
-export default connect(({ changeUserType }) => ({ changeUserType }), {
+export default connect(null, {
   addToChannel,
   removeFromChannel,
   updateTeamChannel,

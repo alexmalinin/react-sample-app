@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 import ProgressBars from "../ProgressBar";
 import StyledDashboardCard from "../../../styleComponents/StyledDashboardCard";
 
@@ -15,8 +15,11 @@ class RenderModuleInfo extends Component {
       epic: { id, project_id }
     } = this.props;
 
-    await axios
-      .get(`${PORT}/api/v1/projects/${project_id}/epics/${id}/summary`)
+    await axios({
+      method: "GET",
+      url: `${PORT}/api/v1/projects/${project_id}/epics/${id}/summary`,
+      headers: { Authorization: `Bearer ${localStorage.getItem("jwt_token")}` }
+    })
       .then(response => {
         this.getSummary(response.data);
       })

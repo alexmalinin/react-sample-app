@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Form, Input, Grid, Button } from "semantic-ui-react";
+import { Form, Input, Grid } from "semantic-ui-react";
 import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
 import { getUserRole } from "../../../helpers/functions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY } from "../../../constants/user";
 
 export default class SearchForm extends Component {
   state = {
@@ -25,7 +25,6 @@ export default class SearchForm extends Component {
       currentProject,
       searchSpecialist,
       searchSpecialistForProject,
-      toggleProjectError,
       specialistId
     } = this.props;
 
@@ -44,13 +43,7 @@ export default class SearchForm extends Component {
   };
 
   clearForm = () => {
-    const {
-      currentProject,
-      searchSpecialistForProject,
-      clear,
-      searchSpecialist,
-      specialistId
-    } = this.props;
+    const { clear, searchSpecialist, specialistId } = this.props;
     clear();
     this.handleClear();
 
@@ -87,6 +80,8 @@ export default class SearchForm extends Component {
             onClick={this.clearForm}
             role="button"
             className="clear dv-blue inverted"
+            uppercase="true"
+            fontSize={14}
             fluid
           >
             Clear filter

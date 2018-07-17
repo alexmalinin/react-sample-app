@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,8 +7,6 @@ export default store => next => action => {
   if (!addToChannel) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
-  console.log(jwtDecode(token));
 
   axios({
     method: "PUT",

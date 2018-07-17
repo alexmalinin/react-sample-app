@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, change, reset } from "redux-form";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import StyledSearchFilter from "../../../styleComponents/layout/StyledSearchFilter";
 import { Grid, Button, Dropdown, Popup } from "semantic-ui-react";
@@ -11,7 +11,8 @@ import {
   getProjectTypes,
   searchSpecialist,
   searchSpecialistForProject,
-  showProjectWithId
+  showProjectWithId,
+  showSpecialistProjects
 } from "../../../actions/actions";
 import SearchForm from "./SearchForm";
 import { renameObjPropNames } from "../../../helpers/functions";
@@ -32,6 +33,7 @@ class SearchFilterForm extends Component {
     this.props.getExperienceLevels();
     this.props.getProjectTypes();
     this.props.searchSpecialist();
+    this.props.showSpecialistProjects();
   }
 
   toggleFilters = () => {
@@ -48,7 +50,7 @@ class SearchFilterForm extends Component {
     this.setState({});
     this.props.clearFilters();
     this.setState({
-      project: undefined,
+      selectedProject: undefined,
       range: {
         min: 0,
         max: 100
@@ -63,7 +65,7 @@ class SearchFilterForm extends Component {
   };
 
   changeProject = (e, data) => {
-    this.setState({ project: data.value, projectError: false });
+    this.setState({ selectedProject: data.value, projectError: false });
     this.props.searchSpecialistForProject(data.value);
     this.props.showProjectWithId(data.value);
     this.searchForm.handleClear();
@@ -82,12 +84,12 @@ class SearchFilterForm extends Component {
       projectTypes,
       handleChange,
       searchSpecialist,
-      projectWithId,
+      projectWithId: { project, loaded },
       searchSpecialistForProject,
       filters: { industry_area_id, experience_level_id, project_type }
     } = this.props;
 
-    const { opened, range, project, projectError } = this.state;
+    const { opened, range, selectedProject, projectError } = this.state;
 
     industries &&
       industries["industry"] &&
@@ -137,7 +139,7 @@ class SearchFilterForm extends Component {
                 onChange={this.changeProject}
                 onOpen={e => this.setState({ projectError: false })}
                 selectOnBlur={false}
-                value={project}
+                value={selectedProject}
               />
             </Grid.Column>
 
@@ -171,7 +173,6 @@ class SearchFilterForm extends Component {
                 placeholder="Any industry"
                 fluid
                 search
-                // multiple
                 selectOnBlur={false}
                 options={industries["industry"] || []}
                 onChange={handleChange}
@@ -203,7 +204,6 @@ class SearchFilterForm extends Component {
                 name="experience_level_id"
                 fluid
                 search
-                // multiple
                 selectOnBlur={false}
                 options={experienceLevels || []}
                 onChange={handleChange}
@@ -234,28 +234,28 @@ class SearchFilterForm extends Component {
               <Checkboxes items={[5, 4, 3, 2, 1]} />
             </Grid.Column> */}
 
-            {project &&
-              projectWithId &&
-              projectWithId.id === project &&
-              projectWithId["skills"] && (
+            {selectedProject &&
+              loaded &&
+              project.id === project &&
+              project["skills"] && (
                 <Grid.Column>
                   <h4 className="filterTitle">Skills</h4>
                   <div className="skillsWrapper">
-                    {projectWithId["skills"].slice(0, 4).map((skill, key) => (
+                    {project["skills"].slice(0, 4).map((skill, key) => (
                       <div key={key} className="skill">
                         {skill.label}
                       </div>
                     ))}
-                    {projectWithId["skills"].length === 0 && "No skills"}
+                    {project["skills"].length === 0 && "No skills"}
                   </div>
-                  {projectWithId["skills"].length > 4 && (
+                  {project["skills"].length > 4 && (
                     <Popup
                       on="click"
                       size="small"
                       trigger={<a className="allSkills">See all skills</a>}
                     >
                       <div className="skills">
-                        {projectWithId["skills"]
+                        {project["skills"]
                           // .slice(4)
                           .map((skill, key) => (
                             <span key={key}>{skill.label}&nbsp;</span>
@@ -330,5 +330,6 @@ export default connect(mapStateToProps, {
   getProjectTypes,
   searchSpecialist,
   searchSpecialistForProject,
-  showProjectWithId
+  showProjectWithId,
+  showSpecialistProjects
 })(SearchFilterForm);

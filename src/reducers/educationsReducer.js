@@ -6,7 +6,7 @@ import {
   EDIT_EDUCATION_CARD_WITHOUT_ID,
   DELETE_EDUCATION_CARD_WITHOUT_ID,
   SUCCESS
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = [], action) => {
   const { type, payload, id } = action;

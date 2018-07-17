@@ -29,6 +29,6 @@ class SignUpFormClient extends Component {
 
 export default reduxForm({
   form: "SignUpFormClient",
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true
 })(SignUpFormClient);

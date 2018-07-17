@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
+import { NotificationContainer } from "react-notifications";
 import HeaderIntro from "../layout/HeaderIntro";
 import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
 import StyledFormHeader from "../../styleComponents/StyledFormHeader";
-import { DvTitle } from "../../styleComponents/layout/DvTitles";
 import DvForm from "../../styleComponents/Tabs";
 import confirm from "../../decorators/confirm";
 import VerificationForm from "./VerificationForm";
-import {
-  Container,
-  IntroContainer
-} from "../../styleComponents/layout/Container";
+import { IntroContainer } from "../../styleComponents/layout/Container";
 import {
   verifyPassword,
   getUserId,
@@ -27,8 +24,13 @@ class Verification extends Component {
     this.props.getUserId(this.user, this.token);
   }
 
+  componentDidMount() {
+    let tab = this.user === "customer" ? "Client" : "Specialist";
+    this.props.userType(tab);
+  }
+
   render() {
-    const { confirm, confirmAccount, confirmPassword } = this.props;
+    const { confirmPassword } = this.props;
     return (
       <Fragment>
         <HeaderIntro />
@@ -43,30 +45,18 @@ class Verification extends Component {
               <VerificationForm onSubmit={this.submit} />
             </DvForm>
 
-            {confirmPassword && this.getUserRedirect()}
+            {confirmPassword && <Redirect to="/sign_in" />}
           </IntroContainer>
         </S_MainContainer>
+        <NotificationContainer />
       </Fragment>
     );
   }
 
-  componentDidMount() {
-    let tab = this.user === "customer" ? "Client" : "Specialist";
-    this.props.userType(tab);
-  }
-
-  getUserRedirect = () => {
-    return (
-      <div>
-        <Redirect to="/sign_in" />
-      </div>
-    );
-  };
-
   submit = values => {
     const { UserId, verifyPassword } = this.props;
     localStorage.setItem("userId", UserId);
-    verifyPassword(this.user + "s", UserId, values);
+    verifyPassword(this.user, UserId, values);
   };
 
   componentWillUnmount() {

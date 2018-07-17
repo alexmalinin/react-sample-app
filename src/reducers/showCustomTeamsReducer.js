@@ -1,4 +1,4 @@
-import { SUCCESS, SHOW_CUSTOM_TEAMS } from "../constans/constans";
+import { SUCCESS, SHOW_CUSTOM_TEAMS } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

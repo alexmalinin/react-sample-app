@@ -3,7 +3,6 @@ import { change } from "redux-form";
 import "react-select/dist/react-select.css";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
-import StyledSelect from "../../../styleComponents/forms/StyledSelect";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import { Select } from "react-semantic-redux-form/dist";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
@@ -22,18 +21,20 @@ export default class RenderSelectField extends Component {
       meta: { dispatch, form }
     } = this.props;
 
-    this.setState({ loading: true });
+    if (handleSubmit) {
+      this.setState({ loading: true });
 
-    handleSubmit(input.name, data.value)
-      .then(resp => {
-        const { data } = resp;
-        data.state = taskStatuses.find(
-          status => status.enum === data.state
-        ).value;
-        this.setState({ loading: false, updError: false });
-        dispatch(change(form, input.name, data.state));
-      })
-      .catch(error => this.setState({ loading: false, updError: true }));
+      handleSubmit(input.name, data.value)
+        .then(resp => {
+          const { data } = resp;
+          data.state = taskStatuses.find(
+            status => status.enum === data.state
+          ).value;
+          this.setState({ loading: false, updError: false });
+          dispatch(change(form, input.name, data.state));
+        })
+        .catch(error => this.setState({ loading: false, updError: true }));
+    }
   };
 
   render() {

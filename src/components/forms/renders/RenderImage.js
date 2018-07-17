@@ -3,13 +3,10 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import { Button } from "semantic-ui-react";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
-import { PORT, IMAGE_PORT } from "../../../constans/constans";
-import {
-  showAllProjects,
-  showSpecialistProjects
-} from "../../../actions/actions";
-import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constans/constans";
+import { PORT, IMAGE_PORT, BLANK_AVATAR } from "../../../constants/constants";
+import { showSortedProjects } from "../../../actions/actions";
+import { getUserRole, getUserType } from "../../../helpers/functions";
+import { CUSTOMER, CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderImage extends Component {
   state = { file: "", imagePreviewUrl: "" };
@@ -25,7 +22,7 @@ class RenderImage extends Component {
   }
 
   _handleImageChange(e) {
-    const { projectId } = this.props;
+    const { projectId, showSortedProjects } = this.props;
 
     e.preventDefault();
 
@@ -48,14 +45,15 @@ class RenderImage extends Component {
             project: {
               logo: reader.result
             }
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
           }
         })
           .then(res => {
-            if (getUserRole() === CUSTOMER) {
-              this.props.showAllProjects();
-            } else {
-              this.props.showSpecialistProjects();
-            }
+            const userType = getUserType();
+            if (userType === CLIENT) showSortedProjects("customers");
+            else if (userType === SPECIALIST) showSortedProjects("specialists");
           })
           .catch(error => {
             console.log(error);
@@ -75,39 +73,57 @@ class RenderImage extends Component {
       name,
       type,
       disabled,
-      projectLogo
+      projectLogo,
+      label,
+      createProject,
+      projectName
     } = this.props;
 
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
     if (avatar && avatar.url && !imagePreviewUrl) {
-      $imagePreview = <img src={IMAGE_PORT + avatar.url} />;
+      $imagePreview = <img src={IMAGE_PORT + avatar.url} alt="" />;
     } else if (logo && logo.url && !imagePreviewUrl) {
-      $imagePreview = <img src={IMAGE_PORT + logo.url} />;
+      $imagePreview = <img src={IMAGE_PORT + logo.url} alt="" />;
     } else if (imagePreviewUrl) {
-      $imagePreview = <img src={imagePreviewUrl} />;
+      $imagePreview = <img src={imagePreviewUrl} alt="" />;
     } else {
       if (projectLogo) {
         $imagePreview = (
-          <div className="image-preloader">
-            <img src="../../images/placeholder.png" alt="" />
-          </div>
+          <div className="projectNoLogo">{projectName && projectName[0]}</div>
         );
       } else {
         $imagePreview = (
           <div className="image-preloader">
-            <img src="../../images/uploadImg.png" alt="" />
+            <img src="../../images/icon-avatar.svg" alt="" />
           </div>
         );
       }
     }
 
     return (
-      <StyledUploader projectLogo={projectLogo} disabled={disabled}>
-        <div className="imgPreview">{$imagePreview}</div>
-        <Button primary onClick={this.handleTrigger}>
-          {/* Upload */}
-        </Button>
+      <StyledUploader
+        projectLogo={projectLogo}
+        disabled={disabled}
+        createProject={createProject}
+      >
+        {label && <label htmlFor={name}>{label}</label>}
+
+        <div className="upload">
+          <div className="upload-image">
+            <div className="imgPreview">{$imagePreview}</div>
+            <Button primary onClick={this.handleTrigger}>
+              {/* Upload */}
+            </Button>
+          </div>
+
+          {createProject && (
+            <div className="upload-label">
+              Add your company&rsquo;s logo. The file size must not exceed 5 Mb
+            </div>
+          )}
+        </div>
+
         <input
           ref={this.triggerRef}
           name={name}
@@ -131,9 +147,7 @@ class RenderImage extends Component {
   };
 }
 
-export default connect(null, { showAllProjects, showSpecialistProjects })(
-  RenderImage
-);
+export default connect(null, { showSortedProjects })(RenderImage);
 
 // if (avatar && !imagePreviewUrl) {
 //     $imagePreview = (<img src={PORT + avatar.url}/>);

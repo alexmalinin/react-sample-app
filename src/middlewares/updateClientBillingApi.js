@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,11 +7,11 @@ export default store => next => action => {
   if (!updateClientBilling) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: updateClientBilling + id,
+    url: updateClientBilling + user_id,
     data: {
       customer: {
         billing_attributes: {
@@ -28,7 +28,7 @@ export default store => next => action => {
           swift_code: payload["swift_code"],
           iban: payload["iban"],
           user_type: "Customer",
-          user_id: id
+          user_id: user_id
         }
       }
     },

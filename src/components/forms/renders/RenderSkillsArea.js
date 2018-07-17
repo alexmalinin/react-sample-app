@@ -20,14 +20,15 @@ class RenderSkillsArea extends Component {
       <StyledSkillsArea
         className={className}
         padded={padded}
-        placeholder={placeholder}
+        // placeholder={placeholder}
       >
-        <span>{label}</span>
+        <label htmlFor={name}>{label}</label>
+
         <Field
           name={name}
           component={RenderMultiSelect}
           onChange={e => handleSelectChange && handleSelectChange(e, name)}
-          placeholder=""
+          placeholder={placeholder}
           onOpen={onOpen}
           // disabled
           options={options}

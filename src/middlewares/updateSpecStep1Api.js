@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,7 +7,7 @@ export default store => next => action => {
   if (!updateSpecStep1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   let attr = payload.skills_attributes
     ? payload.skills_attributes.map(attr => {
@@ -22,7 +22,7 @@ export default store => next => action => {
 
   axios({
     method: "put",
-    url: updateSpecStep1 + id,
+    url: updateSpecStep1 + user_id,
     data: {
       specialist: {
         job_title: payload["job_title"]["value"],

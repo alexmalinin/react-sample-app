@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Field, reduxForm, change, getFormValues } from "redux-form";
+import { Field, reduxForm, getFormValues } from "redux-form";
 import { required } from "../../helpers/validate";
 import {
   NextBtn,
@@ -16,11 +16,10 @@ import RenderImage from "../forms/renders/RenderImage";
 import RenderTextArea from "../forms/renders/RenderTextArea";
 import StyledExperienceCards from "../../styleComponents/StyledExperienceCards";
 import RenderCards from "../specialist/renders/RenderCards";
-import EdicationModal from "../modals/EdicationModal";
-import WorkExperienceModal from "../modals/WorkExperienceModal";
 import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
-import { getUserRole } from "../../helpers/functions";
-import { CUSTOMER } from "../../constans/constans";
+import { getUserRole, getAllUrlParams } from "../../helpers/functions";
+import { CUSTOMER } from "../../constants/user";
+import { run } from "../../helpers/scrollToElement";
 
 import { Grid } from "semantic-ui-react";
 
@@ -33,6 +32,21 @@ class RenderProfileForm extends Component {
       confirmation: false,
       submitError: false
     };
+  }
+
+  componentDidMount() {
+    let param = getAllUrlParams().hash;
+
+    switch (param) {
+      case "education":
+        run(this.refs.education, 10, 120)();
+        break;
+      case "experience":
+        run(this.refs.experience, 10, 180)();
+        break;
+      default:
+        run(0)();
+    }
   }
 
   componentWillUnmount() {
@@ -148,7 +162,6 @@ class RenderProfileForm extends Component {
                             "Write a paragraph or two about your professional experience "
                           }
                           component={RenderTextArea}
-                          className="area"
                           tabIndex="7"
                         />
                       </div>
@@ -160,7 +173,7 @@ class RenderProfileForm extends Component {
                     <Grid.Column computer={16}>
                       <StyledExperienceCards>
                         {this.props.specialistModal ? (
-                          <div className="experience-section">
+                          <div ref="education" className="experience-section">
                             <h3>Education</h3>
                             <RenderCards educations={educationData} />
                           </div>
@@ -170,7 +183,7 @@ class RenderProfileForm extends Component {
                     <Grid.Column computer={16}>
                       <StyledExperienceCards>
                         {this.props.specialistModal ? (
-                          <div className="experience-section">
+                          <div ref="experience" className="experience-section">
                             <h3>Work experience</h3>
                             <RenderCards experiences={experienceData} />
                           </div>
@@ -254,7 +267,7 @@ RenderProfileForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(RenderProfileForm);
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const { specialistData, clientData, percents } = state;
   let initialValues = {};
 

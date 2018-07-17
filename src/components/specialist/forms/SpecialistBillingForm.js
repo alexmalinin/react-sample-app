@@ -63,22 +63,12 @@ SpecialistBillingForm = reduxForm({
 
 export default connect(state => {
   const { specialistData } = state;
-
-  const billingData = (specialistData && specialistData.billing) || {};
+  const { billing } = specialistData || {};
 
   return {
     specialistData,
     initialValues: {
-      billing_type: billingData && billingData.billing_type,
-      card_name: billingData && billingData.card_name,
-      card_number: billingData && billingData.card_number,
-      beneficiary_account: billingData && billingData.beneficiary_account,
-      beneficiary_bank: billingData && billingData.beneficiary_bank,
-      beneficiary_name: billingData && billingData.beneficiary_name,
-      correspondent_bank: billingData && billingData.correspondent_bank,
-      iban: billingData && billingData.iban,
-      purpose_of_payment: billingData && billingData.purpose_of_payment,
-      swift_code: billingData && billingData.swift_code
+      ...billing
     }
   };
 })(SpecialistBillingForm);

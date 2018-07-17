@@ -1,19 +1,3 @@
-export const PORT =
-  process.env.NODE_ENV === "development"
-    ? process.env.REACT_APP_API_HOST
-    : process.env.REACT_APP_API_PROD;
-
-export const IMAGE_PORT =
-  process.env.NODE_ENV === "development" ? process.env.REACT_APP_API_HOST : "";
-
-export const CLIENT = "Client";
-export const SPECIALIST = "Specialist";
-export const S_ACTIVE = "active";
-export const S_PASSIVE = "passive";
-export const S_CORE = "core";
-export const S_REDGUY = "red_guy";
-export const CUSTOMER = "customer";
-
 export const HIDE_FOOTER = "HIDE_FOOTER";
 export const SIDEBAR = "SIDEBAR";
 export const SIGN_UP_STEP_1 = "SIGN_UP_STEP_1";
@@ -44,6 +28,7 @@ export const UPDATE_SPECIALIST_STEP_2 = "UPDATE_SPECIALIST_STEP_2";
 export const UPDATE_SPECIALIST_BILLINGS = "UPDATE_SPECIALIST_BILLINGS";
 export const CLEAR_EDUCATION = "CLEAR_EDUCATION";
 export const CLEAR_WORK_EXPERIENCE = "CLEAR_WORK_EXPERIENCE";
+export const SHOW_ALL_CLIENTS = "SHOW_ALL_CLIENTS";
 export const SHOW_CLIENT_DATA = "SHOW_CLIENT_DATA";
 export const SHOW_SPECIALIST_DATA = "SHOW_SPECIALIST_DATA";
 export const SHOW_SPECIALIST_WITH_ID = "SHOW_SPECIALIST_WITH_ID";
@@ -54,6 +39,7 @@ export const SHOW_SPECIALIST_TEAMS = "SHOW_SPECIALIST_TEAMS";
 export const SHOW_CUSTOM_TEAMS = "SHOW_CUSTOM_TEAMS";
 export const SHOW_SPECIALIST_TASKS = "SHOW_SPECIALIST_TASKS";
 export const SHOW_PROJECT_WITH_ID = "SHOW_PROJECT_WITH_ID";
+export const SHOW_SORTED_PROJECTS = "SHOW_SORTED_PROJECTS";
 export const UPDATE_SPECIALIST_PROFILE = "UPDATE_SPECIALIST_PROFILE";
 export const EDIT_COMPANY_WITH_ID = "EDIT_COMPANY_WITH_ID";
 export const EDIT_BILLING_WITH_ID = "EDIT_BILLING_WITH_ID";
@@ -107,6 +93,7 @@ export const SHOW_CONFIRMATION_MODAL = "SHOW_CONFIRMATION_MODAL";
 export const CLOSE_CONFIRMATION_MODAL = "CLOSE_CONFIRMATION_MODAL";
 export const SHOW_SUBMIT_ERROR_MODAL = "SHOW_SUBMIT_ERROR_MODAL";
 export const CLOSE_SUBMIT_ERROR_MODAL = "CLOSE_SUBMIT_ERROR_MODAL";
+export const TOGGLE_MY_TASKS = "TOGGLE_MY_TASKS";
 
 export const SUCCESS = "_SUCCESS";
 export const FAIL = "_FAIL";

@@ -32,7 +32,7 @@ class ClientWelcome extends Component {
                   and supply you with the most relevant requests.
                 </p>
                 <ClientWelcomeForm onSubmit={this.submit} />
-                {confirm && <Redirect to="/client/dashboard/profile" />}
+                {confirm && <Redirect to="/profile/info" />}
               </Grid.Column>
             </Grid.Row>
           </Grid>

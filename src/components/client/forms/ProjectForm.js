@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change } from "redux-form";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
+import { connect } from "react-redux";
+import { Field, submit, change } from "redux-form";
+import { NavLink } from "react-router-dom";
+import { required, maxLength30 } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
-import { clientCategories } from "../../../helpers/selects/clientCategories";
-import { SaveBtn } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import RenderImage from "../../forms/renders/RenderImage";
 import { Grid } from "semantic-ui-react";
 import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { employeers } from "../../../helpers/selects/employeers";
 import RenderFile from "../../forms/renders/RenderFile";
 import RenderSkillsArea from "../../forms/renders/RenderSkillsArea";
-import { renameObjPropNames } from "../../../helpers/functions";
+import { renameObjPropNames, getUserRole } from "../../../helpers/functions";
+import { S_REDGUY } from "../../../constants/user";
+import { DvBlueButton } from "../../../styleComponents/layout/DvButton";
 
 class ProjectForm extends Component {
   render() {
-    const { submitting, clientData, skills } = this.props;
+    const {
+      submitting,
+      clientData,
+      skills,
+      projectTypes,
+      allClients
+    } = this.props;
 
     let { logo } = clientData || false;
 
@@ -34,115 +40,155 @@ class ProjectForm extends Component {
 
     return (
       <Grid>
-        <Grid.Row>
-          <Grid.Column computer={8} verticalAlign="bottom">
-            <InputField
-              name="name"
-              label="Project name"
-              validate={[required]}
-              isRequired
-              padded
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="logo"
-              component={RenderImage}
-              projectLogo
-              type="file"
-              logo={logo}
-              placeholder="Choose project logo"
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="description"
-              component={RenderTextArea}
-              label="Brief / Description"
-              className="area"
-              padded
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <RenderSkillsArea
-              options={skills}
-              label="Technologies"
-              name="skills"
-              handleSelectChange={this.props.handleSelectChange}
-              placeholder=""
-              large
-              padded
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="user_story"
-              component={RenderTextArea}
-              label="User Story"
-              className="area"
-              large
-              padded
-              validate={[required]}
-              isRequired
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="criteria"
-              component={RenderTextArea}
-              label="Acceptance criteria"
-              className="area"
-              large
-              padded
-            />
-          </Grid.Column>
-          {/* </Grid.Row>
+        <Grid.Row columns={1}>
+          <Grid.Column>
+            <div className="projectAside">
+              <div className="asideInfo">
+                <Field
+                  name="attached_files"
+                  type="text"
+                  component={RenderFile}
+                  label="Attach files"
+                  dropzone
+                  createProject
+                />
+              </div>
 
-        <Grid.Row> */}
-          <Grid.Column computer={8}>
-            <Field
-              name="requirements"
-              component={RenderTextArea}
-              label="Business Requirements"
-              className="area"
-              large
-              padded
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="solution"
-              component={RenderTextArea}
-              label="Solution design"
-              className="area"
-              large
-              padded
-            />
-          </Grid.Column>
-          {/* </Grid.Row>
+              <div className="asideInfo">
+                <Field
+                  name="logo"
+                  component={RenderImage}
+                  label="Logo"
+                  projectLogo
+                  createProject
+                  type="file"
+                  logo={logo}
+                  placeholder="Choose project logo"
+                />
+              </div>
 
-        <Grid.Row> */}
-          <Grid.Column computer={8}>
-            <Field
-              name="rules"
-              component={RenderTextArea}
-              label="Business Rules"
-              className="area"
-              padded
-            />
-          </Grid.Column>
-          <Grid.Column computer={8}>
-            <Field
-              name="attached_files"
-              type="text"
-              component={RenderFile}
-              label="Attach files"
-              className="area"
-              padded
-              dropzone
-              indentTop
-              createProject
-            />
+              <RenderSkillsArea
+                options={skills}
+                label="Technology"
+                name="skills"
+                handleSelectChange={this.props.handleSelectChange}
+                placeholder="Choose technologies"
+                large
+              />
+            </div>
+
+            <div className="projectMain">
+              <div className="title">Create project</div>
+
+              <InputField
+                name="name"
+                label="Project name"
+                placeholder="Type you project name here"
+                validate={[required, maxLength30]}
+                isRequired
+              />
+
+              {getUserRole() === S_REDGUY && (
+                <Field
+                  name="customer_id"
+                  label="Customer"
+                  placeholder="Choose a customer"
+                  component={RenderSelect}
+                  options={allClients}
+                  validate={[required]}
+                  isRequired
+                />
+              )}
+
+              <Field
+                name="project_type_id"
+                component={RenderSelect}
+                options={projectTypes}
+                label="Project type"
+                placeholder="Choose the project type"
+              />
+
+              <Field
+                name="description"
+                component={RenderTextArea}
+                label="Brief / Description"
+                placeholder="Type your description here"
+              />
+
+              <Field
+                name="user_story"
+                component={RenderTextArea}
+                label="User story"
+                placeholder="Type your user story here"
+                large
+                validate={[required]}
+                isRequired
+              />
+
+              <Field
+                name="criteria"
+                component={RenderTextArea}
+                label="Acceptance criteria"
+                placeholder="Type your acceptance criteria here"
+                large
+              />
+
+              <Field
+                name="requirements"
+                component={RenderTextArea}
+                label="Business requirements"
+                placeholder="Type your business requirements here"
+                large
+              />
+
+              <Field
+                name="solution"
+                component={RenderTextArea}
+                label="Solution design"
+                placeholder="Type your solution design here"
+                large
+              />
+
+              <Field
+                name="rules"
+                component={RenderTextArea}
+                label="Business rules"
+                placeholder="Type your business rules here"
+              />
+
+              <div className="controls">
+                <NavLink exact to={`/dashboard/`}>
+                  <DvBlueButton className="dv-blue inverted transparent">
+                    Cancel
+                  </DvBlueButton>
+                </NavLink>
+
+                <DvBlueButton
+                  // type="submit"
+                  className="dv-blue inverted draft"
+                  disabled={submitting}
+                  onClick={() => {
+                    this.props.dispatch(
+                      change("ClientProjectForm", "state", "draft")
+                    );
+
+                    setTimeout(() => {
+                      this.props.dispatch(submit("ClientProjectForm"));
+                    }, 0);
+                  }}
+                >
+                  Draft
+                </DvBlueButton>
+
+                <DvBlueButton
+                  type="submit"
+                  className="dv-blue"
+                  disabled={submitting}
+                >
+                  Create
+                </DvBlueButton>
+              </div>
+            </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -150,4 +196,4 @@ class ProjectForm extends Component {
   }
 }
 
-export default ProjectForm;
+export default connect()(ProjectForm);

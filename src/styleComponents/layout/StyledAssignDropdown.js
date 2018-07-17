@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { boxShadow, colors, primaryColors } from "../constants/colors";
+import {
+  boxShadow,
+  colors,
+  primaryColors,
+  fontColors
+} from "../constants/colors";
 import { Popup } from "semantic-ui-react";
 
 export const StyledAssignDropdown = styled.div`
@@ -70,12 +75,8 @@ export const StyledAssignDropdown = styled.div`
     &:hover {
       color: #999;
 
-      .plus {
-        color: #ddd;
-      }
-
       .label {
-        color: #666;
+        color: ${fontColors.regular};
       }
     }
 
@@ -91,10 +92,10 @@ export const StyledAssignDropdown = styled.div`
       padding: ${props => (props.renderToModal ? "0" : "4px 0")};
       height: ${props => (props.renderToModal ? "48px" : "36px")};
       width: ${props => (props.renderToModal ? "48px" : "36px")};
-      color: ${props => (props.blue ? colors.darkBlue : "#ccc")};
+      color: ${colors.blue};
       border-radius: 50%;
-      border: ${props => (props.blue ? "none" : "1px solid #ccc")};
-      background: ${props => (props.blue ? "#eaeffa" : "white")};
+      ${props => props.bordered && `border: 1px solid ${colors.lightGreyBlue}`};
+      background: ${primaryColors.accentBackground};
 
       text-align: center;
       font-size: ${props => (props.renderToModal ? "36px" : "21px")};
@@ -112,7 +113,7 @@ export const StyledAssignDropdown = styled.div`
         height: ${props => (props.renderToModal ? "20px" : "12px")};
         width: 2px;
         border-radius: 2px;
-        background: ${props => (props.blue ? colors.darkBlue : "#ccc")};
+        background: ${colors.blue};
       }
 
       &::after {
@@ -153,7 +154,7 @@ export const StyledAssignDropdown = styled.div`
 
     top: calc(100% + 5px);
     left: 10px;
-    min-width: 240px;
+    min-width: 220px;
 
     border-radius: 3px;
     background: #fff;
@@ -207,6 +208,10 @@ export const StyledAssignDropdown = styled.div`
 
       &::-webkit-scrollbar-track {
         background: transparent;
+      }
+
+      .no-specs:hover {
+        background: none;
       }
 
       div {
@@ -298,62 +303,42 @@ export const StyledAssignDropdown = styled.div`
 `;
 
 export const StyledDropdown = styled(Popup)`
-  .ui.attached.tabular.menu {
-    min-width: 240px;
-  }
+  &.ui.popup {
+    &.nav-profile-dropdown {
+      width: 180px;
+      border: none;
+      padding: 16px 0;
+      ${boxShadow.grey};
 
-  .dropdownTitle {
-    color: ${colors.darkBlue};
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .ui.attached.bottom {
-    padding: 0;
-    .ui.input {
-      font-size: 12px;
-      margin: 8px 16px 0;
-    }
-
-    .dropdown-list {
-      margin-top: 4px;
-      padding-bottom: 8px;
-      max-height: 160px;
-      overflow-y: auto;
-
-      & > div {
+      .inner-wrapper {
         display: flex;
-        align-items: center;
-        color: ${primaryColors.darkGrey};
-        padding: 8px 16px;
-        cursor: pointer;
+        flex-flow: column nowrap;
 
-        img {
-          height: 36px;
-          width: 36px;
-          background: white;
-          border-radius: 50%;
-          margin-right: 6px;
+        .nav-link {
+          padding: 0 20px;
+          color: black;
+          font-size: 16px;
+          line-height: 32px;
+
+          i {
+            width: 30px;
+            color: ${colors.blue};
+          }
+
+          &:hover {
+            background: ${colors.lightGreyBlue};
+          }
+
+          &.active {
+            color: ${colors.darkBlue};
+          }
         }
-
-        &:hover {
-          background: ${primaryColors.backgroundColor};
-        }
-      }
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
       }
     }
   }
 `;
 
 export const StyledPersonTile = styled.div`
-  color: #999;
   font-size: 500;
   padding: 4px 0;
   position: relative;
@@ -362,7 +347,7 @@ export const StyledPersonTile = styled.div`
   font-weight: 400;
   margin-right: ${props => (props.compressed ? "-8px" : "0")};
 
-  .imgWrapper {
+  .img-wrapper {
     position: relative;
     width: 36px;
     height: 36px;
@@ -370,12 +355,19 @@ export const StyledPersonTile = styled.div`
     overflow: hidden;
     margin-right: ${props => (props.compressed ? "0 " : "5px")};
 
-    img {
+    .user-avatar {
       width: 100%;
       height: 100%;
       background: #fff;
       border-radius: 50%;
       object-fit: cover;
+
+      &.blank {
+        background: ${primaryColors.accentBackground};
+        ${props =>
+          props.compressed ? `border: 1px solid ${colors.lightGreyBlue}` : ""};
+        object-fit: contain;
+      }
     }
 
     &::before {
@@ -385,7 +377,7 @@ export const StyledPersonTile = styled.div`
       left: 0;
       height: 100%;
       width: 100%;
-      background: ${colors.darkBlue};
+      background: ${colors.blue};
       opacity: 0;
     }
   }
@@ -396,19 +388,15 @@ export const StyledPersonTile = styled.div`
     flex-flow: row nowrap;
     align-items: center;
     text-decoration: none;
-    color: inherit;
+    color: ${fontColors.regular};
     outline: none;
 
     &:focus {
-      .imgWrapper {
+      .img-wrapper {
         &::before {
           opacity: 0.15;
         }
       }
-    }
-
-    &:hover {
-      color: inherit;
     }
   }
 
@@ -444,6 +432,8 @@ export const StyledPersonTile = styled.div`
       font-weight: 500;
       font-size: 16px;
       color: ${primaryColors.darkGrey};
+      white-space: normal;
+
       &:hover {
         text-decoration: underline;
       }
@@ -516,7 +506,7 @@ export const StyledSpecialist = styled.div`
     }
   }
 
-  .avatar {
+  .avatar-wrapper {
     position: relative;
     height: 48px;
     width: 48px;
@@ -524,11 +514,16 @@ export const StyledSpecialist = styled.div`
     border-radius: 50%;
     overflow: hidden;
 
-    img {
+    .user-avatar {
       height: 100%;
       width: 100%;
       object-fit: cover;
       background: #fff;
+
+      &.blank {
+        background: ${primaryColors.accentBackground};
+        object-fit: contain;
+      }
     }
 
     button {
@@ -604,8 +599,9 @@ export const StyledMembersWrapper = styled.div`
       height: 36px;
       width: 36px;
       border-radius: 50%;
-      background: #eaeffa;
-      color: ${colors.darkBlue};
+      background: ${primaryColors.accentBackground};
+      border: 1px solid ${colors.lightGreyBlue};
+      color: ${colors.blue};
       text-align: center;
       line-height: 36px;
       font-size: 18px;
@@ -633,7 +629,7 @@ export const StyledMembersWrapper = styled.div`
         flex: 0 0 100%;
         font-size: 0.8em;
         text-transform: uppercase;
-        color: ${colors.darkBlue};
+        color: ${colors.blue};
         padding-bottom: 5px;
         margin-bottom: 4px;
         font-weight: 600;

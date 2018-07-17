@@ -23,7 +23,7 @@ class NotFound extends Component {
         <p>
           The Page you are looking for doesn't exist or other error occurred.{" "}
           <br />
-          <ColoredLinks to="/" color={colors.blue}>
+          <ColoredLinks to="/" color={colors.lightBlue}>
             Go back{" "}
           </ColoredLinks>, or head over to{" "}
           <ColoredLinks to="/" color={colors.green}>

@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { reset, change, initialize } from "redux-form";
+import { change } from "redux-form";
+import classNames from "classnames";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 import { TextArea } from "react-semantic-redux-form/dist";
-import { Button } from "semantic-ui-react";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import {
   showProjectWithId,
-  showAllProjects,
-  showSpecialistProjects
+  showProjectEpic,
+  showSortedProjects,
+  showAllEpics
 } from "../../../actions/actions";
-import { getUserRole } from "../../../helpers/functions";
-import { CUSTOMER } from "../../../constans/constans";
+import { getUserType } from "../../../helpers/functions";
+import { CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderText extends Component {
   state = {
@@ -43,8 +44,7 @@ class RenderText extends Component {
 
   blur = e => {
     const {
-      meta: { dirty },
-      onSelfSubmit
+      meta: { dirty }
     } = this.props;
 
     e.target.spellcheck = false;
@@ -58,48 +58,63 @@ class RenderText extends Component {
   submit = e => {
     const {
       onSelfSubmit,
+      input,
       input: { name, value },
-      meta: { dispatch, form },
+      meta: { dispatch, form, error },
       projectId,
-      updateProjects
+      updateProject,
+      updateProjects,
+      showSortedProjects,
+      epicId,
+      updateEpic,
+      updateEpicName
     } = this.props;
 
     this.setState({ loading: true });
 
-    onSelfSubmit(name, value)
-      .then(resp => {
-        const { data } = resp;
-        if (data.state && typeof data.state === "number") {
-          data.state = taskStatuses.find(
-            status => status.enum === data.state
-          ).value;
-        }
-        this.setState({ loading: false, updError: false, editing: false });
-        dispatch(change(form, name, data[name]));
+    input.onBlur(input.value);
 
-        if (projectId) {
-          this.props.showProjectWithId(projectId);
-        }
-
-        if (updateProjects) {
-          if (getUserRole() === CUSTOMER) {
-            this.props.showAllProjects();
-          } else {
-            this.props.showSpecialistProjects();
+    !error &&
+      onSelfSubmit(name, value)
+        .then(resp => {
+          const { data } = resp;
+          if (data.state && typeof data.state === "number") {
+            data.state = taskStatuses.find(
+              status => status.enum === data.state
+            ).value;
           }
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ loading: false, updError: true });
-      });
+          this.setState({ loading: false, updError: false, editing: false });
+          dispatch(change(form, name, data[name]));
+
+          if (updateProject && projectId) {
+            this.props.showProjectWithId(projectId);
+          }
+
+          if (updateEpic && projectId && epicId) {
+            this.props.showProjectEpic(projectId, epicId);
+          }
+
+          if (updateEpicName) {
+            this.props.showAllEpics(projectId);
+          }
+
+          if (updateProjects) {
+            const userType = getUserType();
+            if (userType === CLIENT) showSortedProjects("customers");
+            else if (userType === SPECIALIST) showSortedProjects("specialists");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          this.setState({ loading: false, updError: true });
+        });
   };
 
   render() {
     const {
       input,
       label,
-      meta: { touched, error, warning, pristine },
+      meta: { touched, error, warning },
       meta,
       placeholder,
       className,
@@ -111,9 +126,11 @@ class RenderText extends Component {
     } = this.props;
     const { editing, loading, updError } = this.state;
 
+    const textareaClass = classNames(className, { error: !!error });
+
     return (
       <StyledTextArea
-        className={className}
+        className={textareaClass}
         large={large}
         padded={padded}
         disabled={disabled}
@@ -145,8 +162,9 @@ class RenderText extends Component {
 
 export default connect(null, {
   showProjectWithId,
-  showAllProjects,
-  showSpecialistProjects
+  showProjectEpic,
+  showSortedProjects,
+  showAllEpics
 })(RenderText);
 
 // export default RenderText;

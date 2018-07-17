@@ -15,7 +15,7 @@ import RenderImage from "../../forms/renders/RenderImage";
 
 class BillingForm extends Component {
   state = {
-    tab: "0",
+    tab: 0,
     fetch: true
   };
 
@@ -34,6 +34,8 @@ class BillingForm extends Component {
             fetch: false
           });
         }
+      } else {
+        this.props.change("billing_type", 0);
       }
     }
   }

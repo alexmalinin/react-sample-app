@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { reducer as reduxFormReducer } from "redux-form";
 
-import hideFooter from "./hideFooter";
-import sidebar from "./sidebar";
+import { LOG_OUT } from "../actions/types";
+
 import changeUserType from "./changeUserTypeReducer";
 import signUpData from "./signUpReducer";
 import signInReducer from "./signInReducer";
@@ -14,7 +14,7 @@ import experienceLevels from "./experienceLevelsReducer";
 import educations from "./educationsReducer";
 import experiences from "./workExperienceReducer";
 import skills from "./skillsReducer";
-import chosenSkills from "./showChosenSkillsReducer";
+import allClients from "./showAllClientsReducer";
 import clientData from "./showClientDataReducer";
 import specialistData from "./showSpecialistDataReducer";
 import specialistWithId from "./showSpecialistWithIdReducer";
@@ -22,6 +22,7 @@ import allSpecialists from "./showAllSpecialistsReducer";
 import createProject from "./createProjectReducer";
 import updateProject from "./updateProjectReducer";
 import allProjects from "./showAllProjectsReducer";
+import sortedProjects from "./showSortedProjectsReduser";
 import specialistProjects from "./showSpecialistProjectsReducer";
 import specialistTeams from "./showSpecialistTeamsReducer";
 import allCustomTeams from "./showCustomTeamsReducer";
@@ -37,7 +38,6 @@ import createTask from "./createTaskReducer";
 import showEpic from "./showProjectEpicReducer";
 import epicTasks from "./showTasksReducer";
 import updateTask from "./updateEpicTaksReducer";
-import deleteTask from "./deleteEpicTaskReducer";
 import assignSpecialist from "./assignSpecialistToTaskReducer";
 import removeSpecialist from "./removeSpecialistFromTaskReducer";
 import allTeams from "./showAllTeamsReducer";
@@ -56,14 +56,12 @@ import updateChannel from "./updateChannelReducer";
 import searchResult from "./searchSpecialistReducer";
 import confirmationModal from "./confirmationReducer";
 import submitErrorModal from "./submitErrorModalReducer";
-import { LOG_OUT } from "../constans/constans";
 
 // import specialistProfile from './specialistProfile';
 // import contactRequest from './contactRequestReducer';
 
 const appReducer = combineReducers({
-  hideFooter,
-  sidebar,
+  form: reduxFormReducer,
   changeUserType,
   signUpData,
   signInReducer,
@@ -75,15 +73,15 @@ const appReducer = combineReducers({
   projectTypes,
   experienceLevels,
   skills,
-  chosenSkills,
+  allClients,
   clientData,
   specialistData,
   specialistWithId,
   allSpecialists,
-  form: reduxFormReducer,
   createProject,
   updateProject,
   allProjects,
+  sortedProjects,
   specialistProjects,
   specialistTeams,
   allCustomTeams,
@@ -99,7 +97,6 @@ const appReducer = combineReducers({
   showEpic,
   epicTasks,
   updateTask,
-  deleteTask,
   assignSpecialist,
   removeSpecialist,
   allTeams,

@@ -1,13 +1,20 @@
 import axios from "axios";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 import { industries } from "../helpers/selects/industries";
 
 export default store => next => action => {
   const { type, getIndustries, ...rest } = action;
   if (!getIndustries) return next(action);
+
+  const token = localStorage.getItem("jwt_token");
+
   axios({
     method: "get",
-    url: getIndustries
+    url: getIndustries,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(response => {
       let industryObj = response.data.map(industry => {

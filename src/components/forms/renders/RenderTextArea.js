@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import classNames from "classnames";
+import { TextArea } from "react-semantic-redux-form";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import { StyledTextArea } from "../../../styleComponents/forms/StyledTextArea";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
@@ -6,32 +8,6 @@ import StyledLabel from "../../../styleComponents/forms/StyledLabel";
 class RenderTextArea extends Component {
   state = {
     fullText: false
-  };
-
-  autoresize = event => {
-    const { large, className } = this.props;
-    const textarea = event.target;
-    const minHeight = large ? 108 : 72;
-
-    if (className === "area") {
-      setTimeout(() => {
-        textarea.style.cssText = `height: ${minHeight}px`;
-        if (textarea.scrollHeight > minHeight) {
-          textarea.style.cssText = `height: ${Math.ceil(
-            textarea.scrollHeight / 36
-          ) * 36}px`;
-        }
-      }, 0);
-      this.setState({ fullText: true });
-    }
-  };
-
-  renderDescription = value => {
-    if (value) {
-      if (value.length > 80) {
-        return value.slice(0, 80) + "...";
-      } else return value;
-    }
   };
 
   render() {
@@ -44,6 +20,7 @@ class RenderTextArea extends Component {
       id,
       text,
       label,
+      meta,
       meta: { touched, error, warning },
       className,
       large,
@@ -53,21 +30,21 @@ class RenderTextArea extends Component {
       ...rest
     } = this.props;
 
+    const textareaClass = classNames({ error: touched && error });
+
     return (
       <StyledTextArea className={className} large={large} padded={padded}>
-        <div className="textarea-label">
+        <label htmlFor={input.name} className="textarea-label">
           {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
-        </div>
-        <textarea
+        </label>
+        <TextArea
           {...input}
-          value={
-            this.state.fullText
-              ? input.value
-              : this.renderDescription(input.value)
-          }
+          meta={meta}
+          className={textareaClass}
+          autoHeight
+          value={input.value}
           name={input.name}
           placeholder={placeholder}
-          onKeyDown={e => this.autoresize(e)}
           id={id}
           {...rest}
         />

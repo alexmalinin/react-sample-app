@@ -11,7 +11,7 @@ import {
   getSkills
 } from "../../../actions/actions";
 import { run } from "../../../helpers/scrollToElement";
-import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import { getAllUrlParams } from "../../../helpers/functions";
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
 
@@ -75,7 +75,9 @@ class SpecialistIndustry extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -91,10 +93,14 @@ class SpecialistIndustry extends Component {
         </NavigationPrompt>
 
         {this.state.nextStep ? (
-          isEditing ? (
-            <Redirect to="about" />
-          ) : this.state.nextLocation === "/dashboard/profile" ? (
-            <Redirect to="profile" />
+          this.state.isEditing ? (
+            this.state.nextLocation ? (
+              <Redirect to={this.state.nextLocation} />
+            ) : (
+              <Redirect to="about" />
+            )
+          ) : this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
             <Redirect to="company" />
           )

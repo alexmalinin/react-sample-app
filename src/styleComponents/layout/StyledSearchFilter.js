@@ -25,13 +25,13 @@ export default styled.div`
   .ui.button {
     text-transform: uppercase;
     &.dv-blue {
-      background: ${colors.darkBlue};
+      background: ${colors.blue};
       color: #fff;
     }
 
     &.dv-blue.inverted {
-      border: 1px solid ${colors.darkBlue};
-      color: ${colors.darkBlue};
+      border: 1px solid ${colors.blue};
+      color: ${colors.blue};
       background: #fff;
       font-family: inherit;
     }
@@ -67,14 +67,15 @@ export default styled.div`
 
         .ui.input {
           border-color: ${colors.lightGreyBlue};
+          height: 40px;
 
           input:focus {
-            border-color: ${colors.darkBlue};
+            border-color: ${colors.blue};
           }
         }
 
         .ui.selection.active.dropdown {
-          border-color: ${colors.darkBlue};
+          border-color: ${colors.blue};
 
           .menu {
             border-color: inherit;
@@ -87,7 +88,7 @@ export default styled.div`
               text-transform: uppercase;
               padding-left: 40px;
               padding-right: 40px;
-              background: ${colors.darkBlue};
+              background: ${colors.blue};
               color: #fff;
             }
           }
@@ -195,7 +196,7 @@ export default styled.div`
             top: 100%;
 
             .text {
-              color: ${colors.darkBlue};
+              color: ${colors.blue};
               user-select: none;
             }
 
@@ -239,11 +240,10 @@ export default styled.div`
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%);
-    background: ${colors.darkBlue};
+    background: ${colors.blue};
     border-radius: 18px;
     color: #fff;
-    font-family: inherit;
-    text-transform: none;
+    font-size: 12px;
 
     .arrow {
       position: absolute;

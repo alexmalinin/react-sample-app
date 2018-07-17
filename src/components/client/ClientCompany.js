@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
-import {
-  Container,
-  ContainerLarge
-} from "../../styleComponents/layout/Container";
-import RenderProjectCard from "./renders/RenderProjectCard";
 import ClientCompanyForm from "./forms/ClientCompanyForm";
 import {
   showClientData,
   getIndustries,
   updateClientCompany
 } from "../../actions/actions";
-import { NewTeamBtn } from "../../styleComponents/layout/DvButton";
-import StyledClientTeam from "../../styleComponents/StyledClientTeam";
-import Navbar from "../layout/Navbar";
 import { run } from "../../helpers/scrollToElement";
-import { getAllUrlParams, compareObjects } from "../../helpers/functions";
+import { getAllUrlParams } from "../../helpers/functions";
 
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../modals/ConfirmationModal";
@@ -66,7 +58,9 @@ class ClientCompany extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -82,10 +76,14 @@ class ClientCompany extends Component {
         </NavigationPrompt>
 
         {this.state.nextStep ? (
-          isEditing ? (
-            <Redirect to="about" />
-          ) : this.state.nextLocation === "/dashboard/profile" ? (
-            <Redirect to="profile" />
+          this.state.isEditing ? (
+            this.state.nextLocation ? (
+              <Redirect to={this.state.nextLocation} />
+            ) : (
+              <Redirect to="about" />
+            )
+          ) : this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
             <Redirect to="billing" />
           )

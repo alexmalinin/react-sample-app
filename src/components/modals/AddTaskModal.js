@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Modal } from "semantic-ui-react";
+
 import NewTaskForm from "../client/forms/NewTaskForm";
-import { createEpicTask } from "../../actions/actions";
-import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import StyledModal from "../../styleComponents/layout/StyledModal";
+
+import { createEpicTask } from "../../actions/actions";
 
 class AddTaskModal extends Component {
   state = {
@@ -22,43 +23,38 @@ class AddTaskModal extends Component {
     this.setState({ submitError: false });
   };
 
+  close = () => {
+    const close = document.querySelector("i.close.icon");
+    close.click();
+  };
+
   render() {
-    const { content, epic, project } = this.props;
+    const { epic, project, trigger } = this.props;
 
     return (
       <StyledModal
-        trigger={
-          <a className="button" onClick={() => this.setState({ open: true })}>
-            <StyledSubHeaderLink className="rightLink addButton modalTrigger" />
-            <span>{content}</span>
-          </a>
-        }
+        trigger={trigger}
         className="addTask hidden-icon"
+        size="large"
         closeIcon
       >
-        <Modal.Header>Epic creation</Modal.Header>
-        <Modal.Content>
-          <Modal.Description>
-            <NewTaskForm
-              project={project}
-              epic={epic}
-              onSubmit={this.submit}
-              handleChangeState={this.handleChangeState}
-            />
-          </Modal.Description>
-        </Modal.Content>
+        <Modal.Header className="ui">Create epic</Modal.Header>
+        <NewTaskForm
+          project={project}
+          epic={epic}
+          onSubmit={this.submit}
+          handleChangeState={this.handleChangeState}
+          close={this.close}
+        />
       </StyledModal>
     );
   }
 
   submit = data => {
-    // console.log("add_submit_data", data);
-    let close = document.querySelector("i.close.icon");
-    let { createEpicTask } = this.props;
-    close.click();
-    this.setState({ open: false });
-    createEpicTask(data, data.epic.value);
+    this.props.createEpicTask(data, data.epic.value, this.close);
   };
 }
 
-export default connect(null, { createEpicTask })(AddTaskModal);
+export default connect(({ createTask }) => ({ createTask }), {
+  createEpicTask
+})(AddTaskModal);

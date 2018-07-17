@@ -1,4 +1,4 @@
-import { GET_PROJECT_TYPES, SUCCESS } from "../constans/constans";
+import { GET_PROJECT_TYPES, SUCCESS } from "../actions/types";
 
 export default (state = [], action) => {
   const { type, data } = action;

@@ -1,17 +1,20 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 
 export default store => next => action => {
   const { type, showProjectEpic, id, ...rest } = action;
   if (!showProjectEpic) return next(action);
 
-  // let token = localStorage.getItem('jwt_token');
-  // let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "get",
-    url: showProjectEpic
+    url: showProjectEpic,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

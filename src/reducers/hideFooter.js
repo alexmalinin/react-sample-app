@@ -1,4 +1,4 @@
-import { HIDE_FOOTER } from "../constans/constans";
+import { HIDE_FOOTER } from "../actions/types";
 
 export default (state = false, action) => {
   const { type, payload } = action;

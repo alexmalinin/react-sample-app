@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { colors, primaryColors, boxShadow } from "./constants/colors";
+import {
+  colors,
+  primaryColors,
+  fontColors,
+  boxShadow
+} from "./constants/colors";
 
 export default styled.div`
   transition: 0.6s;
   margin-bottom: 80px;
 
   &.loading {
-    .preloader {
-      opacity: 1;
-      visibility: visible;
-    }
-    .ui.grid {
-      opacity: 0;
-    }
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   .preloader {
@@ -25,7 +25,8 @@ export default styled.div`
   }
 
   .projectLogo {
-    max-width: 100px;
+    max-width: 80px;
+    margin: 0 20px 0 10px;
 
     & > div {
       margin-bottom: 0;
@@ -33,63 +34,71 @@ export default styled.div`
 
     .imgPreview {
       display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
 
       .image-preloader {
         padding: 0;
       }
 
       & img {
-        width: 80px;
-        height: 80px;
-        margin-right: 10px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         object-fit: cover;
       }
     }
 
     .ui.button {
-      padding: 40px !important;
+      padding: 35px !important;
     }
   }
 
   .ui.grid {
     transition: inherit;
+
     .row {
       .column {
         display: flex;
         flex-flow: row nowrap;
+        align-items: flex-start;
 
         & > div {
           padding: 20px;
           background: #fff;
           border-radius: 3px;
-          border: 1px solid rgba(0, 0, 0, 0.05);
+          ${boxShadow.light};
 
           &.projectAside {
             flex: 0 0 350px;
             margin-right: 20px;
 
             .asideInfo {
-              padding-top: 14px;
-              padding-bottom: 8px;
-              border-bottom: 1px solid rgba(152, 158, 169, 0.2);
+              /* padding-top: 14px; */
+              font-size: 18px;
+              border-bottom: 1px solid #f1f1f5;
+              padding-bottom: 20px;
+              margin-bottom: 20px;
 
               &:last-of-type {
                 border: none;
               }
 
-              & > p {
-                font-size: 1.2em;
-                font-weight: 500;
-                color: ${primaryColors.accentGrey};
-              }
-
               .label {
-                color: ${primaryColors.darkGrey};
+                font-weight: 500;
+                margin-bottom: 13px;
+                color: ${fontColors.black};
 
                 &.assignTeam {
                   color: ${primaryColors.lightGrey};
                 }
+              }
+
+              .text {
+                color: ${fontColors.regular};
+                font-weight: 400;
               }
 
               .teamWrapper {
@@ -110,7 +119,7 @@ export default styled.div`
                     height: 30px;
                     width: 30px;
                     border-radius: 50%;
-                    background: ${colors.darkBlue};
+                    background: ${colors.blue};
                     color: white;
                     cursor: pointer;
                     z-index: 1;
@@ -123,12 +132,14 @@ export default styled.div`
                 flex-flow: row wrap;
 
                 .skill {
-                  padding: 4px 8px;
-                  border: 1px solid #dae1ee;
-                  border-radius: 12px;
+                  padding: 0px 15px;
+                  background: ${primaryColors.accentBackground};
+                  border: 1px solid #edeff6;
+                  color: ${fontColors.blue.inert};
+                  border-radius: 20px;
                   white-space: nowrap;
                   font-size: 14px;
-                  line-height: 1.4em;
+                  line-height: 27px;
                   margin-left: 10px;
                   margin-bottom: 10px;
                 }
@@ -157,47 +168,42 @@ export default styled.div`
           }
           &.projectMain {
             flex: 1 1 auto;
+
             .title {
+              font-size: 24px;
+              font-weight: 500;
+              line-height: 27px;
+              margin-bottom: 20px;
+              color: ${fontColors.black};
+            }
+
+            .projectHeader {
               position: relative;
               display: flex;
               flex-flow: row nowrap;
               align-items: center;
-              padding: 8px;
               margin-bottom: 2em;
 
               img,
               .projectNoLogo {
-                width: 80px;
-                height: 80px;
+                width: 70px;
+                height: 70px;
                 border-radius: 50%;
-                margin-right: 10px;
                 object-fit: cover;
               }
 
-              img {
-                background: #fff;
-              }
-
               .projectNoLogo {
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 64px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: -1px;
-                text-align: center;
                 background: linear-gradient(
                   to top left,
                   #00a2ee 0%,
                   #00e1ce 100%
                 );
-                color: #fff;
               }
 
               p {
-                font-size: 1.6em;
-                color: ${primaryColors.darkGrey};
+                font-size: 24px;
+                color: ${fontColors.black};
+                line-height: 27px;
                 font-weight: 500;
               }
 
@@ -214,7 +220,34 @@ export default styled.div`
             .controls {
               display: flex;
               justify-content: flex-end;
+
+              button.draft {
+                margin-right: 10px;
+                margin-left: 10px;
+              }
             }
+          }
+
+          .projectNoLogo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .projectNoLogo {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 64px;
+            width: 70px;
+            height: 70px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+            background-color: ${primaryColors.accentBackground};
+            color: #fff;
           }
         }
       }

@@ -3,7 +3,6 @@ import React, { Component } from "react";
 var ProgressBar = require("progressbar.js");
 
 const renderBar = () => {
-  debugger;
   let bar = new ProgressBar.Circle("#container", {
     strokeWidth: 6,
     easing: "easeInOut",

@@ -10,7 +10,8 @@ import { Container, ContainerLarge } from "../styleComponents/layout/Container";
 import TeamSubHeader from "./layout/TeamSubHeader";
 import StyledTeamPage from "../styleComponents/StyledTeamPage";
 import Team from "./layout/Team";
-import { PORT, CUSTOMER, CLIENT, S_CORE, S_REDGUY } from "../constans/constans";
+import { PORT } from "../constants/constants";
+import { CUSTOMER, S_CORE, S_REDGUY } from "../constants/user";
 import { getUserRole, createNotification } from "../helpers/functions";
 
 class Teams extends Component {
@@ -47,8 +48,13 @@ class Teams extends Component {
         name ? `${name} team?` : "this team?"
       }`,
       callback: () => {
-        axios
-          .delete(`${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`)
+        axios({
+          method: "DELETE",
+          url: `${PORT}/api/v1/teams/${id}/remove_team/${specialist_id}`,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+          }
+        })
           .then(res => {
             let name = res.data.name;
 
@@ -71,15 +77,12 @@ class Teams extends Component {
   };
 
   renderToDashboard() {
-    const { teams, changeUserType, specialistData } = this.props;
+    const { teams, specialistData } = this.props;
 
     return (
       <ContainerLarge>
         <StyledTeamPage>
-          <TeamSubHeader
-            userType={changeUserType}
-            specialistId={specialistData && specialistData.id}
-          />
+          <TeamSubHeader specialistId={specialistData && specialistData.id} />
           <Container sidebarCondition>
             {teams && teams.length > 0 ? (
               teams.map((team, key) => (
@@ -91,7 +94,7 @@ class Teams extends Component {
                 />
               ))
             ) : (
-              <div className="teamsPlaceholder">
+              <div className="teams-placeholder">
                 <p>No teams for now</p>
               </div>
             )}
@@ -105,18 +108,20 @@ class Teams extends Component {
     const { teams } = this.props;
 
     return (
-      <div className="team-tab-project">
-        {teams && teams.length > 0 ? (
-          teams.map(
-            (team, key) =>
-              team && <Team key={key} team={team} renderToRightSidebar />
-          )
-        ) : (
-          <div className="teamsPlaceholder">
-            <p>No teams for now</p>
-          </div>
-        )}
-      </div>
+      <StyledTeamPage>
+        <div className="team-tab-project">
+          {teams && teams.length > 0 ? (
+            teams.map(
+              (team, key) =>
+                team && <Team key={key} team={team} renderToRightSidebar />
+            )
+          ) : (
+            <div className="teams-placeholder">
+              <p>No teams for now</p>
+            </div>
+          )}
+        </div>
+      </StyledTeamPage>
     );
   }
 
@@ -129,19 +134,16 @@ class Teams extends Component {
   }
 }
 
-export default connect(
-  ({
-    specialistData,
-    changeUserType,
-    createCustomTeam,
-    specialistTeams,
-    allTeams
-  }) => ({
-    specialistData,
-    changeUserType,
-    createCustomTeam,
-    specialistTeams,
-    allTeams
-  }),
-  { showClientTeams, showSpecialistTeams, showConfirmationModal }
-)(Teams);
+const mapStateToProps = state => {
+  return {
+    specialistData: state.specialistData,
+    changeUserType: state.changeUserType,
+    createCustomTeam: state.createCustomTeam
+  };
+};
+
+export default connect(mapStateToProps, {
+  showClientTeams,
+  showSpecialistTeams,
+  showConfirmationModal
+})(Teams);

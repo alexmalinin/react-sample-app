@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import StyledSpecialistCard from "../../styleComponents/StyledSpecialistCard";
 import { Button, Popup } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import { IMAGE_PORT } from "../../constans/constans";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { assignSpecialistToTeam } from "../../actions/actions";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import InviteSpecialistModal from "../modals/InviteSpecialistModal";
@@ -29,7 +29,7 @@ class SpecialistCard extends Component {
       <StyledSpecialistCard>
         <div className="row info">
           <img
-            src={avatar.url ? IMAGE_PORT + avatar.url : "/images/uploadImg.png"}
+            src={avatar.url ? IMAGE_PORT + avatar.url : BLANK_AVATAR}
             alt="member"
           />
           <div className="detailed">
@@ -87,8 +87,7 @@ class SpecialistCard extends Component {
 }
 
 export default connect(
-  ({ projectWithId, experienceLevels }) => ({
-    projectWithId,
+  ({ experienceLevels }) => ({
     experienceLevels
   }),
   {

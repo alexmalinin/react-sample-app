@@ -2,7 +2,10 @@ import React from "react";
 import { Header, Modal } from "semantic-ui-react";
 
 const PrivacyPolicy = () => (
-  <Modal trigger={<b>privacy policy</b>} closeIcon>
+  <Modal
+    trigger={<span className="privacy-bold">privacy policy</span>}
+    closeIcon
+  >
     <Modal.Header>Privacy Policy</Modal.Header>
     <Modal.Content image>
       <Modal.Description>

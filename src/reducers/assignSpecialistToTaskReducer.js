@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, ASSIGN_SPECIALIST_TO_TASK } from "../constans/constans";
+import { SUCCESS, FAIL, ASSIGN_SPECIALIST_TO_TASK } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

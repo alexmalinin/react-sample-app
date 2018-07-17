@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constans/constans";
+import { SUCCESS } from "../constants/constants";
 
 export default store => next => action => {
   const { type, deleteProjectEpic, ...rest } = action;
@@ -10,7 +10,11 @@ export default store => next => action => {
 
   axios({
     method: "delete",
-    url: deleteProjectEpic
+    url: deleteProjectEpic,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;

@@ -1,133 +1,98 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Dropdown, Popup } from "semantic-ui-react";
-
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
-import { ContainerLarge } from "../../styleComponents/layout/Container";
-import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constans/constans";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
+import { SPECIALIST, CLIENT, S_CORE, S_REDGUY } from "../../constants/user";
 import { logOut } from "../../actions/actions";
-import { oneOfRoles } from "../../helpers/functions";
+import { oneOfRoles, getUserType } from "../../helpers/functions";
+import { StyledDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
 class Header extends Component {
   state = {
     activeItem: "home"
   };
 
-  componentWillMount() {
-    const { changeUserType } = this.props;
-  }
-
   render() {
-    const {
-      page,
-      specialistData,
-      clientData,
-      changeUserType,
-      passive
-    } = this.props;
+    const { page, specialistData, clientData, passive, logOut } = this.props;
 
+    let user;
     let isNavMenu = null;
 
-    if (changeUserType === CLIENT && clientData) {
-      if (clientData.first_name) {
-        isNavMenu = true;
-      }
-    }
-
-    if (changeUserType === SPECIALIST && specialistData) {
-      if (specialistData.first_name) {
-        isNavMenu = true;
-      }
+    switch (getUserType()) {
+      case CLIENT:
+        user = clientData;
+        break;
+      case SPECIALIST:
+        user = specialistData;
+        break;
+      default:
+        break;
     }
 
     return (
-      <StyledHeaderBasic className="header-basic">
-        <ContainerLarge containerHeader>
-          <a href="/">
-            <span>Digital Village</span>
-            {/* <img src='/images/logo_basic.png'/> */}
+      <StyledHeaderBasic>
+        <div className="nav-logo bordered">
+          <a className="logo" href="/">
+            <img src="/images/dv-logo.png" alt="digital village" />
           </a>
-          {(page || isNavMenu) && (
-            <div className="right-links">
-              {!passive && (
-                <Fragment>
-                  <NavLink
-                    exact
-                    activeClassName="current"
-                    className="item-link"
-                    to="/dashboard/"
-                  >
-                    <Popup
-                      trigger={<i className="fas fa-columns" />}
-                      content="Dashboard"
-                    />
-                  </NavLink>
-                  <NavLink
-                    activeClassName="current"
-                    className="item-link"
-                    to="/dashboard/teams"
-                  >
-                    <Popup
-                      trigger={<i className="fas fa-users" />}
-                      content="Teams"
-                    />
-                  </NavLink>
-                  {/* <NavLink
-                    activeClassName="current"
-                    className="item-link"
-                    to="/dashboard/account"
-                  >
-                    <Popup
-                      trigger={<i className="far fa-credit-card" />}
-                      content="Account"
-                    />
-                  </NavLink> */}
-                </Fragment>
-              )}
-              <NavLink
-                activeClassName="current"
-                className="item-link"
-                to="/dashboard/about"
-              >
-                <Popup
-                  trigger={<i className="fas fa-user" />}
-                  content="Profile"
-                />
-              </NavLink>
+        </div>
+        <div className="nav-links">
+          {!passive && (
+            <Fragment>
               {oneOfRoles(S_CORE, S_REDGUY) && (
-                <NavLink
-                  activeClassName="current"
-                  className="item-link"
-                  to="/dashboard/search"
-                >
-                  <Popup
-                    trigger={<i className="fas fa-search" />}
-                    content="Search"
-                  />
+                <NavLink className="nav-link" to="/dashboard/search">
+                  <i className="fas fa-search" />
+                  Search
                 </NavLink>
               )}
-              <NavLink
-                activeClassName="current"
-                className="item-link"
-                onClick={this.logOut}
-                to="#"
-              >
-                <Popup
-                  trigger={<i className="fas fa-sign-out-alt" />}
-                  content="Log out"
-                />
+              <NavLink className="nav-link" to="/dashboard/teams">
+                <i className="fas fa-users" />
+                Teams
+              </NavLink>
+              <NavLink className="nav-link" exact to="/dashboard/">
+                <i className="fas fa-columns" />
+                Dashboard
+              </NavLink>
+            </Fragment>
+          )}
+        </div>
+        <div className="nav-profile">
+          <img
+            src={
+              user && user.avatar.url
+                ? IMAGE_PORT + user.avatar.url
+                : BLANK_AVATAR
+            }
+            alt={user && user.first_name + " " + user.last_name}
+            className="user-avatar"
+          />
+          <p className="user-name">
+            Hello, <br />
+            {user && user.first_name}
+          </p>
+          <StyledDropdown
+            on="click"
+            className="nav-profile-dropdown"
+            trigger={<i className="fas fa-chevron-down dropdown-trigger" />}
+            basic
+            hideOnScroll
+          >
+            <div className="inner-wrapper">
+              <NavLink className="nav-link" to="/dashboard/about">
+                <i className="fas fa-user" />
+                Profile
+              </NavLink>
+              <NavLink className="nav-link" onClick={logOut} to="#">
+                <i className="fas fa-sign-out-alt" />
+                Log out
               </NavLink>
             </div>
-          )}
-        </ContainerLarge>
+          </StyledDropdown>
+        </div>
       </StyledHeaderBasic>
     );
   }
-
-  logOut = () => {
-    this.props.logOut();
-  };
 }
 
 export default connect(

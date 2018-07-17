@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { primaryColors, boxShadow } from "./constants/colors";
+import {
+  boxShadow,
+  miscellaneous,
+  fontColors,
+  colors
+} from "./constants/colors";
 
 export const S_Board = styled.div`
   width: 100%;
@@ -8,6 +13,21 @@ export const S_Board = styled.div`
   flex-flow: column nowrap;
   justify-content: space-between;
   transition: 0.4s ease-in-out;
+  position: relative;
+
+  .resp-error {
+    min-height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: ${fontColors.black};
+  }
+
+  &.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
 
   div.hidden.transition {
     display: none;
@@ -22,19 +42,7 @@ export const S_Board = styled.div`
     border-width: 0px;
     border-bottom-width: 3px;
     border-style: solid;
-    -webkit-border-image: -webkit-gradient(left, #2d68ee 0%, #7439e3 100%) 100%
-      2 stretch;
-    -webkit-border-image: -webkit-linear-gradient(
-        left,
-        #2d68ee 0%,
-        #7439e3 100%
-      )
-      100% 2 stretch;
-    -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100%
-      2 stretch;
-    -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2
-      stretch;
-    border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    ${miscellaneous.gradientBorder};
   }
 
   .dragContainer {
@@ -61,7 +69,11 @@ export const S_Board = styled.div`
         position: absolute;
         top: 10px;
         left: 5px;
+        line-height: 22px;
+        font-family: "Roboto";
+        font-weight: 700;
         transition: 0.3s;
+
         &.hidden {
           opacity: 0;
           visibility: hidden;
@@ -99,8 +111,6 @@ export const S_Board = styled.div`
 
             &:focus {
               padding-left: 10px;
-              /* background: #d5e9ea; */
-              /* background: rgba(0, 0, 0, 0.05); */
               background: rgba(216, 216, 216, 0.18);
             }
           }
@@ -144,7 +154,7 @@ export const S_Board = styled.div`
     height: auto;
     overflow-y: visible;
     transition: 0.4s;
-    opacity: 0;
+    opacity: 1;
     z-index: 10;
 
     &.visible {
@@ -152,18 +162,28 @@ export const S_Board = styled.div`
     }
 
     &.show {
-      animation: fade 0.4s forwards;
     }
 
     &.fade {
+      opacity: 0.5;
+      pointer-events: none;
     }
 
-    @keyframes fade {
+    @keyframes fadeIn {
       from {
         opacity: 0;
       }
       to {
         opacity: 1;
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0.8;
       }
     }
 
@@ -210,7 +230,6 @@ export const S_Board = styled.div`
       & > div {
         width: 100%;
         overflow: visible;
-        /* z-index: 901; */
         min-width: auto;
 
         article {
@@ -267,17 +286,6 @@ export const S_Board = styled.div`
       flex: 0 0 100%;
     }
 
-    /* &::before {
-      content: "...";
-      position: absolute;
-      top: 5px;
-      right: 20px;
-      font-size: 20px;
-      color: #7f7f7f;
-      user-select: none;
-      cursor: pointer;
-    } */
-
     h4 {
       margin-top: 10px;
       margin-bottom: 10px;
@@ -285,23 +293,6 @@ export const S_Board = styled.div`
       letter-spacing: 1.04px;
       word-wrap: break-word;
       max-width: calc(100% - 30px);
-    }
-
-    .platform {
-      font-size: 13px;
-
-      &.purple {
-        color: #8a2be0;
-      }
-      &.blue {
-        color: #4469e1;
-      }
-      &.lightblue {
-        color: #00abdf;
-      }
-      &.cyan {
-        color: #1db6bd;
-      }
     }
 
     .persons {
@@ -317,11 +308,12 @@ export const S_Board = styled.div`
     .line {
       display: flex;
       align-items: center;
-      /* margin-top: 5px;
-      margin-bottom: 5px; */
 
-      img {
+      i {
         margin-right: 10px;
+        width: 16px;
+        color: ${colors.blue};
+        text-align: center;
       }
 
       span {
@@ -404,20 +396,12 @@ export const S_Board = styled.div`
             color: #666;
           }
         }
-
-        /* &:hover {
-          display: block;
-        } */
       }
 
       .trigger {
         color: #666;
         outline: none;
         cursor: pointer;
-
-        /* &:focus + .menu {
-          display: block;
-        } */
       }
     }
   }
@@ -431,7 +415,7 @@ export const S_Board = styled.div`
     margin-top: 30px;
     padding: 30px;
     ${boxShadow.light};
-    background-color: ${primaryColors.accentBackground};
+    background-color: white;
     cursor: pointer;
 
     .dropdown {
@@ -510,8 +494,11 @@ export const S_Board = styled.div`
       margin-top: 5px;
       margin-bottom: 5px;
 
-      img {
+      .subline-icon {
+        width: 15px;
         margin-right: 10px;
+        text-align: center;
+        color: ${colors.blue};
       }
 
       span {

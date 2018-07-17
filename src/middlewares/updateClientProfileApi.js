@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 
 export default store => next => action => {
   const {
@@ -13,7 +13,7 @@ export default store => next => action => {
   if (!updateClientProfile2) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   window.payload = payload;
   let image = payload["person"] ? payload["person"][0] : null;
@@ -25,7 +25,7 @@ export default store => next => action => {
     reader.onload = () => {
       axios({
         method: "put",
-        url: updateClientProfile1 + id + updateClientProfile2,
+        url: updateClientProfile1 + user_id + updateClientProfile2,
         data: {
           profile: {
             avatar: reader.result,
@@ -37,9 +37,13 @@ export default store => next => action => {
             address_attributes: {
               city: payload["city"],
               country: payload["country"],
-              user_id: id
+              user_id
             }
           }
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
         .then(function(response) {
@@ -56,7 +60,7 @@ export default store => next => action => {
   } else {
     axios({
       method: "put",
-      url: updateClientProfile1 + id + updateClientProfile2,
+      url: updateClientProfile1 + user_id + updateClientProfile2,
       data: {
         profile: {
           first_name: payload["first_name"],
@@ -67,9 +71,13 @@ export default store => next => action => {
           address_attributes: {
             city: payload["city"],
             country: payload["country"],
-            user_id: id
+            user_id
           }
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(function(response) {

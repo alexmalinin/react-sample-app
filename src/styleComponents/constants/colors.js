@@ -3,9 +3,18 @@ export const blueColor = "#3192f6";
 export const colors = {
   green: "#19df2b",
   purple: "#8f1ae5",
-  blue: "#1991fa",
-  darkBlue: "#4861f2",
+  lightBlue: "#1991fa",
+  blue: "#4861f2",
+  darkBlue: "#002C93",
   lightGreyBlue: "#dae1ee"
+};
+
+export const fontColors = {
+  light: "#6F7084",
+  regular: "#232323",
+  black: "#000333",
+  blue: { active: "#002C93", inert: "#5E6181" },
+  red: "#c65c5c"
 };
 
 export const primaryColors = {
@@ -14,12 +23,26 @@ export const primaryColors = {
   grey: "#999",
   lightGrey: "#ccc",
   accentGrey: "#989ea9",
-  accentBackground: "#fff",
+  accentBackground: "#eaeffa",
   backgroundColor: "#f4f9fa",
   shadowColor: "#e2eff2",
   transparentBlue: "#989ea9",
+  strokeDarkBlue: "#002c93",
   errorColor: "#db4538",
-  red: "#e8433e"
+  red: "#c65c5c"
+};
+
+export const miscellaneous = {
+  lightBorder: "#f1f1f5",
+  gradientBorder: `-webkit-border-image: -webkit-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -webkit-border-image: -webkit-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -moz-border-image: -moz-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+  -o-border-image: -o-linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    border-image: linear-gradient(left, #2d68ee 0%, #7439e3 100%) 100% 2 stretch;
+    border-color: ${colors.blue};`,
+  gradient: {
+    blue: "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"
+  }
 };
 
 export const secondaryColors = {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../../constans/constans";
+import { SUCCESS } from "../../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -13,11 +13,11 @@ export default store => next => action => {
   if (!editEducationCard1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: editEducationCard1 + id + editEducationCard2,
+    url: editEducationCard1 + user_id + editEducationCard2,
     data: {
       education: {
         name: payload["name"],

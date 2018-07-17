@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
+import { fontColors } from "../constants/colors";
 
 export default styled.span`
-  color: #db4538;
+  color: ${fontColors.red};
   position: absolute;
-  top: 0px;
-  right: ${props => (props.paddedError ? "35px" : "0px")};
+  bottom: ${props => (props.bottom ? `${props.bottom}px` : "0px")};
+  left: ${props => (props.paddedError ? "20px" : "0px")};
+  padding-left: inherit;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
 
   @media (min-width: 1921px) {
     top: -22px;

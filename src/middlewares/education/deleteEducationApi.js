@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS } from "../../constans/constans";
+import { SUCCESS } from "../../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,11 +7,11 @@ export default store => next => action => {
   if (!deleteEducationCard1) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "delete",
-    url: deleteEducationCard1 + id + deleteEducationCard2,
+    url: deleteEducationCard1 + user_id + deleteEducationCard2,
     headers: {
       Authorization: `Bearer ${token}`
     }

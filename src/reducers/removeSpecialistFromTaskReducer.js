@@ -1,8 +1,4 @@
-import {
-  SUCCESS,
-  FAIL,
-  REMOVE_SPECIALIST_FROM_TASK
-} from "../constans/constans";
+import { SUCCESS, FAIL, REMOVE_SPECIALIST_FROM_TASK } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import { Modal } from "semantic-ui-react";
-import { primaryColors, colors } from "../constants/colors";
+import {
+  primaryColors,
+  colors,
+  miscellaneous,
+  fontColors
+} from "../constants/colors";
 
 export default styled(Modal)`
   &.ui.modal {
+    font-family: "Roboto";
+
     & > .close {
       top: 14px;
       right: 14px;
@@ -40,34 +47,57 @@ export default styled(Modal)`
       }
     }
 
-    form {
-      .ui.grid.float {
-        .row {
-          padding: 0;
+    .ui.header {
+      padding: 20px 34px;
 
-          .column {
-            .transparent.clear {
-              /* margin-bottom: 0; */
+      background: ${miscellaneous.gradient.blue};
+
+      font-size: 24px;
+      font-weight: 500;
+      color: white;
+    }
+
+    form.ui.grid {
+      .row {
+        &.fluid {
+          padding: 0;
+        }
+
+        .column {
+          &.wrapper {
+            padding-top: 1rem;
+
+            .grid {
+              padding-top: 20px;
+            }
+
+            &.aside {
+              border-right: 2px solid ${miscellaneous.lightBorder};
+
+              .row {
+                &:not(:first-of-type) {
+                  border-top: 1px solid ${miscellaneous.lightBorder};
+                }
+              }
+            }
+
+            &.main {
             }
           }
+        }
 
-          .ui.input {
-            &.disabled {
-              input {
-                border: none;
-              }
+        .ui.input {
+          &.disabled {
+            input {
+              border: none;
             }
           }
         }
       }
-      .dv-blue:not(.fluid) {
-        position: absolute;
-        bottom: 0;
-        right: 14px;
-      }
     }
 
     .specialistsWrapper {
+      padding: 0 20px 24px;
       .totalCostWrapper {
         .totalCosts {
           display: flex;
@@ -76,18 +106,19 @@ export default styled(Modal)`
           color: ${primaryColors.darkGrey};
 
           .label {
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 0;
+            font-weight: 500;
+            font-size: 18px;
+            color: ${fontColors.black};
+            margin-bottom: 14px;
           }
 
           .total {
             font-size: 16px;
             font-weight: bold;
+            color: ${fontColors.black};
 
             i {
-              color: ${colors.darkBlue};
+              color: ${colors.blue};
               margin-right: 5px;
             }
           }
@@ -118,7 +149,7 @@ export default styled(Modal)`
               &::after {
                 height: 18px;
                 width: 18px;
-                color: ${colors.darkBlue};
+                color: ${colors.blue};
                 font-size: 16px;
               }
             }
@@ -127,14 +158,6 @@ export default styled(Modal)`
       }
 
       .specialistsInnerWrapper {
-        max-height: 230px;
-        overflow-y: auto;
-
-        .ui.grid {
-          margin-top: -10px;
-          margin-bottom: -10px;
-        }
-
         &::-webkit-scrollbar {
           width: 4px;
         }
@@ -149,10 +172,6 @@ export default styled(Modal)`
 
         &::-webkit-scrollbar-track {
           background: rgba(72, 97, 242, 0.1);
-        }
-
-        &.expanded {
-          margin-bottom: 25px;
         }
       }
     }

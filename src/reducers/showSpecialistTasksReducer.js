@@ -1,4 +1,4 @@
-import { SUCCESS, SHOW_SPECIALIST_TASKS } from "../constans/constans";
+import { SUCCESS, SHOW_SPECIALIST_TASKS } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

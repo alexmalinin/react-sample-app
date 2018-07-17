@@ -1,29 +1,25 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
-import {
-  showAllProjects,
-  showProjectWithId,
-  showAllEpics,
-  showEpicTasks,
-  showClientData,
-  showProjectTeam,
-  showClientTeams,
-  logOut
-} from "../../actions/actions";
+import { NotificationContainer } from "react-notifications";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+
+import "react-notifications/lib/notifications.css";
+
 import HeaderBasic from "../layout/HeaderBasic";
 import SubHeader from "../layout/ClientSubHeader";
-import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
-import { Container } from "../../styleComponents/layout/Container";
+
 import Dashboard from "../Dashboard";
 import ClientProfile from "./ClientProfile";
 import ClientCompany from "./ClientCompany";
 import ClientBilling from "./ClientBilling";
-import ClientAbout from "./pages/ClientAbout";
+import EditProfile from "../profile/EditProfile";
+import ClientAbout from "../dashboard/pages/About";
 import ProjectsBoard from "../ProjectsBoard";
-import SideBarLeft from "./renders/SideBarLeft";
+import SideBarLeft from "./../layout/SideBarLeft";
 import SideBarRight from "../layout/SideBarRight";
-import { projects, days } from "../../helpers/sidebarDbEmulate";
+import { days } from "../../helpers/sidebarDbEmulate";
 import ClientProjects from "./ClientProjects";
 import ClientModule from "./ClientModule";
 import Teams from "../Teams";
@@ -31,64 +27,56 @@ import ClientAccount from "./pages/ClientAccount";
 import ClientYTD from "./pages/ClientYTD";
 import ClientStatement from "./pages/ClientStatement";
 import TheVillage from "../TheVillage";
-import {
-  getCookie,
-  setCookie,
-  getUserRole,
-  createNotification
-} from "../../helpers/functions";
-import { PORT } from "../../constans/constans";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { NotificationContainer } from "react-notifications";
-import "react-notifications/lib/notifications.css";
 
-const pagesToCalculate = ["profile", "company", "billing"];
+import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
+import { Container } from "../../styleComponents/layout/Container";
+
+import { getCookie, setCookie } from "../../helpers/functions";
+import { PORT } from "../../constants/constants";
+import {
+  showClientData,
+  showSortedProjects,
+  showProjectWithId,
+  showAllEpics,
+  showProjectTeam,
+  showClientTeams
+} from "../../actions/actions";
+
+const pagesToCalculate = ["info", "company", "billing"];
 
 class ClientDashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      profilePercent: null,
-      companyPercent: null,
-      billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      isEdited: false,
-      showRelog: true
-    };
-    this.calculatePagePercent = this.calculatePagePercent.bind(this);
-  }
-
-  componentWillMount() {
-    const {
-      match: { params },
-      projectWithId,
-      showAllProjects,
-      showProjectWithId,
-      showClientData,
-      showClientTeams
-    } = this.props;
-    showAllProjects();
-    showClientData();
-    showClientTeams();
-    localStorage.removeItem("user_email");
-
-    let projectId = params["projectId"] || params["projectNewModule"];
-
-    if (projectId && projectId !== "new" && !projectWithId) {
-      showProjectWithId(projectId);
-    }
-  }
+  state = {
+    profilePercent: null,
+    companyPercent: null,
+    billingPercent: null,
+    rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+    isEdited: false,
+    showRelog: true
+  };
 
   componentDidMount() {
-    if (!this.props.specialistData) {
-      let token = localStorage.getItem("jwt_token"),
-        id = jwtDecode(token).id;
+    this.props.showSortedProjects("customers");
+    this.props.showClientData();
+    this.props.showClientTeams();
+    localStorage.removeItem("user_email");
 
-      if (id) {
-        axios
-          .get(`${PORT}/api/v1/customers/${id}`)
-          .catch(error => this.props.history.push("/sign_in"));
+    if (!this.props.specialistData) {
+      let token = localStorage.getItem("jwt_token");
+      let user_id;
+
+      if (token) {
+        user_id = jwtDecode(token).user_id;
+      }
+
+      if (user_id) {
+        axios({
+          method: "GET",
+          url: `${PORT}/api/v1/customers/${user_id}`,
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
       }
     }
   }
@@ -179,7 +167,7 @@ class ClientDashboard extends Component {
     }
   }
 
-  calculatePagePercent(percentName, data) {
+  calculatePagePercent = (percentName, data) => {
     if (!data) {
       return 0;
     }
@@ -217,7 +205,7 @@ class ClientDashboard extends Component {
         [percentName]: null
       });
     }
-  }
+  };
 
   calculatePercents() {
     const { clientData } = this.props;
@@ -246,29 +234,34 @@ class ClientDashboard extends Component {
 
   render() {
     const {
+      match,
       match: { params },
-      clientTeams,
-      changeUserType
+      allProjects,
+      clientTeams
     } = this.props;
     const { rightSidebarOpened, isEdited } = this.state;
     let page;
 
     if (params["page"] && params["page"] !== "projects") {
       page = params["page"];
+    } else if (params["profilePage"]) {
+      page = params["profilePage"];
     } else if (params["projectId"] && params["moduleId"] !== "new") {
       if (params["projectId"] === "new") {
         page = "projects";
       } else page = "board";
     } else if (params["projectNewModule"]) {
       page = "module";
+    } else if (params["specialistId"]) {
+      page = "specialist";
     } else page = "root";
 
     let sidebarCondition =
-      page !== "profile" && page !== "company" && page !== "billing";
+      page !== "info" && page !== "company" && page !== "billings";
 
     return (
       <div>
-        <HeaderBasic match={this.props.match} page={sidebarCondition} />
+        <HeaderBasic match={match} page={sidebarCondition} />
         <S_MainContainer
           sidebarOpened={rightSidebarOpened}
           sidebarCondition={sidebarCondition}
@@ -276,16 +269,15 @@ class ClientDashboard extends Component {
           {sidebarCondition ? (
             <Fragment>
               <SideBarLeft
-                // allProjects={this.props.allProjects}
                 currentProject={
                   params["projectId"] || params["projectNewModule"]
                 }
                 currentEpic={params["moduleId"]}
+                projects={allProjects}
               />
               {this.renderPage(page)}
               <SideBarRight
                 teams={clientTeams}
-                projects={projects}
                 days={days}
                 opened={rightSidebarOpened}
                 toggle={this.toggleRightSidebar}
@@ -300,7 +292,6 @@ class ClientDashboard extends Component {
                 percents={this.state}
                 sidebarCondition={sidebarCondition}
                 isEdited={isEdited}
-                user={changeUserType}
                 page={page}
               />
               {this.renderPage(page)}
@@ -314,10 +305,15 @@ class ClientDashboard extends Component {
   }
 
   renderPage = page => {
-    const { clientTeams } = this.props;
+    const {
+      clientTeams,
+      allProjects,
+      history,
+      match: { params }
+    } = this.props;
 
     switch (page) {
-      case "profile":
+      case "info":
         document.title = "Profile | Digital Village";
         return (
           <ClientProfile
@@ -333,7 +329,7 @@ class ClientDashboard extends Component {
             collectCompanyData={this.collectCompanyData}
           />
         );
-      case "billing":
+      case "billings":
         document.title = "Billing | Digital Village";
         return (
           <ClientBilling
@@ -341,6 +337,9 @@ class ClientDashboard extends Component {
             collectBillingData={this.collectBillingData}
           />
         );
+      case "edit":
+        document.title = "Edit profile | Digital Village";
+        return <EditProfile />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <ClientAbout />;
@@ -349,19 +348,9 @@ class ClientDashboard extends Component {
         return <ClientProjects />;
       case "module":
         document.title = "Add Module | Digital Village";
-        return (
-          <ClientModule
-            projectId={this.props.match.params["projectNewModule"]}
-          />
-        );
+        return <ClientModule projectId={params["projectNewModule"]} />;
       case "board":
-        return (
-          <ProjectsBoard
-            projectId={this.props.match.params["projectId"]}
-            currentEpic={this.props.match.params["moduleId"] || "all"}
-            history={this.props.history}
-          />
-        );
+        return <ProjectsBoard />;
       case "teams":
         document.title = "Teams | Digital Village";
         return <Teams teams={clientTeams} />;
@@ -377,16 +366,13 @@ class ClientDashboard extends Component {
       case "the_village":
         document.title = "The Village | Digital Village";
         return <TheVillage />;
+      case "specialist":
+        return <ClientAbout specialistId={params["specialistId"]} />;
       case "root":
         document.title = "Dashboard | Digital Village";
-        return (
-          <Dashboard
-            projects={this.props.allProjects}
-            history={this.props.history}
-          />
-        );
+        return <Dashboard projects={allProjects} history={history} />;
       default:
-        document.title = "Dashboard | Digital Village";
+        document.title = "Not found | Digital Village";
         return <Redirect to="/404" />;
     }
   };
@@ -399,58 +385,36 @@ class ClientDashboard extends Component {
       ) {
         this.calculatePercents();
       }
-
-      // if (this.state.showRelog && getUserRole() !== nextProps.clientData.role) {
-      //   createNotification({
-      //     type: "info",
-      //     text: "Your role has been changed. Please relog"
-      //   });
-      //   this.setState({ showRelog: false });
-      // }
     }
 
-    let projectId =
-      nextProps.match.params["projectId"] ||
-      nextProps.match.params["projectNewModule"];
+    const prevProjectId = this.props.match.params.projectId;
+    const projectId = nextProps.match.params.projectId;
 
-    if (projectId && projectId !== "new" && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id !== +projectId) {
+    if (projectId && projectId !== "new" && prevProjectId) {
+      if (projectId !== prevProjectId) {
         nextProps.showProjectWithId(projectId);
-        nextProps.showAllEpics(projectId);
         nextProps.showProjectTeam(projectId);
+        nextProps.showAllEpics(projectId);
       }
-    } else if (projectId && projectId !== "new") {
-      nextProps.showProjectWithId(projectId);
     }
   }
 }
 
-export default connect(
-  ({
-    clientData,
-    allProjects,
-    projectWithId,
-    allEpics,
-    clientTeams,
-    changeUserType,
-    signInReducer
-  }) => ({
-    clientData,
-    allProjects,
-    projectWithId,
-    allEpics,
-    clientTeams,
-    changeUserType,
-    signInReducer
-  }),
-  {
-    showClientData,
-    showAllProjects,
-    showProjectWithId,
-    showAllEpics,
-    showEpicTasks,
-    showProjectTeam,
-    showClientTeams,
-    logOut
-  }
-)(ClientDashboard);
+const mapStateToProps = state => {
+  return {
+    allProjects: state.allProjects,
+    projectWithId: state.projectWithId,
+    clientTeams: state.clientTeams,
+    changeUserType: state.changeUserType,
+    signInReduce: state.signInReducer
+  };
+};
+
+export default connect(mapStateToProps, {
+  showClientData,
+  showSortedProjects,
+  showProjectWithId,
+  showAllEpics,
+  showProjectTeam,
+  showClientTeams
+})(ClientDashboard);

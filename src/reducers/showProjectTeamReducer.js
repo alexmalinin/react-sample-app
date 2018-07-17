@@ -1,4 +1,4 @@
-import { SUCCESS, SHOW_PROJECT_TEAM } from "../constans/constans";
+import { SUCCESS, SHOW_PROJECT_TEAM } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

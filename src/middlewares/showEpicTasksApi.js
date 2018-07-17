@@ -1,17 +1,22 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import { SUCCESS } from "../constans/constans";
+import { FAIL, SUCCESS } from "../actions/types";
 
 export default store => next => action => {
   const { type, showEpicTasks, epic, ...rest } = action;
   if (!showEpicTasks) return next(action);
 
-  // let token = localStorage.getItem('jwt_token');
-  // let { id } = jwtDecode(token);
+  next({ ...rest, type });
+
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "get",
-    url: showEpicTasks
+    url: showEpicTasks,
+
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
     .then(function(response) {
       let data = response.data;
@@ -20,6 +25,7 @@ export default store => next => action => {
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
+      return next({ ...rest, type: type + FAIL, data: error });
     });
 };

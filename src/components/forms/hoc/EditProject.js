@@ -2,20 +2,44 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditProjectForm from "../EditProjectForm";
 import Axios from "axios";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 // temporal
-import { showProjectWithId, showAllProjects } from "../../../actions/actions";
-import { createNotification } from "../../../helpers/functions";
+import {
+  showProjectWithId,
+  showSortedProjects,
+  showAllEpics
+} from "../../../actions/actions";
+import {
+  createNotification,
+  getUserType,
+  getUserRole
+} from "../../../helpers/functions";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../../../constants/user";
+import { run } from "../../../helpers/scrollToElement";
 
 class EditProject extends Component {
-  componentWillMount() {
-    this.props.showProjectWithId(this.props.projectId);
+  componentDidMount() {
+    const {
+      projectWithId: { project, loaded, loading },
+      projectId,
+      showAllEpics
+    } = this.props;
+    if (!loaded) {
+      this.projectUpdate(projectId);
+      showAllEpics(projectId);
+    }
   }
 
   //move all async to one file
 
   submit = values => {
-    values.project_id = this.props.projectId;
+    const {
+      projectId,
+      projectWithId: { project },
+      showSortedProjects
+    } = this.props;
+
+    values.project_id = projectId;
     let skill_ids =
       values["skills"] &&
       values["skills"].map(skill => {
@@ -31,15 +55,28 @@ class EditProject extends Component {
         })
       : [];
 
+    let status = null,
+      redGuyId = values["red_guy_id"];
+
+    if (getUserRole() === S_REDGUY) {
+      status = "discovery";
+    } else {
+      if (redGuyId) {
+        status = "reviewed_by_admin";
+      } else {
+        status = values["state"];
+      }
+    }
+
     return Axios({
       method: "PUT",
-      url: `${PORT}/api/v1/projects/${this.props.projectId}`,
+      url: `${PORT}/api/v1/projects/${projectId}`,
       data: {
         project: {
           name: values["name"],
           description: values["description"],
           user_story: values["user_story"],
-          state: values["state"],
+          state: status,
           business_requirements: values["business_requirements"],
           business_rules: values["business_rules"],
           deliverables: values["deliverables"],
@@ -47,17 +84,23 @@ class EditProject extends Component {
           attached_files_attributes: files,
           skill_ids
         },
-        review: this.props.projectWithId.state === "reviewed_by_admin"
+        review: project.state === "reviewed_by_admin"
         // attached_files_attributes: files,
+      },
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(({ data }) => {
-        this.props.showProjectWithId(this.props.projectId);
-        this.props.showAllProjects();
+        const userType = getUserType();
+        if (userType === CLIENT) showSortedProjects("customers");
+        else if (userType === SPECIALIST) showSortedProjects("specialists");
 
         return data;
       })
       .then(({ name }) => {
+        run(0)();
         createNotification({
           type: "success",
           text: `${name ? `${name} project ` : "Project"} was published`
@@ -82,6 +125,9 @@ class EditProject extends Component {
       url: `${PORT}/api/v1/teams/${id}/invite_team_members`,
       data: {
         project_id: projectId
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(() => {
@@ -104,22 +150,28 @@ class EditProject extends Component {
       });
   };
 
+  projectUpdate = projectId => {
+    if (projectId) {
+      this.props.showProjectWithId(projectId);
+    }
+  };
+
   render() {
     const { projectId } = this.props;
 
     return (
-      <React.Fragment>
-        <EditProjectForm
-          onSubmit={this.submit}
-          projectId={projectId}
-          handleAssignTeam={this.handleAssignTeam}
-        />
-      </React.Fragment>
+      <EditProjectForm
+        onSubmit={this.submit}
+        projectId={projectId}
+        handleAssignTeam={this.handleAssignTeam}
+        projectUpdate={this.projectUpdate}
+      />
     );
   }
 }
 
 export default connect(({ projectWithId }) => ({ projectWithId }), {
   showProjectWithId,
-  showAllProjects
+  showSortedProjects,
+  showAllEpics
 })(EditProject);

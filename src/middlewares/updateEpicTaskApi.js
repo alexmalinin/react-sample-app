@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,7 +7,6 @@ export default store => next => action => {
   if (!updateEpicTask) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
 
   let files = payload.file
     ? payload.file.split("||").map(file => {
@@ -42,12 +41,12 @@ export default store => next => action => {
       Authorization: `Bearer ${token}`
     }
   })
-    .then(function(response) {
+    .then(response => {
       let data = response.data;
       data.successId = Math.random();
       return next({ ...rest, type: type + SUCCESS, data: data });
     })
-    .catch(function() {
+    .catch(error => {
       let data = {};
       data.successId = Math.random();
       return next({ ...rest, type: type + FAIL, data: data });

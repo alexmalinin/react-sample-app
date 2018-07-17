@@ -1,30 +1,29 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
-const checkAuth = () => {
+const checkAuth = inverted => {
   const token = localStorage.getItem("jwt_token");
-
-  if (!token) {
-    return false;
+  if (inverted) {
+    return !token;
   }
 
-  return true;
+  return !!token;
 };
 
-export default function PrivateRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        checkAuth() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/sign_in", state: { from: props.location } }}
-          />
-        )
-      }
-    />
-  );
-}
+export default ({ component: Component, inverted, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      checkAuth(inverted) ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: inverted ? "/dashboard/" : "/sign_in",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);

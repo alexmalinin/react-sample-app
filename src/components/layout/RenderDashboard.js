@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
-import RenderCard from "./RenderCard";
 import RenderProjectCards from "./dashboard/RenderProjectCards";
 import RenderDueTasks from "./dashboard/RenderDueTasks";
 import RenderInfo from "./dashboard/RenderInfo";
@@ -13,8 +12,9 @@ import {
   showSpecialistProjects,
   showAllEpicTasks
 } from "../../actions/actions";
-import { getUserRole } from "../../helpers/functions";
-import { PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
+import { getUserRole, getUserType } from "../../helpers/functions";
+import { PORT } from "../../constants/constants";
+import { S_REDGUY, CUSTOMER, CLIENT, SPECIALIST } from "../../constants/user";
 
 class RenderDashboard extends Component {
   state = {
@@ -29,11 +29,11 @@ class RenderDashboard extends Component {
       this.props.showAllSpecialists("active", "core");
     }
 
-    if (this.props.changeUserType === "Client") {
+    if (getUserType() === CLIENT) {
       this.props.showAllProjects();
     }
 
-    if (this.props.changeUserType === "Specialist") {
+    if (getUserType() === SPECIALIST) {
       this.props.showSpecialistProjects();
     }
 
@@ -63,8 +63,13 @@ class RenderDashboard extends Component {
       user = "specialists";
     }
 
-    await axios
-      .get(`${PORT}/api/v1/${user}/${id}/dashboard`)
+    await axios({
+      method: "GET",
+      url: `${PORT}/api/v1/${user}/${id}/dashboard`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
+    })
       .then(response => {
         this.setState({
           summary: response.data
@@ -154,11 +159,7 @@ class RenderDashboard extends Component {
           assignProjectName={this.assignProjectName}
         />
 
-        <RenderProjectCards
-          projects={projects}
-          history={history}
-          summary={this.state.summary}
-        />
+        <RenderProjectCards projects={projects} summary={this.state.summary} />
 
         {/* <div className="projects">
           {projects && (
@@ -187,18 +188,11 @@ class RenderDashboard extends Component {
 }
 
 export default connect(
-  ({
-    clientData,
-    specialistData,
-    changeUserType,
-    allEpicTasks,
-    changeUsertype
-  }) => ({
-    clientData,
-    specialistData,
-    changeUserType,
-    allEpicTasks,
-    changeUsertype
+  state => ({
+    clientData: state.clientData,
+    specialistData: state.specialistData,
+    changeUserType: state.changeUserType,
+    allEpicTasks: state.allEpicTasks
   }),
   {
     showAllProjects,

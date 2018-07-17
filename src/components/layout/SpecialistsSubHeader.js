@@ -1,64 +1,63 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
-import SubHeaderItemWrap from "../forms/renders/SubHeaderItemWrap";
+import { withRouter } from "react-router";
 import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 import ProgressBars from "../layout/ProgressBar";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import { getAllUrlParams, getUserRole } from "../../helpers/functions";
-import { S_PASSIVE } from "../../constans/constans";
+import { S_PASSIVE } from "../../constants/user";
+import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 
 class SubHeader extends Component {
   state = {
-    isEditing: false
+    isEditing: !!getAllUrlParams().edit
   };
 
-  componentWillMount() {
-    let param = getAllUrlParams().edit;
-    let isEditing = param ? param : false;
-    this.setState({ isEditing });
-
-    console.log(getUserRole());
-  }
+  navLinks = [
+    {
+      url: "info",
+      label: "My Profile",
+      percents: this.props.percents.profilePercent
+    },
+    {
+      url: "industry",
+      label: "My Services",
+      percents: this.props.percents.industryPercent
+    },
+    {
+      url: "company",
+      label: "My Company",
+      percents: this.props.percents.companyPercent
+    },
+    {
+      url: "billings",
+      label: "My Billings",
+      percents: this.props.percents.billingPercent
+    }
+  ];
 
   render() {
     const { page } = this.props;
+    const { isEditing } = this.state;
 
     return (
       <StyledSubHeader profileForm="true" greenGradient>
         <div className="progressBarsLink">
-          <SubHeaderItemWrap content="1" path="profile">
-            My Profile
-            <ProgressBars percents={this.props.percents.profilePercent} />
-          </SubHeaderItemWrap>
-
-          <SubHeaderItemWrap content="2" path="industry">
-            My Services
-            <ProgressBars percents={this.props.percents.industryPercent} />
-          </SubHeaderItemWrap>
-
-          <SubHeaderItemWrap content="3" path="company">
-            My Company
-            <ProgressBars percents={this.props.percents.companyPercent} />
-          </SubHeaderItemWrap>
-
-          <SubHeaderItemWrap content="4" path="billings">
-            My Billings
-            <ProgressBars percents={this.props.percents.billingPercent} />
-          </SubHeaderItemWrap>
+          {this.navLinks.map(({ url, label, percents }, key) => (
+            <SubHeaderLinkWrap
+              key={key}
+              url={`/profile/${url}${isEditing ? "?edit" : ""}`}
+              label={label}
+              noExact
+            >
+              {key + 1}
+              <ProgressBars percents={percents} />
+            </SubHeaderLinkWrap>
+          ))}
         </div>
         <div>
-          {!this.state.isEditing ? (
-            page === "profile" || page === "industry" ? null : (
-              // <SubHeaderLinkWrap
-              //   url={
-              //     getUserRole() === S_PASSIVE
-              //       ? "/dashboard/about"
-              //       : "/dashboard/"
-              //   }
-              //   label="Complete Later"
-              //   className="rightLink arrow"
-              // />
+          {!isEditing ? (
+            page === "info" || page === "industry" ? null : (
               <NavLink
                 exact
                 className="button"
@@ -68,7 +67,7 @@ class SubHeader extends Component {
                     : "/dashboard/"
                 }
               >
-                <StyledSubHeaderLink className="rightLink arrow" />
+                <StyledSubHeaderLink className="right-link arrow" />
                 Complete Later
                 <span />
               </NavLink>
@@ -80,4 +79,4 @@ class SubHeader extends Component {
   }
 }
 
-export default SubHeader;
+export default withRouter(SubHeader);

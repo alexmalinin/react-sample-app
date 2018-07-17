@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -7,11 +7,11 @@ export default store => next => action => {
   if (!updateClientCompany) return next(action);
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: updateClientCompany + id,
+    url: updateClientCompany + user_id,
     data: {
       customer: {
         company_attributes: {
@@ -27,7 +27,7 @@ export default store => next => action => {
           number_of_employers:
             payload["number_of_employers"]["value"] ||
             payload["number_of_employers"],
-          user_id: id,
+          user_id,
           industry_area_id: payload["industry"]["value"] || payload["industry"]
         }
       }

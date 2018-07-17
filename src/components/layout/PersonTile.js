@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "../../constans/constans";
-import { getUserRole } from "../../helpers/functions";
 import jwtDecode from "jwt-decode";
 import { Popup } from "semantic-ui-react";
+import { StyledPersonTile } from "../../styleComponents/layout/StyledAssignDropdown";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../constants/user";
+import { getUserRole } from "../../helpers/functions";
+import ClassNames from "classnames";
 
 export default class PersonTile extends Component {
   state = {
@@ -75,19 +77,24 @@ export default class PersonTile extends Component {
     const { showDropdown } = this.state;
     const fullName = specialist.first_name + " " + specialist.last_name;
 
+    const avatarClasses = ClassNames({
+      "user-avatar": true,
+      blank: !specialist.avatar.url
+    });
+
     return (
       <StyledPersonTile compressed={compressed}>
         <a onClick={this.openDropdown}>
           <Popup
             trigger={
-              <div className="imgWrapper">
+              <div className="img-wrapper">
                 <img
-                  onClick={e => e.target.parentNode.focus()}
+                  className={avatarClasses}
                   alt={fullName}
                   src={
                     specialist.avatar.url
                       ? IMAGE_PORT + specialist.avatar.url
-                      : "/images/uploadImg.png"
+                      : BLANK_AVATAR
                   }
                 />
               </div>
@@ -155,8 +162,8 @@ class DeleteTile extends Component {
       removeSpecialist,
       hideDelete
     } = this.props;
-    const { id, role } = jwtDecode(localStorage.getItem("jwt_token"));
-    const thisUser = specialist.id === id && role !== CUSTOMER;
+    const { user_id, role } = jwtDecode(localStorage.getItem("jwt_token"));
+    const thisUser = specialist.id === user_id && role !== CUSTOMER;
     const fullName = specialist.first_name + " " + specialist.last_name;
 
     return (
@@ -172,7 +179,7 @@ class DeleteTile extends Component {
             src={
               specialist.avatar.url
                 ? IMAGE_PORT + specialist.avatar.url
-                : "/images/uploadImg.png"
+                : BLANK_AVATAR
             }
             alt={fullName}
           />
@@ -186,8 +193,8 @@ class DeleteTile extends Component {
                   : `/dashboard/specialist/${specialist.id}`
               }
             >
-              {fullName}&nbsp;
-              {thisUser && "(you)"}
+              {fullName}
+              {thisUser && " (you)"}
             </NavLink>
 
             {!hideDelete &&

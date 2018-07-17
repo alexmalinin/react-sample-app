@@ -1,32 +1,37 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { reduxForm, change, Form, Field } from "redux-form";
+import { Grid } from "semantic-ui-react";
+import Axios from "axios";
+
 import StyledProject from "../../styleComponents/StyledProject";
-import { Grid, Popup } from "semantic-ui-react";
-import {
-  showAllProjects,
-  showProjectWithId,
-  getProjectTypes,
-  getSkills,
-  showProjectTeam,
-  showCustomTeams
-} from "../../actions/actions";
-import { IMAGE_PORT, CUSTOMER, S_REDGUY, PORT } from "../../constans/constans";
+
 import RenderText from "./renders/RenderText";
 import { DvBlueButton } from "../../styleComponents/layout/DvButton";
 import RenderSkillsArea from "./renders/RenderSkillsArea";
+import RenderFile from "./renders/RenderFile";
+import RenderField from "./renders//RenderField";
+import AssignTeamDropdown from "../layout/AssignTeamDropdown";
+import MembersDropdown from "../layout/dropdowns/MembersDropdown";
+import RenderImage from "../forms/renders/RenderImage";
+import NotFound from "../NotFound";
+
+import { IMAGE_PORT, PORT } from "../../constants/constants";
+import { CUSTOMER, S_REDGUY } from "../../constants/user";
+import { required, maxLength30 } from "../../helpers/validate";
 import {
   getUserRole,
   oneOfRoles,
   renameObjPropNames
 } from "../../helpers/functions";
-import RenderFile from "./renders/RenderFile";
-import Axios from "axios";
-import AssignTeamDropdown from "../layout/AssignTeamDropdown";
-import PersonTile from "../layout/PersonTile";
-import MembersDropdown from "../layout/dropdowns/MembersDropdown";
-import RenderImage from "../forms/renders/RenderImage";
-import InputField from "../forms/renders/InputField";
+import {
+  getProjectTypes,
+  getSkills,
+  showProjectTeam,
+  showCustomTeams,
+  removeSpecialistFromTeam
+} from "../../actions/actions";
 
 class EditProjectForm extends Component {
   state = {
@@ -53,12 +58,6 @@ class EditProjectForm extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.projectWithId && nextProps.projectId) {
-      if (nextProps.projectWithId.id !== +nextProps.projectId) {
-        this.props.showProjectWithId(nextProps.projectId);
-      }
-    }
-
     if (
       nextProps.projectTeam &&
       nextProps.projectId &&
@@ -66,10 +65,24 @@ class EditProjectForm extends Component {
     ) {
       this.setState({ team: nextProps.projectTeam.specialists });
     }
+
+    if (nextProps.submitSucceeded) {
+      this.props.projectUpdate(this.props.projectId);
+    }
+
+    //krunch again
+    if (nextProps.removeFromTeam) {
+      if (this.props.removeFromTeam) {
+        if (this.props.removeFromTeam !== nextProps.removeFromTeam) {
+          nextProps.showProjectTeam(nextProps.projectId);
+        }
+      } else nextProps.showProjectTeam(nextProps.projectId);
+    }
   }
 
   handleSubmit = (name, value) => {
     const { projectId } = this.props;
+    const token = localStorage.getItem("jwt_token");
 
     return Axios({
       method: "PUT",
@@ -78,6 +91,10 @@ class EditProjectForm extends Component {
         project: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
@@ -91,8 +108,8 @@ class EditProjectForm extends Component {
 
     this.setState({ updatingSkills: true });
     this.handleSubmit("skill_ids", skillsIds)
-      .then(resp => {
-        const skills = resp.data.skills;
+      .then(response => {
+        const skills = response.data.skills;
         skills.forEach(skill => {
           renameObjPropNames(skill, "id", "value");
           renameObjPropNames(skill, "name", "label");
@@ -100,88 +117,77 @@ class EditProjectForm extends Component {
         this.props.change("skills", skills);
         this.setState({ updatingSkills: false });
       })
-      .catch(err => {
-        console.log(err);
-        this.props.change("skills", this.props.projectWithId.skills);
+      .catch(error => {
+        console.log(error);
+        this.props.change("skills", this.props.projectWithId.project.skills);
         this.setState({ updatingSkills: false });
       });
   };
 
+  handleRemove = (type, id) => {
+    const {
+      removeSpecialistFromTeam,
+      projectWithId: {
+        project: {
+          team: { id: team_id }
+        }
+      }
+    } = this.props;
+
+    removeSpecialistFromTeam(team_id, id);
+  };
+
   render() {
     const {
-      projectWithId,
+      projectWithId: { project, loaded, loading, error },
       projectId,
       projectTypes,
       handleSubmit,
       submitting,
-      dirty,
       skills,
-      submitSucceeded,
-      projectTeam,
-      showCustomTeams,
-      allCustomTeams,
-      handleAssignTeam
+      handleAssignTeam,
+      projectTypeId,
+      projectName
     } = this.props;
 
     const { team } = this.state;
 
-    const { logo = {}, name = "", customer = {}, project_type, state } =
-      projectWithId || {};
+    const { logo = {}, name = "", customer = {}, state } = project;
 
     const hasPermission =
       getUserRole() === CUSTOMER || getUserRole() === S_REDGUY;
 
-    let stateText;
+    let projectType = null;
 
-    switch (state) {
-      case "brief_submissions":
-        stateText = "Waiting for producer";
-        break;
-      case "review_by_admin":
-        stateText = "On review";
-        break;
-      case "discovery":
-        stateText = "";
-        break;
-      default:
-        stateText = "";
-        break;
+    if (projectTypes && projectTypeId) {
+      projectTypes.forEach(type => {
+        if (type.value === projectTypeId) {
+          projectType = type.label;
+        }
+      });
     }
 
-    // console.log("dirty", dirty, "\n", "succeed", submitSucceeded);
-
     return (
-      <StyledProject
-        className={
-          projectWithId && projectWithId.id === +projectId
-            ? "loaded"
-            : "loading"
-        }
-      >
-        <i className="fa fa-spinner fa-3x fa-pulse preloader" />
+      <StyledProject className={loading ? "loading" : ""}>
         <Form onSubmit={handleSubmit}>
           <Grid>
             <Grid.Row columns={1}>
               <Grid.Column>
                 <div className="projectAside">
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Customer:</span>&nbsp;
+                    <div className="label">Customer</div>
+                    <div className="text">
                       {customer.first_name + " " + customer.last_name}
-                    </p>
+                    </div>
                   </div>
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Project type:</span>&nbsp;
-                      {projectTypes && project_type
-                        ? projectTypes[project_type - 1]
-                        : "Any project type"}
-                    </p>
+                    <div className="label">Project type</div>
+                    <div className="text">
+                      {projectType ? projectType : "Any project type"}
+                    </div>
                   </div>
                   <div className="asideInfo">
-                    <p>
-                      <span className="label">Attached files:</span>
-                    </p>
+                    <div className="label">Attached files:</div>
                     <Field
                       name="attached_files"
                       type="text"
@@ -205,12 +211,11 @@ class EditProjectForm extends Component {
                       />
                     ) : (
                       <React.Fragment>
-                        <p>
-                          <span className="label">Technologies:</span>
-                        </p>
+                        <div className="label">Technologies:</div>
                         <div className="skillsWrapper">
-                          {projectWithId &&
-                            projectWithId.skills.map((skill, key) => (
+                          {loaded &&
+                            project.skills &&
+                            project.skills.map((skill, key) => (
                               <div className="skill" key={key}>
                                 {skill.label}
                               </div>
@@ -226,9 +231,9 @@ class EditProjectForm extends Component {
                     <div className="teamWrapper">
                       <MembersDropdown
                         members={team}
-                        countToShow={3}
+                        countToShow={5}
                         position="bottom left"
-                        handleRemove={this.handleAssign}
+                        handleRemove={this.handleRemove}
                         removeText="project"
                       />
                       {getUserRole() === S_REDGUY && (
@@ -245,7 +250,7 @@ class EditProjectForm extends Component {
                 </div>
                 <div className="projectMain">
                   {oneOfRoles(CUSTOMER, S_REDGUY) ? (
-                    <div className="title">
+                    <div className="projectHeader">
                       <div className="projectLogo">
                         <Field
                           name="logo"
@@ -254,54 +259,62 @@ class EditProjectForm extends Component {
                           type="file"
                           logo={logo}
                           projectId={projectId}
+                          projectName={projectName}
                           placeholder="Choose project logo"
                           onSelfSubmit={true}
                         />
                       </div>
                       <div className="projectStatus">
-                        <p>
-                          {name} Project{" "}
-                          <span className="status">
-                            {state === "draft" && "Drafted"}
-                            {state === "reviewed_by_admin" && "On review"}
-                          </span>
-                        </p>
+                        <p>{name} Project </p>
                       </div>
                     </div>
                   ) : (
-                    <div className="title">
+                    <div className="projectHeader">
                       {logo.url ? (
-                        <img src={IMAGE_PORT + logo.url} alt={name} />
+                        <div className="projectLogo">
+                          <div className="imgPreview">
+                            <img src={IMAGE_PORT + logo.url} alt={name} />
+                          </div>
+                        </div>
                       ) : (
-                        <span className="projectNoLogo">{name[0]}</span>
+                        <div className="projectLogo">
+                          <div className="imgPreview">
+                            <span className="projectNoLogo">{name[0]}</span>
+                          </div>
+                        </div>
                       )}
-                      <p>
-                        {name} Project{" "}
-                        <span className="status">
-                          {state === "draft" && "Drafted"}
-                          {state === "reviewed_by_admin" && "On review"}
-                        </span>
-                      </p>
+                      <p>{name} Project </p>
                     </div>
                   )}
 
                   <Field
                     name="name"
-                    label="name"
+                    label="Name"
                     disabled={!hasPermission}
-                    component={RenderText}
+                    component={RenderField}
                     onSelfSubmit={this.handleSubmit}
                     projectId={projectId}
+                    validate={[maxLength30]}
+                    updateProject
                     updateProjects
+                    placeholder={
+                      hasPermission
+                        ? "Type your project name here"
+                        : "No project name"
+                    }
                     className="transparent"
-                    autoHeight
-                    unhiddable
+                    // autoHeight
+                    // unhiddable
                   />
 
                   <Field
                     name="description"
                     label="Description"
-                    placeholder="Type your description here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your description here"
+                        : "No description"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -312,7 +325,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="user_story"
                     label="User story"
-                    placeholder="Write your story here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your user story here"
+                        : "No user story"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -323,7 +340,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="deliverables"
                     label="Acceptance criteria"
-                    placeholder="Write some acceptance criterea"
+                    placeholder={
+                      hasPermission
+                        ? "Type your acceptance criterea here"
+                        : "No acceptance criterea"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -334,7 +355,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="business_requirements"
                     label="Business requirements"
-                    placeholder="Write some business requirements"
+                    placeholder={
+                      hasPermission
+                        ? "Type your business requirements here"
+                        : "No business requirements"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -345,7 +370,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="business_rules"
                     label="Business rules"
-                    placeholder="Write some business rules"
+                    placeholder={
+                      hasPermission
+                        ? "Type your business rules here"
+                        : "No business rules"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -356,7 +385,11 @@ class EditProjectForm extends Component {
                   <Field
                     name="further_notes"
                     label="Solution design"
-                    placeholder="Write your solution design here"
+                    placeholder={
+                      hasPermission
+                        ? "Type your solution design here"
+                        : "No solution design"
+                    }
                     disabled={!hasPermission}
                     component={RenderText}
                     onSelfSubmit={this.handleSubmit}
@@ -371,36 +404,30 @@ class EditProjectForm extends Component {
                           loading={submitting}
                           role="button"
                           className="clear dv-blue"
-                          disabled={state === "discovery" && !dirty}
-                          onClick={() =>
+                          onClick={() => {
                             this.props.dispatch(
                               change(
                                 "EditProjectForm",
                                 "state",
                                 "brief_submissions"
                               )
-                            )
-                          }
+                            );
+                          }}
                         >
                           Publish
                         </DvBlueButton>
                       )}
-                      {state === "reviewed_by_admin" && (
-                        <DvBlueButton
-                          loading={submitting}
-                          role="button"
-                          className="clear dv-blue"
-                          disabled={state === "discovery" && !dirty}
-                        >
-                          {state === "discovery"
-                            ? dirty
-                              ? "Save"
-                              : submitSucceeded
-                                ? "Saved"
-                                : "Up to date"
-                            : "Submit"}
-                        </DvBlueButton>
-                      )}
+                      {state === "reviewed_by_admin" &&
+                        getUserRole() === S_REDGUY && (
+                          <DvBlueButton
+                            loading={submitting}
+                            role="button"
+                            className="clear dv-blue"
+                            fixed="true"
+                          >
+                            Submit
+                          </DvBlueButton>
+                        )}
                     </div>
                   )}
                 </div>
@@ -421,31 +448,25 @@ EditProjectForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(EditProjectForm);
 
-const mapStateToProps = (state, ownProps) => {
-  const {
-    projectWithId,
-    updateProject,
-    projectTypes,
-    skills,
-    allCustomTeams,
-    projectTeam
-  } = state;
+const mapStateToProps = state => {
   return {
-    projectWithId,
-    updateProject,
-    projectTypes,
-    skills,
-    projectTeam,
-    allCustomTeams,
-    initialValues: projectWithId
+    projectWithId: state.projectWithId,
+    updateProject: state.updateProject,
+    projectTypes: state.projectTypes,
+    skills: state.skills,
+    projectTeam: state.projectTeam,
+    allCustomTeams: state.allCustomTeams,
+    initialValues: state.projectWithId.project,
+    projectTypeId: state.projectWithId.project.project_type_id,
+    projectName: state.projectWithId.project.name,
+    removeFromTeam: state.removeFromTeam
   };
 };
 
 export default connect(mapStateToProps, {
-  showAllProjects,
-  showProjectWithId,
   getProjectTypes,
   getSkills,
   showProjectTeam,
-  showCustomTeams
+  showCustomTeams,
+  removeSpecialistFromTeam
 })(EditProjectForm);

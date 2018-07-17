@@ -1,47 +1,49 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Modal } from "semantic-ui-react";
+
 import EditTaskForm from "../client/forms/EditTaskForm";
-import { updateEpicTask } from "../../actions/actions";
 import StyledModal from "../../styleComponents/layout/StyledModal";
 
 class EditTaskModal extends Component {
   state = {
     opened: false,
+    task: {},
     updated: false
   };
 
-  open = () => this.setState({ opened: true });
+  open = task => this.setState({ opened: true, task });
 
-  close = () => this.props.close(this.state.updated);
+  close = () => {
+    this.setState({ opened: false });
+    this.props.close(this.state.updated);
+  };
 
   setUpdated = () => {
     this.setState({ updated: true });
   };
 
   render() {
-    const { epic, epicTask, open, close } = this.props;
-    const { opened } = this.state;
+    const { epic, currentProjectTeam } = this.props;
+    const { opened, task } = this.state;
 
     return (
       <StyledModal
-        open={open}
+        open={opened}
         onClose={this.close}
         trigger={<div id="editTask" />}
-        closeIcon={<button className="close icon" onClick={close} />}
+        size="large"
       >
-        <Modal.Content>
-          <Modal.Description>
-            <EditTaskForm
-              epic={epic}
-              initialValues={epicTask}
-              epicTask={epicTask}
-              onSubmit={this.submit}
-              setUpdated={this.setUpdated}
-              handleAssign={this.handleAssign}
-            />
-          </Modal.Description>
-        </Modal.Content>
+        <Modal.Header className="ui">Epic - {task.id}</Modal.Header>
+        <EditTaskForm
+          epic={epic}
+          currentProjectTeam={currentProjectTeam}
+          initialValues={task}
+          epicTask={task}
+          onSubmit={this.submit}
+          setUpdated={this.setUpdated}
+          handleAssign={this.handleAssign}
+          close={this.close}
+        />
       </StyledModal>
     );
   }
@@ -54,4 +56,4 @@ class EditTaskModal extends Component {
   };
 }
 
-export default connect(null, { updateEpicTask })(EditTaskModal);
+export default EditTaskModal;

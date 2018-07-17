@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
-import { CLIENT, S_REDGUY } from "../../constans/constans";
+import { CLIENT, S_REDGUY } from "../../constants/user";
+import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 
 class DashboardSubHeader extends Component {
   render() {
@@ -32,14 +33,23 @@ class DashboardSubHeader extends Component {
         <div className="right">
           {specialistData &&
             specialistData.role === S_REDGUY && (
-              <AddTaskModal content="Add epic" className="dahsboard" />
+              <AddTaskModal
+                content="Add epic"
+                className="dahsboard"
+                trigger={
+                  <a className="button add-epic">
+                    <StyledSubHeaderLink className="right-link addButton modalTrigger" />
+                    <span>Add epic</span>
+                  </a>
+                }
+              />
             )}
 
           {changeUserType === CLIENT && (
             <SubHeaderLinkWrap
               url="/dashboard/project/new"
               label="Add project"
-              className="rightLink dahsboard addButton"
+              className="right-link dahsboard addButton"
             />
           )}
         </div>

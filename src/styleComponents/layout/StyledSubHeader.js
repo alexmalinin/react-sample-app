@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow, colors, secondaryColors } from "../constants/colors";
+import { boxShadow, secondaryColors, miscellaneous } from "../constants/colors";
 
 export default styled.div`
   height: 131px;
@@ -12,7 +12,7 @@ export default styled.div`
       ? "linear-gradient(to right, #00a2ee 0%,#00e1ce 100%)"
       : "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"}; */
 
-  background: linear-gradient(to right, #2d68ee 0%,#7439e3 100%);
+  background: ${miscellaneous.gradient.blue};
 
   margin-bottom: ${props =>
     props.profileForm
@@ -33,6 +33,10 @@ export default styled.div`
   & > div {
     display: flex;
 
+    &.moduleSubHeader {
+      padding-left: 25px;
+    }
+
     a.button,
     section,
     button {
@@ -51,6 +55,10 @@ export default styled.div`
 
       i{
         font-size: 2em;
+
+        &.small {
+          font-size: 1.2em;
+        }
       }
 
       .container {
@@ -146,30 +154,24 @@ export default styled.div`
       }
     }
 
-    &.boardProgressBars {
+    &.board-progress-bars {
+      transition: .2s;
+
+      &.fade{
+        opacity: 0;
+        visibility: hidden;
+      }
       a {
-        opacity: 1;
+        &:not(.add-epic){
+          opacity: 1;
+        }
 
         div {
           border: 2px solid #fff;
         }
-        /* flex: 33%;
-        text-align: center;
-        &:not(:first-of-type) {
-          margin-left: 32px;
-        } */
       }
       &.visible {
         display: flex !important;
-      }
-    }
-
-    &.moduleSubHeader{
-      .moduleBreadcrumb{
-        a{
-          color: #fff;
-          font-weight: 400;
-        }
       }
     }
   }
@@ -188,14 +190,14 @@ export default styled.div`
     cursor: pointer;
   }
 
-  .rightLink {
+  .right-link {
     font-size: 15px;
 
     & + span {
       transition: inherit;
     }
 
-    &.myTasks {
+    &.my-tasks {
       &.active {
         border-color: ${secondaryColors.green};
         box-shadow: 0 0 0 1px ${secondaryColors.green};

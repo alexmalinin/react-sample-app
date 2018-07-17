@@ -1,81 +1,81 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
-import HeaderBasic from "../../layout/HeaderBasic";
-import SubHeader from "../../layout/SpecialistsSubHeader";
 import { connect } from "react-redux";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
-import SideBarLeft from "../renders/SideBarLeft";
-import SideBarRight from "../../layout/SideBarRight";
-import SpecialistsProfile from "./SpecialistsProfile";
-import SpecialistsCompany from "./SpecialistsCompany";
-import SpecialistIndustry from "./SpecialistIndustry";
-import SpecialistsAbout from "./SpecialistsAbout";
-import SpecialistsTest from "./SpecialistsTest";
-import SpecialistsMyBillings from "./SpecialistsMyBillings";
-import SpecialistAccount from "./SpecialistAccount";
-import SpecialistYTD from "./SpecialistYTD";
-import SpecialistStatement from "./SpecialistStatement";
-import TheVillage from "../../TheVillage";
-import { projects, days } from "../../../helpers/sidebarDbEmulate";
-import ProjectsBoard from "../../ProjectsBoard";
-import Dashboard from "../../Dashboard";
-import { Container } from "../../../styleComponents/layout/Container";
+import jwtDecode from "jwt-decode";
+import axios from "axios";
+import { NotificationContainer } from "react-notifications";
+
+import "react-notifications/lib/notifications.css";
+
+import HeaderBasic from "../layout/HeaderBasic";
+import SubHeader from "../layout/SpecialistsSubHeader";
+import { S_MainContainer } from "../../styleComponents/layout/S_MainContainer";
+import SideBarLeft from "../layout/SideBarLeft";
+import SideBarRight from "../layout/SideBarRight";
+import SpecialistsProfile from "./pages/SpecialistsProfile";
+import SpecialistsCompany from "./pages/SpecialistsCompany";
+import SpecialistIndustry from "./pages/SpecialistIndustry";
+import EditProfile from "../profile/EditProfile";
+import SpecialistsAbout from "../dashboard/pages/About";
+import SpecialistsTest from "./pages/SpecialistsTest";
+import SpecialistsMyBillings from "./pages/SpecialistsMyBillings";
+import SpecialistAccount from "./pages/SpecialistAccount";
+import SpecialistYTD from "./pages/SpecialistYTD";
+import ClientProjects from "../client/ClientProjects";
+import SpecialistStatement from "./pages/SpecialistStatement";
+import TheVillage from "../TheVillage";
+import { projects, days } from "../../helpers/sidebarDbEmulate";
+import ProjectsBoard from "../ProjectsBoard";
+import Dashboard from "../Dashboard";
+import { Container } from "../../styleComponents/layout/Container";
+import Teams from "../Teams";
+import ClientModule from "../client/ClientModule";
+import SearchSpecialist from "./pages/SearchSpecialist";
+import NotFound from "../NotFound";
+import SavingConfirmationModal from "../modals/SavingConfirmationModal";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
+import SubmitFormErrorModal from "../modals/SubmitFormErrorModal";
+
 import {
   showSpecialistData,
-  updateSpecialistProfile,
-  showAllProjects,
+  showSortedProjects,
   showProjectWithId,
-  showAllEpics,
-  showSpecialistProjects,
-  showSpecialistTeams,
   showProjectTeam,
-  showAllSpecialists
-} from "../../../actions/actions";
-import Teams from "../../Teams";
+  showAllEpics,
+  showSpecialistTeams,
+  showSpecialistProjects
+} from "../../actions/actions";
+
 import {
   getCookie,
   setCookie,
   getUserRole,
   oneOfRoles,
   createNotification
-} from "../../../helpers/functions";
-import { PORT, S_REDGUY, S_CORE, S_PASSIVE } from "../../../constans/constans";
-import ClientModule from "../../client/ClientModule";
-import SearchSpecialist from "./SearchSpecialist";
-import NotFound from "../../NotFound";
-import SavingConfirmationModal from "../../modals/SavingConfirmationModal";
-import DeleteConfirmationModal from "../../modals/DeleteConfirmationModal";
-import SubmitFormErrorModal from "../../modals/SubmitFormErrorModal";
-import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { NotificationContainer } from "react-notifications";
-import "react-notifications/lib/notifications.css";
+} from "../../helpers/functions";
 
-const pagesToCalculate = ["profile", "industry", "company", "billings"];
+import { PORT } from "../../constants/constants";
+import { S_REDGUY, S_CORE, S_PASSIVE } from "../../constants/user";
+
+const pagesToCalculate = ["info", "industry", "company", "billings"];
 
 class SpecialistsDashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      profilePercent: null,
-      industryPercent: null,
-      companyPercent: null,
-      billingPercent: null,
-      rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
-      showRelog: true
-    };
-    this.calculatePagePercent = this.calculatePagePercent.bind(this);
-  }
-
-  componentWillMount() {
-    // this.props.showAllProjects();
-    this.props.showSpecialistProjects();
-    this.props.showSpecialistTeams();
-    this.props.showSpecialistData();
-    localStorage.removeItem("user_email");
-  }
+  state = {
+    profilePercent: null,
+    industryPercent: null,
+    companyPercent: null,
+    billingPercent: null,
+    rightSidebarOpened: !!getCookie("rightSidebarOpened") || false,
+    showRelog: true
+  };
 
   componentDidMount() {
+    this.props.showSortedProjects("specialists");
+    this.props.showSpecialistTeams();
+    this.props.showSpecialistData();
+    this.props.showSpecialistProjects();
+    localStorage.removeItem("user_email");
+
     const {
       history: { location }
     } = this.props;
@@ -104,13 +104,22 @@ class SpecialistsDashboard extends Component {
     }
 
     if (!this.props.specialistData) {
-      let token = localStorage.getItem("jwt_token"),
-        id = jwtDecode(token).id;
+      const token = localStorage.getItem("jwt_token");
+      let user_id;
 
-      if (id) {
-        axios
-          .get(`${PORT}/api/v1/specialists/${id}`)
-          .catch(error => this.props.history.push("/sign_in"));
+      if (token) {
+        user_id = jwtDecode(token).user_id;
+      }
+
+      if (user_id) {
+        axios({
+          method: "GET",
+          url: `${PORT}/api/v1/specialists/${user_id}`,
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
       }
     }
   }
@@ -178,7 +187,8 @@ class SpecialistsDashboard extends Component {
       number_of_employers,
       segment,
       website
-    } = data ? data : {};
+    } =
+      data || {};
 
     return {
       name,
@@ -204,7 +214,8 @@ class SpecialistsDashboard extends Component {
       swift_code,
       purpose_of_payment,
       beneficiary_account
-    } = data ? data : {};
+    } =
+      data || {};
 
     if (+billing_type === 1) {
       return {
@@ -216,21 +227,20 @@ class SpecialistsDashboard extends Component {
         purpose_of_payment,
         beneficiary_account
       };
-    } else {
-      return {
-        card_name,
-        card_number
-      };
     }
+    return {
+      card_name,
+      card_number
+    };
   }
 
-  calculatePagePercent(percentName, data) {
-    let fieldsCount = data && Object.keys(data).length;
+  calculatePagePercent = (percentName, data) => {
+    const fieldsCount = data && Object.keys(data).length;
 
     if (percentName && Object.keys(data).length > 0) {
       let filledFields = 0;
 
-      for (let key in data) {
+      for (const key in data) {
         if (data[key]) {
           switch (typeof data[key]) {
             case "number":
@@ -258,7 +268,7 @@ class SpecialistsDashboard extends Component {
         [percentName]: null
       });
     }
-  }
+  };
 
   calculatePercents() {
     const { specialistData } = this.props;
@@ -290,46 +300,45 @@ class SpecialistsDashboard extends Component {
   render() {
     const {
       match: { params },
+      specialistProjects,
       specialistTeams,
-      changeUserType,
-      history,
       confirmationModal
     } = this.props;
 
-    const { rightSidebarOpened, isEdited } = this.state;
+    const { rightSidebarOpened } = this.state;
     let page;
 
     const passive = getUserRole() === S_PASSIVE;
-    const allowedPages = [
-      "about",
-      "profile",
-      "industry",
-      "company",
-      "billings"
-    ];
+    const allowedPages = ["about"];
 
     if (passive) {
-      if (params["page"]) {
-        if (allowedPages.some(page => params["page"] === page)) {
-          page = params["page"];
+      if (params.page) {
+        if (allowedPages.some(page => params.page === page)) {
+          page = params.page;
         } else page = "forbidden";
+      } else if (params.profilePage) {
+        page = params.profilePage;
       } else page = "forbidden";
-    } else if (params["page"]) {
-      if (params["page"] === "search") {
+    } else if (params.page) {
+      if (params.page === "search") {
         if (oneOfRoles(S_CORE, S_REDGUY)) {
-          page = params["page"];
+          page = params.page;
         } else page = "forbidden";
-      } else page = params["page"];
-    } else if (params["projectId"] && params["projectId"] !== "new") {
-      page = "board";
-    } else if (params["projectNewModule"] && getUserRole() === S_REDGUY) {
+      } else page = params.page;
+    } else if (params.profilePage) {
+      page = params.profilePage;
+    } else if (params.projectId && params.projectId !== "info") {
+      if (params.projectId === "new") {
+        page = "projects";
+      } else page = "board";
+    } else if (params.projectNewModule && getUserRole() === S_REDGUY) {
       page = "module";
-    } else if (params["specialistId"]) {
+    } else if (params.specialistId) {
       page = "specialist";
     } else page = "dashboard";
 
-    let sidebarCondition =
-      page !== "profile" &&
+    const sidebarCondition =
+      page !== "info" &&
       page !== "industry" &&
       page !== "company" &&
       page !== "billings" &&
@@ -351,8 +360,9 @@ class SpecialistsDashboard extends Component {
             <Fragment>
               {!passive && (
                 <SideBarLeft
-                  currentProject={params["projectId"]}
-                  currentEpic={params["moduleId"]}
+                  currentProject={params.projectId}
+                  currentEpic={params.moduleId}
+                  projects={specialistProjects}
                 />
               )}
               {this.renderPage(page)}
@@ -368,12 +378,7 @@ class SpecialistsDashboard extends Component {
             </Fragment>
           ) : (
             <Container sidebarCondition={sidebarCondition}>
-              <SubHeader
-                percents={this.state}
-                isEdited={isEdited}
-                page={page}
-                user={changeUserType}
-              />
+              <SubHeader percents={this.state} page={page} />
               {this.renderPage(page)}
             </Container>
           )}
@@ -382,22 +387,19 @@ class SpecialistsDashboard extends Component {
 
         {confirmationModal &&
           confirmationModal.type === "save" && (
-            <SavingConfirmationModal
-              isOpen={true}
-              formId={confirmationModal.formId}
-            />
+            <SavingConfirmationModal isOpen formId={confirmationModal.formId} />
           )}
 
         {confirmationModal &&
           confirmationModal.type === "delete" && (
             <DeleteConfirmationModal
-              isOpen={true}
+              isOpen
               message={confirmationModal.message}
               callback={confirmationModal.callback}
             />
           )}
 
-        {this.props.submitErrorModal && <SubmitFormErrorModal isOpen={true} />}
+        {this.props.submitErrorModal && <SubmitFormErrorModal isOpen />}
       </div>
     );
   }
@@ -405,14 +407,12 @@ class SpecialistsDashboard extends Component {
   renderPage = page => {
     const {
       match: { params },
-      history,
-      location,
       specialistTeams,
       specialistProjects
     } = this.props;
 
     switch (page) {
-      case "profile":
+      case "info":
         document.title = "Profile | Digital Village";
         return (
           <SpecialistsProfile
@@ -444,17 +444,17 @@ class SpecialistsDashboard extends Component {
             collectBillingData={this.collectBillingData}
           />
         );
+      case "edit":
+        document.title = "Edit profile | Digital Village";
+        return <EditProfile />;
+      case "projects":
+        document.title = "Add Project | Digital Village";
+        return <ClientProjects />;
       case "about":
         document.title = "Your profile | Digital Village";
         return <SpecialistsAbout />;
       case "board":
-        return (
-          <ProjectsBoard
-            projectId={params["projectId"]}
-            currentEpic={params["moduleId"] || "all"}
-            history={history}
-          />
-        );
+        return <ProjectsBoard />;
       case "teams":
         document.title = "Teams | Digital Village";
         return <Teams teams={specialistTeams} />;
@@ -463,7 +463,7 @@ class SpecialistsDashboard extends Component {
         return <SpecialistsTest />;
       case "module":
         document.title = "Add module | Digital Village";
-        return <ClientModule projectId={params["projectNewModule"]} />;
+        return <ClientModule projectId={params.projectNewModule} />;
       case "account":
         document.title = "Billings | Digital Village";
         return <SpecialistAccount />;
@@ -482,12 +482,13 @@ class SpecialistsDashboard extends Component {
         if (oneOfRoles(S_CORE, S_REDGUY)) {
           document.title = "Search Specialist | Digital Village";
           return <SearchSpecialist />;
-        } else return <Redirect to="/404" />;
+        }
+        return <Redirect to="/404" />;
       case "specialist":
-        return <SpecialistsAbout specialistId={params["specialistId"]} />;
+        return <SpecialistsAbout specialistId={params.specialistId} />;
       case "dashboard":
         document.title = "Dashboard | Digital Village";
-        return <Dashboard projects={specialistProjects} history={history} />;
+        return <Dashboard projects={specialistProjects} />;
       default:
         return <Redirect to="/404" />;
     }
@@ -497,7 +498,7 @@ class SpecialistsDashboard extends Component {
     if (nextProps.specialistData) {
       if (
         nextProps.specialistData.email &&
-        pagesToCalculate.some(page => page === nextProps.match.params["page"])
+        pagesToCalculate.some(page => page === nextProps.match.params.page)
       ) {
         this.calculatePercents();
       }
@@ -515,60 +516,34 @@ class SpecialistsDashboard extends Component {
       }
     }
 
-    let projectId = nextProps.match.params["projectId"];
+    const prevProjectId = this.props.match.params.projectId;
+    const projectId = nextProps.match.params.projectId;
 
-    if (projectId && nextProps.projectWithId) {
-      if (nextProps.projectWithId.id != projectId) {
+    if (projectId && projectId !== "new" && prevProjectId) {
+      if (projectId !== prevProjectId) {
         nextProps.showProjectWithId(projectId);
-        nextProps.showAllEpics(projectId);
         nextProps.showProjectTeam(projectId);
+        nextProps.showAllEpics(projectId);
       }
-    } else if (projectId) {
-      nextProps.showProjectWithId(projectId);
-      nextProps.showProjectTeam(projectId);
     }
   }
 }
 
-export default connect(
-  ({
-    changeUserType,
-    specialistData,
-    confirmPassword,
-    educations,
-    experiences,
-    allProjects,
-    projectWithId,
-    specialistProjects,
-    allTeams,
-    specialistTeams,
-    confirmationModal,
-    submitErrorModal,
-    signInReducer
-  }) => ({
-    changeUserType,
-    specialistData,
-    confirmPassword,
-    educations,
-    experiences,
-    allProjects,
-    projectWithId,
-    specialistProjects,
-    allTeams,
-    specialistTeams,
-    confirmationModal,
-    submitErrorModal,
-    signInReducer
-  }),
-  {
-    showSpecialistData,
-    updateSpecialistProfile,
-    showAllProjects,
-    showProjectWithId,
-    showAllEpics,
-    showSpecialistProjects,
-    showSpecialistTeams,
-    showProjectTeam,
-    showAllSpecialists
-  }
-)(SpecialistsDashboard);
+const mapStateToProps = state => ({
+  changeUserType: state.changeUserType,
+  specialistData: state.specialistData,
+  specialistProjects: state.specialistProjects,
+  specialistTeams: state.specialistTeams,
+  confirmationModal: state.confirmationModal,
+  submitErrorModal: state.submitErrorModal
+});
+
+export default connect(mapStateToProps, {
+  showSpecialistData,
+  showSortedProjects,
+  showProjectWithId,
+  showProjectTeam,
+  showAllEpics,
+  showSpecialistTeams,
+  showSpecialistProjects
+})(SpecialistsDashboard);

@@ -13,40 +13,41 @@ export default styled.div`
   }
 
   &.moduleBreadcrumb {
-    a {
-      margin-left: 40px;
-    }
-
-    &:first-of-type {
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-  }
-
-  a {
     position: relative;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding-right: 30px;
 
-    &::before,
     &::after {
       content: "";
       position: absolute;
-      right: 10px;
-      top: calc(50% - 1px);
-
-      width: 12px;
-      height: 2px;
-      transform: rotate(-45deg);
-      transform-origin: 0% 50%;
-
-      background-color: #d0d0d0;
+      top: 50%;
+      right: 18px;
+      transform: translateY(-50%) rotate(-135deg);
+      height: 10px;
+      width: 10px;
+      border: solid #fff;
+      border-width: 0 0 2px 2px;
+      transition: 0.4s;
     }
 
-    &::after {
-      transform: rotate(45deg);
+    &:last-of-type {
+      &:after {
+        content: none;
+      }
+    }
+
+    a {
+      position: relative;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      font-weight: 500;
+      padding-right: 40px;
+
+      &.active {
+        color: #fff;
+      }
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 `;

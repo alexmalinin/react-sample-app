@@ -6,14 +6,9 @@ import {
   updateSpecStep2,
   showSpecialistData
 } from "../../../actions/actions";
-import {
-  Container,
-  ContainerLarge
-} from "../../../styleComponents/layout/Container";
-import { S_MainContainer } from "../../../styleComponents/layout/S_MainContainer";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistCompanyForm from "../forms/SpecialistCompanyForm";
-import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import { getAllUrlParams } from "../../../helpers/functions";
 
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
@@ -45,10 +40,6 @@ class SpecialistCompany extends Component {
     this.setState({ isEditing });
   }
 
-  componentWillUnmount() {
-    this.props.showSpecialistData();
-  }
-
   render() {
     const { isEditing } = this.state;
 
@@ -66,7 +57,9 @@ class SpecialistCompany extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -83,9 +76,13 @@ class SpecialistCompany extends Component {
 
         {this.state.nextStep ? (
           this.state.isEditing ? (
-            <Redirect to="about" />
-          ) : this.state.nextLocation === "/dashboard/industry" ? (
-            <Redirect to="industry" />
+            this.state.nextLocation ? (
+              <Redirect to={this.state.nextLocation} />
+            ) : (
+              <Redirect to="about" />
+            )
+          ) : this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
             <Redirect to="billings" />
           )

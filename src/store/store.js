@@ -37,6 +37,7 @@ import updateClientBilling from "../middlewares/updateClientBillingApi";
 import saveCreatedProject from "../middlewares/createProjectApi";
 import updateProject from "../middlewares/updateProjectApi";
 import showAllProjects from "../middlewares/showAllProjectsApi";
+import showSortedProjects from "../middlewares/showSortedProjectsApi";
 import showSpecialistProjects from "../middlewares/showSpecialistProjectsApi";
 import showSpecialistTeams from "../middlewares/showSpecialistTeamsApi";
 import showCustomTeams from "../middlewares/showCustomTeamsApi";
@@ -52,7 +53,6 @@ import showAllEpicTasks from "../middlewares/showAllEpicTasksApi";
 import createEpicTask from "../middlewares/createTaskApi";
 import showEpicTasks from "../middlewares/showEpicTasksApi";
 import updateEpicTask from "../middlewares/updateEpicTaskApi";
-import deleteEpicTask from "../middlewares/deleteEpicTaskApi";
 import showAllSpecialists from "../middlewares/showAllSpecialistsApi";
 import assignSpecialistToTask from "../middlewares/assignSpecialistToTaskApi";
 import removeSpecialistFromTask from "../middlewares/removeSpecialistFromTaskApi";
@@ -109,6 +109,7 @@ const enhancer = applyMiddleware(
   saveCreatedProject,
   updateProject,
   showAllProjects,
+  showSortedProjects,
   showSpecialistProjects,
   showSpecialistTeams,
   showCustomTeams,
@@ -124,7 +125,6 @@ const enhancer = applyMiddleware(
   createEpicTask,
   showEpicTasks,
   updateEpicTask,
-  deleteEpicTask,
   assignSpecialistToTask,
   removeSpecialistFromTask,
   showAllTeams,

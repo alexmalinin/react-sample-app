@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../../constans/constans";
+import { SUCCESS, FAIL } from "../../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
@@ -16,11 +16,11 @@ export default store => next => action => {
   // next({ ...rest, type: type, data: payload });
 
   let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  let { user_id } = jwtDecode(token);
 
   axios({
     method: "put",
-    url: changePassword1 + id + changePassword2,
+    url: changePassword1 + user_id + changePassword2,
     data: {
       [user]: payload
     }

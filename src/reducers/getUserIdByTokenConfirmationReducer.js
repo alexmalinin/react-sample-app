@@ -1,4 +1,4 @@
-import { GET_USER_ID, SUCCESS } from "../constans/constans";
+import { GET_USER_ID, SUCCESS } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, id } = action;

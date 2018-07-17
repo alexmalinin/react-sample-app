@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Grid } from "semantic-ui-react";
+import { Checkbox } from "react-semantic-redux-form/dist";
 import { Form, Field, reduxForm, change } from "redux-form";
-import CostField from "../../forms/renders/CostField";
-import RenderSelect from "../../forms/renders/RenderSelect";
+import axios from "axios";
+
 import RenderDate from "../../forms/renders/RenderDate";
 import RenderFile from "../../forms/renders/RenderFile";
-import { Grid, Loader } from "semantic-ui-react";
-import { showProjectTeam, updateEpicTask } from "../../../actions/actions";
 import RenderText from "../../forms/renders/RenderText";
 import RenderField from "../../forms/renders/RenderField";
 import { taskStatuses } from "../../../helpers/selects/taskStatuses";
 import RenderSelectField from "../../forms/renders/RenderSelectField";
-import axios from "axios";
-import { PORT, S_REDGUY } from "../../../constans/constans";
-import { getUserRole, oneOfRoles } from "../../../helpers/functions";
 import AssignDropdown from "../../layout/AssignDropdown";
 import SpecialistTile from "../../layout/SpecialistTile";
-import { maxLength80 } from "../../../helpers/validate";
-import { formatCurrency } from "../../../helpers/validate";
-import { Checkbox } from "react-semantic-redux-form/dist";
+
+import {
+  minLength2,
+  maxLength50,
+  formatCurrency
+} from "../../../helpers/validate";
+import { PORT } from "../../../constants/constants";
+import { S_REDGUY } from "../../../constants/user";
+import { getUserRole, oneOfRoles } from "../../../helpers/functions";
 
 class EditTaskForm extends Component {
   state = {
@@ -38,19 +41,30 @@ class EditTaskForm extends Component {
 
   removeSpecialist = id => {
     this.handleAssign("remove", id);
+    this.props.setUpdated();
   };
 
   //TODO: apply thunk here
 
   handleSubmit = (name, value) => {
-    const { epic, epicTask } = this.props;
+    const {
+      epicTask: { id, epic_id }
+    } = this.props;
+    this.props.setUpdated();
+
+    const token = localStorage.getItem("jwt_token");
+
     return axios({
       method: "PUT",
-      url: `${PORT}/api/v1/epics/${epic}/tasks/${epicTask.id}`,
+      url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}`,
       data: {
         task: {
           [name]: value
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     });
   };
@@ -61,20 +75,31 @@ class EditTaskForm extends Component {
     } = this.props;
     let payload = {};
 
+    const token = localStorage.getItem("jwt_token");
+
     if (type === "assign") {
       payload = {
         method: "PUT",
         url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/assign`,
         data: {
           specialist_id
+        },
+
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       };
     } else
       payload = {
         method: "DELETE",
-        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`
+        url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`,
+
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       };
 
+    this.props.setUpdated();
     axios(payload)
       .then(response => {
         this.setState({
@@ -82,33 +107,41 @@ class EditTaskForm extends Component {
           totalCost: response.data.cost
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   };
 
   handleCost = specId => {
+    const token = localStorage.getItem("jwt_token");
     const {
       epicTask: { id, epic_id },
-      projectWithId,
+      epic: { project_id },
       formValues
     } = this.props;
+
     axios({
       method: "PUT",
       url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/specialist_cost/${specId}`,
       data: {
         costs: {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
-          project_id: projectWithId.id
+          project_id
         }
+      },
+
+      headers: {
+        Authorization: `Bearer ${token}`
       }
     })
       .then(resp => {
         this.setState({ totalCost: resp.data.cost });
+        this.props.setUpdated();
       })
       .catch(error => console.error(error));
   };
 
   handleFees = (event, newVal, prevVal, name) => {
     const { change } = this.props;
+    this.props.setUpdated();
 
     this.setState({
       loadingFees: {
@@ -139,10 +172,12 @@ class EditTaskForm extends Component {
     const {
       handleSubmit,
       projectTeam,
-      epicTask: { attached_files, cost, specialist_tasks },
       specialistData,
-      ownCosts
+      ownCosts,
+      eta,
+      currentProjectTeam
     } = this.props;
+
     const {
       specialists,
       totalCost,
@@ -151,222 +186,256 @@ class EditTaskForm extends Component {
     } = this.state;
 
     const disabled = getUserRole() === S_REDGUY ? false : true;
-    // const specialistCosts =
-
-    const fees = [
-      {
-        name: "sale_fee",
-        text: "Sales fee",
-        fee: 30
-      },
-      {
-        name: "dv_fee",
-        text: "DV fee",
-        fee: 20
-      }
-    ];
 
     return (
-      <Form onSubmit={handleSubmit}>
-        <Grid>
-          <Grid.Row>
-            <h4 className="modalHeader">Epic </h4>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column computer={10}>
-              <Field
-                name="name"
-                label="Summary"
-                className="transparent"
-                component={RenderField}
-                onKeyDown={e => console.log(e.keyCode)}
-                onSelfSubmit={this.handleSubmit}
-                validate={[maxLength80]}
-                disabled={disabled}
-              />
-              <Field
-                name="description"
-                label="Description"
-                className="transparent"
-                component={RenderText}
-                onSelfSubmit={this.handleSubmit}
-                autoHeight
-                disabled={disabled}
-              />
-
-              <Field
-                name="user_story"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your user story here"
-                label="User Story"
-                large
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-              <Field
-                name="deliverables"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your acceptance criterea here"
-                label="Acceptance criteria"
-                large
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-              <Field
-                name="business_requirements"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your business requirements here"
-                label="Business Requirements"
-                large
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-              <Field
-                name="business_rules"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your business rules here"
-                label="Business Rules"
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-
-              <Field
-                name="notes"
-                component={RenderText}
-                autoHeight
-                className="transparent"
-                placeholder="Type your solution design here"
-                label="Solution design"
-                large
-                onSelfSubmit={this.handleSubmit}
-                disabled={disabled}
-              />
-            </Grid.Column>
-
-            <Grid.Column computer={6}>
-              <Grid padded="vertically" className="float">
-                <Grid.Row columns={2}>
-                  <Grid.Column>
-                    <Field
-                      name="eta"
-                      component={RenderDate}
-                      type="date"
-                      label="Estimate"
-                      className="transparent clear estimate"
-                      initData={this.props.epicTask.eta}
-                      handleEtaForm={this.handleEtaForm}
-                      disabled={disabled}
-                    />
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Field
-                      name="state"
-                      label="Status"
-                      placeholder="Select state"
-                      className="transparent clear"
-                      component={RenderSelectField}
-                      options={taskStatuses}
-                      selectOnBlur={false}
-                      handleSubmit={this.handleSubmit}
-                      fluid
-                      disabled={disabled}
-                    />
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-              <Field
-                name="attached_files"
-                type="text"
-                label="Attach files"
-                component={RenderFile}
-                dropzone
-                submitSucceeded={this.props.submitSucceeded}
-                onSelfSubmit={this.handleSubmit}
-                small
-                disabled={disabled}
-              />
-              <div className="specialistsWrapper">
-                {oneOfRoles(S_REDGUY) && (
-                  <div className="totalCostWrapper">
-                    <div className="totalCosts">
-                      <p className="label">Total costs</p>
-                      <span className="total">
-                        <i className="fas fa-dollar-sign" />
-                        <span>{formatCurrency(totalCost)}</span>
-                      </span>
-                    </div>
-                    <div className="fees">
-                      <Field
-                        name="dv_fee"
-                        component={Checkbox}
-                        label={<label>DV Fee 20%</label>}
-                        disabled={dv_fee_loading}
-                        onChange={this.handleFees}
-                      />
-                      <Field
-                        name="sale_fee"
-                        component={Checkbox}
-                        label={<label>Sales Fee 30%</label>}
-                        disabled={sale_fee_loading}
-                        onChange={this.handleFees}
-                      />
-                    </div>
-                  </div>
-                )}
-                <div
-                  className={`specialistsInnerWrapper ${
-                    specialists.length > 3 ? "expanded" : ""
-                  }`}
-                >
-                  {specialists.map((specialist, key) => (
-                    <SpecialistTile
-                      specialist={specialist}
-                      key={key}
-                      index={key}
-                      specialistId={specialistData && specialistData.id}
-                      ownCosts={ownCosts}
-                      remove={this.removeSpecialist}
-                      handleSubmit={this.handleCost}
-                    />
-                  ))}
-                </div>
-                {projectTeam && (
-                  <AssignDropdown
-                    label="Add assignee"
-                    specialists={specialists}
-                    allSpecialists={projectTeam.specialists.filter(spec => spec.role !== S_REDGUY)}
-                    handleAssign={this.handleAssign}
-                    userType={[S_REDGUY]}
-                    closeOnChange
-                    renderToModal
+      <Grid as={Form} onSubmit={handleSubmit} padded>
+        <Grid.Row className="fluid">
+          <Grid.Column computer={5} className="wrapper aside">
+            <Grid>
+              <Grid.Row columns={1}>
+                <Grid.Column>
+                  <Field
+                    name="eta"
+                    component={RenderDate}
+                    type="date"
+                    label="ETA"
+                    placeholder="Due date"
+                    className="estimate inline-in-modal"
+                    handleEtaForm={this.handleEtaForm}
+                    initData={eta}
+                    disabled={disabled}
                   />
-                )}
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Form>
+                </Grid.Column>
+
+                <Grid.Column>
+                  <Field
+                    name="state"
+                    label="Status"
+                    placeholder="Select state"
+                    className="status inline-in-modal"
+                    component={RenderSelectField}
+                    options={taskStatuses}
+                    handleSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    search={false}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row columns={1}>
+                <Grid.Column>
+                  <Field
+                    name="attached_files"
+                    type="text"
+                    component={RenderFile}
+                    dropzone
+                    label="Attach files"
+                    className="area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    padded
+                  />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row columns={1}>
+                <Grid.Column>
+                  <div className="specialistsWrapper">
+                    {oneOfRoles(S_REDGUY) && (
+                      <div className="totalCostWrapper">
+                        <div className="totalCosts">
+                          <p className="label">Total costs</p>
+                          <span className="total">
+                            <i className="fas fa-dollar-sign" />
+                            <span>{formatCurrency(totalCost)}</span>
+                          </span>
+                        </div>
+                        <div className="fees">
+                          <Field
+                            name="dv_fee"
+                            component={Checkbox}
+                            label={<label>DV Fee 20%</label>}
+                            disabled={dv_fee_loading}
+                            onChange={this.handleFees}
+                          />
+                          <Field
+                            name="sale_fee"
+                            component={Checkbox}
+                            label={<label>Sales Fee 30%</label>}
+                            disabled={sale_fee_loading}
+                            onChange={this.handleFees}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className="specialistsInnerWrapper">
+                      {specialists.map((specialist, key) => (
+                        <SpecialistTile
+                          specialist={specialist}
+                          key={key}
+                          index={key}
+                          specialistId={specialistData && specialistData.id}
+                          ownCosts={ownCosts}
+                          remove={this.removeSpecialist}
+                          handleSubmit={this.handleCost}
+                        />
+                      ))}
+                    </div>
+                    {projectTeam && (
+                      <AssignDropdown
+                        label="Add assignee"
+                        specialists={specialists}
+                        allSpecialists={currentProjectTeam.filter(
+                          spec => spec.role !== S_REDGUY
+                        )}
+                        handleAssign={this.handleAssign}
+                        userType={[S_REDGUY]}
+                        closeOnChange
+                        renderToModal
+                      />
+                    )}
+                  </div>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+          <Grid.Column computer={11} className="wrapper main">
+            <Grid>
+              <Grid.Row>
+                <Grid.Column computer={16}>
+                  <Field
+                    name="name"
+                    label="Summary"
+                    placeholder={
+                      disabled ? "No summary" : "Type your summary here"
+                    }
+                    component={RenderField}
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    validate={[minLength2, maxLength50]}
+                    disabled={disabled}
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="description"
+                    component={RenderText}
+                    label="Description"
+                    placeholder={
+                      disabled ? "No description" : "Type your description here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="user_story"
+                    component={RenderText}
+                    label="User Story"
+                    placeholder={
+                      disabled ? "No user story" : "Type your user story here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="deliverables"
+                    component={RenderText}
+                    label="Acceptance Criteria"
+                    placeholder={
+                      disabled
+                        ? "No acceptance criterea"
+                        : "Type your acceptance criterea here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="business_requirements"
+                    component={RenderText}
+                    label="Business Requirements"
+                    placeholder={
+                      disabled
+                        ? "No business requirements"
+                        : "Type your business requirements here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="business_rules"
+                    component={RenderText}
+                    label="Business Rules"
+                    placeholder={
+                      disabled
+                        ? "No business rules"
+                        : "Type your business rules here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+
+                <Grid.Column computer={16}>
+                  <Field
+                    name="notes"
+                    component={RenderText}
+                    label="Solution Design"
+                    placeholder={
+                      disabled
+                        ? "No solution design"
+                        : "Type your solution design here"
+                    }
+                    className="transparent area"
+                    onSelfSubmit={this.handleSubmit}
+                    disabled={disabled}
+                    autoHeight
+                    large
+                    padded
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    allProjects,
-    projectTeam,
-    changeUserType,
-    projectWithId,
-    allEpics,
-    specialistData
-  } = state;
+  const { projectTeam, specialistData } = state;
   const { epicTask } = ownProps;
   const initialValues = { ...epicTask };
   let ownCosts = null;
@@ -385,12 +454,9 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     specialistData,
-    allProjects,
     projectTeam,
-    changeUserType,
-    projectWithId,
-    allEpics,
     initialValues,
+    eta: epicTask && epicTask.eta,
     formValues: state.form,
     ownCosts
   };
@@ -405,4 +471,4 @@ EditTaskForm = reduxForm({
   touchOnChange: true
 })(EditTaskForm);
 
-export default connect(mapStateToProps, { showProjectTeam })(EditTaskForm);
+export default connect(mapStateToProps)(EditTaskForm);

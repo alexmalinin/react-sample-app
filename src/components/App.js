@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -7,11 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 import FlexDirection from "../styleComponents/FlexDirection";
-import Home from "./Home";
 import NotFound from "./NotFound";
-import Contact from "./Contact/Contact";
-import PostProject from "./PostProject/PostProject";
-import OverviewPostedProject from "./OverviewPostedProject";
 import SignUp from "./SignUp/SignUp";
 import SignIn from "./SignIn/SignIn";
 import ForgotPassword from "./ResetPassword/ForgotPassword";
@@ -19,29 +15,35 @@ import Verification from "./Verification/Verification";
 import ResetPage from "./ResetPassword/ResetPage";
 import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
-import ClientDashboard from "./client/ClientDashboard";
-import SpecialistDashboard from "./specialist/pages/SpecialistsDashboard";
+import ClientIndex from "./client";
+import SpecialistIndex from "./specialist";
 import { getUserType, getUserRole } from "../helpers/functions";
-import { S_PASSIVE } from "../constans/constans";
+import { S_PASSIVE } from "../constants/user";
 import PrivateRoute from "../decorators/PrivateRoute";
 import AssignRoute from "../decorators/AssignRoute";
 
 class App extends Component {
+  defaultPath = () => {
+    const token = localStorage.getItem("jwt_token");
+
+    if (token) return <Redirect to="/dashboard/" />;
+    else return <Redirect to="/sign_in" />;
+  };
+
   render() {
     let Dashboard;
 
     switch (getUserType()) {
       case "Specialist":
-        Dashboard = SpecialistDashboard;
+        Dashboard = SpecialistIndex;
         break;
       case "Client":
-        Dashboard = ClientDashboard;
+        Dashboard = ClientIndex;
         break;
       default:
-        Dashboard = SignIn;
+        Dashboard = <Redirect to="/sign_in" />;
     }
 
-    const token = localStorage.getItem("jwt_token");
     const passive = getUserRole() !== S_PASSIVE;
 
     return (
@@ -49,38 +51,15 @@ class App extends Component {
         <div>
           <FlexDirection>
             <Switch>
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  token && passive ? (
-                    <Redirect to="/dashboard/" />
-                  ) : (
-                    <Redirect to="/sign_in" />
-                  )
-                }
+              <Route exact path="/" render={this.defaultPath} />
+              <Route path="/index.html" render={this.defaultPath} />
+              <PrivateRoute inverted path="/sign_in" component={SignIn} />
+              <PrivateRoute
+                inverted
+                path="/forgot_password"
+                component={ForgotPassword}
               />
-              <Route
-                path="/index.html"
-                render={() =>
-                  token ? (
-                    <Redirect to="/dashboard/" />
-                  ) : (
-                    <Redirect to="/sign_in" />
-                  )
-                }
-              />
-
-              <Route path="/home" component={Home} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/post_project" component={PostProject} />
-              <Route
-                path="/project_overview"
-                component={OverviewPostedProject}
-              />
-              <Route path="/sign_in" component={SignIn} />
-              <Route path="/forgot_password" component={ForgotPassword} />
-              <Route path="/sign_up" component={SignUp} />
+              <PrivateRoute inverted path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
               <Route path="/confirm_email" component={ConfirmEmail} />
@@ -92,7 +71,7 @@ class App extends Component {
                 component={Dashboard}
               />
               <PrivateRoute
-                path="/dashboard/project/:projectId/module/:moduleId"
+                path="/dashboard/project/:projectId/module/:moduleId/:status"
                 component={Dashboard}
               />
               <PrivateRoute
@@ -101,6 +80,10 @@ class App extends Component {
               />
               <PrivateRoute
                 path="/dashboard/specialist/:specialistId"
+                component={Dashboard}
+              />
+              <PrivateRoute
+                path="/profile/:profilePage"
                 component={Dashboard}
               />
               <PrivateRoute path="/dashboard/:page" component={Dashboard} />

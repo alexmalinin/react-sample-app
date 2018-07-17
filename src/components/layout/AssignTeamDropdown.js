@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Input, Tab, Loader, Form } from "semantic-ui-react";
-import {
-  StyledAssignDropdown,
-  StyledDropdown
-} from "../../styleComponents/layout/StyledAssignDropdown";
-import { IMAGE_PORT, S_REDGUY, PORT } from "../../constans/constans";
+import { Input, Tab, Loader } from "semantic-ui-react";
+import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
+import { IMAGE_PORT, PORT, BLANK_AVATAR } from "../../constants/constants";
 import { getUserRole, createNotification } from "../../helpers/functions";
 import {
-  showSpecialistCustomTeams,
-  searchSpecialist
+  searchSpecialist,
+  showSpecialistCustomTeams
 } from "../../actions/actions";
 import StyledTab from "../../styleComponents/StyledTab";
 import Axios from "axios";
@@ -83,7 +80,10 @@ class AssignTeamDropdown extends Component {
     this.setState({ searching: true });
     Axios({
       method: "GET",
-      url: `${PORT}/api/v1/specialists/search?query=${this.state.specInput}`
+      url: `${PORT}/api/v1/specialists/search?query=${this.state.specInput}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
     })
       .then(resp => {
         this.setState({ specialists: resp.data, searching: false });
@@ -96,11 +96,6 @@ class AssignTeamDropdown extends Component {
 
   handleAssignTeam = e => {
     const teamId = e.target.getAttribute("data");
-    let type;
-
-    if (e.target.className === "assigned") {
-      type = "remove";
-    } else type = "assign";
 
     this.props.handleAssignTeam(teamId);
     this.handleCloseButton();
@@ -110,13 +105,19 @@ class AssignTeamDropdown extends Component {
     const specialistId = e.target.getAttribute("data");
 
     const {
-      projectWithId: { id, team }
+      projectWithId: {
+        project: { id, team }
+      }
     } = this.props;
     Axios({
       method: "POST",
       url: `${PORT}/api/v1/projects/${id}/teams/${
         team.id
-      }/specialist_invitation/${specialistId}`
+      }/specialist_invitation/${specialistId}`,
+
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
     })
       .then(response => {
         createNotification({
@@ -185,7 +186,7 @@ class AssignTeamDropdown extends Component {
                       src={
                         specialist.avatar.url
                           ? IMAGE_PORT + specialist.avatar.url
-                          : "/images/uploadImg.png"
+                          : BLANK_AVATAR
                       }
                       alt="member"
                     />

@@ -5,10 +5,10 @@ import {
   S_REDGUY,
   CLIENT,
   SPECIALIST
-} from "../constans/constans";
+} from "../constants/user";
 import jwtDecode from "jwt-decode";
 import { NotificationManager } from "react-notifications";
-import { deleteAttachedFile } from "../actions/actions";
+import _ from "lodash";
 
 export function getAllUrlParams(url) {
   // get query string from url (optional) or window
@@ -144,8 +144,8 @@ export function detectSpecType(role) {
 export function getUserRole() {
   const token = localStorage.getItem("jwt_token");
   if (token) {
-    const { role } = jwtDecode(token);
-    return role;
+    const { aud } = jwtDecode(token);
+    return aud;
   }
 
   return "";
@@ -153,7 +153,7 @@ export function getUserRole() {
 
 /**
  * @description Returns a user type as string
- * @returns Client or Specialist
+ * @returns CLIENT or SPECIALIST
  */
 
 export function getUserType() {
@@ -181,8 +181,8 @@ export function getUserId() {
   let token = localStorage.getItem("jwt_token");
 
   if (token) {
-    const { id } = jwtDecode(token);
-    return id;
+    const { user_id } = jwtDecode(token);
+    return user_id;
   }
 }
 
@@ -263,3 +263,23 @@ export const createNotification = ({ type, text }) => {
       break;
   }
 };
+
+/**
+ * Deep diff between two object, using lodash
+ * @param  {Object} object Object compared
+ * @param  {Object} base   Object to compare with
+ * @return {Object}        Return a new object who represent the diff
+ */
+export function difference(object, base) {
+  function changes(object, base) {
+    return _.transform(object, function(result, value, key) {
+      if (!_.isEqual(value, base[key])) {
+        result[key] =
+          _.isObject(value) && _.isObject(base[key])
+            ? changes(value, base[key])
+            : value;
+      }
+    });
+  }
+  return changes(object, base);
+}

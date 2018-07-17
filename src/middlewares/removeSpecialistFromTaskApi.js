@@ -1,13 +1,12 @@
 import axios from "axios";
-import { SUCCESS, FAIL } from "../constans/constans";
+import { SUCCESS, FAIL } from "../constants/constants";
 import jwtDecode from "jwt-decode";
 
 export default store => next => action => {
   const { type, removeSpecialistFromTask, payload, ...rest } = action;
   if (!removeSpecialistFromTask) return next(action);
 
-  let token = localStorage.getItem("jwt_token");
-  let { id } = jwtDecode(token);
+  const token = localStorage.getItem("jwt_token");
 
   axios({
     method: "DELETE",

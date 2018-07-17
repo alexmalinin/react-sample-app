@@ -18,6 +18,8 @@ class InputField extends React.Component {
       isRequired,
       creditCard,
       className,
+      handleFormField,
+      handleSubmit,
       ...rest
     } = this.props;
     let mask = {};

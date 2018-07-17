@@ -8,16 +8,6 @@ export default styled.div`
     justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 25px;
-    padding: 0 10px;
-  }
-
-  & > label {
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-    color: #666;
-    padding-left: 10px;
   }
 
   /* .Select {

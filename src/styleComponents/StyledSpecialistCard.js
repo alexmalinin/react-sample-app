@@ -14,13 +14,13 @@ export default styled.div`
     text-transform: uppercase;
     font-weight: 500;
     &.dv-blue {
-      background: ${colors.darkBlue};
+      background: ${colors.blue};
       color: #fff;
     }
 
     &.dv-blue.inverted {
-      border: 1px solid ${colors.darkBlue};
-      color: ${colors.darkBlue};
+      border: 1px solid ${colors.blue};
+      color: ${colors.blue};
       background: #fff;
       font-family: inherit;
     }
@@ -36,6 +36,7 @@ export default styled.div`
         width: 70px;
         border-radius: 50%;
         object-fit: cover;
+        background: ${primaryColors.accentBackground};
       }
 
       .detailed {
@@ -47,7 +48,7 @@ export default styled.div`
           font-weight: 500;
 
           &.name {
-            color: ${colors.darkBlue};
+            color: ${colors.blue};
           }
 
           &.title {
@@ -78,7 +79,7 @@ export default styled.div`
         margin-left: 6px;
 
         &.all {
-          color: ${colors.darkBlue};
+          color: ${colors.blue};
           cursor: pointer;
 
           .ui.popup {

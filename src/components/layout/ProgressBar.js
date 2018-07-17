@@ -8,7 +8,7 @@ class ProgressBars extends Component {
         strokeWidth: 6,
         easing: "easeInOut",
         duration: 1400,
-        color: "#fff",
+        color: this.props.strokeColor || "#fff",
         trailColor: "#eee",
         trailWidth: 1,
         svgStyle: { width: "100%", height: "100%" }
@@ -18,7 +18,7 @@ class ProgressBars extends Component {
         strokeWidth: 6,
         easing: "easeInOut",
         duration: 1400,
-        color: "#fff",
+        color: this.props.strokeColor || "#fff",
         trailColor: "#eee",
         trailWidth: 1,
         svgStyle: { width: "100%", height: "100%" }
@@ -34,13 +34,13 @@ class ProgressBars extends Component {
     this.renderBar();
     this.bar.animate(this.props.percents / 100);
 
-    if (this.props.percents === 100) {
-      this.bar.path.setAttribute("stroke", "#00ffc0");
-    } else {
-      this.props.strokeColor
-        ? this.bar.path.setAttribute("stroke", this.props.strokeColor)
-        : this.bar.path.setAttribute("stroke", "#fff");
-    }
+    // if (this.props.percents === 100) {
+    //   this.bar.path.setAttribute("stroke", "#00ffc0");
+    // } else {
+    //   this.props.strokeColor
+    //     ? this.bar.path.setAttribute("stroke", this.props.strokeColor)
+    //     : this.bar.path.setAttribute("stroke", "#fff");
+    // }
 
     if (this.props.module && this.props.strokeColor) {
       this.bar.path.setAttribute("stroke", this.props.strokeColor);
@@ -49,14 +49,6 @@ class ProgressBars extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.bar.animate(nextProps.percents / 100);
-
-    if (nextProps.percents === 100) {
-      this.bar.path.setAttribute("stroke", "#00ffc0");
-    } else {
-      this.props.strokeColor
-        ? this.bar.path.setAttribute("stroke", this.props.strokeColor)
-        : this.bar.path.setAttribute("stroke", "#fff");
-    }
 
     if (this.props.module && this.props.strokeColor) {
       this.bar.path.setAttribute("stroke", this.props.strokeColor);

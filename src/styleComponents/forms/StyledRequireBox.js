@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { primaryColors } from "../constants/colors";
+import styled from "styled-components";
+import { primaryColors, fontColors } from "../constants/colors";
 
 export default styled.div`
   display: flex;
@@ -7,14 +7,6 @@ export default styled.div`
   position: relative;
   font-size: 1rem;
   font-weight: 300;
-  line-height: 1;
-
-  & > div {
-    & input {
-      outline: none;
-      border: none;
-    }
-  }
 
   & div.ui.checkbox > label:before {
     width: 18px;
@@ -46,13 +38,19 @@ export default styled.div`
     cursor: pointer;
   }
 
-  & > span {
+  .privacy {
     margin-left: 15px;
-    color: ${primaryColors.lightGrey};
+    color: ${fontColors.blue.inert};
+
+    .privacy-bold {
+      font-weight: 400;
+      color: ${fontColors.blue.active};
+      cursor: pointer;
+    }
   }
 
   @media (min-width: 1921px) {
-    & > span {
+    & > p {
       margin-left: 25px;
     }
 
@@ -71,12 +69,12 @@ export default styled.div`
   }
 
   @media (max-width: 1920px) {
-    margin: 30px 0;
+    margin-bottom: 30px;
     font-size: 14px;
   }
 
   @media (max-width: 1920px) {
-    & > span {
+    & > p {
       margin-right: 100px;
     }
   }

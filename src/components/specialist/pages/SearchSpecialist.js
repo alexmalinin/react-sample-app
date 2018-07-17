@@ -10,7 +10,7 @@ import SpecialistCard from "../../layout/SpecialistCard";
 import { showSpecialistCustomTeams } from "../../../actions/actions";
 import { Grid } from "semantic-ui-react";
 import { getUserRole } from "../../../helpers/functions";
-import { S_REDGUY } from "../../../constans/constans";
+import { S_REDGUY } from "../../../constants/user";
 import { getSpecialistId } from "../../../helpers/selectors";
 
 class SearchSpecialist extends Component {
@@ -60,7 +60,6 @@ class SearchSpecialist extends Component {
 
     return (
       <ContainerLarge indentTop>
-        {/* <DashboardSubHeader /> */}
         <Container fluid indentTopXs sidebarCondition>
           {getUserRole() === S_REDGUY ? (
             <SearchFilterForm
@@ -76,7 +75,7 @@ class SearchSpecialist extends Component {
             />
           )}
         </Container>
-        <Container sidebarCondition dashboardContainer>
+        <Container sidebarCondition dashboardContainer transparent>
           {searchResult && (
             <FilteredList
               filters={filters}

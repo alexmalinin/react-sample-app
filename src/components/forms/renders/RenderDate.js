@@ -1,10 +1,10 @@
-import { Input } from "semantic-ui-react";
 import React from "react";
+import { Input } from "semantic-ui-react";
+import DatePicker from "react-datepicker";
+import moment from "moment";
 import StyledInputs from "../../../styleComponents/forms/StyledInputs";
 import StyledError from "../../../styleComponents/forms/StyledError";
 import StyledLabel from "../../../styleComponents/forms/StyledLabel";
-import DatePicker from "react-datepicker";
-import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -12,17 +12,31 @@ class RenderDate extends React.Component {
   state = {
     date: moment(this.props.initData, "YYYY-MM-DD").isValid()
       ? moment(this.props.initData)
-      : moment()
+      : null,
+    fetchDate: true
   };
 
-  componentWillMount() {
-    this.props.handleEtaForm(this.state.date.format("YYYY-MM-DD"));
+  componentWillReceiveProps(nextProps) {
+    if (this.props.epicId !== nextProps.epicId) {
+      this.setState({
+        fetchDate: true
+      });
+    }
+
+    if (this.state.fetchDate) {
+      this.setState({
+        date: moment(nextProps.initData, "YYYY-MM-DD").isValid()
+          ? moment(nextProps.initData)
+          : null
+      });
+    }
   }
 
   handleChange = date => {
     if (date && date._isAMomentObject) {
       this.setState({
-        date
+        date,
+        fetchDate: false
       });
     }
   };
@@ -63,6 +77,8 @@ class RenderDate extends React.Component {
           disabled={disabled}
           placeholder={placeholder}
           type={type}
+          iconPosition="left"
+          icon={<i className="fas fa-calendar-alt" />}
           input={
             <DatePicker
               {...input}
@@ -71,20 +87,13 @@ class RenderDate extends React.Component {
               value={date && date.format("DD/MM/YYYY")}
               onChange={this.handleChange}
               // onBlur={this.handleChange}
+              placeholderText={placeholder}
               dateFormat="DD/MM/YYYY"
               autoComplete="off"
               readOnly
             />
           }
-        >
-          {/* <input
-            {...input}
-            type={type}
-            name={input.name}
-            className="shadowInput"
-            value={date.format("YYYY-MM-DD")}
-          /> */}
-        </Input>
+        />
 
         {touched &&
           ((error && <StyledError>{error}</StyledError>) ||

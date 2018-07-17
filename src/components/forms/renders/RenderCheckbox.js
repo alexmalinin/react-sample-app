@@ -13,7 +13,7 @@ class RenderCheckbox extends Component {
     let { onFocus, onBlur } = input;
 
     return (
-      <div>
+      <div className="dv-checkbox">
         <Checkbox
           onFocus={onFocus}
           onBlur={onBlur}
@@ -21,7 +21,7 @@ class RenderCheckbox extends Component {
           disabled={disabled}
         />
         {touched &&
-          ((error && <StyledError>{error}</StyledError>) ||
+          ((error && <StyledError bottom={-20}>{error}</StyledError>) ||
             (warning && <span>{warning}</span>))}
       </div>
     );

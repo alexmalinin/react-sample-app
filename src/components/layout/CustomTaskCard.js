@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import AssignDropdown from "./AssignDropdown";
-import PersonTile from "./PersonTile";
-import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constans/constans";
-import { getUserRole, oneOfRoles } from "../../helpers/functions";
-import EditTaskModal from "../modals/EditTaskModal";
+import { S_REDGUY, S_ACTIVE, S_CORE } from "../../constants/user";
+import { getUserRole, oneOfRoles, getUserId } from "../../helpers/functions";
 import { formatCurrency } from "../../helpers/validate";
 import MembersDropdown from "./dropdowns/MembersDropdown";
-
-const defaultProps = {
-  specialists: []
-};
 
 class CustomCard extends Component {
   state = {
     showDropdown: false
+  };
+
+  static defaultProps = {
+    specialists: []
   };
 
   assignSpeciaist = (type, specId) => {
@@ -31,28 +29,23 @@ class CustomCard extends Component {
     open.click();
   };
 
-  // renderTitle = () => {
-  //   const { title } = this.props;
-
-  //   if (title.length > 70) {
-  //     return title.slice(0, 70) + "...";
-  //   } else return title;
-  // };
-
   render() {
     const {
-      title,
-      description,
+      name,
       id,
       specialists,
       specialistList,
-      userType,
+      specialist_tasks,
       eta,
       cost,
       deleteTask,
-      epic,
-      specialistCosts
+      epic_id,
+      laneId
     } = this.props;
+
+    const specialistCosts = specialist_tasks.find(
+      ({ specialist }) => getUserId() === specialist.id
+    );
 
     return (
       <div
@@ -60,10 +53,10 @@ class CustomCard extends Component {
         style={{ backgroundColor: "#fff" }}
         onMouseLeave={() => this.setState({ showDropdown: false })}
       >
-        <h4 className="title">{title}</h4>
+        <h4 className="title">{name}</h4>
         {eta && (
           <div className="line">
-            <img src="/images/calendar.png" alt="calendar" />
+            <i className="fas fa-calendar-alt" />
             <span>
               {eta
                 .split("-")
@@ -75,7 +68,7 @@ class CustomCard extends Component {
         {getUserRole() === S_REDGUY &&
           !!cost && (
             <div className="line">
-              <img src="/images/dollar.png" alt="dollar" />
+              <i className="fas fa-dollar-sign" />
               <span>{formatCurrency(cost)}</span>
             </div>
           )}
@@ -83,8 +76,8 @@ class CustomCard extends Component {
         {oneOfRoles(S_ACTIVE, S_CORE) &&
           !!specialistCosts && (
             <div className="line">
-              <img src="/images/dollar.png" alt="dollar" />
-              <span>{formatCurrency(specialistCosts)}</span>
+              <i className="fas fa-dollar-sign" />
+              <span>{formatCurrency(specialistCosts.cost)}</span>
             </div>
           )}
 
@@ -98,14 +91,16 @@ class CustomCard extends Component {
           />
           <AssignDropdown
             specialists={specialists}
-            allSpecialists={specialistList.filter(spec => spec.role !== S_REDGUY)}
+            allSpecialists={specialistList.filter(
+              spec => spec.role !== S_REDGUY
+            )}
             handleAssign={this.assignSpeciaist}
             userType={[S_REDGUY]}
             closeOnChange={true}
-            blue
+            bordered
           />
         </div>
-        <span className="ddtw">DDTW-{id}</span>
+        {/* <span className="ddtw">DDTW-{id}</span> */}
         {getUserRole() === S_REDGUY ? (
           <div className="dropdown">
             <a
@@ -124,7 +119,9 @@ class CustomCard extends Component {
                   <div onClick={this.showEditTaskModal}>Edit</div>
                 </div>
                 <div className="item">
-                  <div onClick={() => deleteTask(epic, id)}>Delete</div>
+                  <div onClick={() => deleteTask(epic_id, id, laneId)}>
+                    Delete
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -134,7 +131,5 @@ class CustomCard extends Component {
     );
   }
 }
-
-CustomCard.defaultProps = defaultProps;
 
 export default CustomCard;

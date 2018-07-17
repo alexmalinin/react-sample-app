@@ -2,29 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { Grid } from "semantic-ui-react";
-import { DvTitle, DvTitleSmall } from "../../styleComponents/layout/DvTitles";
 import RenderProfileForm from "../forms/RenderProfileForm";
 import RenderResetPasswordForm from "../forms/RenderResetPasswordForm";
-import {
-  Container,
-  ContainerLarge
-} from "../../styleComponents/layout/Container";
 import { showClientData, updateClientProfile } from "../../actions/actions";
 import { run } from "../../helpers/scrollToElement";
-import { getAllUrlParams, compareObjects } from "../../helpers/functions";
+import { getAllUrlParams } from "../../helpers/functions";
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../modals/ConfirmationModal";
 
 class ClientProfile extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      nextStep: false,
-      isEditing: false,
-      isEdited: false
-    };
-  }
+  state = {
+    nextStep: false,
+    isEditing: false,
+    isEdited: false,
+    nextLocation: false
+  };
 
   componentWillMount() {
     sessionStorage.removeItem("client_step");
@@ -35,6 +27,12 @@ class ClientProfile extends Component {
     let isEditing = param ? param : false;
     this.setState({ isEditing });
   }
+
+  clearLocation = () => {
+    this.setState({
+      nextLocation: false
+    });
+  };
 
   render() {
     const { isEditing, isEdited } = this.state;
@@ -53,7 +51,12 @@ class ClientProfile extends Component {
               />
 
               <NavigationPrompt
-                when={this.state.isEdited && !this.state.nextStep}
+                when={(crntLocation, nextLocation) => {
+                  this.setState({
+                    nextLocation: nextLocation.pathname + nextLocation.search
+                  });
+                  return this.state.isEdited && !this.state.nextStep;
+                }}
               >
                 {({ onConfirm, onCancel }) => (
                   <ConfirmationModal
@@ -67,8 +70,14 @@ class ClientProfile extends Component {
               </NavigationPrompt>
 
               {this.state.nextStep ? (
-                isEditing ? (
-                  <Redirect to="about" />
+                this.state.isEditing ? (
+                  this.state.nextLocation ? (
+                    <Redirect to={this.state.nextLocation} />
+                  ) : (
+                    <Redirect to="about" />
+                  )
+                ) : this.state.nextLocation ? (
+                  <Redirect to={this.state.nextLocation} />
                 ) : (
                   <Redirect to="company" />
                 )

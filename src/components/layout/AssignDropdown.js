@@ -3,8 +3,9 @@ import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 
-import { IMAGE_PORT } from "../../constans/constans";
+import { IMAGE_PORT, BLANK_AVATAR } from "../../constants/constants";
 import { getUserRole } from "../../helpers/functions";
+import { S_REDGUY } from "../../constants/user";
 
 export default class AssignDropdown extends Component {
   state = {
@@ -30,6 +31,7 @@ export default class AssignDropdown extends Component {
         document.addEventListener("click", this.closeDropdown);
       }
     );
+
     setTimeout(() => {
       this.searchInput && this.searchInput.focus();
     }, 10);
@@ -126,20 +128,15 @@ export default class AssignDropdown extends Component {
       renderToDashboard,
       renderToModal,
       userType,
-      blue
+      bordered
     } = this.props;
-    const { options, assignedIds, showDropdown, fetch } = this.state;
+    const { options, assignedIds, showDropdown } = this.state;
     const renderCondition = userType.some(type => type === getUserRole());
 
     return (
       renderCondition && (
-        <StyledAssignDropdown
-          renderToModal={renderToModal}
-          blue={blue}
-          // tabIndex="-1"
-        >
+        <StyledAssignDropdown renderToModal={renderToModal} bordered={bordered}>
           <a
-            tabIndex="-1"
             className="dropdownTrigger"
             onClick={this.openDropdown}
             ref={a => (this.trigger = a)}
@@ -184,14 +181,16 @@ export default class AssignDropdown extends Component {
                         src={
                           specialist.avatar.url
                             ? IMAGE_PORT + specialist.avatar.url
-                            : "/images/uploadImg.png"
+                            : BLANK_AVATAR
                         }
                         alt="member"
                       />
                       {specialist.first_name + " " + specialist.last_name}
                     </div>
                   ))}
-                {options.length === 0 && <div>No available specialists</div>}
+                {options.length === 0 && (
+                  <div className="no-specs">No available specialists</div>
+                )}
               </div>
             </div>
           )}

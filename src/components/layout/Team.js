@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Grid, Form, Input, Label } from "semantic-ui-react";
+import { Grid, Form, Input } from "semantic-ui-react";
 
 import {
   showAllSpecialists,
@@ -9,7 +9,7 @@ import {
   showProjectTeam,
   showCustomTeam
 } from "../../actions/actions";
-import { S_REDGUY, S_CORE } from "../../constans/constans";
+import { S_REDGUY, S_CORE } from "../../constants/user";
 import Channel from "./Channel";
 import { getUserRole, oneOfRoles } from "../../helpers/functions";
 
@@ -70,12 +70,7 @@ class Team extends Component {
 
     if (nextProps.customTeam) {
       if (nextProps.customTeam.id === nextProps.team.id) {
-        this.setState(
-          state =>
-            state.specialistsList === nextProps.customTeam.specialists
-              ? null
-              : { specialistsList: nextProps.customTeam.specialists }
-        );
+        this.setState({ specialistsList: nextProps.customTeam.specialists });
       }
     }
 
@@ -139,7 +134,7 @@ class Team extends Component {
       <Grid>
         <Grid.Row className="section-header">
           <Grid.Column computer={6} textAlign="left" floated="left">
-            <p className="title">
+            <p className="title team-name">
               {team.name} {team.project_id && "project"}
             </p>
           </Grid.Column>
@@ -170,9 +165,7 @@ class Team extends Component {
               specialists={""}
             />
           ))}
-          {getUserRole() !== S_REDGUY &&
-            channels.length === 0 && <p>There is no channels yet :(</p>}
-          {getUserRole() === S_REDGUY && (
+          {getUserRole() === S_REDGUY ? (
             <Form className="addChannel" onSubmit={this.submit}>
               {this.state.error && (
                 <span className="addChannel-label">
@@ -190,6 +183,8 @@ class Team extends Component {
                 autoComplete="off"
               />
             </Form>
+          ) : (
+            channels.length === 0 && <p>There is no channels yet :(</p>
           )}
         </Grid.Row>
       </Grid>
@@ -202,18 +197,20 @@ class Team extends Component {
 
     return (
       <Fragment>
-        <h4>{team.name}</h4>
+        <div className="team-wrap">
+          <div className="team-name">{team.name}</div>
 
-        {channels && channels.length !== 0
-          ? channels.map((channel, key) => (
-              <Channel
-                channel={channel}
-                key={key}
-                allSpecialists={specialistsList}
-                renderToRightSidebar
-              />
-            ))
-          : "There is no channels"}
+          {channels && channels.length !== 0
+            ? channels.map((channel, key) => (
+                <Channel
+                  channel={channel}
+                  key={key}
+                  allSpecialists={specialistsList}
+                  renderToRightSidebar
+                />
+              ))
+            : "There is no channels"}
+        </div>
       </Fragment>
     );
   }
@@ -236,35 +233,23 @@ class Team extends Component {
   };
 }
 
-export default connect(
-  ({
-    allSpecialists,
-    createChannel,
-    allChannels,
-    addMember,
-    removeMember,
-    updateChannel,
-    deleteChannel,
-    changeUserType,
-    projectTeam,
-    customTeam
-  }) => ({
-    allSpecialists,
-    createChannel,
-    allChannels,
-    addMember,
-    removeMember,
-    updateChannel,
-    deleteChannel,
-    changeUserType,
-    projectTeam,
-    customTeam
-  }),
-  {
-    showAllSpecialists,
-    createTeamChannel,
-    showChannels,
-    showProjectTeam,
-    showCustomTeam
-  }
-)(Team);
+const mapStateToProps = state => {
+  return {
+    createChannel: state.createChannel,
+    allChannels: state.allChannels,
+    addMember: state.addMember,
+    removeMember: state.removeMember,
+    updateChannel: state.updateChannel,
+    deleteChannel: state.deleteChannel,
+    projectTeam: state.projectTeam,
+    customTeam: state.customTeam
+  };
+};
+
+export default connect(mapStateToProps, {
+  showAllSpecialists,
+  createTeamChannel,
+  showChannels,
+  showProjectTeam,
+  showCustomTeam
+})(Team);

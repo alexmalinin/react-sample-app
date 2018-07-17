@@ -12,12 +12,8 @@ import {
   assignSpecialistToTeam,
   removeSpecialistFromTeam
 } from "../../actions/actions";
-import {
-  IMAGE_PORT,
-  CLIENT,
-  S_REDGUY,
-  CUSTOMER
-} from "../../constans/constans";
+import { IMAGE_PORT } from "../../constants/constants";
+import { S_REDGUY, CUSTOMER } from "../../constants/user";
 import { getUserRole } from "../../helpers/functions";
 
 class RenderCard extends Component {

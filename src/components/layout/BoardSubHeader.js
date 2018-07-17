@@ -1,25 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import ClassNames from "classnames";
+
 import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
 import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
 import AddTaskModal from "../modals/AddTaskModal";
 import ProgressBars from "./ProgressBar";
-import { Transition } from "semantic-ui-react";
-import {
-  CLIENT,
-  S_REDGUY,
-  CUSTOMER,
-  S_ACTIVE,
-  S_CORE
-} from "../../constans/constans";
-import { getUserRole, getUserId } from "../../helpers/functions";
+import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+
+import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "../../constants/user";
+import { getUserRole, oneOfRoles, getUserId } from "../../helpers/functions";
 
 class ProjectSubHeader extends Component {
   renderProgressBars = () => {
-    const { allEpics } = this.props;
+    const {
+      allEpics: { loaded, epics },
+      match: {
+        params: { status, projectId }
+      }
+    } = this.props;
+
     return (
-      allEpics &&
-      allEpics.map((epic, key) => {
+      loaded &&
+      epics.map((epic, key) => {
         let subheaderCompletedTasks = 0;
         epic.tasks.forEach(
           task =>
@@ -29,7 +33,9 @@ class ProjectSubHeader extends Component {
         return (
           <SubHeaderLinkWrap
             key={key}
-            url={`/dashboard/project/${this.props.project}/module/${key + 1}`}
+            url={`/dashboard/project/${projectId}/module/${key + 1}/${
+              status ? status : "view"
+            }`}
             className="module"
           >
             {key + 1}
@@ -47,13 +53,19 @@ class ProjectSubHeader extends Component {
   };
 
   render() {
-    const { currentEpic, epicTasks, project, allEpics, myTasks } = this.props;
+    const {
+      match: {
+        params: { projectId, moduleId, status }
+      },
+      epicTasks: { loaded, tasks, loading },
+      myTasks
+    } = this.props;
 
-    const allTasksCount = epicTasks && epicTasks.length;
+    const allTasksCount = tasks.length;
     let completedTasksCount = 0,
       myTasksCount = 0;
-    epicTasks &&
-      epicTasks.forEach(task => {
+    loaded &&
+      tasks.forEach(task => {
         (task.state === "done" || task.state === "accepted") &&
           completedTasksCount++;
         task.specialists.some(
@@ -62,37 +74,37 @@ class ProjectSubHeader extends Component {
       });
     const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
 
+    const rightBarsClass = ClassNames("right", "board-progress-bars", {
+      fade: !moduleId || !loaded
+    });
+
     return (
       <StyledSubHeader sidebarCondition profile="true">
         <div className="left kanbanSubHeader">
           <SubHeaderLinkWrap
             label={<span>&nbsp;</span>}
-            url={`/dashboard/project/${this.props.project}`}
+            url={`/dashboard/project/${projectId}`}
             className="allModules"
           >
             <span>All</span>
           </SubHeaderLinkWrap>
 
-          {allEpics && this.renderProgressBars()}
+          {this.renderProgressBars()}
           {(getUserRole() === CUSTOMER || getUserRole() === S_REDGUY) && (
             <SubHeaderLinkWrap
               label="Add module"
-              url={`/dashboard/project/${this.props.project}/module/new`}
+              url={`/dashboard/project/${projectId}/module/new`}
               className="addButton"
             />
           )}
         </div>
-        <Transition
-          animation="fade"
-          duration={400}
-          visible={currentEpic !== "all"}
-        >
-          <div className="right boardProgressBars">
-            {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) && (
+        <div className={rightBarsClass}>
+          {(getUserRole() === S_ACTIVE || getUserRole() === S_CORE) &&
+            status !== "edit" && (
               <SubHeaderLinkWrap
                 label="Assigned to me"
                 url="#"
-                className={`rightLink myTasks${
+                className={`right-link my-tasks${
                   myTasks ? " active" : " unactive"
                 }`}
                 onClick={this.props.toggleMyTasks}
@@ -100,37 +112,61 @@ class ProjectSubHeader extends Component {
                 {myTasksCount}
               </SubHeaderLinkWrap>
             )}
-            {getUserRole() === S_REDGUY && (
-              <AddTaskModal
-                epic={currentEpic}
-                project={project}
-                content="Add epic"
-                className="addTask"
-              />
+          {getUserRole() === S_REDGUY && (
+            <AddTaskModal
+              epic={moduleId}
+              project={projectId}
+              className="addTask"
+              trigger={
+                <a className="button add-epic">
+                  <StyledSubHeaderLink className="right-link addButton modalTrigger" />
+                  <span>Add epic</span>
+                </a>
+              }
+            />
+          )}
+
+          {oneOfRoles(S_ACTIVE, S_CORE, S_REDGUY) &&
+            status === "view" && (
+              <SubHeaderLinkWrap
+                label="Info"
+                url={`/dashboard/project/${projectId}/module/${moduleId}/edit`}
+                className="boldLink"
+              >
+                <i className="fas fa-eye small" />
+              </SubHeaderLinkWrap>
             )}
-            <SubHeaderLinkWrap label="Epics" url="#" className="rightLink">
-              {`${completedTasksCount}/${allTasksCount}`}
-            </SubHeaderLinkWrap>
-            <SubHeaderLinkWrap
-              label="Module progress"
-              url="#"
-              className="rightLink"
-            >
-              {percents}%
-              <ProgressBars percents={percents} />
-            </SubHeaderLinkWrap>
-          </div>
-        </Transition>
+
+          {oneOfRoles(S_ACTIVE, S_CORE, S_REDGUY) &&
+            status === "edit" && (
+              <SubHeaderLinkWrap
+                label="Board"
+                url={`/dashboard/project/${projectId}/module/${moduleId}/view`}
+                className="boldLink"
+              >
+                <i className="fas fa-tasks small" />
+              </SubHeaderLinkWrap>
+            )}
+
+          <SubHeaderLinkWrap label="Epics" url="#" className="right-link">
+            {`${completedTasksCount}/${allTasksCount}`}
+          </SubHeaderLinkWrap>
+          <SubHeaderLinkWrap label="Progress" url="#" className="right-link">
+            {percents}%
+            <ProgressBars percents={percents} />
+          </SubHeaderLinkWrap>
+        </div>
       </StyledSubHeader>
     );
   }
 }
 
-export default connect(
-  ({ updateTask, changeUserType, allEpics }) => ({
-    updateTask,
-    changeUserType,
-    allEpics
-  }),
-  null
-)(ProjectSubHeader);
+const mapStateToProps = state => {
+  return {
+    updateTask: state.updateTask,
+    allEpics: state.allEpics,
+    epicTasks: state.epicTasks
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(ProjectSubHeader));

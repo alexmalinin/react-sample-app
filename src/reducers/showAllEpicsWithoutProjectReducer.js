@@ -2,7 +2,7 @@ import {
   SUCCESS,
   FAIL,
   SHOW_ALL_EPICS_WITHOUT_PROJECT
-} from "../constans/constans";
+} from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

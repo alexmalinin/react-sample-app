@@ -24,7 +24,7 @@ class SignUp extends Component {
   };
 
   componentWillMount() {
-    // localStorage.removeItem("user_email");
+    document.title = "Sign Up | Digital Village";
     run(0)();
     this.setState({
       confirm: false
@@ -45,7 +45,7 @@ class SignUp extends Component {
               person={changeUserType}
               failLogin={failLogin}
               Loading={Loading}
-              onSubmit={this.submit("specialists")}
+              onSubmit={this.submit("specialist")}
             />
           </StyledSignUpForm>
         )
@@ -57,7 +57,7 @@ class SignUp extends Component {
             <SignUpFormClient
               person={changeUserType}
               failLogin={failLogin}
-              onSubmit={this.submit("customers")}
+              onSubmit={this.submit("customer")}
             />
           </StyledSignUpForm>
         )
@@ -79,7 +79,7 @@ class SignUp extends Component {
                   Enter your email and start using Digital Village
                 </div>
               </StyledFormHeader>
-              <Tabs mTop="180" widthAuto action="">
+              <Tabs widthAuto action="">
                 <Tab
                   className={
                     Loading ? "loading content-loading" : "loading content-load"

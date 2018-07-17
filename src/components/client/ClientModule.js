@@ -6,7 +6,7 @@ import {
   Container,
   ContainerLarge
 } from "../../styleComponents/layout/Container";
-import { createProjectEpic, showProjectWithId } from "../../actions/actions";
+import { createProjectEpic } from "../../actions/actions";
 import { run } from "../../helpers/scrollToElement";
 import ClientModuleForm from "./forms/ClientModuleForm";
 
@@ -25,8 +25,13 @@ class ClientProjects extends Component {
     return (
       <ContainerLarge>
         <SubHeader module projectId={projectId} />
-        <Container sidebarCondition={true} indentBot>
-          <ClientModuleForm onSubmit={this.submit} />
+        <Container
+          sidebarCondition={true}
+          indentBot
+          transparent
+          dashboardContainer
+        >
+          <ClientModuleForm onSubmit={this.submit} projectId={projectId} />
           {this.state.saved && (
             <Redirect to={`/dashboard/project/${projectId}`} />
           )}
@@ -51,11 +56,6 @@ class ClientProjects extends Component {
   }
 }
 
-export default connect(
-  ({ projectWithId, createEpic, allEpics }) => ({
-    projectWithId,
-    createEpic,
-    allEpics
-  }),
-  { createProjectEpic, showProjectWithId }
-)(ClientProjects);
+export default connect(({ createEpic }) => ({ createEpic }), {
+  createProjectEpic
+})(ClientProjects);

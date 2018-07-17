@@ -1,11 +1,12 @@
-export const run = (element, acceleration, part) => {
+export const run = (element, acceleration, offset) => {
   let timer;
   let current = window.pageYOffset;
   let to;
+
   if (typeof element === "object") {
-    to = element.getBoundingClientRect().top + current;
+    to = element.getBoundingClientRect().top;
     if (current < to) {
-      to = !part ? to : to + element.getBoundingClientRect().height;
+      to = offset ? to - offset : to + element.getBoundingClientRect().height;
     } else {
       to = to - 30;
     }

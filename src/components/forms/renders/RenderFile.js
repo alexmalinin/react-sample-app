@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { initialize, change } from "redux-form";
 import axios from "axios";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
-import { PORT } from "../../../constans/constans";
+import { PORT } from "../../../constants/constants";
 
 import Dropzone from "react-dropzone";
 import { Loader } from "semantic-ui-react";
@@ -88,7 +88,6 @@ class RenderFile extends Component {
     }
 
     for (let file of files) {
-      console.log(file);
       const {
         onSelfSubmit,
         entity_type,
@@ -117,10 +116,12 @@ class RenderFile extends Component {
               dispatch(change(form, input.name, data[input.name]));
               this.setState({ loading: false });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
         } else {
-          this.fileHub = [...this.fileHub, {document: reader.result, title: file.name, size: file.size}];
-          console.log(this.fileHub);
+          this.fileHub = [
+            ...this.fileHub,
+            { document: reader.result, title: file.name, size: file.size }
+          ];
           this.setState({
             files: [...this.state.files, file],
             loading: false
@@ -253,7 +254,7 @@ class RenderFile extends Component {
         className={className}
         {...rest}
       >
-        <p>{label}</p>
+        <label>{label}</label>
         <span />
 
         {dropzone &&
@@ -264,8 +265,10 @@ class RenderFile extends Component {
               onDrop={this.onDrop}
               accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
             >
-              <p>Drop file here or click to select</p>
-              {!rest.small && <i className="fa fa-cloud-download-alt" />}
+              <span className="dropzone-label">
+                Drag and drop or choose your files
+              </span>
+              {/* {!rest.small && <i className="fa fa-cloud-download-alt" />} */}
             </Dropzone>
           )}
 

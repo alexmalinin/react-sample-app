@@ -1,4 +1,4 @@
-import { SUCCESS, FAIL, SHOW_SPECIALIST_WITH_ID } from "../constans/constans";
+import { SUCCESS, FAIL, SHOW_SPECIALIST_WITH_ID } from "../actions/types";
 
 export default (state = null, action) => {
   const { type, data } = action;

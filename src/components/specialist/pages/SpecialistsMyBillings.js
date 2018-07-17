@@ -7,7 +7,7 @@ import {
 } from "../../../actions/actions";
 import { run } from "../../../helpers/scrollToElement";
 import SpecialistBillingForm from "../forms/SpecialistBillingForm";
-import { getAllUrlParams, compareObjects } from "../../../helpers/functions";
+import { getAllUrlParams } from "../../../helpers/functions";
 import NavigationPrompt from "react-router-navigation-prompt";
 import ConfirmationModal from "../../modals/ConfirmationModal";
 
@@ -37,10 +37,6 @@ class SpecialistsMyBillings extends Component {
     this.setState({ isEditing });
   }
 
-  componentWillUnmount() {
-    this.props.showSpecialistData();
-  }
-
   render() {
     const { isEditing } = this.state;
 
@@ -57,7 +53,9 @@ class SpecialistsMyBillings extends Component {
 
         <NavigationPrompt
           when={(crntLocation, nextLocation) => {
-            this.setState({ nextLocation: nextLocation.pathname });
+            this.setState({
+              nextLocation: nextLocation.pathname + nextLocation.search
+            });
             return this.state.isEdited && !this.state.nextStep;
           }}
         >
@@ -73,8 +71,8 @@ class SpecialistsMyBillings extends Component {
         </NavigationPrompt>
 
         {this.state.nextStep ? (
-          this.state.nextLocation === "/dashboard/company" ? (
-            <Redirect to="company" />
+          this.state.nextLocation ? (
+            <Redirect to={this.state.nextLocation} />
           ) : (
             <Redirect to="about" />
           )

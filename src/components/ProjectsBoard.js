@@ -1,63 +1,89 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import { Dimmer } from "semantic-ui-react";
+
 import { ContainerLarge } from "../styleComponents/layout/Container";
-import {
-  showAllProjects,
-  showAllEpics,
-  deleteProjectEpic,
-  updateProjectEpic,
-  createEpicTask,
-  showEpicTasks,
-  updateEpicTask,
-  showAllSpecialists,
-  showProjectTeam,
-  updateCreatedProject,
-  showProjectWithId
-} from "../actions/actions";
-import { SubmissionError, initialize, reset } from "redux-form";
-import { CLIENT, SPECIALIST, S_REDGUY, PORT } from "../constans/constans";
 import { S_Board } from "../styleComponents/S_Board";
 import BoardSubHeader from "./layout/BoardSubHeader";
 import ModuleCard from "./layout/ModuleCard";
 import KanbanBoard from "./layout/KanbanBoard";
-import { getUserRole, getUserType } from "../helpers/functions";
 import EditProject from "./forms/hoc/EditProject";
+import EditModule from "./EditModule";
+import NotFound from "./NotFound";
+
+import {
+  showAllProjects,
+  showAllEpics,
+  showEpicTasks,
+  showProjectTeam,
+  showProjectWithId,
+  showProjectEpic
+} from "../actions/actions";
+import { CLIENT, SPECIALIST, S_REDGUY } from "../constants/user";
+import { getUserRole, getUserType, difference } from "../helpers/functions";
+import { run } from "../helpers/scrollToElement";
 
 class ProjectsBoard extends Component {
   state = {
+    specialists: [],
     fetchEpicTasks: true,
     myTasks: false
   };
 
-  componentWillMount() {
-    this.props.showAllProjects();
-    this.props.showAllEpics(this.props.projectId);
-    this.props.showProjectTeam(this.props.projectId);
+  componentDidMount() {
+    const {
+      showAllEpics,
+      showProjectTeam,
+      showProjectWithId,
+      projectWithId,
+      match: {
+        params: { projectId }
+      }
+    } = this.props;
+    showAllEpics(projectId);
+    showProjectTeam(projectId);
+    if (!projectWithId.loaded && projectId) {
+      showProjectWithId(projectId);
+    }
+    run(0)();
   }
 
   componentWillReceiveProps(nextProps) {
+    const {
+      match: {
+        params: { moduleId: currentEpic, projectId }
+      },
+      allEpics: { epics, loaded },
+      projectWithId: { project, loaded: projLoaded, projError }
+    } = nextProps;
     let epicId;
-    if (
-      nextProps.allEpics &&
-      nextProps.currentEpic !== "all" &&
-      nextProps.projectWithId
-    ) {
-      if (+nextProps.currentEpic > nextProps.allEpics.length) {
-        epicId = nextProps.allEpics[nextProps.allEpics.length - 1].id;
+
+    if (loaded && currentEpic && Number.isInteger(+currentEpic) && projectId) {
+      if (+currentEpic > epics.length) {
         nextProps.history.push(
-          `/dashboard/project/${nextProps.projectWithId.id}/module/all`
+          `/dashboard/project/${projectId}/module/${epics.length}/view`
         );
-      } else epicId = nextProps.allEpics[nextProps.currentEpic - 1].id;
+      } else epicId = epics[currentEpic - 1].id;
     }
 
-    if (nextProps.projectWithId) {
-      document.title = `${nextProps.projectWithId.name} | Digital Village`;
+    if (projLoaded) {
+      if (!projError) {
+        document.title = `${project.name} | Digital Village`;
+      } else {
+        if (projError.response.status === 404) {
+          document.title = `Not found | Digital Village`;
+        }
+        if (projError.response.status === 500) {
+          document.title = `No access | Digital Village`;
+        }
+      }
     }
 
     if (nextProps.deleteEpic) {
       if (this.props.deleteEpic !== nextProps.deleteEpic) {
-        nextProps.showAllEpics(nextProps.projectId);
+        nextProps.showAllEpics(projectId);
       }
     }
 
@@ -73,30 +99,17 @@ class ProjectsBoard extends Component {
     }
 
     if (epicId) {
-      if (this.props.epicTasks) {
-        if (this.props.currentEpic !== nextProps.currentEpic) {
+      if (this.props.epicTasks.loaded) {
+        if (this.props.match.params.moduleId !== currentEpic) {
+          nextProps.showProjectEpic(projectId, epicId);
           nextProps.showEpicTasks(epicId);
         }
       } else if (this.state.fetchEpicTasks) {
+        nextProps.showProjectEpic(projectId, epicId);
         nextProps.showEpicTasks(epicId);
+        nextProps.showProjectEpic(projectId, epicId);
         this.setState({ fetchEpicTasks: false });
       }
-    }
-
-    if (nextProps.createTask && nextProps.createTask.successId) {
-      if (this.props.createTask) {
-        if (this.props.createTask !== nextProps.createTask) {
-          nextProps.showEpicTasks(epicId);
-        }
-      } else nextProps.showEpicTasks(epicId);
-    }
-
-    if (nextProps.deleteTask && nextProps.deleteTask.successId) {
-      if (this.props.deleteTask) {
-        if (this.props.deleteTask !== nextProps.deleteTask) {
-          nextProps.showEpicTasks(epicId);
-        }
-      } else nextProps.showEpicTasks(epicId);
     }
 
     if (nextProps.assignSpecialist) {
@@ -115,16 +128,18 @@ class ProjectsBoard extends Component {
       } else nextProps.showEpicTasks(epicId);
     }
 
-    if (nextProps.updateTask && epicId) {
-      if (this.props.updateTask) {
-        if (this.props.updateTask != nextProps.updateTask) {
-          nextProps.showEpicTasks(epicId);
-          nextProps.showAllEpics(nextProps.projectId);
-        }
-      } else {
-        nextProps.showEpicTasks(epicId);
-        nextProps.showAllEpics(nextProps.projectId);
+    if (nextProps.projectTeam) {
+      if (nextProps.projectTeam.project_id === +projectId) {
+        this.setState({ specialists: nextProps.projectTeam.specialists });
       }
+    }
+
+    if (nextProps.createTask) {
+      if (this.props.createTask) {
+        if (this.props.createTask !== nextProps.createTask) {
+          nextProps.showEpicTasks(epicId);
+        }
+      } else nextProps.showEpicTasks(epicId);
     }
   }
 
@@ -132,38 +147,56 @@ class ProjectsBoard extends Component {
     this.setState({ myTasks: !this.state.myTasks });
   };
 
-  renderContent = () => {
-    const { projectId, allEpics, showAllEpics, currentEpic } = this.props;
+  renderProjectBoard() {
+    const {
+      epicTasks: { tasks, loaded, loading },
+      match: {
+        params: { status }
+      }
+    } = this.props;
 
-    const epicId =
-      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
-        ? allEpics[currentEpic - 1].id
-        : null;
-
-    if (currentEpic !== "all") {
-      return (
-        <S_Board>
+    return (
+      <S_Board className={loading ? "loading" : ""}>
+        {!loaded && loading && <p className="noTasks">Loading</p>}
+        {loaded && !!tasks.length ? (
           <KanbanBoard
-            currentProject={projectId}
-            currentEpic={currentEpic}
-            epicId={epicId}
+            tasks={tasks}
             myTasks={this.state.myTasks}
+            specialists={this.state.specialists}
           />
-        </S_Board>
-      );
+        ) : (
+          <p className="noTasks">There is no tasks yet</p>
+        )}
+      </S_Board>
+    );
+  }
+
+  renderProjectPage = () => {
+    const {
+      showAllEpics,
+      allEpics: { loaded, epics },
+      match: {
+        params: { projectId, moduleId }
+      },
+      history
+    } = this.props;
+
+    if (moduleId) {
+      this.renderProjectBoard();
     } else {
       return (
         <S_Board>
           <EditProject projectId={projectId} />
           <div className="moduleWrapper">
-            {allEpics &&
-              allEpics.map((epic, key) => (
+            {loaded &&
+              epics.map((epic, key) => (
                 <ModuleCard
                   epic={epic}
                   key={key}
                   number={key + 1}
                   project={projectId}
                   updateEpicList={showAllEpics}
+                  history={history}
                 />
               ))}
             {(getUserType() === CLIENT || getUserRole() === S_REDGUY) && (
@@ -181,8 +214,8 @@ class ProjectsBoard extends Component {
               </div>
             )}
             {getUserType() === SPECIALIST &&
-              allEpics &&
-              allEpics.length === 0 && (
+              loaded &&
+              epics.length === 0 && (
                 <div className="noModules">
                   <p>No modules yet</p>
                 </div>
@@ -193,72 +226,98 @@ class ProjectsBoard extends Component {
     }
   };
 
-  render() {
-    const { projectId, allEpics, currentEpic, epicTasks } = this.props;
-    const { renderMessage, renderErrorMessage, myTasks } = this.state;
+  renderModulePage = () => {
+    const {
+      match: {
+        params: { moduleId, projectId }
+      },
+      allEpics: { epics, loaded },
+      history
+    } = this.props;
+    //make edit module dependent on show epic
+    return (
+      loaded && (
+        <EditModule
+          currentEpic={moduleId}
+          epicId={epics[+moduleId - 1].id}
+          projectId={projectId}
+          history={history}
+        />
+      )
+    );
+  };
 
-    const epicId =
-      allEpics && currentEpic !== "all" && +currentEpic <= allEpics.length
-        ? allEpics[currentEpic - 1].id
-        : null;
+  renderContent = status => {
+    switch (status) {
+      case "view":
+        return this.renderProjectBoard();
+      case "edit":
+        return this.renderModulePage();
+      default:
+        return this.renderProjectPage();
+    }
+  };
+
+  render() {
+    const {
+      projectWithId: { error },
+      match: {
+        params: { status }
+      }
+    } = this.props;
+
+    if (error) {
+      switch (error.response.status) {
+        case 404:
+          return <NotFound />;
+        case 500:
+          return (
+            <S_Board>
+              <p className="resp-error">
+                You are not authorized to access this page
+              </p>
+            </S_Board>
+          );
+        default:
+          return <NotFound />;
+      }
+    }
 
     return (
       <ContainerLarge indentBot>
         <BoardSubHeader
-          project={projectId}
-          currentEpic={currentEpic}
-          epicId={epicId}
-          epicTasks={epicTasks}
           toggleMyTasks={this.toggleMyTasks}
-          myTasks={myTasks}
+          myTasks={this.state.myTasks}
         />
-        {this.renderContent()}
+
+        {this.renderContent(status)}
       </ContainerLarge>
     );
   }
 }
 
-export default connect(
-  ({
-    allProjects,
-    allEpics,
-    deleteEpic,
-    createEpic,
-    createTask,
-    epicTasks,
-    updateTask,
-    deleteTask,
-    allSpecialists,
-    assignSpecialist,
-    removeSpecialist,
-    projectWithId
-  }) => ({
-    allProjects,
-    allEpics,
-    deleteEpic,
-    createEpic,
-    createTask,
-    epicTasks,
-    updateTask,
-    deleteTask,
-    allSpecialists,
-    assignSpecialist,
-    removeSpecialist,
-    projectWithId
-  }),
-  {
+const mapStateToProps = state => {
+  return {
+    showEpic: state.showEpic,
+    allEpics: state.allEpics,
+    deleteEpic: state.deleteEpic,
+    createEpic: state.createEpic,
+    epicTasks: state.epicTasks,
+    createTask: state.createTask,
+    assignSpecialist: state.assignSpecialist,
+    removeSpecialist: state.removeSpecialist,
+    projectWithId: state.projectWithId,
+    projectTeam: state.projectTeam
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, {
     showAllProjects,
     showAllEpics,
-    deleteProjectEpic,
-    updateProjectEpic,
-    createEpicTask,
+    showProjectEpic,
     showEpicTasks,
-    updateEpicTask,
-    showAllSpecialists,
     showProjectTeam,
-    updateCreatedProject,
-    showProjectWithId,
-    initialize,
-    reset
-  }
-)(ProjectsBoard);
+    showProjectWithId
+  })(ProjectsBoard)
+);
