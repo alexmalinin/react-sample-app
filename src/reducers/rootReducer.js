@@ -119,7 +119,10 @@ const appReducer = combineReducers({
 });
 
 export default (state, action) => {
-  if (action.type === LOG_OUT) state = undefined;
+  if (action.type === LOG_OUT) {
+    localStorage.clear();
+    state = undefined;
+  }
 
   return appReducer(state, action);
 };

@@ -7,30 +7,27 @@ import {
   LOG_OUT
 } from "../actions/types";
 
-let result;
+const getInitialState = () => ({
+  data: {
+    access_token: localStorage.getItem("jwt_token")
+  }
+});
 
-export default (state = null, action) => {
-  const { type, data, firstLogin = false } = action;
+export default (state = getInitialState(), action) => {
+  const { type, data } = action;
   switch (type) {
     case SIGN_IN:
-      result = { data, Loading: true };
-      return result;
+      return { data, Loading: true };
     case SIGN_IN + SUCCESS:
-      result = { data, isLogIn: true };
-      return result;
+      return { data, isLogIn: true };
     case SIGN_IN + FAIL:
-      result = { data, failSignIn: true };
-      return result;
+      return { data, failSignIn: true };
     case LOG_OUT:
-      localStorage.clear();
-      result = { ...state, isLogIn: false };
-      return result;
+      return { ...state, isLogIn: false };
     case GET_TOKEN_FOR_RESET_PASSWORD + SUCCESS:
-      result = { data, resetPassword: true };
-      return result;
+      return { data, resetPassword: true };
     case GET_TOKEN_FOR_RESET_PASSWORD + FAIL:
-      result = { data, failResetPassword: true };
-      return result;
+      return { data, failResetPassword: true };
     case GET_PASSWORDS_FOR_RESET_PASSWORD + SUCCESS:
       return data;
     default:
