@@ -8,11 +8,29 @@ export const IMAGE_PORT =
 
 export const BLANK_AVATAR = "/images/icon-avatar.svg";
 
+// Query methods
+
 export const GET = "GET";
 export const POST = "POST";
 export const PUT = "PUT";
 export const DELETE = "DELETE";
 
+// Query statuses
+
 export const PENDING = "_PENDING";
 export const FULFILLED = "_FULFILLED";
 export const REJECTED = "_REJECTED";
+
+// Types
+
+export const CLIENT = "Client";
+export const SPECIALIST = "Specialist";
+
+// Roles
+
+export const C_CUSTOMER = "customer";
+
+export const S_ACTIVE = "active";
+export const S_PASSIVE = "passive";
+export const S_CORE = "core";
+export const S_REDGUY = "red_guy";

@@ -10,12 +10,8 @@ const reduxDevTools =
     : window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__(); // before production {}
 
-export default function configureStore(initialState) {
-  const rootReducer = combineReducers(reducers);
-
-  return createStore(
-    rootReducer,
-    reduxDevTools,
-    applyMiddleware(thunkMiddleware, promiseMiddleware())
-  );
-}
+export default createStore(
+  combineReducers(reducers),
+  reduxDevTools,
+  applyMiddleware(thunkMiddleware, promiseMiddleware())
+);

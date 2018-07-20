@@ -9,7 +9,7 @@ import "./index.css";
 import Test from "./Test";
 
 ReactDOM.render(
-  <Provider store={store()}>
+  <Provider store={store}>
     <App />
     {/* <Test /> */}
   </Provider>,
