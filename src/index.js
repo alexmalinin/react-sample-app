@@ -9,9 +9,9 @@ import "./index.css";
 import Test from "./Test";
 
 ReactDOM.render(
-  <Provider store={store}>
-    {/* <App /> */}
-    <Test />
+  <Provider store={store()}>
+    <App />
+    {/* <Test /> */}
   </Provider>,
   document.getElementById("root")
 );
