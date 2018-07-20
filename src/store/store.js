@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
+import promiseMiddleware from "redux-promise-middleware";
 import thunk from "redux-thunk";
 
 import reducer from "../reducers/rootReducer";
@@ -73,6 +74,7 @@ import searchSpecialist from "../middlewares/searchSpecialistApi";
 import searchSpecialistForProject from "../middlewares/searchSpecialistForProjectApi";
 
 const enhancer = applyMiddleware(
+  promiseMiddleware(),
   thunk,
   contactRequest,
   signUp,
