@@ -1,0 +1,3 @@
+export const EPIC_TASKS_SHOW = "EPIC_TASKS_SHOW";
+export const EPIC_TASK_CREATE = "EPIC_TASK_CREATE";
+export const EPIC_TASK_DELETE = "EPIC_TASK_DELETE";

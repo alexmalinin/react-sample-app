@@ -2,3 +2,8 @@ export { reducer as form } from "redux-form";
 export { default as skills } from "./skills";
 export { default as signIn } from "./signIn";
 export { default as projectsReducer } from "./projects";
+export { default as user } from "./user";
+export { default as industries } from "./industries";
+export { default as teamsReducer } from "./teams";
+export { default as channelsReducer } from "./channels";
+export { default as tasksReducer } from "./tasks";
