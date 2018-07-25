@@ -1,3 +1,3 @@
-import { getSkills } from "./actions";
+import { showAllProjects } from "./actions";
 
-export { getSkills };
+export { showAllProjects };

@@ -136,8 +136,8 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
   return {
-    changeUserType: state.signIn.userType,
-    signIn: state.signIn
+    changeUserType: state.changeUserType,
+    signIn: state.signInReducer
   };
 };
 

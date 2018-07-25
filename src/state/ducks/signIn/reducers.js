@@ -1,32 +1,58 @@
+import jwtDecode from "jwt-decode";
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { FULFILLED, REJECTED, PENDING, SPECIALIST } from "../../../utilities";
+import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
+import { getUserType } from "./utils";
 
-const initialState = {
-  loading: false,
-  logged: false,
-  userType: SPECIALIST
-};
+const getInitialState = () => {
+  const token = localStorage.getItem("jwt_token");
 
-const signInReducer = createReducer(initialState)({
-  [types.SIGN_IN + PENDING]: (state, action) => {
-    return { ...state, loading: true, failSignIn: false };
-  },
-  [types.SIGN_IN + FULFILLED]: (state, action) => {
+  if (token) {
+    const { user_id, aud, status } = jwtDecode(token);
+
     return {
-      ...state,
-      access_token: action.payload.data.access_token,
       loading: false,
-      logged: true
-    };
-  },
-  [types.SIGN_IN + REJECTED]: (state, action) => {
-    return {
-      ...state,
-      loading: false,
-      failSignIn: true
+      status,
+      auth: {
+        userType: getUserType(aud),
+        role: aud,
+        id: user_id
+      }
     };
   }
+
+  return {
+    loading: false,
+    auth: {}
+  };
+};
+
+const signInReducer = createReducer(getInitialState())({
+  [types.SIGN_IN + PENDING]: (state, action) => ({
+    ...state,
+    loading: true
+  }),
+
+  [types.SIGN_IN + FULFILLED]: (state, { payload }) => {
+    const { user_id, aud, status } = jwtDecode(payload.data.access_token);
+
+    return {
+      ...state,
+      loading: false,
+      status,
+      auth: {
+        userType: getUserType(aud),
+        role: aud,
+        id: user_id
+      }
+    };
+  },
+
+  [types.SIGN_IN + REJECTED]: (state, action) => ({
+    ...state,
+    loading: false,
+    failSignIn: true
+  })
 });
 
 export default signInReducer;

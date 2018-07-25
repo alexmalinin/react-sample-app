@@ -1,14 +1,21 @@
 import * as types from "./types";
-import * as utils from "./utils";
 import { createReducer } from "../../utils";
-import { FULFILLED } from "../../../utilities";
+import { FULFILLED, PENDING } from "../../../utilities";
 
-const initialState = [];
+const initialState = {
+  loading: false,
+  loaded: false,
+  projects: {},
+  error: null
+};
 
-const cartReducer = createReducer(initialState)({
-  [types.GET_SKILLS + FULFILLED]: (state, action) => {
-    return action.payload.data;
-  }
+const projectsReducer = createReducer(initialState)({
+  [types.SHOW_ALL_PROJECTS]: (state, { payload }) => ({
+    ...state,
+    projects: {
+      ...payload
+    }
+  })
 });
 
-export default cartReducer;
+export default projectsReducer;
