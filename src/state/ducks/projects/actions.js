@@ -1,9 +1,18 @@
 import * as types from "./types";
 import mapKeys from "lodash/mapKeys";
 import { fetch, selectors } from "../../utils";
-import { GET, SPECIALIST, CLIENT, POST } from "../../../utilities";
+import {
+  GET,
+  SPECIALIST,
+  CLIENT,
+  POST,
+  PUT,
+  createNotification
+} from "../../../utilities";
 
-export const showAllProjects = (usertype, id) => {
+import { postProject } from "./utils";
+
+export const showAllProjects = () => {
   return (dispatch, getState) => {
     const state = getState(),
       id = selectors.getUserId(state),
@@ -24,9 +33,69 @@ export const showAllProjects = (usertype, id) => {
 
     fetch(GET, url).then(({ data }) => {
       dispatch({
-        type: types.SHOW_ALL_PROJECTS,
+        type: types.PROJECTS_SHOW,
         payload: mapKeys(data, "id")
       });
     });
+  };
+};
+
+export const saveCreatedProgect = payload => {
+  let logo = payload["logo"] ? payload["logo"][0] : null;
+
+  return (dispatch, getState) => {
+    const state = getState(),
+      auth = selectors.getAuth(state);
+
+    if (logo) {
+      let reader = new FileReader();
+      reader.readAsDataURL(logo);
+
+      reader.onload = () => {
+        dispatch({
+          type: types.PROJECT_SAVE,
+          payload: fetch(POST, `/projects`, {
+            project: postProject(auth, payload, reader.result)
+          })
+        })
+          .then(({ value: { data } }) => {
+            createNotification({
+              type: "success",
+              text: `${
+                data.name ? `${data.name} project ` : "Project"
+              } was created`
+            });
+          })
+          .catch(error => {
+            createNotification({
+              type: "error"
+            });
+
+            console.error(error);
+          });
+      };
+    } else {
+      dispatch({
+        type: types.PROJECT_SAVE,
+        payload: fetch(POST, `/projects`, {
+          project: postProject(auth, payload)
+        })
+      })
+        .then(({ value: { data } }) => {
+          createNotification({
+            type: "success",
+            text: `${
+              data.name ? `${data.name} project ` : "Project"
+            } was created`
+          });
+        })
+        .catch(error => {
+          createNotification({
+            type: "error"
+          });
+
+          console.error(error);
+        });
+    }
   };
 };

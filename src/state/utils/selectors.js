@@ -3,5 +3,9 @@ export function getUserType(state) {
 }
 
 export function getUserId(state) {
-  return state.signIn.auth.id;
+  return state.signIn.auth.user_id;
+}
+
+export function getAuth(state) {
+  return state.signIn.auth;
 }

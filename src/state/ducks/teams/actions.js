@@ -1,11 +1,30 @@
 import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
-import { fetch } from "../../utils";
-import { GET, POST, createNotification } from "../../../utilities";
+import { fetch, selectors } from "../../utils";
+import {
+  GET,
+  POST,
+  createNotification,
+  getUserUrl,
+  DELETE
+} from "../../../utilities";
 
-export const showTeams = id => {
-  return dispatch => {
-    fetch(GET, `/specialists/${id}/teams`).then(({ data }) => {
+/**
+ * Get array of all teams, specialist assigned on
+ * || Get array of all teams, assigned on customer projects
+ *
+ * @param  {number} id id of specialist
+ */
+
+export const showTeams = () => {
+  return (dispatch, getState) => {
+    const state = getState(),
+      id = selectors.getUserId(state),
+      userType = selectors.getUserType(state);
+
+    const url = getUserUrl(userType);
+
+    fetch(GET, `/${url}/${id}/teams`).then(({ data }) => {
       dispatch({
         type: types.SHOW_TEAMS,
         payload: mapKeys(data, "id")
@@ -54,6 +73,36 @@ export const createCustomTeam = (data, specialistId) => {
         createNotification({
           type: "success",
           text: `${data.name ? `${data.name} team ` : "Team"} was created`
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
+      });
+  };
+};
+
+/**
+ * Delete custom team
+ *
+ * @param  {object} team // team to delete
+ */
+
+export const removeCustomTeam = team => {
+  const { id, specialist_id } = team;
+
+  return dispatch => {
+    dispatch({
+      type: types.CUSTOM_TEAM_DELETE,
+      payload: fetch(DELETE, `/teams/${id}/remove_team/${specialist_id}`)
+    })
+      .then(({ value: { data } }) => {
+        createNotification({
+          type: "success",
+          text: `${data.name ? `${data.name} team ` : "Team"} was deleted`
         });
       })
       .catch(error => {

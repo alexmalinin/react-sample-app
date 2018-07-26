@@ -1,14 +1,63 @@
-import { renameObjPropNames } from "../../../utilities";
+import { S_REDGUY } from "../../../utilities";
 
-export function prepareForSelect(skills) {
-  skills.forEach(skill => {
-    renameObjPropNames(skill, "id", "value");
-    renameObjPropNames(skill, "name", "label");
-  });
-  skills.sort((a, b) => {
-    if (a.label < b.label) return -1;
-    else if (a.label > b.label) return 1;
-    else return 0;
-  });
-  return skills;
+/**
+ * Returns an object of project data
+ *
+ * @param  {object} payload project data
+ * @param  {string} logo logo of the project. Optional parametr
+ * @returns {object}
+ */
+export function postProject(auth, payload, logo = null) {
+  const { id, aud } = auth;
+
+  let files = payload.file
+    ? payload.file.map(({ document, title, size }) => {
+        return {
+          document,
+          title,
+          size,
+          entity_type: "Project"
+        };
+      })
+    : [];
+
+  let skill_ids =
+    payload["skills"] &&
+    payload["skills"].map(skill => {
+      return skill.value;
+    });
+
+  let specialistId = aud === S_REDGUY ? id : null,
+    status = null;
+
+  if (payload["state"] === "draft") {
+    status = payload["state"];
+  } else if (specialistId) {
+    status = "discovery";
+  }
+
+  return {
+    name: payload["name"],
+    customer_id:
+      (payload["customer_id"] && payload["customer_id"]["value"]) || id,
+    project_type_id:
+      (payload["project_type_id"] && payload["project_type_id"]["value"]) ||
+      null,
+    red_guy_id: specialistId,
+    description: payload["description"],
+    user_story: payload["user_story"],
+    state: status,
+    business_requirements: payload["requirements"],
+    business_rules: payload["rules"],
+    deliverables: payload["criteria"],
+    further_notes: payload["solution"],
+    logo: logo,
+    attached_files_attributes: files,
+    team_attributes: {
+      name: payload["name"],
+      specialist_id: null,
+      custom_team: false
+    },
+    skill_ids
+  };
 }

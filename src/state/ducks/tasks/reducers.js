@@ -23,20 +23,40 @@ const tasksReducer = createReducer(initialState)({
     loading: true
   }),
 
+  [types.EPIC_TASK_CREATE + FULFILLED]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    tasks: {
+      ...state.tasks,
+      [payload.data.id]: payload.data
+    }
+  }),
+
   [types.EPIC_TASK_CREATE + REJECTED]: (state, action) => ({
     ...state,
     loading: false,
     error: true
   }),
 
-  [types.EPIC_TASK_CREATE + FULFILLED]: (state, { payload }) => ({
+  [types.EPIC_TASK_DELETE + PENDING]: (state, action) => ({
+    ...state,
+    loading: true
+  }),
+
+  [types.EPIC_TASK_DELETE + FULFILLED]: (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: true,
-    teams: {
-      ...state.teams,
-      [payload.data.id]: payload.data
+    tasks: {
+      ...omit(state.tasks, payload.data.id)
     }
+  }),
+
+  [types.EPIC_TASK_DELETE + REJECTED]: (state, action) => ({
+    ...state,
+    loading: false,
+    error: true
   })
 });
 

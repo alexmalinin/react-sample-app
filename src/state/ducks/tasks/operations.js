@@ -1,3 +1,3 @@
-import { showEpicTasks } from "./actions";
+import { showEpicTasks, createEpicTask, deleteEpicTask } from "./actions";
 
-export { showEpicTasks };
+export { showEpicTasks, createEpicTask, deleteEpicTask };

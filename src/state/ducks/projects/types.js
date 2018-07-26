@@ -1,1 +1,2 @@
-export const SHOW_ALL_PROJECTS = "SHOW_ALL_PROJECTS";
+export const PROJECTS_SHOW = "PROJECTS_SHOW";
+export const PROJECT_SAVE = "PROJECT_SAVE";

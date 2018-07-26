@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getSkills } from "./state/ducks/skills/operations";
-import { showUserData, updateUserProfile } from "./state/ducks/user/operations";
+import {
+  showUserData,
+  updateUserProfile,
+  updateSpecialistIndustry,
+  updateCompany,
+  updateBillings,
+  editEducationCardWithId,
+  editExperienceCardWithId
+} from "./state/ducks/users/operations";
 import { getIndustries } from "./state/ducks/industries/operations";
 import {
   showTeams,
   showCustomTeams,
-  createCustomTeam
+  createCustomTeam,
+  removeCustomTeam
 } from "./state/ducks/teams/operations";
 import {
   showChannels,
@@ -14,27 +23,90 @@ import {
   deleteTeamChannel,
   updateTeamChannel
 } from "./state/ducks/channels/operations";
-import { showEpicTasks } from "./state/ducks/tasks/operations";
+import {
+  showEpicTasks,
+  createEpicTask,
+  deleteEpicTask
+} from "./state/ducks/tasks/operations";
+
+import {
+  showAllProjects,
+  saveCreatedProgect
+} from "./state/ducks/projects/operations";
 import { NotificationContainer } from "react-notifications";
 
 class Test extends Component {
   componentDidMount() {
+    this.props.showUserData();
     // this.props.getSkills();
-    // this.props.showUserData("specialist", 59);
-    // this.props.updateUserProfile({ profile: { first_name: "red" } }, {});
     // this.props.getIndustries();
-
     // this.props.showTeams(59);
-
     // this.props.showChannels(80);
-    this.props.showEpicTasks(92);
+    // this.props.showEpicTasks(92);
+    // this.props.showAllProjects(59);
 
     setTimeout(() => {
-      // this.props.createCustomTeam({ name: "RAZER" }, 59);
+      // this.props.editEducationCardWithId(
+      //   {
+      //     education: {
+      //       name: "abracada",
+      //       specialisation: "specialisation",
+      //       started_at: "09-06-2013",
+      //       finished_at: "09-06-2017",
+      //       degree: "degree",
+      //       description: "description"
+      //     }
+      //   },
+      //   37
+      // );
+      // this.props.editExperienceCardWithId(
+      //   {
+      //     work_experience: {
+      //       name: "Codica@228",
+      //       country: "Ukraine@22",
+      //       city: "Kharkivvv",
+      //       position: "Developer",
+      //       started_at: "09-06-2013",
+      //       finished_at: "09-06-2017",
+      //       description: "Amet quide"
+      //     }
+      //   },
+      //   10
+      // );
+      // this.props.updateBillings({
+      //   billing_type: 0,
+      //   card_name: "jhjashdas"
+      // });
+      // this.props.updateCompany({
+      //   name: "Company@@",
+      //   industry: { value: "sdd" },
+      //   number_of_employers: { value: 233 },
+      //   segment: { value: 233 }
+      // });
+      // this.props.updateSpecialistIndustry({
+      //   job_title: { label: "Junior", value: "Junior" },
+      //   project_type: { label: "Junior", value: "Junior" },
+      //   experience_level: { label: "Junior", value: "Junior" },
+      //   industry_area_id: { label: 22, value: 22 },
+      //   specialist_skills_attributes: null
+      // });
+      // this.props.updateUserProfile({ profile: { first_name: "Yura RED" } });
+      // this.props.saveCreatedProgect({
+      //   name: "ROROOR",
+      //   user_story: "some user story",
+      //   customer_id: { label: 36, value: 36 }
+      // });
+      // this.props.removeCustomTeam({ id: 620, specialist_id: 59 });
+      // this.props.deleteEpicTask(92, 234);
+      // this.props.createEpicTask(
+      //   { name: "Hello", description: "How are toy", user_story: "adasdadsd" },
+      //   92
+      // );
+      // this.props.createCustomTeam({ name: "Roma" }, 59);
       // this.props.showCustomTeams(59);
-      // this.props.deleteTeamChannel(80, 946);
-      // this.props.createTeamChannel(80, { name: "FIFA" });
-      // this.props.updateTeamChannel(80, 933, { name: "Rexter" });
+      // this.props.deleteTeamChannel(80, 956);
+      // this.props.createTeamChannel(80, { name: "FIFA@@" });
+      // this.props.updateTeamChannel(80, 933, { name: "Bladlad" });
     }, 5000);
   }
 
@@ -58,6 +130,11 @@ export default connect(mapStateToProps, {
   getSkills,
   showUserData,
   updateUserProfile,
+  updateSpecialistIndustry,
+  updateCompany,
+  updateBillings,
+  editEducationCardWithId,
+  editExperienceCardWithId,
   getIndustries,
   showTeams,
   showCustomTeams,
@@ -66,5 +143,10 @@ export default connect(mapStateToProps, {
   createTeamChannel,
   deleteTeamChannel,
   updateTeamChannel,
-  showEpicTasks
+  showEpicTasks,
+  createEpicTask,
+  deleteEpicTask,
+  removeCustomTeam,
+  showAllProjects,
+  saveCreatedProgect
 })(Test);

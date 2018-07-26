@@ -44,7 +44,7 @@ const channelsReducer = createReducer(initialState)({
     loading: false,
     channels: {
       ...state.channels,
-      [payload.data.id]: payload.data.id
+      [payload.data.id]: payload.data
     }
   }),
 
@@ -56,9 +56,16 @@ const channelsReducer = createReducer(initialState)({
   [types.CHANNEL_DELETE + FULFILLED]: (state, { payload }) => ({
     ...state,
     loading: false,
+    loaded: true,
     channels: {
-      ...omit(state, payload.data.id)
+      ...omit(state.channels, payload.data.id)
     }
+  }),
+
+  [types.CHANNEL_DELETE + REJECTED]: (state, action) => ({
+    ...state,
+    loading: false,
+    error: true
   })
 });
 

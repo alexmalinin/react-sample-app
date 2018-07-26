@@ -16,7 +16,7 @@ const getInitialState = () => {
       auth: {
         userType: getUserType(aud),
         role: aud,
-        id: user_id
+        user_id
       }
     };
   }
@@ -43,7 +43,7 @@ const signInReducer = createReducer(getInitialState())({
       auth: {
         userType: getUserType(aud),
         role: aud,
-        id: user_id
+        user_id
       }
     };
   },

@@ -1,5 +1,61 @@
 import jwtDecode from "jwt-decode";
 
+export const getUserInfo = ({
+  id,
+  first_name,
+  last_name,
+  avatar,
+  email,
+  address,
+  city,
+  country,
+  phone_number,
+  professional_experience_info,
+  project_interest,
+  educations,
+  work_experiences
+}) => ({
+  id,
+  first_name,
+  last_name,
+  avatar,
+  email,
+  address,
+  city,
+  country,
+  phone_number,
+  professional_experience_info,
+  project_interest,
+  educations,
+  work_experiences
+});
+
+export const getSpecialistIndustry = ({
+  job_title,
+  position,
+  industry_title,
+  experience_level_id,
+  industry_area_id,
+  contact_number,
+  project_type,
+  hourly_rate,
+  available,
+  skills,
+  communication_type
+}) => ({
+  job_title,
+  position,
+  industry_title,
+  experience_level_id,
+  industry_area_id,
+  contact_number,
+  project_type,
+  hourly_rate,
+  available,
+  skills,
+  communication_type
+});
+
 export function getSkillsAttr(data) {
   return data.skills_attributes
     ? data.skills_attributes.map(attr => {
@@ -15,34 +71,6 @@ export function getSpecAttr(data) {
 }
 
 /**
- * Returns an object of client profile data
- *
- * @param  {object} data client profile data
- * @param  {string} image avatar of the client. Optional parametr
- * @returns {object}
- *
- */
-
-function clientProfile(data, image = null) {
-  const token = localStorage.getItem("jwt_token");
-  const { user_id } = jwtDecode(token);
-
-  return {
-    avatar: image,
-    first_name: data["first_name"],
-    last_name: data["last_name"],
-    phone_number: data["phone_number"],
-    email: data["email"],
-    description: data["description"],
-    address_attributes: {
-      city: data["city"],
-      country: data["country"],
-      user_id
-    }
-  };
-}
-
-/**
  * Returns an object of specialist profile data
  *
  * @param  {object} data specialits data
@@ -53,9 +81,16 @@ function clientProfile(data, image = null) {
  *
  */
 
-function specialistProfile(data, education, experience, image) {
+export function specialistProfile(
+  data,
+  education = [],
+  experience = [],
+  image
+) {
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
+
+  console.log(education, experience);
 
   const educationData = education.map(item => {
     return {
@@ -89,6 +124,34 @@ function specialistProfile(data, education, experience, image) {
     professional_experience_info: data["professional_experience_info"],
     educations_attributes: educationData,
     work_experiences_attributes: experienceData,
+    address_attributes: {
+      city: data["city"],
+      country: data["country"],
+      user_id
+    }
+  };
+}
+
+/**
+ * Returns an object of client profile data
+ *
+ * @param  {object} data client profile data
+ * @param  {string} image avatar of the client. Optional parametr
+ * @returns {object}
+ *
+ */
+
+export function clientProfile(data, image = null) {
+  const token = localStorage.getItem("jwt_token");
+  const { user_id } = jwtDecode(token);
+
+  return {
+    avatar: image,
+    first_name: data["first_name"],
+    last_name: data["last_name"],
+    phone_number: data["phone_number"],
+    email: data["email"],
+    description: data["description"],
     address_attributes: {
       city: data["city"],
       country: data["country"],

@@ -87,7 +87,9 @@ export const createEpicTask = (data, epic, callback) => {
           text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
         });
 
-        callback();
+        if (callback) {
+          callback();
+        }
       })
       .catch(error => {
         createNotification({
@@ -119,7 +121,9 @@ export const deleteEpicTask = (epic, task, callback) => {
           text: `${data.name ? `${data.name} epic ` : "Epic"} was deleted`
         });
 
-        callback();
+        if (callback) {
+          callback();
+        }
       })
       .catch(error => {
         createNotification({
