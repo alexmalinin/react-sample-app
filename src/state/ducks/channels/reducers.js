@@ -6,7 +6,7 @@ import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
 const initialState = {
   loading: false,
   loaded: false,
-  channels: [],
+  channels: {},
   error: null
 };
 

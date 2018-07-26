@@ -6,7 +6,7 @@ import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
 const initialState = {
   loading: false,
   loaded: false,
-  teams: [],
+  teams: {},
   error: null
 };
 

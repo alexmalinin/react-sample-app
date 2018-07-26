@@ -33,11 +33,20 @@ import {
   showAllProjects,
   saveCreatedProgect
 } from "./state/ducks/projects/operations";
+
+import {
+  showAllEpics,
+  createProjectEpic,
+  deleteProjectEpic
+} from "./state/ducks/epics/operations";
+
 import { NotificationContainer } from "react-notifications";
 
 class Test extends Component {
   componentDidMount() {
-    this.props.showUserData();
+    // this.props.showUserData();
+    // this.props.showAllEpics(52);
+    // this.props.showAllEpics(53);
     // this.props.getSkills();
     // this.props.getIndustries();
     // this.props.showTeams(59);
@@ -46,6 +55,16 @@ class Test extends Component {
     // this.props.showAllProjects(59);
 
     setTimeout(() => {
+      // this.props.deleteProjectEpic(53, 103);
+      // this.props.createProjectEpic(
+      //   {
+      //     name: "Cool epic",
+      //     project_id: 53,
+      //     user_story: "dasasd",
+      //     business_requirements: "business_requirements"
+      //   },
+      //   53
+      // );
       // this.props.editEducationCardWithId(
       //   {
       //     education: {
@@ -148,5 +167,8 @@ export default connect(mapStateToProps, {
   deleteEpicTask,
   removeCustomTeam,
   showAllProjects,
-  saveCreatedProgect
+  saveCreatedProgect,
+  showAllEpics,
+  createProjectEpic,
+  deleteProjectEpic
 })(Test);
