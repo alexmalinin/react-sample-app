@@ -8,3 +8,4 @@ export { default as teamsReducer } from "./teams";
 export { default as channelsReducer } from "./channels";
 export { default as tasksReducer } from "./tasks";
 export { default as epicsReducer } from "./epics";
+export { default as searchReducer } from "./search";

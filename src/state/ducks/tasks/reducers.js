@@ -48,6 +48,7 @@ const tasksReducer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
+    error: false,
     tasks: {
       ...omit(state.tasks, payload.data.id)
     }

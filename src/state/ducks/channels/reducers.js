@@ -57,6 +57,7 @@ const channelsReducer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
+    error: false,
     channels: {
       ...omit(state.channels, payload.data.id)
     }

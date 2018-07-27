@@ -40,6 +40,11 @@ import {
   deleteProjectEpic
 } from "./state/ducks/epics/operations";
 
+import {
+  searchSpecialist,
+  searchSpecialistForProject
+} from "./state/ducks/search/operations";
+
 import { NotificationContainer } from "react-notifications";
 
 class Test extends Component {
@@ -55,6 +60,8 @@ class Test extends Component {
     // this.props.showAllProjects(59);
 
     setTimeout(() => {
+      this.props.searchSpecialistForProject(484);
+      // this.props.searchSpecialist();
       // this.props.deleteProjectEpic(53, 103);
       // this.props.createProjectEpic(
       //   {
@@ -170,5 +177,7 @@ export default connect(mapStateToProps, {
   saveCreatedProgect,
   showAllEpics,
   createProjectEpic,
-  deleteProjectEpic
+  deleteProjectEpic,
+  searchSpecialist,
+  searchSpecialistForProject
 })(Test);

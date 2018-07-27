@@ -36,6 +36,7 @@ const teamsReducer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
+    error: false,
     teams: {
       ...state.teams,
       [payload.data.id]: payload.data

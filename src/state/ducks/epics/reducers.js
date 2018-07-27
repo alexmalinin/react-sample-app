@@ -31,6 +31,7 @@ const epicsRedicer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
+    error: false,
     epics: {
       ...state.epics,
       [projectId]: {

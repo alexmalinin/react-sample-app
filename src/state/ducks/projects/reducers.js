@@ -25,6 +25,8 @@ const projectsReducer = createReducer(initialState)({
   [types.PROJECT_SAVE + FULFILLED]: (state, { payload }) => ({
     ...state,
     loading: false,
+    loaded: true,
+    error: false,
     projects: {
       ...state.projects,
       [payload.data.id]: payload.data
