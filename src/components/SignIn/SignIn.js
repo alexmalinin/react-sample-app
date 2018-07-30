@@ -28,6 +28,8 @@ class SignUp extends Component {
       location: { state }
     } = this.props;
 
+    console.log("auth", auth);
+
     let { isLogIn, data } = auth;
     let status = data ? data["status"] : null;
 

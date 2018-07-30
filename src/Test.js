@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { getSkills } from "./state/ducks/skills/operations";
+
 import {
   showUserData,
   updateUserProfile,
@@ -9,41 +11,45 @@ import {
   updateBillings,
   editEducationCardWithId,
   editExperienceCardWithId
-} from "./state/ducks/users/operations";
-import { getIndustries } from "./state/ducks/industries/operations";
+} from "state/ducks/users/operations";
+
+import { getIndustries } from "state/ducks/industries/operations";
+
 import {
   showTeams,
   showCustomTeams,
   createCustomTeam,
   removeCustomTeam
-} from "./state/ducks/teams/operations";
+} from "state/ducks/teams/operations";
+
 import {
   showChannels,
   createTeamChannel,
   deleteTeamChannel,
   updateTeamChannel
-} from "./state/ducks/channels/operations";
+} from "state/ducks/channels/operations";
+
 import {
   showEpicTasks,
   createEpicTask,
   deleteEpicTask
-} from "./state/ducks/tasks/operations";
+} from "state/ducks/tasks/operations";
 
 import {
   showAllProjects,
   saveCreatedProgect
-} from "./state/ducks/projects/operations";
+} from "state/ducks/projects/operations";
 
 import {
   showAllEpics,
   createProjectEpic,
   deleteProjectEpic
-} from "./state/ducks/epics/operations";
+} from "state/ducks/epics/operations";
 
 import {
   searchSpecialist,
   searchSpecialistForProject
-} from "./state/ducks/search/operations";
+} from "state/ducks/search/operations";
 
 import { NotificationContainer } from "react-notifications";
 
@@ -60,8 +66,8 @@ class Test extends Component {
     // this.props.showAllProjects(59);
 
     setTimeout(() => {
-      this.props.searchSpecialistForProject(484);
-      // this.props.searchSpecialist();
+      // this.props.searchSpecialistForProject(484);
+      this.props.searchSpecialist();
       // this.props.deleteProjectEpic(53, 103);
       // this.props.createProjectEpic(
       //   {

@@ -12,3 +12,7 @@ export const signIn = (user, data) => {
     });
   };
 };
+
+export const logOut = () => ({
+  type: types.LOG_OUT
+});

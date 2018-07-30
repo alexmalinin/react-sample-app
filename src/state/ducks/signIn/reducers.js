@@ -13,6 +13,7 @@ const getInitialState = () => {
     return {
       loading: false,
       status,
+      isLogIn: false,
       auth: {
         userType: getUserType(aud),
         role: aud,
@@ -39,6 +40,7 @@ const signInReducer = createReducer(getInitialState())({
     return {
       ...state,
       loading: false,
+      isLogIn: true,
       status,
       auth: {
         userType: getUserType(aud),
@@ -52,7 +54,16 @@ const signInReducer = createReducer(getInitialState())({
     ...state,
     loading: false,
     failSignIn: true
-  })
+  }),
+
+  [types.LOG_OUT]: (state, action) => {
+    localStorage.clear();
+
+    return {
+      ...state,
+      isLogIn: false
+    };
+  }
 });
 
 export default signInReducer;
