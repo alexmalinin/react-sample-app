@@ -149,24 +149,22 @@ class ProjectsBoard extends Component {
 
   renderProjectBoard() {
     const {
-      epicTasks: { tasks, loaded, loading },
-      match: {
-        params: { status }
-      }
+      epicTasks: { tasks, loaded, loading }
     } = this.props;
 
     return (
       <S_Board className={loading ? "loading" : ""}>
         {!loaded && loading && <p className="noTasks">Loading</p>}
-        {loaded && !!tasks.length ? (
-          <KanbanBoard
-            tasks={tasks}
-            myTasks={this.state.myTasks}
-            specialists={this.state.specialists}
-          />
-        ) : (
-          <p className="noTasks">There is no tasks yet</p>
-        )}
+        {loaded &&
+          (!!tasks.length ? (
+            <KanbanBoard
+              tasks={tasks}
+              myTasks={this.state.myTasks}
+              specialists={this.state.specialists}
+            />
+          ) : (
+            <p className="noTasks">There is no tasks yet</p>
+          ))}
       </S_Board>
     );
   }

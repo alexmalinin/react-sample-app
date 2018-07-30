@@ -91,9 +91,7 @@ class CustomCard extends Component {
           />
           <AssignDropdown
             specialists={specialists}
-            allSpecialists={specialistList.filter(
-              spec => spec.role !== S_REDGUY
-            )}
+            allSpecialists={specialistList}
             handleAssign={this.assignSpeciaist}
             userType={[S_REDGUY]}
             closeOnChange={true}
