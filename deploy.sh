@@ -2,7 +2,7 @@
 #It should be placed at project root
 
 user_to="dev"
-host="85.90.244.10"
+host="54.185.131.228"
 app_name="react-dv"
 path="~/www/$app_name"
 
