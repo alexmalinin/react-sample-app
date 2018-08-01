@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { withRouter } from "react-router";
 import StyledHeaderBasic from "../../styleComponents/layout/StyledHeaderBasic";
 
 class Header extends Component {
+  componentDidMount() {
+    if (localStorage.getItem("jwt_token")) {
+      this.props.history.push("/");
+    }
+  }
+
   render() {
     return (
       <StyledHeaderBasic className="sign-in">
@@ -25,4 +32,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);
