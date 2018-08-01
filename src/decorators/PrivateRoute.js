@@ -1,25 +1,18 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const checkAuth = inverted => {
-  const token = localStorage.getItem("jwt_token");
-  if (inverted) {
-    return !token;
-  }
+const checkAuth = () => !!localStorage.getItem("jwt_token");
 
-  return !!token;
-};
-
-export default ({ component: Component, inverted, ...rest }) => (
+export default ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      checkAuth(inverted) ? (
+      checkAuth() ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
-            pathname: inverted ? "/dashboard/" : "/sign_in",
+            pathname: "/sign_in",
             state: { from: props.location }
           }}
         />

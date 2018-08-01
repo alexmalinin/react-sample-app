@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -17,8 +17,7 @@ import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
 import ClientIndex from "./client";
 import SpecialistIndex from "./specialist";
-import { getUserType, getUserRole } from "../helpers/functions";
-import { S_PASSIVE } from "../constants/user";
+import { getUserType } from "../helpers/functions";
 import PrivateRoute from "../decorators/PrivateRoute";
 import AssignRoute from "../decorators/AssignRoute";
 
@@ -44,8 +43,6 @@ class App extends Component {
         Dashboard = <Redirect to="/sign_in" />;
     }
 
-    const passive = getUserRole() !== S_PASSIVE;
-
     return (
       <Router>
         <div>
@@ -53,13 +50,9 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={this.defaultPath} />
               <Route path="/index.html" render={this.defaultPath} />
-              <PrivateRoute inverted path="/sign_in" component={SignIn} />
-              <PrivateRoute
-                inverted
-                path="/forgot_password"
-                component={ForgotPassword}
-              />
-              <PrivateRoute inverted path="/sign_up" component={SignUp} />
+              <Route path="/sign_in" component={SignIn} />
+              <Route path="/forgot_password" component={ForgotPassword} />
+              <Route path="/sign_up" component={SignUp} />
               {this.renderToken()}
               {this.resetPassword()}
               <Route path="/confirm_email" component={ConfirmEmail} />
