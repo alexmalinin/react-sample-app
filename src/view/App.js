@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -7,13 +7,9 @@ import {
   Redirect
 } from "react-router-dom";
 
-import PrivateRoute from "../decorators/PrivateRoute";
-import AssignRoute from "../decorators/AssignRoute";
-
 import SignIn from "./components/signIn/SignIn";
 import SignUp from "./components/signUp/SignUp";
-import Dashboard from "./components/layout/dashboard";
-import Profile from "./components/profile";
+import HeaderBasic from "../components/layout/HeaderBasic";
 
 class App extends Component {
   defaultPath = () => {
@@ -22,25 +18,28 @@ class App extends Component {
     } = this.props;
 
     if (isLogIn) return <Redirect to="/dashboard/" />;
-    else return <Redirect to="/sign_in" />;
+    else return asdfdsfds<Redirect to="/sign_in" />;
   };
 
   render() {
     return (
       <Router>
-        <div>
-          <Switch>
-            <Route exact path="/" render={this.defaultPath} />
-
-            <Route path="/index.html" render={this.defaultPath} />
-
-            <PrivateRoute inverted path="/sign_in" component={SignIn} />
-
-            <PrivateRoute inverted path="/sign_up" component={SignUp} />
-
-            <Route path="/dashboard" component={Dashboard} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route path="/profile">
+            <div>
+              <div>IMMA HEADA</div>
+              <Route path="/profile/info" component={SignUp} />
+            </div>
+          </Route>
+          <Route path="/user">
+            <div>
+              <HeaderBasic />
+              <Route path="/user/sign_in" component={SignIn} />
+              <Route render={p => <Redirect to="/user/sign_in" />} />
+            </div>
+          </Route>
+          <Route render={p => "HAHA 404"} />
+        </Switch>
       </Router>
     );
   }
