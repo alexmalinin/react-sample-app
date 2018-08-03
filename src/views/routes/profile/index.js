@@ -1,16 +1,20 @@
 import React from "react";
-import HeaderIntro from "view/components/HeaderIntro";
+import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 
 import info from "./info";
-import company from "./company";
 
-export default ({ match }) => (
+const Profile = ({ match }) => (
   <div>
-    <HeaderIntro />
-
     <Route path={`${match.url}/info`} component={info} />
-    <Route path={`${match.url}/company`} component={company.specialist} />
     <Route path={`${match.url}/info`} component={info} />
   </div>
 );
+
+Profile.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired
+  }).isRequired
+};
+
+export default Profile;

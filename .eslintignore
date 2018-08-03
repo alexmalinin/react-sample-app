@@ -1,3 +1,6 @@
+scripts/*
+config/*
+build/*
 src/components/*
 src/styleComponents/*
 src/view/*

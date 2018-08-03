@@ -1,3 +1,3 @@
-import Info from "../../../components/Info";
+import Info from "@components/Profile/Info";
 
 export default Info;
