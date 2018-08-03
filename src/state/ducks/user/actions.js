@@ -1,77 +1,27 @@
-// import { createNotification } from "../helpers/functions";
 import * as types from "./types";
 import { fetch } from "../../utils";
-import {
-  GET,
-  SPECIALIST,
-  getUserUrl,
-  PUT,
-  createNotification
-} from "../../../utilities";
-import {
-  getSkillsAttr,
-  getSpecAttr,
-  specialistProfile,
-  clientProfile
-} from "./utils";
+import { POST } from "@utilities";
+import { setAuthorizationHeader } from "./utils";
 
-export const showUserData = (usertype, id) => {
-  let url = getUserUrl(usertype);
+export const userLoggedIn = token => ({
+  type: types.SIGN_IN,
+  token
+});
 
-  return {
-    type: types.USER_DATA_SHOW,
-    payload: fetch(GET, `/${url}/${id}`)
-  };
-};
+export const userLoggedOut = () => ({
+  type: types.LOG_OUT
+});
 
-/**
- * Update Specialist Data Profile
- *
- * @param  {object} data specialist data
- * @param  {array} education specialist education data
- * @param  {array} experience specialist experience data
- *
- */
+export const login = (user, data) => dispatch =>
+  fetch(POST, `/${user}/auth/login`, data).then(user => {
+    debugger;
+    localStorage.jwt_token = user.token;
+    setAuthorizationHeader(user.token);
+    dispatch(userLoggedIn(user));
+  });
 
-export const updateUserProfile = (data, education, experience) => {
-  let reader = new FileReader(),
-    image = data["person"] ? data["person"][0] : null;
-
-  return (dispatch, getState) => {
-    if (image) {
-      reader.readAsDataURL(image);
-
-      dispatch({
-        type: types.USER_PROFILE_UPDATE,
-        payload: fetch(PUT, `/specialists/59/dashboard/profile`, data)
-      })
-        .then(() => {
-          createNotification({
-            type: "success",
-            text: "Changes was saved"
-          });
-        })
-        .catch(error => {
-          createNotification({
-            type: "error"
-          });
-        });
-    } else {
-      dispatch({
-        type: types.USER_PROFILE_UPDATE,
-        payload: fetch(PUT, `/specialists/59/dashboard/profile`, data)
-      })
-        .then(() => {
-          createNotification({
-            type: "success",
-            text: "Changes was saved"
-          });
-        })
-        .catch(error => {
-          createNotification({
-            type: "error"
-          });
-        });
-    }
-  };
+export const logout = () => dispatch => {
+  localStorage.removeItem("jwt_token");
+  setAuthorizationHeader();
+  dispatch(userLoggedOut());
 };

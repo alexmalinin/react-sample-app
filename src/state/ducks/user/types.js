@@ -1,2 +1,2 @@
-export const USER_DATA_SHOW = "USER_DATA_SHOW";
-export const USER_PROFILE_UPDATE = "USER_PROFILE_UPDATE";
+export const SIGN_IN = "SIGN_IN";
+export const LOG_OUT = "LOG_OUT";

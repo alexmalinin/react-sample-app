@@ -1,7 +1,7 @@
 import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
 import { fetch } from "../../utils";
-import { GET, POST, PUT, DELETE, createNotification } from "../../../utilities";
+import { GET, POST, DELETE, createNotification } from "../../../utilities";
 
 /**
  * Get array of all tasks, specialist assigned on

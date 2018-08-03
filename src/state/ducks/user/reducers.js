@@ -1,18 +1,26 @@
+import decode from "jwt-decode";
 import * as types from "./types";
-import * as utils from "./utils";
 import { createReducer } from "../../utils";
-import { FULFILLED } from "../../../utilities";
+import { getUserType } from "@utilities";
 
-const initialState = [];
+const signInReducer = createReducer({})({
+  [types.SIGN_IN]: (state, { token }) => {
+    const { user_id: id, aud: role, status } = decode(token);
 
-const specialistReducer = createReducer(initialState)({
-  [types.USER_DATA_SHOW + FULFILLED]: (state, action) => {
-    return action.payload.data;
+    return {
+      token,
+      id,
+      type: getUserType(role),
+      role,
+      status
+    };
   },
 
-  [types.USER_PROFILE_UPDATE + FULFILLED]: (state, action) => {
-    return action.payload.data;
+  [types.LOG_OUT]: (state, action) => {
+    localStorage.clear();
+
+    return {};
   }
 });
 
-export default specialistReducer;
+export default signInReducer;

@@ -1,3 +1,3 @@
-import { showUserData, updateUserProfile } from "./actions";
+import { login, logout, userLoggedIn } from "./actions";
 
-export { showUserData, updateUserProfile };
+export { login, logout, userLoggedIn };

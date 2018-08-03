@@ -1,5 +1,4 @@
 import * as types from "./types";
-import * as utils from "./utils";
 import { createReducer } from "../../utils";
 import { FULFILLED } from "../../../utilities";
 

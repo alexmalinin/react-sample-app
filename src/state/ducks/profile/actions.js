@@ -10,12 +10,7 @@ import {
   CLIENT,
   CUSTOMER
 } from "../../../utilities";
-import {
-  getSkillsAttr,
-  getSpecAttr,
-  specialistProfile,
-  clientProfile
-} from "./utils";
+import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
 
 export const showUserData = () => {
   return (dispatch, getState) => {

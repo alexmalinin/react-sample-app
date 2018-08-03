@@ -6,7 +6,7 @@ import { FULFILLED } from "../../../utilities";
 
 const initialState = {};
 
-const userReducer = createReducer(initialState)({
+const infoReducer = createReducer(initialState)({
   [types.USER_DATA_SHOW + FULFILLED]: (state, { payload }) => ({
     ...utils.getUserInfo(payload.data)
   }),
@@ -59,7 +59,7 @@ const billingsReducer = createReducer(initialState)({
 });
 
 export default combineReducers({
-  info: userReducer,
+  info: infoReducer,
   industry: industryReducer,
   company: companyRecuder,
   billings: billingsReducer

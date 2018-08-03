@@ -1,11 +1,11 @@
 export { reducer as form } from "redux-form";
+export { default as user } from "./user";
+export { default as profile } from "./profile";
 export { default as skills } from "./skills";
-export { default as signIn } from "./signIn";
-export { default as projectsReducer } from "./projects";
-export { default as user } from "./users";
 export { default as industries } from "./industries";
+export { default as projectsReducer } from "./projects";
+export { default as epicsReducer } from "./epics";
+export { default as tasksReducer } from "./tasks";
 export { default as teamsReducer } from "./teams";
 export { default as channelsReducer } from "./channels";
-export { default as tasksReducer } from "./tasks";
-export { default as epicsReducer } from "./epics";
 export { default as searchReducer } from "./search";

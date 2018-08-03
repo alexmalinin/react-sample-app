@@ -6,7 +6,6 @@ import {
   SPECIALIST,
   CLIENT,
   POST,
-  PUT,
   createNotification
 } from "../../../utilities";
 

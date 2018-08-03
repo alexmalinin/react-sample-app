@@ -27,7 +27,6 @@ export const CLIENT = "Client";
 export const SPECIALIST = "Specialist";
 
 // Roles
-export const C_CUSTOMER = "customer";
 
 export const S_ACTIVE = "active";
 export const S_PASSIVE = "passive";

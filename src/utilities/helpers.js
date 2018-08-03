@@ -1,7 +1,19 @@
-import _ from "lodash";
 import { NotificationManager } from "react-notifications";
-import { SPECIALIST, CLIENT } from "./constants";
-
+import {
+  SPECIALIST,
+  CLIENT,
+  S_ACTIVE,
+  S_CORE,
+  S_PASSIVE,
+  S_REDGUY
+} from "./constants";
+/**
+ * Gets object, field you want rename and new name, you want rename it to
+ *
+ * @param  {object} obj
+ * @param  {string} oldName
+ * @param  {string} newName
+ */
 export function renameObjPropNames(obj, oldName, newName) {
   if (!obj.hasOwnProperty(oldName)) {
     return false;
@@ -13,22 +25,30 @@ export function renameObjPropNames(obj, oldName, newName) {
 }
 
 export function getUserUrl(usetype) {
-  let url;
-
   switch (usetype) {
     case SPECIALIST:
-      url = "specialists";
-      break;
+      return "specialists";
     case CLIENT:
-      url = "customers";
-      break;
+      return "customers";
     default:
-      url = null;
+      return;
   }
-
-  return url;
 }
-
+/**
+ * Gets user role and returns appropriate type
+ *
+ * @param  {string} role
+ * @returns  {string} type
+ *
+ */
+export function getUserType(role) {
+  if (role === "customer") return CLIENT;
+  else if (
+    [S_ACTIVE, S_CORE, S_PASSIVE, S_REDGUY].some(s_type => s_type === role)
+  )
+    return SPECIALIST;
+  else return null;
+}
 /**
  * Creates a notification for user
  *
@@ -39,7 +59,6 @@ export function getUserUrl(usetype) {
  * @param {boolean} priority if true, the message gets inserted at the top
  *
  */
-
 export const createNotification = ({ type, text }) => {
   switch (type) {
     case "info":
