@@ -1,1 +1,3 @@
-scripts/*
+src/components/*
+src/styleComponents/*
+src/view/*

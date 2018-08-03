@@ -18,7 +18,7 @@ class App extends Component {
     } = this.props;
 
     if (isLogIn) return <Redirect to="/dashboard/" />;
-    else return <Redirect to="/sign_in" />;
+    return <Redirect to="/sign_in" />;
   };
 
   render() {

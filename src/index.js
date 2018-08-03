@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import store from "./state/store";
-import App from "./components/App";
 import "semantic-ui-css/semantic.min.css";
+
+import store from "./state/store";
+import App from "./view/App";
 import "./index.css";
 
 ReactDOM.render(
