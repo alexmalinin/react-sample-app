@@ -1,13 +1,37 @@
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { FULFILLED } from "../../../utilities";
+import {
+  FULFILLED,
+  PENDING,
+  REJECTED,
+  prepareForSelect
+} from "../../../utilities";
 
-const initialState = [];
+const initialState = {
+  loading: false,
+  loaded: false,
+  industries: [],
+  error: false
+};
 
 const industriesReducer = createReducer(initialState)({
-  [types.GET_INDUSTRIES + FULFILLED]: (state, action) => {
-    return action.payload.data;
-  }
+  [types.GET_INDUSTRIES + PENDING]: (state, action) => ({
+    ...state,
+    loading: true
+  }),
+
+  [types.GET_INDUSTRIES + FULFILLED]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    industries: prepareForSelect(payload.data),
+    error: false
+  }),
+
+  [types.GET_INDUSTRIES + REJECTED]: (state, action) => ({
+    ...state,
+    error: true
+  })
 });
 
 export default industriesReducer;

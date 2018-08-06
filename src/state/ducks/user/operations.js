@@ -1,3 +1,3 @@
-import { login, logout, userLoggedIn } from "./actions";
+import { login, logout, userLoggedIn, signUp } from "./actions";
 
-export { login, logout, userLoggedIn };
+export { login, logout, userLoggedIn, signUp };

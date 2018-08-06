@@ -16,6 +16,10 @@ const signInReducer = createReducer({})({
     };
   },
 
+  [types.SIGN_IN_FAIL]: (state, payload) => ({
+    signInFail: true
+  }),
+
   [types.LOG_OUT]: (state, action) => {
     localStorage.clear();
 

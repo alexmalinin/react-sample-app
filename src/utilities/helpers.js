@@ -7,6 +7,7 @@ import {
   S_PASSIVE,
   S_REDGUY
 } from "./constants";
+
 /**
  * Gets object, field you want rename and new name, you want rename it to
  *
@@ -24,6 +25,16 @@ export function renameObjPropNames(obj, oldName, newName) {
   return true;
 }
 
+export function prepareForSelect(array) {
+  let data = [];
+
+  array.forEach(item => {
+    data.push({ label: item["name"], value: item["id"] });
+  });
+
+  return data;
+}
+
 export function getUserUrl(usetype) {
   switch (usetype) {
     case SPECIALIST:
@@ -34,13 +45,14 @@ export function getUserUrl(usetype) {
       return;
   }
 }
+
 /**
  * Gets user role and returns appropriate type
  *
  * @param  {string} role
  * @returns  {string} type
- *
  */
+
 export function getUserType(role) {
   if (role === "customer") return CLIENT;
   else if (
@@ -49,6 +61,30 @@ export function getUserType(role) {
     return SPECIALIST;
   else return null;
 }
+
+export function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+export function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  var expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
 /**
  * Creates a notification for user
  *

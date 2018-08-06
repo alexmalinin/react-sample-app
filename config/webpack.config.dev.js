@@ -83,6 +83,13 @@ module.exports = {
     // for React Native Web.
     extensions: [".web.js", ".mjs", ".js", ".json", ".web.jsx", ".jsx"],
     alias: {
+      "@views": path.resolve(__dirname, '../src/views/'),
+      "@ducks": path.resolve(__dirname, '../src/state/ducks'),
+      "@components": path.resolve(__dirname, '../src/views/components'),
+      "@layouts": path.resolve(__dirname, '../src/views/layouts'),
+      "@UI": path.resolve(__dirname, '../src/views/UI'),
+      "@styled": path.resolve(__dirname, '../src/views/styled'),
+      "@utilities": path.resolve(__dirname, '../src/utilities'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       "react-native": "react-native-web"

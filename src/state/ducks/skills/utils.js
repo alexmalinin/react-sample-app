@@ -1,6 +1,6 @@
 import { renameObjPropNames } from "../../../utilities";
 
-export function prepareForSelect(skills) {
+export function prepareSkillsForSelect(skills) {
   skills.forEach(skill => {
     renameObjPropNames(skill, "id", "value");
     renameObjPropNames(skill, "name", "label");

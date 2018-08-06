@@ -55,7 +55,8 @@ export const updateUserProfile = (data, education, experience) => {
 };
 
 const updateSpecialistProfile = (id, data, education, experience) => {
-  const image = data["person"] ? data["person"][0] : null;
+  console.log("data", data);
+  const image = data["avatar"] ? data["avatar"][0] : null;
 
   return dispatch => {
     if (image) {

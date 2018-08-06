@@ -5,8 +5,8 @@ import { FULFILLED } from "../../../utilities";
 const initialState = [];
 
 const skillsReducer = createReducer(initialState)({
-  [types.GET_SKILLS + FULFILLED]: (state, action) => {
-    return action.payload.data;
+  [types.GET_SKILLS]: (state, action) => {
+    return action.payload;
   }
 });
 
