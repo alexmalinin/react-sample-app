@@ -129,9 +129,9 @@ class CompanyForm extends Component {
                       label="Number of employers"
                       placeholder="Select"
                       options={employeers}
-                      validate={[required]}
                       handleFormField={handleFormField}
-                      isRequired
+                      // validate={[required]}
+                      // isRequired
                     />
                   </div>
                 </Grid.Column>
