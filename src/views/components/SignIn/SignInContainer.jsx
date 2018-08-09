@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
@@ -9,9 +9,9 @@ import SignInForm from "./SignInForm";
 import StyledFormHeader from "@styled/forms/FormHeader";
 import Tabs from "@styled/Tabs";
 import StyledAuthForm from "@styled/forms/AuthForm";
+import Loader from "@components/common/Loader";
 
 import { userOperations } from "@ducks/user";
-import { SPECIALIST, CLIENT } from "@utilities/constants";
 
 class SignInContainer extends Component {
   state = {
@@ -31,49 +31,31 @@ class SignInContainer extends Component {
 
   handleTabChange = (ev, { activeIndex, panes }) => {
     this.setState({
-      activeUser: panes[activeIndex].menuItem
+      activeUser: panes[activeIndex].menuValue
     });
   };
 
-  submit = values => {
-    this.props.login(this.state.activeUser, values);
-  };
-
   render() {
-    const { handleSubmit, signInFail } = this.props;
     const { activeUser } = this.state;
-
-    const activeIndex = activeUser === "specialist" ? 0 : 1;
+    const { handleSubmit, submitting, login, signInFail } = this.props;
 
     const panes = [
       {
         menuItem: "specialist",
-        render: () => (
-          <StyledAuthForm attached={false}>
-            <SignInForm
-              user="specialist"
-              signInFail={signInFail}
-              handleSubmit={handleSubmit(this.submit)}
-            />
-          </StyledAuthForm>
-        )
+        menuValue: "specialist"
       },
       {
-        menuItem: "customer",
-        render: () => (
-          <StyledAuthForm attached={false}>
-            <SignInForm
-              user="customer"
-              signInFail={signInFail}
-              handleSubmit={handleSubmit(this.submit)}
-            />
-          </StyledAuthForm>
-        )
+        menuItem: "client",
+        menuValue: "customer"
       }
     ];
 
+    const activeIndex = activeUser === "specialist" ? 0 : 1;
+
     return (
-      <div>
+      <Fragment>
+        <Loader loading={submitting} />
+
         <StyledFormHeader borderBottom>
           <div className="form-title">Sign in</div>
           <div className="form-subtitle">Welcome back!</div>
@@ -81,16 +63,21 @@ class SignInContainer extends Component {
 
         <Tabs widthAuto action="" className="relative">
           <Tab
-            // className={
-            //   loading ? "loading content-loading" : "loading content-load"
-            // }
             menu={{ text: true }}
             panes={panes}
             activeIndex={activeIndex}
             onTabChange={this.handleTabChange}
           />
+
+          <StyledAuthForm attached={false}>
+            <SignInForm
+              user={activeUser}
+              signInFail={signInFail}
+              handleSubmit={handleSubmit(values => login(activeUser, values))}
+            />
+          </StyledAuthForm>
         </Tabs>
-      </div>
+      </Fragment>
     );
   }
 }

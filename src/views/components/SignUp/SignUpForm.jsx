@@ -22,12 +22,10 @@ const SignUpForm = props => {
         name="email"
         type="email"
         label="Your email"
-        validate={[required, email]}
         component={InputField}
+        validate={[required, email]}
         checkedClass="checked"
       />
-
-      {/* {person === "Client" && this.props.children} */}
 
       <StyledRequireBox>
         <Field

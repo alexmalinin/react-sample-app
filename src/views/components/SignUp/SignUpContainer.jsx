@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
@@ -14,7 +14,8 @@ import { userOperations } from "@ducks/user";
 
 class SignUpContainer extends Component {
   state = {
-    activeUser: "specialist"
+    activeUser: "specialist",
+    errorMessage: null
   };
 
   static propTypes = {
@@ -23,7 +24,7 @@ class SignUpContainer extends Component {
 
   handleTabChange = (ev, { activeIndex, panes }) => {
     this.setState({
-      activeUser: panes[activeIndex].menuItem
+      activeUser: panes[activeIndex].menuValue
     });
   };
 
@@ -34,41 +35,26 @@ class SignUpContainer extends Component {
   };
 
   render() {
-    const { handleSubmit } = this.props;
     const { activeUser } = this.state;
-
-    const activeIndex = activeUser === "specialist" ? 0 : 1;
+    const { handleSubmit, submitting, signUp, history } = this.props;
 
     const panes = [
       {
         menuItem: "specialist",
-        render: () => (
-          <StyledAuthForm attached={false}>
-            <SignUpForm
-              // person={changeUserType}
-              // failLogin={failLogin}
-              // Loading={Loading}
-              handleSubmit={handleSubmit(this.submit)}
-            />
-          </StyledAuthForm>
-        )
+        menuValue: "specialist"
       },
       {
-        menuItem: "customer",
-        render: () => (
-          <StyledAuthForm attached={false}>
-            <SignUpForm
-              // person={changeUserType}
-              // failLogin={failLogin}
-              handleSubmit={handleSubmit(this.submit)}
-            />
-          </StyledAuthForm>
-        )
+        menuItem: "client",
+        menuValue: "customer"
       }
     ];
 
+    const activeIndex = activeUser === "specialist" ? 0 : 1;
+
+    console.log("submitting", submitting);
+
     return (
-      <div>
+      <Fragment>
         <StyledFormHeader>
           <div className="form-title">Create an account</div>
           <div className="form-subtitle">
@@ -78,16 +64,27 @@ class SignUpContainer extends Component {
 
         <Tabs widthAuto action="">
           <Tab
-            // className={
-            //   Loading ? "loading content-loading" : "loading content-load"
-            // }
             menu={{ text: true }}
             panes={panes}
             activeIndex={activeIndex}
             onTabChange={this.handleTabChange}
           />
+
+          <StyledAuthForm attached={false}>
+            <SignUpForm
+              // failLogin={failLogin}
+              handleSubmit={handleSubmit(values =>
+                signUp(activeUser, values).then(response => {
+                  if (response) {
+                    localStorage.email = response;
+                    history.push("/confirm_email");
+                  }
+                })
+              )}
+            />
+          </StyledAuthForm>
         </Tabs>
-      </div>
+      </Fragment>
     );
   }
 }
@@ -104,7 +101,7 @@ export default connect(mapStateToProps, {
     destroyOnUnmount: true,
     forceUnregisterOnUnmount: true,
     onSubmitSuccess: (submitResult, dispatch, { history }) => {
-      history.push("/confirm_email");
+      // history.push("/confirm_email");
     }
   })(SignUpContainer)
 );
