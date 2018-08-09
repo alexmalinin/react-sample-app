@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Checkbox } from "semantic-ui-react";
 
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 
 class RenderCheckbox extends Component {
   render() {

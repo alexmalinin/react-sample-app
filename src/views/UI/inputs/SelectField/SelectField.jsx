@@ -1,7 +1,7 @@
 import React from "react";
 
 import StyledInputs from "@styled/forms/Inputs";
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 import StyledSelect from "./StyledSelect";
 import StyledLabel from "@styled/forms/Label";
 

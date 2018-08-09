@@ -2,7 +2,7 @@ import React from "react";
 import Phone from "react-phone-number-input";
 
 import StyledInputs from "@styled/forms/Inputs";
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 import StyledLabel from "@styled/forms/Label";
 
 import "react-phone-number-input/rrui.css";

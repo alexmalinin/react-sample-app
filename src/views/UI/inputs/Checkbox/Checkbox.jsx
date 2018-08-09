@@ -1,6 +1,6 @@
 import React from "react";
 
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 import StyledRadio from "@styled/forms/Options";
 
 const Checkbox = props => {

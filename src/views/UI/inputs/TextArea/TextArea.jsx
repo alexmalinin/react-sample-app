@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { TextArea } from "react-semantic-redux-form";
 
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 import StyledTextArea from "./StyledTextArea";
 import StyledLabel from "@styled/forms/Label";
 

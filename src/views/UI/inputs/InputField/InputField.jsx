@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "semantic-ui-react";
 
 import StyledInputs from "@styled/forms/Inputs";
-import StyledError from "@styled/forms/Error";
+import StyledError from "@styled/forms/Validation";
 import StyledLabel from "@styled/forms/Label";
 
 const InputField = ({
