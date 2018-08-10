@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import {
   colors,
-  secondaryColors,
   fontColors,
   boxShadow,
   primaryColors
@@ -9,9 +8,6 @@ import {
 
 export default styled.div`
   position: relative;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
 
   &.projectFiles {
     .ui.loader {
@@ -19,20 +15,16 @@ export default styled.div`
     }
   }
 
-  &::after,
-  &::before,
-  span {
-    content: "";
-    display: inline-block;
-    width: 100px;
-    order: 1;
-  }
-
   ${props => (props.indentTop ? `margin-top: 24px` : ``)};
   ${props => (props.padded ? `padding: 0 20px` : ``)};
 
   & > p {
     text-transform: uppercase;
+  }
+
+  .files-container {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   input {
@@ -192,6 +184,7 @@ export default styled.div`
   .filePreview {
     display: flex;
     align-items: center;
+    flex-basis: 123px;
     height: 40px;
     min-width: 72px;
     margin: 5px 5px 10px 5px;
@@ -349,8 +342,7 @@ export default styled.div`
     height: 36px;
     width: 36px;
     background: rgba(72, 97, 242, 0.1);
-    margin-bottom: 10px;
-    margin-left: 5px;
+    margin: 5px;
     cursor: pointer;
     border: none;
     border-radius: 3px;

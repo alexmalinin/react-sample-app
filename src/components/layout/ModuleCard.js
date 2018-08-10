@@ -68,7 +68,7 @@ class Module extends Component {
   renderDescription = () => {
     const { description } = this.props.epic;
 
-    if (description.length > 70) {
+    if (description && description.length > 70) {
       return description.slice(0, 70) + "...";
     } else return description;
   };
