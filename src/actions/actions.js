@@ -330,10 +330,10 @@ export function getSkills() {
  * Update data for specialists sign up step 2
  *
  * @param  {object} data specialist data
- *
+ * @param {function} callback callback, called on success
  */
 
-export function updateSpecStep1(data) {
+export function updateSpecStep1(data, callback) {
   let attr = data.skills_attributes
     ? data.skills_attributes.map(attr => {
         return { name: attr.label, id: +attr.value };
@@ -382,6 +382,10 @@ export function updateSpecStep1(data) {
           type: types.UPDATE_SPECIALIST_STEP_1 + SUCCESS,
           data
         });
+
+        if (callback) {
+          callback();
+        }
       })
       .then(() => {
         createNotification({
@@ -407,9 +411,14 @@ export function showChosenSkills() {
   return action;
 }
 
-// update data for specialists sign up step 2
+/**
+ * Update data for specialists company
+ *
+ * @param  {object} data specialist data
+ * @param {function} callback callback, called on success
+ */
 
-export function updateSpecStep2(data) {
+export function updateSpecStep2(data, callback) {
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
 
@@ -440,12 +449,15 @@ export function updateSpecStep2(data) {
     })
       .then(response => {
         let { data } = response;
-        data.successUpdateId = Math.random();
 
         dispatch({
           type: types.UPDATE_SPECIALIST_STEP_2 + SUCCESS,
           data
         });
+
+        if (callback) {
+          callback();
+        }
       })
       .then(() => {
         createNotification({
@@ -467,10 +479,10 @@ export function updateSpecStep2(data) {
  * Update specialist billings
  *
  * @param  {object} data specialist billings data
- *
+ * @param {function} callback callback, called on success
  */
 
-export function updateSpecialistBillings(data) {
+export function updateSpecialistBillings(data, callback) {
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
 
@@ -505,12 +517,15 @@ export function updateSpecialistBillings(data) {
     })
       .then(response => {
         let data = response.data;
-        data.successUpdateId = Math.random();
 
         dispatch({
           type: types.UPDATE_SPECIALIST_BILLINGS + SUCCESS,
           data
         });
+
+        if (callback) {
+          callback();
+        }
       })
       .then(() => {
         createNotification({
@@ -604,13 +619,13 @@ export function showAllSpecialists(...roles) {
 /**
  * Update Specialist Data Profile
  *
- * @param  {object} data specialist data
- * @param  {array} education specialist education data
- * @param  {array} experience specialist experience data
- *
+ * @param {object} data specialist data
+ * @param {array} education specialist education data
+ * @param {array} experience specialist experience data
+ * @param {function} callback callback, called on success
  */
 
-export function updateSpecialistProfile(data, education, experience) {
+export function updateSpecialistProfile(data, education, experience, callback) {
   let reader = new FileReader(),
     image = data["person"] ? data["person"][0] : null;
 
@@ -640,7 +655,11 @@ export function updateSpecialistProfile(data, education, experience) {
         })
           .then(response => {
             let data = response.data;
-            data.successProfileId = Math.random();
+            // data.successProfileId = Math.random();
+
+            if (callback) {
+              callback();
+            }
 
             dispatch({
               type: types.UPDATE_SPECIALIST_PROFILE + SUCCESS,
@@ -675,7 +694,11 @@ export function updateSpecialistProfile(data, education, experience) {
       })
         .then(response => {
           let data = response.data;
-          data.successProfileId = Math.random();
+          // data.successProfileId = Math.random();
+
+          if (callback) {
+            callback();
+          }
 
           dispatch({
             type: types.UPDATE_SPECIALIST_PROFILE + SUCCESS,
@@ -906,10 +929,10 @@ export function updateClientProfile(data) {
  * Update Client Data Company
  *
  * @param  {object} payload client company data
- *
+ * @param {function} callback callback, called on success
  */
 
-export function updateClientCompany(payload) {
+export function updateClientCompany(payload, callback) {
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
 
@@ -944,12 +967,15 @@ export function updateClientCompany(payload) {
     })
       .then(({ data }) => {
         let payload = data;
-        payload.successCompanyId = Math.random();
 
         dispatch({
           type: types.UPDATE_CLIENT_COMPANY + SUCCESS,
           data: payload
         });
+
+        if (callback) {
+          callback();
+        }
 
         return data;
       })
@@ -973,10 +999,10 @@ export function updateClientCompany(payload) {
  * Update Client Billing
  *
  * @param  {object} data client billing data
- *
+ * @param {function} callback callback, called on success
  */
 
-export function updateClientBilling(data) {
+export function updateClientBilling(data, callback) {
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
 
@@ -1011,12 +1037,15 @@ export function updateClientBilling(data) {
     })
       .then(response => {
         let data = response.data;
-        data.successBillingId = Math.random();
 
         dispatch({
           type: types.UPDATE_CLIENT_BILLINGS + SUCCESS,
           data
         });
+
+        if (callback) {
+          callback();
+        }
       })
       .then(() => {
         createNotification({
