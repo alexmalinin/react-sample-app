@@ -103,16 +103,16 @@ class BillingForm extends Component {
                 <InputField
                   name="correspondent_bank"
                   label="Correspondent Bank"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
+                  // validate={[required]}
+                  // isRequired
                 />
                 <InputField
                   name="beneficiary_bank"
                   label="Beneficiary Bank"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
+                  // validate={[required]}
+                  // isRequired
                 />
                 <InputField
                   name="beneficiary_name"

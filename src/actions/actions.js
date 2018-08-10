@@ -424,11 +424,15 @@ export function updateSpecStep2(data) {
             company_address: data["company_address"],
             country: data["country"],
             city: data["city"],
-            industry_area_id: data["industry"]["value"] || data["industry"],
+            industry_area_id:
+              data["industry"] &&
+              (data["industry"]["value"] || data["industry"]),
             number_of_employers:
-              data["number_of_employers"]["value"] ||
-              data["number_of_employers"],
-            segment: data["segment"]["value"] || data["segment"],
+              data["number_of_employers"] &&
+              (data["number_of_employers"]["value"] ||
+                data["number_of_employers"]),
+            segment:
+              data["segment"] && (data["segment"]["value"] || data["segment"]),
             website: data["website"]
           }
         }
@@ -928,13 +932,17 @@ export function updateClientCompany(payload) {
             city: payload["city"],
             abn_acn: payload["abn_acn"],
             tell_about: payload["tell_about"],
-            segment: payload["segment"]["value"] || payload["segment"],
+            segment:
+              payload["segment"] &&
+              (payload["segment"]["value"] || payload["segment"]),
             number_of_employers:
-              payload["number_of_employers"]["value"] ||
-              payload["number_of_employers"],
+              payload["number_of_employers"] &&
+              (payload["number_of_employers"]["value"] ||
+                payload["number_of_employers"]),
             user_id,
             industry_area_id:
-              payload["industry"]["value"] || payload["industry"]
+              payload["industry"] &&
+              (payload["industry"]["value"] || payload["industry"])
           }
         }
       },
