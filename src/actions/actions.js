@@ -1533,7 +1533,7 @@ export function createEpicTask(data, epic, callback) {
           data
         });
 
-        callback();
+        callback(true);
         return data;
       })
       .then(({ name }) => {
@@ -1552,6 +1552,7 @@ export function createEpicTask(data, epic, callback) {
           data
         });
 
+        callback(false);
         console.error(error);
       });
   };

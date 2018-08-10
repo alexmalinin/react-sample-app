@@ -10,7 +10,8 @@ import { createEpicTask } from "../../actions/actions";
 class AddTaskModal extends Component {
   state = {
     open: false,
-    isEdited: false
+    isEdited: false,
+    loading: false
   };
 
   handleChangeState = (name, value) => {
@@ -26,6 +27,13 @@ class AddTaskModal extends Component {
   close = () => {
     const close = document.querySelector("i.close.icon");
     close.click();
+  };
+
+  callback = success => {
+    this.setState({ loading: false });
+    if (success) {
+      this.close();
+    }
   };
 
   render() {
@@ -45,13 +53,15 @@ class AddTaskModal extends Component {
           onSubmit={this.submit}
           handleChangeState={this.handleChangeState}
           close={this.close}
+          loading={this.state.loading}
         />
       </StyledModal>
     );
   }
 
   submit = data => {
-    this.props.createEpicTask(data, data.epic.value, this.close);
+    this.setState({ loading: true });
+    this.props.createEpicTask(data, data.epic.value, this.callback);
   };
 }
 
