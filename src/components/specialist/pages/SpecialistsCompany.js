@@ -79,12 +79,12 @@ class SpecialistCompany extends Component {
             nextLocation ? (
               <Redirect to={nextLocation} />
             ) : (
-              <Redirect to="about" />
+              <Redirect to="/dashboard/about" />
             )
           ) : nextLocation ? (
             <Redirect to={nextLocation} />
           ) : (
-            <Redirect to="billings" />
+            <Redirect to="/profile/billings" />
           )
         ) : null}
       </div>

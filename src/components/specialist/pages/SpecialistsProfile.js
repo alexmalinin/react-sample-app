@@ -125,12 +125,12 @@ class SpecialistsProfile extends Component {
                   nextLocation ? (
                     <Redirect to={nextLocation} />
                   ) : (
-                    <Redirect to="about" />
+                    <Redirect to="/dashboard/about" />
                   )
                 ) : nextLocation ? (
                   <Redirect to={nextLocation} />
                 ) : (
-                  <Redirect to="industry" />
+                  <Redirect to="/profile/industry" />
                 )
               ) : null}
             </Grid.Column>

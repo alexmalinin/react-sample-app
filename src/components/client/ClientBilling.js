@@ -75,7 +75,7 @@ class ClientBilling extends Component {
           nextLocation ? (
             <Redirect to={nextLocation} />
           ) : (
-            <Redirect to="about" />
+            <Redirect to="/dashboard/about" />
           )
         ) : null}
       </div>

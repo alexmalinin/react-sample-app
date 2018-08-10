@@ -80,12 +80,12 @@ class ClientCompany extends Component {
             nextLocation ? (
               <Redirect to={nextLocation} />
             ) : (
-              <Redirect to="about" />
+              <Redirect to="/dashboard/about" />
             )
           ) : nextLocation ? (
             <Redirect to={nextLocation} />
           ) : (
-            <Redirect to="billing" />
+            <Redirect to="/profile/billings" />
           )
         ) : null}
       </div>
