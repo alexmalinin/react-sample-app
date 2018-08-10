@@ -33,7 +33,6 @@ class RenderField extends React.Component {
           {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
         </label>
         <Phone
-          error={String(Boolean(touched && error))}
           {...input}
           name={input.name}
           className={className}
