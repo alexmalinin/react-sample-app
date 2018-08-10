@@ -16,10 +16,11 @@
 # Uncomment the following lines to make the configuration take effect.
 PreCommit:
   EsLint:
-    required_executable: 'npm'
+    required_executable: "npm"
     enabled: true
     required: true
-    command: ['npm', 'run', 'eslint']
+    command: ["npm", "run", "eslint"]
+    flags: ["--fix", "--format=compact"]
     on_warn: fail
 
 #PreCommit:
