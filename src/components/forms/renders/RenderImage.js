@@ -112,7 +112,7 @@ class RenderImage extends Component {
         <div className="upload">
           <div className="upload-image">
             <div className="imgPreview">{$imagePreview}</div>
-            <Button primary onClick={this.handleTrigger}>
+            <Button type="button" primary onClick={this.handleTrigger}>
               {/* Upload */}
             </Button>
           </div>
