@@ -82,7 +82,7 @@ class SpecialistsProfile extends Component {
   }
 
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing, isEdited, nextStep, nextLocation } = this.state;
     const { educations, experiences } = this.props;
 
     return (
@@ -106,7 +106,7 @@ class SpecialistsProfile extends Component {
                   this.setState({
                     nextLocation: nextLocation.pathname + nextLocation.search
                   });
-                  return this.state.isEdited && !this.state.nextStep;
+                  return isEdited && !nextStep;
                 }}
               >
                 {({ onConfirm, onCancel }) => (
@@ -120,15 +120,15 @@ class SpecialistsProfile extends Component {
                 )}
               </NavigationPrompt>
 
-              {this.state.nextStep ? (
-                this.state.isEditing ? (
-                  this.state.nextLocation ? (
-                    <Redirect to={this.state.nextLocation} />
+              {nextStep ? (
+                isEditing ? (
+                  nextLocation ? (
+                    <Redirect to={nextLocation} />
                   ) : (
                     <Redirect to="/dashboard/about" />
                   )
-                ) : this.state.nextLocation ? (
-                  <Redirect to={this.state.nextLocation} />
+                ) : nextLocation ? (
+                  <Redirect to={nextLocation} />
                 ) : (
                   <Redirect to="/profile/industry" />
                 )
@@ -146,19 +146,13 @@ class SpecialistsProfile extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let client = nextProps.specialistData;
     let password = nextProps.confirmPassword;
 
     if (this.props.specialistData) {
       this.setData();
     }
 
-    if (client.successProfileId) {
-      this.setState({
-        nextStep: true
-      });
-      run(0)();
-    } else if (password) {
+    if (password) {
       if (password.successPasswordId) {
         this.setState({
           nextStep: true
@@ -181,7 +175,14 @@ class SpecialistsProfile extends Component {
 
   submit = values => {
     const { updateSpecialistProfile, educations, experiences } = this.props;
-    updateSpecialistProfile(values, educations, experiences);
+
+    updateSpecialistProfile(values, educations, experiences, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 

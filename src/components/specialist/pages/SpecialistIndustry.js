@@ -49,7 +49,7 @@ class SpecialistIndustry extends Component {
   };
 
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing, nextStep, isEdited, nextLocation } = this.state;
     const {
       industries,
       projectTypes,
@@ -78,7 +78,7 @@ class SpecialistIndustry extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return this.state.isEdited && !this.state.nextStep;
+            return isEdited && !nextStep;
           }}
         >
           {({ onConfirm, onCancel }) => (
@@ -92,15 +92,15 @@ class SpecialistIndustry extends Component {
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep ? (
-          this.state.isEditing ? (
-            this.state.nextLocation ? (
-              <Redirect to={this.state.nextLocation} />
+        {nextStep ? (
+          isEditing ? (
+            nextLocation ? (
+              <Redirect to={nextLocation} />
             ) : (
               <Redirect to="/dashboard/about" />
             )
-          ) : this.state.nextLocation ? (
-            <Redirect to={this.state.nextLocation} />
+          ) : nextLocation ? (
+            <Redirect to={nextLocation} />
           ) : (
             <Redirect to="/profile/company" />
           )
@@ -113,23 +113,17 @@ class SpecialistIndustry extends Component {
     this.setState({ isEdited: value });
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.specialistData) {
-      if (nextProps.specialistData.successIndustryId) {
-        this.setState({
-          nextStep: true
-        });
-        run(0)();
-      }
-    }
-  }
-
   change = values => {
     this.props.calculatePagePercent("industryPercent", values);
   };
 
   submit = values => {
-    this.props.updateSpecStep1(values);
+    this.props.updateSpecStep1(values, () => {
+      this.setState({
+        nextStep: true
+      });
+      run(0)();
+    });
   };
 }
 

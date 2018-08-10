@@ -38,8 +38,8 @@ class ClientBilling extends Component {
   }
 
   render() {
+    const { isEditing, isEdited, nextStep, nextLocation } = this.state;
     const { clientData } = this.props;
-    const { isEditing, isEdited } = this.state;
 
     return (
       <div>
@@ -57,7 +57,7 @@ class ClientBilling extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return this.state.isEdited && !this.state.nextStep;
+            return isEdited && !nextStep;
           }}
         >
           {({ onConfirm, onCancel }) => (
@@ -71,9 +71,9 @@ class ClientBilling extends Component {
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep ? (
-          this.state.nextLocation ? (
-            <Redirect to={this.state.nextLocation} />
+        {nextStep ? (
+          nextLocation ? (
+            <Redirect to={nextLocation} />
           ) : (
             <Redirect to="/dashboard/about" />
           )
@@ -86,17 +86,6 @@ class ClientBilling extends Component {
     this.setState({ isEdited: value });
   };
 
-  componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client && client.successBillingId) {
-      this.setState({
-        nextStep: true
-      });
-      run(0)();
-    }
-  }
-
   change = values => {
     const data = this.props.collectBillingData(values);
     this.props.calculatePagePercent("billingPercent", data);
@@ -106,7 +95,13 @@ class ClientBilling extends Component {
     if (!values.hasOwnProperty("billing_type")) {
       values.billing_type = 0;
     }
-    this.props.updateClientBilling(values);
+    this.props.updateClientBilling(values, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 

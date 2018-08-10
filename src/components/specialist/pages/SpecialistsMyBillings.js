@@ -38,7 +38,7 @@ class SpecialistsMyBillings extends Component {
   }
 
   render() {
-    const { isEditing } = this.state;
+    const { isEdited, isEditing, nextStep, nextLocation } = this.state;
 
     return (
       <div>
@@ -56,7 +56,7 @@ class SpecialistsMyBillings extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return this.state.isEdited && !this.state.nextStep;
+            return isEdited && !nextStep;
           }}
         >
           {({ onConfirm, onCancel }) => (
@@ -70,9 +70,9 @@ class SpecialistsMyBillings extends Component {
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep ? (
-          this.state.nextLocation ? (
-            <Redirect to={this.state.nextLocation} />
+        {nextStep ? (
+          nextLocation ? (
+            <Redirect to={nextLocation} />
           ) : (
             <Redirect to="/dashboard/about" />
           )
@@ -85,18 +85,6 @@ class SpecialistsMyBillings extends Component {
     this.setState({ isEdited: value });
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.specialistData) {
-      if (nextProps.specialistData.successUpdateId) {
-        this.setState({
-          nextStep: true
-        });
-
-        run(0)();
-      }
-    }
-  }
-
   change = values => {
     const data = this.props.collectBillingData(values);
     this.props.calculatePagePercent("billingPercent", data);
@@ -106,7 +94,13 @@ class SpecialistsMyBillings extends Component {
     if (!values.hasOwnProperty("billing_type")) {
       values.billing_type = 0;
     }
-    this.props.updateSpecialistBillings(values);
+    this.props.updateSpecialistBillings(values, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 
