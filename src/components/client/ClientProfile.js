@@ -74,12 +74,12 @@ class ClientProfile extends Component {
                   this.state.nextLocation ? (
                     <Redirect to={this.state.nextLocation} />
                   ) : (
-                    <Redirect to="about" />
+                    <Redirect to="/dashboard/about" />
                   )
                 ) : this.state.nextLocation ? (
                   <Redirect to={this.state.nextLocation} />
                 ) : (
-                  <Redirect to="company" />
+                  <Redirect to="/profile/company" />
                 )
               ) : null}
             </Grid.Column>

@@ -124,7 +124,7 @@ class CompanyForm extends Component {
                   </CancelBtn>
                 </NavLink>
               ) : (
-                <NavLink exact to="/dashboard/industry">
+                <NavLink exact to="/profile/industry">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>
