@@ -38,9 +38,9 @@ class SpecialistIndustry extends Component {
     this.setState({ isEditing });
   }
 
-  componentWillUnmount() {
-    this.props.showSpecialistData();
-  }
+  // componentWillUnmount() {
+  //   this.props.showSpecialistData();
+  // }
 
   clearLocation = () => {
     this.setState({

@@ -197,7 +197,9 @@ class About extends Component {
             },
             {
               label: "Card number:",
-              value: card_number.replace(/(\d{4})/g, "$1 ") || "No card number"
+              value: card_number
+                ? card_number.replace(/(\d{4})/g, "$1 ")
+                : "No card number"
             }
           ]
         };
