@@ -201,7 +201,7 @@ class BillingForm extends Component {
                   </CancelBtn>
                 </NavLink>
               ) : (
-                <NavLink exact to="/dashboard/company">
+                <NavLink exact to="/profile/company">
                   <BackBtn disabled={submitting} primary>
                     <span>Back</span>
                   </BackBtn>
