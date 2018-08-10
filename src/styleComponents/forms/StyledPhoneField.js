@@ -9,14 +9,14 @@ export default styled.div`
       border-radius: 6px;
       max-height: 38px;
 
-      .rrui__input {
-        height: auto;
-      }
-
       .react-phone-number-input__icon {
         fill: ${colors.blue};
         font-size: 18px;
       }
+    }
+
+    .rrui__input {
+      height: auto;
     }
 
     .rrui__select__button {
@@ -27,10 +27,9 @@ export default styled.div`
       border: 1px solid ${colors.lightGreyBlue};
       border-radius: 6px;
       font-size: 16px;
-      height: auto;
+      height: 38px;
       padding: 8px 10px;
       line-height: 22px;
-      max-height: 38px;
       color: ${fontColors.regular};
 
       &::placeholder {
