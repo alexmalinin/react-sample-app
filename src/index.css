@@ -33,7 +33,7 @@ p {
   filter: blur(1px);
 }
 
-.dimmable.dimmed .dimmer {
+.ui.page.modals.dimmer {
   background: rgba(56, 60, 85, 0.9);
 }
 
