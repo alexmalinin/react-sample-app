@@ -1,18 +1,11 @@
 import React, { Component, Fragment } from "react";
-import Loadable from "react-loadable";
 import { reduxForm } from "redux-form";
 
-// import CompanyForm from "./CompanyForm";
+import SpecialistConpanyForm from "./SpecialistCompanyForm";
+import ClientCompanyForm from "./ClientCompanyForm";
 import ConfirmationPrompt from "../ConfirmationPrompt";
 
-function Loading({ pastDelay }) {
-  return pastDelay ? <h3>Loading...</h3> : null;
-}
-
-const SomeComponent = Loadable({
-  loader: () => import("./SpecialistCompanyForm"),
-  loading: Loading
-});
+import { SPECIALIST } from "@utilities";
 
 class Company extends Component {
   state = {
@@ -32,24 +25,49 @@ class Company extends Component {
     });
   };
 
-  submit = values => {
-    this.props.updateCompany(values);
-  };
-
   render() {
-    const { handleSubmit } = this.props;
+    const {
+      handleSubmit,
+      history,
+      usertype,
+      isEditing,
+      updateCompany
+    } = this.props;
 
     return (
       <Fragment>
-        <SomeComponent
-          {...this.props}
-          handleSubmit={handleSubmit(this.submit)}
-        />
-        <ConfirmationPrompt
+        {usertype === SPECIALIST ? (
+          <SpecialistConpanyForm
+            {...this.props}
+            handleSubmit={handleSubmit(values =>
+              updateCompany(values).then(() => {
+                if (isEditing) {
+                  history.push("/dashboard/about");
+                } else {
+                  history.push("/profile/billings");
+                }
+              })
+            )}
+          />
+        ) : (
+          <ClientCompanyForm
+            {...this.props}
+            handleSubmit={handleSubmit(values =>
+              updateCompany(values).then(() => {
+                if (isEditing) {
+                  history.push("/dashboard/about");
+                } else {
+                  history.push("/profile/billings");
+                }
+              })
+            )}
+          />
+        )}
+        {/* <ConfirmationPrompt
           formId="CompanyForm"
           shouldConfirm={this.props.dirty}
           handleChange={this.handleChangeLocation}
-        />
+        /> */}
       </Fragment>
     );
   }
@@ -61,14 +79,8 @@ export default reduxForm({
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
   keepDirtyOnReinitialize: false,
-  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {
-    if (isEditing) {
-      history.push("/dashboard/about");
-    } else {
-      history.push("/profile/billings");
-    }
-  },
+  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {},
   onSubmitFail: (error, dispatch, submitError, props) => {
-    props.showSubmitErrorModal();
+    if (error) props.showSubmitErrorModal();
   }
 })(Company);

@@ -11,73 +11,47 @@ import {
 
 import { postProject } from "./utils";
 
-export const showAllProjects = () => {
-  return (dispatch, getState) => {
-    const state = getState(),
-      id = selectors.getUserId(state),
-      userType = selectors.getUserType(state);
+export const showAllProjects = () => (dispatch, getState) => {
+  const state = getState(),
+    id = selectors.getUserId(state),
+    userType = selectors.getUserType(state);
 
-    let url;
+  let url;
 
-    switch (userType) {
-      case SPECIALIST:
-        url = `/specialists/${id}/projects`;
-        break;
-      case CLIENT:
-        url = `/projects?customer_id=${id}`;
-        break;
-      default:
-        break;
-    }
+  switch (userType) {
+    case SPECIALIST:
+      url = `/specialists/${id}/projects`;
+      break;
+    case CLIENT:
+      url = `/projects?customer_id=${id}`;
+      break;
+    default:
+      break;
+  }
 
-    fetch(GET, url).then(({ data }) => {
-      dispatch({
-        type: types.PROJECTS_SHOW,
-        payload: mapKeys(data, "id")
-      });
+  fetch(GET, url).then(({ data }) => {
+    dispatch({
+      type: types.PROJECTS_SHOW,
+      payload: mapKeys(data, "id")
     });
-  };
+  });
 };
 
-export const saveCreatedProgect = payload => {
-  let logo = payload["logo"] ? payload["logo"][0] : null;
+export const saveCreatedProgect = payload => (dispatch, getState) => {
+  const state = getState(),
+    auth = selectors.getAuth(state);
 
-  return (dispatch, getState) => {
-    const state = getState(),
-      auth = selectors.getAuth(state);
+  const logo = payload["logo"] ? payload["logo"][0] : null;
 
-    if (logo) {
-      let reader = new FileReader();
-      reader.readAsDataURL(logo);
+  if (logo) {
+    let reader = new FileReader();
+    reader.readAsDataURL(logo);
 
-      reader.onload = () => {
-        dispatch({
-          type: types.PROJECT_SAVE,
-          payload: fetch(POST, `/projects`, {
-            project: postProject(auth, payload, reader.result)
-          })
-        })
-          .then(({ value: { data } }) => {
-            createNotification({
-              type: "success",
-              text: `${
-                data.name ? `${data.name} project ` : "Project"
-              } was created`
-            });
-          })
-          .catch(error => {
-            createNotification({
-              type: "error"
-            });
-
-            console.error(error);
-          });
-      };
-    } else {
+    reader.onload = () => {
       dispatch({
         type: types.PROJECT_SAVE,
         payload: fetch(POST, `/projects`, {
-          project: postProject(auth, payload)
+          project: postProject(auth, payload, reader.result)
         })
       })
         .then(({ value: { data } }) => {
@@ -95,6 +69,26 @@ export const saveCreatedProgect = payload => {
 
           console.error(error);
         });
-    }
-  };
+    };
+  } else {
+    dispatch({
+      type: types.PROJECT_SAVE,
+      payload: fetch(POST, `/projects`, {
+        project: postProject(auth, payload)
+      })
+    })
+      .then(({ value: { data } }) => {
+        createNotification({
+          type: "success",
+          text: `${data.name ? `${data.name} project ` : "Project"} was created`
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
+      });
+  }
 };

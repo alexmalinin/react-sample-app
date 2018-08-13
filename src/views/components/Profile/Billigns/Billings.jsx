@@ -22,21 +22,17 @@ class Billings extends Component {
     });
   };
 
-  submit = values => {
-    console.log("values", values);
-    this.props.updateBillings(values);
-  };
-
   render() {
-    console.log("Billings", this.props.initialValues);
-    const { handleSubmit } = this.props;
+    const { handleSubmit, history, updateBillings } = this.props;
 
     return (
       <BillingsForm
         {...this.props}
         handleChange={this.handleChange}
         activeTab={this.state.activeTab}
-        handleSubmit={handleSubmit(this.submit)}
+        handleSubmit={handleSubmit(values =>
+          updateBillings(values).then(() => history.push("/dashboard/about"))
+        )}
       />
     );
   }
@@ -48,10 +44,8 @@ export default reduxForm({
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
   keepDirtyOnReinitialize: false,
-  onSubmitSuccess: (submitResult, dispatch, { history }) => {
-    history.push("/dashboard/about");
-  },
+  onSubmitSuccess: (submitResult, dispatch, { history }) => {},
   onSubmitFail: (error, dispatch, submitError, props) => {
-    props.showSubmitErrorModal();
+    if (error) props.showSubmitErrorModal();
   }
 })(Billings);

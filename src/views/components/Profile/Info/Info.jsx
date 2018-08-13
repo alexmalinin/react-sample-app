@@ -15,7 +15,7 @@ class Info extends Component {
   }
 
   render() {
-    const { handleSubmit, updateUserProfile } = this.props;
+    const { handleSubmit, history, updateUserProfile, isEditing } = this.props;
 
     return (
       <div>
@@ -24,7 +24,15 @@ class Info extends Component {
             <Grid.Column mobile={16} tablet={12} computer={16}>
               <InfoForm
                 {...this.props}
-                handleSubmit={handleSubmit(values => updateUserProfile(values))}
+                handleSubmit={handleSubmit(values =>
+                  updateUserProfile(values).then(() => {
+                    if (isEditing) {
+                      history.push("/dashboard/about");
+                    } else {
+                      history.push("/profile/industry");
+                    }
+                  })
+                )}
               />
             </Grid.Column>
           </Grid.Row>
@@ -45,15 +53,8 @@ export default reduxForm({
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
   keepDirtyOnReinitialize: false,
-  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {
-    console.log("submitResult", submitResult);
-    // if (isEditing) {
-    //   history.push("/dashboard/about");
-    // } else {
-    //   history.push("/profile/industry");
-    // }
-  },
+  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {},
   onSubmitFail: (error, dispatch, submitError, props) => {
-    // props.showSubmitErrorModal();
+    if (error) props.showSubmitErrorModal();
   }
 })(Info);

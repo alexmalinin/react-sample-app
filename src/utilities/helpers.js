@@ -42,7 +42,7 @@ export function getUserUrl(usetype) {
     case CLIENT:
       return "customers";
     default:
-      return;
+      return null;
   }
 }
 

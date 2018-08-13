@@ -16,9 +16,19 @@ import { CancelBtn, BackBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 import { required } from "@views/utils/validate";
 import { jobTitles } from "./helpers/selects";
 
-const IndustryForm = props => {
-  const { handleSubmit } = props;
-
+const IndustryForm = ({
+  handleSubmit,
+  submitting,
+  avatar,
+  industries,
+  experienceLevels,
+  getSkills,
+  skills,
+  isEditing,
+  getProjectTypes,
+  projectTypesLoading,
+  projectTypes
+}) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>
@@ -28,7 +38,7 @@ const IndustryForm = props => {
               name="person"
               component={ImageUploader}
               type="file"
-              avatar={props.avatar}
+              avatar={avatar}
               disabled
               placeholder="Choose your photo"
             />
@@ -64,7 +74,7 @@ const IndustryForm = props => {
                 label="Experience Level"
                 placeholder="Select"
                 component={SelectField}
-                options={props.experienceLevels}
+                options={experienceLevels}
                 validate={[required]}
                 isRequired
               />
@@ -75,7 +85,7 @@ const IndustryForm = props => {
               label="Select your area within the digital industry"
               placeholder="Select"
               component={SelectField}
-              options={props.industries}
+              options={industries}
               validate={[required]}
               isRequired
             />
@@ -83,8 +93,8 @@ const IndustryForm = props => {
               name="skills_attributes"
               label="Enter your skills here"
               placeholder="Start type your skill here..."
-              onOpen={props.getSkills}
-              options={props.skills}
+              onOpen={getSkills}
+              options={skills}
             />
           </Grid.Column>
 
@@ -101,9 +111,9 @@ const IndustryForm = props => {
                 label="Project Interest"
                 placeholder="Select"
                 component={SelectField}
-                onOpen={props.getProjectTypes}
-                isLoading={props.projectTypesLoading}
-                options={props.projectTypes}
+                onOpen={getProjectTypes}
+                isLoading={projectTypesLoading}
+                options={projectTypes}
                 validate={[required]}
                 isRequired
               />
@@ -128,7 +138,7 @@ const IndustryForm = props => {
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              {props.isEditing ? (
+              {isEditing ? (
                 <NavLink exact to="/dashboard/about">
                   <CancelBtn primary>
                     <span>Cancel</span>
@@ -142,21 +152,17 @@ const IndustryForm = props => {
                 </NavLink>
               )}
 
-              {props.isEditing ? (
+              {isEditing ? (
                 <SaveBtn
                   type="submit"
-                  onClick={props.handleSubmitError}
+                  disabled={submitting}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn
-                  type="submit"
-                  onClick={props.handleSubmitError}
-                  primary
-                >
+                <NextBtn type="submit" disabled={submitting} primary>
                   <span>Next Step</span>
                 </NextBtn>
               )}

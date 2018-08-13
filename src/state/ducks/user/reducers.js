@@ -2,7 +2,6 @@ import decode from "jwt-decode";
 import * as types from "./types";
 import { createReducer } from "../../utils";
 import { getUserType } from "@utilities";
-import { PENDING } from "../../../utilities";
 
 const signInReducer = createReducer({})({
   [types.SIGN_IN]: (state, { token }) => {
@@ -25,12 +24,7 @@ const signInReducer = createReducer({})({
     localStorage.clear();
 
     return {};
-  },
-
-  [types.SIGN_UP + PENDING]: (state, payload) => ({
-    ...state,
-    loading: true
-  })
+  }
 });
 
 export default signInReducer;

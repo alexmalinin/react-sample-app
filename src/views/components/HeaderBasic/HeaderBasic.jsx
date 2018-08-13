@@ -4,22 +4,25 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import StyledHeaderBasic from "@styled/Header";
+import StyledDropdown from "./StyledDropdown";
 
 import {
   IMAGE_PORT,
   BLANK_AVATAR,
-  SPECIALIST,
-  CLIENT,
   S_CORE,
   S_REDGUY
 } from "@utilities/constants";
 
 import { userOperations } from "@ducks/user";
 
-// import { oneOfRoles, getUserType } from "view/utils/functions";
-import StyledDropdown from "./StyledDropdown";
-
-const HeaderBasic = ({ firstName, lastName, avatar, passive, logout }) => {
+const HeaderBasic = ({
+  firstName,
+  lastName,
+  avatar,
+  passive,
+  userRole,
+  logout
+}) => {
   return (
     <StyledHeaderBasic>
       <div className="nav-logo bordered">
@@ -30,12 +33,12 @@ const HeaderBasic = ({ firstName, lastName, avatar, passive, logout }) => {
       <div className="nav-links">
         {!passive && (
           <Fragment>
-            {/* {oneOfRoles(S_CORE, S_REDGUY) && (
-                <NavLink className="nav-link" to="/dashboard/search">
-                  <i className="fas fa-search" />
-                  Search
-                </NavLink>
-              )} */}
+            {(userRole === S_CORE || userRole === S_REDGUY) && (
+              <NavLink className="nav-link" to="/dashboard/search">
+                <i className="fas fa-search" />
+                Search
+              </NavLink>
+            )}
             <NavLink className="nav-link" to="/dashboard/teams">
               <i className="fas fa-users" />
               Teams
@@ -83,20 +86,23 @@ const HeaderBasic = ({ firstName, lastName, avatar, passive, logout }) => {
 HeaderBasic.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  avatar: PropTypes.string,
+  avatar: PropTypes.object,
+  userRole: PropTypes.string,
   logout: PropTypes.func.isRequired
 };
 
 HeaderBasic.defaultProps = {
   firstName: "Guest",
   lastName: "",
-  avatar: BLANK_AVATAR
+  avatar: { url: null },
+  userRole: null
 };
 
-const mapStateToProps = ({ profile: { info } }) => ({
+const mapStateToProps = ({ user: { role }, profile: { info } }) => ({
   firstName: info.first_name,
   lastName: info.last_name,
-  avatar: info.avatar
+  avatar: info.avatar,
+  userRole: role
 });
 
 export default connect(mapStateToProps, {

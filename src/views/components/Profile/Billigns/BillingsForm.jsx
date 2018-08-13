@@ -12,8 +12,6 @@ import { CancelBtn, BackBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 import { required } from "@views/utils/validate";
 
 const BillingsForm = props => {
-  console.log("BillingsForm", props);
-
   const tabs = [
     {
       billingTab: "credit_card",
@@ -179,19 +177,13 @@ const BillingsForm = props => {
                 <SaveBtn
                   type="submit"
                   disabled={props.submitting}
-                  // onClick={this.props.handleSubmitError}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn
-                  type="submit"
-                  disabled={props.submitting}
-                  // onClick={this.props.handleSubmitError}
-                  primary
-                >
+                <NextBtn type="submit" disabled={props.submitting} primary>
                   <span>Submit</span>
                 </NextBtn>
               )}

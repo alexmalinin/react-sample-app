@@ -11,12 +11,13 @@ class Industry extends Component {
     this.props.getExperienceLevels();
   }
 
-  submit = values => {
-    this.props.updateSpecialistIndustry(values);
-  };
-
   render() {
-    const { handleSubmit } = this.props;
+    const {
+      handleSubmit,
+      history,
+      isEditing,
+      updateSpecialistIndustry
+    } = this.props;
 
     return (
       <div>
@@ -25,7 +26,15 @@ class Industry extends Component {
             <Grid.Column mobile={16} tablet={12} computer={16}>
               <IndustryForm
                 {...this.props}
-                handleSubmit={handleSubmit(this.submit)}
+                handleSubmit={handleSubmit(values =>
+                  updateSpecialistIndustry(values).then(() => {
+                    if (isEditing) {
+                      history.push("/dashboard/about");
+                    } else {
+                      history.push("/profile/company");
+                    }
+                  })
+                )}
               />
             </Grid.Column>
           </Grid.Row>
@@ -41,14 +50,8 @@ export default reduxForm({
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
   keepDirtyOnReinitialize: false,
-  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {
-    if (isEditing) {
-      history.push("/dashboard/about");
-    } else {
-      history.push("/profile/company");
-    }
-  },
+  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {},
   onSubmitFail: (error, dispatch, submitError, props) => {
-    props.showSubmitErrorModal();
+    if (error) props.showSubmitErrorModal();
   }
 })(Industry);

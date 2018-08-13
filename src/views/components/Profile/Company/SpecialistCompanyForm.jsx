@@ -24,7 +24,6 @@ const SpecialistCompanyForm = ({
   industries,
   handleSubmit
 }) => {
-  console.log("industries", industries);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid>

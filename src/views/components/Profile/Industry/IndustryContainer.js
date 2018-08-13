@@ -31,7 +31,7 @@ export default connect(
       };
     }
 
-    let industryArea = {};
+    let industryArea = null;
 
     if (industries[industry_area_id - 1]) {
       const { value, label } = industries[industry_area_id - 1];

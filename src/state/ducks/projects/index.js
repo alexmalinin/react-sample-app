@@ -1,7 +1,7 @@
 import reducer from "./reducers";
 
-import * as projectOperations from "./operations";
+import * as projectsOperations from "./operations";
 
-export { projectOperations };
+export { projectsOperations };
 
 export default reducer;

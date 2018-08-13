@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { reduxForm } from "redux-form";
+import { reduxForm, SubmissionError } from "redux-form";
 import { Tab } from "semantic-ui-react";
 
 import SignUpForm from "./SignUpForm";
@@ -14,8 +14,7 @@ import { userOperations } from "@ducks/user";
 
 class SignUpContainer extends Component {
   state = {
-    activeUser: "specialist",
-    errorMessage: null
+    activeUser: "specialist"
   };
 
   static propTypes = {
@@ -28,15 +27,9 @@ class SignUpContainer extends Component {
     });
   };
 
-  submit = values => {
-    const { activeUser } = this.state;
-
-    this.props.signUp(activeUser, values);
-  };
-
   render() {
-    const { activeUser } = this.state;
-    const { handleSubmit, submitting, signUp, history } = this.props;
+    const { activeUser, errorMessage } = this.state;
+    const { handleSubmit, signUp, history } = this.props;
 
     const panes = [
       {
@@ -50,8 +43,6 @@ class SignUpContainer extends Component {
     ];
 
     const activeIndex = activeUser === "specialist" ? 0 : 1;
-
-    console.log("submitting", submitting);
 
     return (
       <Fragment>
@@ -72,14 +63,18 @@ class SignUpContainer extends Component {
 
           <StyledAuthForm attached={false}>
             <SignUpForm
-              // failLogin={failLogin}
-              handleSubmit={handleSubmit(values =>
-                signUp(activeUser, values).then(response => {
-                  if (response) {
-                    localStorage.email = response;
+              signUpFail={errorMessage}
+              handleSubmit={handleSubmit((values, dispatch, props) =>
+                signUp(activeUser, values)
+                  .then(({ data }) => {
+                    localStorage.user_email = data.email;
                     history.push("/confirm_email");
-                  }
-                })
+                  })
+                  .catch(({ response: { data } }) => {
+                    throw new SubmissionError({
+                      email: data.errors[0]
+                    });
+                  })
               )}
             />
           </StyledAuthForm>
@@ -89,19 +84,12 @@ class SignUpContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  signUpFail: user.signUpFail
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   signUp: userOperations.signUp
 })(
   reduxForm({
     form: "SignUpForm",
     destroyOnUnmount: true,
-    forceUnregisterOnUnmount: true,
-    onSubmitSuccess: (submitResult, dispatch, { history }) => {
-      // history.push("/confirm_email");
-    }
+    forceUnregisterOnUnmount: true
   })(SignUpContainer)
 );

@@ -35,23 +35,5 @@ export const logout = () => dispatch => {
   dispatch(userLoggedOut());
 };
 
-export const userSignedUp = () => ({
-  type: types.SIGN_UP
-});
-
-export const userSignUpFail = () => ({
-  type: types.SIGN_UP_FAIL
-});
-
 export const signUp = (user, data) => dispatch =>
-  fetch(POST, `/${user}/auth/register`, data)
-    .then(({ data: { email } }) => {
-      dispatch(userSignedUp());
-
-      return email;
-    })
-    .catch(({ response: { data } }) => {
-      dispatch(userSignUpFail());
-
-      return data;
-    });
+  fetch(POST, `/${user}/auth/register`, data);

@@ -13,38 +13,43 @@ import { DvButtonBlue } from "@styled/DVButton";
 
 import { required, minLength2, email } from "@views/utils/validate";
 
-const SignUpForm = props => {
-  const { handleSubmit, submitting } = props;
+const SignUpForm = ({ handleSubmit, submitting }) => (
+  <Form onSubmit={handleSubmit}>
+    <Field
+      name="email"
+      type="email"
+      label="Your email"
+      component={InputField}
+      validate={[required, email]}
+      checkedClass="checked"
+    />
 
-  return (
-    <Form onSubmit={handleSubmit}>
+    <StyledRequireBox>
       <Field
-        name="email"
-        type="email"
-        label="Your email"
-        component={InputField}
-        validate={[required, email]}
-        checkedClass="checked"
+        name="terms"
+        component={RenderCheckbox}
+        validate={[required, minLength2]}
       />
+      <p className="privacy">
+        I have read and I agree to the <ModalTerms /> and <PrivacyPolicy />
+      </p>
+    </StyledRequireBox>
 
-      <StyledRequireBox>
-        <Field
-          name="terms"
-          component={RenderCheckbox}
-          validate={[required, minLength2]}
-        />
-        <p className="privacy">
-          I have read and I agree to the <ModalTerms /> and <PrivacyPolicy />
-        </p>
-      </StyledRequireBox>
+    <div className="controls">
+      <DvButtonBlue type="submit" className="dv-blue" disabled={submitting}>
+        Continue
+      </DvButtonBlue>
+    </div>
+  </Form>
+);
 
-      <div className="controls">
-        <DvButtonBlue type="submit" className="dv-blue" disabled={submitting}>
-          Continue
-        </DvButtonBlue>
-      </div>
-    </Form>
-  );
+SignUpForm.PropTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool
+};
+
+SignUpForm.defaultProps = {
+  submitting: false
 };
 
 export default SignUpForm;

@@ -7,7 +7,11 @@ import { modalsOperations } from "@ducks/modals";
 import Company from "./Company";
 
 export default connect(
-  ({ profile: { info, company }, industriesReducer: { industries } }) => ({
+  ({
+    user: { type },
+    profile: { info, company },
+    industriesReducer: { industries }
+  }) => ({
     initialValues: {
       name: company.name,
       company_address: company.company_address,
@@ -22,6 +26,7 @@ export default connect(
       abn_acn: company.tell_about
     },
 
+    usertype: type,
     avatar: info.avatar,
     industries
   }),

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
+import { NotificationContainer } from "react-notifications";
 
 import Info from "./info";
 import Industry from "./industry";
@@ -15,6 +16,8 @@ import SubHeader from "@components/Profile/SubHeader";
 import SubmitErrorModal from "@components/common/modals/SubmitErrorModal";
 
 import { getAllUrlParams } from "@views/utils/functions";
+
+import "react-notifications/lib/notifications.css";
 
 const percents = {
   profilePercent: null,
@@ -59,6 +62,7 @@ const ProfileLayout = props => {
           />
         </Container>
       </MainContainer>
+      <NotificationContainer />
       <SubmitErrorModal isOpen={submitErrorModal} />
     </div>
   );

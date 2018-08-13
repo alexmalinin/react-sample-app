@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
 
-import Dashboard from "@components/Dashboard/root";
-import Search from "@components/Dashboard/Search";
+import Dashboard from "@components/Dashboard/";
+import Search from "@components/Search";
 import HeaderBasic from "@components/HeaderBasic";
 import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";

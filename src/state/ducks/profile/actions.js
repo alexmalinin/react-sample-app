@@ -9,22 +9,20 @@ import {
   SPECIALIST,
   CLIENT,
   CUSTOMER
-} from "../../../utilities";
+} from "@utilities";
 import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
 
-export const showUserData = () => {
-  return (dispatch, getState) => {
-    const state = getState(),
-      userType = selectors.getUserType(state),
-      id = selectors.getUserId(state);
+export const showUserData = () => (dispatch, getState) => {
+  const state = getState(),
+    userType = selectors.getUserType(state),
+    id = selectors.getUserId(state);
 
-    const url = getUserUrl(userType);
+  const url = getUserUrl(userType);
 
-    dispatch({
-      type: types.USER_DATA_SHOW,
-      payload: fetch(GET, `/${url}/${id}`)
-    });
-  };
+  dispatch({
+    type: types.USER_DATA_SHOW,
+    payload: fetch(GET, `/${url}/${id}`)
+  });
 };
 
 /**
@@ -43,11 +41,11 @@ export const updateUserProfile = (data, education, experience) => {
 
     switch (userType) {
       case SPECIALIST:
-        dispatch(updateSpecialistProfile(id, data, education, experience));
-        break;
+        return dispatch(
+          updateSpecialistProfile(id, data, education, experience)
+        );
       case CLIENT:
-        dispatch(updateClientProfile(id, data));
-        break;
+        return dispatch(updateClientProfile(id, data));
       default:
         break;
     }
@@ -55,7 +53,6 @@ export const updateUserProfile = (data, education, experience) => {
 };
 
 const updateSpecialistProfile = (id, data, education, experience) => {
-  console.log("data", data);
   const image = data["avatar"] ? data["avatar"][0] : null;
 
   return dispatch => {
@@ -85,12 +82,14 @@ const updateSpecialistProfile = (id, data, education, experience) => {
             createNotification({
               type: "error"
             });
+
+            throw new Error();
           });
       };
     } else {
-      dispatch({
+      return dispatch({
         type: types.USER_PROFILE_UPDATE,
-        payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
+        payload: fetch(PUT, `/specialistss/${id}/dashboard/profile`, {
           profile: specialistProfile(data, education, experience)
         })
       })
@@ -104,6 +103,8 @@ const updateSpecialistProfile = (id, data, education, experience) => {
           createNotification({
             type: "error"
           });
+
+          throw new Error();
         });
     }
   };
@@ -134,6 +135,8 @@ const updateClientProfile = (id, data) => {
             createNotification({
               type: "error"
             });
+
+            throw new Error();
           });
       };
     } else {
@@ -153,6 +156,8 @@ const updateClientProfile = (id, data) => {
           createNotification({
             type: "error"
           });
+
+          throw new Error();
         });
     }
   };
@@ -228,7 +233,7 @@ export const updateSpecialistIndustry = data => {
       }
     };
 
-    dispatch({
+    return dispatch({
       type: types.USER_INDUSTRY_UPDATE,
       payload: fetch(PUT, `/specialists/${id}`, body)
     })
@@ -242,6 +247,8 @@ export const updateSpecialistIndustry = data => {
         createNotification({
           type: "error"
         });
+
+        throw new Error();
       });
   };
 };
@@ -254,11 +261,9 @@ export const updateCompany = data => {
 
     switch (userType) {
       case SPECIALIST:
-        dispatch(updateSpecialistCompany(id, data));
-        break;
+        return dispatch(updateSpecialistCompany(id, data));
       case CLIENT:
-        dispatch(updateClientCompany(id, data));
-        break;
+        return dispatch(updateClientCompany(id, data));
       default:
         break;
     }
@@ -272,42 +277,41 @@ export const updateCompany = data => {
  * @param  {object} payload specialist company data
  */
 
-const updateSpecialistCompany = (id, data) => {
-  return dispatch => {
-    const body = {
-      specialist: {
-        company_attributes: {
-          name: data["name"],
-          company_address: data["company_address"],
-          country: data["country"],
-          city: data["city"],
-          industry_area_id: data["industry"]["value"] || data["industry"],
-          number_of_employers:
-            data["number_of_employers"]["value"] || data["number_of_employers"],
-          segment: data["segment"]["value"] || data["segment"],
-          website: data["website"]
-        }
+const updateSpecialistCompany = (id, data) => dispatch => {
+  const body = {
+    specialist: {
+      company_attributes: {
+        name: data["name"],
+        company_address: data["company_address"],
+        country: data["country"],
+        city: data["city"],
+        industry_area_id: data["industry"]["value"] || data["industry"],
+        number_of_employers:
+          data["number_of_employers"]["value"] || data["number_of_employers"],
+        segment: data["segment"]["value"] || data["segment"],
+        website: data["website"]
       }
-    };
-
-    dispatch({
-      type: types.USER_COMPANY_UPDATE,
-      payload: fetch(PUT, `/specialists/${id}`, body)
-    })
-      .then(() => {
-        createNotification({
-          type: "success",
-          text: "Changes was saved"
-        });
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
-      });
+    }
   };
+
+  return dispatch({
+    type: types.USER_COMPANY_UPDATE,
+    payload: fetch(PUT, `/specialistss/${id}`, body)
+  })
+    .then(() => {
+      createNotification({
+        type: "success",
+        text: "Changes was saved"
+      });
+    })
+    .catch(error => {
+      createNotification({
+        type: "error"
+      });
+
+      console.error(error);
+      throw new Error();
+    });
 };
 
 /**
@@ -340,7 +344,7 @@ const updateClientCompany = (id, payload) => {
       }
     };
 
-    dispatch({
+    return dispatch({
       type: types.USER_COMPANY_UPDATE,
       payload: fetch(PUT, `/customers/${id}`, body)
     })
@@ -368,11 +372,9 @@ export const updateBillings = data => {
 
     switch (userType) {
       case SPECIALIST:
-        dispatch(updateSpecialistBillings(id, data));
-        break;
+        return dispatch(updateSpecialistBillings(id, data));
       case CLIENT:
-        dispatch(updateClientBillings(id, data));
-        break;
+        return dispatch(updateClientBillings(id, data));
       default:
         break;
     }
@@ -408,7 +410,7 @@ const updateSpecialistBillings = (id, data) => {
       }
     };
 
-    dispatch({
+    return dispatch({
       type: types.USER_BILLINGS_UPDATE,
       payload: fetch(PUT, `/specialists/${id}`, body)
     })
@@ -424,6 +426,7 @@ const updateSpecialistBillings = (id, data) => {
         });
 
         console.error(error);
+        throw new Error();
       });
   };
 };
@@ -457,7 +460,7 @@ const updateClientBillings = (id, data) => {
       }
     };
 
-    dispatch({
+    return dispatch({
       type: types.USER_BILLINGS_UPDATE,
       payload: fetch(PUT, `/customers/${id}`, body)
     })
@@ -473,6 +476,7 @@ const updateClientBillings = (id, data) => {
         });
 
         console.error(error);
+        throw new Error();
       });
   };
 };
