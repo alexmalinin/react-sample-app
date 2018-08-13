@@ -842,10 +842,10 @@ export function deleteExperienceCardWithOutId(experience) {
  * Update Client Data Profile
  *
  * @param  {object} data client profile data
- *
+ * @param {function} callback callback, called on success
  */
 
-export function updateClientProfile(data) {
+export function updateClientProfile(data, callback) {
   let image = data["person"] ? data["person"][0] : null;
 
   const token = localStorage.getItem("jwt_token");
@@ -876,6 +876,10 @@ export function updateClientProfile(data) {
               type: types.UPDATE_CLIENT_PROFILE + SUCCESS,
               data
             });
+
+            if (callback) {
+              callback();
+            }
           })
           .then(() => {
             createNotification({
@@ -911,6 +915,10 @@ export function updateClientProfile(data) {
             type: types.UPDATE_CLIENT_PROFILE + SUCCESS,
             data
           });
+
+          if (callback) {
+            callback();
+          }
         })
         .then(() => {
           createNotification({
