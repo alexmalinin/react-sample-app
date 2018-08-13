@@ -9,7 +9,7 @@ import SearchFilterFormCore from "../../client/forms/SearchFilterFormCore";
 import SpecialistCard from "../../layout/SpecialistCard";
 import { showSpecialistCustomTeams } from "../../../actions/actions";
 import { Grid } from "semantic-ui-react";
-import { getUserRole } from "../../../helpers/functions";
+import { getUserRole, getUserId } from "../../../helpers/functions";
 import { S_REDGUY } from "../../../constants/user";
 import { getSpecialistId } from "../../../helpers/selectors";
 
@@ -96,6 +96,8 @@ class SearchSpecialist extends Component {
 }
 
 const FilteredList = ({ filters, specialists, projectId, handleMessage }) => {
+  const not_this = specialist => specialist.id !== getUserId();
+
   const industry_area_id = specialist =>
     filters.industry_area_id
       ? specialist.industry_area_id === filters.industry_area_id
@@ -123,6 +125,7 @@ const FilteredList = ({ filters, specialists, projectId, handleMessage }) => {
           .filter(industry_area_id)
           .filter(experience_level_id)
           .filter(project_type)
+          .filter(not_this)
           .map((specialist, key) => (
             <Grid.Column key={key}>
               <SpecialistCard
