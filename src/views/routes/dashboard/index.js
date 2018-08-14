@@ -9,11 +9,11 @@ import HeaderBasic from "@components/HeaderBasic";
 import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";
 
+import MainContainer from "@styled/MainContainer";
 import { ContainerLarge } from "@styled/Containers";
 
 import { sidebarOperations } from "@ducks/sidebar";
-
-import MainContainer from "@styled/MainContainer";
+import Teams from "@components/Teams";
 
 const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
   <div>
@@ -22,9 +22,10 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
       <SideBarLeft />
       <ContainerLarge>
         <Route exact path={`${match.url}`} component={Dashboard} />
+        <Route exact path={`${match.url}/teams`} component={Teams} />
         <Route exact path={`${match.url}/search`} component={Search} />
       </ContainerLarge>
-      <SideBarRight opened={opened} toggle={() => toogleSidebar()} />
+      <SideBarRight opened={opened} toggle={toogleSidebar} />
     </MainContainer>
   </div>
 );

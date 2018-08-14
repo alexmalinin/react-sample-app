@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
@@ -9,7 +10,6 @@ import Company from "./company";
 import Billings from "./billings";
 
 import HeaderBasic from "@components/HeaderBasic";
-import { connect } from "react-redux";
 import MainContainer from "@styled/MainContainer";
 import { Container } from "@styled/Containers";
 import SubHeader from "@components/Profile/SubHeader";
