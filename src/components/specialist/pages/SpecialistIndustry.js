@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { isInvalid } from "redux-form";
 import SpecialistIndustryForm from "../forms/SpecialistIndustryForm";
 import {
   getProjectTypes,
@@ -54,7 +55,8 @@ class SpecialistIndustry extends Component {
       industries,
       projectTypes,
       experienceLevels,
-      specialistData
+      specialistData,
+      isInvalid
     } = this.props;
 
     return (
@@ -78,13 +80,14 @@ class SpecialistIndustry extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return isEdited && !nextStep;
+            return (isEdited && !nextStep) || isInvalid;
           }}
         >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isOpen={true}
               formId="SpecialistIndustryForm"
+              isInvalid={this.props.isInvalid}
               clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
@@ -128,12 +131,13 @@ class SpecialistIndustry extends Component {
 }
 
 export default connect(
-  ({ industries, projectTypes, experienceLevels, specialistData, skills }) => ({
-    industries,
-    projectTypes,
-    experienceLevels,
-    specialistData,
-    skills
+  state => ({
+    industries: state.industries,
+    projectTypes: state.projectTypes,
+    experienceLevels: state.experienceLevels,
+    specialistData: state.specialistData,
+    skills: state.skills,
+    isInvalid: isInvalid("SpecialistIndustryForm")(state)
   }),
   {
     updateSpecStep1,

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { isInvalid } from "redux-form";
 import ClientBillingForm from "./forms/ClientBillingForm";
 import {
   showClientData,
@@ -39,7 +40,7 @@ class ClientBilling extends Component {
 
   render() {
     const { isEditing, isEdited, nextStep, nextLocation } = this.state;
-    const { clientData } = this.props;
+    const { clientData, isInvalid } = this.props;
 
     return (
       <div>
@@ -57,13 +58,14 @@ class ClientBilling extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return isEdited && !nextStep;
+            return (isEdited && !nextStep) || isInvalid;
           }}
         >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isOpen={true}
               formId="ClientBillingForm"
+              isInvalid={this.props.isInvalid}
               clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
@@ -106,6 +108,10 @@ class ClientBilling extends Component {
 }
 
 export default connect(
-  ({ industries, clientData }) => ({ industries, clientData }),
+  state => ({
+    industries: state.industries,
+    clientData: state.clientData,
+    isInvalid: isInvalid("ClientBillingForm")(state)
+  }),
   { getIndustries, showClientData, updateClientBilling }
 )(ClientBilling);
