@@ -5,8 +5,8 @@ import { Button } from "semantic-ui-react";
 import StyledUploader from "../../../styleComponents/forms/StyledUploader";
 import { PORT, IMAGE_PORT, BLANK_AVATAR } from "../../../constants/constants";
 import { showSortedProjects } from "../../../actions/actions";
-import { getUserRole, getUserType } from "../../../helpers/functions";
-import { CUSTOMER, CLIENT, SPECIALIST } from "../../../constants/user";
+import { getUserType } from "../../../helpers/functions";
+import { CLIENT, SPECIALIST } from "../../../constants/user";
 
 class RenderImage extends Component {
   state = { file: "", imagePreviewUrl: "" };
@@ -15,9 +15,11 @@ class RenderImage extends Component {
     if (nextProps.logo && nextProps.logo.url) {
       if (this.props.logo.url !== nextProps.logo.url) {
         this.setState({ imagePreviewUrl: IMAGE_PORT + nextProps.logo.url });
+      } else {
+        this.setState({
+          imagePreviewUrl: null
+        });
       }
-    } else {
-      this.setState({ imagePreviewUrl: null });
     }
   }
 
@@ -29,39 +31,42 @@ class RenderImage extends Component {
     let reader = new FileReader();
     let file = e.target.files[0];
 
-    this.props.input.onChange(e);
-
     if (file) {
+      this.props.input.onChange(e);
+
       reader.onloadend = () => {
         this.setState({
           file: file,
           imagePreviewUrl: reader.result
         });
 
-        Axios({
-          method: "PUT",
-          url: `${PORT}/api/v1/projects/${projectId}`,
-          data: {
-            project: {
-              logo: reader.result
+        if (projectId) {
+          Axios({
+            method: "PUT",
+            url: `${PORT}/api/v1/projects/${projectId}`,
+            data: {
+              project: {
+                logo: reader.result
+              }
+            },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
             }
-          },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
-          }
-        })
-          .then(res => {
-            const userType = getUserType();
-            if (userType === CLIENT) showSortedProjects("customers");
-            else if (userType === SPECIALIST) showSortedProjects("specialists");
           })
-          .catch(error => {
-            console.log(error);
-          });
+            .then(res => {
+              const userType = getUserType();
+              if (userType === CLIENT) showSortedProjects("customers");
+              else if (userType === SPECIALIST)
+                showSortedProjects("specialists");
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
       };
-    }
 
-    file && reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
 
   render() {
@@ -80,7 +85,9 @@ class RenderImage extends Component {
     } = this.props;
 
     let { imagePreviewUrl } = this.state;
+
     let $imagePreview = null;
+
     if (avatar && avatar.url && !imagePreviewUrl) {
       $imagePreview = <img src={IMAGE_PORT + avatar.url} alt="" />;
     } else if (logo && logo.url && !imagePreviewUrl) {
@@ -112,7 +119,7 @@ class RenderImage extends Component {
         <div className="upload">
           <div className="upload-image">
             <div className="imgPreview">{$imagePreview}</div>
-            <Button primary onClick={this.handleTrigger}>
+            <Button type="button" primary onClick={this.handleTrigger}>
               {/* Upload */}
             </Button>
           </div>
@@ -148,11 +155,3 @@ class RenderImage extends Component {
 }
 
 export default connect(null, { showSortedProjects })(RenderImage);
-
-// if (avatar && !imagePreviewUrl) {
-//     $imagePreview = (<img src={PORT + avatar.url}/>);
-// } else if (imagePreviewUrl) {
-//     $imagePreview = (<img src={imagePreviewUrl}/>);
-// } else {
-//     $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
-// }

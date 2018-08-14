@@ -94,7 +94,7 @@ export default connect(state => {
   //     return (renderSpecialities["_" + item["id"]] = true);
   //   });
 
-  let renderProjectTypes = {};
+  let renderProjectTypes = null;
   if (project_type) {
     renderProjectTypes = {
       label: project_type["name"],
@@ -102,7 +102,7 @@ export default connect(state => {
     };
   }
 
-  let industryArea = {};
+  let industryArea = null;
 
   if (
     industries &&

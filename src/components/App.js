@@ -17,16 +17,20 @@ import ConfirmReset from "./ResetPassword/ConfirmReset";
 import ConfirmEmail from "./ConfirmEmail";
 import ClientIndex from "./client";
 import SpecialistIndex from "./specialist";
-import { getUserType } from "../helpers/functions";
+import { getUserType, getUserRole } from "../helpers/functions";
 import PrivateRoute from "../decorators/PrivateRoute";
 import AssignRoute from "../decorators/AssignRoute";
+import { S_PASSIVE } from "../constants/user";
 
 class App extends Component {
   defaultPath = () => {
     const token = localStorage.getItem("jwt_token");
 
-    if (token) return <Redirect to="/dashboard/" />;
-    else return <Redirect to="/sign_in" />;
+    if (token) {
+      if (getUserRole() === S_PASSIVE)
+        return <Redirect to="/dashboard/about" />;
+      else return <Redirect to="/dashboard/" />;
+    } else return <Redirect to="/sign_in" />;
   };
 
   render() {

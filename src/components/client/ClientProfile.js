@@ -35,7 +35,7 @@ class ClientProfile extends Component {
   };
 
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing, isEdited, nextStep, nextLocation } = this.state;
 
     return (
       <div>
@@ -55,7 +55,7 @@ class ClientProfile extends Component {
                   this.setState({
                     nextLocation: nextLocation.pathname + nextLocation.search
                   });
-                  return this.state.isEdited && !this.state.nextStep;
+                  return isEdited && !nextStep;
                 }}
               >
                 {({ onConfirm, onCancel }) => (
@@ -69,17 +69,17 @@ class ClientProfile extends Component {
                 )}
               </NavigationPrompt>
 
-              {this.state.nextStep ? (
-                this.state.isEditing ? (
-                  this.state.nextLocation ? (
-                    <Redirect to={this.state.nextLocation} />
+              {nextStep ? (
+                isEditing ? (
+                  nextLocation ? (
+                    <Redirect to={nextLocation} />
                   ) : (
-                    <Redirect to="about" />
+                    <Redirect to="/dashboard/about" />
                   )
-                ) : this.state.nextLocation ? (
-                  <Redirect to={this.state.nextLocation} />
+                ) : nextLocation ? (
+                  <Redirect to={nextLocation} />
                 ) : (
-                  <Redirect to="company" />
+                  <Redirect to="/profile/company" />
                 )
               ) : null}
             </Grid.Column>
@@ -99,16 +99,9 @@ class ClientProfile extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
     let password = nextProps.confirmPassword;
 
-    if (client.successProfileId) {
-      this.setState({
-        nextStep: true
-      });
-
-      run(0)();
-    } else if (password) {
+    if (password) {
       if (password.successPasswordId) {
         run(0)();
       } else if (password.errorPasswordId) {
@@ -123,7 +116,13 @@ class ClientProfile extends Component {
   };
 
   submit = values => {
-    this.props.updateClientProfile(values);
+    this.props.updateClientProfile(values, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 

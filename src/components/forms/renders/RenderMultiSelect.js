@@ -9,7 +9,7 @@ export default class RenderSelect extends Component {
       input,
       ...rest
     } = this.props;
-    let { value, onChange, placeholder } = input;
+    let { value, onChange } = input;
 
     return (
       <div>

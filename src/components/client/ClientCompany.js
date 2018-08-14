@@ -41,7 +41,7 @@ class ClientCompany extends Component {
   };
 
   render() {
-    const { isEditing, isEdited } = this.state;
+    const { isEditing, isEdited, nextStep, nextLocation } = this.state;
     const { clientData, industries } = this.props;
 
     return (
@@ -61,7 +61,7 @@ class ClientCompany extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return this.state.isEdited && !this.state.nextStep;
+            return isEdited && !nextStep;
           }}
         >
           {({ onConfirm, onCancel }) => (
@@ -75,17 +75,17 @@ class ClientCompany extends Component {
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep ? (
-          this.state.isEditing ? (
-            this.state.nextLocation ? (
-              <Redirect to={this.state.nextLocation} />
+        {nextStep ? (
+          isEditing ? (
+            nextLocation ? (
+              <Redirect to={nextLocation} />
             ) : (
-              <Redirect to="about" />
+              <Redirect to="/dashboard/about" />
             )
-          ) : this.state.nextLocation ? (
-            <Redirect to={this.state.nextLocation} />
+          ) : nextLocation ? (
+            <Redirect to={nextLocation} />
           ) : (
-            <Redirect to="billing" />
+            <Redirect to="/profile/billings" />
           )
         ) : null}
       </div>
@@ -96,24 +96,19 @@ class ClientCompany extends Component {
     this.setState({ isEdited: value });
   };
 
-  componentWillReceiveProps(nextProps) {
-    let client = nextProps.clientData;
-
-    if (client && client.successCompanyId) {
-      this.setState({
-        nextStep: true
-      });
-      run(0)();
-    }
-  }
-
   change = values => {
     const data = this.props.collectCompanyData(values);
     this.props.calculatePagePercent("companyPercent", data);
   };
 
   submit = values => {
-    this.props.updateClientCompany(values);
+    this.props.updateClientCompany(values, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 

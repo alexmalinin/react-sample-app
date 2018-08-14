@@ -41,7 +41,7 @@ class SpecialistCompany extends Component {
   }
 
   render() {
-    const { isEditing } = this.state;
+    const { isEdited, isEditing, nextStep, nextLocation } = this.state;
 
     const { industries } = this.props;
 
@@ -60,7 +60,7 @@ class SpecialistCompany extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return this.state.isEdited && !this.state.nextStep;
+            return isEdited && !nextStep;
           }}
         >
           {({ onConfirm, onCancel }) => (
@@ -74,33 +74,21 @@ class SpecialistCompany extends Component {
           )}
         </NavigationPrompt>
 
-        {this.state.nextStep ? (
-          this.state.isEditing ? (
-            this.state.nextLocation ? (
-              <Redirect to={this.state.nextLocation} />
+        {nextStep ? (
+          isEditing ? (
+            nextLocation ? (
+              <Redirect to={nextLocation} />
             ) : (
-              <Redirect to="about" />
+              <Redirect to="/dashboard/about" />
             )
-          ) : this.state.nextLocation ? (
-            <Redirect to={this.state.nextLocation} />
+          ) : nextLocation ? (
+            <Redirect to={nextLocation} />
           ) : (
-            <Redirect to="billings" />
+            <Redirect to="/profile/billings" />
           )
         ) : null}
       </div>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.specialistData) {
-      if (nextProps.specialistData.successUpdateId) {
-        this.setState({
-          nextStep: true
-        });
-
-        run(0)();
-      }
-    }
   }
 
   handleFormEdit = value => {
@@ -112,7 +100,13 @@ class SpecialistCompany extends Component {
   };
 
   submit = values => {
-    this.props.updateSpecStep2(values);
+    this.props.updateSpecStep2(values, () => {
+      this.setState({
+        nextStep: true
+      });
+
+      run(0)();
+    });
   };
 }
 

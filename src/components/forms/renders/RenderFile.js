@@ -200,8 +200,13 @@ class RenderFile extends Component {
   deleteAttachedFile = file => {
     this.setState({ loading: true });
 
-    return axios
-      .delete(`${PORT}/api/v1/attached_files/${file}`)
+    return axios({
+      url: `${PORT}/api/v1/attached_files/${file}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
+    })
       .then(resp => this.setState({ loading: false }))
       .catch(error => {
         console.error(error);
@@ -215,7 +220,10 @@ class RenderFile extends Component {
     return axios({
       url: `${PORT}/api/v1/attached_files/${file.id}/download`,
       method: "POST",
-      responseType: "blob"
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
+      }
     })
       .then(res => {
         this.getFile(fileName, res);
@@ -255,7 +263,7 @@ class RenderFile extends Component {
         {...rest}
       >
         <label>{label}</label>
-        <span />
+        {/* <span /> */}
 
         {dropzone &&
           !disabled && (
@@ -272,74 +280,78 @@ class RenderFile extends Component {
             </Dropzone>
           )}
 
-        {this.state.files.map((file, key) => (
-          <div
-            key={key}
-            className={`filePreview${onSelfSubmit ? " active" : ""}`}
-          >
+        <div className="files-container">
+          {this.state.files.map((file, key) => (
             <div
-              className="fileIcon"
-              onClick={() =>
-                onSelfSubmit &&
-                file.document &&
-                file.document.url &&
-                this.downloadFile(file)
-              }
+              key={key}
+              className={`filePreview${onSelfSubmit ? " active" : ""}`}
             >
-              <i className={`far fa-file${this.getFileExtension(file)}`} />
-            </div>
-            <div className="fileInfo">
-              <p className="fileName">
-                {file.name && this.returnFileName(file.name)}
-                {file.document &&
-                  file.document.url &&
-                  this.returnFileName(file.document.url.split("/").pop())}
-              </p>
-              <p className="fileSize">
-                {file.size
-                  ? this.returnFileSize(file.size)
-                  : this.returnFileSize(0)}
-              </p>
-            </div>
-            {!disabled && (
               <div
-                className="file-delete"
+                className="fileIcon"
                 onClick={() =>
-                  this.handleDeleteFile(file.id, file.name, "delete")
+                  onSelfSubmit &&
+                  file.document &&
+                  file.document.url &&
+                  this.downloadFile(file)
                 }
               >
-                <i className="fas fa-times" />
+                <i className={`far fa-file${this.getFileExtension(file)}`} />
               </div>
-            )}
-          </div>
-        ))}
-        <Loader
-          style={{ display: this.state.loading ? "block" : "none" }}
-          inline
-          inverted
-          disabled={!this.state.loading}
-        />
+              <div className="fileInfo">
+                <p className="fileName">
+                  {file.name && this.returnFileName(file.name)}
+                  {file.document &&
+                    file.document.url &&
+                    this.returnFileName(file.document.url.split("/").pop())}
+                </p>
+                <p className="fileSize">
+                  {file.size
+                    ? this.returnFileSize(file.size)
+                    : this.returnFileSize(0)}
+                </p>
+              </div>
+              {!disabled && (
+                <div
+                  className="file-delete"
+                  onClick={() =>
+                    this.handleDeleteFile(file.id, file.name, "delete")
+                  }
+                >
+                  <i className="fas fa-times" />
+                </div>
+              )}
+            </div>
+          ))}
 
-        {!dropzone &&
-          !disabled && (
-            <button
-              type="button"
-              className="uploadFile"
-              onClick={this.handleTrigger}
-            >
-              {/* Upload */}
-            </button>
-          )}
-        <input
-          ref={this.triggerRef}
-          name={input.name + "2"}
-          disabled={disabled}
-          placeholder={placeholder}
-          type="file"
-          multiple
-          accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
-          onChange={e => this._handleFileAttach(e)}
-        />
+          <Loader
+            style={{ display: this.state.loading ? "block" : "none" }}
+            inline
+            inverted
+            disabled={!this.state.loading}
+          />
+
+          {!dropzone &&
+            !disabled && (
+              <button
+                type="button"
+                className="uploadFile"
+                onClick={this.handleTrigger}
+              >
+                {/* Upload */}
+              </button>
+            )}
+
+          <input
+            ref={this.triggerRef}
+            name={input.name + "2"}
+            disabled={disabled}
+            placeholder={placeholder}
+            type="file"
+            multiple
+            accept=".pdf, .doc, .docx, .xlsx, .txt, .csv, .rtf, .html, .odt, .psd, .jpg, .jpeg, .zip, .png"
+            onChange={e => this._handleFileAttach(e)}
+          />
+        </div>
 
         {this.state.error ? (
           <div className="errorMessage">

@@ -128,8 +128,10 @@ class NewTaskForm extends Component {
   }
 
   render() {
-    const { handleSubmit, projectTeam, close } = this.props;
+    const { handleSubmit, projectTeam, close, loading } = this.props;
     const { specialists, moduleList } = this.state;
+
+    console.log(this.props.loading);
 
     return (
       <Grid as={Form} onSubmit={handleSubmit} padded>
@@ -333,7 +335,13 @@ class NewTaskForm extends Component {
             >
               Cancel
             </DvBlueButton>
-            <DvBlueButton className="dv-blue">Create</DvBlueButton>
+            <DvBlueButton
+              loading={loading}
+              disabled={loading}
+              className="dv-blue"
+            >
+              Create
+            </DvBlueButton>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -354,13 +362,6 @@ class NewTaskForm extends Component {
       this.props.handleChangeState("isEdited", true);
     }
   }
-
-  closeModal = ev => {
-    ev.preventDefault();
-
-    let close = document.querySelector("i.close.icon");
-    close.click();
-  };
 }
 
 NewTaskForm = reduxForm({

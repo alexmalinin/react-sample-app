@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { Input, Tab, Loader } from "semantic-ui-react";
 import { StyledAssignDropdown } from "../../styleComponents/layout/StyledAssignDropdown";
 import { IMAGE_PORT, PORT, BLANK_AVATAR } from "../../constants/constants";
-import { getUserRole, createNotification } from "../../helpers/functions";
+import {
+  getUserRole,
+  createNotification,
+  getUserId
+} from "../../helpers/functions";
 import {
   searchSpecialist,
   showSpecialistCustomTeams
@@ -175,24 +179,26 @@ class AssignTeamDropdown extends Component {
             />
             <div className="dropdown-list">
               {specialists &&
-                specialists.map((specialist, key) => (
-                  <div
-                    key={key}
-                    data={specialist.id}
-                    onClick={this.inviteSpecialist}
-                  >
-                    <img
+                specialists
+                  .filter(spec => spec.id !== getUserId())
+                  .map((specialist, key) => (
+                    <div
+                      key={key}
                       data={specialist.id}
-                      src={
-                        specialist.avatar.url
-                          ? IMAGE_PORT + specialist.avatar.url
-                          : BLANK_AVATAR
-                      }
-                      alt="member"
-                    />
-                    {specialist.first_name + " " + specialist.last_name}
-                  </div>
-                ))}
+                      onClick={this.inviteSpecialist}
+                    >
+                      <img
+                        data={specialist.id}
+                        src={
+                          specialist.avatar.url
+                            ? IMAGE_PORT + specialist.avatar.url
+                            : BLANK_AVATAR
+                        }
+                        alt="member"
+                      />
+                      {specialist.first_name + " " + specialist.last_name}
+                    </div>
+                  ))}
               {!specialists && (
                 <span className="noResults">Start searching</span>
               )}
