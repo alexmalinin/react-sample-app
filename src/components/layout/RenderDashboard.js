@@ -137,7 +137,7 @@ class RenderDashboard extends Component {
   };
 
   renderDefault = () => {
-    if (getUserType() === SPECIALIST) {
+    if (getUserType() === SPECIALIST && getUserRole() !== S_REDGUY) {
       return (
         <div className="default-dashboard">
           <h1>Welcome to the digital village</h1>
