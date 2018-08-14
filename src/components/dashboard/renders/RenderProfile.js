@@ -109,7 +109,7 @@ const RenderProfile = ({
               </div>
 
               <div className="profile-content">
-                <div className="profile-subtitle">Contact onformation</div>
+                <div className="profile-subtitle">Contact information</div>
 
                 <div className="profile-item">
                   <div className="profile-label">Phone number:</div>

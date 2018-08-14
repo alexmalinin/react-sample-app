@@ -35,8 +35,8 @@ export default styled.header`
       align-items: center;
 
       img {
-        height: 21px;
-        width: auto;
+        padding: 12px;
+        max-width: 100%;
       }
 
       span {

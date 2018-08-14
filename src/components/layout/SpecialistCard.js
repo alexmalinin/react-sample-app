@@ -43,7 +43,7 @@ class SpecialistCard extends Component {
                 industry_title
               }
             </p>
-            <p>{hourly_rate || 0}$/ hr</p>
+            <p>${hourly_rate || 0}/ hr</p>
           </div>
         </div>
         <div className="row skills">

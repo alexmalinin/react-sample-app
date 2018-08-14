@@ -341,8 +341,7 @@ class SpecialistsDashboard extends Component {
       page !== "info" &&
       page !== "industry" &&
       page !== "company" &&
-      page !== "billings" &&
-      page !== "forbidden";
+      page !== "billings";
 
     return (
       <div>
