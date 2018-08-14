@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { isInvalid } from "redux-form";
 import { Grid } from "semantic-ui-react";
 import RenderProfileForm from "../forms/RenderProfileForm";
 import RenderResetPasswordForm from "../forms/RenderResetPasswordForm";
@@ -36,6 +37,7 @@ class ClientProfile extends Component {
 
   render() {
     const { isEditing, isEdited, nextStep, nextLocation } = this.state;
+    const { isInvalid } = this.props;
 
     return (
       <div>
@@ -55,13 +57,14 @@ class ClientProfile extends Component {
                   this.setState({
                     nextLocation: nextLocation.pathname + nextLocation.search
                   });
-                  return isEdited && !nextStep;
+                  return (isEdited && !nextStep) || isInvalid;
                 }}
               >
                 {({ onConfirm, onCancel }) => (
                   <ConfirmationModal
                     isOpen={true}
                     formId="RenderProfileForm"
+                    isInvalid={this.props.isInvalid}
                     clearLocation={this.clearLocation}
                     onCancel={onCancel}
                     onConfirm={onConfirm}
@@ -127,6 +130,10 @@ class ClientProfile extends Component {
 }
 
 export default connect(
-  ({ clientData, confirmPassword }) => ({ clientData, confirmPassword }),
+  state => ({
+    clientData: state.clientData,
+    confirmPassword: state.confirmPassword,
+    isInvalid: isInvalid("RenderProfileForm")(state)
+  }),
   { showClientData, updateClientProfile }
 )(ClientProfile);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { submit, isInvalid } from "redux-form";
 import { Redirect } from "react-router";
 import { Grid } from "semantic-ui-react";
 import RenderProfileForm from "../../forms/RenderProfileForm";
@@ -83,7 +84,7 @@ class SpecialistsProfile extends Component {
 
   render() {
     const { isEditing, isEdited, nextStep, nextLocation } = this.state;
-    const { educations, experiences } = this.props;
+    const { educations, experiences, isInvalid } = this.props;
 
     return (
       <div>
@@ -98,6 +99,7 @@ class SpecialistsProfile extends Component {
                 isEditing={isEditing}
                 isEdited={isEdited}
                 handleFormEdit={this.handleFormEdit}
+                handleFormValid={this.handleFormValid}
                 specialistModal
               />
 
@@ -106,18 +108,22 @@ class SpecialistsProfile extends Component {
                   this.setState({
                     nextLocation: nextLocation.pathname + nextLocation.search
                   });
-                  return isEdited && !nextStep;
+
+                  return (isEdited && !nextStep) || isInvalid;
                 }}
               >
-                {({ onConfirm, onCancel }) => (
-                  <ConfirmationModal
-                    isOpen={true}
-                    formId="RenderProfileForm"
-                    clearLocation={this.clearLocation}
-                    onCancel={onCancel}
-                    onConfirm={onConfirm}
-                  />
-                )}
+                {({ onConfirm, onCancel }) => {
+                  return (
+                    <ConfirmationModal
+                      isOpen={true}
+                      formId="RenderProfileForm"
+                      isInvalid={this.props.isInvalid}
+                      clearLocation={this.clearLocation}
+                      onCancel={onCancel}
+                      onConfirm={onConfirm}
+                    />
+                  );
+                }}
               </NavigationPrompt>
 
               {nextStep ? (
@@ -187,11 +193,12 @@ class SpecialistsProfile extends Component {
 }
 
 export default connect(
-  ({ specialistData, confirmPassword, educations, experiences }) => ({
-    specialistData,
-    confirmPassword,
-    educations,
-    experiences
+  state => ({
+    specialistData: state.specialistData,
+    confirmPassword: state.confirmPassword,
+    educations: state.educations,
+    experiences: state.experiences,
+    isInvalid: isInvalid("RenderProfileForm")(state)
   }),
   { showSpecialistData, updateSpecialistProfile }
 )(SpecialistsProfile);
