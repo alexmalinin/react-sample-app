@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Field } from "redux-form";
 import { NavLink } from "react-router-dom";
-import { required } from "../../../helpers/validate";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import { clientCategories } from "../../../helpers/selects/clientCategories";
 import {
@@ -48,9 +47,7 @@ class CompanyForm extends Component {
                   <InputField
                     name="name"
                     label="Company Name"
-                    validate={[required]}
                     handleFormField={handleFormField}
-                    isRequired
                   />
 
                   <InputField
@@ -104,9 +101,7 @@ class CompanyForm extends Component {
                     options={clientCategories}
                     label="Segment"
                     placeholder="Select"
-                    validate={[required]}
                     handleFormField={handleFormField}
-                    isRequired
                   />
 
                   <div id="industry" className="half-column">
@@ -116,9 +111,7 @@ class CompanyForm extends Component {
                       label="Industry"
                       placeholder="Select"
                       options={industries.industry}
-                      validate={[required]}
                       handleFormField={handleFormField}
-                      isRequired
                     />
                   </div>
 
@@ -130,8 +123,6 @@ class CompanyForm extends Component {
                       placeholder="Select"
                       options={employeers}
                       handleFormField={handleFormField}
-                      // validate={[required]}
-                      // isRequired
                     />
                   </div>
                 </Grid.Column>
