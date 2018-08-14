@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
@@ -19,7 +20,9 @@ import { S_REDGUY, CUSTOMER, CLIENT, SPECIALIST } from "../../constants/user";
 class RenderDashboard extends Component {
   state = {
     fetchSummary: true,
-    summary: null
+    summary: null,
+    fetchedProjects: false,
+    isDefault: false
   };
 
   componentWillMount() {
@@ -39,6 +42,22 @@ class RenderDashboard extends Component {
 
     if (this.props.showAllEpicTasks) {
       this.props.showAllEpicTasks();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.projects) {
+      if (nextProps.projects.successId) {
+        this.setState({
+          fetchedProjects: true
+        });
+      }
+
+      if (nextProps.projects.length === 0) {
+        this.setState({
+          isDefault: true
+        });
+      }
     }
   }
 
@@ -117,7 +136,45 @@ class RenderDashboard extends Component {
     return epics;
   };
 
+  renderDefault = () => {
+    if (getUserType() === SPECIALIST) {
+      return (
+        <div className="default-dashboard">
+          <h1>Welcome to the digital village</h1>
+          <p>Well....What happens now?</p>
+
+          <p>
+            We review your profile and one of our Producers will match you to a
+            client and invite you to a Project.
+          </p>
+
+          <p>
+            (So make sure your profile indicates all your capabilities and skill
+            sets so you don’t miss out)
+          </p>
+
+          <p>
+            <NavLink className="link-green" to="/profile/info?edit">
+              Update Profile
+            </NavLink>
+          </p>
+
+          <p>See what Digital Village Events are coming up!</p>
+
+          <p>
+            <NavLink className="link-purple" to="/meetups">
+              View Meetups
+            </NavLink>
+          </p>
+        </div>
+      );
+    } else {
+      return <div className="default">There are no projects</div>;
+    }
+  };
+
   render() {
+    const { fetchedProjects, isDefault } = this.state;
     const { projects, allEpicTasks, history } = this.props;
 
     let overview;
@@ -150,39 +207,35 @@ class RenderDashboard extends Component {
         allTasks.push(...tasks);
       });
 
-    return projects && projects.length ? (
-      <StyledDashBoard>
-        <RenderDueTasks
-          allEpicsWithoutProject={allEpics}
-          allEpicTasks={allTasks}
-          getEtaForWeek={this.getEtaForWeek}
-          assignProjectName={this.assignProjectName}
-        />
+    return (
+      <Fragment>
+        {fetchedProjects &&
+          !isDefault && (
+            <StyledDashBoard>
+              <RenderDueTasks
+                allEpicsWithoutProject={allEpics}
+                allEpicTasks={allTasks}
+                getEtaForWeek={this.getEtaForWeek}
+                assignProjectName={this.assignProjectName}
+              />
 
-        <RenderProjectCards projects={projects} summary={this.state.summary} />
+              <RenderProjectCards
+                projects={projects}
+                summary={this.state.summary}
+              />
 
-        {/* <div className="projects">
-          {projects && (
-            <div>
-              <RenderCard type="overview" data={overview} />
-
-              {projects.map((project, key) => (
-                <RenderCard type="project" key={key} data={project} />
-              ))}
-            </div>
+              <RenderInfo
+                summary={this.state.summary}
+                allEpicsWithoutProject={allEpics}
+                allEpicTasks={allTasks}
+                getEtaForWeek={this.getEtaForWeek}
+                assignProjectName={this.assignProjectName}
+              />
+            </StyledDashBoard>
           )}
-        </div> */}
 
-        <RenderInfo
-          summary={this.state.summary}
-          allEpicsWithoutProject={allEpics}
-          allEpicTasks={allTasks}
-          getEtaForWeek={this.getEtaForWeek}
-          assignProjectName={this.assignProjectName}
-        />
-      </StyledDashBoard>
-    ) : (
-      <div className="default">There are no projects</div>
+        {fetchedProjects && isDefault && this.renderDefault()}
+      </Fragment>
     );
   }
 }
