@@ -162,9 +162,14 @@ class RenderDashboard extends Component {
           <p>See what Digital Village Events are coming up!</p>
 
           <p>
-            <NavLink className="link-purple" to="/meetups">
+            <a
+              className="link-purple"
+              href="https://digitalvillage.network/meetups/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               View Meetups
-            </NavLink>
+            </a>
           </p>
         </div>
       );
