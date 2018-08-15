@@ -39,16 +39,25 @@ export const showTeams = () => {
  * @param  {number} id id of specialist
  */
 
-export const showCustomTeams = id => {
-  return dispatch => {
-    fetch(GET, `/specialists/${id}/custom_teams`).then(({ data }) => {
-      dispatch({
-        type: types.SHOW_CUSTOM_TEAMS,
-        payload: data
-      });
+export const showCustomTeams = id => dispatch => {
+  fetch(GET, `/specialists/${id}/custom_teams`).then(({ data }) => {
+    dispatch({
+      type: types.SHOW_CUSTOM_TEAMS,
+      payload: mapKeys(data, "id")
     });
-  };
+  });
 };
+
+/**
+ * Show Project Team
+ *
+ * @param  {number} projectId project id
+ */
+
+export const showProjectTeam = projectId => ({
+  type: types.SHOW_PROJECT_TEAM,
+  payload: fetch(GET, `/projects/${projectId}/teams`)
+});
 
 /**
  * Create custom team

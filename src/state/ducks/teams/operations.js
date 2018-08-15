@@ -1,8 +1,15 @@
 import {
   showTeams,
   showCustomTeams,
+  showProjectTeam,
   createCustomTeam,
   removeCustomTeam
 } from "./actions";
 
-export { showTeams, showCustomTeams, createCustomTeam, removeCustomTeam };
+export {
+  showTeams,
+  showCustomTeams,
+  showProjectTeam,
+  createCustomTeam,
+  removeCustomTeam
+};

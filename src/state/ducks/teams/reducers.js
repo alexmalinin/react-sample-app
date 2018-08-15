@@ -27,6 +27,28 @@ const teamsReducer = createReducer(initialState)({
     }
   }),
 
+  [types.SHOW_PROJECT_TEAM + PENDING]: (state, { payload }) => ({
+    ...state,
+    loading: true
+  }),
+
+  [types.SHOW_PROJECT_TEAM + FULFILLED]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    error: false,
+    teams: {
+      ...state.teams,
+      [payload.data.id]: payload.data
+    }
+  }),
+
+  [types.SHOW_PROJECT_TEAM + REJECTED]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: true
+  }),
+
   [types.CUSTOM_TEAM_CREATE + PENDING]: (state, action) => ({
     ...state,
     loading: true

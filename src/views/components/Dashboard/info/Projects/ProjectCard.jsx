@@ -1,22 +1,45 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import ProgressBar from "@UI/ProgressBar";
 import SubHeaderLinkWrap from "@UI/SubHeaderLink";
 import StyledDashboardCard from "../StyledDashboardCard";
+
 // import { getUserRole } from "../../../helpers/functions";
-// import { showProjectTeam } from "../../../actions/actions";
 import MembersDropdown from "@UI/MembersDropdown";
+
 import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "@utilities";
+import { teamsOperations } from "@ducks/teams";
 
 class ProjectCard extends Component {
-  componentWillMount() {
+  static propTypes = {
+    summary: PropTypes.shape({
+      all_modules: PropTypes.number,
+      all_tasks: PropTypes.number,
+      completed_modules: PropTypes.number,
+      completed_tasks: PropTypes.number
+    }),
+    data: PropTypes.object,
+    getCurrentEpic: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    summary: {
+      all_modules: 0,
+      all_tasks: 0,
+      completed_modules: 0,
+      completed_tasks: 0
+    },
+    data: {}
+  };
+
+  componentDidMount() {
     const {
-      showProjectTeam,
       data: { id }
     } = this.props;
 
-    // showProjectTeam(id);
+    this.props.showProjectTeam(id);
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -87,12 +110,11 @@ class ProjectCard extends Component {
   render() {
     const {
       data: { epics, name, logo },
-      getCurrentEpic
+      getCurrentEpic,
+      projectTeam
     } = this.props;
 
-    // const { projectTeam } = this.state;
-
-    // let currentEpic = epics && getCurrentEpic(epics);
+    let currentEpic = epics && getCurrentEpic(epics);
 
     return (
       <StyledDashboardCard size={{ col: 2, row: 2 }} type="project">
@@ -105,16 +127,16 @@ class ProjectCard extends Component {
           <div>
             <div className="title">{name}</div>
             <div className="subTitle">
-              {/* {currentEpic && currentEpic.name
+              {currentEpic && currentEpic.name
                 ? `Module: ${currentEpic.name}`
-                : null} */}
+                : null}
             </div>
           </div>
         </div>
 
         <div className="projectContainer project">
           <div className="team">
-            {/* {projectTeam &&
+            {projectTeam &&
               projectTeam.specialists && (
                 <MembersDropdown
                   members={projectTeam.specialists}
@@ -123,7 +145,7 @@ class ProjectCard extends Component {
                   removeText="project"
                   hideDelete
                 />
-              )} */}
+              )}
           </div>
 
           {this.renderProjectProgress()}
@@ -133,12 +155,14 @@ class ProjectCard extends Component {
   }
 }
 
-export default connect(
-  ({ projectTeam, allSpecialists }) => ({
-    projectTeam,
-    allSpecialists
-  }),
-  {
-    // showProjectTeam
-  }
-)(ProjectCard);
+const mapStatetoProps = (state, { data: { team } }) => {
+  const {
+    teamsReducer: { teams }
+  } = state;
+
+  return { projectTeam: teams[team.id] };
+};
+
+export default connect(mapStatetoProps, {
+  ...teamsOperations
+})(ProjectCard);
