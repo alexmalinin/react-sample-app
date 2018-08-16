@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { Field } from "redux-form";
-import { required } from "../../../helpers/validate";
 import {
   NextBtn,
   BackBtn,
@@ -64,9 +63,7 @@ class BillingForm extends Component {
                   name="card_name"
                   label="Name on card"
                   handleFormField={handleFormField}
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                 />
               </Grid.Column>
               <Grid.Column mobile={8} computer={8}>
@@ -75,9 +72,7 @@ class BillingForm extends Component {
                   label="Card number"
                   // type="number"
                   handleFormField={handleFormField}
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                   creditCard
                 />
               </Grid.Column>
@@ -96,36 +91,22 @@ class BillingForm extends Component {
                   name="correspondent_bank"
                   label="Correspondent Bank"
                   disabled={disabled}
-                  // validate={[required]}
-                  // isRequired
                 />
                 <InputField
                   name="beneficiary_bank"
                   label="Beneficiary Bank"
                   disabled={disabled}
-                  // validate={[required]}
-                  // isRequired
                 />
                 <InputField
                   name="beneficiary_name"
                   label="Beneficiary Name"
                   disabled={disabled}
-                  validate={[required]}
-                  isRequired
                 />
-                <InputField
-                  name="iban"
-                  label="IBAN"
-                  validate={[required]}
-                  disabled={disabled}
-                  isRequired
-                />
+                <InputField name="iban" label="IBAN" disabled={disabled} />
                 <InputField
                   name="swift_code"
                   label="Swift code"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                 />
                 <InputField
                   name="purpose_of_payment"

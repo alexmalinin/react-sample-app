@@ -96,13 +96,13 @@ module.exports = {
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       new WorkboxPlugin.GenerateSW({
         // Exclude images from the precache
-        exclude: [/\.(?:js)$/],
+        exclude: [/\.(?:js|html|htm)$/],
 
         // Define runtime caching rules.
         runtimeCaching: [
           {
             // Match any request ends with .png, .jpg, .jpeg or .svg.
-            urlPattern: /\.(?:js)$/,
+            urlPattern: /\.(?:js|html|htm)$/,
 
             // Apply a cache-first strategy.
             handler: "networkFirst",

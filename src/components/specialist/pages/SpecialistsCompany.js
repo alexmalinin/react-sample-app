@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
+import { isInvalid } from "redux-form";
 import {
   getIndustries,
   updateSpecStep2,
@@ -43,7 +44,7 @@ class SpecialistCompany extends Component {
   render() {
     const { isEdited, isEditing, nextStep, nextLocation } = this.state;
 
-    const { industries } = this.props;
+    const { industries, isInvalid } = this.props;
 
     return (
       <div>
@@ -60,13 +61,14 @@ class SpecialistCompany extends Component {
             this.setState({
               nextLocation: nextLocation.pathname + nextLocation.search
             });
-            return isEdited && !nextStep;
+            return (isEdited && !nextStep) || isInvalid;
           }}
         >
           {({ onConfirm, onCancel }) => (
             <ConfirmationModal
               isOpen={true}
               formId="SpecialistCompanyForm"
+              isInvalid={this.props.isInvalid}
               clearLocation={this.clearLocation}
               onCancel={onCancel}
               onConfirm={onConfirm}
@@ -111,10 +113,11 @@ class SpecialistCompany extends Component {
 }
 
 export default connect(
-  ({ industries, company, specialistData }) => ({
-    industries,
-    company,
-    specialistData
+  state => ({
+    industries: state.industries,
+    company: state.company,
+    specialistData: state.specialistData,
+    isInvalid: isInvalid("SpecialistCompanyForm")(state)
   }),
   { getIndustries, updateSpecStep2, showSpecialistData }
 )(SpecialistCompany);

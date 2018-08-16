@@ -18,41 +18,25 @@ const RenderProfile = ({
 
     const { title, subtitle, link, fields } = data;
 
-    const half = fields && Math.ceil(fields.length / 2),
-      columnA = fields.slice(0, half),
-      columnB = fields.slice(half);
-
     return (
       <div className="profile-info">
-        <div className="profile-header">
-          <div className="pfofile-title">{title}</div>
-          {link &&
-            editCondition && (
-              <NavLink to={link}>
-                <div className="dv-btn">
-                  <i className="fas fa-edit" />
-                </div>
-              </NavLink>
-            )}
-        </div>
         <div className="profile-content">
-          {subtitle && <div className="profile-subtitle">{subtitle}</div>}
-          <div className="profile-row">
-            <div className="profile-column">
-              {columnA &&
-                columnA.map((item, index) => {
-                  return (
-                    <div key={index} className="profile-item">
-                      <div className="profile-label">{item.label}</div>
-                      <span className="profile-description">{item.value}</span>
-                    </div>
-                  );
-                })}
-            </div>
-
-            <div className="profile-column">
-              {columnB &&
-                columnB.map((item, index) => {
+          <div className="profile-header profile-subtitle">
+            <div className="pfofile-title">{title}</div>
+            {link &&
+              editCondition && (
+                <NavLink to={link}>
+                  <div className="dv-btn">
+                    <i className="fas fa-edit" />
+                  </div>
+                </NavLink>
+              )}
+          </div>
+          <div className="profile-content">
+            {subtitle && <div className="profile-subtitle">{subtitle}</div>}
+            <div className="profile-row">
+              {fields &&
+                fields.map((item, index) => {
                   return (
                     <div key={index} className="profile-item">
                       <div className="profile-label">{item.label}</div>
@@ -86,7 +70,7 @@ const RenderProfile = ({
   return (
     <Grid centered>
       <Grid.Row>
-        <Grid.Column computer={6}>
+        <Grid.Column computer={16}>
           <div className="profile-aside">
             <div className="profile-info">
               <div className="profile-image">
@@ -109,30 +93,68 @@ const RenderProfile = ({
               </div>
 
               <div className="profile-content">
-                <div className="profile-subtitle">Contact onformation</div>
+                <div className="profile-subtitle">Contact information</div>
 
-                <div className="profile-item">
-                  <div className="profile-label">Phone number:</div>
-                  <span className="profile-description">
-                    {data.phone || "No phone number"}
-                  </span>
-                </div>
+                <div className="profile-row">
+                  <div className="profile-item">
+                    <div className="profile-label">Phone number:</div>
+                    <span className="profile-description">
+                      {data.phone || "No phone number"}
+                    </span>
+                  </div>
 
-                <div className="profile-item">
-                  <div className="profile-label">Email address:</div>
-                  <span className="profile-description">{data.email}</span>
-                </div>
+                  <div className="profile-item">
+                    <div className="profile-label">Email address:</div>
+                    <span className="profile-description">{data.email}</span>
+                  </div>
 
-                <div className="profile-item">
-                  <div className="profile-label">Address:</div>
-                  <span className="profile-description">
-                    {data.address || "No address"}
-                  </span>
+                  <div className="profile-item">
+                    <div className="profile-label">Address:</div>
+                    <span className="profile-description">
+                      {data.address || "No address"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {data.experience && (
+              {((skills && !!skills.length) || communications) && (
                 <div className="profile-content">
+                  <div className="profile-subtitle">&nbsp;</div>
+                  <span className="profile-row">
+                    {skills &&
+                      skills.length > 0 && (
+                        <div className="profile-item profile-skills">
+                          <div className="profile-label">Skills</div>
+                          {skills.map((skill, index) => (
+                            <span key={index}>{skill.name}</span>
+                          ))}
+                        </div>
+                      )}
+
+                    {communications &&
+                      !!Object.keys(communications).length && (
+                        <div className="profile-item profile-communications">
+                          <div className="profile-label">Communications</div>
+                          {Object.keys(communications).map((key, index) => (
+                            <span key={index}>{key}</span>
+                          ))}
+                        </div>
+                      )}
+                  </span>
+                </div>
+              )}
+
+              {data.description && (
+                <div className="profile-content profile-client-description">
+                  <div className="profile-subtitle">Description</div>
+                  <span className="profile-description">
+                    {data.description}
+                  </span>
+                </div>
+              )}
+
+              {data.experience && (
+                <div className="profile-content profile-experience">
                   <div className="profile-subtitle">
                     Professional experience
                   </div>
@@ -141,50 +163,18 @@ const RenderProfile = ({
                   </span>
                 </div>
               )}
-
-              {data.description && (
-                <div className="profile-content">
-                  <div className="profile-subtitle">Description</div>
-                  <span className="profile-label">{data.description}</span>
-                </div>
-              )}
-
-              {skills &&
-                skills.length > 0 && (
-                  <div className="profile-content">
-                    <div className="profile-subtitle">Skills</div>
-                    <div className="profile-skills">
-                      {skills.map((skill, index) => (
-                        <span key={index}>{skill.name}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-              {communications &&
-                !!Object.keys(communications).length && (
-                  <div className="profile-content">
-                    <div className="profile-subtitle">Communications</div>
-                    <div className="profile-communications">
-                      {Object.keys(communications).map((key, index) => (
-                        <span key={index}>{key}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
             </div>
           </div>
         </Grid.Column>
-        <Grid.Column computer={10}>
-          <div className="profile-main">
-            {renderInfo(services)}
-            {renderInfo(company)}
-            {renderInfo(billings)}
-
-            {educationsExperience &&
-              educationsExperience.length > 0 && (
-                <div className="profile-info">
-                  <div className="profile-header">
+        <Grid.Column computer={16}>
+          <div className="profile-main">{renderInfo(services)}</div>
+        </Grid.Column>
+        <Grid.Column computer={8}>
+          {educationsExperience &&
+            educationsExperience.length > 0 && (
+              <div className="profile-info profile-half">
+                <div className="profile-content">
+                  <div className="profile-header profile-subtitle">
                     <div className="pfofile-title">Educations</div>
 
                     {editCondition && (
@@ -197,12 +187,15 @@ const RenderProfile = ({
                   </div>
                   {educationsExperience.map(item => renderExperience(item))}
                 </div>
-              )}
-
-            {workExperience &&
-              workExperience.length > 0 && (
-                <div className="profile-info">
-                  <div className="profile-header">
+              </div>
+            )}
+        </Grid.Column>
+        <Grid.Column computer={8}>
+          {workExperience &&
+            workExperience.length > 0 && (
+              <div className="profile-info profile-half">
+                <div className="profile-content">
+                  <div className="profile-header profile-subtitle">
                     <div className="pfofile-title">Experience</div>
                     {editCondition && (
                       <NavLink to="/profile/info?hash=experience&edit">
@@ -214,8 +207,8 @@ const RenderProfile = ({
                   </div>
                   {workExperience.map(item => renderExperience(item))}
                 </div>
-              )}
-          </div>
+              </div>
+            )}
         </Grid.Column>
       </Grid.Row>
     </Grid>

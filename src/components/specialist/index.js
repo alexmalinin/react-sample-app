@@ -341,8 +341,7 @@ class SpecialistsDashboard extends Component {
       page !== "info" &&
       page !== "industry" &&
       page !== "company" &&
-      page !== "billings" &&
-      page !== "forbidden";
+      page !== "billings";
 
     return (
       <div>
@@ -444,9 +443,6 @@ class SpecialistsDashboard extends Component {
             collectBillingData={this.collectBillingData}
           />
         );
-      case "edit":
-        document.title = "Edit profile | Digital Village";
-        return <EditProfile />;
       case "projects":
         document.title = "Add Project | Digital Village";
         return <ClientProjects />;

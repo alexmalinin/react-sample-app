@@ -64,6 +64,8 @@ class RenderProfileForm extends Component {
       isEditing
     } = this.props;
 
+    console.log("props", this.props);
+
     let { avatar } = specialistData || clientData || false;
 
     let educationsChilds1 = specialistData ? specialistData["educations"] : [];

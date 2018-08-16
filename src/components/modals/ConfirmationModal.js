@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { submit } from "redux-form";
 import { Header, Modal } from "semantic-ui-react";
@@ -38,7 +38,7 @@ class ConfirmationModal extends Component {
   };
 
   render() {
-    const { submitting } = this.props;
+    const { submitting, isInvalid } = this.props;
 
     return (
       <Modal
@@ -50,31 +50,43 @@ class ConfirmationModal extends Component {
       >
         <Modal.Content>
           <Modal.Description>
-            <Header>Do you want to save changes?</Header>
+            <Header>
+              {isInvalid
+                ? "Please fill in all the required fields"
+                : "Do you want to save changes?"}
+            </Header>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <CancelBtn
-            primary
-            positionleft="10"
-            positionbottom="auto"
-            onClick={this.confirmModal}
-          >
-            <span>Don't save</span>
-          </CancelBtn>
-          <CancelBtn primary static="true" onClick={this.closeModal}>
-            <span>Cancel</span>
-          </CancelBtn>
-          <SaveBtn
-            type="submit"
-            disabled={submitting}
-            onClick={this.submitModal}
-            primary
-            updatebtn="true"
-            static="true"
-          >
-            <span>Save</span>
-          </SaveBtn>
+          {isInvalid ? (
+            <CancelBtn primary static="true" onClick={this.closeModal}>
+              <span>Cancel</span>
+            </CancelBtn>
+          ) : (
+            <Fragment>
+              <CancelBtn
+                primary
+                positionleft="10"
+                positionbottom="auto"
+                onClick={this.confirmModal}
+              >
+                <span>Don't save</span>
+              </CancelBtn>
+              <CancelBtn primary static="true" onClick={this.closeModal}>
+                <span>Cancel</span>
+              </CancelBtn>
+              <SaveBtn
+                type="submit"
+                disabled={submitting}
+                onClick={this.submitModal}
+                primary
+                updatebtn="true"
+                static="true"
+              >
+                <span>Save</span>
+              </SaveBtn>
+            </Fragment>
+          )}
         </Modal.Actions>
       </Modal>
     );

@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import { Field, reduxForm, change } from "redux-form";
+import { Field } from "redux-form";
 import { NavLink } from "react-router-dom";
-import {
-  required,
-  maxLength4,
-  maxLength20,
-  number
-} from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
-import RenderSelect from "../../forms/renders/RenderSelect";
-import RenderDate from "../../forms/renders/RenderDate";
-import { clientCategories } from "../../../helpers/selects/clientCategories";
 import {
   NextBtn,
   BackBtn,
@@ -19,8 +9,6 @@ import {
 } from "../../../styleComponents/layout/DvButton";
 import InputField from "../../forms/renders/InputField";
 import { Grid } from "semantic-ui-react";
-import RenderTextArea from "../../forms/renders/RenderTextArea";
-import { employeers } from "../../../helpers/selects/employeers";
 import InputRadio from "../../forms/renders/InputRadio";
 import RenderImage from "../../forms/renders/RenderImage";
 
@@ -74,18 +62,14 @@ class BillingForm extends Component {
                 <InputField
                   name="card_name"
                   label="Name on card"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                 />
               </Grid.Column>
               <Grid.Column mobile={8} computer={8}>
                 <InputField
                   name="card_number"
                   label="Card number"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                   creditCard
                 />
               </Grid.Column>
@@ -104,36 +88,22 @@ class BillingForm extends Component {
                   name="correspondent_bank"
                   label="Correspondent Bank"
                   disabled={disabled}
-                  // validate={[required]}
-                  // isRequired
                 />
                 <InputField
                   name="beneficiary_bank"
                   label="Beneficiary Bank"
                   disabled={disabled}
-                  // validate={[required]}
-                  // isRequired
                 />
                 <InputField
                   name="beneficiary_name"
                   label="Beneficiary Name"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                 />
-                <InputField
-                  name="iban"
-                  label="IBAN"
-                  validate={[required]}
-                  disabled={disabled}
-                  isRequired
-                />
+                <InputField name="iban" label="IBAN" disabled={disabled} />
                 <InputField
                   name="swift_code"
                   label="Swift code"
-                  validate={[required]}
                   disabled={disabled}
-                  isRequired
                 />
                 <InputField
                   name="purpose_of_payment"

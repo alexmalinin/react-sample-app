@@ -1193,23 +1193,69 @@ export function asyncUpdateProject(data) {}
 // get array of all projects (include unsubmitted) by customer, created this project
 
 export function showAllProjects() {
-  const action = {
-    type: types.SHOW_ALL_PROJECTS,
-    showAllProjects: `${PORT}/api/v1/projects?customer_id=`
-  };
+  const token = localStorage.getItem("jwt_token");
+  const { user_id } = jwtDecode(token);
 
-  return action;
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `${PORT}/api/v1/projects?customer_id=${user_id}`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        let data = response.data;
+        data.successId = Math.random();
+
+        dispatch({
+          type: types.SHOW_ALL_PROJECTS + SUCCESS,
+          data
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
+      });
+  };
 }
 
 // get array of all projects, specialist assigned on
 
 export function showSpecialistProjects() {
-  const action = {
-    type: types.SHOW_SPECIALIST_PROJECTS,
-    showSpecialistProjects: `${PORT}/api/v1/specialists/`
-  };
+  const token = localStorage.getItem("jwt_token");
+  const { user_id } = jwtDecode(token);
 
-  return action;
+  return dispatch => {
+    Axios({
+      method: "get",
+      url: `${PORT}/api/v1/specialists/${user_id}/projects`,
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        let data = response.data;
+        data.successId = Math.random();
+
+        dispatch({
+          type: types.SHOW_SPECIALIST_PROJECTS + SUCCESS,
+          data
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
+        console.error(error);
+      });
+  };
 }
 
 // get array of all teams, specialist assigned on

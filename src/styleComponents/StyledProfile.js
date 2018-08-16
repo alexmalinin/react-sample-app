@@ -9,26 +9,10 @@ import {
 export default styled.div`
   font-size: 16px;
 
-  .ui.grid {
-    margin-left: 0;
-    margin-right: 0;
-
-    .row {
-      padding: 0;
-
-      .column {
-        padding: 0;
-
-        &:first-of-type {
-          padding-right: 20px;
-        }
-      }
-    }
-  }
-
   .profile-image {
     position: relative;
     display: flex;
+    flex: 0 0 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -36,8 +20,8 @@ export default styled.div`
     text-align: center;
 
     .image-wrapper {
-      width: 120px;
-      height: 120px;
+      width: 160px;
+      height: 160px;
       background: ${primaryColors.accentBackground};
       overflow: hidden;
       border-radius: 50%;
@@ -60,23 +44,25 @@ export default styled.div`
   }
 
   .profile-name {
-    font-size: 16px;
+    font-size: 18px;
     color: ${fontColors.black};
-    margin: 10px 0;
+    margin: 18px 0;
   }
 
   .pfofile-title {
     font-size: 18px;
     font-weight: 500;
     color: ${fontColors.black};
-    padding-bottom: 10px;
   }
 
   .profile-info {
-    background-color: #fff;
-    padding: 20px 20px 0;
+    display: flex;
+    flex-flow: row wrap;
     margin-bottom: 20px;
+    padding: 20px 20px 0;
+    background-color: #fff;
     border-radius: 3px;
+    border: 1px solid ${colors.lightGreyBlue};
     ${boxShadow.light};
   }
 
@@ -86,14 +72,32 @@ export default styled.div`
   }
 
   .profile-content {
-    border-top: 1px solid ${colors.lightGreyBlue};
-    padding: 15px 0;
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+    padding-bottom: 16px;
+
+    &.profile-client-description {
+      border-left: 1px solid ${colors.lightGreyBlue};
+
+      .profile-subtitle,
+      .profile-description {
+        padding-left: 16px;
+      }
+    }
+
+    &.profile-experience {
+      flex: 0 0 100%;
+      margin-bottom: 16px;
+    }
 
     .profile-subtitle {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
       font-size: 18px;
       color: ${fontColors.black};
       font-weight: 500;
-      margin-bottom: 16px;
+      border-bottom: 1px solid ${colors.lightGreyBlue};
     }
 
     .profile-block {
@@ -120,10 +124,7 @@ export default styled.div`
 
   .profile-item {
     margin-bottom: 15px;
-
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+    flex: 1;
   }
 
   .profile-label {
@@ -141,10 +142,11 @@ export default styled.div`
   .profile-communications {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 
     & > span {
       font-size: 14px;
-      margin: 4px 10px 6px 5px;
+      margin: 4px 10px 6px 0;
       padding: 0 15px;
       border-radius: 20px;
     }

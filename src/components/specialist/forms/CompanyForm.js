@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Field, reduxForm, change } from "redux-form";
-import { required } from "../../../helpers/validate";
-import RenderField from "../../forms/renders/RenderField";
+import { Field } from "redux-form";
 import RenderSelect from "../../forms/renders/RenderSelect";
 import {
   NextBtn,
@@ -59,12 +56,7 @@ class CompanyForm extends Component {
                 </p>
               ]}
 
-              <InputField
-                name="name"
-                label="Company Name"
-                validate={[required]}
-                isRequired
-              />
+              <InputField name="name" label="Company Name" />
 
               <InputField name="company_address" label="Company Address" />
 
@@ -85,8 +77,6 @@ class CompanyForm extends Component {
                   label="Segment"
                   placeholder="Select"
                   options={segments}
-                  validate={[required]}
-                  isRequired
                 />
               </div>
 
@@ -97,8 +87,6 @@ class CompanyForm extends Component {
                   label="Industry"
                   placeholder="Select"
                   options={industries["industry"]}
-                  validate={[required]}
-                  isRequired
                 />
               </div>
 
@@ -109,8 +97,6 @@ class CompanyForm extends Component {
                   label="Number of employers"
                   placeholder="Select"
                   options={employeers}
-                  // validate={[required]}
-                  // isRequired
                 />
               </div>
             </StyledWelcomeForm>
