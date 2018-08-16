@@ -1,19 +1,20 @@
 import React from "react";
 
 import Teams from "@components/Teams";
-import TeamSubheader from "@components/Teams/SubHeader";
+import TeamSubHeader from "@components/Teams/SubHeader";
 
-import TeamPage from "@styled/TeamPage";
+import StyledTeamPage from "@styled/TeamPage";
+import { Container } from "@styled/Containers";
 
-// const TeamsLayout = () => {
-//   return (
-//     <StyledTeamPage>
-//       <TeamSubHeader />
-//       <Container sidebarCondition>
-//         <Teams />
-//       </Container>
-//     </StyledTeamPage>
-//   );
-// };
+const TeamsLayout = () => {
+  return (
+    <StyledTeamPage>
+      <TeamSubHeader />
+      <Container sidebarCondition>
+        <Teams />
+      </Container>
+    </StyledTeamPage>
+  );
+};
 
-// export default TeamsLayout;
+export default TeamsLayout;

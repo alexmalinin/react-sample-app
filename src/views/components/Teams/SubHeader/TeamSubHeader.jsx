@@ -1,22 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
+import React from "react";
+import SubHeaderLink from "@UI/SubHeaderLink";
 import AddTeamModal from "../../common/modals/AddTeamModal";
-import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
-import { createCustomTeam } from "../../actions/actions";
-import { CLIENT, S_CORE, S_REDGUY } from "../../constants/user";
-import { getUserRole } from "../../helpers/functions";
+import StyledSubHeader from "@styled/SubHeader";
 
 const TeamSubHeader = () => (
   <StyledSubHeader>
     <div className="left">
-      <SubHeaderLinkWrap
+      <SubHeaderLink
         label="Teams"
         url="/dashboard/teams"
         className="boldLink teamLink"
       >
         <i className="fas fa-users" />
-      </SubHeaderLinkWrap>
+      </SubHeaderLink>
     </div>
 
     <div className="right">

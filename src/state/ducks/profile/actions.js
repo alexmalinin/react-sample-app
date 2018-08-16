@@ -2,8 +2,6 @@
 import * as types from "./types";
 import { fetch, selectors } from "../../utils";
 import {
-  GET,
-  getUserUrl,
   PUT,
   createNotification,
   SPECIALIST,
@@ -11,19 +9,6 @@ import {
   CUSTOMER
 } from "@utilities";
 import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
-
-export const showUserData = () => (dispatch, getState) => {
-  const state = getState(),
-    userType = selectors.getUserType(state),
-    id = selectors.getUserId(state);
-
-  const url = getUserUrl(userType);
-
-  dispatch({
-    type: types.USER_DATA_SHOW,
-    payload: fetch(GET, `/${url}/${id}`)
-  });
-};
 
 /**
  * Update user Data Profile

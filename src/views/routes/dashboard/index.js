@@ -10,11 +10,12 @@ import HeaderBasic from "@components/HeaderBasic";
 import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";
 
-import MainContainer from "@styled/MainContainer";
+import Teams from "./teams";
+
 import { ContainerLarge } from "@styled/Containers";
+import MainContainer from "@styled/MainContainer";
 
 import { sidebarOperations } from "@ducks/sidebar";
-import Teams from "@components/Teams";
 
 import "react-notifications/lib/notifications.css";
 
@@ -27,6 +28,7 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
         <Route exact path={`${match.url}`} component={Dashboard} />
         <Route exact path={`${match.url}/teams`} component={Teams} />
         <Route exact path={`${match.url}/search`} component={Search} />
+        <Route exact path={`${match.url}/teams`} component={Teams} />
       </ContainerLarge>
       <SideBarRight opened={opened} toggle={toogleSidebar} />
     </MainContainer>

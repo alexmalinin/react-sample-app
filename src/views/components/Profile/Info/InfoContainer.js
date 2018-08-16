@@ -1,5 +1,8 @@
 import { connect } from "react-redux";
+import { reduxForm } from "redux-form";
+
 import { profileOperations } from "@ducks/profile";
+import { getUserData } from "@ducks/user/actions";
 import { modalsOperations } from "@ducks/modals";
 
 import Info from "./Info";

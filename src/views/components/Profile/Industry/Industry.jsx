@@ -6,7 +6,7 @@ import IndustryForm from "./IndustryForm";
 
 class Industry extends Component {
   componentDidMount() {
-    this.props.showUserData();
+    this.props.getUserData();
     this.props.getIndustries();
     this.props.getExperienceLevels();
     this.props.getProjectTypes();
@@ -29,11 +29,9 @@ class Industry extends Component {
                 {...this.props}
                 handleSubmit={handleSubmit(values =>
                   updateSpecialistIndustry(values).then(() => {
-                    if (isEditing) {
-                      history.push("/dashboard/about");
-                    } else {
-                      history.push("/profile/company");
-                    }
+                    history.push(
+                      isEditing ? "/dashboard/about" : "/profile/company"
+                    );
                   })
                 )}
               />

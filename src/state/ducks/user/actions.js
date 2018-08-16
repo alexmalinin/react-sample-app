@@ -1,6 +1,6 @@
 import * as types from "./types";
-import { fetch } from "../../utils";
-import { POST } from "@utilities";
+import { fetch, selectors } from "../../utils";
+import { POST, GET, getUserUrl } from "@utilities";
 import { setAuthorizationHeader } from "./utils";
 
 export const userLoggedIn = token => ({
@@ -37,3 +37,16 @@ export const logout = () => dispatch => {
 
 export const signUp = (user, data) => dispatch =>
   fetch(POST, `/${user}/auth/register`, data);
+
+export const getUserData = () => (dispatch, getState) => {
+  const state = getState(),
+    userType = selectors.getUserType(state),
+    id = selectors.getUserId(state);
+
+  const url = getUserUrl(userType);
+
+  dispatch({
+    type: types.USER_DATA_SHOW,
+    payload: fetch(GET, `/${url}/${id}`)
+  });
+};

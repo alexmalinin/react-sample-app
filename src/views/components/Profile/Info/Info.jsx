@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
-import { reduxForm } from "redux-form";
 
 import InfoForm from "./InfoForm";
 
@@ -11,7 +10,7 @@ class Info extends Component {
   };
 
   componentDidMount() {
-    this.props.showUserData();
+    this.props.getUserData();
   }
 
   render() {
@@ -47,14 +46,4 @@ class Info extends Component {
   }
 }
 
-export default reduxForm({
-  form: "InfoForm",
-  destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true,
-  enableReinitialize: true,
-  keepDirtyOnReinitialize: false,
-  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {},
-  onSubmitFail: (error, dispatch, submitError, props) => {
-    if (error) props.showSubmitErrorModal();
-  }
-})(Info);
+export default Info;

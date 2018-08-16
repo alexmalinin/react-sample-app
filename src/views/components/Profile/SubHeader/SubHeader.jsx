@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
 
-import StyledSubHeaderLink from "@styled/SubHeaderLink";
 import ProgressBars from "@UI/ProgressBar";
 import StyledSubHeader from "@styled/SubHeader";
 import { getAllUrlParams } from "@views/utils/functions";
-import { S_PASSIVE } from "@utilities/constants";
 import SubHeaderLink from "@UI/SubHeaderLink";
 
 class SubHeader extends Component {
