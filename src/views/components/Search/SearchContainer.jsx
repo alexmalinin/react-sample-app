@@ -1,17 +1,23 @@
-import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Search from "./Search";
+import { searchOperations } from "@ducks/search";
 
-import { Container } from "@styled/Containers";
+const mapStateToProps = () => {
+  // const makeSpecialistId = getSpecialistId();
 
-class SearchContainer extends Component {
-  render() {
-    return (
-      <Container fluid indentTopXs sidebarCondition>
-        <Search />
-      </Container>
-    );
-  }
-}
+  return state => {
+    const {
+      searchReducer: { search }
+    } = state;
 
-export default SearchContainer;
+    return {
+      specialistId: state.user.id,
+      searchResult: search
+    };
+  };
+};
+
+export default connect(mapStateToProps, {
+  ...searchOperations
+})(Search);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Tab } from "semantic-ui-react";
+import { Tab } from "semantic-ui-react/dist/commonjs";
 
 export default styled(Tab)`
   .ui.tabular.menu {
