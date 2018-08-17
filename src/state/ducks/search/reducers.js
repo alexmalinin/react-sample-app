@@ -5,7 +5,7 @@ import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
 const initialState = {
   loading: false,
   loaded: false,
-  search: [],
+  result: [],
   error: false
 };
 
@@ -19,7 +19,7 @@ const searchReducer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
-    search: [...payload.data]
+    result: [...payload.data]
   }),
 
   [types.SEARCH_SPECIALIST + REJECTED]: (state, action) => ({
@@ -37,7 +37,7 @@ const searchReducer = createReducer(initialState)({
     loading: false,
     loaded: true,
     error: false,
-    search: [...payload.data]
+    result: [...payload.data]
   }),
 
   [types.SEARCH_SPECIALIST_FOR_PROJECT + REJECTED]: (state, action) => ({

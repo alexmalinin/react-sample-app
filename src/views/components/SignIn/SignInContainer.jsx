@@ -7,7 +7,7 @@ import { Tab } from "semantic-ui-react";
 import SignInForm from "./SignInForm";
 
 import StyledFormHeader from "@styled/forms/FormHeader";
-import Tabs from "@styled/Tabs";
+import StyledTabs from "@styled/StyledTabs";
 import StyledAuthForm from "@styled/forms/AuthForm";
 import Loader from "@components/common/Loader";
 
@@ -61,7 +61,7 @@ class SignInContainer extends Component {
           <div className="form-subtitle">Welcome back!</div>
         </StyledFormHeader>
 
-        <Tabs widthAuto action="" className="relative">
+        <StyledTabs widthAuto action="" className="relative">
           <Tab
             menu={{ text: true }}
             panes={panes}
@@ -76,7 +76,7 @@ class SignInContainer extends Component {
               handleSubmit={handleSubmit(values => login(activeUser, values))}
             />
           </StyledAuthForm>
-        </Tabs>
+        </StyledTabs>
       </Fragment>
     );
   }

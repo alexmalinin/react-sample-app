@@ -1,189 +1,116 @@
 import styled from "styled-components";
 
-import { colors, fontColors, miscellaneous } from "./constants/colors";
+import { Tab } from "semantic-ui-react/dist/commonjs";
 
-export default styled.div`
-    margin-top: ${props => props.mTop || "0px"};
-    width: ${props => (props.widthAuto ? "100%" : "850px")};
+export default styled(Tab)`
+  .ui.tabular.menu {
+    border: none;
 
-    /* font-size: 28px; */
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-
-    .form-header {
-      height: 73px;
-      line-height: 73px;
-      text-align: center;
-      color: #fff;
-      background-color: #1991fa;
-    }
-
-    .form-body {
-      padding: 72px;
-      border-left: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-    }
-
-    .form-footer {
-      height: 73px;
-      text-align: center;
-      color: #fff;
-      background-color: #1991fa;
-      border-radius: 0;
-      width: 100%;
-      font-size: 24px;
-      font-family: Roboto, sans-serif;
-    }
-
-    .ui.segment.active.tab {
-      color: #000;
-    }
-
-    .ui {
-      &.text.menu {
-        margin: 0 auto;
-
-        .item {
-          font-family: 'Roboto', medium;
-          width: 50%;
-          font-size: 16px;
-          font-weight: 500;
-          letter-spacing: 1px;
-          text-align: center;
-          display: inline-block;
-          text-transform: uppercase;
-          padding: 20px 0;
-          color: ${fontColors.blue.inert};
-          border-bottom: 1px solid ${miscellaneous.lightBorder};
-
-          &.active {
-            color: ${fontColors.blue.active};
-            font-weight: 500;
-            border-bottom: 2px solid ${colors.blue};
-
-            &:hover {
-
-            }
-          }
-        }
-      }
-
-      &.segment.active.tab {
-        margin-top: 0;
-        border-radius: 0;
-        box-shadow: none;
-        border-top: 0;
-        border-bottom: 0;
-        border: none;
-      }
-    }
-
-    .radio-group .ui.radio.checkbox {
+    .item {
       position: relative;
+      justify-content: center;
+      font-size: 14px;
+      color: #949494;
+      text-transform: uppercase;
+      width: 50%;
+      padding: 0;
+      text-align: center;
+      border: none;
 
-      &::before {
-        content: '';
+      &:after {
+        content: "";
         position: absolute;
-        z-index: 9999999999;
+        height: 2px;
         width: 100%;
-        height: 100%;
+        background: transparent;
+        bottom: 2px;
+        left: 0;
+      }
+
+      &.active {
+        border: none;
+        font-weight: 500;
+        color: #232323;
+        margin-bottom: 0;
+
+        &:after {
+          background: #1991fa;
+        }
       }
     }
+  }
 
-    .ownRadio {
-      position: relative;
-    }
+  .ui.segment {
+    border: none !important;
+    box-shadow: none;
+    padding: 8px 0;
 
-    .ownInput {
-      opacity: 0;
+    .custom-select {
+      .dropdown.icon {
+        top: 55%;
+        right: 2em;
+        margin: 0;
+        padding: 0;
+        transform: translateY(-50%);
+        padding: 0;
+        transition: transform 0.4s ease;
 
-      &:checked + .ownRadio {
-
-        &::after {
-          content: '';
+        &:before,
+        &:after {
+          content: " " !important;
+          width: 8px;
+          height: 1px;
           position: absolute;
-          border-radius: 50%;
-          width: 9px;
-          height: 9px;
-          background-color: #1991fa;
-          top: 3px;
-          left: -17px;
-          box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+          top: 50%;
+          right: 0;
+          background: #c1c6d0 !important;
+          transform: rotate(-45deg);
+          transform-origin: 0;
         }
-      }
-    }
 
-    .ownRadio::before {
-      top: 0;
-      left: -20px;
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      display: block;
-      width: 15px;
-      height: 15px;
-      border: 1px solid #000;
-    }
-
-    @media(min-width: 1921px) {
-      .ui.segment {
-        .radio-group {
-          font-size: 28px;
-          padding-left: 40px;
-          margin-bottom: 40px;
+        &:before {
+          transform: rotate(-135deg);
         }
       }
 
-      .ownRadio::before {
-          height: 30px;
-          width: 30px;
-          left: -55px;
+      & > .text {
+        font-size: 14px;
+        line-height: 17px;
+        color: #666;
       }
 
-      .ownInput:checked + .ownRadio::after {
-          width: 20px;
-          height: 20px;
-          top: 5px;
-          left: -50px;
+      .menu {
+        .item {
+          font-size: 14px;
+          color: #666;
+          border: none;
+          background: transparent;
+
+          &:hover {
+            color: #232323;
+          }
+        }
       }
-    }
 
-    @media (max-width: 1920px) {
-     ${props => (props.widthAuto ? `width: 100%` : `width: 650px`)};
-    }
+      &.disabled {
+        opacity: 1;
+      }
 
-    @media (max-width: 1499px) {
+      &.active {
+        border-color: #aeb8f3;
 
-       ${props => (props.widthAuto ? `width: 100%` : `width: 475px`)};
+        &:hover {
+          border-color: #aeb8f3;
+        }
 
-       .ui {
-        &.text.menu {
-          .item {
-            line-height: 45px;
+        .menu {
+          border-color: #aeb8f3;
+
+          &:hover {
+            border-color: #aeb8f3;
           }
         }
       }
     }
-
-    @media (max-width: 1024px) {
-        ${props => (props.widthAuto ? `width: 100%` : `width: 400px`)};
-    }
-
-    @media (max-width: 767px) {
-        ${props => (props.widthAuto ? `width: 100%` : `width: 560px`)};
-        margin 40px auto 0;
-        border: none;
-
-        .ui {
-            &.segment.active.tab {
-                border: none;
-            }
-        }
-    }
-
-    @media (max-width: 600px) {
-        width: 100%;
-        margin 40px auto 0;
-        border: none;
-    }
+  }
 `;

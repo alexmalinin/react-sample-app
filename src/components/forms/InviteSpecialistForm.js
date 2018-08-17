@@ -34,7 +34,6 @@ class InviteSpecialistForm extends Component {
         className="transparent clear custom-select"
         component={RenderCustomSelect}
         validate={[required]}
-        options={projects}
         isRequired
         fluid={true}
       />

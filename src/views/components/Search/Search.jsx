@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 
 import { Container } from "@styled/Containers";
 
 import SearchFilterForm from "./forms/SearchFilterForm";
 import FilteredList from "./FilteredList";
+
+import { searchOperations } from "@ducks/search";
 
 class Search extends Component {
   state = {
@@ -50,8 +53,6 @@ class Search extends Component {
     const { searchResult } = this.props;
     const { filters, selectedProject } = this.state;
 
-    console.log("searchResult", searchResult);
-
     return (
       <Fragment>
         <Container fluid indentTopXs sidebarCondition>
@@ -83,4 +84,12 @@ class Search extends Component {
   }
 }
 
-export default Search;
+const mapStateToProps = ({ search: { result } }) => {
+  return {
+    searchResult: result
+  };
+};
+
+export default connect(mapStateToProps, {
+  ...searchOperations
+})(Search);

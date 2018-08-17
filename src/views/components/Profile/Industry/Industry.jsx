@@ -9,6 +9,7 @@ class Industry extends Component {
     this.props.showUserData();
     this.props.getIndustries();
     this.props.getExperienceLevels();
+    this.props.getProjectTypes();
   }
 
   render() {

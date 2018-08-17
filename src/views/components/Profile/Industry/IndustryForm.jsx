@@ -112,7 +112,6 @@ const IndustryForm = ({
                 placeholder="Select"
                 component={SelectField}
                 onOpen={getProjectTypes}
-                isLoading={projectTypesLoading}
                 options={projectTypes}
                 validate={[required]}
                 isRequired

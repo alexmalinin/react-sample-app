@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
+import { NotificationContainer } from "react-notifications";
 
 import Dashboard from "@components/Dashboard/";
 import Search from "@components/Search";
@@ -15,6 +16,8 @@ import { ContainerLarge } from "@styled/Containers";
 import { sidebarOperations } from "@ducks/sidebar";
 import Teams from "@components/Teams";
 
+import "react-notifications/lib/notifications.css";
+
 const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
   <div>
     <HeaderBasic match={match} />
@@ -27,6 +30,7 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
       </ContainerLarge>
       <SideBarRight opened={opened} toggle={toogleSidebar} />
     </MainContainer>
+    <NotificationContainer />
   </div>
 );
 

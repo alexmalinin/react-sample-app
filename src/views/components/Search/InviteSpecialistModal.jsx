@@ -22,24 +22,16 @@ class InviteSpecialistModal extends Component {
   };
 
   submit = ({ project, team }) => {
-    const { specialistId, specialistProjects } = this.props;
-    const token = localStorage.getItem("jwt_token");
+    const { specialistId, projects } = this.props;
 
     this.close();
 
     if (project) {
-      const proj =
-        specialistProjects &&
-        specialistProjects.find(proj => proj.id === project);
-
-      const teamId = proj && proj.team.id;
+      const teamId = projects[project].team.id;
 
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`,
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        url: `${PORT}/api/v1/projects/${project}/teams/${teamId}/specialist_invitation/${specialistId}`
       })
         .then(response => {
           createNotification({
@@ -64,10 +56,7 @@ class InviteSpecialistModal extends Component {
     if (team) {
       return Axios({
         method: "POST",
-        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`,
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        url: `${PORT}/api/v1/teams/${team}/specialist_team_invitation/${specialistId}`
       })
         .then(response => {
           createNotification({
@@ -124,6 +113,10 @@ class InviteSpecialistModal extends Component {
   }
 }
 
-export default connect(({ specialistProjects }) => ({ specialistProjects }))(
-  InviteSpecialistModal
-);
+export default connect(state => {
+  const {
+    projectsReducer: { projects }
+  } = state;
+
+  return { projects };
+})(InviteSpecialistModal);

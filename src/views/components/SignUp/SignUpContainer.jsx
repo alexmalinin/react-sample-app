@@ -7,7 +7,7 @@ import { Tab } from "semantic-ui-react";
 import SignUpForm from "./SignUpForm";
 
 import StyledFormHeader from "@styled/forms/FormHeader";
-import Tabs from "@styled/Tabs";
+import StyledTabs from "@styled/StyledTabs";
 import StyledAuthForm from "@styled/forms/AuthForm";
 
 import { userOperations } from "@ducks/user";
@@ -53,7 +53,7 @@ class SignUpContainer extends Component {
           </div>
         </StyledFormHeader>
 
-        <Tabs widthAuto action="">
+        <StyledTabs widthAuto action="">
           <Tab
             menu={{ text: true }}
             panes={panes}
@@ -78,7 +78,7 @@ class SignUpContainer extends Component {
               )}
             />
           </StyledAuthForm>
-        </Tabs>
+        </StyledTabs>
       </Fragment>
     );
   }

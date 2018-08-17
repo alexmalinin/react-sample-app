@@ -1,12 +1,12 @@
 export const segments = [
-  { label: "Start Up", value: "Start Up" },
-  { label: "SME", value: "SME" },
-  { label: "Agency", value: "Agency" },
-  { label: "Enterprise", value: "Enterprise" }
+  { text: "Start Up", value: "Start Up" },
+  { text: "SME", value: "SME" },
+  { text: "Agency", value: "Agency" },
+  { text: "Enterprise", value: "Enterprise" }
 ];
 
 export const employeers = [
-  { label: "1 - 5", value: "1 - 5" },
-  { label: "5 - 20", value: "5 - 20‎" },
-  { label: "20+", value: "20+" }
+  { text: "1 - 5", value: "1 - 5" },
+  { text: "5 - 20", value: "5 - 20‎" },
+  { text: "20+", value: "20+" }
 ];

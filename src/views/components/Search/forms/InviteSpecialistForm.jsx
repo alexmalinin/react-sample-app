@@ -5,14 +5,15 @@ import { Grid, Tab } from "semantic-ui-react";
 
 import { required } from "@views/utils/validate";
 import { DvBlueButton } from "@styled/DVButton";
-import StyledTab from "@styled/Tabs";
-// import RenderCustomSelect from "../forms/renders/RenderCustomSelect";
-import RenderCustomSelect from "@UI/inputs/SelectField";
-// import { getUserRole } from "../../helpers/functions";
+import Tabs from "@styled/Tabs";
+import RenderSelect from "@UI/inputs/SelectField";
 import { S_REDGUY } from "@utilities";
 
+import { getDataForSelect } from "@utilities/selectors";
+import { getCustomTeams } from "@ducks/teams/selectors";
+
 class InviteSpecialistForm extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { projects, projectId } = this.props;
 
     if (projectId) {
@@ -30,14 +31,12 @@ class InviteSpecialistForm extends Component {
     return (
       <Field
         name="project"
-        // label="Select project"
         placeholder="Select project"
-        className="transparent clear custom-select"
-        component={RenderCustomSelect}
-        validate={[required]}
+        component={RenderSelect}
         options={projects}
-        isRequired
         fluid={true}
+        validate={[required]}
+        isRequired
       />
     );
   };
@@ -48,14 +47,12 @@ class InviteSpecialistForm extends Component {
     return (
       <Field
         name="team"
-        // label="Select team"
         placeholder="Select team"
-        className="transparent clear custom-select"
-        component={RenderCustomSelect}
-        validate={[required]}
+        component={RenderSelect}
         options={teams}
-        isRequired
         fluid={true}
+        validate={[required]}
+        isRequired
       />
     );
   };
@@ -78,17 +75,14 @@ class InviteSpecialistForm extends Component {
         <Grid>
           <Grid.Row>
             <Grid.Column computer={16}>
-              {/* {getUserRole() === S_REDGUY ? (
-                <StyledTab
-                  panes={panes}
-                  onTabChange={() => this.props.reset()}
-                />
+              {this.props.isRedguy ? (
+                <Tabs panes={panes} onTabChange={() => this.props.reset()} />
               ) : (
                 <Fragment>
                   <div className="modalHeader centered">Team</div>
                   {this.renderTeams()}
                 </Fragment>
-              )} */}
+              )}
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -112,34 +106,28 @@ InviteSpecialistForm = reduxForm({
   keepDirtyOnReinitialize: false
 })(InviteSpecialistForm);
 
-const mapStateToProps = ({
-  specialistData,
-  specialistProjects,
-  specialistCustomTeams
-}) => {
-  let projects = [],
-    teams = [];
+const mapStateToProps = state => {
+  const prepareProjects = getDataForSelect(),
+    prepareTeams = getDataForSelect();
 
-  // getUserRole() === S_REDGUY &&
-  //   specialistProjects &&
-  //   specialistProjects.map(project =>
-  //     projects.push({
-  //       text: project.name,
-  //       value: project.id
-  //       // team: project.team.id
-  //     })
-  //   );
+  const showCustomTeams = getCustomTeams();
 
-  specialistCustomTeams &&
-    specialistCustomTeams.map(team =>
-      teams.push({
-        text: team.name,
-        value: team.id
-      })
-    );
-  return {
-    projects,
-    teams
+  return ({ user: { role }, projectsReducer: { projects } }) => {
+    let allProjects = [],
+      allTeams = [];
+
+    if (role === S_REDGUY) {
+      allProjects = prepareProjects(projects, "value", "text");
+    }
+
+    allTeams = showCustomTeams(state);
+    allTeams = prepareTeams(allTeams, "value", "text");
+
+    return {
+      projects: allProjects,
+      teams: allTeams,
+      isRedguy: role === S_REDGUY
+    };
   };
 };
 

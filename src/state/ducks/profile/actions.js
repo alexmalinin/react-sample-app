@@ -89,7 +89,7 @@ const updateSpecialistProfile = (id, data, education, experience) => {
     } else {
       return dispatch({
         type: types.USER_PROFILE_UPDATE,
-        payload: fetch(PUT, `/specialistss/${id}/dashboard/profile`, {
+        payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
           profile: specialistProfile(data, education, experience)
         })
       })
@@ -296,7 +296,7 @@ const updateSpecialistCompany = (id, data) => dispatch => {
 
   return dispatch({
     type: types.USER_COMPANY_UPDATE,
-    payload: fetch(PUT, `/specialistss/${id}`, body)
+    payload: fetch(PUT, `/specialists/${id}`, body)
   })
     .then(() => {
       createNotification({

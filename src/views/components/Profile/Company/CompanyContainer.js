@@ -6,41 +6,45 @@ import { modalsOperations } from "@ducks/modals";
 
 import Company from "./Company";
 
-export default connect(
-  ({
+import { getDataForSelect } from "@utilities/selectors";
+
+const mapStateToProps = () => {
+  const prepareIndusrries = getDataForSelect();
+
+  return ({
     user: { type },
     profile: { info, company },
     industriesReducer: { industries }
-  }) => ({
-    initialValues: {
-      name: company.name,
-      company_address: company.company_address,
-      website: company.website,
-      number_of_employers: company.number_of_employers,
-      country: company.country,
-      city: company.city,
-      segment: company.segment,
-      industry: company.industry_area_id,
-      registered_name: company.registered_name,
-      tell_about: company.tell_about,
-      abn_acn: company.tell_about
-    },
+  }) => {
+    const allIndustries = prepareIndusrries(industries, "value", "text");
 
-    usertype: type,
-    avatar: info.avatar,
-    industries
-  }),
-  {
-    showUserData: profileOperations.showUserData,
-    updateCompany: profileOperations.updateCompany,
-    showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
-    ...industryOperations
-  },
-  (stateProps, dispatchProps, parentProps) => {
     return {
-      ...stateProps,
-      ...parentProps,
-      ...dispatchProps
+      initialValues: {
+        name: company.name,
+        company_address: company.company_address,
+        website: company.website,
+        number_of_employers: company.number_of_employers,
+        country: company.country,
+        city: company.city,
+        segment: company.segment,
+        industry: company.industry_area_id,
+        registered_name: company.registered_name,
+        tell_about: company.tell_about,
+        abn_acn: company.tell_about
+      },
+
+      usertype: type,
+      avatar: info.avatar,
+      industries: allIndustries
     };
-  }
-)(Company);
+  };
+};
+
+const mapDispatchToProps = {
+  showUserData: profileOperations.showUserData,
+  updateCompany: profileOperations.updateCompany,
+  showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
+  ...industryOperations
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Company);

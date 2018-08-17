@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { Grid, Button, Dropdown, Popup } from "semantic-ui-react";
+import { Grid, Button, Dropdown } from "semantic-ui-react";
 import InputRange from "react-input-range";
 
 import StyledSearchFilter from "../StyledSearchFilter";
@@ -21,9 +21,11 @@ import { experienceLevelOperations } from "@ducks/experienceLevels";
 import { projectTypesOperations } from "@ducks/projectTypes";
 import { searchOperations } from "@ducks/search";
 import { projectsOperations } from "@ducks/projects";
+import { teamsOperations } from "@ducks/teams";
 
 import SearchForm from "./SearchForm";
-import { renameObjPropNames } from "@views/utils/functions";
+
+import { getDataForSelect } from "@utilities/selectors";
 
 import "react-input-range/lib/css/index.css";
 
@@ -38,12 +40,13 @@ class SearchFilterForm extends Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getIndustries();
     this.props.getExperienceLevels();
     this.props.getProjectTypes();
     this.props.searchSpecialist();
     this.props.showAllProjects();
+    this.props.showTeams();
   }
 
   toggleFilters = () => {
@@ -77,7 +80,7 @@ class SearchFilterForm extends Component {
   changeProject = (e, data) => {
     this.setState({ selectedProject: data.value, projectError: false });
     this.props.searchSpecialistForProject(data.value);
-    this.props.showProjectWithId(data.value);
+    // this.props.showProjectWithId(data.value);
     this.searchForm.handleClear();
     this.props.handleChangeProject(data.value);
   };
@@ -100,21 +103,6 @@ class SearchFilterForm extends Component {
     } = this.props;
 
     const { opened, range, selectedProject, projectError } = this.state;
-
-    industries &&
-      industries.forEach(industry =>
-        renameObjPropNames(industry, "label", "text")
-      );
-
-    experienceLevels &&
-      experienceLevels.forEach(level =>
-        renameObjPropNames(level, "label", "text")
-      );
-
-    projectTypes &&
-      projectTypes.forEach(projectType =>
-        renameObjPropNames(projectType, "label", "text")
-      );
 
     return (
       <StyledSearchFilter className={opened ? "opened" : ""}>
@@ -183,7 +171,7 @@ class SearchFilterForm extends Component {
                 fluid
                 search
                 selectOnBlur={false}
-                options={industries["industry"] || []}
+                options={industries || []}
                 onChange={handleChange}
                 value={industry_area_id}
                 selection
@@ -266,29 +254,37 @@ SearchFilterForm = reduxForm({
   form: "SearchFilterForm"
 })(SearchFilterForm);
 
-const mapStateToProps = ({
-  projectsReducer: { projects },
-  industriesReducer: { industries },
-  experienceLevelsReducer: { experienceLevels },
-  searchReducer: { search },
-  projectTypesReducer: { projectTypes },
-  projectWithId
-}) => {
-  let allProjects = [];
-  projects &&
-    Object.keys(projects).map(id =>
-      allProjects.push({
-        value: id,
-        text: projects[id].name
-      })
-    );
-  return {
-    projects: allProjects,
-    industries,
-    experienceLevels,
-    projectTypes,
-    searchResult: search,
+const mapStateToProps = () => {
+  const prepareProjects = getDataForSelect(),
+    prepareIndusrries = getDataForSelect(),
+    prepareExperienceLevels = getDataForSelect(),
+    prepareProjectTypes = getDataForSelect();
+
+  return ({
+    projectsReducer: { projects },
+    industriesReducer: { industries },
+    experienceLevelsReducer: { experienceLevels },
+    search: { result },
+    projectTypesReducer: { projectTypes },
     projectWithId
+  }) => {
+    const allProjects = prepareProjects(projects, "value", "text"),
+      allIndustries = prepareIndusrries(industries, "value", "text"),
+      allExperienceLevels = prepareExperienceLevels(
+        experienceLevels,
+        "value",
+        "text"
+      ),
+      allProjectTypes = prepareProjectTypes(projectTypes, "value", "text");
+
+    return {
+      projects: allProjects,
+      industries: allIndustries,
+      experienceLevels: allExperienceLevels,
+      projectTypes: allProjectTypes,
+      searchResult: result,
+      projectWithId
+    };
   };
 };
 
@@ -297,6 +293,7 @@ export default connect(mapStateToProps, {
   ...experienceLevelOperations,
   ...projectTypesOperations,
   ...searchOperations,
-  showAllProjects: projectsOperations.showAllProjects
+  showAllProjects: projectsOperations.showAllProjects,
+  showTeams: teamsOperations.showTeams
   // showProjectWithId,
 })(SearchFilterForm);

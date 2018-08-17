@@ -1,11 +1,6 @@
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import {
-  FULFILLED,
-  PENDING,
-  REJECTED,
-  prepareForSelect
-} from "../../../utilities";
+import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
 
 const initialState = {
   loading: false,
@@ -24,7 +19,7 @@ const industriesReducer = createReducer(initialState)({
     ...state,
     loading: false,
     loaded: true,
-    industries: prepareForSelect(payload.data),
+    industries: payload.data,
     error: false
   }),
 

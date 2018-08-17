@@ -2,10 +2,8 @@ import React from "react";
 
 import StyledInputs from "@styled/forms/Inputs";
 import StyledError from "@styled/forms/Validation";
-import StyledSelect from "./StyledSelect";
+import StyledDropdown from "./StyledDropdown";
 import StyledLabel from "@styled/forms/Label";
-
-import "react-select/dist/react-select.css";
 
 const SelectField = ({
   meta: { touched, error, warning },
@@ -13,23 +11,23 @@ const SelectField = ({
   label,
   small,
   onOpen,
-  isLoading,
   isRequired,
   ...rest
 }) => {
   const { value, onChange } = input;
 
   return (
-    <StyledInputs {...rest} small={small} loading={isLoading}>
+    <StyledInputs {...rest} small={small}>
       <label>
         {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
       </label>
-      <StyledSelect
+      <StyledDropdown
         error={Boolean(touched && error)}
         value={value}
-        onChange={onChange}
+        onChange={(param, data) => onChange(data.value)}
         onOpen={onOpen}
-        isLoading={isLoading}
+        selection
+        fluid
         {...rest}
       />
       {touched &&

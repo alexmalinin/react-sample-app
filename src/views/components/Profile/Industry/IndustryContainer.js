@@ -9,8 +9,15 @@ import { experienceLevelOperations } from "@ducks/experienceLevels";
 import { projectTypesOperations } from "@ducks/projectTypes";
 import { modalsOperations } from "@ducks/modals";
 
-export default connect(
-  ({
+import { getDataForSelect } from "@utilities/selectors";
+
+const mapStateToProps = () => {
+  const prepareIndustries = getDataForSelect(),
+    prepareProjectTypes = getDataForSelect(),
+    prepareExperienceLevels = getDataForSelect(),
+    prepareSkills = getDataForSelect();
+
+  return ({
     profile: { info, industry },
     skills,
     experienceLevelsReducer: {
@@ -22,24 +29,12 @@ export default connect(
   }) => {
     const { project_type, industry_area_id } = industry;
 
-    let renderProjectType = null;
-
-    if (project_type) {
-      renderProjectType = {
-        label: project_type["name"],
-        value: project_type["id"]
-      };
-    }
-
     let industryArea = null;
 
     if (industries[industry_area_id - 1]) {
       const { value, label } = industries[industry_area_id - 1];
 
-      industryArea = {
-        value,
-        label
-      };
+      industryArea = value;
     }
 
     let renderSkills = [];
@@ -51,12 +46,16 @@ export default connect(
 
     return {
       avatar: info.avatar,
-      skills,
-      industries,
+      skills: prepareSkills(skills, "value, text"),
+      industries: prepareIndustries(industries, "value", "text"),
       industriesLoading,
-      experienceLevels,
+      experienceLevels: prepareExperienceLevels(
+        experienceLevels,
+        "value",
+        "text"
+      ),
       experienceLevelsLoading,
-      projectTypes,
+      projectTypes: prepareProjectTypes(projectTypes, "value", "text"),
       projectTypesLoading,
       initialValues: {
         job_title: industry.job_title,
@@ -68,25 +67,21 @@ export default connect(
         hourly_rate: industry.hourly_rate,
         experience_level: industry.experience_level_id,
         industry_area_id: industryArea,
-        project_type: renderProjectType,
+        project_type: project_type && project_type.id,
         skills_attributes: renderSkills
       }
     };
-  },
-  {
-    showUserData: profileOperations.showUserData,
-    updateSpecialistIndustry: profileOperations.updateSpecialistIndustry,
-    showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
-    ...skillsOperations,
-    ...industryOperations,
-    ...experienceLevelOperations,
-    ...projectTypesOperations
-  },
-  (stateProps, dispatchProps, parentProps) => {
-    return {
-      ...stateProps,
-      ...parentProps,
-      ...dispatchProps
-    };
-  }
-)(Industry);
+  };
+};
+
+const mapDispatchToProps = {
+  showUserData: profileOperations.showUserData,
+  updateSpecialistIndustry: profileOperations.updateSpecialistIndustry,
+  showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
+  ...skillsOperations,
+  ...industryOperations,
+  ...experienceLevelOperations,
+  ...projectTypesOperations
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Industry);
