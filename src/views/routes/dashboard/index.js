@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
@@ -16,6 +16,7 @@ import { ContainerLarge } from "@styled/Containers";
 import MainContainer from "@styled/MainContainer";
 
 import { sidebarOperations } from "@ducks/sidebar";
+import { getUserData } from "@ducks/user/actions";
 
 import "react-notifications/lib/notifications.css";
 
@@ -43,5 +44,6 @@ DashboardLayout.propTypes = {
 };
 
 export default connect(({ sidebar }) => ({ sidebar }), {
-  ...sidebarOperations
+  ...sidebarOperations,
+  getUserData
 })(DashboardLayout);

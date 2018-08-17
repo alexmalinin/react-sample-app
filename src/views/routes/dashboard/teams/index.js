@@ -1,4 +1,7 @@
 import React from "react";
+import { NotificationContainer } from "react-notifications";
+
+import "react-notifications/lib/notifications.css";
 
 import Teams from "@components/Teams";
 import TeamSubHeader from "@components/Teams/SubHeader";
@@ -13,6 +16,7 @@ const TeamsLayout = () => {
       <Container sidebarCondition>
         <Teams />
       </Container>
+      <NotificationContainer />
     </StyledTeamPage>
   );
 };

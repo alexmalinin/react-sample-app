@@ -22,7 +22,7 @@ export default () => (
       <GuestRoute exact path="/sign_in" component={signIn} />
       <Route path="/sign_up" component={signUp} />
       <Route path="/confirm_email" component={confirmation} />
-      <Route path="/profile" component={profile} />
+      <PrivateRoute path="/profile" component={profile} />
       <PrivateRoute path="/dashboard" component={dashboard} />
       <Route component={notFound} />
     </Switch>

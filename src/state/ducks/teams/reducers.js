@@ -1,95 +1,48 @@
 import * as types from "./types";
+import { combineReducers } from "redux";
 import omit from "lodash/omit";
+import merge from "lodash/merge";
+
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import { FULFILLED, PENDING, REJECTED } from "@utilities";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  teams: {},
-  error: null
-};
-
-const teamsReducer = createReducer(initialState)({
-  [types.SHOW_TEAMS]: (state, { payload }) => ({
-    ...state,
-    teams: {
-      ...state.teams,
-      ...payload
-    }
+const teamsById = createReducer({})({
+  [types.SHOW_TEAMS + FULFILLED]: (state, { payload }) => ({
+    ...merge({ ...state }, payload.entities.teams)
   }),
 
   [types.SHOW_CUSTOM_TEAMS]: (state, { payload }) => ({
-    ...state,
-    teams: {
-      ...state.teams,
-      ...payload
-    }
-  }),
-
-  [types.SHOW_PROJECT_TEAM + PENDING]: (state, { payload }) => ({
-    ...state,
-    loading: true
+    ...state
+    // ...payload.data
   }),
 
   [types.SHOW_PROJECT_TEAM + FULFILLED]: (state, { payload }) => ({
     ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    teams: {
-      ...state.teams,
-      [payload.data.id]: payload.data
-    }
+    ...payload.entities.team
   }),
 
-  [types.SHOW_PROJECT_TEAM + REJECTED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    error: true
+  [types.CREATE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) => ({
+    ...merge({ ...state }, payload.entities.team)
   }),
 
-  [types.CUSTOM_TEAM_CREATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CUSTOM_TEAM_CREATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    teams: {
-      ...state.teams,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CUSTOM_TEAM_CREATE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    teams: {
-      ...omit(state.teams, payload.data.id)
-    }
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
+  [types.DELETE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) => ({
+    ...omit(state, payload.data.id)
   })
+});
+
+const allTeams = createReducer([])({
+  [types.SHOW_TEAMS + FULFILLED]: (state, { payload }) => payload.result,
+
+  [types.DELETE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) =>
+    state.filter(id => id !== payload.data.id),
+
+  [types.CREATE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) =>
+    state.concat(payload.result)
+});
+
+const teamsReducer = combineReducers({
+  byId: teamsById,
+  allIds: allTeams
 });
 
 export default teamsReducer;

@@ -1,73 +1,22 @@
 import * as types from "./types";
 import omit from "lodash/omit";
-import { createReducer } from "../../utils";
-import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
+import merge from "lodash/merge";
+import { FULFILLED } from "@utilities";
+import {
+  SHOW_PROJECT_TEAM,
+  SHOW_TEAM_CHANNELS,
+  CREATE_CUSTOM_TEAM
+} from "../teams/types";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  channels: {},
-  error: null
+const channelsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SHOW_PROJECT_TEAM + FULFILLED:
+    case CREATE_CUSTOM_TEAM + FULFILLED:
+    case SHOW_TEAM_CHANNELS + FULFILLED:
+      return merge({ ...state }, action.payload.entities.channels);
+    default:
+      return state;
+  }
 };
-
-const channelsReducer = createReducer(initialState)({
-  [types.CHANNELS_SHOW]: (state, action) => ({
-    ...state,
-    channels: {
-      ...state.channels,
-      ...action.payload
-    }
-  }),
-
-  [types.CHANNEL_CREATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_CREATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    channels: {
-      ...state.channels,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CHANNEL_UPDATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_UPDATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    channels: {
-      ...state.channels,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CHANNEL_DELETE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_DELETE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    channels: {
-      ...omit(state.channels, payload.data.id)
-    }
-  }),
-
-  [types.CHANNEL_DELETE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  })
-});
 
 export default channelsReducer;

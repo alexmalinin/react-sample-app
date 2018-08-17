@@ -1,10 +1,10 @@
 import React from "react";
 import SubHeaderLink from "@UI/SubHeaderLink";
-import AddTeamModal from "../../common/modals/AddTeamModal";
+import AddTeamModal from "../AddTeamModal";
 import StyledSubHeader from "@styled/SubHeader";
 
 const TeamSubHeader = () => (
-  <StyledSubHeader>
+  <StyledSubHeader sidebarCondition>
     <div className="left">
       <SubHeaderLink
         label="Teams"

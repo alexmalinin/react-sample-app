@@ -1,7 +1,7 @@
 import decode from "jwt-decode";
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { getUserType } from "@utilities";
+import { getUserType, FULFILLED } from "@utilities";
 
 const signInReducer = createReducer({})({
   [types.SIGN_IN]: (state, { token }) => {
@@ -16,7 +16,7 @@ const signInReducer = createReducer({})({
     };
   },
 
-  [types.SIGN_IN_FAIL]: (state, payload) => ({
+  [types.SIGN_IN_FAIL]: (state, { payload }) => ({
     signInFail: true
   }),
 
@@ -24,6 +24,10 @@ const signInReducer = createReducer({})({
     localStorage.clear();
 
     return {};
+  },
+
+  [types.USER_DATA_SHOW + FULFILLED]: (state, { payload }) => {
+    return { ...state, data: payload.data };
   }
 });
 

@@ -96,6 +96,7 @@ export function setCookie(cname, cvalue, exdays) {
  *
  */
 export const createNotification = ({ type, text }) => {
+  console.log("dsd", type, text);
   switch (type) {
     case "info":
       NotificationManager.info("Info message", text || "");

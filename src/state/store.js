@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import promiseMiddleware from "redux-promise-middleware";
+import normalizrMiddleware from "./utils/normalizrMiddleware";
 import thunkMiddleware from "redux-thunk";
 import * as reducers from "./ducks";
 
@@ -13,5 +14,5 @@ const reduxDevTools =
 export default createStore(
   combineReducers(reducers),
   reduxDevTools,
-  applyMiddleware(thunkMiddleware, promiseMiddleware())
+  applyMiddleware(thunkMiddleware, promiseMiddleware(), normalizrMiddleware())
 );
