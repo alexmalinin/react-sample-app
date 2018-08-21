@@ -4,58 +4,26 @@ import omit from "lodash/omit";
 import merge from "lodash/merge";
 
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "@utilities";
+import { FULFILLED } from "@utilities";
 import { CREATE_CHANNEL, DELETE_CHANNEL } from "../channels/types";
 
-const teamsById = createReducer({})({
-  [types.SHOW_TEAMS + FULFILLED]: (state, { payload }) => ({
-    ...merge({ ...state }, payload.entities.teams)
-  }),
-
-  [types.SHOW_CUSTOM_TEAMS]: (state, { payload }) => ({
-    ...state
-    // ...payload.data
-  }),
-
-  [types.SHOW_PROJECT_TEAM + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    ...payload.entities.team
-  }),
-
-  [types.CREATE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) => ({
-    ...merge({ ...state }, payload.entities.team)
-  }),
-
-  [types.DELETE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) => ({
-    ...omit(state, payload.data.id)
-  }),
-
-  [CREATE_CHANNEL]: (state, { payload }) => {
-    const { team_id, id } = payload;
-    const team = state[team_id];
-
-    return {
-      ...state,
-      [team_id]: {
-        ...team,
-        channels: team.channels.concat(id)
-      }
-    };
-  },
-
-  [DELETE_CHANNEL]: (state, { payload }) => {
-    const { team_id, id } = payload;
-    const team = state[team_id];
-
-    return {
-      ...state,
-      [team_id]: {
-        ...team,
-        channels: team.channels.filter(channel => channel !== id)
-      }
-    };
+const teamsById = (state = {}, action) => {
+  switch (action.type) {
+    case types.SHOW_TEAMS + FULFILLED:
+    case types.CREATE_CUSTOM_TEAM + FULFILLED:
+    case types.SHOW_CUSTOM_TEAM + FULFILLED:
+    case types.SHOW_PROJECT_TEAM + FULFILLED:
+      return merge({ ...state }, action.payload.entities.teams);
+    case types.DELETE_CUSTOM_TEAM + FULFILLED:
+      return omit(state, action.payload.data.id);
+    case CREATE_CHANNEL:
+      return addChannel(state, action);
+    case DELETE_CHANNEL:
+      return deleteChannel(state, action);
+    default:
+      return state;
   }
-});
+};
 
 const allTeams = createReducer([])({
   [types.SHOW_TEAMS + FULFILLED]: (state, { payload }) => payload.result,
@@ -66,6 +34,34 @@ const allTeams = createReducer([])({
   [types.CREATE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) =>
     state.concat(payload.result)
 });
+
+// Reducer helpers
+
+const addChannel = (state, action) => {
+  const { team_id, id } = action.payload;
+  const team = state[team_id];
+
+  return {
+    ...state,
+    [team_id]: {
+      ...team,
+      channels: team.channels.concat(id)
+    }
+  };
+};
+
+const deleteChannel = (state, action) => {
+  const { team_id, id } = action.payload;
+  const team = state[team_id];
+
+  return {
+    ...state,
+    [team_id]: {
+      ...team,
+      channels: team.channels.filter(channel => channel !== id)
+    }
+  };
+};
 
 const teamsReducer = combineReducers({
   byId: teamsById,

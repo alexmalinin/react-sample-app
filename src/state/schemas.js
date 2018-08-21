@@ -20,7 +20,7 @@ export const channels = new schema.Entity(
   }
 );
 
-export const team = new schema.Entity("team", {
+export const team = new schema.Entity("teams", {
   channels: [channel],
   specialists: [specialist]
 });

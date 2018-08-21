@@ -16,13 +16,12 @@ import {
 import { userOperations } from "@ducks/user";
 
 const HeaderBasic = ({
-  firstName,
-  lastName,
-  avatar,
+  user: { first_name, last_name, avatar, role },
   passive,
-  userRole,
   logout
 }) => {
+  console.log(avatar);
+
   return (
     <StyledHeaderBasic>
       <div className="nav-logo bordered">
@@ -33,7 +32,7 @@ const HeaderBasic = ({
       <div className="nav-links">
         {!passive && (
           <Fragment>
-            {(userRole === S_CORE || userRole === S_REDGUY) && (
+            {(role === S_CORE || role === S_REDGUY) && (
               <NavLink className="nav-link" to="/dashboard/search">
                 <i className="fas fa-search" />
                 Search
@@ -53,12 +52,12 @@ const HeaderBasic = ({
       <div className="nav-profile">
         <img
           src={avatar && avatar.url ? IMAGE_PORT + avatar.url : BLANK_AVATAR}
-          alt={firstName + " " + lastName}
+          alt={first_name + " " + last_name}
           className="user-avatar"
         />
         <p className="user-name">
           Hello, <br />
-          {firstName}
+          {first_name}
         </p>
         <StyledDropdown
           on="click"
@@ -84,26 +83,22 @@ const HeaderBasic = ({
 };
 
 HeaderBasic.propTypes = {
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  avatar: PropTypes.object,
-  userRole: PropTypes.string,
+  user: PropTypes.shape({
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    role: PropTypes.string.isRequired,
+    avatar: PropTypes.shape({
+      url: PropTypes.string
+    })
+  }).isRequired,
   logout: PropTypes.func.isRequired
 };
 
-HeaderBasic.defaultProps = {
-  firstName: "Guest",
-  lastName: "",
-  avatar: { url: null },
-  userRole: null
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user
+  };
 };
-
-const mapStateToProps = ({ user: { role }, profile: { info } }) => ({
-  firstName: info.first_name,
-  lastName: info.last_name,
-  avatar: info.avatar,
-  userRole: role
-});
 
 export default connect(mapStateToProps, {
   logout: userOperations.logout

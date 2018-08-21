@@ -16,6 +16,7 @@ import { setAuthorizationHeader } from "@ducks/user/utils";
 if (localStorage.jwt_token) {
   setAuthorizationHeader(localStorage.jwt_token);
   store.dispatch(userOperations.userLoggedIn(localStorage.jwt_token));
+  store.dispatch(userOperations.getUserData());
 }
 
 ReactDOM.render(

@@ -27,7 +27,7 @@ const signInReducer = createReducer({})({
   },
 
   [types.USER_DATA_SHOW + FULFILLED]: (state, { payload }) => {
-    return { ...state, data: payload.data };
+    return { ...state, ...payload.data };
   }
 });
 

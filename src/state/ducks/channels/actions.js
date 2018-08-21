@@ -7,7 +7,7 @@ import {
   createNotification,
   displayError
 } from "@utilities";
-import { channel, channels } from "../../schemas";
+import { channels } from "../../schemas";
 
 const createChannel = payload => ({
   type: types.CREATE_CHANNEL,
@@ -24,13 +24,16 @@ export const createTeamChannel = (team, data) => dispatch => {
 
 const updateChannel = payload => ({
   type: types.UPDATE_CHANNEL,
-  payload
+  payload,
+  meta: {
+    schema: channels
+  }
 });
 
 export const updateTeamChannel = (team, channel, data) => dispatch =>
   fetch(PUT, `/teams/${team}/channels/${channel}`, data)
     .then(res => {
-      dispatch(updateChannel(res.data));
+      dispatch(updateChannel(res));
     })
     .catch(displayError);
 

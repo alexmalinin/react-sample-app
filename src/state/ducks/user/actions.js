@@ -22,6 +22,7 @@ export const login = (user, data) => dispatch =>
       localStorage.jwt_token = access_token;
       setAuthorizationHeader(access_token);
       dispatch(userLoggedIn(access_token));
+      dispatch(getUserData());
     })
     .catch(error => {
       dispatch(userLogInFail());
