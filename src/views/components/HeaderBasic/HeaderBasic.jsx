@@ -20,8 +20,6 @@ const HeaderBasic = ({
   passive,
   logout
 }) => {
-  console.log(avatar);
-
   return (
     <StyledHeaderBasic>
       <div className="nav-logo bordered">

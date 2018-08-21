@@ -2,19 +2,24 @@ import React, { Component } from "react";
 import { Tab } from "semantic-ui-react";
 import classNames from "classnames";
 
-// import Teams from "../Teams";
+import Teams from "../Teams";
 import StyledSideBar from "@styled/SideBar";
+import StyledTeamPage from "@styled/TeamPage";
 
 class SideBarRight extends Component {
   render() {
-    let { teams, opened, toggle } = this.props;
+    let { opened, toggle } = this.props;
 
     const panes = [
       {
         menuItem: "TEAMS",
         render: () => (
           <Tab.Pane>
-            {/* <Teams teams={teams} renderToRightSidebar /> */}
+            <StyledTeamPage>
+              <div className="team-tab-project">
+                <Teams renderToSidebar />
+              </div>
+            </StyledTeamPage>
           </Tab.Pane>
         )
       },

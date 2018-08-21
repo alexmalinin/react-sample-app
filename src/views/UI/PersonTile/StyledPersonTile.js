@@ -71,7 +71,7 @@ export default styled.div`
 
   .delete {
     position: absolute;
-    z-index: 1;
+    z-index: 100;
 
     display: flex;
     opacity: 0;

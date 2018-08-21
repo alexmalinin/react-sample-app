@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import PersonTile from "@UI/PersonTile";
 import StyledDropdown from "./StyledDropdown";
@@ -76,17 +77,23 @@ class MembersDropdown extends Component {
   }
 
   render() {
-    const { members, countToShow, hideDelete, removeText } = this.props;
+    const {
+      members,
+      specialists,
+      countToShow,
+      hideDelete,
+      removeText
+    } = this.props;
     const { showDropdown } = this.state;
     const rest = members.length - countToShow;
 
     return (
       <StyledDropdown>
-        {members.slice(0, countToShow).map((person, index) => {
+        {members.slice(0, countToShow).map(id => {
           return (
             <PersonTile
-              key={index}
-              specialist={person}
+              key={id}
+              specialist={specialists[id]}
               handleRemove={this.handleAssign}
               removeTitle={removeText}
               hideDelete={hideDelete}
@@ -110,11 +117,11 @@ class MembersDropdown extends Component {
                 onClick={e => e.stopPropagation()}
               >
                 <h3>Members</h3>
-                {members.map((person, index) => {
+                {members.map(id => {
                   return (
                     <PersonTile
-                      key={index}
-                      specialist={person}
+                      key={id}
+                      specialist={specialists[id]}
                       handleRemove={this.handleAssign}
                       removeTitle={removeText}
                       hideDelete={hideDelete}
@@ -130,4 +137,10 @@ class MembersDropdown extends Component {
   }
 }
 
-export default MembersDropdown;
+const mapStateToProps = (state, props) => {
+  return {
+    specialists: state.specialists
+  };
+};
+
+export default connect(mapStateToProps)(MembersDropdown);

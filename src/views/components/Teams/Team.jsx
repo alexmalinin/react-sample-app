@@ -103,29 +103,27 @@ class Team extends Component {
     const { team, specialists } = this.props;
 
     return (
-      <Fragment>
-        <div className="team-wrap">
-          <div className="team-name">{team.name}</div>
+      <div className="team-wrap">
+        <div className="team-name">{team.name}</div>
 
-          {team.channels && !!team.channels.length
-            ? team.channels.map(id => (
-                <Channel
-                  channelId={id}
-                  key={id}
-                  allSpecialists={specialists}
-                  renderToRightSidebar
-                />
-              ))
-            : "There is no channels"}
-        </div>
-      </Fragment>
+        {team.channels && !!team.channels.length
+          ? team.channels.map(id => (
+              <Channel
+                channelId={id}
+                key={id}
+                allSpecialists={specialists}
+                renderToRightSidebar
+              />
+            ))
+          : "There is no channels"}
+      </div>
     );
   }
 
   render() {
-    const { renderToRightSidebar } = this.props;
+    const { renderToSidebar } = this.props;
 
-    return renderToRightSidebar
+    return renderToSidebar
       ? this.renderToRightSidebar()
       : this.renderToDashboard();
   }

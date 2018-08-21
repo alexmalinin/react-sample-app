@@ -13,7 +13,7 @@ class Teams extends Component {
   }
 
   render() {
-    const { teams } = this.props;
+    const { teams, renderToSidebar } = this.props;
 
     if (teams.allIds.length === 0) {
       return (
@@ -23,7 +23,9 @@ class Teams extends Component {
       );
     }
 
-    return teams.allIds.map(id => <Team key={id} team={teams.byId[id]} />);
+    return teams.allIds.map(id => (
+      <Team key={id} team={teams.byId[id]} renderToSidebar={renderToSidebar} />
+    ));
   }
 }
 

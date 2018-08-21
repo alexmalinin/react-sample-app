@@ -166,7 +166,7 @@ class Channel extends Component {
               specialists={channel.specialists}
               allSpecialists={allSpecialists}
               handleAssign={this.handleAssign}
-              userType={[S_REDGUY]}
+              userTypes={[S_REDGUY]}
               closeOnChange={true}
               bordered
             />
