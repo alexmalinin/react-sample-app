@@ -24,9 +24,21 @@ const mapStateToProps = ({ profile: { info } }) => ({
 });
 
 const mapDispatchToProps = {
-  showUserData: profileOperations.showUserData,
+  getUserData,
   updateUserProfile: profileOperations.updateUserProfile,
   showSubmitErrorModal: modalsOperations.showSubmitErrorModal
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info);
+const withForm = reduxForm({
+  form: "InfoForm",
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  enableReinitialize: true,
+  keepDirtyOnReinitialize: false,
+  onSubmitSuccess: (submitResult, dispatch, { history, isEditing }) => {},
+  onSubmitFail: (error, dispatch, submitError, props) => {
+    if (error) props.showSubmitErrorModal();
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withForm(Info));

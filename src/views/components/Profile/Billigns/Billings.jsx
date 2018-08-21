@@ -13,7 +13,7 @@ class Billings extends Component {
   };
 
   componentDidMount() {
-    this.props.showUserData();
+    this.props.getUserData();
   }
 
   handleChange = event => {

@@ -1,4 +1,6 @@
 import { connect } from "react-redux";
+
+import { getUserData } from "@ducks/user/actions";
 import { profileOperations } from "@ducks/profile";
 import { modalsOperations } from "@ducks/modals";
 
@@ -13,7 +15,7 @@ export default connect(
     avatar: info.avatar
   }),
   {
-    showUserData: profileOperations.showUserData,
+    getUserData,
     updateBillings: profileOperations.updateBillings,
     showSubmitErrorModal: modalsOperations.showSubmitErrorModal
   },

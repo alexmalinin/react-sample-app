@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 
+import { getUserData } from "@ducks/user/actions";
 import { profileOperations } from "@ducks/profile";
 import { industryOperations } from "@ducks/industries";
 import { modalsOperations } from "@ducks/modals";
@@ -41,7 +42,7 @@ const mapStateToProps = () => {
 };
 
 const mapDispatchToProps = {
-  showUserData: profileOperations.showUserData,
+  getUserData,
   updateCompany: profileOperations.updateCompany,
   showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
   ...industryOperations

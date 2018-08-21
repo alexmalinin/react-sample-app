@@ -6,10 +6,19 @@ export const channel = new schema.Entity("channels", {
   specialists: [specialist]
 });
 
-export const channels = new schema.Entity("channels", {
-  channels: [channel],
-  specialists: [specialist]
-});
+export const channels = new schema.Entity(
+  "channels",
+  {
+    channels: [channel],
+    specialists: [specialist]
+  },
+  {
+    processStrategy: entity => {
+      entity.specialists.reverse();
+      return entity;
+    }
+  }
+);
 
 export const team = new schema.Entity("team", {
   channels: [channel],

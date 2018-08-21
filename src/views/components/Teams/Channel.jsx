@@ -3,18 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Form, Input } from "semantic-ui-react";
 
-import AssignDropdown from "../../../components/layout/AssignDropdown";
+import AssignDropdown from "@UI/AssignDropdown";
 import PersonTile from "@UI/PersonTile";
 import MembersDropdown from "@UI/MembersDropdown";
 
+import { channelOperations } from "@ducks/channels";
+
 import { S_REDGUY } from "@utilities";
-// import {
-//   addToChannel,
-//   removeFromChannel,
-//   updateTeamChannel,
-//   deleteTeamChannel
-// } from "../../actions/actions";
-// import { getUserRole } from "../../helpers/functions";
 
 class Channel extends Component {
   static propTypes = {};
@@ -32,11 +27,11 @@ class Channel extends Component {
   }
 
   handleAssign = (type, specId) => {
-    const { channel, addToChannel, removeFromChannel } = this.props;
+    const { channel, assignSpecialist, removeSpecialist } = this.props;
 
     if (type === "assign") {
-      addToChannel(channel.team_id, channel.id, specId);
-    } else removeFromChannel(channel.team_id, channel.id, specId);
+      assignSpecialist(channel.team_id, channel.id, specId);
+    } else removeSpecialist(channel.team_id, channel.id, specId);
   };
 
   handleEdit = (e, { name, value }) => {
@@ -128,7 +123,6 @@ class Channel extends Component {
                 handleRemove={this.handleAssign}
                 labeled
                 removeTitle="channel"
-                userType={[]}
                 hideDelete={isGeneral}
                 renderToDashboard
               />
@@ -139,7 +133,7 @@ class Channel extends Component {
               specialists={channel.specialists}
               allSpecialists={allSpecialists}
               handleAssign={this.handleAssign}
-              userType={[S_REDGUY]}
+              userTypes={[S_REDGUY]}
               closeOnChange={true}
               renderToDashboard
             />
@@ -203,17 +197,16 @@ class Channel extends Component {
   };
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, props) => {
   return {
     user: state.user,
-    channel: state.channels[ownProps.channelId],
+    channel: state.channels[props.channelId],
     specialists: state.specialists
   };
 };
 
-export default connect(mapStateToProps, {
-  // addToChannel,
-  // removeFromChannel,
-  // updateTeamChannel,
-  // deleteTeamChannel
-})(Channel);
+const mapDispatchToProps = {
+  ...channelOperations
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Channel);

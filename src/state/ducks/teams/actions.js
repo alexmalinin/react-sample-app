@@ -2,7 +2,7 @@ import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
 import { fetch } from "../../utils";
 import { GET, POST, createNotification, DELETE } from "../../../utilities";
-import { teams, team, channel, channels } from "../../schemas";
+import { teams, team, channels } from "../../schemas";
 
 export const showTeams = (user, id) => {
   return {

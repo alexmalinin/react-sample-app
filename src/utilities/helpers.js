@@ -96,7 +96,6 @@ export function setCookie(cname, cvalue, exdays) {
  *
  */
 export const createNotification = ({ type, text }) => {
-  console.log("dsd", type, text);
   switch (type) {
     case "info":
       NotificationManager.info("Info message", text || "");
@@ -116,4 +115,11 @@ export const createNotification = ({ type, text }) => {
     default:
       break;
   }
+};
+
+export const displayError = error => {
+  createNotification({
+    type: "error"
+  });
+  console.error(error);
 };

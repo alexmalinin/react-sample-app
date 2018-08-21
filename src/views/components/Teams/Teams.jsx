@@ -23,7 +23,7 @@ class Teams extends Component {
       );
     }
 
-    return teams.allIds.map(id => <Team key={id} teamId={id} />);
+    return teams.allIds.map(id => <Team key={id} team={teams.byId[id]} />);
   }
 }
 

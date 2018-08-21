@@ -17,7 +17,6 @@ class Team extends Component {
 
   componentWillMount() {
     const { showProjectTeam, showCustomTeam, team, showChannels } = this.props;
-    debugger;
 
     if (team.custom_team) {
       showCustomTeam(team.id);
@@ -40,7 +39,7 @@ class Team extends Component {
   };
 
   renderToDashboard() {
-    const { team, channels, user } = this.props;
+    const { team, specialists, user } = this.props;
 
     return (
       <Grid>
@@ -71,14 +70,9 @@ class Team extends Component {
         <Grid.Row className="channels">
           {team.channels &&
             team.channels.map(id => (
-              <Channel
-                channelId={id}
-                key={id}
-                allSpecialists={team.specialists}
-                specialists={""}
-              />
+              <Channel channelId={id} key={id} allSpecialists={specialists} />
             ))}
-          {user.role === S_REDGUY ? (
+          {allowedUsers.some(role => role === user.role) ? (
             <Form className="addChannel" onSubmit={this.submit}>
               {this.state.error && (
                 <span className="addChannel-label">
@@ -97,8 +91,8 @@ class Team extends Component {
               />
             </Form>
           ) : (
-            channels &&
-            channels.length === 0 && <p>There is no channels yet :(</p>
+            team.channels &&
+            team.channels.length === 0 && <p>There is no channels yet :(</p>
           )}
         </Grid.Row>
       </Grid>
@@ -106,7 +100,7 @@ class Team extends Component {
   }
 
   renderToRightSidebar() {
-    const { team, channels } = this.props;
+    const { team, specialists } = this.props;
 
     return (
       <Fragment>
@@ -118,7 +112,7 @@ class Team extends Component {
                 <Channel
                   channelId={id}
                   key={id}
-                  allSpecialists={team.specialists}
+                  allSpecialists={specialists}
                   renderToRightSidebar
                 />
               ))
@@ -137,17 +131,21 @@ class Team extends Component {
   }
 
   submit = () => {
-    const { teamId, createTeamChannel } = this.props;
+    const { team, createTeamChannel } = this.props;
     const { name } = this.state;
-    createTeamChannel(teamId, { name });
+    createTeamChannel(team.id, { name });
     this.setState({ name: "", error: false });
   };
 }
 
 const mapStateToProps = (state, props) => {
+  const {
+    team: { specialists = [] }
+  } = props;
+
   return {
     user: state.user,
-    team: state.teams.byId[props.teamId]
+    specialists: specialists.map(id => state.specialists[id])
   };
 };
 

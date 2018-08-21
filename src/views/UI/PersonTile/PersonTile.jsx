@@ -70,9 +70,9 @@ class PersonTile extends Component {
       specialist,
       labeled,
       removeTitle,
-      userType,
       renderToDashboard,
       hideDelete,
+      userRole,
       compressed
     } = this.props;
     const { showDropdown } = this.state;
@@ -118,9 +118,9 @@ class PersonTile extends Component {
           <DeleteTile
             ref={el => (this.dropdown = el)}
             specialist={specialist}
-            userType={userType}
             removeTitle={removeTitle}
             showDropdown={showDropdown}
+            userRole={userRole}
             hideDelete={hideDelete}
             removeSpecialist={this.removeSpecialist}
           />

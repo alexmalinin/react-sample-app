@@ -40,7 +40,8 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
 DashboardLayout.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  toggleSidebar: PropTypes.func.isRequired
 };
 
 export default connect(({ sidebar }) => ({ sidebar }), {

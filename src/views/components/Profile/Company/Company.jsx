@@ -15,7 +15,7 @@ class Company extends Component {
   static defaultProps = {};
 
   componentDidMount() {
-    this.props.showUserData();
+    this.props.getUserData();
     this.props.getIndustries();
   }
 
