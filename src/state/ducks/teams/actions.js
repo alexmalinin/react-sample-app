@@ -1,7 +1,13 @@
 import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
 import { fetch } from "../../utils";
-import { GET, POST, createNotification, DELETE } from "../../../utilities";
+import {
+  GET,
+  POST,
+  createNotification,
+  DELETE,
+  displayError
+} from "../../../utilities";
 import { teams, team, channels } from "../../schemas";
 
 export const showTeams = (user, id) => {
@@ -14,6 +20,14 @@ export const showTeams = (user, id) => {
   };
 };
 
+const showTeam = payload => ({
+  type: types.SHOW_TEAM,
+  payload,
+  meta: {
+    schema: team
+  }
+});
+
 export const showCustomTeams = id => dispatch => {
   fetch(GET, `/specialists/${id}/custom_teams`).then(({ data }) => {
     dispatch({
@@ -23,21 +37,17 @@ export const showCustomTeams = id => dispatch => {
   });
 };
 
-export const showProjectTeam = projectId => ({
-  type: types.SHOW_PROJECT_TEAM,
-  payload: fetch(GET, `/projects/${projectId}/teams`),
-  meta: {
-    schema: team
-  }
-});
+export const showProjectTeam = projectId => dispatch => {
+  fetch(GET, `/projects/${projectId}/teams`)
+    .then(response => dispatch(showTeam(response)))
+    .catch(displayError);
+};
 
-export const showCustomTeam = id => ({
-  type: types.SHOW_CUSTOM_TEAM,
-  payload: fetch(GET, `/custom_team/${id}`),
-  meta: {
-    schema: team
-  }
-});
+export const showCustomTeam = id => dispatch => {
+  fetch(GET, `/custom_team/${id}`)
+    .then(response => dispatch(showTeam(response)))
+    .catch(displayError);
+};
 
 export const createCustomTeam = name => {
   return (dispatch, getState) => {
@@ -101,3 +111,11 @@ export const showChannels = team => ({
     schema: [channels]
   }
 });
+
+export const removeSpecialistFromTeam = (team, specialist) => dispatch => {
+  fetch(DELETE, `/teams/${team}/remove/${specialist}`)
+    .then(response => {
+      dispatch(showTeam(response));
+    })
+    .catch(displayError);
+};

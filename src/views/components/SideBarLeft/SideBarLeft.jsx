@@ -4,16 +4,22 @@ import { NavLink } from "react-router-dom";
 import { Loader } from "semantic-ui-react";
 import ClassNames from "classnames";
 
+import StyledSideBar from "@styled/SideBar";
+
+import { showAllProjects } from "@ducks/projects/actions";
+import { getSortedProjects } from "@ducks/projects/selectors";
 import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "@utilities/constants";
 // import { oneOfRoles } from "@view/utils/functions";
 
-import StyledSideBar from "@styled/SideBar";
-
 class SideBarLeft extends Component {
+  componentDidMount() {
+    this.props.showAllProjects();
+  }
+
   renderCategory = (projects, title, withEpics = false) => {
-    const {
-      allEpics: { loading, loaded, epics }
-    } = this.props;
+    // const {
+    //   allEpics: { loading, loaded, epics }
+    // } = this.props;
 
     const linkClass = ClassNames("project-link", {
       "with-epics": withEpics
@@ -52,24 +58,23 @@ class SideBarLeft extends Component {
                   </NavLink>
                   {withEpics && (
                     <div className="modules">
-                      {loaded &&
-                        epics.projectId === project.id &&
-                        epics.map((epic, key) => (
-                          <NavLink
-                            className="project-module"
-                            to={`/dashboard/project/${project.id}/module/${key +
-                              1}/view`}
-                            key={key}
-                          >
-                            <span className="module-number">
-                              {String(key + 1).padStart(2, 0)}.
-                            </span>&nbsp;
-                            {epic.name}
-                          </NavLink>
-                        ))}
-                      {loaded &&
-                        !epics.length && <p className="no-epics">No modules</p>}
-                      {loading && <Loader active />}
+                      {project.epics.map((epic, key) => (
+                        <NavLink
+                          className="project-module"
+                          to={`/dashboard/project/${project.id}/module/${key +
+                            1}/view`}
+                          key={key}
+                        >
+                          <span className="module-number">
+                            {String(key + 1).padStart(2, 0)}.
+                          </span>&nbsp;
+                          {epic.name}
+                        </NavLink>
+                      ))}
+                      {!project.epics.length && (
+                        <p className="no-epics">No modules</p>
+                      )}
+                      {/* {loading && <Loader active />} */}
                     </div>
                   )}
                 </div>
@@ -82,7 +87,7 @@ class SideBarLeft extends Component {
 
   render() {
     const {
-      // sortedProjects: { draft, discovery, brief_submissions, reviewed_by_admin }
+      projects: { drafts, onReview, discovery }
     } = this.props;
 
     return (
@@ -90,12 +95,9 @@ class SideBarLeft extends Component {
         <div className="title">
           <h4>Projects</h4>
         </div>
-        {/* {this.renderCategory(discovery, null, true)}
-        {this.renderCategory(
-          [...brief_submissions, ...reviewed_by_admin],
-          "Projects on review"
-        )}
-        {this.renderCategory(draft, "Projects on drafts")} */}
+        {this.renderCategory(discovery, null, true)}
+        {this.renderCategory(onReview, "Projects on review")}
+        {this.renderCategory(drafts, "Projects on drafts")}
         <NavLink
           className="project-link add-project"
           to="/dashboard/project/new"
@@ -108,7 +110,28 @@ class SideBarLeft extends Component {
   }
 }
 
-export default connect(state => ({
-  sortedProjects: state.sortedProjects,
-  allEpics: state.allEpics
-}))(SideBarLeft);
+const mapStateToProps = () => {
+  const getDraftProjects = getSortedProjects(),
+    getReviewedProjects = getSortedProjects(),
+    getDiscoveryProjects = getSortedProjects();
+
+  return ({ projects }) => {
+    return {
+      projects: {
+        drafts: getDraftProjects(projects, "draft"),
+        onReview: getReviewedProjects(
+          projects,
+          "brief_submissions",
+          "reviewed_by_admin"
+        ),
+        discovery: getDiscoveryProjects(projects, "discovery")
+      }
+    };
+  };
+};
+
+const mapDispatchToProps = {
+  showAllProjects
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBarLeft);

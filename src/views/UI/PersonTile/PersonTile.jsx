@@ -67,7 +67,7 @@ class PersonTile extends Component {
 
   render() {
     const {
-      specialist,
+      specialist = {},
       labeled,
       removeTitle,
       renderToDashboard,
@@ -75,12 +75,13 @@ class PersonTile extends Component {
       userRole,
       compressed
     } = this.props;
+
     const { showDropdown } = this.state;
     const fullName = specialist.first_name + " " + specialist.last_name;
 
     const avatarClasses = ClassNames({
       "user-avatar": true,
-      blank: !specialist.avatar.url
+      blank: specialist && specialist.avatar && !specialist.avatar.url
     });
 
     return (
@@ -93,7 +94,7 @@ class PersonTile extends Component {
                   className={avatarClasses}
                   alt={fullName}
                   src={
-                    specialist.avatar.url
+                    specialist.avatar && specialist.avatar.url
                       ? IMAGE_PORT + specialist.avatar.url
                       : BLANK_AVATAR
                   }

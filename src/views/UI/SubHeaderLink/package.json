@@ -1,5 +1,5 @@
 {
-  "name": "SubHeaderLink",
+  "name": "subheader-link",
   "version": "0.0.0",
   "private": true,
   "main": "./SubHeaderLinkWrap.jsx"

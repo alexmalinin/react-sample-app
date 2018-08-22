@@ -2,41 +2,30 @@ import * as types from "./types";
 import { createReducer } from "../../utils";
 import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  projects: {},
-  error: null
-};
+const initialState = {};
 
 const projectsReducer = createReducer(initialState)({
   [types.PROJECTS_SHOW]: (state, { payload }) => ({
     ...state,
-    projects: {
-      ...payload
-    }
+    ...payload
   }),
 
   [types.PROJECT_SAVE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
+    ...state
   }),
 
   [types.PROJECT_SAVE + FULFILLED]: (state, { payload }) => ({
     ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    projects: {
-      ...state.projects,
-      [payload.data.id]: payload.data
-    }
+    [payload.data.id]: payload.data
   }),
 
   [types.PROJECT_SAVE + REJECTED]: (state, action) => ({
+    ...state
+  }),
+
+  [types.PROJECT_UPDATE]: (state, { payload }) => ({
     ...state,
-    loading: false,
-    error: true
+    [payload.id]: payload
   })
 });
 

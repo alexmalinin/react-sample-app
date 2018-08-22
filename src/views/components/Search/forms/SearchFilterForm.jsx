@@ -260,14 +260,16 @@ const mapStateToProps = () => {
     prepareExperienceLevels = getDataForSelect(),
     prepareProjectTypes = getDataForSelect();
 
-  return ({
-    projectsReducer: { projects },
-    industriesReducer: { industries },
-    experienceLevels,
-    search: { result },
-    projectTypesReducer: { projectTypes },
-    projectWithId
-  }) => {
+  return state => {
+    const {
+      projects,
+      industriesReducer: { industries },
+      experienceLevels,
+      search: { result },
+      projectTypesReducer: { projectTypes },
+      projectWithId
+    } = state;
+
     const allProjects = prepareProjects(projects, "value", "text"),
       allIndustries = prepareIndusrries(industries, "value", "text"),
       allExperienceLevels = prepareExperienceLevels(

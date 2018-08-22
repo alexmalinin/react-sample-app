@@ -8,7 +8,7 @@ import { S_REDGUY } from "../../../utilities";
  * @returns {object}
  */
 export function postProject(auth, payload, logo = null) {
-  const { id, aud } = auth;
+  const { id, role } = auth;
 
   let files = payload.file
     ? payload.file.map(({ document, title, size }) => {
@@ -27,7 +27,7 @@ export function postProject(auth, payload, logo = null) {
       return skill.value;
     });
 
-  let specialistId = aud === S_REDGUY ? id : null,
+  let specialistId = role === S_REDGUY ? id : null,
     status = null;
 
   if (payload["state"] === "draft") {
@@ -38,11 +38,8 @@ export function postProject(auth, payload, logo = null) {
 
   return {
     name: payload["name"],
-    customer_id:
-      (payload["customer_id"] && payload["customer_id"]["value"]) || id,
-    project_type_id:
-      (payload["project_type_id"] && payload["project_type_id"]["value"]) ||
-      null,
+    customer_id: payload["customer_id"] || id,
+    project_type_id: payload["project_type_id"] || null,
     red_guy_id: specialistId,
     description: payload["description"],
     user_story: payload["user_story"],

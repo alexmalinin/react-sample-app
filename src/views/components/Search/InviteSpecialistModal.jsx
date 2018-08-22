@@ -114,9 +114,7 @@ class InviteSpecialistModal extends Component {
 }
 
 export default connect(state => {
-  const {
-    projectsReducer: { projects }
-  } = state;
+  const { projects } = state;
 
   return { projects };
 })(InviteSpecialistModal);

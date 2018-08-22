@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
-import Dashboard from "@components/Dashboard/";
-import Search from "@components/Search";
 import HeaderBasic from "@components/HeaderBasic";
 import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";
+import Dashboard from "@components/Dashboard/";
+import Search from "@components/Search";
+import Project from "./project";
 
 import Teams from "./teams";
 import About from "./about";
@@ -31,6 +32,7 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
         <Switch>
           <Route exact path={`${match.url}`} component={Dashboard} />
           <Route exact path={`${match.url}/about`} component={About} />
+          <Route path={`${match.url}/project`} component={Project} />
           <Route exact path={`${match.url}/search`} component={Search} />
           <Route
             exact

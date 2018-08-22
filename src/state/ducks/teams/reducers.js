@@ -10,9 +10,6 @@ import { CREATE_CHANNEL, DELETE_CHANNEL } from "../channels/types";
 const teamsById = (state = {}, action) => {
   switch (action.type) {
     case types.SHOW_TEAMS + FULFILLED:
-    case types.CREATE_CUSTOM_TEAM + FULFILLED:
-    case types.SHOW_CUSTOM_TEAM + FULFILLED:
-    case types.SHOW_PROJECT_TEAM + FULFILLED:
       return merge({ ...state }, action.payload.entities.teams);
     case types.DELETE_CUSTOM_TEAM + FULFILLED:
       return omit(state, action.payload.data.id);
@@ -20,6 +17,12 @@ const teamsById = (state = {}, action) => {
       return addChannel(state, action);
     case DELETE_CHANNEL:
       return deleteChannel(state, action);
+    case types.CREATE_CUSTOM_TEAM + FULFILLED:
+    case types.SHOW_TEAM:
+      return {
+        ...state,
+        ...action.payload.entities.teams
+      };
     default:
       return state;
   }

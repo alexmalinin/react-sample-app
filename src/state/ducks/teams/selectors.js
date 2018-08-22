@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import _ from "lodash";
 
-const customTeams = ({ teamsReducer: { teams } }) => {
+const customTeams = teams => {
   switch (teams.constructor) {
     case Array:
       return teams.filter(team => team.custom_team);
@@ -13,4 +13,10 @@ const customTeams = ({ teamsReducer: { teams } }) => {
   }
 };
 
+const projectTeam = (teams, projectId) => {
+  const key = _.findKey(teams, { project_id: +projectId });
+  return teams[key];
+};
+
 export const getCustomTeams = () => createSelector(customTeams, teams => teams);
+export const getProjectTeam = () => createSelector(projectTeam, team => team);

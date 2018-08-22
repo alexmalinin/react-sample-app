@@ -1,5 +1,5 @@
 {
-  "name": "TextArea",
+  "name": "textarea",
   "version": "0.0.0",
   "private": true,
   "main": "./TextArea.jsx"

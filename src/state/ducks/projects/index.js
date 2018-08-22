@@ -1,6 +1,6 @@
 import reducer from "./reducers";
 
-import * as projectsOperations from "./operations";
+import * as projectsOperations from "./actions";
 
 export { projectsOperations };
 

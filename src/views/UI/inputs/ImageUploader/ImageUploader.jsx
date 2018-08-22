@@ -11,6 +11,7 @@ import {
   CLIENT,
   SPECIALIST
 } from "@utilities/constants";
+import { updateProject } from "@ducks/projects/actions";
 // import { showSortedProjects } from "../../../actions/actions";
 // import { getUserRole, getUserType } from "../../../helpers/functions";
 
@@ -44,26 +45,26 @@ class ImageUploader extends Component {
           imagePreviewUrl: reader.result
         });
 
-        Axios({
-          method: "PUT",
-          url: `${PORT}/api/v1/projects/${projectId}`,
-          data: {
-            project: {
-              logo: reader.result
+        if (projectId) {
+          Axios({
+            method: "PUT",
+            url: `${PORT}/api/v1/projects/${projectId}`,
+            data: {
+              project: {
+                logo: reader.result
+              }
             }
-          },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
-          }
-        })
-          .then(res => {
-            // const userType = getUserType();
-            // if (userType === CLIENT) showSortedProjects("customers");
-            // else if (userType === SPECIALIST) showSortedProjects("specialists");
           })
-          .catch(error => {
-            console.log(error);
-          });
+            .then(({ data }) => {
+              this.props.updateProject(data.id);
+              // const userType = getUserType();
+              // if (userType === CLIENT) showSortedProjects("customers");
+              // else if (userType === SPECIALIST) showSortedProjects("specialists");
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
       };
     }
 
@@ -118,7 +119,7 @@ class ImageUploader extends Component {
         <div className="upload">
           <div className="upload-image">
             <div className="imgPreview">{$imagePreview}</div>
-            <Button primary onClick={this.handleTrigger}>
+            <Button type="button" primary onClick={this.handleTrigger}>
               {/* Upload */}
             </Button>
           </div>
@@ -155,6 +156,7 @@ class ImageUploader extends Component {
 
 export default connect(null, {
   /* showSortedProjects */
+  updateProject
 })(ImageUploader);
 
 // if (avatar && !imagePreviewUrl) {

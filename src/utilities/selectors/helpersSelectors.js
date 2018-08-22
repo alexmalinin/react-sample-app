@@ -3,6 +3,10 @@ import { createSelector } from "reselect";
 const prepareForSelect = (state, value = "value", label = "label") => {
   let data = [];
 
+  if (!state) {
+    return data;
+  }
+
   switch (state.constructor) {
     case Array:
       state.forEach(item => {

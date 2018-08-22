@@ -66,3 +66,13 @@ export function renameObjPropNames(obj, oldName, newName) {
   delete obj[oldName];
   return true;
 }
+
+/**
+ * @param {userRole} - role of current user
+ * @param {...roles} - gets Roles from arguments
+ * @returns true if current user approach with any of
+ */
+
+export function oneOfRoles(userRole, ...roles) {
+  return roles.some(role => role === userRole);
+}

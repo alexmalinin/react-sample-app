@@ -89,10 +89,7 @@ class DashboardContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const {
-    user,
-    projectsReducer: { projects }
-  } = state;
+  const { user, projects } = state;
 
   return {
     userId: user.id,

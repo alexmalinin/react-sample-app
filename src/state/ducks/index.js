@@ -3,7 +3,7 @@ export { reducer as form } from "redux-form";
 export { default as user } from "./user";
 export { default as profile } from "./profile";
 
-export { default as projectsReducer } from "./projects";
+export { default as projects } from "./projects";
 export { default as epicsReducer } from "./epics";
 export { default as tasksReducer } from "./tasks";
 
