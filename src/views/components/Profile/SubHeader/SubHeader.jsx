@@ -11,45 +11,22 @@ class SubHeader extends Component {
     isEditing: !!getAllUrlParams().edit
   };
 
-  navLinks = [
-    {
-      url: "info",
-      label: "My Profile",
-      percents: this.props.percents.profilePercent
-    },
-    {
-      url: "industry",
-      label: "My Services",
-      percents: this.props.percents.industryPercent
-    },
-    {
-      url: "company",
-      label: "My Company",
-      percents: this.props.percents.companyPercent
-    },
-    {
-      url: "billings",
-      label: "My Billings",
-      percents: this.props.percents.billingPercent
-    }
-  ];
-
   render() {
-    const { page } = this.props;
+    const { page, percents, routes } = this.props;
     const { isEditing } = this.state;
 
     return (
-      <StyledSubHeader profileForm="true" greenGradient>
+      <StyledSubHeader profileForm="true">
         <div className="progressBarsLink">
-          {this.navLinks.map(({ url, label, percents }, key) => (
+          {routes.map(({ path, label, name }, key) => (
             <SubHeaderLink
-              key={key}
-              url={`/profile/${url}${isEditing ? "?edit" : ""}`}
+              key={name}
+              url={`${path}${isEditing ? "?edit" : ""}`}
               label={label}
               noExact
             >
               {key + 1}
-              <ProgressBars percents={percents} />
+              <ProgressBars percents={percents[name]} />
             </SubHeaderLink>
           ))}
         </div>

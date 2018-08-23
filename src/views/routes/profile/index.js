@@ -4,76 +4,44 @@ import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
-import Info from "./info";
-import Industry from "./industry";
-import Company from "./company";
-import Billings from "./billings";
+import { specialistRoutes, clientRoutes } from "./routes";
 
 import HeaderBasic from "@components/HeaderBasic";
-import MainContainer from "@styled/MainContainer";
-import { Container } from "@styled/Containers";
 import SubHeader from "@components/Profile/SubHeader";
 import SubmitErrorModal from "@components/common/modals/SubmitErrorModal";
 
-import { getAllUrlParams } from "@views/utils/functions";
+import MainContainer from "@styled/MainContainer";
+import { Container } from "@styled/Containers";
 
 import { getUserData } from "@ducks/user/actions";
+import { isSpecialist } from "@ducks/user/selectors";
 
 import "react-notifications/lib/notifications.css";
 
 const percents = {
-  profilePercent: null,
-  industryPercent: null,
-  companyPercent: null,
-  billingPercent: null
+  profile: null,
+  industry: null,
+  company: null,
+  billing: null
 };
 
-class ProfileLayout extends React.Component {
-  componentWillMount() {
-    this.props.getUserData();
-  }
+const ProfileLayout = ({ modals: { submitErrorModal }, isSpecialist }) => {
+  const routes = isSpecialist ? specialistRoutes : clientRoutes;
 
-  render() {
-    const {
-      match,
-      modals: { submitErrorModal }
-    } = this.props;
-
-    const isEditing = getAllUrlParams().edit || null;
-
-    return (
-      <div>
-        <HeaderBasic match={match} />
-        <MainContainer>
-          <Container>
-            <SubHeader percents={percents} />
-            <Route
-              path={`${match.url}/info`}
-              render={props => <Info {...props} isEditing={isEditing} />}
-            />
-
-            <Route
-              path={`${match.url}/industry`}
-              render={props => <Industry {...props} isEditing={isEditing} />}
-            />
-
-            <Route
-              path={`${match.url}/company`}
-              render={props => <Company {...props} isEditing={isEditing} />}
-            />
-
-            <Route
-              path={`${match.url}/billings`}
-              render={props => <Billings {...props} isEditing={isEditing} />}
-            />
-          </Container>
-        </MainContainer>
-        <NotificationContainer />
-        <SubmitErrorModal isOpen={submitErrorModal} />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <HeaderBasic />
+      <MainContainer>
+        <Container>
+          <SubHeader percents={percents} routes={routes} />
+          {routes.map(route => <Route {...route} key={route.name} />)}
+        </Container>
+      </MainContainer>
+      <NotificationContainer />
+      <SubmitErrorModal isOpen={submitErrorModal} />
+    </div>
+  );
+};
 
 ProfileLayout.propTypes = {
   match: PropTypes.shape({
@@ -81,6 +49,11 @@ ProfileLayout.propTypes = {
   }).isRequired
 };
 
-export default connect(({ modals }) => ({ modals }), { getUserData })(
-  ProfileLayout
-);
+const mapStateToProps = (state, props) => {
+  return {
+    isSpecialist: isSpecialist(state),
+    modals: state.modals
+  };
+};
+
+export default connect(mapStateToProps, { getUserData })(ProfileLayout);

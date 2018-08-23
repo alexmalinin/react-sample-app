@@ -1,32 +1,23 @@
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  experienceLevels: [],
-  error: false
-};
+const experienceLevels = createReducer([])({
+  [types.GET_EXPERIENCE_LEVELS + PENDING]: state => {
+    state.loading = true;
+    return state;
+  },
 
-const experienceLevelsReducer = createReducer(initialState)({
-  [types.GET_EXPERIENCE_LEVELS + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
+  [types.GET_EXPERIENCE_LEVELS + FULFILLED]: (state, { payload }) => {
+    payload.data.loaded = true;
+    return payload.data;
+  },
 
-  [types.GET_EXPERIENCE_LEVELS + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    experienceLevels: payload.data,
-    error: false
-  }),
-
-  [types.GET_EXPERIENCE_LEVELS + REJECTED]: (state, action) => ({
-    ...state,
-    error: true
-  })
+  [types.GET_EXPERIENCE_LEVELS + REJECTED]: (state, { payload }) => {
+    state.loading = false;
+    state.error = payload.error;
+    return state;
+  }
 });
 
-export default experienceLevelsReducer;
+export default experienceLevels;

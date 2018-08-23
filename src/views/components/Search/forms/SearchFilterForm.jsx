@@ -263,7 +263,7 @@ const mapStateToProps = () => {
   return ({
     projectsReducer: { projects },
     industriesReducer: { industries },
-    experienceLevelsReducer: { experienceLevels },
+    experienceLevels,
     search: { result },
     projectTypesReducer: { projectTypes },
     projectWithId

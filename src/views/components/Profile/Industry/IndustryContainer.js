@@ -21,10 +21,7 @@ const mapStateToProps = () => {
   return ({
     profile: { info, industry },
     skills,
-    experienceLevelsReducer: {
-      experienceLevels,
-      loading: experienceLevelsLoading
-    },
+    experienceLevels,
     industriesReducer: { industries, loading: industriesLoading },
     projectTypesReducer: { projectTypes, loading: projectTypesLoading }
   }) => {
@@ -55,7 +52,7 @@ const mapStateToProps = () => {
         "value",
         "text"
       ),
-      experienceLevelsLoading,
+      experienceLevelsLoading: experienceLevels.loading,
       projectTypes: prepareProjectTypes(projectTypes, "value", "text"),
       projectTypesLoading,
       initialValues: {
@@ -67,7 +64,7 @@ const mapStateToProps = () => {
         availability: industry.available,
         hourly_rate: industry.hourly_rate,
         experience_level: industry.experience_level_id,
-        industry_area_id: industryArea,
+        industry_area_id: industry_area_id,
         project_type: project_type && project_type.id,
         skills_attributes: renderSkills
       }

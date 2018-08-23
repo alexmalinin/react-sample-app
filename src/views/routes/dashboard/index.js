@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import PropTypes from "prop-types";
-import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
 import Dashboard from "@components/Dashboard/";
@@ -11,6 +11,7 @@ import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";
 
 import Teams from "./teams";
+import About from "./about";
 
 import { ContainerLarge } from "@styled/Containers";
 import MainContainer from "@styled/MainContainer";
@@ -19,6 +20,7 @@ import { sidebarOperations } from "@ducks/sidebar";
 import { getUserData } from "@ducks/user/actions";
 
 import "react-notifications/lib/notifications.css";
+import NotFound from "@components/NotFound";
 
 const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
   <div>
@@ -26,10 +28,18 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
     <MainContainer sidebarOpened={opened} sidebarCondition={true}>
       <SideBarLeft />
       <ContainerLarge>
-        <Route exact path={`${match.url}`} component={Dashboard} />
-        <Route exact path={`${match.url}/teams`} component={Teams} />
-        <Route exact path={`${match.url}/search`} component={Search} />
-        <Route exact path={`${match.url}/teams`} component={Teams} />
+        <Switch>
+          <Route exact path={`${match.url}`} component={Dashboard} />
+          <Route exact path={`${match.url}/about`} component={About} />
+          <Route exact path={`${match.url}/search`} component={Search} />
+          <Route
+            exact
+            path={`${match.url}/specialist/:id([0-9]+)`}
+            component={About}
+          />
+          <Route exact path={`${match.url}/teams`} component={Teams} />
+          <Route component={NotFound} />
+        </Switch>
       </ContainerLarge>
       <SideBarRight opened={opened} toggle={toogleSidebar} />
     </MainContainer>

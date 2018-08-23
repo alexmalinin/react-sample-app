@@ -6,7 +6,7 @@ import signUp from "./signUp";
 import confirmation from "./confirmation";
 import profile from "./profile";
 import dashboard from "./dashboard";
-import notFound from "../../components/NotFound";
+import NotFound from "@components/NotFound";
 
 import defaultRoute from "./default";
 import PrivateRoute from "../utils/hoc/PrivateRoute";
@@ -20,11 +20,11 @@ export default () => (
       <Route exact path="/" component={defaultRoute} />
       <Route exact path="/index.html" component={defaultRoute} />
       <GuestRoute exact path="/sign_in" component={signIn} />
-      <Route path="/sign_up" component={signUp} />
-      <Route path="/confirm_email" component={confirmation} />
+      <GuestRoute path="/sign_up" component={signUp} />
+      <GuestRoute path="/confirm_email" component={confirmation} />
       <PrivateRoute path="/profile" component={profile} />
       <PrivateRoute path="/dashboard" component={dashboard} />
-      <Route component={notFound} />
+      <Route component={NotFound} />
     </Switch>
   </FlexDirection>
 );

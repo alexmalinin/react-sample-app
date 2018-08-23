@@ -15,7 +15,7 @@ export { default as specialists } from "./specialists";
 export { default as search } from "./search";
 
 export { default as skills } from "./skills";
-export { default as experienceLevelsReducer } from "./experienceLevels";
+export { default as experienceLevels } from "./experienceLevels";
 export { default as industriesReducer } from "./industries";
 export { default as projectTypesReducer } from "./projectTypes";
 

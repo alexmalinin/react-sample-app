@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 
 import InfoForm from "./InfoForm";
+import { getAllUrlParams } from "@views/utils/functions";
 
 class Info extends Component {
   state = {
@@ -14,7 +15,8 @@ class Info extends Component {
   }
 
   render() {
-    const { handleSubmit, history, updateUserProfile, isEditing } = this.props;
+    const { handleSubmit, history, updateUserProfile } = this.props;
+    const isEditing = getAllUrlParams().edit || null;
 
     return (
       <div>
@@ -23,6 +25,7 @@ class Info extends Component {
             <Grid.Column mobile={16} tablet={12} computer={16}>
               <InfoForm
                 {...this.props}
+                isEditing={isEditing}
                 handleSubmit={handleSubmit(values =>
                   updateUserProfile(values).then(() => {
                     if (isEditing) {

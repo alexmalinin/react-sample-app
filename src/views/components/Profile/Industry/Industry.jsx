@@ -3,6 +3,7 @@ import { Grid } from "semantic-ui-react";
 import { reduxForm } from "redux-form";
 
 import IndustryForm from "./IndustryForm";
+import { getAllUrlParams } from "../../../utils/functions";
 
 class Industry extends Component {
   componentDidMount() {
@@ -13,12 +14,8 @@ class Industry extends Component {
   }
 
   render() {
-    const {
-      handleSubmit,
-      history,
-      isEditing,
-      updateSpecialistIndustry
-    } = this.props;
+    const { handleSubmit, history, updateSpecialistIndustry } = this.props;
+    const isEditing = getAllUrlParams().edit || null;
 
     return (
       <div>
@@ -27,6 +24,7 @@ class Industry extends Component {
             <Grid.Column mobile={16} tablet={12} computer={16}>
               <IndustryForm
                 {...this.props}
+                isEditing={isEditing}
                 handleSubmit={handleSubmit(values =>
                   updateSpecialistIndustry(values).then(() => {
                     history.push(

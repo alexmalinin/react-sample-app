@@ -6,6 +6,7 @@ import ClientCompanyForm from "./ClientCompanyForm";
 import ConfirmationPrompt from "../ConfirmationPrompt";
 
 import { SPECIALIST } from "@utilities";
+import { getAllUrlParams } from "../../../utils/functions";
 
 class Company extends Component {
   state = {
@@ -26,19 +27,15 @@ class Company extends Component {
   };
 
   render() {
-    const {
-      handleSubmit,
-      history,
-      usertype,
-      isEditing,
-      updateCompany
-    } = this.props;
+    const { handleSubmit, history, usertype, updateCompany } = this.props;
+    const isEditing = getAllUrlParams().edit || null;
 
     return (
       <Fragment>
         {usertype === SPECIALIST ? (
           <SpecialistConpanyForm
             {...this.props}
+            isEditing={isEditing}
             handleSubmit={handleSubmit(values =>
               updateCompany(values).then(() => {
                 if (isEditing) {
@@ -52,6 +49,7 @@ class Company extends Component {
         ) : (
           <ClientCompanyForm
             {...this.props}
+            isEditing={isEditing}
             handleSubmit={handleSubmit(values =>
               updateCompany(values).then(() => {
                 if (isEditing) {

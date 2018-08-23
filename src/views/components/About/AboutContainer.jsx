@@ -1,42 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Container,
-  ContainerLarge
-} from "../../../styleComponents/layout/Container";
-import StyledProfile from "../../../views/styled/Profile";
-import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 
-import {
-  showSpecialistData,
-  showClientData,
-  getIndustries,
-  showSpecialistWithId,
-  getExperienceLevels
-} from "../../../actions/actions";
+import { specialistOperations } from "@ducks/specialists";
+import { getExperienceLevels } from "@ducks/experienceLevels/actions";
+import { getIndustries } from "@ducks/industries/actions";
 
-import RednerProfile from "../renders/RenderProfile";
-import { getUserType } from "../../../helpers/functions";
-import { SPECIALIST } from "../../../constants/user";
+import { SPECIALIST } from "@utilities";
+import About from "./About";
 
-class About extends Component {
+class AboutContainer extends Component {
   componentDidMount() {
     const {
-      specialistId,
-      getIndustries,
+      specialist,
+      getSpecialist,
       getExperienceLevels,
-      showSpecialistData,
-      showSpecialistWithId,
-      showClientData
+      getIndustries
     } = this.props;
 
-    getIndustries();
+    if (specialist) getSpecialist(specialist);
     getExperienceLevels();
-    if (getUserType() === SPECIALIST) {
-      specialistId ? showSpecialistWithId(specialistId) : showSpecialistData();
-    } else {
-      specialistId ? showSpecialistWithId(specialistId) : showClientData();
-    }
+    getIndustries();
   }
 
   renderIndustryName = id => {
@@ -56,7 +39,7 @@ class About extends Component {
 
     return experienceLevels && user
       ? experienceLevels[user.experience_level_id - 1]
-        ? experienceLevels[user.experience_level_id - 1]["label"]
+        ? experienceLevels[user.experience_level_id - 1]["name"]
         : "No experience level"
       : null;
   };
@@ -249,9 +232,9 @@ class About extends Component {
   };
 
   render() {
-    const { specialistId, user, specialistWithId } = this.props;
+    const { specialist, user, specialistWithId } = this.props;
 
-    const activeUser = specialistId ? specialistWithId : user;
+    const activeUser = specialist ? specialistWithId : user;
 
     if (activeUser) {
       document.title =
@@ -284,56 +267,37 @@ class About extends Component {
     let workExperience = activeUser ? activeUser["work_experiences"] : null;
 
     const services =
-        getUserType() === SPECIALIST ? this.getServices(activeUser) : null,
+        user.type === SPECIALIST ? this.getServices(activeUser) : null,
       company = this.getCompany(activeUser && activeUser.company),
       billings = this.getBillings(activeUser && activeUser.billing);
 
     return (
-      <ContainerLarge>
-        <AboutSubHeader />
-        <Container indentBot dashboardContainer sidebarCondition transparent>
-          <StyledProfile>
-            <RednerProfile
-              data={data}
-              services={services}
-              company={company}
-              billings={billings}
-              educationsExperience={educationsExperience}
-              workExperience={workExperience}
-              editCondition={!specialistId}
-            />
-          </StyledProfile>
-        </Container>
-      </ContainerLarge>
+      <About
+        data={data}
+        services={services}
+        company={company}
+        billings={billings}
+        educationsExperience={educationsExperience}
+        workExperience={workExperience}
+        editCondition={!specialist}
+      />
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const data = {
-    specialistId: ownProps.specialistId,
-    specialistWithId: state.specialistWithId,
+const mapStateToProps = (state, props) => {
+  return {
+    specialistWithId: state.specialists[props.specialist],
     industries: state.industries,
-    experienceLevels: state.experienceLevels
+    experienceLevels: state.experienceLevels,
+    user: state.user
   };
-
-  if (getUserType() === SPECIALIST) {
-    return {
-      ...data,
-      user: state.specialistData
-    };
-  } else {
-    return {
-      ...data,
-      user: state.clientData
-    };
-  }
 };
 
-export default connect(mapStateToProps, {
-  showSpecialistData,
-  showClientData,
-  getIndustries,
-  showSpecialistWithId,
-  getExperienceLevels
-})(About);
+const mapDispatchToProps = {
+  ...specialistOperations,
+  getExperienceLevels,
+  getIndustries
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AboutContainer);
