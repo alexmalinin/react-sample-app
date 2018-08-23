@@ -156,7 +156,7 @@ class ProjectCard extends Component {
 }
 
 const mapStatetoProps = (state, { data: { team } }) => {
-  return { projectTeam: state.teams[team.id] };
+  return { projectTeam: state.teams.byId[team.id] };
 };
 
 export default connect(mapStatetoProps, {
