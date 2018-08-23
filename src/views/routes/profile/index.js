@@ -9,6 +9,7 @@ import { specialistRoutes, clientRoutes } from "./routes";
 import HeaderBasic from "@components/HeaderBasic";
 import SubHeader from "@components/Profile/SubHeader";
 import SubmitErrorModal from "@components/common/modals/SubmitErrorModal";
+import NotFound from "@components/NotFound";
 
 import MainContainer from "@styled/MainContainer";
 import { Container } from "@styled/Containers";
@@ -35,6 +36,7 @@ const ProfileLayout = ({ modals: { submitErrorModal }, isSpecialist }) => {
         <Container>
           <SubHeader percents={percents} routes={routes} />
           {routes.map(route => <Route {...route} key={route.name} />)}
+          <Route component={NotFound} />
         </Container>
       </MainContainer>
       <NotificationContainer />
@@ -51,7 +53,7 @@ ProfileLayout.propTypes = {
 
 const mapStateToProps = (state, props) => {
   return {
-    isSpecialist: isSpecialist(state),
+    isSpecialist: isSpecialist()(state.user),
     modals: state.modals
   };
 };

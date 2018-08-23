@@ -6,16 +6,6 @@ import InputRange from "react-input-range";
 
 import StyledSearchFilter from "../StyledSearchFilter";
 
-// import {
-//   getIndustries,
-//   getExperienceLevels,
-//   getProjectTypes,
-//   searchSpecialist,
-//   searchSpecialistForProject,
-//   showProjectWithId,
-//   showSpecialistProjects
-// } from "../../../actions/actions";
-
 import { industryOperations } from "@ducks/industries";
 import { experienceLevelOperations } from "@ducks/experienceLevels";
 import { projectTypesOperations } from "@ducks/projectTypes";
@@ -80,7 +70,6 @@ class SearchFilterForm extends Component {
   changeProject = (e, data) => {
     this.setState({ selectedProject: data.value, projectError: false });
     this.props.searchSpecialistForProject(data.value);
-    // this.props.showProjectWithId(data.value);
     this.searchForm.handleClear();
     this.props.handleChangeProject(data.value);
   };
@@ -97,7 +86,6 @@ class SearchFilterForm extends Component {
       projectTypes,
       handleChange,
       searchSpecialist,
-      // projectWithId: { project, loaded },
       searchSpecialistForProject,
       filters: { industry_area_id, experience_level_id, project_type }
     } = this.props;
@@ -254,48 +242,34 @@ SearchFilterForm = reduxForm({
   form: "SearchFilterForm"
 })(SearchFilterForm);
 
-const mapStateToProps = () => {
-  const prepareProjects = getDataForSelect(),
-    prepareIndusrries = getDataForSelect(),
-    prepareExperienceLevels = getDataForSelect(),
-    prepareProjectTypes = getDataForSelect();
-
-  return state => {
-    const {
-      projects,
-      industriesReducer: { industries },
-      experienceLevels,
-      search: { result },
-      projectTypesReducer: { projectTypes },
-      projectWithId
-    } = state;
-
-    const allProjects = prepareProjects(projects, "value", "text"),
-      allIndustries = prepareIndusrries(industries, "value", "text"),
-      allExperienceLevels = prepareExperienceLevels(
-        experienceLevels,
-        "value",
-        "text"
-      ),
-      allProjectTypes = prepareProjectTypes(projectTypes, "value", "text");
-
-    return {
-      projects: allProjects,
-      industries: allIndustries,
-      experienceLevels: allExperienceLevels,
-      projectTypes: allProjectTypes,
-      searchResult: result,
-      projectWithId
-    };
+const mapStateToProps = state => {
+  return {
+    projects: getDataForSelect()(state.projects, "value", "text"),
+    industries: getDataForSelect()(
+      state.industriesReducer.industries,
+      "value",
+      "text"
+    ),
+    experienceLevels: getDataForSelect()(
+      state.experienceLevels,
+      "value",
+      "text"
+    ),
+    projectTypes: getDataForSelect()(
+      state.projectTypesReducer.projectTypes,
+      "value",
+      "text"
+    )
   };
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   ...industryOperations,
   ...experienceLevelOperations,
   ...projectTypesOperations,
   ...searchOperations,
   showAllProjects: projectsOperations.showAllProjects,
   showTeams: teamsOperations.showTeams
-  // showProjectWithId,
-})(SearchFilterForm);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchFilterForm);
