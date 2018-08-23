@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
 import { specialistRoutes, clientRoutes } from "./routes";
@@ -35,8 +35,10 @@ const ProfileLayout = ({ modals: { submitErrorModal }, isSpecialist }) => {
       <MainContainer>
         <Container>
           <SubHeader percents={percents} routes={routes} />
-          {routes.map(route => <Route {...route} key={route.name} />)}
-          <Route component={NotFound} />
+          <Switch>
+            {routes.map(route => <Route {...route} key={route.name} />)}
+            <Route component={NotFound} />
+          </Switch>
         </Container>
       </MainContainer>
       <NotificationContainer />
