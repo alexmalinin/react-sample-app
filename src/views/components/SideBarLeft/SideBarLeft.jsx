@@ -1,26 +1,26 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Loader } from "semantic-ui-react";
 import ClassNames from "classnames";
 
 import StyledSideBar from "@styled/SideBar";
 
-import { showAllProjects } from "@ducks/projects/actions";
+import { getAllProjects } from "@ducks/projects/actions";
 import { getSortedProjects } from "@ducks/projects/selectors";
 import { IMAGE_PORT, CUSTOMER, S_REDGUY } from "@utilities/constants";
-// import { oneOfRoles } from "@view/utils/functions";
+
+//TODO: permissions control point in redux
+const permissions = {
+  createProject: user => [S_REDGUY, CUSTOMER].some(role => role === user.role)
+};
 
 class SideBarLeft extends Component {
   componentDidMount() {
-    this.props.showAllProjects();
+    this.props.getAllProjects();
   }
 
   renderCategory = (projects, title, withEpics = false) => {
-    // const {
-    //   allEpics: { loading, loaded, epics }
-    // } = this.props;
-
+    const { epics } = this.props;
     const linkClass = ClassNames("project-link", {
       "with-epics": withEpics
     });
@@ -58,7 +58,7 @@ class SideBarLeft extends Component {
                   </NavLink>
                   {withEpics && (
                     <div className="modules">
-                      {project.epics.map((epic, key) => (
+                      {project.epics.map((id, key) => (
                         <NavLink
                           className="project-module"
                           to={`/dashboard/project/${project.id}/module/${key +
@@ -68,13 +68,12 @@ class SideBarLeft extends Component {
                           <span className="module-number">
                             {String(key + 1).padStart(2, 0)}.
                           </span>&nbsp;
-                          {epic.name}
+                          {epics[id].name}
                         </NavLink>
                       ))}
                       {!project.epics.length && (
                         <p className="no-epics">No modules</p>
                       )}
-                      {/* {loading && <Loader active />} */}
                     </div>
                   )}
                 </div>
@@ -87,7 +86,8 @@ class SideBarLeft extends Component {
 
   render() {
     const {
-      projects: { drafts, onReview, discovery }
+      projects: { drafts, onReview, discovery },
+      user
     } = this.props;
 
     return (
@@ -98,40 +98,44 @@ class SideBarLeft extends Component {
         {this.renderCategory(discovery, null, true)}
         {this.renderCategory(onReview, "Projects on review")}
         {this.renderCategory(drafts, "Projects on drafts")}
-        <NavLink
-          className="project-link add-project"
-          to="/dashboard/project/new"
-        >
-          <div className="add-project-button" />
-          <div className="add-project-label">Add project</div>
-        </NavLink>
+        {permissions.createProject(user) && (
+          <NavLink
+            className="project-link add-project"
+            to="/dashboard/project/new"
+          >
+            <div className="add-project-button" />
+            <div className="add-project-label">Add project</div>
+          </NavLink>
+        )}
       </StyledSideBar>
     );
   }
 }
 
-const mapStateToProps = () => {
-  const getDraftProjects = getSortedProjects(),
-    getReviewedProjects = getSortedProjects(),
-    getDiscoveryProjects = getSortedProjects();
+const makeMapStateToProps = () => {
+  const getDraft = getSortedProjects("draft");
+  const getReview = getSortedProjects("brief_submissions", "reviewed_by_admin");
+  const getDiscovery = getSortedProjects("discovery");
 
-  return ({ projects }) => {
+  const mapStateToProps = (state, props) => {
+    const { projects } = state;
+
     return {
+      user: state.user,
       projects: {
-        drafts: getDraftProjects(projects, "draft"),
-        onReview: getReviewedProjects(
-          projects,
-          "brief_submissions",
-          "reviewed_by_admin"
-        ),
-        discovery: getDiscoveryProjects(projects, "discovery")
-      }
+        drafts: getDraft(projects),
+        onReview: getReview(projects),
+        discovery: getDiscovery(projects)
+      },
+      epics: state.epics
     };
   };
+
+  return mapStateToProps;
 };
 
 const mapDispatchToProps = {
-  showAllProjects
+  getAllProjects
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SideBarLeft);
+export default connect(makeMapStateToProps, mapDispatchToProps)(SideBarLeft);

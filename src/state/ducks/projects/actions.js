@@ -1,44 +1,32 @@
 import * as types from "./types";
-import mapKeys from "lodash/mapKeys";
-
 import history from "../../../history";
+import { fetch } from "../../utils";
+import { project } from "../../schemas";
+import { postProject, getProjectUrl } from "./utils";
 
-import { fetch, selectors } from "../../utils";
 import {
+  S_REDGUY,
   GET,
-  SPECIALIST,
-  CLIENT,
   POST,
-  createNotification,
   PUT,
-  S_REDGUY
-} from "../../../utilities";
+  createNotification,
+  displayError
+} from "@utilities";
 
-import { postProject } from "./utils";
-
-export const showAllProjects = () => (dispatch, getState) => {
-  const state = getState(),
-    id = selectors.getUserId(state),
-    userType = selectors.getUserType(state);
-
-  let url;
-
-  switch (userType) {
-    case SPECIALIST:
-      url = `/specialists/${id}/projects`;
-      break;
-    case CLIENT:
-      url = `/projects?customer_id=${id}`;
-      break;
-    default:
-      break;
+const showAllProjects = payload => ({
+  type: types.SHOW_PROJECTS,
+  payload,
+  meta: {
+    schema: [project]
   }
+});
 
-  fetch(GET, url).then(({ data }) => {
-    dispatch({
-      type: types.PROJECTS_SHOW,
-      payload: mapKeys(data, "id")
-    });
+export const getAllProjects = () => (dispatch, getState) => {
+  const { user } = getState();
+  const url = getProjectUrl(user);
+
+  fetch(GET, url).then(res => {
+    dispatch(showAllProjects(res));
   });
 };
 
@@ -80,13 +68,8 @@ export const saveCreatedProgect = (payload, calback) => (
           calback();
           history.push(`/dashboard/project/${data.id}`);
         })
-        .catch(error => {
-          createNotification({
-            type: "error"
-          });
-
-          calback();
-        });
+        .catch(displayError)
+        .catch(calback);
     };
   } else {
     return dispatch({

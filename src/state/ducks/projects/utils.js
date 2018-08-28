@@ -1,4 +1,4 @@
-import { S_REDGUY } from "../../../utilities";
+import { S_REDGUY, SPECIALIST, CLIENT } from "../../../utilities";
 
 /**
  * Returns an object of project data
@@ -58,3 +58,15 @@ export function postProject(auth, payload, logo = null) {
     skill_ids
   };
 }
+
+export const getProjectUrl = user => {
+  const { id, type } = user;
+  switch (type) {
+    case SPECIALIST:
+      return `/specialists/${id}/projects`;
+    case CLIENT:
+      return `/projects?customer_id=${id}`;
+    default:
+      return;
+  }
+};

@@ -107,28 +107,24 @@ InviteSpecialistForm = reduxForm({
 })(InviteSpecialistForm);
 
 const mapStateToProps = state => {
-  const prepareProjects = getDataForSelect(),
-    prepareTeams = getDataForSelect();
+  const { user, projects } = state;
+  const isRedguy = user.role === S_REDGUY;
 
-  const showCustomTeams = getCustomTeams();
+  let allProjects = [],
+    allTeams = [];
 
-  return ({ user: { role }, projectsReducer: { projects } }) => {
-    let allProjects = [],
-      allTeams = [];
+  if (isRedguy) {
+    allProjects = getDataForSelect()(projects, "value", "text");
+  }
 
-    if (role === S_REDGUY) {
-      allProjects = prepareProjects(projects, "value", "text");
-    }
+  allTeams = getCustomTeams()(state);
+  allTeams = getDataForSelect()(allTeams, "value", "text");
 
-    allTeams = showCustomTeams(state);
-    allTeams = prepareTeams(allTeams, "value", "text");
-
-    return {
-      projects: allProjects,
-      teams: allTeams,
-      isRedguy: role === S_REDGUY
-    };
+  return {
+    projects: allProjects,
+    teams: allTeams,
+    isRedguy
   };
 };
 
-export default connect(mapStateToProps, null)(InviteSpecialistForm);
+export default connect(mapStateToProps)(InviteSpecialistForm);

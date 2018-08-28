@@ -1,16 +1,14 @@
 import * as types from "./types";
+import merge from "lodash/merge";
 import omit from "lodash/omit";
 import { createReducer } from "../../utils";
 import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import { SHOW_PROJECTS } from "../projects/types";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  epics: {},
-  error: false
-};
+const epicsReducer = createReducer({})({
+  [SHOW_PROJECTS]: (state, { payload }) =>
+    merge({ ...state }, payload.entities.epics),
 
-const epicsRedicer = createReducer(initialState)({
   [types.EPICS_SHOW]: (state, { payload, projectId }) => ({
     ...state,
     epics: {
@@ -74,4 +72,4 @@ const epicsRedicer = createReducer(initialState)({
   })
 });
 
-export default epicsRedicer;
+export default epicsReducer;

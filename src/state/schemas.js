@@ -28,3 +28,12 @@ export const team = new schema.Entity("teams", {
 export const teams = new schema.Entity("teams", {
   teams: [team]
 });
+
+export const epic = new schema.Entity("epics", {
+  specialists: [specialist]
+});
+
+export const project = new schema.Entity("projects", {
+  epics: [epic],
+  team: team
+});

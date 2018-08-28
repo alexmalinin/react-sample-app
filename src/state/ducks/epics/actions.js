@@ -3,14 +3,7 @@ import mapKeys from "lodash/mapKeys";
 import { fetch } from "../../utils";
 import { GET, POST, createNotification, DELETE } from "../../../utilities";
 
-/**
- * Get all epics by project id
- *
- * @param  {object} data epic data
- * @param  {number} project project id
- */
-
-export const showAllEpics = projectId => {
+export const getAllEpics = projectId => {
   return dispatch => {
     fetch(GET, `/epics?project_id=${projectId}`)
       .then(({ data }) => {
@@ -24,16 +17,11 @@ export const showAllEpics = projectId => {
   };
 };
 
-/**
- * Post project Epic
- *
- * @param  {object} data epic data
- * @param  {number} projectId project id
- */
+export const createEpicFetch = (values, dispatch, props) => {
+  const { projectId: project_id } = props.match.params;
 
-export const createProjectEpic = (data, projectId) => {
-  const files = data.file
-    ? data["file"].map(({ document, title, size }) => {
+  const files = values.file
+    ? values["file"].map(({ document, title, size }) => {
         return {
           document,
           title,
@@ -43,52 +31,27 @@ export const createProjectEpic = (data, projectId) => {
       })
     : [];
 
-  const body = {
+  return fetch(POST, `/projects/${project_id}/epics`, {
     epic: {
-      name: data["name"],
-      project_id: projectId,
-      user_story: data["user_story"],
-      business_requirements: data["business_requirements"],
-      business_rules: data["business_rules"],
-      deliverables: data["deliverables"],
-      description: data["description"],
-      notes: data["notes"],
-      eta: data["eta"],
+      ...values,
+      project_id,
       attached_files_attributes: files
     }
-  };
-
-  return dispatch => {
-    dispatch({
-      type: types.PROJECT_EPIC_CREATE,
-      payload: fetch(POST, `/projects/${projectId}/epics`, body),
-      meta: {
-        projectId
-      }
-    })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} module ` : "Module"} was created`
-        });
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
-      });
-  };
+  });
 };
 
-/**
- * Delete epic by project and id
- *
- * @param  {number} projectId project id
- * @param  {number} epicId epic id
- * @param  {function} callback a function that gets fired after successful response
- */
+export const createEpic = (res, dispatch, props) => {
+  const { name, project_id, id } = res.data;
+  createNotification({
+    type: "success",
+    text: `${name ? `${name} module ` : "Module"} was created`
+  });
+  dispatch({
+    type: types.CREATE_EPIC,
+    payload: res.data
+  });
+  props.history.push(`/dashboard/project/${project_id}/module/${id}/edit`);
+};
 
 export function deleteProjectEpic(projectId, epicId, callback) {
   return dispatch => {

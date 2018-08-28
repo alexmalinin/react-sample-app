@@ -4,8 +4,8 @@ export { default as user } from "./user";
 export { default as profile } from "./profile";
 
 export { default as projects } from "./projects";
-export { default as epicsReducer } from "./epics";
-export { default as tasksReducer } from "./tasks";
+export { default as epics } from "./epics";
+export { default as tasks } from "./tasks";
 
 export { default as teams } from "./teams";
 export { default as channels } from "./channels";

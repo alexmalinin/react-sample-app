@@ -13,46 +13,53 @@ import ProgressBars from "@UI/ProgressBar";
 // import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
 
 import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "@utilities";
-import { getUserRole, oneOfRoles, getUserId } from "@views/utils/functions";
+import { oneOfRoles } from "@views/utils/functions";
+import { getProjectEpics } from "../../../state/ducks/epics/selectors";
 
 class ProjectSubHeader extends Component {
+  static defaultProps = {
+    epics: [],
+    tasks: []
+  };
+
   renderProgressBars = () => {
     const {
-      allEpics,
+      epics,
+      tasks,
       match: {
         params: { status, projectId }
       }
     } = this.props;
 
-    return (
-      allEpics &&
-      Object.keys(allEpics).map((epic, key) => {
-        let subheaderCompletedTasks = 0;
-        allEpics[epic].tasks.forEach(
-          task =>
-            (task.state === "done" || task.state === "accepted") &&
-            subheaderCompletedTasks++
-        );
-        return (
-          <SubHeaderLinkWrap
-            key={key}
-            url={`/dashboard/project/${projectId}/module/${key + 1}/${
-              status ? status : "view"
-            }`}
-            className="module"
-          >
-            {key + 1}
-            <ProgressBars
-              percents={
-                !!epic.tasks.length
-                  ? subheaderCompletedTasks / epic.tasks.length * 100
-                  : 0
-              }
-            />
-          </SubHeaderLinkWrap>
-        );
-      })
+    // console.log(status);
+
+    let subheaderCompletedTasks = 0;
+    tasks.forEach(
+      task =>
+        (task.state === "done" || task.state === "accepted") &&
+        subheaderCompletedTasks++
     );
+
+    return epics.map((epic, key) => {
+      return (
+        <SubHeaderLinkWrap
+          key={epic.id}
+          url={`/dashboard/project/${projectId}/module/${key + 1}/${
+            status ? status : "view"
+          }`}
+          className="module"
+        >
+          {key + 1}
+          <ProgressBars
+            percents={
+              !!tasks.length
+                ? subheaderCompletedTasks / epic.tasks.length * 100
+                : 0
+            }
+          />
+        </SubHeaderLinkWrap>
+      );
+    });
   };
 
   render() {
@@ -60,12 +67,12 @@ class ProjectSubHeader extends Component {
       match: {
         params: { projectId, moduleId, status }
       },
-      allTasks,
+      tasks,
       myTasks,
       userRole
     } = this.props;
 
-    const allTasksCount = allTasks.length;
+    const tasksCount = tasks.length;
 
     let completedTasksCount = 0,
       myTasksCount = 0;
@@ -77,7 +84,7 @@ class ProjectSubHeader extends Component {
     //       spec => spec.id === getUserId() && myTasksCount++
     //     );
     //   });
-    const percents = Math.round(completedTasksCount / allTasksCount * 100) || 0;
+    const percents = Math.round(completedTasksCount / tasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
       fade: !moduleId
@@ -154,7 +161,7 @@ class ProjectSubHeader extends Component {
             )}
 
           <SubHeaderLinkWrap label="Epics" url="#" className="right-link">
-            {`${completedTasksCount}/${allTasksCount}`}
+            {`${completedTasksCount}/${tasksCount}`}
           </SubHeaderLinkWrap>
           <SubHeaderLinkWrap label="Progress" url="#" className="right-link">
             {percents}%
@@ -166,17 +173,10 @@ class ProjectSubHeader extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const {
-    epicsReducer: { epics },
-    tasksReducer: { tasks }
-  } = state;
-
+const mapStateToProps = (state, props) => {
   return {
     userRole: state.user.role,
-    updateTask: state.updateTask,
-    allEpics: epics,
-    allTasks: tasks
+    epics: getProjectEpics(state, props)
   };
 };
 

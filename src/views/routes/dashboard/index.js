@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { NotificationContainer } from "react-notifications";
 
+import EnchancedRoute from "../../utils/hoc/EnchancedRoute";
+
 import HeaderBasic from "@components/HeaderBasic";
 import SideBarLeft from "@components/SideBarLeft";
 import SideBarRight from "@components/SideBarRight";
@@ -30,16 +32,36 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
       <SideBarLeft />
       <ContainerLarge>
         <Switch>
-          <Route exact path={`${match.url}`} component={Dashboard} />
-          <Route exact path={`${match.url}/about`} component={About} />
-          <Route path={`${match.url}/project`} component={Project} />
-          <Route exact path={`${match.url}/search`} component={Search} />
-          <Route
+          <EnchancedRoute
+            exact
+            path={`${match.url}`}
+            component={Dashboard}
+            title="Dashboard"
+          />
+          <EnchancedRoute
+            exact
+            path={`${match.url}/about`}
+            component={About}
+            title="Your Profile"
+          />
+          <EnchancedRoute path={`${match.url}/project`} component={Project} />
+          <EnchancedRoute
+            exact
+            path={`${match.url}/search`}
+            component={Search}
+            title="Search Specialist"
+          />
+          <EnchancedRoute
             exact
             path={`${match.url}/specialist/:id([0-9]+)`}
             component={About}
           />
-          <Route exact path={`${match.url}/teams`} component={Teams} />
+          <EnchancedRoute
+            exact
+            path={`${match.url}/teams`}
+            component={Teams}
+            title="Teams"
+          />
           <Route component={NotFound} />
         </Switch>
       </ContainerLarge>
@@ -48,12 +70,6 @@ const DashboardLayout = ({ match, sidebar: { opened }, toogleSidebar }) => (
     <NotificationContainer />
   </div>
 );
-
-DashboardLayout.propTypes = {
-  match: PropTypes.shape({
-    url: PropTypes.string.isRequired
-  }).isRequired
-};
 
 export default connect(({ sidebar }) => ({ sidebar }), {
   ...sidebarOperations,

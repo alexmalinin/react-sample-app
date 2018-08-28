@@ -121,7 +121,7 @@ class ImageUploader extends Component {
 
           {createProject && (
             <div className="upload-label">
-              Add your company&rsquo;s logo. The file size must not exceed 5 Mb
+              Add your company&rsquo;s logo. The file size must not exceed 5 MB
             </div>
           )}
         </div>

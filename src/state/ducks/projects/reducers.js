@@ -1,32 +1,25 @@
 import * as types from "./types";
+import { combineReducers } from "redux";
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import merge from "lodash/merge";
+import omit from "lodash/omit";
 
-const initialState = {};
+const projectsById = (state = {}, action) => {
+  switch (action.type) {
+    case types.SHOW_PROJECTS:
+      return { ...action.payload.entities.projects };
+    default:
+      return state;
+  }
+};
 
-const projectsReducer = createReducer(initialState)({
-  [types.PROJECTS_SHOW]: (state, { payload }) => ({
-    ...state,
-    ...payload
-  }),
+const allProjects = createReducer([])({
+  [types.SHOW_PROJECTS]: (state, { payload }) => payload.result
+});
 
-  [types.PROJECT_SAVE + PENDING]: (state, action) => ({
-    ...state
-  }),
-
-  [types.PROJECT_SAVE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    [payload.data.id]: payload.data
-  }),
-
-  [types.PROJECT_SAVE + REJECTED]: (state, action) => ({
-    ...state
-  }),
-
-  [types.PROJECT_UPDATE]: (state, { payload }) => ({
-    ...state,
-    [payload.id]: payload
-  })
+const projectsReducer = combineReducers({
+  byId: projectsById,
+  allIds: allProjects
 });
 
 export default projectsReducer;

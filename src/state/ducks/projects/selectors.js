@@ -1,10 +1,12 @@
 import { createSelector } from "reselect";
-import _ from "lodash";
+import filter from "lodash/filter";
 
-const sortedProjects = (projects, ...filters) =>
-  _.filter(projects, project =>
-    filters.some(filter => filter === project.state)
+const projects = (projects, ...filters) =>
+  projects.allIds.map(id => projects.byId[id]);
+
+export const getSortedProjects = (...filters) =>
+  createSelector(projects, projects =>
+    filter(projects, project =>
+      filters.some(filter => filter === project.state)
+    )
   );
-
-export const getSortedProjects = () =>
-  createSelector(sortedProjects, projects => projects);

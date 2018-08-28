@@ -26,6 +26,10 @@ class EditProject extends Component {
     }).isRequired
   };
 
+  static defaultProps = {
+    projectWithId: {}
+  };
+
   componentDidMount() {
     const {
       match: { params }
@@ -160,36 +164,28 @@ class EditProject extends Component {
   }
 }
 
-const mapStateToProps = () => {
-  const makeProjectTeam = getProjectTeam(),
-    makeCustomTeams = getCustomTeams();
+const mapStateToProps = (state, { match: { params } }) => {
+  const {
+    user: { role },
+    projects,
+    teams: { byId: allTeams },
+    projectTypesReducer: { projectTypes },
+    skills
+  } = state;
 
-  const prepareSkills = getDataForSelect(),
-    prepareProjectSkills = getDataForSelect();
+  const projectWithId = projects.byId[params.projectId] || {};
 
-  return (state, { match: { params } }) => {
-    const {
-      user: { role },
-      projects,
-      teams: { byId: allTeams },
-      projectTypesReducer: { projectTypes },
-      skills
-    } = state;
-
-    const projectWithId = projects[params.projectId] || {};
-
-    return {
-      userRole: role,
-      projectWithId,
-      initialValues: {
-        ...projectWithId,
-        skills: prepareProjectSkills(projectWithId.skills)
-      },
-      projectTeam: makeProjectTeam(allTeams, params.projectId),
-      allCustomTeams: makeCustomTeams(allTeams),
-      projectTypes,
-      skillsOptions: prepareSkills(skills, "value", "label")
-    };
+  return {
+    userRole: role,
+    projectWithId,
+    initialValues: {
+      ...projectWithId,
+      skills: getDataForSelect()(projectWithId.skills)
+    },
+    projectTeam: getProjectTeam()(allTeams, params.projectId),
+    allCustomTeams: getCustomTeams(allTeams),
+    projectTypes,
+    skillsOptions: getDataForSelect()(skills, "value", "label")
   };
 };
 

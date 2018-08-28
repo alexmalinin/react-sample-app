@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, change, reset } from "redux-form";
 import { connect } from "react-redux";
 import ModuleForm from "./ModuleForm";
-import StyledEpicPage from "../../../styleComponents/StyledEpicPage";
+import StyledEpicPage from "@styled/EpicPage";
 
 class ClientModuleForm extends Component {
   componentWillMount() {
