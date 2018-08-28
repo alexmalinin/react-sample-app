@@ -1,5 +1,6 @@
 import decode from "jwt-decode";
 import * as types from "./types";
+import * as profile from "../profile/types";
 import { createReducer } from "../../utils";
 import { getUserType, FULFILLED } from "@utilities";
 
@@ -27,6 +28,22 @@ const signInReducer = createReducer({})({
   },
 
   [types.USER_DATA_SHOW + FULFILLED]: (state, { payload }) => {
+    return { ...state, ...payload.data };
+  },
+
+  [profile.USER_PROFILE_UPDATE + FULFILLED]: (state, { payload }) => {
+    return { ...state, ...payload.data };
+  },
+
+  [profile.USER_INDUSTRY_UPDATE + FULFILLED]: (state, { payload }) => {
+    return { ...state, ...payload.data };
+  },
+
+  [profile.USER_COMPANY_UPDATE + FULFILLED]: (state, { payload }) => {
+    return { ...state, ...payload.data };
+  },
+
+  [profile.USER_BILLINGS_UPDATE + FULFILLED]: (state, { payload }) => {
     return { ...state, ...payload.data };
   }
 });

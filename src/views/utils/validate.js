@@ -34,3 +34,24 @@ export const formatCurrency = value =>
         "$1 "
       )
     : "0";
+
+export const validatePasswords = values => {
+  const errors = {};
+  if (!values.password) {
+    errors.password = "Required";
+  }
+
+  if (values.password ? values.password.length < 8 : false) {
+    errors.password = "Minimum length 8 digits";
+  }
+
+  if (!values.password_confirmation) {
+    errors.password_confirmation = "Required";
+  }
+
+  if (values.password !== values.password_confirmation) {
+    errors.password_confirmation = "Passwords do not match.";
+  }
+
+  return errors;
+};

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { submit } from "redux-form";
 import { Header, Modal } from "semantic-ui-react";
@@ -6,6 +7,12 @@ import { Header, Modal } from "semantic-ui-react";
 import { SaveBtn, CancelBtn } from "@styled/DVButton";
 
 class ConfirmationModal extends Component {
+  static propTypes = {
+    onConfirm: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    formId: PropTypes.string.isRequired
+  };
+
   confirmModal = () => {
     const { onConfirm } = this.props;
 
@@ -15,13 +22,11 @@ class ConfirmationModal extends Component {
   };
 
   closeModal = ev => {
-    const { onCancel, clearLocation } = this.props;
+    const { onCancel } = this.props;
 
     ev.preventDefault();
     let close = document.querySelector("i.close.icon");
     close.click();
-
-    clearLocation && clearLocation();
 
     if (onCancel) {
       onCancel();

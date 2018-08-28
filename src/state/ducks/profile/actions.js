@@ -9,6 +9,7 @@ import {
   CUSTOMER
 } from "@utilities";
 import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
+import { DELETE } from "../../../utilities";
 
 /**
  * Update user Data Profile
@@ -16,9 +17,10 @@ import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
  * @param  {object} data user data
  * @param  {array} education specialist education data
  * @param  {array} experience specialist experience data
+ * @param  {function} callback success submit callback
  */
 
-export const updateUserProfile = (data, education, experience) => {
+export const updateUserProfile = (data, education, experience, callback) => {
   return (dispatch, getState) => {
     const state = getState(),
       userType = selectors.getUserType(state),
@@ -27,18 +29,21 @@ export const updateUserProfile = (data, education, experience) => {
     switch (userType) {
       case SPECIALIST:
         return dispatch(
-          updateSpecialistProfile(id, data, education, experience)
+          updateSpecialistProfile(id, data, education, experience, callback)
         );
       case CLIENT:
-        return dispatch(updateClientProfile(id, data));
+        return dispatch(updateClientProfile(id, data, callback));
       default:
         break;
     }
   };
 };
 
-const updateSpecialistProfile = (id, data, education, experience) => {
-  const image = data["avatar"] ? data["avatar"][0] : null;
+const updateSpecialistProfile = (id, data, education, experience, callback) => {
+  const image = data["person"] && data["person"][0];
+
+  const educationData = education.filter(e => !e.id),
+    experienceData = experience.filter(e => !e.id);
 
   return dispatch => {
     if (image) {
@@ -51,8 +56,8 @@ const updateSpecialistProfile = (id, data, education, experience) => {
           payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
             profile: specialistProfile(
               data,
-              education,
-              experience,
+              educationData,
+              experienceData,
               reader.result
             )
           })
@@ -62,20 +67,20 @@ const updateSpecialistProfile = (id, data, education, experience) => {
               type: "success",
               text: "Changes was saved"
             });
+
+            if (callback) callback();
           })
           .catch(error => {
             createNotification({
               type: "error"
             });
-
-            throw new Error();
           });
       };
     } else {
       return dispatch({
         type: types.USER_PROFILE_UPDATE,
         payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
-          profile: specialistProfile(data, education, experience)
+          profile: specialistProfile(data, educationData, experienceData)
         })
       })
         .then(() => {
@@ -83,13 +88,13 @@ const updateSpecialistProfile = (id, data, education, experience) => {
             type: "success",
             text: "Changes was saved"
           });
+
+          if (callback) callback();
         })
         .catch(error => {
           createNotification({
             type: "error"
           });
-
-          throw new Error();
         });
     }
   };
@@ -148,23 +153,76 @@ const updateClientProfile = (id, data) => {
   };
 };
 
+export const addEducationCard = payload => ({
+  type: types.EDUCATION_CARD_ADD,
+  payload
+});
+
 /**
  * Edit education data card
  *
  * @param  {object} data card data
- * @param  {number} id card id
  */
 
-export const editEducationCardWithId = (data, id) => {
-  return (dispatch, getState) => {
-    const user_id = selectors.getUserId(getState());
+export const editEducationCard = payload => (dispatch, getState) => {
+  const user_id = getState().user.id;
 
-    dispatch({
-      type: types.EDUCATION_CARD_WITH_ID_EDIT,
-      payload: fetch(PUT, `/specialists/${user_id}/educations/${id}`, data)
+  if (payload.id) {
+    const education = {
+      education: {
+        ...payload
+      }
+    };
+
+    return fetch(
+      PUT,
+      `/specialists/${user_id}/educations/${payload.id}`,
+      education
+    ).then(({ data }) => {
+      dispatch({
+        type: types.EDUCATION_CARDS_UPDATE,
+        payload: data
+      });
     });
-  };
+  } else {
+    dispatch({
+      type: types.EDUCATION_CARD_EDIT,
+      payload
+    });
+  }
 };
+
+/**
+ * Delete education card
+ *
+ * @param  {object} payload card data
+ */
+
+export const deleteEducationCard = payload => (dispatch, getState) => {
+  const user_id = getState().user.id;
+
+  if (payload.id) {
+    return fetch(
+      DELETE,
+      `/specialists/${user_id}/educations/${payload.id}`
+    ).then(({ data }) => {
+      dispatch({
+        type: types.EDUCATION_CARDS_UPDATE,
+        payload: data
+      });
+    });
+  } else {
+    dispatch({
+      type: types.EDUCATION_CARD_DELETE,
+      payload
+    });
+  }
+};
+
+export const addWorkExperienceCard = payload => ({
+  type: types.EXPERIENCE_CARD_ADD,
+  payload
+});
 
 /**
  * Edit work experience data card
@@ -173,15 +231,59 @@ export const editEducationCardWithId = (data, id) => {
  * @param  {number} id card id
  */
 
-export const editExperienceCardWithId = (data, id) => {
-  return (dispatch, getState) => {
-    const user_id = selectors.getUserId(getState());
+export const editWorkExperienceCard = payload => (dispatch, getState) => {
+  const user_id = getState().user.id;
 
-    dispatch({
-      type: types.EXPERIENCE_CARD_WITH_ID_EDIT,
-      payload: fetch(PUT, `/specialists/${user_id}/experiences/${id}`, data)
+  if (payload.id) {
+    const data = {
+      work_experience: {
+        ...payload
+      }
+    };
+
+    return fetch(
+      PUT,
+      `/specialists/${user_id}/experiences/${payload.id}`,
+      data
+    ).then(({ data }) => {
+      dispatch({
+        type: types.EXPERIENCE_CARD_UPDATE,
+        payload: data
+      });
     });
-  };
+  } else {
+    dispatch({
+      type: types.EXPERIENCE_CARD_EDIT,
+      payload
+    });
+  }
+};
+
+/**
+ * Delete experience card
+ *
+ * @param  {object} payload card data
+ */
+
+export const deleteExperienceCard = payload => (dispatch, getState) => {
+  const user_id = getState().user.id;
+
+  if (payload.id) {
+    return fetch(
+      DELETE,
+      `/specialists/${user_id}/experiences/${payload.id}`
+    ).then(({ data }) => {
+      dispatch({
+        type: types.EXPERIENCE_CARD_UPDATE,
+        payload: data
+      });
+    });
+  } else {
+    dispatch({
+      type: types.EXPERIENCE_CARD_DELETE,
+      payload
+    });
+  }
 };
 
 /**

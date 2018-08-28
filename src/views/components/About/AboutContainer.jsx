@@ -248,7 +248,7 @@ class AboutContainer extends Component {
 
     if (activeUser) {
       data = {
-        avatar: (activeUser.avatar && activeUser.avatar.url) || false,
+        avatar: (activeUser.avatar && activeUser.avatar.url) || null,
         name: `${activeUser.first_name} ${activeUser.last_name}`,
         email: activeUser.email,
         phone: activeUser.phone_number,

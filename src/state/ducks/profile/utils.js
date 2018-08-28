@@ -90,8 +90,6 @@ export function specialistProfile(
   const token = localStorage.getItem("jwt_token");
   const { user_id } = jwtDecode(token);
 
-  console.log(education, experience);
-
   const educationData = education.map(item => {
     return {
       name: item["name"],
@@ -116,7 +114,7 @@ export function specialistProfile(
   });
 
   return {
-    avatar: image || null,
+    ...(!!image && { avatar: image }),
     first_name: data["first_name"],
     last_name: data["last_name"],
     phone_number: data["phone_number"],

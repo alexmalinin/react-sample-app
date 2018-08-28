@@ -1,14 +1,22 @@
 import React, { Component } from "react";
-import RenderEducationCard from "./RenderEducationCard";
-// import RenderWorkCard from "./RenderWorkCard";
-// import EdicationModal from "../../modals/EdicationModal";
-// import WorkExperienceModal from "../../modals/WorkExperienceModal";
+import { connect } from "react-redux";
 
-class ExperienceCards extends Component {
-  state = {
-    isEdited: false
-  };
+import EducationCard from "./EducationCard";
 
+import AddEducation from "./modals/AddEducation";
+import WorkExperienceCard from "./WorkExperienceCard";
+import AddWorkExperience from "./modals/AddWorkExperience";
+
+import {
+  addEducationCard,
+  editEducationCard,
+  deleteEducationCard,
+  addWorkExperienceCard,
+  editWorkExperienceCard,
+  deleteExperienceCard
+} from "@ducks/profile/actions";
+
+class RenderExperienceCards extends Component {
   componentDidUpdate() {
     this.addEventListener();
   }
@@ -24,48 +32,55 @@ class ExperienceCards extends Component {
     }
   }
 
-  handleChangeState = (name, value) => {
-    this.setState({
-      [name]: value
-    });
-  };
-
   render() {
-    const { educations, experiences } = this.props;
+    const {
+      educations,
+      experiences,
+      addEducationCard,
+      editEducationCard,
+      deleteEducationCard,
+      addWorkExperienceCard,
+      editWorkExperienceCard,
+      deleteExperienceCard
+    } = this.props;
 
     return (
       <div className="cards-wrapper">
-        {educations
-          ? educations.map((education, index) => (
-              <RenderEducationCard
-                key={index}
-                education={education}
-                handleChangeState={this.handleChangeState}
-              />
-            ))
-          : null}
+        {educations &&
+          educations.map((education, key) => (
+            <EducationCard
+              key={key}
+              education={education}
+              editCard={editEducationCard}
+              deleteCard={deleteEducationCard}
+            />
+          ))}
 
-        {/* {educations ? (
-          <EdicationModal handleChangeState={this.handleChangeState} />
-        ) : null} */}
+        {educations && <AddEducation addEducationCard={addEducationCard} />}
 
-        {/* {experiences
-          ? experiences.map((experiences, index) => (
-              <RenderWorkCard
-                key={index}
-                experiences={experiences}
-                isEdited={this.state.isEdited}
-                handleChangeState={this.handleChangeState}
-              />
-            ))
-          : null}
+        {experiences &&
+          experiences.map((experiences, index) => (
+            <WorkExperienceCard
+              key={index}
+              experiences={experiences}
+              editCard={editWorkExperienceCard}
+              deleteCard={deleteExperienceCard}
+            />
+          ))}
 
-        {experiences ? (
-          <WorkExperienceModal handleChangeState={this.handleChangeState} />
-        ) : null} */}
+        {experiences && <AddWorkExperience addCard={addWorkExperienceCard} />}
       </div>
     );
   }
 }
 
-export default ExperienceCards;
+const mapDispatchToProps = {
+  addEducationCard,
+  editEducationCard,
+  deleteEducationCard,
+  addWorkExperienceCard,
+  editWorkExperienceCard,
+  deleteExperienceCard
+};
+
+export default connect(null, mapDispatchToProps)(RenderExperienceCards);

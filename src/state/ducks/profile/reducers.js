@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
+import { findIndex } from "lodash";
+
 import * as types from "./types";
 import * as utils from "./utils";
 import { createReducer } from "../../utils";
@@ -16,14 +18,72 @@ const infoReducer = createReducer(initialState)({
     ...utils.getUserInfo(payload.data)
   }),
 
-  [types.EDUCATION_CARD_WITH_ID_EDIT + FULFILLED]: (state, { payload }) => ({
+  [types.EDUCATION_CARD_ADD]: (state, { payload }) => ({
     ...state,
-    educations: [...payload.data.educations]
+    educations: [...state.educations, payload]
   }),
 
-  [types.EXPERIENCE_CARD_WITH_ID_EDIT + FULFILLED]: (state, { payload }) => ({
+  [types.EDUCATION_CARDS_UPDATE]: (state, { payload }) => {
+    const educations = state.educations.filter(item => !item.id);
+
+    return {
+      ...state,
+      educations: [...payload.educations, ...educations]
+    };
+  },
+
+  [types.EDUCATION_CARD_EDIT]: (state, { payload }) => {
+    const index = findIndex(state.educations, { succesId: payload.successId });
+
+    const newEducations = [...state.educations];
+    newEducations.splice(index, 1, payload);
+
+    return {
+      ...state,
+      educations: newEducations
+    };
+  },
+
+  [types.EDUCATION_CARD_DELETE]: (state, { payload }) => ({
     ...state,
-    work_experiences: [...payload.data.work_experiences]
+    educations: state.educations.filter(
+      item => item.successId !== payload.successId
+    )
+  }),
+
+  [types.EXPERIENCE_CARD_ADD]: (state, { payload }) => ({
+    ...state,
+    work_experiences: [...state.work_experiences, payload]
+  }),
+
+  [types.EXPERIENCE_CARD_UPDATE]: (state, { payload }) => {
+    const experiences = state.work_experiences.filter(item => !item.id);
+
+    return {
+      ...state,
+      work_experiences: [...payload.work_experiences, ...experiences]
+    };
+  },
+
+  [types.EXPERIENCE_CARD_EDIT]: (state, { payload }) => {
+    const index = findIndex(state.work_experience, {
+      succesId: payload.successId
+    });
+
+    const newExperience = [...state.work_experiences];
+    newExperience.splice(index, 1, payload);
+
+    return {
+      ...state,
+      work_experiences: newExperience
+    };
+  },
+
+  [types.EXPERIENCE_CARD_DELETE]: (state, { payload }) => ({
+    ...state,
+    work_experience: state.work_experiences.filter(
+      item => item.successId !== payload.successId
+    )
   })
 });
 

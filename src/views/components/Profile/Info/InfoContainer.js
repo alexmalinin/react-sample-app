@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 
-import { profileOperations } from "@ducks/profile";
 import { getUserData } from "@ducks/user/actions";
-import { modalsOperations } from "@ducks/modals";
+import { updateUserProfile } from "@ducks/profile/actions";
+import { showSubmitErrorModal } from "@ducks/modals/actions";
 
 import Info from "./Info";
 
-const mapStateToProps = ({ profile: { info } }) => ({
+const mapStateToProps = ({ user, profile: { info } }) => ({
+  avatar: info.avatar,
+  userRole: user.role,
   initialValues: {
     first_name: info.first_name,
     last_name: info.last_name,
@@ -15,18 +17,17 @@ const mapStateToProps = ({ profile: { info } }) => ({
     city: info.address && info.address.city,
     country: info.address && info.address.country,
     phone_number: info.phone_number,
-    description: info.description || null,
-    professional_experience_info: null
+    description: info.description,
+    professional_experience_info: info.professional_experience_info
   },
-  avatar: info.avatar,
   educations: info.educations,
-  experiences: info.work_experiences
+  work_experiences: info.work_experiences
 });
 
 const mapDispatchToProps = {
   getUserData,
-  updateUserProfile: profileOperations.updateUserProfile,
-  showSubmitErrorModal: modalsOperations.showSubmitErrorModal
+  updateUserProfile,
+  showSubmitErrorModal
 };
 
 const withForm = reduxForm({

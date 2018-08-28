@@ -12,8 +12,6 @@ import {
   SPECIALIST
 } from "@utilities/constants";
 import { updateProject } from "@ducks/projects/actions";
-// import { showSortedProjects } from "../../../actions/actions";
-// import { getUserRole, getUserType } from "../../../helpers/functions";
 
 class ImageUploader extends Component {
   state = { file: "", imagePreviewUrl: "" };
@@ -29,16 +27,16 @@ class ImageUploader extends Component {
   }
 
   _handleImageChange(e) {
-    const { projectId, showSortedProjects } = this.props;
+    const { projectId } = this.props;
 
     e.preventDefault();
 
     let reader = new FileReader();
     let file = e.target.files[0];
 
-    this.props.input.onChange(e);
-
     if (file) {
+      this.props.input.onChange(e);
+
       reader.onloadend = () => {
         this.setState({
           file: file,
@@ -57,9 +55,6 @@ class ImageUploader extends Component {
           })
             .then(({ data }) => {
               this.props.updateProject(data.id);
-              // const userType = getUserType();
-              // if (userType === CLIENT) showSortedProjects("customers");
-              // else if (userType === SPECIALIST) showSortedProjects("specialists");
             })
             .catch(error => {
               console.error(error);
@@ -155,14 +150,5 @@ class ImageUploader extends Component {
 }
 
 export default connect(null, {
-  /* showSortedProjects */
   updateProject
 })(ImageUploader);
-
-// if (avatar && !imagePreviewUrl) {
-//     $imagePreview = (<img src={PORT + avatar.url}/>);
-// } else if (imagePreviewUrl) {
-//     $imagePreview = (<img src={imagePreviewUrl}/>);
-// } else {
-//     $imagePreview = (<div className='preloader'><img src='../../images/undefUser.png' alt=''/></div>);
-// }

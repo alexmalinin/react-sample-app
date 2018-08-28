@@ -1,6 +1,6 @@
 import reducer from "./reducers";
 
-import * as modalsOperations from "./operations";
+import * as modalsOperations from "./actions";
 
 export { modalsOperations };
 

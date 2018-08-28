@@ -4,6 +4,7 @@ import { Tab } from "semantic-ui-react";
 export default styled(Tab.Pane)`
   &.ui.segment {
     padding: 50px 0 14px;
+    border: none;
 
     .radio-group {
       padding-left: 7px;

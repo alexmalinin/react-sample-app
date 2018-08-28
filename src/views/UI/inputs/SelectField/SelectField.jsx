@@ -14,7 +14,7 @@ const SelectField = ({
   isRequired,
   ...rest
 }) => {
-  const { value, onChange } = input;
+  const { value } = input;
 
   return (
     <StyledInputs {...rest} small={small}>
@@ -24,7 +24,7 @@ const SelectField = ({
       <StyledDropdown
         error={Boolean(touched && error)}
         value={value}
-        onChange={(param, data) => onChange(data.value)}
+        onChange={(param, data) => input.onChange(data.value)}
         onOpen={onOpen}
         selection
         fluid

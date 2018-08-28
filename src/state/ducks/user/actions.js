@@ -1,7 +1,16 @@
 import * as types from "./types";
 import { fetch, selectors } from "../../utils";
-import { POST, GET, getUserUrl } from "@utilities";
 import { setAuthorizationHeader } from "./utils";
+
+import {
+  POST,
+  GET,
+  PUT,
+  DELETE,
+  SPECIALIST,
+  getUserUrl,
+  createNotification
+} from "@utilities";
 
 export const userLoggedIn = token => ({
   type: types.SIGN_IN,
@@ -51,3 +60,65 @@ export const getUserData = () => (dispatch, getState) => {
     payload: fetch(GET, `/${url}/${id}`)
   });
 };
+
+export const changePassword = payload => (dispatch, getState) => {
+  const state = getState(),
+    userId = state.user.id,
+    usertype = state.user.type,
+    users = getUserUrl(usertype);
+
+  const user = usertype === SPECIALIST ? "specialist" : "customer";
+
+  const data = {
+    [user]: {
+      ...payload
+    }
+  };
+
+  return fetch(PUT, `/${users}/${userId}/dashboard/password`, data);
+};
+
+export const getTokenForResetPassword = (user, payload) => dispatch =>
+  fetch(POST, `/${user}s/password_request`, payload);
+
+export const getPasswordsForResetPassword = (
+  passwords,
+  user,
+  token
+) => dispatch =>
+  fetch(PUT, `/${user}/password_reset/${token}`, {
+    reset_password: passwords
+  });
+
+export const getUserId = (user, token) => dispatch =>
+  fetch(GET, `/${user}/${token}`)
+    .then(({ data }) => {
+      if (!data) {
+        createNotification({
+          type: "warning",
+          text: "You have already created a password"
+        });
+      }
+
+      return data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+export const verifyPassword = (user, id, payload) => dispatch =>
+  fetch(PUT, `/${user}s/${id}`, {
+    [user]: {
+      ...payload
+    }
+  });
+
+/**
+ * Client and Specialist get request to API for deleting confirmation token
+ *
+ * @param  {string} user user type
+ * @param  {string} token user token
+ */
+
+export const deleteConfirmationToken = (user, token) => dispatch =>
+  fetch(GET, `/${user}/confirmation/${token}`);

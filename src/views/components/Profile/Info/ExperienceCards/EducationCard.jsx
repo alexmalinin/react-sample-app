@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Card } from "semantic-ui-react";
 
 import StyledCard from "./StyledCard";
-import EditExperienceCard from "./modals/EditExperienceCard";
-// import DeletingEducationCard from "../../modals/DeletingEducationCard";
+import EditEducationCard from "./modals/EditEducationCard";
+import DeleteCard from "./modals/DeleteCard";
 
 class RenderEducationCard extends Component {
   state = {
@@ -35,19 +35,15 @@ class RenderEducationCard extends Component {
   }
 
   render() {
-    const { education, handleConfirmationModal } = this.props;
+    const { education, editCard, deleteCard } = this.props;
 
     return (
       <StyledCard expanded={this.state.isExpanded ? "true" : ""}>
         {education && (
           <Card.Content>
-            <EditExperienceCard
-              education={education}
-              id={education["id"]}
-              handleConfirmationModal={handleConfirmationModal}
-            />
+            <EditEducationCard education={education} editCard={editCard} />
 
-            {/* <DeletingEducationCard education={education} id={education["id"]} /> */}
+            <DeleteCard data={education} deleteCard={deleteCard} />
 
             {education.name && <Card.Header>{education.name}</Card.Header>}
             {(education.specialisation || education.degree) && (
@@ -70,9 +66,10 @@ class RenderEducationCard extends Component {
             }
           </Card.Content>
         )}
-        {this.state.isExpanded ? (
+
+        {this.state.isExpanded && (
           <span className="show-btn fa fa-chevron-down" />
-        ) : null}
+        )}
       </StyledCard>
     );
   }

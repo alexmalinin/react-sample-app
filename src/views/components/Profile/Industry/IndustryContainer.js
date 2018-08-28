@@ -27,14 +27,6 @@ const mapStateToProps = () => {
   }) => {
     const { project_type, industry_area_id } = industry;
 
-    let industryArea = null;
-
-    if (industries[industry_area_id - 1]) {
-      const { value, label } = industries[industry_area_id - 1];
-
-      industryArea = value;
-    }
-
     let renderSkills = [];
 
     industry.skills &&

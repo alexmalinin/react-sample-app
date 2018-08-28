@@ -1,6 +1,6 @@
 import reducer from "./reducers";
 
-import * as profileOperations from "./operations";
+import * as profileOperations from "./actions";
 
 export { profileOperations };
 

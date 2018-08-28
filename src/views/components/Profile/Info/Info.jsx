@@ -2,21 +2,35 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 
 import InfoForm from "./InfoForm";
+import ResetPasswordForm from "./ResetPasswordForm";
+
 import { getAllUrlParams } from "@views/utils/functions";
 
 class Info extends Component {
   state = {
-    educations: [],
-    experience: []
+    isEditing: getAllUrlParams().edit || null
   };
 
-  componentDidMount() {
-    this.props.getUserData();
-  }
+  submit = values => {
+    const {
+      history,
+      educations,
+      work_experiences,
+      updateUserProfile
+    } = this.props;
+
+    return updateUserProfile(values, educations, work_experiences, () => {
+      if (this.state.isEditing) {
+        history.push("/dashboard/about");
+      } else {
+        history.push("/profile/industry");
+      }
+    });
+  };
 
   render() {
-    const { handleSubmit, history, updateUserProfile } = this.props;
-    const isEditing = getAllUrlParams().edit || null;
+    const { isEditing } = this.state;
+    const { handleSubmit } = this.props;
 
     return (
       <div>
@@ -26,21 +40,13 @@ class Info extends Component {
               <InfoForm
                 {...this.props}
                 isEditing={isEditing}
-                handleSubmit={handleSubmit(values =>
-                  updateUserProfile(values).then(() => {
-                    if (isEditing) {
-                      history.push("/dashboard/about");
-                    } else {
-                      history.push("/profile/industry");
-                    }
-                  })
-                )}
+                handleSubmit={handleSubmit(this.submit)}
               />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column computer={16}>
-              {/* <RenderResetPasswordForm user="specialist" /> */}
+              <ResetPasswordForm />
             </Grid.Column>
           </Grid.Row>
         </Grid>

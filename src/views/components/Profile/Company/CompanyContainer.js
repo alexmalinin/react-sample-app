@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 
 import { getUserData } from "@ducks/user/actions";
-import { profileOperations } from "@ducks/profile";
+import { updateCompany } from "@ducks/profile/actions";
 import { industryOperations } from "@ducks/industries";
-import { modalsOperations } from "@ducks/modals";
+import { showSubmitErrorModal } from "@ducks/modals/actions";
 
 import Company from "./Company";
 
@@ -43,8 +43,8 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = {
   getUserData,
-  updateCompany: profileOperations.updateCompany,
-  showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
+  updateCompany,
+  showSubmitErrorModal,
   ...industryOperations
 };
 
