@@ -14,7 +14,6 @@ import ProgressBars from "@UI/ProgressBar";
 
 import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "@utilities";
 import { oneOfRoles } from "@views/utils/functions";
-import { getProjectEpics } from "../../../state/ducks/epics/selectors";
 
 class ProjectSubHeader extends Component {
   static defaultProps = {
@@ -33,33 +32,38 @@ class ProjectSubHeader extends Component {
 
     // console.log(status);
 
-    let subheaderCompletedTasks = 0;
-    tasks.forEach(
-      task =>
-        (task.state === "done" || task.state === "accepted") &&
-        subheaderCompletedTasks++
-    );
+    if (epics.loaded)
+      return epics.allIds.map((id, key) => {
+        const epic = epics.byId[id];
+        const { tasks } = epics.byId[id];
 
-    return epics.map((epic, key) => {
-      return (
-        <SubHeaderLinkWrap
-          key={epic.id}
-          url={`/dashboard/project/${projectId}/module/${key + 1}/${
-            status ? status : "view"
-          }`}
-          className="module"
-        >
-          {key + 1}
-          <ProgressBars
-            percents={
-              !!tasks.length
-                ? subheaderCompletedTasks / epic.tasks.length * 100
-                : 0
-            }
-          />
-        </SubHeaderLinkWrap>
-      );
-    });
+        let subheaderCompletedTasks = 0;
+
+        tasks.forEach(
+          task =>
+            (task.state === "done" || task.state === "accepted") &&
+            subheaderCompletedTasks++
+        );
+
+        return (
+          <SubHeaderLinkWrap
+            key={id}
+            url={`/dashboard/project/${projectId}/module/${key + 1}/${
+              status ? status : "view"
+            }`}
+            className="module"
+          >
+            {key + 1}
+            <ProgressBars
+              percents={
+                !!tasks.length
+                  ? subheaderCompletedTasks / epic.tasks.length * 100
+                  : 0
+              }
+            />
+          </SubHeaderLinkWrap>
+        );
+      });
   };
 
   render() {
@@ -176,7 +180,7 @@ class ProjectSubHeader extends Component {
 const mapStateToProps = (state, props) => {
   return {
     userRole: state.user.role,
-    epics: getProjectEpics(state, props)
+    epics: state.epics
   };
 };
 

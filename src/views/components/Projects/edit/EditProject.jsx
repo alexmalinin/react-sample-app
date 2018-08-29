@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
 import { reduxForm } from "redux-form";
@@ -18,14 +17,6 @@ import { PORT, createNotification, renameObjPropNames } from "@utilities";
 import { getDataForSelect } from "@utilities/selectors";
 
 class EditProject extends Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        projectId: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
-  };
-
   static defaultProps = {
     projectWithId: {}
   };

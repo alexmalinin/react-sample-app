@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Loader } from "semantic-ui-react";
-import { change } from "redux-form";
+import { change, submit } from "redux-form";
 import Dropzone from "react-dropzone";
 
 import StyledUploader from "./StyledUploader";
@@ -91,6 +91,7 @@ class FileUploader extends Component {
     for (let file of files) {
       const {
         onSelfSubmit,
+        selfSubmit,
         entity_type,
         input,
         meta: { dispatch, form }
@@ -116,7 +117,9 @@ class FileUploader extends Component {
               dispatch(change(form, input.name, data[input.name]));
               this.setState({ loading: false });
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+              this.setState({ loading: false, error });
+            });
         } else {
           this.fileHub = [
             ...this.fileHub,
@@ -127,6 +130,10 @@ class FileUploader extends Component {
             loading: false
           });
           dispatch(change(form, "file", this.fileHub));
+          selfSubmit &&
+            setTimeout(() => {
+              dispatch(submit(form));
+            });
         }
 
         // sample for API console.log('end', this.shadowFileInput.value.split('||'));
@@ -138,7 +145,9 @@ class FileUploader extends Component {
 
   handleDeleteFile = (id, name, status) => {
     const {
-      meta: { dispatch, form }
+      meta: { dispatch, form },
+      onSelfSubmit,
+      selfSubmit
     } = this.props;
     let data = this.state.files.slice(),
       index;
@@ -153,7 +162,7 @@ class FileUploader extends Component {
 
     data.splice(index, 1);
 
-    if (this.props.onSelfSubmit) {
+    if (onSelfSubmit || selfSubmit) {
       this.deleteAttachedFile(id);
     } else {
       this.fileHub.splice(index, 1);
@@ -198,7 +207,11 @@ class FileUploader extends Component {
   };
 
   deleteAttachedFile = file => {
-    const { updateProject } = this.props;
+    const {
+      updateProject,
+      selfSubmit,
+      meta: { dispatch, form }
+    } = this.props;
     this.setState({ loading: true });
 
     return axios
@@ -208,6 +221,10 @@ class FileUploader extends Component {
 
         if (updateProject) {
           updateProject();
+        }
+
+        if (selfSubmit) {
+          dispatch(submit(form));
         }
       })
       .catch(error => {
@@ -253,6 +270,8 @@ class FileUploader extends Component {
       onSelfSubmit,
       ...rest
     } = this.props;
+
+    console.log(this.state);
 
     return (
       <StyledUploader

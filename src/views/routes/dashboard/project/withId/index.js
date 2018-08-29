@@ -9,51 +9,82 @@ import StyledProject from "@components/Projects/StyledProject";
 
 import BoardSubHeader from "@components/BoardSubHeader";
 import EditProject from "@components/Projects/edit";
+import Kanban from "@components/Kanban";
 import Module from "@components/Module";
 import CreateModule from "@components/CreateModule";
 import NotFound from "@components/NotFound";
 
-const Project = ({ project }) => {
-  return (
-    <Fragment>
-      <BoardSubHeader />
-      <Container indentBot sidebarCondition transparent dashboardContainer>
-        <StyledProject>
-          <Switch>
-            <EnchancedRoute
-              exact
-              path={`/dashboard/project/:projectId`}
-              title={project.name}
-              component={EditProject}
-            />
-            <EnchancedRoute
-              exact
-              path={`/dashboard/project/:projectId/module/:num([0-9]+)/:status(edit|view)`}
-              title={project.name}
-              component={Module}
-            />
-            <EnchancedRoute
-              exact
-              path={`/dashboard/project/:projectId/module/new`}
-              title={project.name}
-              component={CreateModule}
-            />
-            <Route component={NotFound} />
-          </Switch>
-        </StyledProject>
-      </Container>
-    </Fragment>
-  );
-};
+import { getProjectEpics } from "@ducks/epics/actions";
 
-Project.defaultProps = {
-  project: {}
-};
+class Project extends React.Component {
+  static defaultProps = {
+    project: {}
+  };
+
+  componentDidMount() {
+    const { getProjectEpics, projectId } = this.props;
+    getProjectEpics(projectId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { projectId: prevProject } = this.props;
+    const { projectId: nextProject, getProjectEpics } = nextProps;
+
+    if (prevProject !== nextProject) {
+      getProjectEpics(nextProject);
+    }
+  }
+
+  render() {
+    const { project } = this.props;
+    return (
+      <Fragment>
+        <BoardSubHeader />
+        <Container indentBot sidebarCondition transparent dashboardContainer>
+          <StyledProject>
+            <Switch>
+              <EnchancedRoute
+                exact
+                path={`/dashboard/project/:projectId`}
+                title={project.name}
+                component={EditProject}
+              />
+              <EnchancedRoute
+                exact
+                path={`/dashboard/project/:projectId/module/:num([0-9]+)/edit`}
+                title={project.name}
+                component={Kanban}
+              />
+              <EnchancedRoute
+                exact
+                path={`/dashboard/project/:projectId/module/:num([0-9]+)/view`}
+                title={project.name}
+                component={Module}
+              />
+              <EnchancedRoute
+                exact
+                path={`/dashboard/project/:projectId/module/new`}
+                title={project.name}
+                component={CreateModule}
+              />
+              <Route component={NotFound} />
+            </Switch>
+          </StyledProject>
+        </Container>
+      </Fragment>
+    );
+  }
+}
 
 const mapStateToProps = (state, props) => {
   return {
-    project: state.projects[props.match.params.projectId]
+    project: state.projects[props.match.params.projectId],
+    projectId: props.match.params.projectId
   };
 };
 
-export default connect(mapStateToProps)(Project);
+const mapDispatchToProps = {
+  getProjectEpics
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Project);

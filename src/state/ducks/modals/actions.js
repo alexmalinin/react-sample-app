@@ -16,3 +16,12 @@ export const showConfirmSubmitModal = payload => ({
 export const closeConfirmSubmitModal = () => ({
   type: types.CONFIRM_SUBMIT_MODAL_CLOSE
 });
+
+export const showConfirmationModal = payload => ({
+  type: types.SHOW_CONFIRMATION_MODAL,
+  payload
+});
+
+export const closeConfirmationModal = () => ({
+  type: types.CLOSE_CONFIRMATION_MODAL
+});

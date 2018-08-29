@@ -10,23 +10,32 @@ const submitErrorModalReducer = createReducer(initialState)({
   },
 
   [types.SUBMIT_ERROR_MODAL_CLOSE]: (state, action) => {
-    return false;
+    return initialState;
   }
 });
 
 const confirmSubmitModalReducer = createReducer(initialState)({
-  [types.CONFIRM_SUBMIT_MODAL_SHOW]: (state, { payload }) => {
-    return {
-      ...payload
-    };
-  },
+  [types.CONFIRM_SUBMIT_MODAL_SHOW]: (state, { payload }) => ({
+    ...payload
+  }),
 
   [types.CONFIRM_SUBMIT_MODAL_CLOSE]: (state, action) => {
-    return null;
+    return initialState;
+  }
+});
+
+const confirmModalReducer = createReducer(initialState)({
+  [types.SHOW_CONFIRMATION_MODAL]: (state, { payload }) => ({
+    ...payload
+  }),
+
+  [types.CLOSE_CONFIRMATION_MODAL]: (state, action) => {
+    return initialState;
   }
 });
 
 export default combineReducers({
   submitError: submitErrorModalReducer,
-  confirmSubmit: confirmSubmitModalReducer
+  confirmSubmit: confirmSubmitModalReducer,
+  confirmModal: confirmModalReducer
 });

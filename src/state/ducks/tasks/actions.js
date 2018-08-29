@@ -3,21 +3,9 @@ import * as types from "./types";
 import { fetch } from "../../utils";
 import { GET, POST, DELETE, createNotification } from "../../../utilities";
 
-/**
- * Get array of all tasks, specialist assigned on
- *
- * @param  {number} team team id
- */
-
-export const showSpecialistTasks = () => {
+export const showSpecialistEpic = () => {
   //  Need a user id
 };
-
-/**
- * Show all tasks by epic
- *
- * @param  {number} epic epic id
- */
 
 export const showEpicTasks = epic => {
   return dispatch => {
@@ -29,14 +17,6 @@ export const showEpicTasks = epic => {
     });
   };
 };
-
-/**
- * Create task by project and epic
- *
- * @param  {object} data task data
- * @param  {number} epic epic id
- * @param  {function} callback callback, called on success
- */
 
 export const createEpicTask = (data, epic, callback) => {
   return dispatch => {

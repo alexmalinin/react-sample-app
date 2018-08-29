@@ -217,7 +217,7 @@ export default styled.aside`
       font-size: 16px;
       font-weight: 400;
 
-      animation: fadeIn 0.2s forwards;
+      animation: fadeIn 0.6s forwards;
       opacity: 0;
 
       .project-module {

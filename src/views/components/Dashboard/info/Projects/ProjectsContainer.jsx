@@ -45,7 +45,7 @@ class ProjectsContainer extends Component {
         <div>
           <Overview projects={projects} />
 
-          {Object.keys(projects).map(id => {
+          {projects.allIds.map(id => {
             let info = null;
 
             summary &&
@@ -58,7 +58,7 @@ class ProjectsContainer extends Component {
             return (
               <ProjectCard
                 key={id}
-                data={projects[id]}
+                data={projects.byId[id]}
                 summary={info}
                 getCurrentEpic={this.getCurrentEpic}
               />

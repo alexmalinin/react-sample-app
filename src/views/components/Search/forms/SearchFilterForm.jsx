@@ -10,8 +10,8 @@ import { industryOperations } from "@ducks/industries";
 import { experienceLevelOperations } from "@ducks/experienceLevels";
 import { projectTypesOperations } from "@ducks/projectTypes";
 import { searchOperations } from "@ducks/search";
-import { projectsOperations } from "@ducks/projects";
-import { teamsOperations } from "@ducks/teams";
+import { getAllProjects } from "@ducks/projects/actions";
+import { showTeams } from "@ducks/teams/actions";
 
 import SearchForm from "./SearchForm";
 
@@ -35,7 +35,7 @@ class SearchFilterForm extends Component {
     this.props.getExperienceLevels();
     this.props.getProjectTypes();
     this.props.searchSpecialist();
-    this.props.showAllProjects();
+    this.props.getAllProjects();
     this.props.showTeams();
   }
 
@@ -268,8 +268,8 @@ const mapDispatchToProps = {
   ...experienceLevelOperations,
   ...projectTypesOperations,
   ...searchOperations,
-  showAllProjects: projectsOperations.showAllProjects,
-  showTeams: teamsOperations.showTeams
+  getAllProjects,
+  showTeams
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchFilterForm);

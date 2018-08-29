@@ -2,29 +2,25 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Header, Modal } from "semantic-ui-react";
-import {
-  SaveBtn,
-  CancelBtn,
-  DvBlueButton
-} from "../../styleComponents/layout/DvButton";
-import { closeConfirmationModal } from "../../actions/actions";
+import { DvBlueButton } from "@styled/DVButton";
+import { closeConfirmationModal } from "@ducks/modals/actions";
 
 class DeleteConfirmationModal extends Component {
+  static defaultProps = {
+    message: "Are you sure?"
+  };
+
   static propTypes = {
     message: PropTypes.string,
-    callback: PropTypes.func.isRequired
+    callback: PropTypes.func
   };
 
   closeModal = ev => {
-    const { closeConfirmationModal } = this.props;
-
-    closeConfirmationModal();
+    this.props.closeConfirmationModal();
   };
 
   submitModal = ev => {
-    const { callback } = this.props;
-
-    callback();
+    this.props.callback();
     this.closeModal();
   };
 
@@ -41,7 +37,7 @@ class DeleteConfirmationModal extends Component {
       >
         <Modal.Content>
           <Modal.Description>
-            <Header>{message ? message : "Are you sure?"}</Header>
+            <Header>{message}</Header>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>

@@ -4,9 +4,10 @@ import { createReducer } from "../../utils";
 import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
 
 const initialState = {
+  current: null,
   loading: false,
   loaded: false,
-  tasks: {},
+  allTasks: [],
   error: null
 };
 

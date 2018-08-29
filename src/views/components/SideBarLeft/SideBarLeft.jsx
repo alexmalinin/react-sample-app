@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { Dimmer, Loader } from "semantic-ui-react";
 import ClassNames from "classnames";
 
 import StyledSideBar from "@styled/SideBar";
@@ -58,21 +59,35 @@ class SideBarLeft extends Component {
                   </NavLink>
                   {withEpics && (
                     <div className="modules">
-                      {project.epics.map((id, key) => (
-                        <NavLink
-                          className="project-module"
-                          to={`/dashboard/project/${project.id}/module/${key +
-                            1}/view`}
-                          key={key}
-                        >
-                          <span className="module-number">
-                            {String(key + 1).padStart(2, 0)}.
-                          </span>&nbsp;
-                          {epics[id].name}
-                        </NavLink>
-                      ))}
-                      {!project.epics.length && (
-                        <p className="no-epics">No modules</p>
+                      {epics.loaded === epics.current &&
+                        epics.allIds.map((id, key) => (
+                          <NavLink
+                            className="project-module"
+                            to={`/dashboard/project/${project.id}/module/${key +
+                              1}/edit`}
+                            key={id}
+                          >
+                            <span className="module-number">
+                              {String(key + 1).padStart(2, 0)}.
+                            </span>&nbsp;
+                            {epics.byId[id].name}
+                          </NavLink>
+                        ))}
+                      {epics.loaded &&
+                        !epics.allIds.length && (
+                          <p className="no-epics">No modules</p>
+                        )}
+
+                      {epics.error && (
+                        <p className="no-epics">
+                          Error while loading epics, please try again
+                        </p>
+                      )}
+
+                      {epics.loading && (
+                        <Dimmer active inverted>
+                          <Loader active />
+                        </Dimmer>
                       )}
                     </div>
                   )}

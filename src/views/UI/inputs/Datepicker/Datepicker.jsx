@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { submit } from "redux-form";
 import DatePicker from "react-datepicker";
 import { Input } from "semantic-ui-react";
 
@@ -10,45 +11,19 @@ import StyledLabel from "@styled/forms/Label";
 import "react-datepicker/dist/react-datepicker.css";
 
 class RenderDate extends React.Component {
-  state = {
-    date: moment(this.props.initData, "YYYY-MM-DD").isValid()
-      ? moment(this.props.initData)
-      : null,
-    fetchDate: true
-  };
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.epicId !== nextProps.epicId) {
-      this.setState({
-        fetchDate: true
-      });
-    }
-
-    if (this.state.fetchDate) {
-      this.setState({
-        date: moment(nextProps.initData, "YYYY-MM-DD").isValid()
-          ? moment(nextProps.initData)
-          : null
-      });
-    }
-  }
-
   handleChange = date => {
-    if (date && date._isAMomentObject) {
-      this.setState({
-        date,
-        fetchDate: false
-      });
-    }
-  };
-
-  componentDidUpdate() {
     const {
-      input: { onChange }
+      input: { onChange },
+      meta: { dispatch, form },
+      selfSubmit
     } = this.props;
-    const { date } = this.state;
-    date && onChange(date.format("YYYY-MM-DD"));
-  }
+    onChange(date.format("YYYY-MM-DD"));
+
+    selfSubmit &&
+      setTimeout(() => {
+        dispatch(submit(form));
+      });
+  };
 
   render() {
     const {
@@ -59,12 +34,14 @@ class RenderDate extends React.Component {
       type,
       disabled,
       isRequired,
-      meta: { touched, error, warning },
+      meta: { touched, error, warning, submitting, dirty },
       checkedClass,
       ...rest
     } = this.props;
 
-    const { date } = this.state;
+    const date = moment(input.value, "YYYY-MM-DD").isValid()
+      ? moment(input.value)
+      : null;
 
     const className = !error ? checkedClass : "";
 
@@ -83,14 +60,15 @@ class RenderDate extends React.Component {
           type={type}
           iconPosition="left"
           icon={<i className="fas fa-calendar-alt" />}
+          loading={submitting && dirty}
           input={
             <DatePicker
               {...input}
               name={input.name}
-              selected={date}
               value={date && date.format("DD/MM/YYYY")}
               onChange={this.handleChange}
-              // onBlur={this.handleChange}
+              onBlur={() => {}}
+              selected={date}
               placeholderText={placeholder}
               dateFormat="DD/MM/YYYY"
               autoComplete="off"

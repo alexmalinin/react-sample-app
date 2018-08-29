@@ -5,7 +5,7 @@ import moment from "moment";
 
 import Dashboard from "./Dashboard";
 
-import { projectsOperations } from "@ducks/projects";
+import { getAllProjects } from "@ducks/projects/actions";
 
 import { PORT, getUserUrl } from "@utilities";
 
@@ -15,9 +15,9 @@ class DashboardContainer extends Component {
   };
 
   componentDidMount() {
-    const { userId, usertype, showAllProjects } = this.props;
+    const { userId, usertype, getAllProjects } = this.props;
 
-    showAllProjects();
+    getAllProjects();
 
     const user = getUserUrl(usertype);
 
@@ -55,8 +55,8 @@ class DashboardContainer extends Component {
       let proj = null;
 
       if (projects) {
-        proj = Object.keys(projects).filter(
-          id => projects[id] === epic.project_id
+        proj = projects.allIds.filter(
+          id => projects.byId[id] === epic.project_id
         );
       }
 
@@ -68,13 +68,9 @@ class DashboardContainer extends Component {
 
   render() {
     const { summary } = this.state;
-    const { projects } = this.props;
+    const { epics } = this.props;
 
-    let allEpics = [];
-
-    Object.keys(projects).forEach(id => {
-      projects[id].epics && allEpics.push(...projects[id].epics);
-    });
+    let allEpics = Object.keys(epics).map(id => epics[id]);
 
     return (
       <Dashboard
@@ -89,15 +85,14 @@ class DashboardContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { user, projects } = state;
-
   return {
-    userId: user.id,
-    usertype: user.type,
-    projects
+    userId: state.user.id,
+    usertype: state.user.type,
+    projects: state.projects,
+    epics: state.epics
   };
 };
 
 export default connect(mapStateToProps, {
-  showAllProjects: projectsOperations.showAllProjects
+  getAllProjects
 })(DashboardContainer);

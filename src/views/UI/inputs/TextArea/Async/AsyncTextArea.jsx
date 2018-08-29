@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { change } from "redux-form";
+import { change, submit } from "redux-form";
 import { TextArea } from "react-semantic-redux-form/dist";
+import { Loader } from "semantic-ui-react";
 import classNames from "classnames";
 
 import StyledTextArea from "../StyledTextArea";
@@ -51,6 +52,7 @@ class AsyncTextArea extends Component {
   submit = e => {
     const {
       onSelfSubmit,
+      selfSubmit,
       input,
       input: { name, value },
       meta: { dispatch, form, error }
@@ -61,6 +63,7 @@ class AsyncTextArea extends Component {
     input.onBlur(input.value);
 
     !error &&
+      onSelfSubmit &&
       onSelfSubmit(name, value)
         .then(data => {
           if (data.state && typeof data.state === "number") {
@@ -76,6 +79,8 @@ class AsyncTextArea extends Component {
           console.error(error);
           this.setState({ loading: false, updError: true });
         });
+
+    !error && selfSubmit && dispatch(submit(form));
   };
 
   render() {
@@ -116,7 +121,7 @@ class AsyncTextArea extends Component {
           rows="1"
           spellCheck="false"
           onKeyDown={this.keyDown}
-          onKeyPress={e => console.log(e.charCode, e.keyCode, e.ctrlKey)}
+          // onKeyPress={e => console.log(e.charCode, e.keyCode, e.ctrlKey)}
           onFocus={this.focus}
           onBlur={this.blur}
           disabled={disabled}

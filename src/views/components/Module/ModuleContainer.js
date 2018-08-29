@@ -1,119 +1,47 @@
-import React, { Component } from "react";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
-import { reduxForm, change, reset } from "redux-form";
-import Axios from "axios";
-import EditEpicForm from "./forms/EditEpicForm";
-import StyledEpicPage from "../styleComponents/StyledEpicPage";
-import {
-  deleteProjectEpic,
-  showConfirmationModal,
-  showProjectEpic
-} from "../actions/actions";
-import { PORT } from "../constants/constants";
-import { run } from "../helpers/scrollToElement";
 
-class EditModule extends Component {
-  componentWillMount() {
-    this.clearFileds();
-    run(0)();
-  }
+import ModuleFrom from "./ModuleForm";
+import { updateEpicFetch, epicUpdated } from "@ducks/epics/actions";
 
-  clearFileds = () => {
-    this.props.dispatch(reset("EditModuleForm"));
-  };
+import { displayError } from "@utilities";
+import { oneOfRoles } from "@views/utils/functions";
+import { S_REDGUY, CUSTOMER } from "@utilities";
+import { deleteEpicFetch } from "@ducks/epics/actions";
 
-  handleEtaForm = date => {
-    this.props.dispatch(change("EditModuleForm", "eta", date));
-    this.handleSubmit("eta", date);
-  };
-
-  handleSubmit = (name, value) => {
-    const { projectId, epicId } = this.props;
-    const token = localStorage.getItem("jwt_token");
-
-    return Axios({
-      method: "PUT",
-      url: `${PORT}/api/v1/projects/${projectId}/epics/${epicId}`,
-      data: {
-        epic: {
-          [name]: value
-        }
-      },
-
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  };
-
-  deleteEpic = () => {
-    const { projectId, epicId, epicName, history } = this.props;
-
-    this.props.showConfirmationModal({
-      type: "delete",
-      message: `Are you sure you want to delete ${
-        epicName ? `${epicName} module?` : "this module?"
-      }`,
-      callback: () => {
-        this.props.deleteProjectEpic(projectId, epicId, () =>
-          history.push(`/dashboard/project/${projectId}`)
-        );
-      }
-    });
-  };
-
-  render() {
-    const {
-      handleSubmit,
-      submitting,
-      projectId,
-      epicId,
-      showEpic: {
-        epic: { name, cost, eta },
-        loaded
-      }
-    } = this.props;
-
-    return (
-      loaded && (
-        <StyledEpicPage edit>
-          <form onSubmit={handleSubmit}>
-            <EditEpicForm
-              projectId={projectId}
-              epicId={epicId}
-              epicName={name}
-              submitting={submitting}
-              handleSubmit={this.handleSubmit}
-              cost={cost}
-              deleteEpic={this.deleteEpic}
-              handleEtaForm={this.handleEtaForm}
-              eta={eta}
-              updateEpic={this.updateEpic}
-            />
-          </form>
-        </StyledEpicPage>
-      )
-    );
-  }
-}
-
-EditModule = reduxForm({
+const withForm = reduxForm({
   form: "EditModuleForm",
-  destroyOnUnmount: true,
-  forceUnregisterOnUnmount: true,
+  onSubmit: updateEpicFetch,
+  onSubmitSuccess: epicUpdated,
+  onSubmitFail: displayError,
   enableReinitialize: true,
   keepDirtyOnReinitialize: false
-})(EditModule);
+});
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  const { num } = props.match.params;
+  const epicId = state.epics.allIds[num - 1];
+
   return {
-    showEpic: state.showEpic,
-    initialValues: state.showEpic.epic
+    initialValues: state.epics.byId[epicId],
+    hasPermission: oneOfRoles(state.user.role, CUSTOMER, S_REDGUY)
   };
 };
 
-export default connect(mapStateToProps, {
-  deleteProjectEpic,
-  showConfirmationModal,
-  showProjectEpic
-})(EditModule);
+const mapDispatchToProps = {
+  deleteEpicFetch
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withForm(ModuleFrom)
+);
+
+// Axios({
+//   method: "PUT",
+//   url: `${PORT}/api/v1/projects/${projectId}/epics/${epicId}`,
+//   data: {
+//     epic: {
+//       [name]: value
+//     }
+//   }
+// });
