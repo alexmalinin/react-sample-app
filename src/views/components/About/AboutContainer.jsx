@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { getUserData } from "@ducks/user/actions";
 import { specialistOperations } from "@ducks/specialists";
 import { getExperienceLevels } from "@ducks/experienceLevels/actions";
 import { getIndustries } from "@ducks/industries/actions";
@@ -14,10 +15,12 @@ class AboutContainer extends Component {
       specialist,
       getSpecialist,
       getExperienceLevels,
-      getIndustries
+      getIndustries,
+      getUserData
     } = this.props;
 
     if (specialist) getSpecialist(specialist);
+    else getUserData();
     getExperienceLevels();
     getIndustries();
   }
@@ -297,7 +300,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = {
   ...specialistOperations,
   getExperienceLevels,
-  getIndustries
+  getIndustries,
+  getUserData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AboutContainer);
