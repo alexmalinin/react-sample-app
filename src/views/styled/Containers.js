@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { boxShadow, fontColors } from "./constants/colors";
+import { boxShadow, fontColors, colors } from "./constants/colors";
 
 export const ContainerLarge = styled.div`
   margin: 0 auto;
@@ -39,6 +39,7 @@ export const ContainerLarge = styled.div`
 `;
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   margin: 0 auto;
   padding: ${props =>
@@ -71,9 +72,9 @@ export const Container = styled.div`
 
   .preloader {
     position: absolute;
-    top: 500px;
+    top: 300px;
     left: 50%;
-    transform: translate(-50%, 0);
+    margin-left: -21px;
     opacity: 0;
     visibility: hidden;
   }
@@ -93,6 +94,35 @@ export const Container = styled.div`
     font-size: 30px;
     text-transform: uppercase;
     color: ${fontColors.black};
+  }
+
+  & > .default-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 600px;
+    font-size: 22px;
+    line-height: 30px;
+    color: ${fontColors.black};
+
+    & > h1 {
+      text-transform: uppercase;
+    }
+
+    & > p {
+      margin: 15px 0;
+    }
+
+    .link-green {
+      color: ${colors.green};
+    }
+    .link-purple {
+      color: ${colors.purple};
+    }
   }
 
   @media (max-width: 1920px) {

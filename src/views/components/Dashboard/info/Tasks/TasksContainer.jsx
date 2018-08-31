@@ -9,13 +9,15 @@ class TasksContainer extends Component {
   static propTypes = {
     summary: PropTypes.arrayOf(PropTypes.object),
     allEpics: PropTypes.array,
+    tasks: PropTypes.array,
     getEtaForWeek: PropTypes.func.isRequired,
     assignProjectName: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     summary: [],
-    allEpics: []
+    allEpics: [],
+    tasks: []
   };
 
   getTasks() {
@@ -60,7 +62,7 @@ class TasksContainer extends Component {
   }
 
   render() {
-    const { allEpics, getEtaForWeek, assignProjectName } = this.props;
+    const { allEpics, tasks, getEtaForWeek, assignProjectName } = this.props;
 
     const completedEpics = this.getEpics(),
       completedTasks = this.getTasks();
@@ -68,10 +70,13 @@ class TasksContainer extends Component {
     let epics = getEtaForWeek(allEpics);
     epics = assignProjectName(epics);
 
+    const allTasks = getEtaForWeek(tasks, true).length,
+      tasksDone = this.getCompletedTasks(allTasks);
+
     return (
       <div className="tasks">
         <div>
-          <TasksDone />
+          <TasksDone allTasks={allTasks} completedTasks={tasksDone} />
           <TasksCompleted
             completedEpics={completedEpics}
             completedTasks={completedTasks}

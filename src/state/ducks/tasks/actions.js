@@ -1,22 +1,33 @@
-import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
 import { fetch } from "../../utils";
 import { GET, POST, DELETE, createNotification } from "../../../utilities";
+import { task } from "../../schemas";
 
-export const showSpecialistEpic = () => {
-  //  Need a user id
-};
+const showSpecialistTasks = payload => ({
+  type: types.SHOW_SPECIALIST_TASKS,
+  payload,
+  meta: {
+    schema: [task]
+  }
+});
 
-export const showEpicTasks = epic => {
-  return dispatch => {
-    fetch(GET, `/epics/${epic}/tasks`).then(({ data }) => {
-      dispatch({
-        type: types.EPIC_TASKS_SHOW,
-        payload: mapKeys(data, "id")
-      });
-    });
-  };
-};
+export const getSpecialistTasks = id => dispatch =>
+  fetch(GET, `/specialists/${id}/tasks`).then(response =>
+    dispatch(showSpecialistTasks(response))
+  );
+
+const showEpicTasks = payload => ({
+  type: types.SHOW_EPIC_TASKS,
+  payload,
+  meta: {
+    schema: [task]
+  }
+});
+
+export const getEpicTasks = epic => dispatch =>
+  fetch(GET, `/epics/${epic}/tasks`).then(({ data }) => {
+    dispatch(showEpicTasks(data));
+  });
 
 export const createEpicTask = (data, epic, callback) => {
   return dispatch => {

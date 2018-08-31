@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
+import { NavLink } from "react-router-dom";
 
+import BoardSubHeader from "@components/BoardSubHeader";
 import EditProjectForm from "./EditProjectForm";
+import ModuleCard from "../ModuleCard";
 
 import { updateProject, publishProject } from "@ducks/projects/actions";
 import {
@@ -12,8 +15,16 @@ import {
 } from "@ducks/teams/actions";
 import { getSkills } from "@ducks/skills/actions";
 
+import {
+  PORT,
+  CLIENT,
+  SPECIALIST,
+  S_REDGUY,
+  createNotification,
+  renameObjPropNames
+} from "@utilities";
+
 import { getProjectTeam, getCustomTeams } from "@ducks/teams/selectors";
-import { PORT, createNotification, renameObjPropNames } from "@utilities";
 import { getDataForSelect } from "@utilities/selectors";
 
 class EditProject extends Component {
@@ -139,25 +150,64 @@ class EditProject extends Component {
   submit = values => this.props.publishProject(values);
 
   render() {
-    const { handleSubmit } = this.props;
+    const {
+      handleSubmit,
+      usertype,
+      userRole,
+      projectWithId: { id: projectId },
+      epics
+    } = this.props;
 
     return (
-      <EditProjectForm
-        {...this.props}
-        handleSubmit={handleSubmit(this.submit)}
-        handleAssignTeam={this.handleAssignTeam}
-        onSelfSubmit={this.onSelfSubmit}
-        handleSkills={this.handleSkills}
-        updateProject={this.updateProject}
-        handleRemove={this.handleRemove}
-      />
+      <Fragment>
+        <BoardSubHeader />
+        <EditProjectForm
+          {...this.props}
+          handleSubmit={handleSubmit(this.submit)}
+          handleAssignTeam={this.handleAssignTeam}
+          onSelfSubmit={this.onSelfSubmit}
+          handleSkills={this.handleSkills}
+          updateProject={this.updateProject}
+          handleRemove={this.handleRemove}
+        />
+
+        <div className="moduleWrapper">
+          {epics.allIds.map((id, key) => (
+            <ModuleCard
+              key={id}
+              epic={epics.byId[id]}
+              number={key + 1}
+              project={projectId}
+            />
+          ))}
+          {(usertype === CLIENT || userRole === S_REDGUY) && (
+            <div className="dragContainer addModuleContainer">
+              <h3>&nbsp;</h3>
+              <div className="module addModule">
+                <NavLink
+                  to={`/dashboard/project/${projectId}/module/new`}
+                  className="addButton"
+                >
+                  <span className="plus" />
+                  <span className="add">Add module</span>
+                </NavLink>
+              </div>
+            </div>
+          )}
+          {usertype === SPECIALIST &&
+            epics.allIds.length === 0 && (
+              <div className="noModules">
+                <p>No modules yet</p>
+              </div>
+            )}
+        </div>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = (state, { match: { params } }) => {
   const {
-    user: { role },
     projects,
     teams: { byId: allTeams },
     projectTypesReducer: { projectTypes },
@@ -167,7 +217,8 @@ const mapStateToProps = (state, { match: { params } }) => {
   const projectWithId = projects.byId[params.projectId] || {};
 
   return {
-    userRole: role,
+    usertype: state.user.type,
+    userRole: state.user.role,
     projectWithId,
     initialValues: {
       ...projectWithId,
@@ -176,7 +227,8 @@ const mapStateToProps = (state, { match: { params } }) => {
     projectTeam: getProjectTeam()(allTeams, params.projectId),
     allCustomTeams: getCustomTeams(allTeams),
     projectTypes,
-    skillsOptions: getDataForSelect()(skills, "value", "label")
+    skillsOptions: getDataForSelect()(skills, "value", "label"),
+    epics: state.epics
   };
 };
 

@@ -13,20 +13,16 @@ import {
   displayError
 } from "@utilities";
 
-const showAllProjects = payload => ({
-  type: types.SHOW_PROJECTS,
-  payload,
-  meta: {
-    schema: [project]
-  }
-});
-
 export const getAllProjects = () => (dispatch, getState) => {
   const { user } = getState();
   const url = getProjectUrl(user);
 
-  fetch(GET, url).then(res => {
-    dispatch(showAllProjects(res));
+  dispatch({
+    type: types.SHOW_PROJECTS,
+    payload: fetch(GET, url),
+    meta: {
+      schema: [project]
+    }
   });
 };
 

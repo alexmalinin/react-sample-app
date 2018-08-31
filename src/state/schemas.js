@@ -41,3 +41,7 @@ export const project = new schema.Entity(
     processStrategy: entity => omit(entity, "epics")
   }
 );
+
+export const task = new schema.Entity("tasks", {
+  specialists: [specialist]
+});

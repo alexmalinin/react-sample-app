@@ -1,23 +1,28 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import Dashboard from "./Dashboard";
 
 import { getAllProjects } from "@ducks/projects/actions";
+import { getSpecialistTasks, getEpicTasks } from "@ducks/tasks/actions";
 
-import { PORT, getUserUrl } from "@utilities";
+import { PORT, SPECIALIST, S_REDGUY, getUserUrl } from "@utilities";
 
 class DashboardContainer extends Component {
   state = {
-    summary: []
+    summary: [],
+    fetch: true,
+    epics: [],
+    tasks: []
   };
 
   componentDidMount() {
-    const { userId, usertype, getAllProjects } = this.props;
+    const { userId, usertype } = this.props;
 
-    getAllProjects();
+    this.props.getAllProjects();
 
     const user = getUserUrl(usertype);
 
@@ -26,6 +31,20 @@ class DashboardContainer extends Component {
       url: `${PORT}/api/v1/${user}/${userId}/dashboard`
     })
       .then(({ data }) => this.setState({ summary: data }))
+      .catch(error => console.error(error));
+
+    axios({
+      method: "GET",
+      url: `${PORT}/api/v1/${user}/${userId}/week_module`
+    })
+      .then(({ data }) => this.setState({ epics: data }))
+      .catch(error => console.error(error));
+
+    axios({
+      method: "GET",
+      url: `${PORT}/api/v1/${user}/${userId}/week_tasks`
+    })
+      .then(({ data }) => this.setState({ tasks: data }))
       .catch(error => console.error(error));
   }
 
@@ -55,30 +74,75 @@ class DashboardContainer extends Component {
       let proj = null;
 
       if (projects) {
-        proj = projects.allIds.filter(
-          id => projects.byId[id] === epic.project_id
+        proj = projects.allIds.find(
+          id => projects.byId[id].id === epic.project_id
         );
       }
 
-      epic["project_name"] = proj && proj.length > 0 ? proj[0].name : "Unnamed";
+      epic["project_name"] = proj ? projects.byId[proj].name : "Unnamed";
     });
 
     return epics;
   };
 
-  render() {
-    const { summary } = this.state;
-    const { epics } = this.props;
+  renderDefault = () => {
+    const { usertype, userRole } = this.props;
 
-    let allEpics = Object.keys(epics).map(id => epics[id]);
+    if (usertype === SPECIALIST && userRole !== S_REDGUY) {
+      return (
+        <div className="default-dashboard">
+          <h1>Welcome to the digital village</h1>
+          <p>Well....What happens now?</p>
+
+          <p>
+            We review your profile and one of our Producers will match you to a
+            client and invite you to a Project.
+          </p>
+
+          <p>
+            (So make sure your profile indicates all your capabilities and skill
+            sets so you don’t miss out)
+          </p>
+
+          <p>
+            <NavLink className="link-green" to="/profile/info?edit">
+              Update Profile
+            </NavLink>
+          </p>
+
+          <p>See what Digital Village Events are coming up!</p>
+
+          <p>
+            <a
+              className="link-purple"
+              href="https://digitalvillage.network/meetups/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Meetups
+            </a>
+          </p>
+        </div>
+      );
+    } else {
+      return <div className="default">There are no projects</div>;
+    }
+  };
+
+  render() {
+    const { summary, epics, tasks } = this.state;
+    const { getEpicTasks } = this.props;
 
     return (
       <Dashboard
         {...this.props}
         summary={summary}
-        allEpics={allEpics}
+        allEpics={epics}
+        tasks={tasks}
+        getEpicTasks={getEpicTasks}
         getEtaForWeek={this.getEtaForWeek}
         assignProjectName={this.assignProjectName}
+        renderDefault={this.renderDefault}
       />
     );
   }
@@ -88,11 +152,13 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userId: state.user.id,
     usertype: state.user.type,
-    projects: state.projects,
-    epics: state.epics
+    userRole: state.user.role,
+    projects: state.projects
   };
 };
 
 export default connect(mapStateToProps, {
-  getAllProjects
+  getAllProjects,
+  getSpecialistTasks,
+  getEpicTasks
 })(DashboardContainer);

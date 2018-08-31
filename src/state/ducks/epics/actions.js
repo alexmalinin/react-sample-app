@@ -86,7 +86,18 @@ export const epicUpdated = (res, dispatch) => {
   dispatch(updateEpic(res));
 };
 
+export const epicSelfUpdate = values => dispatch => {
+  let { project_id, id } = values;
+
+  return fetch(PUT, `/projects/${project_id}/epics/${id}`, {
+    epic: {
+      ...values
+    }
+  }).then(response => dispatch(updateEpic(response)));
+};
+
 export const updateEpicFetch = values => {
+  console.log("values", values);
   let { project_id, id } = values;
   return fetch(PUT, `/projects/${project_id}/epics/${id}`, {
     epic: {

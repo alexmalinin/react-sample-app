@@ -11,9 +11,9 @@ const Overview = ({ projects }) => (
       </div>
     </div>
     <div className="content">
-      {Object.keys(projects).map(id => (
-        <div key={projects[id].id}>
-          <p>{projects[id].name}</p>
+      {projects.allIds.map(id => (
+        <div key={id}>
+          <p>{projects.byId[id].name}</p>
         </div>
       ))}
     </div>

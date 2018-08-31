@@ -8,7 +8,7 @@ import ProjectCard from "./ProjectCard";
 class ProjectsContainer extends Component {
   static propTypes = {
     summary: PropTypes.arrayOf(PropTypes.object),
-    projects: PropTypes.objectOf(PropTypes.object)
+    projects: PropTypes.object
   };
 
   static defaultProps = {

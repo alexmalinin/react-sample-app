@@ -69,7 +69,7 @@ class ProjectSubHeader extends Component {
   render() {
     const {
       match: {
-        params: { projectId, moduleId, status }
+        params: { projectId, num: moduleId, status }
       },
       tasks,
       myTasks,
@@ -91,7 +91,7 @@ class ProjectSubHeader extends Component {
     const percents = Math.round(completedTasksCount / tasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
-      fade: !moduleId
+      fade: false
     });
 
     return (

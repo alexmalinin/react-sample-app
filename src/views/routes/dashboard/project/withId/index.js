@@ -7,10 +7,8 @@ import EnchancedRoute from "@views/utils/hoc/EnchancedRoute";
 import { Container } from "@styled/Containers";
 import StyledProject from "@components/Projects/StyledProject";
 
-import BoardSubHeader from "@components/BoardSubHeader";
 import EditProject from "@components/Projects/edit";
-import Kanban from "@components/Kanban";
-import Module from "@components/Module";
+import Module from "./module";
 import CreateModule from "@components/CreateModule";
 import NotFound from "@components/NotFound";
 
@@ -37,9 +35,9 @@ class Project extends React.Component {
 
   render() {
     const { project } = this.props;
+
     return (
       <Fragment>
-        <BoardSubHeader />
         <Container indentBot sidebarCondition transparent dashboardContainer>
           <StyledProject>
             <Switch>
@@ -50,17 +48,11 @@ class Project extends React.Component {
                 component={EditProject}
               />
               <EnchancedRoute
-                exact
-                path={`/dashboard/project/:projectId/module/:num([0-9]+)/edit`}
-                title={project.name}
-                component={Kanban}
-              />
-              <EnchancedRoute
-                exact
-                path={`/dashboard/project/:projectId/module/:num([0-9]+)/view`}
+                path={`/dashboard/project/:projectId/module/:num([0-9]+)`}
                 title={project.name}
                 component={Module}
               />
+
               <EnchancedRoute
                 exact
                 path={`/dashboard/project/:projectId/module/new`}
