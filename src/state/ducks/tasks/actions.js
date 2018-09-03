@@ -2,6 +2,7 @@ import * as types from "./types";
 import { fetch } from "../../utils";
 import { GET, POST, DELETE, createNotification } from "../../../utilities";
 import { task } from "../../schemas";
+import { getFiles, getSpecialistIds } from "./utils";
 
 const showSpecialistTasks = payload => ({
   type: types.SHOW_SPECIALIST_TASKS,
@@ -29,68 +30,36 @@ export const getEpicTasks = epic => dispatch =>
     dispatch(showEpicTasks(data));
   });
 
-export const createEpicTask = (data, epic, callback) => {
-  return dispatch => {
-    const files = data.file
-      ? data.file.map(({ document, title, size }) => {
-          return {
-            document,
-            title,
-            size,
-            entity_type: "Task"
-          };
-        })
-      : [];
-
-    const specialist_ids = [];
-    data["specIds"] &&
-      data["specIds"].split(",").forEach(id => specialist_ids.push(+id));
-
-    const body = {
+export const createEpicTask = payload => dispatch =>
+  dispatch({
+    type: types.EPIC_TASK_CREATE,
+    payload: fetch(POST, `/epics/${payload.epic}/tasks`, {
       task: {
-        name: data["name"],
-        description: data["description"],
-        epic_id: epic,
+        ...payload,
+        epic_id: payload.epic,
         state: 0,
-        specialist_ids,
-        eta: data["eta"],
-        cost: data["cost"],
-        user_story: data["user_story"],
-        deliverables: data["deliverables"],
-        business_requirements: data["business_requirements"],
-        business_rules: data["business_rules"],
-        notes: data["notes"],
-        attached_files_attributes: files
+        specialist_ids: getSpecialistIds(payload.specIds),
+        attached_files_attributes: getFiles(payload.file)
       },
 
       attached_files_attributes: {
-        document: data["file"]
+        document: payload["file"]
       }
-    };
-
-    dispatch({
-      type: types.EPIC_TASK_CREATE,
-      payload: fetch(POST, `/epics/${epic}/tasks`, body)
     })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
-        });
-
-        if (callback) {
-          callback();
-        }
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
+  })
+    .then(({ value: { data } }) => {
+      createNotification({
+        type: "success",
+        text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
       });
-  };
-};
+    })
+    .catch(error => {
+      createNotification({
+        type: "error"
+      });
+
+      console.error(error);
+    });
 
 /**
  * Delete task by epic

@@ -4,13 +4,11 @@ import { withRouter } from "react-router";
 import ClassNames from "classnames";
 
 import SubHeaderLinkWrap from "@UI/SubHeaderLink";
-
-import StyledSubHeader from "@styled/SubHeader";
-
-// import AddTaskModal from "../modals/AddTaskModal";
+import AddTaskModal from "@UI/modals/AddTask";
 import ProgressBars from "@UI/ProgressBar";
 
-// import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+import StyledSubHeader from "@styled/SubHeader";
+import StyledSubHeaderLink from "@styled/SubHeaderLink";
 
 import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "@utilities";
 import { oneOfRoles } from "@views/utils/functions";
@@ -29,8 +27,6 @@ class ProjectSubHeader extends Component {
         params: { status, projectId }
       }
     } = this.props;
-
-    // console.log(status);
 
     if (epics.loaded)
       return epics.allIds.map((id, key) => {
@@ -91,7 +87,7 @@ class ProjectSubHeader extends Component {
     const percents = Math.round(completedTasksCount / tasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
-      fade: false
+      fade: !moduleId
     });
 
     return (
@@ -128,7 +124,7 @@ class ProjectSubHeader extends Component {
                 {myTasksCount}
               </SubHeaderLinkWrap>
             )}
-          {/* {getUserRole() === S_REDGUY && (
+          {userRole === S_REDGUY && (
             <AddTaskModal
               epic={moduleId}
               project={projectId}
@@ -140,7 +136,7 @@ class ProjectSubHeader extends Component {
                 </a>
               }
             />
-          )} */}
+          )}
 
           {oneOfRoles(userRole, S_ACTIVE, S_CORE, S_REDGUY) &&
             status === "view" && (

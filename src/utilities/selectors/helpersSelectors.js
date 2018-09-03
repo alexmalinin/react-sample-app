@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const prepareForSelect = (state, value = "value", label = "label") => {
+const prepareForSelect = (state, value = "value", label = "text") => {
   let data = [];
 
   if (!state) {

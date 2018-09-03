@@ -10,6 +10,7 @@ import { Container } from "@styled/Containers";
 import StyledDashboard from "./StyledDashboard";
 
 const Dashboard = ({
+  userRole,
   projects,
   allEpics,
   tasks,
@@ -28,7 +29,7 @@ const Dashboard = ({
     >
       <i className="fa fa-spinner fa-3x fa-pulse preloader" />
 
-      <DashboardSubHeader dashboard />
+      <DashboardSubHeader dashboard userRole={userRole} />
       {projects.loaded &&
         projects.allIds.length > 0 && (
           <StyledDashboard>

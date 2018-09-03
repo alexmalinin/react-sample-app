@@ -3,7 +3,7 @@ import omit from "lodash/omit";
 import { createReducer } from "../../utils";
 import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
 
-const tasksReducer = createReducer([])({
+const tasksReducer = createReducer({})({
   [types.SHOW_SPECIALIST_TASKS]: (state, { payload }) => ({
     ...payload.entities.tasks
   }),

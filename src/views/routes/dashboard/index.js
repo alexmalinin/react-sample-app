@@ -24,11 +24,13 @@ import { getUserData } from "@ducks/user/actions";
 import "react-notifications/lib/notifications.css";
 import NotFound from "@components/NotFound";
 import DeleteConfirmation from "@UI/modals/DeleteConfirmation";
+import SubmitErrorModal from "@components/common/modals/SubmitErrorModal";
 
 const DashboardLayout = ({
   match,
   sidebar: { opened },
   toogleSidebar,
+  submitError,
   confirmModal
 }) => {
   return (
@@ -74,6 +76,8 @@ const DashboardLayout = ({
         <SideBarRight opened={opened} toggle={toogleSidebar} />
       </MainContainer>
       <NotificationContainer />
+
+      <SubmitErrorModal isOpen={submitError} />
       <DeleteConfirmation isOpen={!!confirmModal} {...confirmModal} />
     </div>
   );
@@ -82,6 +86,7 @@ const DashboardLayout = ({
 const mapStateToProps = (state, ownProps) => {
   return {
     sidebar: state.sidebar,
+    submitError: state.modals.submitError,
     confirmModal: state.modals.confirmModal
   };
 };

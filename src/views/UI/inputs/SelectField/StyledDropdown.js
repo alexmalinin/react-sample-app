@@ -1,7 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Dropdown } from "semantic-ui-react";
 
-import { fontColors, colors, primaryColors } from "@styled/constants/colors";
+import { fontColors, colors } from "@styled/constants/colors";
 
 export default styled(Dropdown)`
   &.ui.selection.dropdown {

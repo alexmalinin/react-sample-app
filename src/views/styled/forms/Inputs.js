@@ -217,7 +217,7 @@ export default styled.div`
       background: ${primaryColors.accentBackground};
       border-radius: 3px;
       font-weight: 500;
-      font-size: inherit;
+      font-size: inherit !important;
     }
 
     &.estimate {

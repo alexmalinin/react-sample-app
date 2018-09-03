@@ -222,7 +222,7 @@ const mapStateToProps = (state, { match: { params } }) => {
     projectWithId,
     initialValues: {
       ...projectWithId,
-      skills: getDataForSelect()(projectWithId.skills)
+      skills: getDataForSelect()(projectWithId.skills, "value", "label")
     },
     projectTeam: getProjectTeam()(allTeams, params.projectId),
     allCustomTeams: getCustomTeams(allTeams),

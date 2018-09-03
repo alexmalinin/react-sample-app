@@ -176,7 +176,7 @@ class AssignDropdown extends Component {
                       <img
                         data={specialist.id}
                         src={
-                          specialist.avatar.url
+                          specialist.avatar && specialist.avatar.url
                             ? IMAGE_PORT + specialist.avatar.url
                             : BLANK_AVATAR
                         }
