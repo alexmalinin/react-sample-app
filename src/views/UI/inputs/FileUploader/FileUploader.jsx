@@ -118,6 +118,7 @@ class FileUploader extends Component {
               this.setState({ loading: false });
             })
             .catch(error => {
+              console.log(error);
               this.setState({ loading: false, error });
             });
         } else {
@@ -208,8 +209,7 @@ class FileUploader extends Component {
 
   deleteAttachedFile = file => {
     const {
-      updateProject,
-      selfSubmit,
+      deleteCallback,
       meta: { dispatch, form }
     } = this.props;
     this.setState({ loading: true });
@@ -219,12 +219,8 @@ class FileUploader extends Component {
       .then(resp => {
         this.setState({ loading: false });
 
-        if (updateProject) {
-          updateProject();
-        }
-
-        if (selfSubmit) {
-          dispatch(submit(form));
+        if (deleteCallback) {
+          deleteCallback(resp);
         }
       })
       .catch(error => {

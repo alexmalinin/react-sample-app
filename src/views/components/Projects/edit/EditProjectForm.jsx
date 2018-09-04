@@ -56,7 +56,7 @@ const EditProjectForm = props => {
                   name="attached_files"
                   type="text"
                   component={FileUploader}
-                  updateProject={updateProject}
+                  deleteCallback={updateProject}
                   disabled={!hasPermission}
                   onSelfSubmit={onSelfSubmit}
                   className="projectFiles"

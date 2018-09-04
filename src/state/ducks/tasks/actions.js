@@ -5,13 +5,9 @@ import {
   POST,
   DELETE,
   REJECTED,
-<<<<<<< 6dfb329bdea44564e249b13b27bcf9147f864a7b
   createNotification,
-  PUT,
-  displayError
-=======
-  createNotification
->>>>>>> [Feature] Kanban board refactor
+  displayError,
+  PUT
 } from "../../../utilities";
 import { task } from "../../schemas";
 import { getFiles, getSpecialistIds } from "./utils";
@@ -81,17 +77,38 @@ export const createEpicTask = values => dispatch =>
     })
     .catch(displayError);
 
-const updateTask = payload => ({
-  type: types.UPDATE_EPIC_TASK,
-  payload
-});
-
 export const updateEpicTask = () => dispatch => {};
 
 const deleteTask = payload => ({
   type: types.DELETE_EPIC_TASK,
   payload
 });
+
+export const updateTask = payload => ({
+  type: types.UPDATE_EPIC_TASK,
+  payload
+});
+
+export const taskUpdated = (res, dispatch) => {
+  dispatch(updateTask(res));
+};
+
+export const updateTaskFetch = payload => {
+  console.log("updateTaskFetch", payload);
+  return fetch(PUT, `/epics/${payload.epic_id}/tasks/${payload.id}`, {
+    task: {
+      ...payload
+    }
+  });
+};
+
+/**
+ * Delete task by epic
+ *
+ * @param  {number} epic epic id
+ * @param  {number} task task id
+ * @param  {function} callback delete card from board
+ */
 
 export const deleteEpicTask = (epic, task) => dispatch =>
   fetch(DELETE, `/epics/${epic}/tasks/${task}`)

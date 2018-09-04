@@ -47,9 +47,9 @@ class CustomCard extends Component {
 
     console.log(specialistsDict);
 
-    const specialistCosts = specialist_tasks.find(
-      ({ specialist }) => user.id === specialist.id
-    );
+    const specialistCosts =
+      specialist_tasks &&
+      specialist_tasks.find(({ specialist }) => user.id === specialist.id);
 
     return (
       <div

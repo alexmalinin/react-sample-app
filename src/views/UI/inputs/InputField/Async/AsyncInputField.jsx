@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { initialize } from "redux-form";
+import { initialize, submit } from "redux-form";
 import { Input } from "semantic-ui-react";
 
 import StyledInputs from "@styled/forms/Inputs";
@@ -31,6 +31,7 @@ class InputField extends Component {
     const {
       meta: { dirty, dispatch, form, error },
       onSelfSubmit,
+      selfSubmit,
       input
     } = this.props;
 
@@ -56,6 +57,8 @@ class InputField extends Component {
           this.setState({ loading: false, updError: true });
         });
     }
+
+    !error && selfSubmit && dispatch(submit(form));
   };
 
   render() {

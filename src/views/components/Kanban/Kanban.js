@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { Provider, connect } from "react-redux";
-import store from "../../../state/store";
+import { connect } from "react-redux";
 import Board from "react-trello";
 import Axios from "axios";
 import filter from "lodash/filter";
 
 import CustomCard from "./CustomTaskCard";
-import EditTaskModal from "@components/Task";
+import EditTaskModal from "@UI/modals/EditTask";
 
 import { getProjectEpics } from "@ducks/epics/actions";
 import { tasksOperations } from "@ducks/tasks";
@@ -53,11 +52,8 @@ class Kanban extends Component {
   };
 
   handleCardClick = id => {
-    const { tasks } = this.props;
-
     if (id) {
-      let editTask = tasks.find(task => task.id === +id);
-      this.modal.open(editTask);
+      this.modal.open(id);
     }
   };
 
