@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import StyledBoard from "@styled/Board";
 import Kanban from "./Kanban";
+import BoardSubHeader from "@components/BoardSubHeader";
 
 import { getEpicTasks } from "@ducks/tasks/actions";
 

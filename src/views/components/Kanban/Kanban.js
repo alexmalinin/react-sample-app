@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import { Provider, connect } from "react-redux";
+import store from "../../../state/store";
 import Board from "react-trello";
 import Axios from "axios";
 import filter from "lodash/filter";
@@ -120,6 +121,7 @@ class Kanban extends Component {
             specialistList={specialists}
             assignSpecialist={this.assignSpecialist}
             removeSpecialist={this.removeSpecialist}
+            specialistsDict={specialists}
             user={user}
           />
         </Board>

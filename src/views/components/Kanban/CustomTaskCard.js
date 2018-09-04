@@ -41,8 +41,11 @@ class CustomCard extends Component {
       deleteTask,
       epic_id,
       laneId,
-      user
+      user,
+      specialistsDict
     } = this.props;
+
+    console.log(specialistsDict);
 
     const specialistCosts = specialist_tasks.find(
       ({ specialist }) => user.id === specialist.id
@@ -85,6 +88,7 @@ class CustomCard extends Component {
         <div className="persons">
           <MembersDropdown
             members={specialists}
+            specialists={specialistsDict}
             countToShow={3}
             position="bottom left"
             handleRemove={this.assignSpeciaist}

@@ -4,6 +4,7 @@ import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "./StyledAssignDropdown";
 
+import jwtDecode from "jwt-decode";
 import { IMAGE_PORT, BLANK_AVATAR } from "@utilities";
 
 class AssignDropdown extends Component {
