@@ -21,3 +21,4 @@ export { default as projectTypesReducer } from "./projectTypes";
 
 export { default as modals } from "./modals";
 export { default as sidebar } from "./sidebar";
+export { default as kanban } from "./kanban";

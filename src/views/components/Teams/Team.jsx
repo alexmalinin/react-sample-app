@@ -39,7 +39,7 @@ class Team extends Component {
   };
 
   renderToDashboard() {
-    const { team, specialists, user } = this.props;
+    const { team, user } = this.props;
 
     return (
       <Grid>
@@ -70,7 +70,11 @@ class Team extends Component {
         <Grid.Row className="channels">
           {team.channels &&
             team.channels.map(id => (
-              <Channel channelId={id} key={id} allSpecialists={specialists} />
+              <Channel
+                channelId={id}
+                key={id}
+                allSpecialists={team.specialists}
+              />
             ))}
           {allowedUsers.some(role => role === user.role) ? (
             <Form className="addChannel" onSubmit={this.submit}>
@@ -100,7 +104,7 @@ class Team extends Component {
   }
 
   renderToRightSidebar() {
-    const { team, specialists } = this.props;
+    const { team } = this.props;
 
     return (
       <div className="team-wrap">
@@ -111,7 +115,7 @@ class Team extends Component {
               <Channel
                 channelId={id}
                 key={id}
-                allSpecialists={specialists}
+                allSpecialists={team.specialists}
                 renderToRightSidebar
               />
             ))
@@ -137,13 +141,8 @@ class Team extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const {
-    team: { specialists = [] }
-  } = props;
-
   return {
-    user: state.user,
-    specialists: specialists.map(id => state.specialists[id])
+    user: state.user
   };
 };
 

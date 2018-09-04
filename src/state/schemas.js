@@ -9,10 +9,7 @@ export const channel = new schema.Entity("channels", {
 
 export const channels = new schema.Entity(
   "channels",
-  {
-    channels: [channel],
-    specialists: [specialist]
-  },
+  {},
   {
     processStrategy: entity => {
       entity.specialists.reverse();
@@ -22,17 +19,14 @@ export const channels = new schema.Entity(
 );
 
 export const team = new schema.Entity("teams", {
-  channels: [channel],
-  specialists: [specialist]
+  channels: [channel]
 });
 
 export const teams = new schema.Entity("teams", {
   teams: [team]
 });
 
-export const epic = new schema.Entity("epics", {
-  specialists: [specialist]
-});
+export const epic = new schema.Entity("epics");
 
 export const project = new schema.Entity(
   "projects",
@@ -42,6 +36,4 @@ export const project = new schema.Entity(
   }
 );
 
-export const task = new schema.Entity("tasks", {
-  specialists: [specialist]
-});
+export const task = new schema.Entity("tasks", {});

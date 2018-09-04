@@ -64,7 +64,7 @@ class SideBarLeft extends Component {
                           <NavLink
                             className="project-module"
                             to={`/dashboard/project/${project.id}/module/${key +
-                              1}/edit`}
+                              1}/view`}
                             key={id}
                           >
                             <span className="module-number">
@@ -84,11 +84,12 @@ class SideBarLeft extends Component {
                         </p>
                       )}
 
-                      {epics.loading && (
-                        <Dimmer active inverted>
-                          <Loader active />
-                        </Dimmer>
-                      )}
+                      {epics.loaded !== epics.current &&
+                        epics.loading && (
+                          <Dimmer active inverted>
+                            <Loader active />
+                          </Dimmer>
+                        )}
                     </div>
                   )}
                 </div>

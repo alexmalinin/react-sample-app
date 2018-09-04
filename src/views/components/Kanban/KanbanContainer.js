@@ -1,97 +1,75 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import StyledBoard from "@styled/Board";
 import Kanban from "./Kanban";
 
-class ProjectsBoard extends Component {
-  state = {
-    specialists: [],
-    fetchEpicTasks: true
-  };
+import { getEpicTasks } from "@ducks/tasks/actions";
 
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {
-    const {
-      match: {
-        params: { moduleId: currentEpic, projectId }
-      },
-      allEpics: { epics, loaded },
-      projectWithId: { project, loaded: projLoaded, projError }
-    } = nextProps;
-    let epicId;
-
-    if (loaded && currentEpic && Number.isInteger(+currentEpic) && projectId) {
-      if (+currentEpic > epics.length) {
-        nextProps.history.push(
-          `/dashboard/project/${projectId}/module/${epics.length}/view`
-        );
-      } else epicId = epics[currentEpic - 1].id;
-    }
-
-    if (projLoaded) {
-      if (!projError) {
-        document.title = `${project.name} | Digital Village`;
-      } else {
-        if (projError.response.status === 404) {
-          document.title = `Not found | Digital Village`;
-        }
-        if (projError.response.status === 500) {
-          document.title = `No access | Digital Village`;
-        }
-      }
-    }
-
-    if (nextProps.projectTeam) {
-      if (nextProps.projectTeam.project_id === +projectId) {
-        this.setState({ specialists: nextProps.projectTeam.specialists });
-      }
-    }
-
-    if (nextProps.createTask) {
-      if (this.props.createTask) {
-        if (this.props.createTask !== nextProps.createTask) {
-          nextProps.showEpicTasks(epicId);
-        }
-      } else nextProps.showEpicTasks(epicId);
-    }
-  }
-
+class KanbanContainer extends Component {
   toggleMyTasks = () => {
     this.setState({ myTasks: !this.state.myTasks });
   };
 
+  componentDidMount() {
+    this.props.epicId && this.props.getEpicTasks(this.props.epicId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { epicId: prevEpic } = this.props;
+    const { epicId: nextEpic } = nextProps;
+
+    if (prevEpic !== nextEpic) {
+      nextProps.getEpicTasks(nextEpic);
+    }
+  }
+
   render() {
-    const {
-      tasks: { loading, loaded, allTasks }
-    } = this.props;
+    const { tasks, projectId, epicId, myTasks } = this.props;
+    const { loading, loaded, allIds, byId, error } = tasks;
 
     return (
       <StyledBoard className={loading ? "loading" : ""}>
         {!loaded && loading && <p className="noTasks">Loading</p>}
         {loaded &&
-          (!!allTasks.length ? (
+          (!!allIds.length ? (
             <Kanban
-              tasks={allTasks}
-              myTasks={this.state.myTasks}
-              specialists={this.state.specialists}
+              // tasks={allIds.map(id => byId[id])}
+              tasks={tasks.byId}
+              myTasks={myTasks}
+              epicId={epicId}
+              projectId={projectId}
             />
           ) : (
             <p className="noTasks">There is no tasks yet</p>
           ))}
+        {!loading &&
+          error && (
+            <p className="noTasks">
+              Some error occured while your tasks was loading.
+            </p>
+          )}
       </StyledBoard>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, props) => {
+  const { projectId, num } = props.match.params;
+  const epicId = state.epics.allIds[num - 1];
   return {
-    tasks: state.tasks
+    projectId,
+    epicId,
+    tasks: state.tasks,
+    myTasks: state.kanban.myTasks
   };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  getEpicTasks
+};
 
-export default withRouter(connect(mapStateToProps)(ProjectsBoard));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(KanbanContainer)
+);

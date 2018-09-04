@@ -35,7 +35,7 @@ class CustomCard extends Component {
       id,
       specialists,
       specialistList,
-      specialist_tasks,
+      specialist_tasks = [],
       eta,
       cost,
       deleteTask,
@@ -88,13 +88,16 @@ class CustomCard extends Component {
             countToShow={3}
             position="bottom left"
             handleRemove={this.assignSpeciaist}
+            userRole={user.role}
+            userId={user.id}
             removeText="epic"
           />
           <AssignDropdown
             specialists={specialists}
             allSpecialists={specialistList}
             handleAssign={this.assignSpeciaist}
-            userType={[S_REDGUY]}
+            userTypes={[S_REDGUY]}
+            userRole={user.role}
             closeOnChange={true}
             bordered
           />

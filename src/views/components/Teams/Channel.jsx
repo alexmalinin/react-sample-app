@@ -70,7 +70,7 @@ class Channel extends Component {
   };
 
   renderToDashboard() {
-    const { channel, allSpecialists, specialists } = this.props;
+    const { channel, allSpecialists, user } = this.props;
     const { name, showDeleteConfirmation } = this.state;
     const isGeneral = channel.name === "General";
 
@@ -116,11 +116,13 @@ class Channel extends Component {
         </div>
         <div className="members">
           {channel.specialists &&
-            channel.specialists.map(id => (
+            channel.specialists.map(specialist => (
               <PersonTile
-                key={id}
-                specialist={specialists[id]}
+                key={specialist.id}
+                specialist={specialist}
                 handleRemove={this.handleAssign}
+                userRole={user.role}
+                userId={user.id}
                 labeled
                 removeTitle="channel"
                 hideDelete={isGeneral}
@@ -144,7 +146,7 @@ class Channel extends Component {
   }
 
   renderToRightSidebar() {
-    const { channel, allSpecialists } = this.props;
+    const { channel, allSpecialists, user } = this.props;
     const isGeneral = channel.name === "General";
 
     return (
@@ -156,6 +158,8 @@ class Channel extends Component {
             members={channel.specialists}
             countToShow={3}
             position="bottom left"
+            userRole={user.role}
+            userId={user.id}
             handleRemove={this.handleAssign}
             removeText="channel"
             hideDelete={isGeneral}

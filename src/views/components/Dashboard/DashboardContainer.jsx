@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import Dashboard from "./Dashboard";
 
 import { getAllProjects } from "@ducks/projects/actions";
-import { getSpecialistTasks, getEpicTasks } from "@ducks/tasks/actions";
+import { getEpicTasks } from "@ducks/tasks/actions";
 
 import { PORT, SPECIALIST, S_REDGUY, getUserUrl } from "@utilities";
 
@@ -159,6 +159,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   getAllProjects,
-  getSpecialistTasks,
   getEpicTasks
 })(DashboardContainer);

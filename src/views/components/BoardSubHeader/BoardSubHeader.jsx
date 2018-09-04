@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import ClassNames from "classnames";
+import pathToRegexp from "path-to-regexp";
 
 import SubHeaderLinkWrap from "@UI/SubHeaderLink";
 import AddTaskModal from "@UI/modals/AddTask";
@@ -9,6 +10,8 @@ import ProgressBars from "@UI/ProgressBar";
 
 import StyledSubHeader from "@styled/SubHeader";
 import StyledSubHeaderLink from "@styled/SubHeaderLink";
+
+import { toggleMyTasks } from "@ducks/kanban/actions";
 
 import { S_REDGUY, CUSTOMER, S_ACTIVE, S_CORE } from "@utilities";
 import { oneOfRoles } from "@views/utils/functions";
@@ -19,12 +22,11 @@ class ProjectSubHeader extends Component {
     tasks: []
   };
 
-  renderProgressBars = () => {
+  renderProgressBars = status => {
     const {
       epics,
-      tasks,
       match: {
-        params: { status, projectId }
+        params: { projectId }
       }
     } = this.props;
 
@@ -65,25 +67,31 @@ class ProjectSubHeader extends Component {
   render() {
     const {
       match: {
-        params: { projectId, num: moduleId, status }
+        params: { projectId }
       },
-      tasks,
-      myTasks,
-      userRole
+      location: { pathname },
+      kanban: { myTasks },
+      tasks: { loaded, allIds, byId },
+      toggleMyTasks,
+      userRole,
+      userId
     } = this.props;
 
-    const tasksCount = tasks.length;
+    const re = pathToRegexp(
+      "/dashboard/project/:projectId/module/:num/:status"
+    );
+
+    const [url, project, moduleId, status] = re.exec(pathname) || [];
+    const tasksCount = allIds.length;
 
     let completedTasksCount = 0,
       myTasksCount = 0;
-    // loaded &&
-    //   tasks.forEach(task => {
-    //     (task.state === "done" || task.state === "accepted") &&
-    //       completedTasksCount++;
-    //     task.specialists.some(
-    //       spec => spec.id === getUserId() && myTasksCount++
-    //     );
-    //   });
+    loaded &&
+      allIds.forEach(id => {
+        (byId[id].state === "done" || byId[id].state === "accepted") &&
+          completedTasksCount++;
+        byId[id].specialists.some(spec => spec.id === userId && myTasksCount++);
+      });
     const percents = Math.round(completedTasksCount / tasksCount * 100) || 0;
 
     const rightBarsClass = ClassNames("right", "board-progress-bars", {
@@ -101,7 +109,8 @@ class ProjectSubHeader extends Component {
             <span>All</span>
           </SubHeaderLinkWrap>
 
-          {this.renderProgressBars()}
+          {this.renderProgressBars(status)}
+
           {(userRole === CUSTOMER || userRole === S_REDGUY) && (
             <SubHeaderLinkWrap
               label="Add module"
@@ -110,6 +119,7 @@ class ProjectSubHeader extends Component {
             />
           )}
         </div>
+
         <div className={rightBarsClass}>
           {(userRole === S_ACTIVE || userRole === S_CORE) &&
             status !== "edit" && (
@@ -119,11 +129,12 @@ class ProjectSubHeader extends Component {
                 className={`right-link my-tasks${
                   myTasks ? " active" : " unactive"
                 }`}
-                onClick={this.props.toggleMyTasks}
+                onClick={toggleMyTasks}
               >
                 {myTasksCount}
               </SubHeaderLinkWrap>
             )}
+
           {userRole === S_REDGUY && (
             <AddTaskModal
               epic={moduleId}
@@ -176,8 +187,17 @@ class ProjectSubHeader extends Component {
 const mapStateToProps = (state, props) => {
   return {
     userRole: state.user.role,
-    epics: state.epics
+    userId: state.user.id,
+    epics: state.epics,
+    tasks: state.tasks,
+    kanban: state.kanban
   };
 };
 
-export default withRouter(connect(mapStateToProps)(ProjectSubHeader));
+const mapDispatchToProps = {
+  toggleMyTasks
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ProjectSubHeader)
+);

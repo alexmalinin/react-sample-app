@@ -28,7 +28,7 @@ const showEpics = (payload, projectId) => ({
   }
 });
 
-const showEpicsFail = payload => ({
+const setEpicsFail = payload => ({
   type: types.SHOW_EPICS + REJECTED,
   payload
 });
@@ -43,7 +43,7 @@ export const getProjectEpics = projectId => (dispatch, getState) => {
       }
     })
     .catch(error => {
-      dispatch(showEpicsFail(error));
+      dispatch(setEpicsFail(error));
       console.error(error);
     });
 };

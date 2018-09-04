@@ -7,6 +7,7 @@ import EnchancedRoute from "@views/utils/hoc/EnchancedRoute";
 import { Container } from "@styled/Containers";
 import StyledProject from "@components/Projects/StyledProject";
 
+import BoardSubHeader from "@components/BoardSubHeader";
 import EditProject from "@components/Projects/edit";
 import Module from "./module";
 import CreateModule from "@components/CreateModule";
@@ -38,6 +39,7 @@ class Project extends React.Component {
 
     return (
       <Fragment>
+        <BoardSubHeader />
         <Container indentBot sidebarCondition transparent dashboardContainer>
           <StyledProject>
             <Switch>

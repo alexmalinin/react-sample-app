@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import Board from "react-trello";
 import Axios from "axios";
+import filter from "lodash/filter";
 
 import CustomCard from "./CustomTaskCard";
 import EditTaskModal from "@components/Task";
@@ -11,7 +12,7 @@ import { tasksOperations } from "@ducks/tasks";
 import { isRedguy } from "@ducks/user/selectors";
 import { PORT } from "@utilities";
 
-class KanbanBoard extends Component {
+class Kanban extends Component {
   state = {
     tasks: [],
     showBoard: false,
@@ -21,27 +22,18 @@ class KanbanBoard extends Component {
   };
 
   handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    const {
-      updateEpicTask,
-      showEpicTasks,
-      getProjectEpics,
-      showEpic: { epic }
-    } = this.props;
+    const { getProjectEpics, projectId, epicId } = this.props;
 
-    // updateEpicTask({ state: +targetLaneId }, epic.id, cardId);
     Axios({
       method: "PUT",
-      url: `${PORT}/api/v1/epics/${epic.id}/tasks/${cardId}`,
+      url: `${PORT}/api/v1/epics/${epicId}/tasks/${cardId}`,
       data: {
         task: { state: +targetLaneId }
-      },
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`
       }
     })
       .then(response => {
-        getProjectEpics(epic.project_id);
         this.loadTasks();
+        getProjectEpics(projectId);
       })
       .catch(error => {
         console.error(error);
@@ -59,10 +51,6 @@ class KanbanBoard extends Component {
     removeSpecialistFromTask(epicId, +task, specialist);
   };
 
-  componentWillReceiveProps(nextProps) {
-    // console.log(difference(this.props, nextProps));
-  }
-
   handleCardClick = id => {
     const { tasks } = this.props;
 
@@ -79,24 +67,17 @@ class KanbanBoard extends Component {
   };
 
   deleteTask = (epic, id, laneId) => {
-    this.props.deleteEpicTask(epic, +id, this.loadTasks);
+    this.props.deleteEpicTask(epic, +id);
   };
 
   loadTasks = () => {
     //krunch
-    const {
-      match: {
-        params: { moduleId }
-      },
-      showEpic: { epic },
-      showEpicTasks
-    } = this.props;
-    showEpicTasks(epic.id);
+    const { epicId, getEpicTasks } = this.props;
+    getEpicTasks(epicId);
   };
 
   render() {
     const { tasks, specialists, isRedguy, user, epicId } = this.props;
-
     const { editingTask } = this.state;
 
     return (
@@ -107,27 +88,26 @@ class KanbanBoard extends Component {
               {
                 id: "0",
                 title: "Backlog",
-                cards: tasks.filter(task => task.state === "backlog")
+                cards: filter(tasks, task => task.state === "backlog")
               },
               {
                 id: "1",
                 title: "In progress",
-                cards: tasks.filter(task => task.state === "in_progress")
+                cards: filter(tasks, task => task.state === "in_progress")
               },
               {
                 id: "2",
                 title: "Done",
-                cards: tasks.filter(task => task.state === "done")
+                cards: filter(tasks, task => task.state === "done")
               },
               {
                 id: "3",
                 title: "Accepted",
-                cards: tasks.filter(task => task.state === "accepted")
+                cards: filter(tasks, task => task.state === "accepted")
               }
             ]
           }}
           eventBusHandle={handle => (this.kanbanEvent = handle)}
-          // className={kanbanClass}
           className="kanban"
           draggable={isRedguy}
           customCardLayout
@@ -159,21 +139,23 @@ class KanbanBoard extends Component {
 
 const mapStateToProps = (state, props) => {
   const { user } = state;
-  let { tasks } = state;
-  const { myTasks, match } = props;
+  const { myTasks, projectId } = props;
+  let { tasks } = props;
 
   if (myTasks) {
-    tasks = tasks.filter(task =>
+    tasks = filter(tasks, task =>
       task.specialists.some(spec => spec.id === user.id)
     );
   }
 
+  const team = state.projects.byId[projectId].team.id;
+  const { specialists } = state.teams.byId[team];
+
   return {
-    user: user,
-    isRedguy: isRedguy(user),
+    user,
+    isRedguy: isRedguy()(user),
     tasks,
-    epicId: state.epics.allIds[match.params.num - 1],
-    deleteTask: state.deleteTask
+    specialists
   };
 };
 
@@ -182,4 +164,4 @@ const mapDispatchToProps = {
   getProjectEpics
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(KanbanBoard);
+export default connect(mapStateToProps, mapDispatchToProps)(Kanban);

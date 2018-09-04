@@ -27,3 +27,18 @@ const ModuleLayout = () => {
 };
 
 export default ModuleLayout;
+
+// import { connect } from "react-redux";
+// const ModuleLayout = ({ state }) => {
+//   if (state === "view") return <Kanban />;
+//   if (state === "edit") return <Module />;
+//   return null;
+// };
+
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     state: state.kanban.state
+//   };
+// };
+
+// export default connect(mapStateToProps)(ModuleLayout);

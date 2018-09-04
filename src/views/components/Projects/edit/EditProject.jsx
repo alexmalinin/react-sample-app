@@ -160,7 +160,6 @@ class EditProject extends Component {
 
     return (
       <Fragment>
-        <BoardSubHeader />
         <EditProjectForm
           {...this.props}
           handleSubmit={handleSubmit(this.submit)}

@@ -33,6 +33,7 @@
     "moment": "^2.22.1",
     "normalizr": "^3.2.4",
     "object-assign": "4.1.1",
+    "path-to-regexp": "^2.4.0",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "progressbar.js": "^1.0.1",

@@ -7,6 +7,10 @@ import { StyledAssignDropdown } from "./StyledAssignDropdown";
 import { IMAGE_PORT, BLANK_AVATAR } from "@utilities";
 
 class AssignDropdown extends Component {
+  static defaultProps = {
+    specialists: []
+  };
+
   state = {
     options: [],
     showDropdown: false,
@@ -17,9 +21,11 @@ class AssignDropdown extends Component {
 
   openDropdown = e => {
     e.stopPropagation();
+    console.log(this.props);
     this.setState(
       {
         options: this.props.allSpecialists,
+        assignedIds: this.props.specialists.map(spec => spec.id),
         showDropdown: true
       },
       () => {
@@ -123,11 +129,10 @@ class AssignDropdown extends Component {
       renderToDashboard,
       renderToModal,
       userTypes,
-      userRole,
       bordered,
-      specialists
+      userRole
     } = this.props;
-    const { options, showDropdown } = this.state;
+    const { options, assignedIds, showDropdown } = this.state;
     const renderCondition = userTypes.some(type => type === userRole);
 
     return (
@@ -168,7 +173,7 @@ class AssignDropdown extends Component {
                       data={specialist.id}
                       onClick={this.handleAssign}
                       className={
-                        specialists.indexOf(specialist.id) >= 0
+                        assignedIds.indexOf(specialist.id) >= 0
                           ? "assigned"
                           : ""
                       }
@@ -197,9 +202,9 @@ class AssignDropdown extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, props) => {
   return {
-    userRole: state.user.role
+    userRole: state.user ? state.user.role : props.userRole
   };
 };
 

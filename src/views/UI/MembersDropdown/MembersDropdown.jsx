@@ -11,7 +11,8 @@ class MembersDropdown extends Component {
   };
 
   static defaultProps = {
-    members: []
+    members: [],
+    specialists: {}
   };
 
   static propTypes = {
@@ -79,24 +80,27 @@ class MembersDropdown extends Component {
   render() {
     const {
       members,
-      specialists,
       countToShow,
       hideDelete,
-      removeText
+      removeText,
+      userRole,
+      userId
     } = this.props;
     const { showDropdown } = this.state;
     const rest = members.length - countToShow;
 
     return (
       <StyledDropdown>
-        {members.slice(0, countToShow).map(id => {
+        {members.slice(0, countToShow).map(specialist => {
           return (
             <PersonTile
-              key={id}
-              specialist={specialists[id]}
+              key={specialist.id}
+              specialist={specialist}
               handleRemove={this.handleAssign}
               removeTitle={removeText}
               hideDelete={hideDelete}
+              userRole={userRole}
+              userId={userId}
               compressed
             />
           );
@@ -117,12 +121,14 @@ class MembersDropdown extends Component {
                 onClick={e => e.stopPropagation()}
               >
                 <h3>Members</h3>
-                {members.map(id => {
+                {members.map(specialist => {
                   return (
                     <PersonTile
-                      key={id}
-                      specialist={specialists[id]}
+                      key={specialist.id}
+                      specialist={specialist}
                       handleRemove={this.handleAssign}
+                      userRole={userRole}
+                      userId={userId}
                       removeTitle={removeText}
                       hideDelete={hideDelete}
                     />
@@ -137,10 +143,4 @@ class MembersDropdown extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    specialists: state.specialists
-  };
-};
-
-export default connect(mapStateToProps)(MembersDropdown);
+export default MembersDropdown;

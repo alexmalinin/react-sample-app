@@ -1,96 +1,118 @@
 import * as types from "./types";
 import { fetch } from "../../utils";
-import { GET, POST, DELETE, createNotification } from "../../../utilities";
+import {
+  GET,
+  POST,
+  DELETE,
+  REJECTED,
+  createNotification,
+  PUT,
+  displayError
+} from "../../../utilities";
 import { task } from "../../schemas";
 import { getFiles, getSpecialistIds } from "./utils";
 
-const showSpecialistTasks = payload => ({
-  type: types.SHOW_SPECIALIST_TASKS,
-  payload,
-  meta: {
-    schema: [task]
-  }
+const setEpic = payload => ({
+  type: types.SET_EPIC,
+  payload
 });
 
-export const getSpecialistTasks = id => dispatch =>
-  fetch(GET, `/specialists/${id}/tasks`).then(response =>
-    dispatch(showSpecialistTasks(response))
-  );
-
-const showEpicTasks = payload => ({
+const showEpicTasks = (payload, epic) => ({
   type: types.SHOW_EPIC_TASKS,
   payload,
+  epic,
   meta: {
     schema: [task]
   }
 });
 
-export const getEpicTasks = epic => dispatch =>
-  fetch(GET, `/epics/${epic}/tasks`).then(({ data }) => {
-    dispatch(showEpicTasks(data));
-  });
+const setTasksFail = (payload, epic) => ({
+  type: types.SHOW_EPIC_TASKS + REJECTED,
+  payload,
+  epic
+});
 
-export const createEpicTask = payload => dispatch =>
-  dispatch({
-    type: types.EPIC_TASK_CREATE,
-    payload: fetch(POST, `/epics/${payload.epic}/tasks`, {
-      task: {
-        ...payload,
-        epic_id: payload.epic,
-        state: 0,
-        specialist_ids: getSpecialistIds(payload.specIds),
-        attached_files_attributes: getFiles(payload.file)
-      },
-
-      attached_files_attributes: {
-        document: payload["file"]
+export const getEpicTasks = epic => (dispatch, getState) => {
+  dispatch(setEpic(epic));
+  fetch(GET, `/epics/${epic}/tasks`)
+    .then(res => {
+      if (getState().tasks.current === epic) {
+        dispatch(showEpicTasks(res, epic));
       }
     })
+    .catch(error => {
+      dispatch(setTasksFail(error, epic));
+      console.error(error);
+    });
+};
+
+const createTask = payload => ({
+  type: types.CREATE_EPIC_TASK,
+  payload
+});
+
+export const createEpicTask = values => dispatch =>
+  fetch(POST, `/epics/${values.epic}/tasks`, {
+    task: {
+      ...values,
+      epic_id: values.epic,
+      state: 0,
+      specialist_ids: getSpecialistIds(values.specIds),
+      attached_files_attributes: getFiles(values.file)
+    },
+
+    attached_files_attributes: {
+      document: values["file"]
+    }
   })
-    .then(({ value: { data } }) => {
+    .then(res => {
+      const { data } = res;
+
       createNotification({
         type: "success",
         text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
       });
+
+      dispatch(createTask(res));
     })
-    .catch(error => {
+    .catch(displayError);
+
+const updateTask = payload => ({
+  type: types.UPDATE_EPIC_TASK,
+  payload
+});
+
+export const updateEpicTask = () => dispatch => {};
+
+const deleteTask = payload => ({
+  type: types.DELETE_EPIC_TASK,
+  payload
+});
+
+export const deleteEpicTask = (epic, task) => dispatch =>
+  fetch(DELETE, `/epics/${epic}/tasks/${task}`)
+    .then(res => {
+      const { data } = res;
       createNotification({
-        type: "error"
+        type: "success",
+        text: `${data.name ? `${data.name} epic ` : "Epic"} was deleted`
       });
-
-      console.error(error);
-    });
-
-/**
- * Delete task by epic
- *
- * @param  {number} epic epic id
- * @param  {number} task task id
- * @param  {function} callback delete card from board
- */
-
-export const deleteEpicTask = (epic, task, callback) => {
-  return dispatch => {
-    dispatch({
-      type: types.EPIC_TASK_DELETE,
-      payload: fetch(DELETE, `/epics/${epic}/tasks/${task}`)
+      dispatch(deleteTask(res));
     })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} epic ` : "Epic"} was deleted`
-        });
+    .catch(displayError);
 
-        if (callback) {
-          callback();
-        }
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
+export const assignSpecialistToTask = (epic, task, id) => dispatch => {
+  fetch(PUT, `/epics/${epic}/tasks/${task}/assign`, { specialist_id: id })
+    .then(res => {
+      dispatch(updateTask(res));
+    })
+    .catch(displayError);
+};
 
-        console.error(error);
-      });
-  };
+export const removeSpecialistFromTask = (epic, task, id) => dispatch => {
+  fetch(DELETE, `/epics/${epic}/tasks/${task}/remove/${id}`)
+    .then(res => {
+      dispatch(updateTask(res));
+    })
+    .catch(displayError);
 };

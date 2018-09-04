@@ -72,8 +72,9 @@ class PersonTile extends Component {
       removeTitle,
       renderToDashboard,
       hideDelete,
+      compressed,
       userRole,
-      compressed
+      userId
     } = this.props;
 
     const { showDropdown } = this.state;
@@ -118,10 +119,11 @@ class PersonTile extends Component {
         {showDropdown && (
           <DeleteTile
             ref={el => (this.dropdown = el)}
+            userRole={userRole}
+            userId={userId}
             specialist={specialist}
             removeTitle={removeTitle}
             showDropdown={showDropdown}
-            userRole={userRole}
             hideDelete={hideDelete}
             removeSpecialist={this.removeSpecialist}
           />
@@ -159,14 +161,14 @@ class DeleteTile extends Component {
   render() {
     const {
       userRole,
+      userId,
       specialist,
       removeTitle,
       showDropdown,
       removeSpecialist,
       hideDelete
     } = this.props;
-    const { user_id, role } = jwtDecode(localStorage.getItem("jwt_token"));
-    const thisUser = specialist.id === user_id && role !== CUSTOMER;
+    const thisUser = specialist.id === userId && userRole !== CUSTOMER;
     const fullName = specialist.first_name + " " + specialist.last_name;
 
     return (
@@ -219,9 +221,4 @@ class DeleteTile extends Component {
   }
 }
 
-export default connect(
-  ({ user }) => ({
-    userRole: user.role
-  }),
-  null
-)(PersonTile);
+export default PersonTile;
