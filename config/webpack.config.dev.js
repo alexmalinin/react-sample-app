@@ -86,7 +86,6 @@ module.exports = {
       "@views": path.resolve(__dirname, '../src/views/'),
       "@ducks": path.resolve(__dirname, '../src/state/ducks'),
       "@components": path.resolve(__dirname, '../src/views/components'),
-      "@layouts": path.resolve(__dirname, '../src/views/layouts'),
       "@UI": path.resolve(__dirname, '../src/views/UI'),
       "@styled": path.resolve(__dirname, '../src/views/styled'),
       "@utilities": path.resolve(__dirname, '../src/utilities'),
