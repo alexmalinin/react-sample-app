@@ -1,73 +1,74 @@
 import * as types from "./types";
+import { combineReducers } from "redux";
 import omit from "lodash/omit";
-import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import merge from "lodash/merge";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  teams: {},
-  error: null
+import { createReducer } from "../../utils";
+import { FULFILLED } from "@utilities";
+import { CREATE_CHANNEL, DELETE_CHANNEL } from "../channels/types";
+
+const teamsById = (state = {}, action) => {
+  switch (action.type) {
+    case types.SHOW_TEAMS + FULFILLED:
+      return merge({ ...state }, action.payload.entities.teams);
+    case types.DELETE_CUSTOM_TEAM + FULFILLED:
+      return omit(state, action.payload.data.id);
+    case CREATE_CHANNEL:
+      return addChannel(state, action);
+    case DELETE_CHANNEL:
+      return deleteChannel(state, action);
+    case types.CREATE_CUSTOM_TEAM + FULFILLED:
+    case types.SHOW_TEAM:
+      return {
+        ...state,
+        ...action.payload.entities.teams
+      };
+    default:
+      return state;
+  }
 };
 
-const teamsReducer = createReducer(initialState)({
-  [types.SHOW_TEAMS]: (state, { payload }) => ({
+const allTeams = createReducer([])({
+  [types.SHOW_TEAMS + FULFILLED]: (state, { payload }) => payload.result,
+
+  [types.DELETE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) =>
+    state.filter(id => id !== payload.data.id),
+
+  [types.CREATE_CUSTOM_TEAM + FULFILLED]: (state, { payload }) =>
+    state.concat(payload.result)
+});
+
+// Reducer helpers
+
+const addChannel = (state, action) => {
+  const { team_id, id } = action.payload;
+  const team = state[team_id];
+
+  return {
     ...state,
-    teams: {
-      ...state.teams,
-      ...payload
+    [team_id]: {
+      ...team,
+      channels: team.channels.concat(id)
     }
-  }),
+  };
+};
 
-  [types.SHOW_CUSTOM_TEAMS]: (state, { payload }) => ({
+const deleteChannel = (state, action) => {
+  const { team_id, id } = action.payload;
+  const team = state[team_id];
+
+  return {
     ...state,
-    teams: {
-      ...state.teams,
-      ...payload
+    [team_id]: {
+      ...team,
+      channels: team.channels.filter(channel => channel !== id)
     }
-  }),
+  };
+};
 
-  [types.CUSTOM_TEAM_CREATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CUSTOM_TEAM_CREATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    teams: {
-      ...state.teams,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CUSTOM_TEAM_CREATE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    teams: {
-      ...omit(state.teams, payload.data.id)
-    }
-  }),
-
-  [types.CUSTOM_TEAM_DELETE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  })
+const teamsReducer = combineReducers({
+  byId: teamsById,
+  allIds: allTeams
 });
 
 export default teamsReducer;

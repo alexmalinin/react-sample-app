@@ -1,3 +1,5 @@
-export const EPICS_SHOW = "EPICS_SHOW";
-export const PROJECT_EPIC_CREATE = "PROJECT_EPIC_CREATE";
-export const PROJECT_EPIC_DELETE = "PROJECT_EPIC_DELETE";
+export const SET_PROJECT = "SET_PROJECT";
+export const CREATE_EPIC = "CREATE_EPIC";
+export const SHOW_EPICS = "SHOW_EPICS";
+export const UPDATE_EPIC = "UPDATE_EPIC";
+export const DELETE_EPIC = "DELETE_EPIC";

@@ -1,3 +1,5 @@
-export const EPIC_TASKS_SHOW = "EPIC_TASKS_SHOW";
-export const EPIC_TASK_CREATE = "EPIC_TASK_CREATE";
-export const EPIC_TASK_DELETE = "EPIC_TASK_DELETE";
+export const SET_EPIC = "SET_EPIC";
+export const SHOW_EPIC_TASKS = "SHOW_EPIC_TASKS";
+export const CREATE_EPIC_TASK = "CREATE_EPIC_TASK";
+export const UPDATE_EPIC_TASK = "UPDATE_EPIC_TASK";
+export const DELETE_EPIC_TASK = "DELETE_EPIC_TASK";

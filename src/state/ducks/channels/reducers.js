@@ -1,73 +1,31 @@
 import * as types from "./types";
 import omit from "lodash/omit";
-import { createReducer } from "../../utils";
-import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
+import merge from "lodash/merge";
+import {
+  SHOW_TEAM_CHANNELS,
+  CREATE_CUSTOM_TEAM,
+  SHOW_TEAM
+} from "../teams/types";
+import { FULFILLED } from "@utilities";
 
-const initialState = {
-  loading: false,
-  loaded: false,
-  channels: {},
-  error: null
+const channelsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SHOW_TEAM:
+    case CREATE_CUSTOM_TEAM + FULFILLED:
+    case SHOW_TEAM_CHANNELS + FULFILLED:
+      return merge({ ...state }, action.payload.entities.channels);
+    case types.CREATE_CHANNEL:
+      return { ...state, [action.payload.id]: action.payload };
+    case types.UPDATE_CHANNEL:
+      return { ...state, ...action.payload.entities.channels };
+    case types.DELETE_CHANNEL:
+      return omit(state, action.payload.id);
+    case types.ADD_TO_CHANNEL:
+    case types.REMOVE_FROM_CHANNEL:
+      return { ...state, ...action.payload.entities.channels };
+    default:
+      return state;
+  }
 };
-
-const channelsReducer = createReducer(initialState)({
-  [types.CHANNELS_SHOW]: (state, action) => ({
-    ...state,
-    channels: {
-      ...state.channels,
-      ...action.payload
-    }
-  }),
-
-  [types.CHANNEL_CREATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_CREATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    channels: {
-      ...state.channels,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CHANNEL_UPDATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_UPDATE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    channels: {
-      ...state.channels,
-      [payload.data.id]: payload.data
-    }
-  }),
-
-  [types.CHANNEL_DELETE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.CHANNEL_DELETE + FULFILLED]: (state, { payload }) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    channels: {
-      ...omit(state.channels, payload.data.id)
-    }
-  }),
-
-  [types.CHANNEL_DELETE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  })
-});
 
 export default channelsReducer;

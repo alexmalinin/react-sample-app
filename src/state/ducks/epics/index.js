@@ -1,6 +1,6 @@
 import reducer from "./reducers";
 
-import * as epicsOperations from "./operations";
+import * as epicsOperations from "./actions";
 
 export { epicsOperations };
 

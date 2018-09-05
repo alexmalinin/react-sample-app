@@ -1,77 +1,85 @@
 import * as types from "./types";
 import omit from "lodash/omit";
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import { REJECTED } from "@utilities";
+import { DELETE_FILE } from "../../../utilities";
 
 const initialState = {
+  current: null,
   loading: false,
   loaded: false,
-  epics: {},
-  error: false
+  error: null,
+  byId: {},
+  allIds: []
 };
 
-const epicsRedicer = createReducer(initialState)({
-  [types.EPICS_SHOW]: (state, { payload, projectId }) => ({
+const epicsReducer = createReducer(initialState)({
+  [types.SET_PROJECT]: (state, { payload }) => ({
     ...state,
-    epics: {
-      ...state.epics,
-      [projectId]: payload
-    }
+    current: payload,
+    loading: true,
+    error: null
   }),
 
-  [types.PROJECT_EPIC_CREATE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.PROJECT_EPIC_CREATE + FULFILLED]: (
-    state,
-    { payload, meta: { projectId } }
-  ) => ({
+  [types.SHOW_EPICS]: (state, { payload, projectId }) => ({
     ...state,
     loading: false,
-    loaded: true,
-    error: false,
-    epics: {
-      ...state.epics,
-      [projectId]: {
-        ...state.epics[projectId],
-        [payload.data.id]: payload.data
+    loaded: projectId,
+    byId: { ...payload.entities.epics },
+    allIds: payload.result
+  }),
+
+  [types.SHOW_EPICS + REJECTED]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: payload
+  }),
+
+  [types.CREATE_EPIC]: (state, { payload }) => ({
+    ...state,
+    byId: {
+      ...state.byId,
+      [payload.data.id]: {
+        ...payload.data
+      }
+    },
+    allIds: [...state.allIds, payload.data.id]
+  }),
+
+  [types.UPDATE_EPIC]: (state, { payload }) => ({
+    ...state,
+    byId: {
+      ...state.byId,
+      [payload.data.id]: {
+        ...payload.data
       }
     }
   }),
 
-  [types.PROJECT_EPIC_CREATE + REJECTED]: (state, action) => ({
+  [types.DELETE_EPIC]: (state, { payload }) => ({
     ...state,
-    loading: false,
-    error: true
+    byId: omit(state.byId, payload.data.id),
+    allIds: state.allIds.filter(id => id !== payload.data.id)
   }),
 
-  [types.PROJECT_EPIC_DELETE + PENDING]: (state, action) => ({
-    ...state,
-    loading: true
-  }),
-
-  [types.PROJECT_EPIC_DELETE + FULFILLED]: (
-    state,
-    { payload, meta: { projectId } }
-  ) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    epics: {
-      ...state.epics,
-      [projectId]: {
-        ...omit(state.epics[projectId], payload.data.id)
-      }
+  [DELETE_FILE]: (state, { payload }) => {
+    const { id, entity_id: epicId, entity_type } = payload.data;
+    if (entity_type === "Epic") {
+      const epic = state.byId[epicId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [epicId]: {
+            ...epic,
+            attached_files: epic.attached_files.filter(file => file.id !== id)
+          }
+        }
+      };
     }
-  }),
 
-  [types.PROJECT_EPIC_DELETE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  })
+    return state;
+  }
 });
 
-export default epicsRedicer;
+export default epicsReducer;

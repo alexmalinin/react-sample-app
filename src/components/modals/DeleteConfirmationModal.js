@@ -45,19 +45,6 @@ class DeleteConfirmationModal extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          {/* <CancelBtn primary static="true" onClick={this.closeModal}>
-            <span>Cancel</span>
-          </CancelBtn>
-          <SaveBtn
-            type="submit"
-            disabled={submitting}
-            onClick={this.submitModal}
-            primary
-            updatebtn="true"
-            static="true"
-          >
-            <span>Yes</span>
-          </SaveBtn> */}
           <DvBlueButton
             type="button"
             className="dv-blue inverted"

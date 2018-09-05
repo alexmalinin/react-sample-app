@@ -27,10 +27,13 @@ export const CLIENT = "Client";
 export const SPECIALIST = "Specialist";
 
 // Roles
-export const C_CUSTOMER = "customer";
 
 export const S_ACTIVE = "active";
 export const S_PASSIVE = "passive";
 export const S_CORE = "core";
 export const S_REDGUY = "red_guy";
 export const CUSTOMER = "customer";
+
+// Files
+
+export const DELETE_FILE = "DELETE_FILE";

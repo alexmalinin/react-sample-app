@@ -1,11 +1,11 @@
 export function getUserType(state) {
-  return state.signIn.auth.userType;
+  return state.user.type;
 }
 
 export function getUserId(state) {
-  return state.signIn.auth.user_id;
+  return state.user.id;
 }
 
 export function getAuth(state) {
-  return state.signIn.auth;
+  return state.user;
 }

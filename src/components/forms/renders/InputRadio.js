@@ -13,7 +13,6 @@ const InputRadio = props => {
     checked,
     onChange
   } = props;
-  // console.log('inputRadio', props);
 
   return (
     <Field

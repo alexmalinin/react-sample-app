@@ -1,7 +1,7 @@
 import reducer from "./reducers";
 
-import * as industriesOperation from "./operations";
+import * as industryOperations from "./operations";
 
-export { industriesOperation };
+export { industryOperations };
 
 export default reducer;

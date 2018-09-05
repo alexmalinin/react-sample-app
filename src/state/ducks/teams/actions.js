@@ -1,73 +1,68 @@
 import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
-import { fetch, selectors } from "../../utils";
+import { fetch } from "../../utils";
 import {
   GET,
   POST,
   createNotification,
-  getUserUrl,
-  DELETE
+  DELETE,
+  displayError
 } from "../../../utilities";
+import { teams, team, channels } from "../../schemas";
 
-/**
- * Get array of all teams, specialist assigned on
- * || Get array of all teams, assigned on customer projects
- *
- * @param  {number} id id of specialist
- */
-
-export const showTeams = () => {
-  return (dispatch, getState) => {
-    const state = getState(),
-      id = selectors.getUserId(state),
-      userType = selectors.getUserType(state);
-
-    const url = getUserUrl(userType);
-
-    fetch(GET, `/${url}/${id}/teams`).then(({ data }) => {
-      dispatch({
-        type: types.SHOW_TEAMS,
-        payload: mapKeys(data, "id")
-      });
-    });
+export const showTeams = (user, id) => {
+  return {
+    type: types.SHOW_TEAMS,
+    payload: fetch(GET, `/${user}/${id}/teams`),
+    meta: {
+      schema: [teams]
+    }
   };
 };
 
-/**
- * Get all specialist custom teams by id
- *
- * @param  {number} id id of specialist
- */
+const showTeam = payload => ({
+  type: types.SHOW_TEAM,
+  payload,
+  meta: {
+    schema: team
+  }
+});
 
-export const showCustomTeams = id => {
-  return dispatch => {
-    fetch(GET, `/specialists/${id}/custom_teams`).then(({ data }) => {
-      dispatch({
-        type: types.SHOW_CUSTOM_TEAMS,
-        payload: data
-      });
-    });
-  };
-};
-
-/**
- * Create custom team
- *
- * @param  {object} data // payload
- * @param  {number} specialistId // The id of the specialist who is creating team
- */
-
-export const createCustomTeam = (data, specialistId) => {
-  return dispatch => {
+export const showCustomTeams = id => dispatch => {
+  fetch(GET, `/specialists/${id}/custom_teams`).then(({ data }) => {
     dispatch({
-      type: types.CUSTOM_TEAM_CREATE,
+      type: types.SHOW_CUSTOM_TEAMS,
+      payload: mapKeys(data, "id")
+    });
+  });
+};
+
+export const showProjectTeam = projectId => dispatch => {
+  fetch(GET, `/projects/${projectId}/teams`)
+    .then(response => dispatch(showTeam(response)))
+    .catch(displayError);
+};
+
+export const showCustomTeam = id => dispatch => {
+  fetch(GET, `/custom_team/${id}`)
+    .then(response => dispatch(showTeam(response)))
+    .catch(displayError);
+};
+
+export const createCustomTeam = name => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.CREATE_CUSTOM_TEAM,
       payload: fetch(POST, "/teams", {
         team: {
-          name: data["name"],
-          specialist_id: specialistId,
+          name,
+          specialist_id: getState().user.id,
           custom_team: true
         }
-      })
+      }),
+      meta: {
+        schema: team
+      }
     })
       .then(({ value: { data } }) => {
         createNotification({
@@ -85,18 +80,12 @@ export const createCustomTeam = (data, specialistId) => {
   };
 };
 
-/**
- * Delete custom team
- *
- * @param  {object} team // team to delete
- */
-
 export const removeCustomTeam = team => {
   const { id, specialist_id } = team;
 
   return dispatch => {
     dispatch({
-      type: types.CUSTOM_TEAM_DELETE,
+      type: types.DELETE_CUSTOM_TEAM,
       payload: fetch(DELETE, `/teams/${id}/remove_team/${specialist_id}`)
     })
       .then(({ value: { data } }) => {
@@ -113,4 +102,20 @@ export const removeCustomTeam = team => {
         console.error(error);
       });
   };
+};
+
+export const showChannels = team => ({
+  type: types.SHOW_TEAM_CHANNELS,
+  payload: fetch(GET, `/teams/${team}/channels`),
+  meta: {
+    schema: [channels]
+  }
+});
+
+export const removeSpecialistFromTeam = (team, specialist) => dispatch => {
+  fetch(DELETE, `/teams/${team}/remove/${specialist}`)
+    .then(response => {
+      dispatch(showTeam(response));
+    })
+    .catch(displayError);
 };

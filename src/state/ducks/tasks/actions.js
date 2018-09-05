@@ -1,105 +1,102 @@
-import mapKeys from "lodash/mapKeys";
 import * as types from "./types";
 import { fetch } from "../../utils";
-import { GET, POST, PUT, DELETE, createNotification } from "../../../utilities";
+import {
+  GET,
+  POST,
+  DELETE,
+  REJECTED,
+  createNotification,
+  displayError,
+  PUT
+} from "../../../utilities";
+import { task } from "../../schemas";
+import { getFiles, getSpecialistIds } from "./utils";
 
-/**
- * Get array of all tasks, specialist assigned on
- *
- * @param  {number} team team id
- */
+const setEpic = payload => ({
+  type: types.SET_EPIC,
+  payload
+});
 
-export const showSpecialistTasks = () => {
-  //  Need a user id
-};
+const showEpicTasks = (payload, epic) => ({
+  type: types.SHOW_EPIC_TASKS,
+  payload,
+  epic,
+  meta: {
+    schema: [task]
+  }
+});
 
-/**
- * Show all tasks by epic
- *
- * @param  {number} epic epic id
- */
+const setTasksFail = (payload, epic) => ({
+  type: types.SHOW_EPIC_TASKS + REJECTED,
+  payload,
+  epic
+});
 
-export const showEpicTasks = epic => {
-  return dispatch => {
-    fetch(GET, `/epics/${epic}/tasks`).then(({ data }) => {
-      dispatch({
-        type: types.EPIC_TASKS_SHOW,
-        payload: mapKeys(data, "id")
-      });
-    });
-  };
-};
-
-/**
- * Create task by project and epic
- *
- * @param  {object} data task data
- * @param  {number} epic epic id
- * @param  {function} callback callback, called on success
- */
-
-export const createEpicTask = (data, epic, callback) => {
-  return dispatch => {
-    const files = data.file
-      ? data.file.map(({ document, title, size }) => {
-          return {
-            document,
-            title,
-            size,
-            entity_type: "Task"
-          };
-        })
-      : [];
-
-    const specialist_ids = [];
-    data["specIds"] &&
-      data["specIds"].split(",").forEach(id => specialist_ids.push(+id));
-
-    const body = {
-      task: {
-        name: data["name"],
-        description: data["description"],
-        epic_id: epic,
-        state: 0,
-        specialist_ids,
-        eta: data["eta"],
-        cost: data["cost"],
-        user_story: data["user_story"],
-        deliverables: data["deliverables"],
-        business_requirements: data["business_requirements"],
-        business_rules: data["business_rules"],
-        notes: data["notes"],
-        attached_files_attributes: files
-      },
-
-      attached_files_attributes: {
-        document: data["file"]
+export const getEpicTasks = epic => (dispatch, getState) => {
+  dispatch(setEpic(epic));
+  fetch(GET, `/epics/${epic}/tasks`)
+    .then(res => {
+      if (getState().tasks.current === epic) {
+        dispatch(showEpicTasks(res, epic));
       }
-    };
-
-    dispatch({
-      type: types.EPIC_TASK_CREATE,
-      payload: fetch(POST, `/epics/${epic}/tasks`, body)
     })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
-        });
-
-        if (callback) {
-          callback();
-        }
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
-      });
-  };
+    .catch(error => {
+      dispatch(setTasksFail(error, epic));
+      console.error(error);
+    });
 };
+
+const createTask = payload => ({
+  type: types.CREATE_EPIC_TASK,
+  payload
+});
+
+export const createEpicTask = values => dispatch =>
+  fetch(POST, `/epics/${values.epic}/tasks`, {
+    task: {
+      ...values,
+      epic_id: values.epic,
+      state: 0,
+      specialist_ids: getSpecialistIds(values.specIds),
+      attached_files_attributes: getFiles(values.file)
+    },
+
+    attached_files_attributes: {
+      document: values["file"]
+    }
+  })
+    .then(res => {
+      const { data } = res;
+
+      createNotification({
+        type: "success",
+        text: `${data.name ? `${data.name} epic ` : "Epic"} was created`
+      });
+
+      dispatch(createTask(res));
+    })
+    .catch(displayError);
+
+const deleteTask = payload => ({
+  type: types.DELETE_EPIC_TASK,
+  payload
+});
+
+export const updateTask = payload => ({
+  type: types.UPDATE_EPIC_TASK,
+  payload
+});
+
+export const taskUpdated = (res, dispatch) => {
+  dispatch(updateTask(res));
+};
+
+export const updateTaskFetch = payload =>
+  fetch(PUT, `/epics/${payload.epic_id}/tasks/${payload.id}`, {
+    task: {
+      ...payload
+    }
+  });
 
 /**
  * Delete task by epic
@@ -109,28 +106,30 @@ export const createEpicTask = (data, epic, callback) => {
  * @param  {function} callback delete card from board
  */
 
-export const deleteEpicTask = (epic, task, callback) => {
-  return dispatch => {
-    dispatch({
-      type: types.EPIC_TASK_DELETE,
-      payload: fetch(DELETE, `/epics/${epic}/tasks/${task}`)
-    })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} epic ` : "Epic"} was deleted`
-        });
-
-        if (callback) {
-          callback();
-        }
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
+export const deleteEpicTask = (epic, task) => dispatch =>
+  fetch(DELETE, `/epics/${epic}/tasks/${task}`)
+    .then(res => {
+      const { data } = res;
+      createNotification({
+        type: "success",
+        text: `${data.name ? `${data.name} epic ` : "Epic"} was deleted`
       });
-  };
+      dispatch(deleteTask(res));
+    })
+    .catch(displayError);
+
+export const assignSpecialistToTask = (epic, task, id) => dispatch => {
+  fetch(PUT, `/epics/${epic}/tasks/${task}/assign`, { specialist_id: id })
+    .then(res => {
+      dispatch(updateTask(res));
+    })
+    .catch(displayError);
+};
+
+export const removeSpecialistFromTask = (epic, task, id) => dispatch => {
+  fetch(DELETE, `/epics/${epic}/tasks/${task}/remove/${id}`)
+    .then(res => {
+      dispatch(updateTask(res));
+    })
+    .catch(displayError);
 };

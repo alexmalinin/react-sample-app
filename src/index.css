@@ -6,6 +6,10 @@ body,
   background-color: #f4f9fa;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 * {
   outline: none;
   box-sizing: border-box;

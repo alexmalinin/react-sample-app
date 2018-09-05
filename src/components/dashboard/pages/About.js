@@ -4,7 +4,7 @@ import {
   Container,
   ContainerLarge
 } from "../../../styleComponents/layout/Container";
-import StyledProfile from "../../../styleComponents/StyledProfile";
+import StyledProfile from "../../../views/styled/Profile";
 import AboutSubHeader from "../../layout/SpecialistAboutSubHeader";
 
 import {

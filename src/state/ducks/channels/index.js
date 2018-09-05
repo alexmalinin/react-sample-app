@@ -1,6 +1,6 @@
 import reducer from "./reducers";
 
-import * as channelOperations from "./operations";
+import * as channelOperations from "./actions";
 
 export { channelOperations };
 

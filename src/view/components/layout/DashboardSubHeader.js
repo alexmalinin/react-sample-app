@@ -1,0 +1,64 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import SubHeaderLinkWrap from "../forms/renders/SubHeaderLinkWrap";
+import StyledSubHeader from "../../styleComponents/layout/StyledSubHeader";
+import AddTaskModal from "../modals/AddTaskModal";
+import { CLIENT, S_REDGUY } from "utilities/constants";
+import StyledSubHeaderLink from "../../styleComponents/StyledSubHeaderLink";
+
+class DashboardSubHeader extends Component {
+  render() {
+    const { theVillage, specialistData, changeUserType } = this.props;
+
+    return (
+      <StyledSubHeader projects sidebarCondition dashboardSubHeader>
+        <div className="left">
+          <SubHeaderLinkWrap
+            label="Dashboard"
+            url="/dashboard/"
+            className="dashboard"
+          >
+            <i className="fa fa-columns" />
+          </SubHeaderLinkWrap>
+
+          {/* <SubHeaderLinkWrap
+            label="The village"
+            url="/dashboard/the_village"
+            className="dashboard"
+          >
+            <i className="fas fa-newspaper" />
+          </SubHeaderLinkWrap> */}
+        </div>
+        <div className="right">
+          {specialistData &&
+            specialistData.role === S_REDGUY && (
+              <AddTaskModal
+                content="Add epic"
+                className="dahsboard"
+                trigger={
+                  <a className="button add-epic">
+                    <StyledSubHeaderLink className="right-link addButton modalTrigger" />
+                    <span>Add epic</span>
+                  </a>
+                }
+              />
+            )}
+
+          {changeUserType === CLIENT && (
+            <SubHeaderLinkWrap
+              url="/dashboard/project/new"
+              label="Add project"
+              className="right-link dahsboard addButton"
+            />
+          )}
+        </div>
+      </StyledSubHeader>
+    );
+  }
+}
+
+export default connect(
+  ({ changeUserType, specialistData }) => ({ changeUserType, specialistData }),
+  null
+)(DashboardSubHeader);

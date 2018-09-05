@@ -1,7 +1,7 @@
 import reducer from "./reducers";
 
-import * as skillsOperations from "./operations";
+import * as teamsOperations from "./actions";
 
-export { skillsOperations };
+export { teamsOperations };
 
 export default reducer;

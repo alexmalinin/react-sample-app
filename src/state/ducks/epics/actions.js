@@ -1,120 +1,142 @@
 import * as types from "./types";
-import mapKeys from "lodash/mapKeys";
 import { fetch } from "../../utils";
-import { GET, POST, createNotification, DELETE } from "../../../utilities";
+import {
+  GET,
+  POST,
+  createNotification,
+  DELETE,
+  PUT,
+  displayError,
+  REJECTED
+} from "@utilities";
+import { getFiles } from "./utils";
+import { epic } from "../../schemas";
+import history from "../../../history";
+import { showConfirmationModal } from "@ducks/modals/actions";
 
-/**
- * Get all epics by project id
- *
- * @param  {object} data epic data
- * @param  {number} project project id
- */
+const setProject = payload => ({
+  type: types.SET_PROJECT,
+  payload
+});
 
-export const showAllEpics = projectId => {
-  return dispatch => {
-    fetch(GET, `/epics?project_id=${projectId}`)
-      .then(({ data }) => {
-        dispatch({
-          type: types.EPICS_SHOW,
-          payload: mapKeys(data, "id"),
-          projectId
-        });
-      })
-      .catch(error => console.log(error));
-  };
+const showEpics = (payload, projectId) => ({
+  type: types.SHOW_EPICS,
+  payload,
+  projectId,
+  meta: {
+    schema: [epic]
+  }
+});
+
+const setEpicsFail = payload => ({
+  type: types.SHOW_EPICS + REJECTED,
+  payload
+});
+
+export const getProjectEpics = projectId => (dispatch, getState) => {
+  dispatch(setProject(projectId));
+
+  fetch(GET, `/epics?project_id=${projectId}`)
+    .then(res => {
+      if (getState().epics.current === projectId) {
+        dispatch(showEpics(res, projectId));
+      }
+    })
+    .catch(error => {
+      dispatch(setEpicsFail(error));
+      console.error(error);
+    });
 };
 
-/**
- * Post project Epic
- *
- * @param  {object} data epic data
- * @param  {number} projectId project id
- */
+const createEpic = payload => ({
+  type: types.CREATE_EPIC,
+  payload
+});
 
-export const createProjectEpic = (data, projectId) => {
-  const files = data.file
-    ? data["file"].map(({ document, title, size }) => {
-        return {
-          document,
-          title,
-          size,
-          entity_type: "Module"
-        };
-      })
-    : [];
+export const epicCreated = (res, dispatch, props) => {
+  const { name, project_id, id } = res.data;
+  createNotification({
+    type: "success",
+    text: `${name ? `${name} module ` : "Module"} was created`
+  });
 
-  const body = {
+  dispatch(createEpic(res));
+
+  props.history.push(`/dashboard/project/${project_id}/module/${id}/edit`);
+};
+
+export const createEpicFetch = (values, dispatch, props) => {
+  const { projectId: project_id } = props.match.params;
+
+  return fetch(POST, `/projects/${project_id}/epics`, {
     epic: {
-      name: data["name"],
-      project_id: projectId,
-      user_story: data["user_story"],
-      business_requirements: data["business_requirements"],
-      business_rules: data["business_rules"],
-      deliverables: data["deliverables"],
-      description: data["description"],
-      notes: data["notes"],
-      eta: data["eta"],
-      attached_files_attributes: files
+      ...values,
+      project_id,
+      attached_files_attributes: getFiles(values.file)
     }
-  };
-
-  return dispatch => {
-    dispatch({
-      type: types.PROJECT_EPIC_CREATE,
-      payload: fetch(POST, `/projects/${projectId}/epics`, body),
-      meta: {
-        projectId
-      }
-    })
-      .then(({ value: { data } }) => {
-        createNotification({
-          type: "success",
-          text: `${data.name ? `${data.name} module ` : "Module"} was created`
-        });
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
-      });
-  };
+  });
 };
 
-/**
- * Delete epic by project and id
- *
- * @param  {number} projectId project id
- * @param  {number} epicId epic id
- * @param  {function} callback a function that gets fired after successful response
- */
+const updateEpic = payload => ({
+  type: types.UPDATE_EPIC,
+  payload
+});
 
-export function deleteProjectEpic(projectId, epicId, callback) {
-  return dispatch => {
-    dispatch({
-      type: types.PROJECT_EPIC_DELETE,
-      payload: fetch(DELETE, `/projects/${projectId}/epics/${epicId}`),
-      meta: {
-        projectId
-      }
-    })
-      .then(({ value: { data } }) => {
+export const epicUpdated = (res, dispatch) => {
+  dispatch(updateEpic(res));
+};
+
+export const epicSelfUpdate = values => dispatch => {
+  let { project_id, id } = values;
+  console.log(values);
+
+  return fetch(PUT, `/projects/${project_id}/epics/${id}`, {
+    epic: {
+      ...values
+    }
+  }).then(response => dispatch(updateEpic(response)));
+};
+
+export const updateEpicFetch = values => {
+  console.log("values", values);
+  let { project_id, id } = values;
+  return fetch(PUT, `/projects/${project_id}/epics/${id}`, {
+    epic: {
+      ...values,
+      attached_files_attributes: getFiles(values.file)
+    }
+  });
+};
+
+const deleteEpic = payload => ({
+  type: types.DELETE_EPIC,
+  payload
+});
+
+export const deleteEpicFetch = (projectId, epicId, name) => dispatch => {
+  const callback = () => {
+    fetch(DELETE, `/projects/${projectId}/epics/${epicId}`)
+      .then(res => {
+        const { name, project_id } = res.data;
         createNotification({
           type: "success",
-          text: `${data.name ? `${data.name} module ` : "Module"} was deleted`
+          text: `${name ? `${name} module ` : "Module"} was deleted`
         });
 
-        if (callback) {
-          callback();
-        }
+        dispatch(deleteEpic(res));
+
+        history.push(`/dashboard/project/${project_id}`);
       })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        console.error(error);
-      });
+      .catch(displayError);
   };
-}
+
+  dispatch(
+    showConfirmationModal({
+      type: "delete",
+      message: `Are you sure you want to delete ${
+        name ? `${name} module?` : "this module?"
+      }`,
+      callback
+    })
+  );
+};

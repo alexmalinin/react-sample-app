@@ -1,43 +1,72 @@
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { FULFILLED, PENDING, REJECTED } from "../../../utilities";
+import { FULFILLED, PENDING, REJECTED, DELETE_FILE } from "../../../utilities";
 
 const initialState = {
   loading: false,
+  error: null,
   loaded: false,
-  projects: {},
-  error: null
+  byId: {},
+  allIds: []
 };
 
 const projectsReducer = createReducer(initialState)({
-  [types.PROJECTS_SHOW]: (state, { payload }) => ({
-    ...state,
-    projects: {
-      ...payload
-    }
-  }),
-
-  [types.PROJECT_SAVE + PENDING]: (state, action) => ({
+  [types.SHOW_PROJECTS + PENDING]: (state, action) => ({
     ...state,
     loading: true
   }),
 
-  [types.PROJECT_SAVE + FULFILLED]: (state, { payload }) => ({
+  [types.SHOW_PROJECTS + FULFILLED]: (state, action) => ({
     ...state,
     loading: false,
     loaded: true,
-    error: false,
-    projects: {
-      ...state.projects,
-      [payload.data.id]: payload.data
+    error: null,
+    byId: { ...action.payload.entities.projects },
+    allIds: [...action.payload.result]
+  }),
+
+  [types.SHOW_PROJECTS + REJECTED]: (state, action) => ({
+    ...state,
+    error: true
+  }),
+
+  [types.CREATE_PROJECT]: (state, { payload }) => ({
+    ...state,
+    byId: {
+      ...state.byId,
+      ...payload.entities.projects
+    },
+    allIds: [...state.allIds, payload.result]
+  }),
+
+  [types.UPDATE_PROJECT]: (state, { payload }) => ({
+    ...state,
+    byId: {
+      ...state.byId,
+      ...payload.entities.projects
     }
   }),
 
-  [types.PROJECT_SAVE + REJECTED]: (state, action) => ({
-    ...state,
-    loading: false,
-    error: true
-  })
+  [DELETE_FILE]: (state, { payload }) => {
+    const { id, entity_id: projectId, entity_type } = payload.data;
+    if (entity_type === "Project") {
+      const project = state.byId[projectId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [projectId]: {
+            ...project,
+            attached_files: project.attached_files.filter(
+              file => file.id !== id
+            )
+          }
+        }
+      };
+    }
+
+    return state;
+  }
 });
 
 export default projectsReducer;
