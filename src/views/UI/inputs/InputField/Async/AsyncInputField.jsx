@@ -49,8 +49,6 @@ class InputField extends Component {
             data.state = data.state && data.state.value;
           }
           this.setState({ loading: false, updError: false });
-
-          dispatch(initialize(form, data));
         })
         .catch(error => {
           console.error(error);
