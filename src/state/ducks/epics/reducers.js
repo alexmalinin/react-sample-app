@@ -2,6 +2,7 @@ import * as types from "./types";
 import omit from "lodash/omit";
 import { createReducer } from "../../utils";
 import { REJECTED } from "@utilities";
+import { DELETE_FILE } from "../../../utilities";
 
 const initialState = {
   current: null,
@@ -59,7 +60,26 @@ const epicsReducer = createReducer(initialState)({
     ...state,
     byId: omit(state.byId, payload.data.id),
     allIds: state.allIds.filter(id => id !== payload.data.id)
-  })
+  }),
+
+  [DELETE_FILE]: (state, { payload }) => {
+    const { id, entity_id: epicId, entity_type } = payload.data;
+    if (entity_type === "Epic") {
+      const epic = state.byId[epicId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [epicId]: {
+            ...epic,
+            attached_files: epic.attached_files.filter(file => file.id !== id)
+          }
+        }
+      };
+    }
+
+    return state;
+  }
 });
 
 export default epicsReducer;

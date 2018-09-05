@@ -120,10 +120,10 @@ class EditProject extends Component {
           [name]: value
         }
       }
-    }).then(({ data }) => {
-      this.props.updateProject(data.id, data);
+    }).then(res => {
+      this.props.updateProject(res);
 
-      return data;
+      return res.data;
     });
   };
 
@@ -136,15 +136,6 @@ class EditProject extends Component {
     } = this.props;
 
     removeSpecialistFromTeam(team_id, id);
-    this.updateProject();
-  };
-
-  updateProject = () => {
-    const {
-      projectWithId: { id }
-    } = this.props;
-
-    this.props.updateProject(id);
   };
 
   submit = values => this.props.publishProject(values);
@@ -166,7 +157,6 @@ class EditProject extends Component {
           handleAssignTeam={this.handleAssignTeam}
           onSelfSubmit={this.onSelfSubmit}
           handleSkills={this.handleSkills}
-          updateProject={this.updateProject}
           handleRemove={this.handleRemove}
         />
 

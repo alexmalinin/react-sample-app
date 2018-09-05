@@ -26,7 +26,6 @@ const EditProjectForm = props => {
     handleAssignTeam,
     onSelfSubmit,
     handleSkills,
-    updateProject,
     handleRemove
   } = props;
 
@@ -56,7 +55,6 @@ const EditProjectForm = props => {
                   name="attached_files"
                   type="text"
                   component={FileUploader}
-                  deleteCallback={updateProject}
                   disabled={!hasPermission}
                   onSelfSubmit={onSelfSubmit}
                   className="projectFiles"

@@ -1,8 +1,7 @@
 import * as types from "./types";
 import omit from "lodash/omit";
-import merge from "lodash/merge";
 import { createReducer } from "../../utils";
-import { FULFILLED, REJECTED, PENDING } from "../../../utilities";
+import { REJECTED, DELETE_FILE } from "../../../utilities";
 
 const initialState = {
   current: null,
@@ -57,7 +56,26 @@ const tasksReducer = createReducer(initialState)({
     ...state,
     byId: { ...omit(state.byId, payload.data.id) },
     allIds: state.allIds.filter(id => id !== payload.data.id)
-  })
+  }),
+
+  [DELETE_FILE]: (state, { payload }) => {
+    const { id, entity_id: taskId, entity_type } = payload.data;
+    if (entity_type === "Task") {
+      const task = state.byId[taskId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [taskId]: {
+            ...task,
+            attached_files: task.attached_files.filter(file => file.id !== id)
+          }
+        }
+      };
+    }
+
+    return state;
+  }
 });
 
 export default tasksReducer;

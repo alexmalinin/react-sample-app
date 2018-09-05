@@ -5,7 +5,8 @@ import {
   S_ACTIVE,
   S_CORE,
   S_PASSIVE,
-  S_REDGUY
+  S_REDGUY,
+  DELETE_FILE
 } from "./constants";
 
 /**
@@ -123,3 +124,8 @@ export const displayError = error => {
   });
   console.error(error);
 };
+
+export const deleteFile = payload => ({
+  type: DELETE_FILE,
+  payload
+});

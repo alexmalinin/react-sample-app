@@ -27,7 +27,10 @@ class ImageUploader extends Component {
   }
 
   _handleImageChange(e) {
-    const { projectId } = this.props;
+    const {
+      projectId,
+      meta: { dispatch }
+    } = this.props;
 
     e.preventDefault();
 
@@ -53,8 +56,8 @@ class ImageUploader extends Component {
               }
             }
           })
-            .then(({ data }) => {
-              this.props.updateProject(data.id);
+            .then(res => {
+              dispatch(updateProject(res));
             })
             .catch(error => {
               console.error(error);

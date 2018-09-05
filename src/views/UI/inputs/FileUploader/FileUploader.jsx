@@ -6,7 +6,7 @@ import Dropzone from "react-dropzone";
 
 import StyledUploader from "./StyledUploader";
 
-import { PORT } from "@utilities";
+import { PORT, deleteFile } from "@utilities";
 
 class FileUploader extends Component {
   state = {
@@ -209,18 +209,19 @@ class FileUploader extends Component {
 
   deleteAttachedFile = file => {
     const {
-      deleteCallback,
-      meta: { dispatch, form }
+      onSelfSubmit,
+      selfSubmit,
+      meta: { dispatch }
     } = this.props;
     this.setState({ loading: true });
 
     return axios
       .delete(`${PORT}/api/v1/attached_files/${file}`)
-      .then(resp => {
+      .then(res => {
         this.setState({ loading: false });
 
-        if (deleteCallback) {
-          deleteCallback(resp);
+        if (onSelfSubmit || selfSubmit) {
+          dispatch(deleteFile(res));
         }
       })
       .catch(error => {

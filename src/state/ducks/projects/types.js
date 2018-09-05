@@ -1,3 +1,5 @@
+export const CREATE_PROJECT = "CREATE_PROJECT";
 export const SHOW_PROJECTS = "SHOW_PROJECTS";
+export const SHOW_PROJECT = "SHOW_PROJECT";
 export const PROJECT_SAVE = "PROJECT_SAVE";
-export const PROJECT_UPDATE = "PROJECT_UPDATE";
+export const UPDATE_PROJECT = "PROJECT_UPDATE";

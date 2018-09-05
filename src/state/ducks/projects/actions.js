@@ -26,6 +26,14 @@ export const getAllProjects = () => (dispatch, getState) => {
   });
 };
 
+const createProject = payload => ({
+  type: types.CREATE_PROJECT,
+  payload,
+  meta: {
+    schema: project
+  }
+});
+
 /**
  * Create project
  *
@@ -47,19 +55,19 @@ export const saveCreatedProgect = (payload, calback) => (
     reader.readAsDataURL(logo);
 
     reader.onload = () => {
-      return dispatch({
-        type: types.PROJECT_SAVE,
-        payload: fetch(POST, `/projects`, {
-          project: postProject(auth, payload, reader.result)
-        })
+      return fetch(POST, `/projects`, {
+        project: postProject(auth, payload, reader.result)
       })
-        .then(({ value: { data } }) => {
+        .then(res => {
+          const { data } = res;
           createNotification({
             type: "success",
             text: `${
               data.name ? `${data.name} project ` : "Project"
             } was created`
           });
+
+          dispatch(createProject(res));
 
           calback();
           history.push(`/dashboard/project/${data.id}`);
@@ -68,17 +76,17 @@ export const saveCreatedProgect = (payload, calback) => (
         .catch(calback);
     };
   } else {
-    return dispatch({
-      type: types.PROJECT_SAVE,
-      payload: fetch(POST, `/projects`, {
-        project: postProject(auth, payload)
-      })
+    return fetch(POST, `/projects`, {
+      project: postProject(auth, payload)
     })
-      .then(({ value: { data } }) => {
+      .then(res => {
+        const { data } = res;
         createNotification({
           type: "success",
           text: `${data.name ? `${data.name} project ` : "Project"} was created`
         });
+
+        dispatch(createProject(res));
 
         calback();
         history.push(`/dashboard/project/${data.id}`);
@@ -149,41 +157,37 @@ export const publishProject = payload => (dispatch, getState) => {
   };
 
   return fetch(PUT, `/projects/${payload.id}`, body)
-    .then(({ data }) => {
-      dispatch(showProject(data));
+    .then(res => {
+      const { data } = res;
+      dispatch(createProject(res));
 
       createNotification({
         type: "success",
         text: `${data.name ? `${data.name} project ` : "Project"} was published`
       });
     })
-    .catch(error => {
-      createNotification({
-        type: "error"
-      });
-
-      console.error(error);
-    });
-};
-
-/**
- * Update project
- *
- * @param  {number} id project id
- * @param  {object} payload project data
- */
-
-export const updateProject = (id, payload) => dispatch => {
-  if (payload) {
-    dispatch(showProject(payload));
-  } else {
-    fetch(GET, `/projects/${id}`).then(({ data }) => {
-      dispatch(showProject(data));
-    });
-  }
+    .catch(displayError);
 };
 
 const showProject = payload => ({
-  type: types.PROJECT_UPDATE,
+  type: types.SHOW_PROJECT,
   payload
 });
+
+export const getProject = id => dispatch => {
+  fetch(GET, `/projects/${id}`)
+    .then(res => {
+      dispatch(showProject(res));
+    })
+    .catch(displayError);
+};
+
+export const updateProject = payload => ({
+  type: types.UPDATE_PROJECT,
+  payload,
+  meta: {
+    schema: project
+  }
+});
+
+//TODO: move promise from form container to HERE
