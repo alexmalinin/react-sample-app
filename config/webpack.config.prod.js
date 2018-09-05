@@ -11,6 +11,7 @@ const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin");
 const paths = require("./paths");
 const getClientEnvironment = require("./env");
 const WorkboxPlugin = require("workbox-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -295,6 +296,7 @@ module.exports = {
     }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
+    new BundleAnalyzerPlugin(),
     new WorkboxPlugin.GenerateSW({
       // Exclude images from the precache
       exclude: [/\.(?:js|html|htm)$/],
