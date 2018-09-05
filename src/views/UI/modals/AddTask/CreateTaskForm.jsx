@@ -8,7 +8,7 @@ import RenderDate from "@UI/inputs/Datepicker";
 import RenderFile from "@UI/inputs/FileUploader";
 import RenderTextArea from "@UI/inputs/TextArea";
 import AssignDropdown from "@UI/AssignDropdown";
-import SpecialistTile from "@UI/PersonTile";
+import SpecialistTile from "@UI/PersonTile/SpecialistTile";
 
 import { DvBlueButton } from "@styled/DVButton";
 
@@ -20,7 +20,7 @@ class CreateTaskForm extends Component {
 
   componentDidUpdate() {
     let specIds = [];
-    this.state.specialists.map(spec => specIds.push(spec));
+    this.state.specialists.map(spec => specIds.push(spec.id));
     specIds = specIds.join(",");
     this.props.dispatch(change("CreateTaskForm", "specIds", specIds));
   }

@@ -24,8 +24,7 @@ class AddTaskModal extends Component {
     close.click();
   };
 
-  submit = data =>
-    this.props.createEpicTask(data, this.props.epicId).then(() => this.close());
+  submit = data => this.props.createEpicTask(data).then(this.close);
 
   render() {
     const { trigger } = this.props;

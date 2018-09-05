@@ -263,8 +263,6 @@ class FileUploader extends Component {
       ...rest
     } = this.props;
 
-    console.log(this.state);
-
     return (
       <StyledUploader
         dropzone={dropzone}

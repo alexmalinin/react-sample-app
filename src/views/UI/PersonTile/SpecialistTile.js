@@ -50,6 +50,8 @@ class SpecialistTile extends Component {
       blank: !specialist.avatar.url
     });
 
+    console.log(specialist);
+
     return (
       <StyledSpecialist>
         <div className="avatar-wrapper">
