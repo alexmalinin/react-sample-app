@@ -22,7 +22,6 @@ class AssignDropdown extends Component {
 
   openDropdown = e => {
     e.stopPropagation();
-    console.log(this.props);
     this.setState(
       {
         options: this.props.allSpecialists,

@@ -7,8 +7,7 @@ import StyledModal from "@styled/Modal";
 class EditTaskModal extends Component {
   state = {
     opened: false,
-    taskId: null,
-    updated: false
+    taskId: null
   };
 
   open = id => this.setState({ opened: true, taskId: id });
@@ -18,19 +17,8 @@ class EditTaskModal extends Component {
     this.props.close(this.state.updated);
   };
 
-  setUpdated = () => {
-    this.setState({ updated: true });
-  };
-
-  submit = data => {
-    console.log("submit", data);
-
-    // let { updateEpicTask, epic, epicTask } = this.props;
-    // updateEpicTask(data, epic, epicTask.id);
-  };
-
   render() {
-    const { epic, currentProjectTeam } = this.props;
+    const { epic } = this.props;
     const { opened, taskId } = this.state;
 
     return (
@@ -42,12 +30,9 @@ class EditTaskModal extends Component {
       >
         <Modal.Header className="ui">Epic - {taskId}</Modal.Header>
         <EditTask
+          {...this.props}
           epic={epic}
-          // currentProjectTeam={currentProjectTeam}
           taskId={taskId}
-          // onSubmit={this.submit}
-          setUpdated={this.setUpdated}
-          handleAssign={this.handleAssign}
           close={this.close}
         />
       </StyledModal>

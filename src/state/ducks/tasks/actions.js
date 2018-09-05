@@ -77,8 +77,6 @@ export const createEpicTask = values => dispatch =>
     })
     .catch(displayError);
 
-export const updateEpicTask = () => dispatch => {};
-
 const deleteTask = payload => ({
   type: types.DELETE_EPIC_TASK,
   payload
@@ -93,14 +91,12 @@ export const taskUpdated = (res, dispatch) => {
   dispatch(updateTask(res));
 };
 
-export const updateTaskFetch = payload => {
-  console.log("updateTaskFetch", payload);
-  return fetch(PUT, `/epics/${payload.epic_id}/tasks/${payload.id}`, {
+export const updateTaskFetch = payload =>
+  fetch(PUT, `/epics/${payload.epic_id}/tasks/${payload.id}`, {
     task: {
       ...payload
     }
   });
-};
 
 /**
  * Delete task by epic

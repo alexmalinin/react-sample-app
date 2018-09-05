@@ -1,20 +1,12 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 
 import EditTaskForm from "./EditTaskForm";
 
-import { PORT, displayError } from "@utilities";
+import { displayError } from "@utilities";
 import { taskStatuses } from "@views/utils/selects";
 import { updateTaskFetch, taskUpdated, updateTask } from "@ducks/tasks/actions";
 import { getProjectTeam } from "@ducks/teams/selectors";
-
-class EditTask extends Component {
-  render() {
-    console.log("EditTask", this.props);
-    return <EditTaskForm {...this.props} />;
-  }
-}
 
 const makeMapStateToProps = () => {
   const projectTeam = getProjectTeam();
@@ -43,6 +35,7 @@ const makeMapStateToProps = () => {
       initialValues,
       eta: epicTask && epicTask.eta,
       epicTask,
+      projectId: state.epics.current,
       formValues: state.form,
       ownCosts
     };
@@ -68,5 +61,5 @@ const withForm = reduxForm({
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(
-  withForm(EditTask)
+  withForm(EditTaskForm)
 );

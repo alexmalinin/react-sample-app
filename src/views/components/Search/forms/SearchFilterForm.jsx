@@ -244,22 +244,10 @@ SearchFilterForm = reduxForm({
 
 const mapStateToProps = state => {
   return {
-    projects: getDataForSelect()(state.projects, "value", "text"),
-    industries: getDataForSelect()(
-      state.industriesReducer.industries,
-      "value",
-      "text"
-    ),
-    experienceLevels: getDataForSelect()(
-      state.experienceLevels,
-      "value",
-      "text"
-    ),
-    projectTypes: getDataForSelect()(
-      state.projectTypesReducer.projectTypes,
-      "value",
-      "text"
-    )
+    projects: getDataForSelect()(state.projects.byId),
+    industries: getDataForSelect()(state.industriesReducer.industries),
+    experienceLevels: getDataForSelect()(state.experienceLevels),
+    projectTypes: getDataForSelect()(state.projectTypesReducer.projectTypes)
   };
 };
 

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Grid } from "semantic-ui-react";
 import { Checkbox } from "react-semantic-redux-form/dist";
-import { Form, Field, change } from "redux-form";
+import { Form, Field } from "redux-form";
 import axios from "axios";
 
 import Datepicker from "@UI/inputs/Datepicker";
@@ -16,11 +15,10 @@ import SpecialistTile from "@UI/PersonTile/SpecialistTile";
 
 import { minLength2, maxLength50, formatCurrency } from "@views/utils/validate";
 import { PORT, S_REDGUY } from "@utilities";
+import { displayError } from "../../../../utilities";
 
 class EditTaskForm extends Component {
   state = {
-    // specialists: this.props.epicTask.specialists,
-    specialists: [],
     totalCost: this.props.epicTask.cost,
     loadingFees: {
       dv_fee: false,
@@ -71,21 +69,15 @@ class EditTaskForm extends Component {
         url: `${PORT}/api/v1/epics/${epic_id}/tasks/${id}/remove/${specialist_id}`
       };
 
-    this.props.setUpdated();
     axios(payload)
-      .then(response => {
-        this.setState({
-          specialists: response.data.specialists,
-          totalCost: response.data.cost
-        });
-      })
-      .catch(error => console.error(error));
+      .then(response => this.props.updateTask(response))
+      .catch(displayError);
   };
 
   handleCost = specId => {
     const {
       epicTask: { id, epic_id },
-      epic: { project_id },
+      projectId,
       formValues
     } = this.props;
 
@@ -95,20 +87,18 @@ class EditTaskForm extends Component {
       data: {
         costs: {
           cost: formValues["EditTaskForm"].values["cost_spec_" + specId],
-          project_id
+          project_id: projectId
         }
       }
     })
       .then(resp => {
-        this.setState({ totalCost: resp.data.cost });
-        this.props.setUpdated();
+        this.props.updateTask(resp);
       })
       .catch(error => console.error(error));
   };
 
   handleFees = (event, newVal, prevVal, name) => {
     const { change } = this.props;
-    this.props.setUpdated();
 
     this.setState({
       loadingFees: {
@@ -118,9 +108,10 @@ class EditTaskForm extends Component {
 
     this.handleSubmit(name, newVal)
       .then(resp => {
-        change(name, resp.data[name]);
+        console.log(resp);
+        // change(name, resp.data[name]);
         this.setState({
-          totalCost: resp.data.cost,
+          // totalCost: resp.data.cost,
           loadingFees: {
             [name + "_loading"]: false
           }
@@ -136,14 +127,15 @@ class EditTaskForm extends Component {
   };
 
   render() {
-    const { userRole, handleSubmit, projectTeam, ownCosts, eta } = this.props;
-
     const {
-      specialists,
-      totalCost,
-      dv_fee_loading,
-      sale_fee_loading
-    } = this.state;
+      userRole,
+      handleSubmit,
+      projectTeam,
+      ownCosts,
+      initialValues: { cost: totalCost, specialists }
+    } = this.props;
+
+    const { dv_fee_loading, sale_fee_loading } = this.state;
 
     const disabled = userRole === S_REDGUY ? false : true;
 
@@ -161,8 +153,7 @@ class EditTaskForm extends Component {
                     label="ETA"
                     placeholder="Due date"
                     className="estimate inline-in-modal"
-                    handleEtaForm={this.handleEtaForm}
-                    initData={eta}
+                    selfSubmit
                     disabled={disabled}
                   />
                 </Grid.Column>
@@ -175,7 +166,8 @@ class EditTaskForm extends Component {
                     className="status inline-in-modal"
                     component={SelectField}
                     options={taskStatuses}
-                    handleSubmit={this.handleSubmit}
+                    // handleSubmit={this.handleSubmit}
+                    selfSubmit
                     disabled={disabled}
                     search={false}
                   />
@@ -231,9 +223,10 @@ class EditTaskForm extends Component {
                       {specialists.map((specialist, key) => (
                         <SpecialistTile
                           specialist={specialist}
-                          key={key}
+                          key={specialist.id}
                           index={key}
                           specialistId={this.props.userId}
+                          userRole={userRole}
                           ownCosts={ownCosts}
                           remove={this.removeSpecialist}
                           handleSubmit={this.handleCost}
@@ -393,32 +386,4 @@ class EditTaskForm extends Component {
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   const { projectTeam, user } = state;
-//   const { epicTask } = ownProps;
-//   const initialValues = { ...epicTask };
-//   let ownCosts = null;
-
-//   initialValues.state = taskStatuses.find(
-//     status => status.enum === epicTask.state
-//   ).value;
-
-//   epicTask.specialist_tasks &&
-//     epicTask.specialist_tasks.forEach(({ cost, specialist }) => {
-//       if (user && user.id === specialist.id) {
-//         ownCosts = cost;
-//       }
-//       initialValues["cost_spec_" + specialist.id] = cost;
-//     });
-
-//   return {
-//     user,
-//     projectTeam,
-//     initialValues,
-//     eta: epicTask && epicTask.eta,
-//     formValues: state.form,
-//     ownCosts
-//   };
-// };
-
-export default connect(null)(EditTaskForm);
+export default EditTaskForm;

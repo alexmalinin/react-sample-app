@@ -1,4 +1,5 @@
 import React from "react";
+import { submit } from "redux-form";
 
 import StyledInputs from "@styled/forms/Inputs";
 import StyledError from "@styled/forms/Validation";
@@ -6,12 +7,14 @@ import StyledDropdown from "./StyledDropdown";
 import StyledLabel from "@styled/forms/Label";
 
 const SelectField = ({
-  meta: { touched, error, warning },
+  meta,
+  meta: { touched, error, warning, dispatch, form },
   input,
   label,
   small,
   onOpen,
   isRequired,
+  selfSubmit,
   ...rest
 }) => {
   const { value } = input;
@@ -22,10 +25,14 @@ const SelectField = ({
         {label && isRequired ? <StyledLabel>{label}</StyledLabel> : label}
       </label>
       <StyledDropdown
+        input={input}
         error={Boolean(touched && error)}
         value={value}
-        onChange={(param, data) => input.onChange(data.value)}
+        meta={meta}
         onOpen={onOpen}
+        onBlur={(e, data) => {
+          !error && selfSubmit && dispatch(submit(form));
+        }}
         selection
         fluid
         {...rest}

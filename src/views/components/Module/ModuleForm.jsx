@@ -41,7 +41,6 @@ const ModuleForm = ({
                 placeholder="Due date"
                 className="estimate inline-in-module"
                 validate={[date]}
-                epicId={epicId}
                 selfSubmit
                 disabled={!hasPermission}
               />

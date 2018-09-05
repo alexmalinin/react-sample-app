@@ -287,7 +287,7 @@ const mapStateToProps = state => {
       specialistId: state.user.id,
       specialistCustomTeams: makeCustomTeams(allTeams),
       searchResult,
-      projectWithId: projects[ownProps.projectId]
+      projectWithId: projects.byId[ownProps.projectId]
     };
   };
 };

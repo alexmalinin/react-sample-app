@@ -11,6 +11,7 @@ import { getProjectEpics } from "@ducks/epics/actions";
 import { tasksOperations } from "@ducks/tasks";
 import { isRedguy } from "@ducks/user/selectors";
 import { PORT } from "@utilities";
+import { getProjectTeam } from "../../../state/ducks/teams/selectors";
 
 class Kanban extends Component {
   state = {
@@ -146,14 +147,13 @@ const mapStateToProps = (state, props) => {
     );
   }
 
-  const team = state.projects.byId[projectId].team.id;
-  const { specialists } = state.teams.byId[team];
+  const team = getProjectTeam()(state.teams.byId, projectId);
 
   return {
     user,
     isRedguy: isRedguy()(user),
     tasks,
-    specialists
+    specialists: team.specialists
   };
 };
 

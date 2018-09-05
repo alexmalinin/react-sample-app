@@ -36,8 +36,14 @@ class SpecialistTile extends Component {
   };
 
   render() {
-    const { specialist, hideCosts, specialistId, ownCosts } = this.props;
-    const allowed = oneOfRoles(S_REDGUY);
+    const {
+      specialist,
+      hideCosts,
+      specialistId,
+      userRole,
+      ownCosts
+    } = this.props;
+    const allowed = oneOfRoles(userRole, S_REDGUY);
 
     const avatarClass = ClassNames({
       "user-avatar": true,

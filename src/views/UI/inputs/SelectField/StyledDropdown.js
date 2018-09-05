@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown } from "react-semantic-redux-form";
 
 import { fontColors, colors } from "@styled/constants/colors";
 

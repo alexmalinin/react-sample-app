@@ -135,7 +135,7 @@ class CreateTaskForm extends Component {
                     {specialists.map((specialist, key) => (
                       <SpecialistTile
                         specialist={specialist}
-                        key={key}
+                        key={specialist.id}
                         index={key}
                         remove={this.handleAssign}
                         hideCosts
