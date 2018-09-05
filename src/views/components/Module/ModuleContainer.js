@@ -7,7 +7,7 @@ import { updateEpicFetch, epicUpdated } from "@ducks/epics/actions";
 import { displayError } from "@utilities";
 import { oneOfRoles } from "@views/utils/functions";
 import { S_REDGUY, CUSTOMER } from "@utilities";
-import { deleteEpicFetch } from "@ducks/epics/actions";
+import { deleteEpicFetch, epicSelfUpdate } from "@ducks/epics/actions";
 
 const withForm = reduxForm({
   form: "EditModuleForm",
@@ -29,7 +29,8 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = {
-  deleteEpicFetch
+  deleteEpicFetch,
+  epicSelfUpdate
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(

@@ -23,8 +23,9 @@ const ModuleForm = ({
     params: { projectId, num: epicId }
   },
   handleSubmit,
+  epicSelfUpdate,
   deleteEpicFetch,
-  initialValues: { name, cost, id },
+  initialValues: { name, cost, id, project_id },
   hasPermission
 }) => {
   return (
@@ -61,7 +62,9 @@ const ModuleForm = ({
                 name="attached_files"
                 type="file"
                 component={FileUploader}
-                selfSubmit
+                onSelfSubmit={(name, value) =>
+                  epicSelfUpdate({ [name]: value, project_id, id })
+                }
                 disabled={!hasPermission}
                 dropzone
               />

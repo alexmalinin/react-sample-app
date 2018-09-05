@@ -114,7 +114,6 @@ class FileUploader extends Component {
             }
           ])
             .then(data => {
-              dispatch(change(form, input.name, data[input.name]));
               this.setState({ loading: false });
             })
             .catch(error => {
@@ -131,10 +130,6 @@ class FileUploader extends Component {
             loading: false
           });
           dispatch(change(form, "file", this.fileHub));
-          selfSubmit &&
-            setTimeout(() => {
-              dispatch(submit(form));
-            });
         }
 
         // sample for API console.log('end', this.shadowFileInput.value.split('||'));
