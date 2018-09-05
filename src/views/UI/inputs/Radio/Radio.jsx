@@ -2,11 +2,11 @@ import React from "react";
 import StyledRadio from "@styled/forms/Options";
 
 const RenderRadio = props => {
-  const { input, label, checked, name, onChange } = props;
+  const { input, label, checked, name } = props;
 
   let radioChecked = null;
   if (checked === undefined) {
-    input.hasOwnProperty("checked") ? (radioChecked = input.checked) : null;
+    if (input.hasOwnProperty("checked")) radioChecked = input.checked;
   }
 
   return (

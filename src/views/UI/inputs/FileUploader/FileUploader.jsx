@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Loader } from "semantic-ui-react";
-import { change, submit } from "redux-form";
+import { change } from "redux-form";
 import Dropzone from "react-dropzone";
 
 import StyledUploader from "./StyledUploader";
@@ -91,7 +91,6 @@ class FileUploader extends Component {
     for (let file of files) {
       const {
         onSelfSubmit,
-        selfSubmit,
         entity_type,
         input,
         meta: { dispatch, form }
@@ -117,7 +116,7 @@ class FileUploader extends Component {
               this.setState({ loading: false });
             })
             .catch(error => {
-              console.log(error);
+              console.error(error);
               this.setState({ loading: false, error });
             });
         } else {
@@ -236,11 +235,10 @@ class FileUploader extends Component {
       .then(res => {
         this.getFile(fileName, res);
       })
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   };
 
   getFile = (fileName, res) => {
-    // let blob = new Blob([res], { type: res.data.type });
     let link = document.createElement("a");
     link.href = window.URL.createObjectURL(res.data);
     link.download = fileName;
@@ -284,7 +282,6 @@ class FileUploader extends Component {
               <span className="dropzone-label">
                 Drag and drop or choose your files
               </span>
-              {/* {!rest.small && <i className="fa fa-cloud-download-alt" />} */}
             </Dropzone>
           )}
 
@@ -342,9 +339,7 @@ class FileUploader extends Component {
               type="button"
               className="uploadFile"
               onClick={this.handleTrigger}
-            >
-              {/* Upload */}
-            </button>
+            />
           )}
         <input
           ref={this.triggerRef}

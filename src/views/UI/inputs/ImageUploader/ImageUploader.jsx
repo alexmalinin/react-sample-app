@@ -3,14 +3,7 @@ import { connect } from "react-redux";
 import Axios from "axios";
 import { Button } from "semantic-ui-react";
 import StyledUploader from "@styled/Uploader";
-import {
-  PORT,
-  IMAGE_PORT,
-  BLANK_AVATAR,
-  CUSTOMER,
-  CLIENT,
-  SPECIALIST
-} from "@utilities/constants";
+import { PORT, IMAGE_PORT } from "@utilities/constants";
 import { updateProject } from "@ducks/projects/actions";
 
 class ImageUploader extends Component {
@@ -117,9 +110,7 @@ class ImageUploader extends Component {
         <div className="upload">
           <div className="upload-image">
             <div className="imgPreview">{$imagePreview}</div>
-            <Button type="button" primary onClick={this.handleTrigger}>
-              {/* Upload */}
-            </Button>
+            <Button type="button" primary onClick={this.handleTrigger} />
           </div>
 
           {createProject && (

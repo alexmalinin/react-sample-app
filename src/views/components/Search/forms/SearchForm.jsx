@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 import { Form, Input, Grid } from "semantic-ui-react";
 
 import { DvBlueButton } from "@styled/DVButton";
-// import { getUserRole } from "../../../helpers/functions";
-import { S_REDGUY } from "@utilities";
 
 export default class SearchForm extends Component {
   state = {
@@ -25,16 +23,11 @@ export default class SearchForm extends Component {
     const {
       currentProject,
       searchSpecialist,
-      searchSpecialistForProject,
-      specialistId
+      searchSpecialistForProject
     } = this.props;
 
     const { search } = this.state;
     let roleController;
-
-    // if (getUserRole() === S_REDGUY) {
-    //   roleController = specialistId;
-    // }
 
     if (!!search || !currentProject) {
       searchSpecialist(search, roleController);
@@ -44,15 +37,9 @@ export default class SearchForm extends Component {
   };
 
   clearForm = () => {
-    const { clear, searchSpecialist, specialistId } = this.props;
+    const { clear } = this.props;
     clear();
     this.handleClear();
-
-    // if (getUserRole() === S_REDGUY) {
-    //   searchSpecialist();
-    // } else {
-    //   searchSpecialist(null, specialistId);
-    // }
   };
 
   render() {

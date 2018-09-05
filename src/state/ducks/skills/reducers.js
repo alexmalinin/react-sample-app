@@ -1,6 +1,5 @@
 import * as types from "./types";
 import { createReducer } from "../../utils";
-import { FULFILLED } from "../../../utilities";
 
 const initialState = [];
 

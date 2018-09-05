@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { change, submit } from "redux-form";
 import { TextArea } from "react-semantic-redux-form/dist";
-import { Loader } from "semantic-ui-react";
 import classNames from "classnames";
 
 import StyledTextArea from "../StyledTextArea";
@@ -12,7 +11,6 @@ import { taskStatuses } from "@views/utils/selects";
 
 class AsyncTextArea extends Component {
   state = {
-    // editing: false,
     loading: false,
     updError: false
   };
@@ -29,7 +27,6 @@ class AsyncTextArea extends Component {
 
   keyDown = e => {
     e.keyCode === 27 && e.target.blur();
-    !this.props.autoHeight && e.keyCode === 13 && console.log("enter");
   };
 
   focus = e => {
@@ -98,7 +95,7 @@ class AsyncTextArea extends Component {
       disabled
     } = this.props;
 
-    const { editing, loading, updError } = this.state;
+    const { editing, updError } = this.state;
 
     const textareaClass = classNames(className, { error: !!error });
 
@@ -121,7 +118,6 @@ class AsyncTextArea extends Component {
           rows="1"
           spellCheck="false"
           onKeyDown={this.keyDown}
-          // onKeyPress={e => console.log(e.charCode, e.keyCode, e.ctrlKey)}
           onFocus={this.focus}
           onBlur={this.blur}
           disabled={disabled}

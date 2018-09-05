@@ -4,7 +4,6 @@ import { Input } from "semantic-ui-react";
 
 import { StyledAssignDropdown } from "./StyledAssignDropdown";
 
-import jwtDecode from "jwt-decode";
 import { IMAGE_PORT, BLANK_AVATAR } from "@utilities";
 
 class AssignDropdown extends Component {
@@ -69,7 +68,6 @@ class AssignDropdown extends Component {
       //fix positioning of dropdown
       let dropdownRect = this.dropList.getBoundingClientRect();
       let triggerRect = this.trigger.getBoundingClientRect();
-      // console.log(triggerRect);
 
       if (dropdownRect.width + triggerRect.x > document.body.clientWidth) {
         this.dropList.style.left =
@@ -91,7 +89,7 @@ class AssignDropdown extends Component {
   }
 
   handleSearch = (e, data) => {
-    if (data.value != "") {
+    if (data.value !== "") {
       let result = [];
       this.state.options.forEach(spec => {
         let name = spec.first_name + " " + spec.last_name;

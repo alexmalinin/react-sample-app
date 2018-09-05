@@ -273,7 +273,6 @@ export default styled.div`
     align-items: flex-end;
     margin-bottom: 5px;
     position: relative;
-    /* max-width: 160px; */
   }
 
   .person {

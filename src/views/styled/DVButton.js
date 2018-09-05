@@ -247,7 +247,6 @@ export const SaveBtn = styled(Button)`
     font-family: "Roboto";
     text-align: center;
     color: #fff;
-    /* z-index: 5; */
 
     span {
       position: absolute;

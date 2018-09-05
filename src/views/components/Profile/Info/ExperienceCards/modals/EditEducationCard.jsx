@@ -41,7 +41,7 @@ class EditExperienceCard extends Component {
   };
 
   render() {
-    const { open, size } = this.state;
+    const { open } = this.state;
     const { education, handleConfirmationModal } = this.props;
 
     return (

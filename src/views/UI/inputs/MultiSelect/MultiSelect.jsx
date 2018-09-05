@@ -15,11 +15,7 @@ const MultiSelect = ({
   className
 }) => {
   return (
-    <StyledMultiSelect
-      className={className}
-      padded={padded}
-      // placeholder={placeholder}
-    >
+    <StyledMultiSelect className={className} padded={padded}>
       <label htmlFor={name}>{label}</label>
 
       <Field
@@ -29,7 +25,6 @@ const MultiSelect = ({
         placeholder={placeholder}
         onOpen={onOpen}
         options={options}
-        // disabled
       />
     </StyledMultiSelect>
   );

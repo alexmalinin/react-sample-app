@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Form, Field, change, submit } from "redux-form";
+import { Form, Field, change } from "redux-form";
 import { Grid } from "semantic-ui-react";
 
 import ImageUploader from "@UI/inputs/ImageUploader";
@@ -61,7 +61,6 @@ const CreateProjectForm = props => {
                 label="Technology"
                 placeholder="Choose technologies"
                 options={skills}
-                // handleSelectChange={this.props.handleSelectChange}
                 large
               />
             </div>
@@ -156,17 +155,13 @@ const CreateProjectForm = props => {
                 </NavLink>
 
                 <DvBlueButton
-                  // type="submit"
+                  type="submit"
                   className="dv-blue inverted draft"
                   disabled={loading}
                   onClick={() => {
                     props.dispatch(
                       change("CreateProjectForm", "state", "draft")
                     );
-
-                    // setTimeout(() => {
-                    //   props.dispatch(submit("CreateProjectForm"));
-                    // }, 0);
                   }}
                 >
                   Draft

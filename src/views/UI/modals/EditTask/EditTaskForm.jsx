@@ -30,8 +30,6 @@ class EditTaskForm extends Component {
     this.handleAssign("remove", id);
   };
 
-  //TODO: apply thunk here
-
   handleSubmit = (name, value) => {
     const {
       epicTask: { id, epic_id }
@@ -108,10 +106,7 @@ class EditTaskForm extends Component {
 
     this.handleSubmit(name, newVal)
       .then(resp => {
-        console.log(resp);
-        // change(name, resp.data[name]);
         this.setState({
-          // totalCost: resp.data.cost,
           loadingFees: {
             [name + "_loading"]: false
           }
@@ -166,7 +161,6 @@ class EditTaskForm extends Component {
                     className="status inline-in-modal"
                     component={SelectField}
                     options={taskStatuses}
-                    // handleSubmit={this.handleSubmit}
                     selfSubmit
                     disabled={disabled}
                     search={false}

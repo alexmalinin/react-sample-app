@@ -1,7 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Field } from "redux-form";
-
-import BoardSubHeader from "@components/BoardSubHeader";
 
 import TextArea from "@UI/inputs/TextArea/Async";
 import Datepicker from "@UI/inputs/Datepicker";

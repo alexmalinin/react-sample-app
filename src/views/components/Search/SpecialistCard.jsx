@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { Button, Popup } from "semantic-ui-react";
+import { Popup } from "semantic-ui-react";
 
 import StyledSpecialistCard from "./StyledSpecialistCard";
-import { DvBlueButton } from "@styled/DVButton";
 import InviteSpecialistModal from "./InviteSpecialistModal";
 
 import { IMAGE_PORT, BLANK_AVATAR } from "@utilities";
@@ -78,10 +77,6 @@ class SpecialistCard extends Component {
             View profile
           </NavLink>
         </div>
-        {/* <div className="rating">
-          <span>{Math.floor(Math.random() * (5 - 1) + 1)}</span>
-          <i className="fa fa-star" />
-        </div> */}
       </StyledSpecialistCard>
     );
   }

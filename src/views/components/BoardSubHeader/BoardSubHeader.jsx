@@ -81,7 +81,9 @@ class ProjectSubHeader extends Component {
       "/dashboard/project/:projectId/module/:num/:status"
     );
 
-    const [url, project, moduleId, status] = re.exec(pathname) || [];
+    const res = re.exec(pathname) || [];
+    const moduleId = res[2];
+    const status = res[3];
     const tasksCount = allIds.length;
 
     let completedTasksCount = 0,

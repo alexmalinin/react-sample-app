@@ -154,7 +154,6 @@ export default styled.aside`
       .add-project-label {
         padding: 8px;
         color: ${fontColors.light};
-        /* text-transform: uppercase; */
         font-size: 18px;
         font-weight: 500;
         line-height: normal;
@@ -382,12 +381,6 @@ export default styled.aside`
     }
   }
 
-  @media screen and (max-width: 1820px) {
-    &.right {
-      /* display: none; */
-    }
-  }
-
   @media (max-width: 1440px) {
     &.left {
       max-width: 80px;
@@ -414,8 +407,4 @@ export default styled.aside`
       }
     }
   }
-
-  /* @media screen and (max-width: 1290px) {
-    display: none;
-  } */
 `;

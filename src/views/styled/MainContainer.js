@@ -21,14 +21,14 @@ export default styled.div`
   }
 
   .frame-load {
-  width: 100%;
+    width: 100%;
     height: 100%;
     position: absolute;
     z-index: 1;
     top: 0;
     left: 0;
     transform: rotateY(0deg);
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   .frame-loading {
@@ -43,28 +43,14 @@ export default styled.div`
     transition: transform 0.7s ease-in-out;
     backface-visibility: hidden;
 
-      &.content-load {
+    &.content-load {
       transform: rotateY(0deg);
-      }
-
-      &.content-loading {
-
-      }
     }
 
-  {/*@media (max-width: 1920px) {
-      max-width: 1230px;
-      ${props => (props.indentTop ? `margin-top: 80px` : ``)};
+    &.content-loading {
+    }
   }
 
-  @media (max-width: 991px) {
-      max-width: 100%;
-      ${props => (props.indentBot ? `margin-bottom: 100px` : ``)};
-  }
-
-  @media (min-width: 768px) {
-      padding: 0 20px;
-  }*/}
   ${props =>
     props.sidebarCondition &&
     `
@@ -80,5 +66,5 @@ export default styled.div`
         padding-left: 100px;
         padding-right: ${props.sidebarOpened ? "260px" : "60px"};
       }
-  `}
+  `};
 `;

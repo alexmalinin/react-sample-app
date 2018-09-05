@@ -6,7 +6,6 @@ export default styled.div`
 
   display: grid;
   ${props => (props.village ? `` : `grid-template-columns: 1fr 2fr 2fr`)};
-  /* grid-auto-rows: 100px; */
   grid-gap: 20px;
 
   & > div > div {

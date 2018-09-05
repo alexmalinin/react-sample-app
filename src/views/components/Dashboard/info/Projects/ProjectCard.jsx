@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import ProgressBar from "@UI/ProgressBar";
-import SubHeaderLinkWrap from "@UI/SubHeaderLink";
 import StyledDashboardCard from "../StyledDashboardCard";
 
-// import { getUserRole } from "../../../helpers/functions";
 import MembersDropdown from "@UI/MembersDropdown";
 
-import { IMAGE_PORT, S_REDGUY, CUSTOMER } from "@utilities";
+import { IMAGE_PORT } from "@utilities";
 import { teamsOperations } from "@ducks/teams";
 
 class ProjectCard extends Component {
@@ -42,33 +40,8 @@ class ProjectCard extends Component {
     this.props.showProjectTeam(id);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const {
-  //     data: { id },
-  //     projectTeam
-  //   } = nextProps;
-
-  //   if (projectTeam) {
-  //     if (projectTeam.project_id === id) {
-  //       if (this.props.projectTeam) {
-  //         if (this.props.projectTeam !== projectTeam) {
-  //           this.setState({
-  //             projectTeam: projectTeam
-  //           });
-  //         }
-  //       } else
-  //         this.setState({
-  //           projectTeam: projectTeam
-  //         });
-  //     }
-  //   }
-  // }
-
   renderProjectProgress = () => {
-    const {
-      data: { id },
-      summary
-    } = this.props;
+    const { summary } = this.props;
 
     let allModules = (summary && summary.all_modules) || 0,
       completedModules = (summary && summary.completed_modules) || 0,
@@ -79,15 +52,6 @@ class ProjectCard extends Component {
 
     return (
       <div className="progress">
-        {/* {getUserRole() === CUSTOMER || getUserRole() === S_REDGUY ? (
-          <SubHeaderLinkWrap
-            className="progressItem addModule"
-            label="Add module"
-            url={`/dashboard/project/${id}/module/new`}
-          />
-        ) : (
-          <div>&nbsp;&nbsp;&nbsp;</div>
-        )} */}
         <div className="progressItem">
           <div className="progressBar">{allModules}</div>
           <ProgressBar percents={modulesPercent} strokeColor="#4d4d4d" />

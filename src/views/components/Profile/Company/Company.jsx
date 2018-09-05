@@ -3,7 +3,6 @@ import { reduxForm } from "redux-form";
 
 import SpecialistConpanyForm from "./SpecialistCompanyForm";
 import ClientCompanyForm from "./ClientCompanyForm";
-import ConfirmationPrompt from "../ConfirmationPrompt";
 
 import { SPECIALIST } from "@utilities";
 import { getAllUrlParams } from "../../../utils/functions";
@@ -61,11 +60,6 @@ class Company extends Component {
             )}
           />
         )}
-        {/* <ConfirmationPrompt
-          formId="CompanyForm"
-          shouldConfirm={this.props.dirty}
-          handleChange={this.handleChangeLocation}
-        /> */}
       </Fragment>
     );
   }

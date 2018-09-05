@@ -19,12 +19,6 @@ class Search extends Component {
     selectedProject: null
   };
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (!this.props.specialistCustomTeams && nextProps.specialistId) {
-  //     this.props.showSpecialistCustomTeams(nextProps.specialistId);
-  //   }
-  // }
-
   handleChange = (event, data) => {
     this.setState({
       filters: {

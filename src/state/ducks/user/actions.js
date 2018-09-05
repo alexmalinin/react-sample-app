@@ -6,7 +6,6 @@ import {
   POST,
   GET,
   PUT,
-  DELETE,
   SPECIALIST,
   getUserUrl,
   createNotification

@@ -104,7 +104,6 @@ class CustomCard extends Component {
             bordered
           />
         </div>
-        {/* <span className="ddtw">DDTW-{id}</span> */}
         {user.role === S_REDGUY ? (
           <div className="dropdown">
             <a

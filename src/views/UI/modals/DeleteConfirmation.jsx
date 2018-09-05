@@ -25,7 +25,7 @@ class DeleteConfirmationModal extends Component {
   };
 
   render() {
-    const { submitting, message } = this.props;
+    const { message } = this.props;
 
     return (
       <Modal

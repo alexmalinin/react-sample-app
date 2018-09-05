@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import {
   colors,
-  secondaryColors,
   fontColors,
   boxShadow,
   primaryColors
@@ -130,7 +129,6 @@ export default styled.div`
         left: 0;
         height: 100%;
         width: 100%;
-        /* background: repeating-linear-gradient(-45deg, #ccc 0px, #ccc 20px, #ddd 20px, #ddd 40px); */
         background: #fff;
       }
     }

@@ -72,7 +72,6 @@ export default styled.div`
     input[name="eta"],
     input[name="expiry_date"] {
       cursor: pointer;
-      /* width: 145px; */
     }
 
     .react-datepicker-popper {
@@ -310,7 +309,6 @@ export default styled.div`
 
     .ui.input {
       input {
-        /* margin-bottom: 15px; */
         overflow: hidden;
         resize: none;
         min-height: auto;

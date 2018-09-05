@@ -10,13 +10,7 @@ const Project = ({ match }) => {
   return (
     <Fragment>
       <SubHeader />
-      <Container
-        indentBot
-        sidebarCondition
-        transparent
-        dashboardContainer
-        // className={this.state.loading && "loading"}
-      >
+      <Container indentBot sidebarCondition transparent dashboardContainer>
         <i className="fa fa-spinner fa-3x fa-pulse preloader" />
         <StyledProject>
           <CreateProject />

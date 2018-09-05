@@ -78,7 +78,6 @@ export default styled.div`
             margin-right: 20px;
 
             .asideInfo {
-              /* padding-top: 14px; */
               font-size: 18px;
               border-bottom: 1px solid #f1f1f5;
               padding-bottom: 20px;

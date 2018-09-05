@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
 import PersonTile from "@UI/PersonTile";
 import StyledDropdown from "./StyledDropdown";
@@ -56,7 +55,6 @@ class MembersDropdown extends Component {
       //fix positioning of dropdown
       let dropdownRect = this.dropList.getBoundingClientRect();
       let triggerRect = this.trigger.getBoundingClientRect();
-      // console.log(triggerRect);
 
       if (dropdownRect.width + triggerRect.x > document.body.clientWidth) {
         this.dropList.style.left =

@@ -98,7 +98,6 @@ class Module extends Component {
               name="name"
               value={name}
               ref={Input => (this.editInput = Input)}
-              // onFocus={e => e.target.select()}
               disabled={!editing}
               onKeyUp={this.handleKeyboard}
               onBlur={this.submit}

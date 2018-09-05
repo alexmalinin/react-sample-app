@@ -7,11 +7,6 @@ export default styled.div`
   margin: 0 auto;
   margin-top: 20px;
 
-  /* background: ${props =>
-    props.greenGradient
-      ? "linear-gradient(to right, #00a2ee 0%,#00e1ce 100%)"
-      : "linear-gradient(to right, #2d68ee 0%,#7439e3 100%)"}; */
-
   background: ${miscellaneous.gradient.blue};
 
   margin-bottom: ${props =>
@@ -53,7 +48,7 @@ export default styled.div`
       width: 90px;
       ${props => props.disabled && "pointer-events: none"};
 
-      i{
+      i {
         font-size: 2em;
 
         &.small {
@@ -89,9 +84,6 @@ export default styled.div`
       }
 
       & > span {
-        /* position: absolute;
-        left: 50%;
-        transform: translateX(-50%); */
         white-space: nowrap;
       }
 
@@ -106,11 +98,6 @@ export default styled.div`
       .dashboard {
         font-size: 10px;
       }
-
-      /* .modalTrigger {
-        height: 60px;
-        width: 60px;
-      } */
 
       &.active {
         div {
@@ -155,14 +142,14 @@ export default styled.div`
     }
 
     &.board-progress-bars {
-      transition: .2s;
+      transition: 0.2s;
 
-      &.fade{
+      &.fade {
         opacity: 0;
         visibility: hidden;
       }
       a {
-        &:not(.add-epic){
+        &:not(.add-epic) {
           opacity: 1;
         }
 
@@ -264,7 +251,7 @@ export default styled.div`
   }
 
   .arrow {
-    & + span{
+    & + span {
       display: inline-block;
       position: absolute;
       top: 33px;
@@ -305,7 +292,7 @@ export default styled.div`
   .arrow::before {
     transform: rotate(-45deg);
   }
-  
+
   .arrow-down::after,
   .arrow-down::before {
     content: "";
@@ -413,10 +400,6 @@ export default styled.div`
     `} @media (max-width: 991px) {
     a {
       font-size: 10px;
-      /*
-            & + a {
-                margin-left: 30px;
-            } */
     }
   }
 

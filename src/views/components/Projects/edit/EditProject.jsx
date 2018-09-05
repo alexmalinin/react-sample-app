@@ -20,8 +20,7 @@ import {
   CLIENT,
   SPECIALIST,
   S_REDGUY,
-  createNotification,
-  renameObjPropNames
+  createNotification
 } from "@utilities";
 
 import { getProjectTeam, getCustomTeams } from "@ducks/teams/selectors";

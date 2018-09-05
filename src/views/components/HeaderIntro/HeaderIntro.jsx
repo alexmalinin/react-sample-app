@@ -9,7 +9,6 @@ class Header extends Component {
         <div className="nav-logo">
           <a className="logo" href="/">
             <img src="/images/dv-logo.png" alt="digital village" />
-            {/* <span>Digital Village</span> */}
           </a>
         </div>
         <div className="nav-links sign-links">

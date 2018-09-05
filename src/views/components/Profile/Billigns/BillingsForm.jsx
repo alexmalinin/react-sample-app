@@ -16,7 +16,7 @@ const BillingsForm = props => {
     {
       billingTab: "credit_card",
       render: () => {
-        let disabled = props.activeTab == 0 ? false : true;
+        let disabled = +props.activeTab === 0 ? false : true;
 
         return (
           <Grid.Row>
@@ -35,7 +35,6 @@ const BillingsForm = props => {
                 name="card_number"
                 label="Card number"
                 component={InputField}
-                // type="number"
                 validate={[required]}
                 disabled={disabled}
                 isRequired
@@ -49,7 +48,7 @@ const BillingsForm = props => {
     {
       billingTab: "direct_payment",
       render: () => {
-        let disabled = props.activeTab == 1 ? false : true;
+        let disabled = +props.activeTab === 1 ? false : true;
 
         return (
           <Grid.Row>
@@ -124,7 +123,6 @@ const BillingsForm = props => {
               placeholder="Choose your photo"
               component={ImageUploader}
               avatar={props.avatar}
-              // disabled
             />
           </Grid.Column>
           <Grid.Column mobile={16} computer={10}>
@@ -139,7 +137,7 @@ const BillingsForm = props => {
                     component={RenderRadio}
                     value={0}
                     onChange={props.handleChange}
-                    checked={props.activeTab == 0}
+                    checked={+props.activeTab === 0}
                   />
                 </Grid.Column>
                 <Grid.Column computer={5}>
@@ -150,7 +148,7 @@ const BillingsForm = props => {
                     value={1}
                     component={RenderRadio}
                     onChange={props.handleChange}
-                    checked={props.activeTab == 1}
+                    checked={+props.activeTab === 1}
                   />
                 </Grid.Column>
               </Grid.Row>

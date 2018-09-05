@@ -3,8 +3,7 @@ import {
   colors,
   boxShadow,
   fontColors,
-  miscellaneous,
-  primaryColors
+  miscellaneous
 } from "./constants/colors";
 
 export default styled.header`
@@ -82,7 +81,6 @@ export default styled.header`
       width: 40px;
       border-radius: 50%;
       object-fit: cover;
-      /* background: ${primaryColors.accentBackground}; */
     }
 
     .user-name {

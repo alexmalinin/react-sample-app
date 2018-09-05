@@ -69,7 +69,6 @@ const EditProjectForm = props => {
                     placeholder="Add few new technologies"
                     className="projectSkills"
                     options={skillsOptions}
-                    // onOpen={this.getSkills}
                     handleSelectChange={handleSkills}
                   />
                 ) : (

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import ClassNames from "classnames";
 import { Popup } from "semantic-ui-react";
 

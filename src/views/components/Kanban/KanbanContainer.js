@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 import StyledBoard from "@styled/Board";
 import Kanban from "./Kanban";
-import BoardSubHeader from "@components/BoardSubHeader";
 
 import { getEpicTasks } from "@ducks/tasks/actions";
 
@@ -28,7 +27,7 @@ class KanbanContainer extends Component {
 
   render() {
     const { tasks, projectId, epicId, myTasks } = this.props;
-    const { loading, loaded, allIds, byId, error } = tasks;
+    const { loading, loaded, allIds, error } = tasks;
 
     return (
       <StyledBoard className={loading ? "loading" : ""}>
@@ -36,7 +35,6 @@ class KanbanContainer extends Component {
         {loaded &&
           (!!allIds.length ? (
             <Kanban
-              // tasks={allIds.map(id => byId[id])}
               tasks={tasks.byId}
               myTasks={myTasks}
               epicId={epicId}

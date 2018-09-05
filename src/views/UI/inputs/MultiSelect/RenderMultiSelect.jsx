@@ -8,14 +8,13 @@ const RenderMultiSelect = ({
   input,
   ...rest
 }) => {
-  let { value, onChange, placeholder } = input;
+  let { value, onChange } = input;
 
   return (
     <div>
       <Select
         value={value}
         onChange={onChange}
-        // placeholder={placeholder}
         multi={true}
         openOnFocus={true}
         {...rest}

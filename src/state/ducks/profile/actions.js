@@ -1,4 +1,3 @@
-// import { createNotification } from "../helpers/functions";
 import * as types from "./types";
 import { fetch, selectors } from "../../utils";
 import {

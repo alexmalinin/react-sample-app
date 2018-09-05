@@ -62,10 +62,6 @@ export default styled.div`
       &:hover {
         background: rgba(0, 0, 0, 0.02);
       }
-
-      &:not(:disabled):hover {
-        /* background: rgba(0, 0, 0, 0.02); */
-      }
     }
   }
 

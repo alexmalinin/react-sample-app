@@ -36,13 +36,3 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(
   withForm(ModuleFrom)
 );
-
-// Axios({
-//   method: "PUT",
-//   url: `${PORT}/api/v1/projects/${projectId}/epics/${epicId}`,
-//   data: {
-//     epic: {
-//       [name]: value
-//     }
-//   }
-// });

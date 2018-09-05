@@ -198,7 +198,6 @@ class CreateTaskForm extends Component {
                     validate={[required, maxLength80]}
                     isRequired
                     padded
-                    // maxLength={80}
                   />
                 </Grid.Column>
 

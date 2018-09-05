@@ -116,7 +116,6 @@ class EducationForm extends Component {
                 name="description"
                 label="Description"
                 component={RenderTextArea}
-                // validate={[required]}
               />
             </Grid.Column>
           </Grid.Row>

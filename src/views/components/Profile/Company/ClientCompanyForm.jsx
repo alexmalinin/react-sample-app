@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { Form, Field } from "redux-form";
 import { Grid } from "semantic-ui-react";
@@ -30,7 +29,6 @@ const ClientCompanyForm = ({
       <Grid>
         <Grid.Row>
           <Grid.Column computer={3}>
-            {/* { !avatar && <p>Upload your photo</p>} */}
             <Field
               name="person"
               component={ImageUploader}
@@ -148,19 +146,13 @@ const ClientCompanyForm = ({
                 <SaveBtn
                   type="submit"
                   disabled={submitting}
-                  // onClick={this.props.handleSubmitError}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn
-                  type="submit"
-                  disabled={submitting}
-                  // onClick={this.props.handleSubmitError}
-                  primary
-                >
+                <NextBtn type="submit" disabled={submitting} primary>
                   <span>Next Step</span>
                 </NextBtn>
               )}
