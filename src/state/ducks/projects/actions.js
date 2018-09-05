@@ -101,74 +101,6 @@ export const saveCreatedProgect = (payload, calback) => (
   }
 };
 
-/**
- * Publish project
- *
- * @param  {object} payload project data
- */
-
-export const publishProject = payload => (dispatch, getState) => {
-  const state = getState(),
-    userRole = state.user.role;
-
-  let skill_ids =
-    payload["skills"] &&
-    payload["skills"].map(skill => {
-      return skill.value;
-    });
-
-  let files = payload.file
-    ? payload.file.map(file => {
-        return {
-          document: file,
-          entity_type: "Project"
-        };
-      })
-    : [];
-
-  let status = null,
-    redGuyId = payload["red_guy_id"];
-
-  if (userRole === S_REDGUY) {
-    status = "discovery";
-  } else {
-    if (redGuyId) {
-      status = "reviewed_by_admin";
-    } else {
-      status = payload["state"];
-    }
-  }
-
-  const body = {
-    project: {
-      name: payload["name"],
-      description: payload["description"],
-      user_story: payload["user_story"],
-      state: status,
-      business_requirements: payload["business_requirements"],
-      business_rules: payload["business_rules"],
-      deliverables: payload["deliverables"],
-      further_notes: payload["further_notes"],
-      attached_files_attributes: files,
-      skill_ids
-    },
-    review: payload.state === "reviewed_by_admin"
-    // attached_files_attributes: files,
-  };
-
-  return fetch(PUT, `/projects/${payload.id}`, body)
-    .then(res => {
-      const { data } = res;
-      dispatch(createProject(res));
-
-      createNotification({
-        type: "success",
-        text: `${data.name ? `${data.name} project ` : "Project"} was published`
-      });
-    })
-    .catch(displayError);
-};
-
 const showProject = payload => ({
   type: types.SHOW_PROJECT,
   payload
@@ -189,5 +121,64 @@ export const updateProject = payload => ({
     schema: project
   }
 });
+
+/**
+ * Publish project
+ *
+ * @param  {object} payload project data
+ */
+
+export const publishProject = payload => (dispatch, getState) => {
+  const userRole = getState().user.role;
+
+  let skill_ids =
+    payload["skills"] &&
+    payload["skills"].map(skill => {
+      return skill.value;
+    });
+
+  let files = payload.file
+    ? payload.file.map(file => {
+        return {
+          document: file,
+          entity_type: "Project"
+        };
+      })
+    : [];
+
+  let state = null,
+    redGuyId = payload["red_guy_id"];
+
+  if (userRole === S_REDGUY) {
+    state = "discovery";
+  } else {
+    if (redGuyId) {
+      state = "reviewed_by_admin";
+    } else {
+      state = payload["state"];
+    }
+  }
+
+  return fetch(PUT, `/projects/${payload.id}`, {
+    project: {
+      ...payload,
+      state: state,
+      attached_files_attributes: files,
+      skill_ids
+    },
+    review: payload.state === "reviewed_by_admin"
+  })
+    .then(res => {
+      const { data } = res;
+
+      createNotification({
+        type: "success",
+        text: `${data.name ? `${data.name} project ` : "Project"} was published`
+      });
+
+      dispatch(updateProject(res));
+    })
+    .catch(displayError);
+};
 
 //TODO: move promise from form container to HERE

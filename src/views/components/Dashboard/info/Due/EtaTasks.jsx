@@ -45,7 +45,7 @@ const EtaTasks = ({ tasks }) => {
                   {renderDescription(task.name)}
                 </div>
                 <div className="taskInfo">{`${task.project_name}  >  ${
-                  task.epic_name
+                  task.epic.name
                 }`}</div>
               </div>
             </div>

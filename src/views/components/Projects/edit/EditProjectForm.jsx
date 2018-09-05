@@ -23,6 +23,7 @@ const EditProjectForm = props => {
     projectWithId: { id, logo = {}, name, skills, customer = {}, state },
     projectTeam: { specialists },
     skillsOptions,
+    projectType,
     handleAssignTeam,
     onSelfSubmit,
     handleSkills,
@@ -46,7 +47,7 @@ const EditProjectForm = props => {
               <div className="asideInfo">
                 <div className="label">Project type</div>
                 <div className="text">
-                  {props.projectType ? props.projectType : "Any project type"}
+                  {projectType ? projectType.name : "Any project type"}
                 </div>
               </div>
               <div className="asideInfo">

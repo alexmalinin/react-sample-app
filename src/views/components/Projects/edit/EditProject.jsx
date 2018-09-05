@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { reduxForm } from "redux-form";
 import { NavLink } from "react-router-dom";
 
-import BoardSubHeader from "@components/BoardSubHeader";
 import EditProjectForm from "./EditProjectForm";
 import ModuleCard from "../ModuleCard";
 
@@ -14,6 +13,7 @@ import {
   removeSpecialistFromTeam
 } from "@ducks/teams/actions";
 import { getSkills } from "@ducks/skills/actions";
+import { getProjectTypes } from "@ducks/projectTypes/actions";
 
 import {
   PORT,
@@ -38,6 +38,7 @@ class EditProject extends Component {
     } = this.props;
 
     this.props.getSkills();
+    this.props.getProjectTypes();
 
     if (params.projectId) {
       this.props.showProjectTeam(params.projectId);
@@ -90,21 +91,7 @@ class EditProject extends Component {
       e[key].value && skillsIds.push(e[key].value);
     }
 
-    this.onSelfSubmit("skill_ids", skillsIds)
-      .then(data => {
-        const skills = data.skills;
-
-        skills.forEach(skill => {
-          renameObjPropNames(skill, "id", "value");
-          renameObjPropNames(skill, "name", "label");
-        });
-
-        this.props.change("skills", skills);
-      })
-      .catch(error => {
-        this.props.change("skills", this.props.projectWithId.skills);
-        console.error(error);
-      });
+    this.onSelfSubmit("skill_ids", skillsIds);
   };
 
   onSelfSubmit = (name, value) => {
@@ -205,6 +192,10 @@ const mapStateToProps = (state, { match: { params } }) => {
 
   const projectWithId = projects.byId[params.projectId] || {};
 
+  const projectType = projectTypes.find(
+    type => type.id === projectWithId.project_type_id
+  );
+
   return {
     usertype: state.user.type,
     userRole: state.user.role,
@@ -216,6 +207,7 @@ const mapStateToProps = (state, { match: { params } }) => {
     projectTeam: getProjectTeam()(allTeams, params.projectId),
     allCustomTeams: getCustomTeams(allTeams),
     projectTypes,
+    projectType,
     skillsOptions: getDataForSelect()(skills, "value", "label"),
     epics: state.epics
   };
@@ -226,7 +218,8 @@ const mapDispatchToProps = {
   publishProject,
   showProjectTeam,
   removeSpecialistFromTeam,
-  getSkills
+  getSkills,
+  getProjectTypes
 };
 
 const withForm = reduxForm({

@@ -67,22 +67,20 @@ class DashboardContainer extends Component {
     });
   }
 
-  assignProjectName = (epics = []) => {
+  assignProjectName = (tasks = []) => {
     const { projects } = this.props;
 
-    epics.forEach(epic => {
+    tasks.forEach(task => {
       let proj = null;
 
-      if (projects) {
-        proj = projects.allIds.find(
-          id => projects.byId[id].id === epic.project_id
-        );
+      if (projects.loaded) {
+        proj = task.project_id;
       }
 
-      epic["project_name"] = proj ? projects.byId[proj].name : "Unnamed";
+      task["project_name"] = proj ? projects.byId[proj].name : "Unnamed";
     });
 
-    return epics;
+    return tasks;
   };
 
   renderDefault = () => {
