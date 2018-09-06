@@ -5,27 +5,51 @@ import DueTasks from "./DueTasks";
 import EtaTasks from "./EtaTasks";
 
 class DueContainer extends Component {
-  getTodaysEpics = epics => {
+  getTodaysTasks = (epics = []) => {
     const start = moment().startOf("day");
 
-    return epics
-      ? epics.filter(epic => moment(epic.eta).isSame(start)).length
-      : 0;
+    return epics.filter(epic => moment(epic.eta).isSame(start));
+  };
+
+  getCompletedTasks(array = []) {
+    let completedCount = 0;
+
+    array.forEach(
+      item =>
+        (item.state === "done" || item.state === "accepted") && completedCount++
+    );
+    return completedCount;
+  }
+
+  assignModuleName = tasks => {
+    const { allEpics } = this.props;
+
+    tasks &&
+      tasks.forEach(task => {
+        let epic = allEpics && allEpics.find(epic => epic.id === task.epic.id);
+
+        task["epic_name"] = epic && epic.name;
+        task["project_id"] = epic && epic.project_id;
+      });
+
+    return tasks;
   };
 
   render() {
-    const { allEpics, getEtaForWeek, tasks } = this.props;
+    const { getEtaForWeek, tasks } = this.props;
 
-    const epics = allEpics.length;
-    const todaysEpics = this.getTodaysEpics(allEpics);
+    const allTasks = this.getTodaysTasks(tasks),
+      todaysTasks = this.getCompletedTasks(allTasks),
+      allTasksCount = allTasks.length;
 
-    let weekTasks = getEtaForWeek(tasks);
+    let weekTasks = getEtaForWeek(tasks, false, 9);
+    weekTasks = this.assignModuleName(weekTasks);
     weekTasks = this.props.assignProjectName(weekTasks);
 
     return (
       <div className="tasksDue">
         <div>
-          <DueTasks allEpics={epics} todaysEpics={todaysEpics} />
+          <DueTasks allEpics={allTasksCount} todaysEpics={todaysTasks} />
           <EtaTasks tasks={weekTasks} />
         </div>
       </div>

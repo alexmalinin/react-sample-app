@@ -67,7 +67,7 @@ class TasksContainer extends Component {
     const completedEpics = this.getEpics(),
       completedTasks = this.getTasks();
 
-    let epics = getEtaForWeek(allEpics);
+    let epics = getEtaForWeek(allEpics, false, 6);
     epics = assignProjectName(epics);
 
     const allTasks = getEtaForWeek(tasks, true).length,
