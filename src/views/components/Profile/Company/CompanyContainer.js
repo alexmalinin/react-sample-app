@@ -9,15 +9,15 @@ import Company from "./Company";
 
 import { getDataForSelect } from "@utilities/selectors";
 
-const mapStateToProps = () => {
+const makeMapStateToProps = () => {
   const prepareIndusrries = getDataForSelect();
 
-  return ({
-    user: { type },
-    profile: { info, company },
-    industriesReducer: { industries }
-  }) => {
-    const allIndustries = prepareIndusrries(industries, "value", "text");
+  const mapStateToProps = (state, props) => {
+    const {
+      user: { type },
+      profile: { info, company },
+      industriesReducer: { industries }
+    } = state;
 
     return {
       initialValues: {
@@ -36,9 +36,11 @@ const mapStateToProps = () => {
 
       usertype: type,
       avatar: info.avatar,
-      industries: allIndustries
+      industries: prepareIndusrries(industries)
     };
   };
+
+  return mapStateToProps;
 };
 
 const mapDispatchToProps = {
@@ -48,4 +50,4 @@ const mapDispatchToProps = {
   ...industryOperations
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Company);
+export default connect(makeMapStateToProps, mapDispatchToProps)(Company);

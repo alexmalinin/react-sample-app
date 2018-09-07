@@ -160,8 +160,8 @@ const mapStateToProps = (state, ownProps) => {
 
   const initialValues = { ...experience };
 
-  initialValues.started_at = +experience.started_at || null;
-  initialValues.finished_at = +experience.finished_at || null;
+  initialValues.started_at = experience.started_at || null;
+  initialValues.finished_at = experience.finished_at || null;
 
   return {
     initialValues

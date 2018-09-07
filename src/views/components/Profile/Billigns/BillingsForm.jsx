@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Form, Field } from "redux-form";
 import { Grid } from "semantic-ui-react";
+import { createTextMask } from "redux-form-input-masks";
 
 import ImageUploader from "@UI/inputs/ImageUploader";
 import InputField from "@UI/inputs/InputField";
@@ -9,14 +10,25 @@ import RenderRadio from "@UI/inputs/Radio";
 
 import { CancelBtn, BackBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 
-import { required } from "@views/utils/validate";
+const BillingsForm = ({
+  handleSubmit,
+  submitting,
+  activeTab,
+  avatar,
+  isEditing,
+  handleChange
+}) => {
+  const creditCardMask = createTextMask({
+    pattern: "9999 9999 9999 9999",
+    guide: false,
+    allowEmpty: true
+  });
 
-const BillingsForm = props => {
   const tabs = [
     {
       billingTab: "credit_card",
       render: () => {
-        let disabled = +props.activeTab === 0 ? false : true;
+        let disabled = +activeTab === 0 ? false : true;
 
         return (
           <Grid.Row>
@@ -25,9 +37,7 @@ const BillingsForm = props => {
                 name="card_name"
                 label="Name on card"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
             </Grid.Column>
             <Grid.Column mobile={8} computer={8}>
@@ -35,10 +45,8 @@ const BillingsForm = props => {
                 name="card_number"
                 label="Card number"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
-                creditCard
+                {...creditCardMask}
               />
             </Grid.Column>
           </Grid.Row>
@@ -48,7 +56,7 @@ const BillingsForm = props => {
     {
       billingTab: "direct_payment",
       render: () => {
-        let disabled = +props.activeTab === 1 ? false : true;
+        let disabled = +activeTab === 1 ? false : true;
 
         return (
           <Grid.Row>
@@ -57,41 +65,31 @@ const BillingsForm = props => {
                 name="correspondent_bank"
                 label="Correspondent Bank"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
               <Field
                 name="beneficiary_bank"
                 label="Beneficiary Bank"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
               <Field
                 name="beneficiary_name"
                 label="Beneficiary Name"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
               <Field
                 name="iban"
                 label="IBAN"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
               <Field
                 name="swift_code"
                 label="Swift code"
                 component={InputField}
-                validate={[required]}
                 disabled={disabled}
-                isRequired
               />
               <Field
                 name="purpose_of_payment"
@@ -113,7 +111,7 @@ const BillingsForm = props => {
   ];
 
   return (
-    <Form onSubmit={props.handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Grid>
         <Grid.Row>
           <Grid.Column mobile={16} computer={3}>
@@ -122,7 +120,7 @@ const BillingsForm = props => {
               type="file"
               placeholder="Choose your photo"
               component={ImageUploader}
-              avatar={props.avatar}
+              avatar={avatar}
             />
           </Grid.Column>
           <Grid.Column mobile={16} computer={10}>
@@ -136,8 +134,8 @@ const BillingsForm = props => {
                     label="Credit Card"
                     component={RenderRadio}
                     value={0}
-                    onChange={props.handleChange}
-                    checked={+props.activeTab === 0}
+                    onChange={handleChange}
+                    checked={+activeTab === 0}
                   />
                 </Grid.Column>
                 <Grid.Column computer={5}>
@@ -147,17 +145,17 @@ const BillingsForm = props => {
                     label="Direct Payment"
                     value={1}
                     component={RenderRadio}
-                    onChange={props.handleChange}
-                    checked={+props.activeTab === 1}
+                    onChange={handleChange}
+                    checked={+activeTab === 1}
                   />
                 </Grid.Column>
               </Grid.Row>
-              {tabs[props.activeTab].render()}
+              {tabs[activeTab].render()}
             </Grid>
           </Grid.Column>
           <Grid.Column mobile={16} computer={3}>
             <div className="navigation-wrap">
-              {props.isEditing ? (
+              {isEditing ? (
                 <NavLink exact to="/dashboard/about">
                   <CancelBtn primary>
                     <span>Cancel</span>
@@ -171,17 +169,17 @@ const BillingsForm = props => {
                 </NavLink>
               )}
 
-              {props.isEditing ? (
+              {isEditing ? (
                 <SaveBtn
                   type="submit"
-                  disabled={props.submitting}
+                  disabled={submitting}
                   primary
                   updatebtn="true"
                 >
                   <span>Save</span>
                 </SaveBtn>
               ) : (
-                <NextBtn type="submit" disabled={props.submitting} primary>
+                <NextBtn type="submit" disabled={submitting} primary>
                   <span>Submit</span>
                 </NextBtn>
               )}

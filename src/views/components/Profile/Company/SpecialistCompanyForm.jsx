@@ -9,12 +9,7 @@ import SelectField from "@UI/inputs/SelectField";
 
 import { CancelBtn, BackBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 
-import { required } from "@views/utils/validate";
 import { segments, employeers } from "./helpers/selects";
-
-const propTypes = {};
-
-const defaultProps = {};
 
 const SpecialistCompanyForm = ({
   isEditing,
@@ -39,13 +34,7 @@ const SpecialistCompanyForm = ({
             </Grid.Column>
           </Grid.Column>
           <Grid.Column mobile={16} computer={5}>
-            <Field
-              name="name"
-              label="Company Name"
-              component={InputField}
-              validate={[required]}
-              isRequired
-            />
+            <Field name="name" label="Company Name" component={InputField} />
 
             <Field
               name="company_address"
@@ -68,8 +57,6 @@ const SpecialistCompanyForm = ({
                 label="Segment"
                 placeholder="Select"
                 options={segments}
-                validate={[required]}
-                isRequired
               />
             </div>
 
@@ -80,8 +67,6 @@ const SpecialistCompanyForm = ({
                 label="Industry"
                 placeholder="Select"
                 options={industries}
-                validate={[required]}
-                isRequired
               />
             </div>
 
@@ -92,8 +77,6 @@ const SpecialistCompanyForm = ({
                 component={SelectField}
                 placeholder="Select"
                 options={employeers}
-                validate={[required]}
-                isRequired
               />
             </div>
           </Grid.Column>
@@ -134,8 +117,5 @@ const SpecialistCompanyForm = ({
     </Form>
   );
 };
-
-SpecialistCompanyForm.propTypes = propTypes;
-SpecialistCompanyForm.defaultProps = defaultProps;
 
 export default SpecialistCompanyForm;

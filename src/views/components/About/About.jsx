@@ -53,7 +53,7 @@ const About = ({
     if (!data) return;
 
     return (
-      <div key={data.id} className="profile-content">
+      <div key={data.id} className="profile-content experience-cards">
         <div className="profile-block">
           <div className="">{data.name}</div>
           <div className="">{data.position || data.degree}</div>

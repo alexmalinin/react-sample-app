@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Form, Field } from "redux-form";
 
 import ModalTerms from "./modals/ModalTerms";
@@ -42,14 +41,5 @@ const SignUpForm = ({ handleSubmit, submitting }) => (
     </div>
   </Form>
 );
-
-SignUpForm.PropTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool
-};
-
-SignUpForm.defaultProps = {
-  submitting: false
-};
 
 export default SignUpForm;

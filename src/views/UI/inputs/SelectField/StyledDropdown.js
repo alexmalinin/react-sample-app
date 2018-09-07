@@ -22,6 +22,11 @@ export default styled(Dropdown)`
     & > .default.text {
       color: ${fontColors.light};
     }
+
+    &.search > input.search {
+      line-height: inherit;
+      padding: inherit;
+    }
   }
 
   &.ui.selection.active.dropdown {

@@ -10,7 +10,7 @@ import StyledFormHeader from "@styled/forms/FormHeader";
 import StyledTabs from "@styled/StyledTabs";
 import StyledAuthForm from "@styled/forms/AuthForm";
 
-import { userOperations } from "@ducks/user";
+import { signUp } from "@ducks/user/actions";
 
 class SignUpContainer extends Component {
   state = {
@@ -68,6 +68,7 @@ class SignUpContainer extends Component {
                 signUp(activeUser, values)
                   .then(({ data }) => {
                     localStorage.user_email = data.email;
+                    localStorage.usertype = activeUser;
                     history.push("/confirm_email");
                   })
                   .catch(({ response: { data } }) => {
@@ -84,12 +85,12 @@ class SignUpContainer extends Component {
   }
 }
 
+const withForm = reduxForm({
+  form: "SignUpForm",
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true
+});
+
 export default connect(null, {
-  signUp: userOperations.signUp
-})(
-  reduxForm({
-    form: "SignUpForm",
-    destroyOnUnmount: true,
-    forceUnregisterOnUnmount: true
-  })(SignUpContainer)
-);
+  signUp
+})(withForm(SignUpContainer));

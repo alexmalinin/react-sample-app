@@ -163,8 +163,8 @@ const mapStateToProps = (state, ownProps) => {
 
   const initialValues = { ...education };
 
-  initialValues.started_at = +education.started_at || null;
-  initialValues.finished_at = +education.finished_at || null;
+  initialValues.started_at = education.started_at || null;
+  initialValues.finished_at = education.finished_at || null;
 
   return {
     initialValues

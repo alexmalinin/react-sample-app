@@ -9,6 +9,8 @@ import {
 } from "@utilities";
 import { getSkillsAttr, specialistProfile, clientProfile } from "./utils";
 import { DELETE } from "../../../utilities";
+import history from "../../../history";
+import { getAllUrlParams } from "@views/utils/functions";
 
 /**
  * Update user Data Profile
@@ -38,104 +40,103 @@ export const updateUserProfile = (data, education, experience, callback) => {
   };
 };
 
-const updateSpecialistProfile = (id, data, education, experience, callback) => {
+const updateSpecialistProfile = (
+  id,
+  data,
+  education,
+  experience
+) => dispatch => {
   const image = data["person"] && data["person"][0];
 
   const educationData = education.filter(e => !e.id),
     experienceData = experience.filter(e => !e.id);
 
-  return dispatch => {
-    if (image) {
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
+  const isEditing = getAllUrlParams(history.location.search).edit;
 
-      reader.onload = () => {
-        dispatch({
-          type: types.USER_PROFILE_UPDATE,
-          payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
-            profile: specialistProfile(
-              data,
-              educationData,
-              experienceData,
-              reader.result
-            )
-          })
-        })
-          .then(() => {
-            createNotification({
-              type: "success",
-              text: "Changes was saved"
-            });
+  if (image) {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
 
-            if (callback) callback();
-          })
-          .catch(error => {
-            createNotification({
-              type: "error"
-            });
-          });
-      };
-    } else {
-      return dispatch({
+    reader.onload = () => {
+      dispatch({
         type: types.USER_PROFILE_UPDATE,
         payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
-          profile: specialistProfile(data, educationData, experienceData)
+          profile: specialistProfile(
+            data,
+            educationData,
+            experienceData,
+            reader.result
+          )
         })
       })
         .then(() => {
+          if (isEditing) {
+            history.push("/dashboard/about");
+          } else {
+            history.push("/profile/industry");
+          }
+
           createNotification({
             type: "success",
             text: "Changes was saved"
           });
-
-          if (callback) callback();
         })
         .catch(error => {
           createNotification({
             type: "error"
           });
         });
-    }
-  };
+    };
+  } else {
+    return dispatch({
+      type: types.USER_PROFILE_UPDATE,
+      payload: fetch(PUT, `/specialists/${id}/dashboard/profile`, {
+        profile: specialistProfile(data, educationData, experienceData)
+      })
+    })
+      .then(() => {
+        if (isEditing) {
+          history.push("/dashboard/about");
+        } else {
+          history.push("/profile/industry");
+        }
+
+        createNotification({
+          type: "success",
+          text: "Changes was saved"
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+      });
+  }
 };
 
-const updateClientProfile = (id, data) => {
+const updateClientProfile = (id, data) => dispatch => {
   const image = data["person"] ? data["person"][0] : null;
 
-  return dispatch => {
-    if (image) {
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
+  const isEditing = getAllUrlParams(history.location.search).edit;
 
-      reader.onload = () => {
-        dispatch({
-          type: types.USER_PROFILE_UPDATE,
-          payload: fetch(PUT, `/customers/${id}/dashboard/profile`, {
-            profile: clientProfile(data, reader.result)
-          })
-        })
-          .then(() => {
-            createNotification({
-              type: "success",
-              text: "Changes was saved"
-            });
-          })
-          .catch(error => {
-            createNotification({
-              type: "error"
-            });
+  if (image) {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
 
-            throw new Error();
-          });
-      };
-    } else {
+    reader.onload = () => {
       dispatch({
         type: types.USER_PROFILE_UPDATE,
         payload: fetch(PUT, `/customers/${id}/dashboard/profile`, {
-          profile: clientProfile(data)
+          profile: clientProfile(data, reader.result)
         })
       })
         .then(() => {
+          if (isEditing) {
+            history.push("/dashboard/about");
+          } else {
+            history.push("/profile/company");
+          }
+
           createNotification({
             type: "success",
             text: "Changes was saved"
@@ -148,8 +149,34 @@ const updateClientProfile = (id, data) => {
 
           throw new Error();
         });
-    }
-  };
+    };
+  } else {
+    dispatch({
+      type: types.USER_PROFILE_UPDATE,
+      payload: fetch(PUT, `/customers/${id}/dashboard/profile`, {
+        profile: clientProfile(data)
+      })
+    })
+      .then(() => {
+        if (isEditing) {
+          history.push("/dashboard/about");
+        } else {
+          history.push("/profile/company");
+        }
+
+        createNotification({
+          type: "success",
+          text: "Changes was saved"
+        });
+      })
+      .catch(error => {
+        createNotification({
+          type: "error"
+        });
+
+        throw new Error();
+      });
+  }
 };
 
 export const addEducationCard = payload => ({
@@ -291,52 +318,50 @@ export const deleteExperienceCard = payload => (dispatch, getState) => {
  * @param  {object} data specialist data
  */
 
-export const updateSpecialistIndustry = data => {
+export const updateSpecialistIndustry = data => (dispatch, getState) => {
   const attr = getSkillsAttr(data),
     spec_attr = getSkillsAttr(data);
 
-  return (dispatch, getState) => {
-    const state = getState(),
-      id = selectors.getUserId(state);
+  const state = getState(),
+    id = selectors.getUserId(state);
 
-    const body = {
-      specialist: {
-        job_title: data["job_title"]["value"],
-        position: data["position"],
-        contact_number: data["contact_number"],
-        project_interest: data["project_interest"],
-        communication_type: data["communication_type"],
-        available: data["availability"],
-        hourly_rate: data["hourly_rate"],
-        project_type_id: data["project_type"]["value"],
-        experience_level_id: data["experience_level"]["value"],
-        industry_area_id: data["industry_area_id"]["value"],
-        industry_title: data["industry_title"],
-        specialist_skills_attributes: {
-          skill_attributes: attr
-        },
-        speciality_ids: spec_attr || ""
-      }
-    };
-
-    return dispatch({
-      type: types.USER_INDUSTRY_UPDATE,
-      payload: fetch(PUT, `/specialists/${id}`, body)
-    })
-      .then(() => {
-        createNotification({
-          type: "success",
-          text: "Changes was saved"
-        });
-      })
-      .catch(error => {
-        createNotification({
-          type: "error"
-        });
-
-        throw new Error();
-      });
+  const body = {
+    specialist: {
+      job_title: data["job_title"],
+      position: data["position"],
+      contact_number: data["contact_number"],
+      project_interest: data["project_interest"],
+      communication_type: data["communication_type"],
+      available: data["availability"],
+      hourly_rate: data["hourly_rate"],
+      project_type_id: data["project_type"],
+      experience_level_id: data["experience_level"],
+      industry_area_id: data["industry_area_id"],
+      industry_title: data["industry_title"],
+      specialist_skills_attributes: {
+        skill_attributes: attr
+      },
+      speciality_ids: spec_attr || ""
+    }
   };
+
+  return dispatch({
+    type: types.USER_INDUSTRY_UPDATE,
+    payload: fetch(PUT, `/specialists/${id}`, body)
+  })
+    .then(() => {
+      createNotification({
+        type: "success",
+        text: "Changes was saved"
+      });
+    })
+    .catch(error => {
+      createNotification({
+        type: "error"
+      });
+
+      throw new Error();
+    });
 };
 
 export const updateCompany = data => {
