@@ -14,6 +14,8 @@ import ConfirmSubmitModal from "@components/common/modals/ConfirmSubmitModal";
 import ConfirmationPrompt from "@components/Profile/ConfirmationPrompt";
 import NotFound from "@components/NotFound";
 
+import EnchancedRoute from "@views/utils/hoc/EnchancedRoute";
+
 import MainContainer from "@styled/MainContainer";
 import { Container } from "@styled/Containers";
 
@@ -44,7 +46,9 @@ const ProfileLayout = ({
         <Container>
           <SubHeader percents={percents} routes={routes} userRole={userRole} />
           <Switch>
-            {routes.map(route => <Route {...route} key={route.name} />)}
+            {routes.map(route => (
+              <EnchancedRoute {...route} key={route.name} title={route.label} />
+            ))}
             <Route component={NotFound} />
           </Switch>
         </Container>
