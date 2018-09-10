@@ -16,7 +16,6 @@ const InputField = ({
   meta: { touched, error, warning },
   checkedClass,
   min,
-  pattern,
   isRequired,
   step,
   autoComplete,
@@ -38,7 +37,6 @@ const InputField = ({
         placeholder={placeholder}
         type={type}
         min={min}
-        pattern={pattern}
         step={step}
         autoComplete={autoComplete || "off"}
       />

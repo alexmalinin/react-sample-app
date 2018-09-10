@@ -11,7 +11,7 @@ import StyledTabs from "@styled/StyledTabs";
 import StyledAuthForm from "@styled/forms/AuthForm";
 import Loader from "@components/common/Loader";
 
-import { userOperations } from "@ducks/user";
+import { login } from "@ducks/user/actions";
 
 class SignInContainer extends Component {
   state = {
@@ -25,7 +25,7 @@ class SignInContainer extends Component {
   };
 
   static defaultProps = {
-    usertype: "specialist",
+    usertype: localStorage.getItem("usertype") || "specialist",
     signInFail: false
   };
 
@@ -50,7 +50,7 @@ class SignInContainer extends Component {
       }
     ];
 
-    const activeIndex = activeUser === "specialist" ? 0 : 1;
+    const activeIndex = activeUser === "customer" ? 1 : 0;
 
     return (
       <Fragment>
@@ -87,12 +87,19 @@ const mapStateToProps = ({ user }) => ({
   signInFail: user.signInFail
 });
 
-export default connect(mapStateToProps, {
-  login: userOperations.login
-})(
-  reduxForm({
-    form: "SignInForm",
-    destroyOnUnmount: true,
-    forceUnregisterOnUnmount: true
-  })(SignInContainer)
+const mapDispatchToProps = {
+  login
+};
+
+const withForm = reduxForm({
+  form: "SignInForm",
+  destroyOnUnmount: true,
+  forceUnregisterOnUnmount: true,
+  initialValues: {
+    email: localStorage.getItem("user_email")
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withForm(SignInContainer)
 );

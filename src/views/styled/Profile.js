@@ -77,6 +77,10 @@ export default styled.div`
     flex-flow: column nowrap;
     padding-bottom: 16px;
 
+    &.experience-cards {
+      flex: auto;
+    }
+
     &.profile-client-description {
       border-left: 1px solid ${colors.lightGreyBlue};
 

@@ -3,28 +3,30 @@ import { connect } from "react-redux";
 import Industry from "./Industry";
 
 import { getUserData } from "@ducks/user/actions";
-import { profileOperations } from "@ducks/profile";
+import { updateSpecialistIndustry } from "@ducks/profile/actions";
 import { skillsOperations } from "@ducks/skills";
 import { industryOperations } from "@ducks/industries";
 import { experienceLevelOperations } from "@ducks/experienceLevels";
 import { projectTypesOperations } from "@ducks/projectTypes";
-import { modalsOperations } from "@ducks/modals";
+import { showSubmitErrorModal } from "@ducks/modals/actions";
 
 import { getDataForSelect } from "@utilities/selectors";
 
-const mapStateToProps = () => {
+const makeMapStateToProps = () => {
   const prepareIndustries = getDataForSelect(),
     prepareProjectTypes = getDataForSelect(),
     prepareExperienceLevels = getDataForSelect(),
     prepareSkills = getDataForSelect();
 
-  return ({
-    profile: { info, industry },
-    skills,
-    experienceLevels,
-    industriesReducer: { industries, loading: industriesLoading },
-    projectTypesReducer: { projectTypes, loading: projectTypesLoading }
-  }) => {
+  const mapStateToProps = (state, props) => {
+    const {
+      profile: { info, industry },
+      skills,
+      experienceLevels,
+      industriesReducer: { industries, loading: industriesLoading },
+      projectTypesReducer: { projectTypes, loading: projectTypesLoading }
+    } = state;
+
     const { project_type, industry_area_id } = industry;
 
     let renderSkills = [];
@@ -36,16 +38,12 @@ const mapStateToProps = () => {
 
     return {
       avatar: info.avatar,
-      skills: prepareSkills(skills, "value, text"),
-      industries: prepareIndustries(industries, "value", "text"),
+      skills: prepareSkills(skills, "value", "label"),
+      industries: prepareIndustries(industries),
       industriesLoading,
-      experienceLevels: prepareExperienceLevels(
-        experienceLevels,
-        "value",
-        "text"
-      ),
+      experienceLevels: prepareExperienceLevels(experienceLevels),
       experienceLevelsLoading: experienceLevels.loading,
-      projectTypes: prepareProjectTypes(projectTypes, "value", "text"),
+      projectTypes: prepareProjectTypes(projectTypes),
       projectTypesLoading,
       initialValues: {
         job_title: industry.job_title,
@@ -62,16 +60,18 @@ const mapStateToProps = () => {
       }
     };
   };
+
+  return mapStateToProps;
 };
 
 const mapDispatchToProps = {
   getUserData,
-  updateSpecialistIndustry: profileOperations.updateSpecialistIndustry,
-  showSubmitErrorModal: modalsOperations.showSubmitErrorModal,
+  updateSpecialistIndustry,
+  showSubmitErrorModal,
   ...skillsOperations,
   ...industryOperations,
   ...experienceLevelOperations,
   ...projectTypesOperations
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Industry);
+export default connect(makeMapStateToProps, mapDispatchToProps)(Industry);

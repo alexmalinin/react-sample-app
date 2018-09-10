@@ -12,20 +12,9 @@ class Info extends Component {
   };
 
   submit = values => {
-    const {
-      history,
-      educations,
-      work_experiences,
-      updateUserProfile
-    } = this.props;
+    const { educations, work_experiences, updateUserProfile } = this.props;
 
-    return updateUserProfile(values, educations, work_experiences, () => {
-      if (this.state.isEditing) {
-        history.push("/dashboard/about");
-      } else {
-        history.push("/profile/industry");
-      }
-    });
+    return updateUserProfile(values, educations, work_experiences);
   };
 
   render() {

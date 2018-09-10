@@ -10,12 +10,7 @@ import RenderTextArea from "@UI/inputs/TextArea";
 
 import { CancelBtn, BackBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 
-import { required } from "@views/utils/validate";
 import { segments, employeers } from "./helpers/selects";
-
-const propTypes = {};
-
-const defaultProps = {};
 
 const ClientCompanyForm = ({
   isEditing,
@@ -45,8 +40,6 @@ const ClientCompanyForm = ({
                     name="name"
                     label="Company Name"
                     component={InputField}
-                    validate={[required]}
-                    isRequired
                   />
 
                   <Field
@@ -96,8 +89,6 @@ const ClientCompanyForm = ({
                     placeholder="Select"
                     component={SelectField}
                     options={segments}
-                    validate={[required]}
-                    isRequired
                   />
 
                   <div id="industry" className="half-column">
@@ -107,8 +98,6 @@ const ClientCompanyForm = ({
                       label="Industry"
                       placeholder="Select"
                       options={industries}
-                      validate={[required]}
-                      isRequired
                     />
                   </div>
 
@@ -119,8 +108,6 @@ const ClientCompanyForm = ({
                       placeholder="Select"
                       component={SelectField}
                       options={employeers}
-                      validate={[required]}
-                      isRequired
                     />
                   </div>
                 </Grid.Column>
@@ -163,8 +150,5 @@ const ClientCompanyForm = ({
     </Form>
   );
 };
-
-ClientCompanyForm.propTypes = propTypes;
-ClientCompanyForm.defaultProps = defaultProps;
 
 export default ClientCompanyForm;

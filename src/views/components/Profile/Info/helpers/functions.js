@@ -12,8 +12,8 @@ export function getYearsForSelect(start = 1960, end) {
 
   while (startYear <= new Date().getFullYear()) {
     let item = {
-      value: startYear,
-      text: startYear
+      value: String(startYear),
+      text: String(startYear)
     };
     startYear++;
     years.push(item);
