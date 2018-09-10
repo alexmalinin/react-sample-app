@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import scrollToComponent from "react-scroll-to-component";
 import { NavLink } from "react-router-dom";
 import { Form, Field } from "redux-form";
 import { Grid } from "semantic-ui-react";
+import { Element, scroller } from "react-scroll";
 
 import ImageUploader from "@UI/inputs/ImageUploader";
 import InputField from "@UI/inputs/InputField";
@@ -13,7 +13,6 @@ import StyledExperienceCards from "@styled/ExperienceCards";
 import ExperinceCards from "./ExperienceCards";
 import { CancelBtn, SaveBtn, NextBtn } from "@styled/DVButton";
 
-import { CUSTOMER } from "@utilities";
 import { getAllUrlParams } from "@views/utils/functions";
 import { required, email } from "@views/utils/validate";
 
@@ -21,7 +20,13 @@ class InfoForm extends Component {
   componentDidMount() {
     const param = getAllUrlParams().hash;
 
-    scrollToComponent(this[param], { offset: -200 });
+    if (param)
+      scroller.scrollTo(param, {
+        duration: 1000,
+        delay: 100,
+        smooth: true,
+        offset: -200
+      });
   }
 
   render() {
@@ -29,7 +34,7 @@ class InfoForm extends Component {
       handleSubmit,
       submitting,
       isEditing,
-      userRole,
+      isSpecialist,
       avatar,
       educations,
       work_experiences
@@ -110,17 +115,17 @@ class InfoForm extends Component {
                   <Grid.Column computer={16}>
                     <div
                       id={
-                        userRole === CUSTOMER
-                          ? "description"
-                          : "professional_experience_info"
+                        isSpecialist
+                          ? "professional_experience_info"
+                          : "description"
                       }
                       className="text-area-group"
                     >
                       <Field
                         name={
-                          userRole === CUSTOMER
-                            ? "description"
-                            : "professional_experience_info"
+                          isSpecialist
+                            ? "professional_experience_info"
+                            : "description"
                         }
                         label={
                           "Write a paragraph or two about your professional experience "
@@ -132,36 +137,34 @@ class InfoForm extends Component {
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column computer={16}>
-                    <StyledExperienceCards>
-                      <div
-                        ref={div => {
-                          this.education = div;
-                        }}
-                        className="experience-section"
-                      >
-                        <h3>Education</h3>
-                        <ExperinceCards educations={educations} />
-                      </div>
-                    </StyledExperienceCards>
-                  </Grid.Column>
-                  <Grid.Column computer={16}>
-                    <StyledExperienceCards>
-                      <div
-                        ref={div => {
-                          this.experience = div;
-                        }}
-                        className="experience-section"
-                      >
-                        <h3>Work experience</h3>
-                        <ExperinceCards experiences={work_experiences} />
-                      </div>
-                    </StyledExperienceCards>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
+              {isSpecialist && (
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column computer={16}>
+                      <StyledExperienceCards>
+                        <Element
+                          name="education"
+                          className="experience-section"
+                        >
+                          <h3>Education</h3>
+                          <ExperinceCards educations={educations} />
+                        </Element>
+                      </StyledExperienceCards>
+                    </Grid.Column>
+                    <Grid.Column computer={16}>
+                      <StyledExperienceCards>
+                        <Element
+                          name="experience"
+                          className="experience-section"
+                        >
+                          <h3>Work experience</h3>
+                          <ExperinceCards experiences={work_experiences} />
+                        </Element>
+                      </StyledExperienceCards>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              )}
             </Grid.Column>
             <Grid.Column computer={3}>
               <div className="navigation-wrap">
