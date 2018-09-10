@@ -1,15 +1,22 @@
 import { reduxForm } from "redux-form";
+import { connect } from "react-redux";
 
 import CreateModuleForm from "./CreateModuleForm";
 
 import { createEpicFetch, epicCreated } from "@ducks/epics/actions";
-import { displayError } from "@utilities";
+import { showSubmitErrorModal } from "@ducks/modals/actions";
+
+const mapDispatchToProps = {
+  showSubmitErrorModal
+};
 
 const withForm = reduxForm({
   form: "CreateModuleForm",
   onSubmit: createEpicFetch,
   onSubmitSuccess: epicCreated,
-  onSubmitFail: displayError
+  onSubmitFail: (error, dispatch, submitError, props) => {
+    if (error) props.showSubmitErrorModal();
+  }
 });
 
-export default withForm(CreateModuleForm);
+export default connect(null, mapDispatchToProps)(withForm(CreateModuleForm));

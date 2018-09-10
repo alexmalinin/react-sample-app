@@ -8,6 +8,7 @@ import CreateProjectForm from "./CreateProjectForm";
 import { skillsOperations } from "@ducks/skills";
 import { projectTypesOperations } from "@ducks/projectTypes";
 import { saveCreatedProgect } from "@ducks/projects/actions";
+import { showSubmitErrorModal } from "@ducks/modals/actions";
 
 import { getDataForSelect } from "@utilities/selectors";
 import { isRedguy } from "@ducks/user/selectors";
@@ -96,7 +97,8 @@ const mapStateToProps = () => {
 const mapDispatchToProps = {
   ...skillsOperations,
   ...projectTypesOperations,
-  saveCreatedProgect
+  saveCreatedProgect,
+  showSubmitErrorModal
 };
 
 const withForm = reduxForm({
@@ -104,7 +106,10 @@ const withForm = reduxForm({
   destroyOnUnmount: true,
   forceUnregisterOnUnmount: true,
   enableReinitialize: true,
-  keepDirtyOnReinitialize: false
+  keepDirtyOnReinitialize: false,
+  onSubmitFail: (error, dispatch, submitError, props) => {
+    if (error) props.showSubmitErrorModal();
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
