@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
 import { connect } from "react-redux";
@@ -7,22 +8,32 @@ import { NavLink } from "react-router-dom";
 import Dashboard from "./Dashboard";
 
 import { getAllProjects } from "@ducks/projects/actions";
-import { getEpicTasks } from "@ducks/tasks/actions";
+import { getProjectsEpics } from "@ducks/projects/selectors";
 
 import { PORT, SPECIALIST, S_REDGUY, getUserUrl } from "@utilities";
 
 class DashboardContainer extends Component {
+  static propTypes = {
+    epics: PropTypes.arrayOf(PropTypes.object)
+  };
+
+  static defaultProps = {
+    epics: []
+  };
+
   state = {
     summary: [],
-    fetch: true,
-    epics: [],
     tasks: []
   };
 
   componentDidMount() {
-    const { userId, usertype } = this.props;
-
     this.props.getAllProjects();
+
+    this.fetchSummary();
+  }
+
+  fetchSummary = () => {
+    const { userId, usertype } = this.props;
 
     const user = getUserUrl(usertype);
 
@@ -35,20 +46,13 @@ class DashboardContainer extends Component {
 
     axios({
       method: "GET",
-      url: `${PORT}/api/v1/${user}/${userId}/week_module`
-    })
-      .then(({ data }) => this.setState({ epics: data }))
-      .catch(error => console.error(error));
-
-    axios({
-      method: "GET",
       url: `${PORT}/api/v1/${user}/${userId}/week_tasks`
     })
       .then(({ data }) => this.setState({ tasks: data }))
       .catch(error => console.error(error));
-  }
+  };
 
-  getEtaForWeek(array = [], week = false) {
+  getEtaForWeek(array = [], week = false, count) {
     const start = week ? moment().startOf("week") : moment().startOf("day"),
       end = moment().endOf("week");
     let etaTasks = [];
@@ -62,9 +66,13 @@ class DashboardContainer extends Component {
         })
       : null;
 
-    return etaTasks.sort((a, b) => {
+    etaTasks.sort((a, b) => {
       return new Date(a.eta) - new Date(b.eta);
     });
+
+    if (typeof count === "number") return etaTasks.splice(0, count);
+
+    return etaTasks;
   }
 
   assignProjectName = (tasks = []) => {
@@ -128,8 +136,8 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    const { summary, epics, tasks } = this.state;
-    const { getEpicTasks } = this.props;
+    const { summary, tasks } = this.state;
+    const { epics } = this.props;
 
     return (
       <Dashboard
@@ -137,7 +145,6 @@ class DashboardContainer extends Component {
         summary={summary}
         allEpics={epics}
         tasks={tasks}
-        getEpicTasks={getEpicTasks}
         getEtaForWeek={this.getEtaForWeek}
         assignProjectName={this.assignProjectName}
         renderDefault={this.renderDefault}
@@ -146,16 +153,22 @@ class DashboardContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    userId: state.user.id,
-    usertype: state.user.type,
-    userRole: state.user.role,
-    projects: state.projects
+const makeMapStateToProps = () => {
+  const projectsEpics = getProjectsEpics();
+
+  const mapStateToProps = (state, props) => {
+    return {
+      userId: state.user.id,
+      usertype: state.user.type,
+      userRole: state.user.role,
+      projects: state.projects,
+      epics: projectsEpics(state.projects)
+    };
   };
+
+  return mapStateToProps;
 };
 
-export default connect(mapStateToProps, {
-  getAllProjects,
-  getEpicTasks
+export default connect(makeMapStateToProps, {
+  getAllProjects
 })(DashboardContainer);

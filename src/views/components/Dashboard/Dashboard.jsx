@@ -14,45 +14,41 @@ const Dashboard = ({
   projects,
   allEpics,
   tasks,
-  getEpicTasks,
   summary,
   getEtaForWeek,
   assignProjectName,
   renderDefault
-}) => {
-  return (
-    <Container
-      sidebarCondition
-      dashboardContainer
-      transparent
-      className={projects.loading && "loading"}
-    >
-      <i className="fa fa-spinner fa-3x fa-pulse preloader" />
+}) => (
+  <Container
+    sidebarCondition
+    dashboardContainer
+    transparent
+    className={projects.loading && "loading"}
+  >
+    <i className="fa fa-spinner fa-3x fa-pulse preloader" />
 
-      <DashboardSubHeader dashboard userRole={userRole} />
-      {projects.loaded &&
-        projects.allIds.length > 0 && (
-          <StyledDashboard>
-            <DueInfo
-              allEpics={allEpics}
-              tasks={tasks}
-              getEtaForWeek={getEtaForWeek}
-              getEpicTasks={getEpicTasks}
-              assignProjectName={assignProjectName}
-            />
-            <ProjectsInfo summary={summary} projects={projects} />
-            <TasksInfo
-              summary={summary}
-              allEpics={allEpics}
-              tasks={tasks}
-              getEtaForWeek={getEtaForWeek}
-              assignProjectName={assignProjectName}
-            />
-          </StyledDashboard>
-        )}
-      {projects.loaded && projects.allIds.length === 0 && renderDefault()}
-    </Container>
-  );
-};
+    <DashboardSubHeader dashboard userRole={userRole} />
+    {projects.loaded &&
+      projects.allIds.length > 0 && (
+        <StyledDashboard>
+          <DueInfo
+            allEpics={allEpics}
+            tasks={tasks}
+            getEtaForWeek={getEtaForWeek}
+            assignProjectName={assignProjectName}
+          />
+          <ProjectsInfo summary={summary} projects={projects} />
+          <TasksInfo
+            summary={summary}
+            allEpics={allEpics}
+            tasks={tasks}
+            getEtaForWeek={getEtaForWeek}
+            assignProjectName={assignProjectName}
+          />
+        </StyledDashboard>
+      )}
+    {projects.loaded && projects.allIds.length === 0 && renderDefault()}
+  </Container>
+);
 
 export default Dashboard;

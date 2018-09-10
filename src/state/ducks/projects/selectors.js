@@ -1,8 +1,7 @@
 import { createSelector } from "reselect";
 import filter from "lodash/filter";
 
-const projects = (projects, ...filters) =>
-  projects.allIds.map(id => projects.byId[id]);
+const projects = projects => projects.allIds.map(id => projects.byId[id]);
 
 export const getSortedProjects = (...filters) =>
   createSelector(projects, projects =>
@@ -10,3 +9,10 @@ export const getSortedProjects = (...filters) =>
       filters.some(filter => filter === project.state)
     )
   );
+
+export const getProjectsEpics = () =>
+  createSelector(projects, projects => {
+    let allEpics = [];
+    projects.forEach(project => allEpics.push(...project.epics));
+    return allEpics;
+  });

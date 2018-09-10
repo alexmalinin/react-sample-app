@@ -1,5 +1,4 @@
 import { schema } from "normalizr";
-import omit from "lodash/omit";
 
 export const specialist = new schema.Entity("specialists");
 
@@ -28,12 +27,6 @@ export const teams = new schema.Entity("teams", {
 
 export const epic = new schema.Entity("epics");
 
-export const project = new schema.Entity(
-  "projects",
-  {},
-  {
-    processStrategy: entity => omit(entity, "epics")
-  }
-);
+export const project = new schema.Entity("projects", {});
 
 export const task = new schema.Entity("tasks", {});
