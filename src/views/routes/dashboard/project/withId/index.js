@@ -72,7 +72,7 @@ class Project extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    project: state.projects[props.match.params.projectId],
+    project: state.projects.byId[props.match.params.projectId],
     projectId: props.match.params.projectId
   };
 };

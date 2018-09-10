@@ -107,17 +107,17 @@ InviteSpecialistForm = reduxForm({
 })(InviteSpecialistForm);
 
 const mapStateToProps = state => {
-  const { user, projects } = state;
+  const { user, projects, teams } = state;
   const isRedguy = user.role === S_REDGUY;
 
   let allProjects = [],
     allTeams = [];
 
   if (isRedguy) {
-    allProjects = getDataForSelect()(projects, "value", "text");
+    allProjects = getDataForSelect()(projects.byId, "value", "text");
   }
 
-  allTeams = getCustomTeams()(state);
+  allTeams = getCustomTeams()(teams.byId);
   allTeams = getDataForSelect()(allTeams, "value", "text");
 
   return {

@@ -27,7 +27,7 @@ class InviteSpecialistModal extends Component {
     this.close();
 
     if (project) {
-      const teamId = projects[project].team.id;
+      const teamId = projects.byId[project].team.id;
 
       return Axios({
         method: "POST",
@@ -84,8 +84,10 @@ class InviteSpecialistModal extends Component {
 
     return (
       <StyledModal
-        closeIcon={<button className="close icon" onClick={this.close} />}
+        closeIcon={<button className="close icon" />}
         open={opened}
+        onOpen={this.open}
+        onClose={this.close}
         size="tiny"
         trigger={
           <DvBlueButton
@@ -113,8 +115,10 @@ class InviteSpecialistModal extends Component {
   }
 }
 
-export default connect(state => {
-  const { projects } = state;
+const mapStateToProps = state => {
+  return {
+    projects: state.projects
+  };
+};
 
-  return { projects };
-})(InviteSpecialistModal);
+export default connect(mapStateToProps)(InviteSpecialistModal);

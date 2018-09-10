@@ -36,7 +36,6 @@ class SearchFilterForm extends Component {
     this.props.getProjectTypes();
     this.props.searchSpecialist();
     this.props.getAllProjects();
-    this.props.showTeams();
   }
 
   toggleFilters = () => {
